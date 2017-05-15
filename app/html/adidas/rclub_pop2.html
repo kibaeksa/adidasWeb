@@ -1,0 +1,2767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>아디다스 공식 온라인 스토어</title>
+  <meta http-equiv="content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/zoom/zoom.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css"/>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+  <script src="/js/jquery/jquery-1.4.2.js"></script>
+  <script src="/js/adidas/adidas.js"></script>
+  <script src="/js/jquery/zoom/adidas/zoom.js"></script>
+  <script type="text/javascript">
+		/* 130703 탭이동 관련 함수 */
+		function moveTab(val){
+			var idval='#tab'+val;	
+			
+			if( val <3  ){
+				var moveval=jQuery(idval).offset().top;
+				jQuery("html, body").animate({scrollTop:moveval+'px'},1);					
+			}else{					
+				for(var i=3; i<6; i++){
+					jQuery('#tab3 li.t'+i+' a').removeClass('on');
+					jQuery('.tab_cont'+i).hide();				
+				}
+				jQuery('#tab3 li.t'+val+' a').addClass('on');
+				jQuery('.tab_cont'+val).show();
+				jQuery("html, body").animate({scrollTop:jQuery('#tab3').offset().top+'px'},1);						
+			}								
+		}
+
+
+	/** 
+	* string String::cut(int len)
+	* 글자를 앞에서부터 원하는 바이트만큼 잘라 리턴합니다.
+	* 한글의 경우 2바이트로 계산하며, 글자 중간에서 잘리지 않습니다.
+	*/
+String.prototype.cut = function(len) {
+	var str = this;
+	var l = 0;
+	for (var i=0; i<str.length; i++) {				
+		l += (str.charCodeAt(i) > 128) ? 2 : 1;
+		if (l > len) return str.substring(0,i) + "...";
+	}
+	return str;
+}
+
+        aaa = "로즈3.5 & 아디제로 크레이지 라이트2 로우와 함께 한 welcome to my jungle복고 농구부 my name is 방문기인데 열라좋음 kibaekkim 진짜 and you know what 짱짱짱 ㅋㅋㅋ와 대박임 대박대박";
+
+        // 또는
+
+        bbb = "따뜻해crazy 날씨가 따뜻해crazy light 지며 봄을 따뜻해crazy 햇살이 쨍w crazy light 2 low'를 경복고 따뜻해crazy 선수들에게 직접 신고 crazy light 체험하는 기회를 따뜻해crazy 나c razy light 누기 위해서 입니다. 농구의 명가로 crazy light crazy light 손꼽히는 경복고등crazy light 학교 crazy light농구부는 각종 전국 대crazy light 회에서 crazy light 안녕";
+		aaa = aaa.cut(90);
+		bbb = bbb.cut(320);
+
+	//응용
+	jQuery(document).ready(function(){
+		jQuery('.prod_infomation .prod_infobox_r .adiblog ul li:first .info .tit').text(aaa);
+		jQuery('.prod_infomation .prod_infobox_r .adiblog ul li:first .info .cont').text(bbb);
+	});
+
+	/* 140206 */
+	function openImagePop(s){
+		var image = new Image();
+		var w = '';
+		var h = '';
+		var ops = '';
+		image.src=s;
+
+
+		if(image.width > 800){
+			w = image.width * 0.95;
+			h = image.height * 0.95;
+
+			if(w > 800){
+
+				while(w > 800){
+					w = w * 0.95;
+					h = h*0.95;
+				}
+
+			}			
+		}else{
+			w = image.width;
+			h = image.height;
+		}
+
+		ops += 'width='+w+',height='+h+',resizable=yes,toolbar=no,status=no,location=no,menubar=no';
+		window.open(s,'',ops);
+	}
+
+
+	/* 140212 */
+	function openEquipLayer(){
+		jQuery('.layer_equip_bg').css({opacity:0.6,height:jQuery(document).height()});		
+		jQuery('.layer_equip_bg').fadeIn();		
+		setTimeout(function(){
+			jQuery('.rclub_member2').fadeIn();
+		},200);
+	}
+
+
+	function closeEquipoLayer(){
+		jQuery('.rclub_member2').hide();
+		setTimeout(function(){
+			jQuery('.layer_equip_bg').fadeOut();
+		},50);
+	}
+	
+	/* //140212 */
+
+	jQuery(document).ready(function(){
+		openEquipLayer();
+	});
+
+  </script>
+ </head>
+
+ <body>
+	<!-- 140212 -->
+	<div class="layer_equip_bg" style="width:100%;height:100%;display:none;position:absolute;top:0;left:0;background:#000;z-index:9999;">&nbsp;</div>
+
+	<div class="rclub_member2" style="width:450px;height:280px;background:#383838;padding:85px 25px 25px;border:10px solid #fff;position:fixed;top:50%;left:50%;z-index:10000;margin-left:-250px;margin-top:-195px;display:none;">
+				
+		<h1 style="position:absolute;top:25px;left:0;"><img src="/images/adidas/popup/tit_rclub.gif" alt=""/></h1>
+		<a href="#" style="position:absolute;top:0;right:0;" onclick="closeEquipLayer();return false;"><img alt="이큅먼트10 입고알림 서비스 닫기" src="/images/adidas/temp/btn_equip_close.gif"/></a>
+		<div class="equip_body">
+		
+			<p style="margin-bottom:10px;font:bold 12px 'Dotum';color:#fff;">아디클럽 러닝 회원 탈퇴시 유의사항</p>
+			<ul style="margin-bottom:20px;">
+				<li style="font:12px/17px 'Dotum';color:#d1d1d1;letter-spacing:-1px;">- 연간 단위의 멤버십으로 탈퇴 시, 당해년도 재가입이 불가합니다. </li>
+				<li style="font:12px/17px 'Dotum';color:#d1d1d1;letter-spacing:-1px;">- 회원 탈퇴시 보유하셨던 아디클럽 러닝 미터 및 이벤트 참여내역이 모두 삭제됩니다.</li>
+				<li style="font:12px/17px 'Dotum';color:#d1d1d1;letter-spacing:-1px;">- 본 탈퇴는 아디클럽 러닝 멤버십 탈퇴이며, 아디클럽 멤버십 자격은 그대로 유지됩니다.</li>
+				<li style="font:12px/17px 'Dotum';color:#d1d1d1;letter-spacing:-1px;">- 서비스 이용 중 불편한 사항이 있으시면 고객센터 1588-8241로 연락주세요.</li>
+			</ul>
+
+			<p style="margin-bottom:10px;font:bold 12px 'Dotum';color:#fff;">불편사항이나 의견 있으시면 남겨주세요.</p>
+			<textarea style="width:440px;height:70px;margin:0;padding:5px;border-color:#b2b2b2;background:#b2b2b2;color:#383838;font:12px 'Dotum';"></textarea>
+			<div style="padding-top:25px;overflow:hidden;text-align:center;">
+				<a href="#" style="margin-right:10px;"><img src="/images/adidas/popup/btn_rclub_out.gif" alt=""/></a>
+				<a href="#"><img src="/images/adidas/popup/btn_rclub_cancel.gif" alt=""/></a>
+			</div>
+		</div>
+	</div>
+
+	
+	
+	<!-- //140212 -->
+
+	<div id="wrap">
+		<div class="top_bnn"><img src="/images/adidas/common/topbanner.jpg" border="0" usemap="#Map"/>
+			<map name="Map" id="Map">
+				<area shape="rect" coords="931,14,955,38" href="#" onclick="jQuery('.top_bnn').animate({height:'0'});return false;"/>
+				<area shape="rect" coords="847,54,955,82" href="#" />
+			</map>
+		</div>
+
+		<div id="header_r" class="ct950">
+			<h1><a href="index.html">아디다스 공식 온라인 스토어</a></h1>
+			<p class="language" onclick="language_btn();"><img src="/images/adidas/common/btn_korea.gif" alt="language"/></p>
+			<div class="search">
+				<input type="text" class="sh">
+				<a href="#"><img alt="search" src="/images/adidas/common/btn_search_top.gif"></a>
+			</div>
+			<div class="utilmenu">
+				<ul>
+					<li><a href="#">로그인</a></li>
+					<li><a href="#">회원가입</a></li>
+					<li><a href="#">마이페이지</a></li>
+				</ul>
+			</div>
+			<div class="market">
+				<!-- 접근성 이미지 교체 -->
+				<a href="#" class="go_evt"><img src="/images/adidas/common/btn_event.jpg" alt="아디클럽 1만원 쿠폰"/></a>
+				<a href="#" class="mkt" onclick="marketLayer();return false">장바구니
+					<span>(<strong>26</strong><em>Items)</em></span>
+				</a>
+				<!-- 접근성 이미지 교체 -->
+				<a onclick="marketLayer();return false" class="icon_market">
+					<img alt="장바구니" src="/images/adidas/common/market.jpg">
+				</a>
+			</div>
+			<div class="market_layer">
+				<div class="market_header">
+					<span>장바구니</span>
+					<strong>10개</strong>
+					<a href="#" onclick="jQuery('.market_layer').hide();return false" class="spt_bg"></a>
+				</div>
+				<div class="market_body">
+					<div class="mkt_arrow_top"><a href="#" onclick="mktMoveTop(this);return false" class="spt_bg disable"></a></div>
+					<div class="mkt_slide_wrap">
+						<div class="mkt_slide">
+
+							<div class="mkt_box">
+								<div class="prod_img"><img src="/images/adidas/temp/market_prod1.jpg" alt=""/></div>
+								<div class="prod_info">
+									<p class="tit">[Men's Originals]<br/>아디 파이어버드 트랙탑</p>
+									<p class="prod_code">상품코드 : <span>l43685(NAVY/WHITE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : 95</p>
+									<p class="price">주문금액 : 99,000원</p>
+									<p class="prod_link"><a href="#" class="spt_bg">상품 바로가기</a></p>
+								</div>	
+							</div>
+
+							<div class="mkt_box">
+								<img src="/images/adidas/common/bg_no_market.gif" alt="장바구니에 상품을 담아주세요."/>
+							</div>
+
+						</div>
+						<!-- //mkt_slide -->
+					</div>
+					<!-- //mkt_slide_wrap -->
+					<div class="mkt_arrow_btm"><a href="#" onclick="mktMoveBtm(this);return false" class="spt_bg disable"></a></div>
+				</div>
+				<!-- //market_body -->
+
+				<div class="market_bottom">
+					<div class="total_price">
+						<p>총 주문 금액 : <strong>145,000</strong> 원</p>
+						<p class="point">예상 포인트 <span>123,000</span></p>
+					</div>
+					<div class="go_market"><a href="#"><img src="/images/adidas/common/btn_go_market.gif" alt="장바구니 바로가기"/></a></div>
+					<div class="desc"><span class="spt_bg"></span>5만원 이상 주문시 배송비 무료</div>
+				</div>
+				<!-- //market_bottom -->
+			</div>
+			<!-- //market_layer -->
+
+			<div id="language_layer" style="display:none;">
+				<ul>
+					<li class="nation1"><a href="http://www.adidas.com/us/" target="_blank"class="arial"><span class="spt_bg">&nbsp;</span>United States</a></li>
+					<li class="nation2"><a href="http://www.adidas.ca/shop" target="_blank" class="arial"><span class="spt_bg">&nbsp;</span>Canada</a></li>
+					<li class="nation3"><a href="http://www.adidas.de/shop" target="_blank" class="arial"><span class="spt_bg">&nbsp;</span>Germany</a></li>
+					<li class="nation4"><a href="http://www.adidas.fr/shop" target="_blank" class="arial"><span class="spt_bg">&nbsp;</span>France</a></li>
+					<li class="nation5"><a href="http://www.adidas.nl/shop" target="_blank" class="arial"><span class="spt_bg">&nbsp;</span>The Netherlands</a></li>
+					<li class="nation6"><a href="http://www.adidas.co.uk/shop" target="_blank" class="arial"><span class="spt_bg">&nbsp;</span>United Kingdom</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- //header -->
+		<div id="gnb_r">
+			<div class="ct950">
+				<ul class="menu1">
+					<li class="menu shop"><a href="#"><img src="/images/adidas/common/btn_shop.jpg"/></a></li>
+					<li class="menu ar" id="men" onmouseover="layerOverNavi(this);" onmouseout="layerOutNavi(this);">
+						<a href="#" class="txt_eng">MEN</a>
+						<div class="depth2">
+							<div class="box">
+								<dl style="margin-bottom:30px;">
+									<dt class="arial">Category</dt>
+									<dd>
+										<ul>
+											<li><a href="#">신발</a></li>
+											<li><a href="#">의류</a></li>
+											<li><a href="#">용품</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="brand_logo">
+									<dt class="arial">Brands</dt>
+									<dd>
+										<a href="#" class="sp spt_bg">performance</a>
+										<a href="#" class="ss spt_bg">originals</a>
+									</dd>
+								</dl>
+							</div>
+							<dl>
+								<dt class="arial">Sport</dt>
+								<dd>
+									<ul>
+										<li><a href="#">축구</a></li>
+										<li><a href="#">농구</a></li>
+										<li><a href="#">러닝</a></li>
+										<li><a href="#">테니스</a></li>
+										<li><a href="#">아웃도어</a></li>
+										<li><a href="#">트레이닝</a></li>
+										<li><a href="#">스윔</a></li>
+										<li><a href="#">야구</a></li>
+										<li><a href="#">용품</a></li>
+										<li><a href="#">기타</a></li>
+									</ul>
+								</dd>
+							</dl>
+							<dl style="margin-right:0;">
+								<dt class="arial">More Choices</dt>
+								<dd>
+									<ul>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">베스트 상품</a></li>
+										<li><a href="#">세일</a></li>
+									</ul>
+									<p class="flag"><a href="#"><img src="/images/adidas/common/bg_sale_flag.gif" alt="sale"/></a></p>
+								</dd>
+							</dl>
+						</div>
+				    </li>
+					<li class="menu ar" id="women" onmouseover="layerOverNavi(this);" onmouseout="layerOutNavi(this);">
+						<a href="#" class="txt_eng">WOMEN</a>
+						<div class="depth2">
+							<div class="box">
+								<dl style="margin-bottom:30px;">
+									<dt class="arial">Category</dt>
+									<dd>
+										<ul>
+											<li><a href="#">신발</a></li>
+											<li><a href="#">의류</a></li>
+											<li><a href="#">용품</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="brand_logo">
+									<dt class="arial">Brands</dt>
+									<dd>
+										<a href="#" class="sp spt_bg">performance</a>
+										<a href="#" class="ss spt_bg">originals</a>
+									</dd>
+								</dl>
+							</div>
+							<dl>
+								<dt class="arial">Sport</dt>
+								<dd>
+									<ul>
+										<li><a href="#">러닝</a></li>
+										<li><a href="#">테니스</a></li>
+										<li><a href="#">아웃도어</a></li>
+										<li><a href="#">스윔</a></li>
+										<li><a href="#">트레이닝</a></li>
+										<li><a href="#">용품</a></li>
+									</ul>
+								</dd>
+							</dl>
+							<dl style="margin-right:0;">
+								<dt class="arial">More Choices</dt>
+								<dd>
+									<ul>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">베스트 상품</a></li>
+										<li><a href="#">세일</a></li>
+									</ul>
+									<p class="flag"><a href="#"><img src="/images/adidas/common/bg_sale_flag.gif" alt="sale"/></a></p>
+								</dd>
+							</dl>
+						</div>
+					</li>
+					<li class="menu ar line" onmouseover="layerOverNavi(this);" onmouseout="layerOutNavi(this);">
+						<a href="#" class="txt_eng">KIDS</a>
+						<div class="depth2">
+							<div class="box">
+								<dl style="margin-bottom:30px;">
+									<dt class="arial">Category</dt>
+									<dd>
+										<ul>
+											<li><a href="#">신발</a></li>
+											<li><a href="#">의류</a></li>
+											<li><a href="#">용품</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="brand_logo">
+									<dt class="arial">Brands</dt>
+									<dd>
+										<a href="#" class="sp spt_bg">performance</a>
+										<a href="#" class="ss spt_bg">originals</a>
+									</dd>
+								</dl>
+							</div>
+
+							<div class="box" style="margin-right:0;">
+								<dl style="margin-bottom:68px;">
+									<dt class="arial">Boys and Girls</dt>
+									<dd>
+										<ul>
+											<li><a href="#">주니어 (8~13세)</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl>
+									<dt class="arial">Infants and Kids</dt>
+									<dd>
+										<ul>
+											<li><a href="#">인펀트 (3~36개월)</a></li>
+											<li><a href="#">키즈 (4~7세)</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+
+							<dl style="margin-right:0;">
+								<dt class="arial">More Choices</dt>
+								<dd>
+									<ul>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">베스트 상품</a></li>
+										<li><a href="#">세일</a></li>
+									</ul>
+									<p class="flag"><a href="#"><img src="/images/adidas/common/bg_sale_flag.gif" alt="sale"/></a></p>
+								</dd>
+							</dl>
+						</div>
+					</li>
+					<li class="menu ar">
+					<li class="menu ar sale" onmouseover="layerOverNavi(this);" onmouseout="layerOutNavi(this);">
+						<a href="#" class="txt_eng">SALE</a>
+						<div class="depth2 arial">
+							<ul>
+								<li><a href="#">Mens</a></li>
+								<li><a href="#">Womens</a></li>
+								<li><a href="#">Kids</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu"><a href="#">기획전</a></li>
+					<li class="menu"><a href="#">온라인단독</a></li>
+				</ul>
+				<ul class="menu2">
+					<li class="menu"><a href="#">축구</a></li>
+					<li class="menu"><a href="#">러닝</a></li>
+					<li class="menu"><a href="#">농구</a></li>
+					<li class="menu"><a href="#">오리지널스</a></li>
+					<li class="menu"><a href="#" class="txt_eng">micoach</a></li>
+					<li class="menu ar etc" onmouseover="layerOverNavi(this);" onmouseout="layerOutNavi(this);">
+						<a href="#">기타</a>
+						<div class="depth2">
+							<ul>
+								<li><a href="#">테니스</a></li>
+								<li><a href="#">트레이닝</a></li>
+								<li><a href="#">아웃도어</a></li>
+								<li><a href="#">스케이드보드</a></li>
+								<li><a href="#">스텔라</a></li>
+								<li><a href="#">포르쉐</a></li>
+								<li><a href="#">아이웨어</a></li>
+								<li><a href="#">야구</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu" style="margin-right:0;padding-right:0;"><a href="#" class="txt_eng">GO ALL IN</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="container_r" style="background:#fff;">
+
+			<div id="contents_r" style="width:100%;padding-bottom:0;">
+
+				<div class="location_r ct950">
+					<div class="go_back spt_bg"><a href="#">Back</a></div>
+					<span><a href="#">Home</a></span>
+					<span class="ico"></span>
+					<span><a href="#">Men</a></span>
+					<span class="ico"></span>
+					<span><a href="#">Originals</a></span>
+					<span class="ico"></span>
+					<span>Men's Gazelle OG Shoes</span>
+				</div>
+				<div class="prod_order_r ct950">
+					<div class="prod_imgbox">
+						<div class="img">
+							<div class="exclu_label" style="position:absolute;top:0;left:370px;z-index:10;"><img src="/images/adidas/common/bg_only_online.jpg" alt="only online" style="width:130px;"/></div>
+							<a id="zoom_area" href="http://shop.adidas.co.kr/upload/prod/basic/target/X53272-1.jpg" class = 'cloud-zoom' rel="adjustX: 0, adjustY:-4, site: 'adidas',lenstype:'ss'">
+								<img src="http://shop.adidas.co.kr/upload/prod/basic/500/X53272-1_500X500.jpg" id="BASIC_IMG"  alt="상품사진" />
+							</a>
+						</div>
+						<div class="thumbnail">
+							<a href="#"><img src="/images/adidas/temp/G63202-1_55X55.jpg" alt=""/></a>
+							<a href="#"><img src="/images/adidas/temp/G63202-2_55X55.jpg" alt=""/></a>
+							<a href="#"><img src="/images/adidas/temp/G63202-3_55X55.jpg" alt=""/></a>
+						</div>
+						<div class="tech_list">
+							<h3 class="arial"><a href="#">TECHNOLOGY</a></h3>
+							<span class="spt_bg" onclick="techLayerOpen();">&nbsp;</span>
+							<ul>
+								<li onclick="techLayerOpen(1);"><img src="/images/adidas/temp/tech_banner1.gif" alt=""/></li>
+								<li onclick="techLayerOpen(2);"><img src="/images/adidas/temp/tech_banner2.gif" alt=""/></li>
+								<li onclick="techLayerOpen(3);"><img src="/images/adidas/temp/tech_banner3.gif" alt=""/></li>
+							</ul>
+						</div>
+					</div>
+					<!-- //prod_imgbox -->
+
+					<div class="prod_infobox_r">
+						<div class="info_top">
+							<div class="logo ss spt_bg"></div>
+							<h2>[Men's Originals][온라인 단독]가젤 오리지널</h2>
+							<div>
+								<div class="star spt_bg">
+									<div class="star_bar spt_bg point10"></div>
+								</div>
+								<span class="arial">4.5/5</span>
+								<a href="#">상품평 전체 보기</a>
+								<a href="#" style="background:none;">상품평 쓰기</a>
+							</div>
+						</div>
+						<!-- //info_top -->
+						<div class="info_middle">
+							<div class="infobox1">
+								<!-- 130704 crazy friday -->
+								<div style="position:relative;left:-21px;top:-20px">
+									<img src="/images/adidas/event/bg_crazyfriday_detail_130703.jpg" alt="본 상품은 현재 이벤트 중입니다." usemap="#crazyevt"/>
+									<map id="crazyevt" name="crazyevt">
+										<area shape="rect" coords="302,0,380,27" href="http://shop.adidas.co.kr/PF070401.action" alt="자세히보기" title="자세히보기">
+									</map>
+								</div>
+								<!-- //130704 -->
+								<dl class="thumb" style="display:none">
+									<dt class="arial">
+										<strong>COLOR</strong>
+										<span>Black / Metallic Gold / Black (G63202)</span>
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="#" class="on"><img src="/images/adidas/temp/G63202-1_55X55.jpg" alt=""/></a></li>
+											<li><a href="#"><img src="/images/adidas/temp/G60757-1_55X55.jpg" alt=""/></a></li>
+											<li><a href="#"><img src="/images/adidas/temp/G60759-1_55X55.jpg" alt=""/></a></li>
+											<li><a href="#"><img src="/images/adidas/temp/G60759-1_55X55.jpg" alt=""/></a></li>
+											<li><a href="#"><img src="/images/adidas/temp/G60759-1_55X55.jpg" alt=""/></a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="size">
+									<dt class="arial">
+										<strong>SIZE</strong>
+										<!-- 140212 -->
+										<a href="#" style="margin-left:10px;"><img src="/images/adidas/temp/btn_equip.gif" alt="" onclick="openEquipLayer();return false;"/></a>
+										<!-- //140212 -->
+									</dt>
+									<dd>
+										<ul>
+											<li><a href="#">220</a></li>
+											<li><a href="#">225</a></li>
+											<li><a href="#">230</a></li>
+											<li class="disable"><span>235</span></li>
+											<li class="disable"><span>240</span></li>
+											<li><a href="#" class="on">245</a></li>
+											<li><a href="#">250</a></li>
+											<li><a href="#">255</a></li>
+											<li><a href="#">260</a></li>
+											<li><a href="#">265</a></li>
+											<li><a href="#">270</a></li>
+											<li><a href="#">275</a></li>
+											<li><a href="#">280</a></li>
+											<li><a href="#">285</a></li>
+											<li><a href="#">290</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //infobox1 -->
+
+							<div class="infobox2">
+								<div class="box1">
+									<strong class="label">주문 안내</strong>
+									<div class="form"> 
+										<p id="qty_sel">1</p>
+										<a class="plus" href="javascript:fn_qtyupdown('up');"></a>
+										<a class="minus" href="javascript:fn_qtyupdown('down');"></a>
+									</div>
+									<p class="txt">무이자 할부  카드</p>
+									<p class="ico"><img alt="전체보기" style="cursor:pointer" id="installment_img" src="/images/adidas/common/btn_prodinfor_02.gif"></p>
+									<p class="txt">배송비 정책</p>
+									<p class="ico" style="margin-right:0;"><img alt="전체보기" style="cursor:pointer" id="delivery_img" src="/images/adidas/common/btn_prodinfor_02.gif"></p>
+
+									<div id="installment" class="installment_r hidden" style="display: none;">
+										<h1>무이자 할부 카드</h1>
+										<span class="close"><img style="cursor:pointer" id="installment_x" alt="close" src="/images/adidas/common/btn_pop_close03.gif"></span>
+										<div class="area">
+											<table summary="무이자 할부 카드" class="installment_r">
+												<caption>무이자 할부 카드</caption>
+												<tr>										
+													<th><img width="57" height="15" alt="하나카드" src="http://shop.adidas.co.kr/upload/card/08dc9607cdb548459358c1d95d3aa534_0206145614.jpg"></th>
+													<td><strong>하나카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="BC카드" src="http://shop.adidas.co.kr/upload/card/e1d3ed9f09b543028554a0f641a2c3d4_0303120740.jpg"></th>
+													<td><strong>BC카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="외환카드" src="http://shop.adidas.co.kr/upload/card/fda2457725ac443e98e3e43b661051ee_0206145113.jpg"></th>
+													<td><strong>외환카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="신한카드" src="http://shop.adidas.co.kr/upload/card/9817d14609a84ccea2b5b81336123f22_0206145544.jpg"></th>
+													<td><strong>신한카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="삼성카드" src="http://shop.adidas.co.kr/upload/card/c33b926ce4ac43228a5b124c8205f8d5_0206145519.jpg"></th>
+													<td><strong>삼성카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="씨티카드" src="http://shop.adidas.co.kr/upload/card/6f31f80595f44c66a6844c74b7bef7ac_0530115450.jpg"></th>
+													<td><strong>씨티카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="KB카드" src="http://shop.adidas.co.kr/upload/card/c2522d03e5494888afbd7e10b8a82183_0206144817.jpg"></th>
+													<td><strong>KB카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="현대카드" src="http://shop.adidas.co.kr/upload/card/ace67a18cd2b49a6a835cd89ee922a48_0206145634.jpg"></th>
+													<td><strong>현대카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="NH" src="http://shop.adidas.co.kr/upload/card/a220dc3301f349f2a468666f1f1ce5ff_0401090010.gif"></th>
+													<td><strong>NH</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+												<tr>										
+													<th><img width="57" height="15" alt="롯데카드" src="http://shop.adidas.co.kr/upload/card/702a971ba26f42a587891b137af9035b_0206145309.jpg"></th>
+													<td><strong>롯데카드</strong><br>5만원 이상, 2~3개월 무이자</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div id="delivery_info" class="cart_add7_r hidden" style="display: none;"> 
+										<h1>배송비정책</h1>
+										<span class="close"><img id="delivery_x" alt="close" src="/images/adidas/common/btn_pop_close03.gif"></span>
+										<div class="area"> 
+											<div class="textbox">  
+												<p>5만원 이상 구매시 무료배송</p>
+												<p>주중에는 5일 이내 배송</p> 
+												<p>도서 산간 지역은 추가 배송비 발생</p>
+											</div> 
+											<p></p>
+										</div>  
+									</div>
+								</div>
+								<div class="box2">
+									<div>
+										<p class="price">
+											<span class="through_line">249,000원</span>
+											<span class="sale"><em>249,000</em>원</span>
+										</p>
+										<p class="point">
+											<span>예상포인트</span>
+											<strong>5,540 (5%)</strong>
+										</p>
+									</div>
+									<div style="margin-top:10px"><a href="http://shop.adidas.co.kr/PF070202.action?EVENT_ID=1325"><img src="/images/adidas/temp/btn_card_benefit.jpg" alt="PLUS 할인 카드혜택 보러가기"/></a></div>
+									<div class="prodbtn">
+										<a href="#" class="buy_ir">
+											<!-- 접근성 추가-->
+											<span class="spt_bg"></span>
+											<span class="ir">바로구매</span>
+										</a>
+										<a href="#" class="market_ir">
+											<!-- 접근성 추가-->
+											<span class="spt_bg"></span>
+											<span class="ir">장바구니</span>
+										</a>
+									</div>								
+								</div>
+							</div>
+							<!-- //infobox3 -->
+
+							<div class="infobox3">
+								<p>
+									<a href="#" class="wishlist_ir">
+										<!-- 접근성 추가-->
+										<span class="spt_bg"></span>
+										<span class="ir">관심상품</span>
+									</a>
+								</p>
+								<p class="sns">
+									<label class="share_ir">
+										<!-- 접근성 추가-->
+										<span class="spt_bg"></span>
+										<span class="ir">SNS 공유하기</span>
+									</label>
+									<a href="#"><img src="/images/adidas/common/ico_facebook.gif" alt="facebook"/></a>
+									<a href="#"><img src="/images/adidas/common/ico_twt.gif" alt="twitter"/></a>
+									<a href="#"><img src="/images/adidas/common/ico_me.gif" alt="me2day"/></a>
+								</p>
+							</div>
+							<!-- //infobox3 -->
+						</div>
+						<!-- //info_middle -->
+					</div>
+					<!-- //prod_infobox -->
+
+				</div>
+				<!-- //prod_order -->
+
+				<!-- technology_layer -->
+				<div class="technology_layer ct950">
+					<div class="layer_top">
+						<img src="/images/adidas/common/bg_techlayer_top.jpg" alt=""/>
+						<div onclick="techLayerClose();"></div>
+					</div>
+					<div class="layer_body">
+						<div class="techbox" style="display:block;">
+							<img src="/images/adidas/temp/tech_bigbanner1.jpg" alt=""/>
+							<a href="#" class="btn1"></a>
+							<a href="#" class="btn2"></a>
+						</div>
+						<div class="techbox">
+							<img src="/images/adidas/temp/tech_bigbanner1.jpg" alt=""/>
+							<a href="#" class="btn1"></a>
+							<a href="#" class="btn2"></a>
+						</div>
+						<div class="techbox">
+							<img src="/images/adidas/temp/tech_bigbanner1.jpg" alt=""/>
+							<a href="#" class="btn1"></a>
+							<a href="#" class="btn2"></a>
+						</div>						
+						<a href="#" class="arrow_l spt_bg disable" onclick="techLayerLeft();return false"></a>
+						<a href="#" class="arrow_r spt_bg" onclick="techLayerRight();return false"></a>
+					</div>
+				</div>
+				<!-- //technology_layer -->
+
+				<div class="prod_infomation">
+					<div class="ct950">
+						<div class="prod_infobox_r">
+							<!-- 130527 하단에 있던 관련 상품이 위로 옴 start -->
+							
+							<!-- 130930 banner start -->
+							<div style="padding:0 0 30px;">
+								<img src="/images/adidas/event/banner_luckycoupon.jpg" alt="10% sale Lucky coupon 찾아라! 복불복행운!" usemap="#lucky_banner"/>
+								<map id="lucky_banner" name="lucky_banner">
+									<area href="#" coords="810,35,940,96" shape="rect" alt="자세히보기">
+								</map>
+							</div>
+							<!-- 130930 banner end -->
+
+							<div id="new_prodlist" class="main_banner">
+								<h5 class="spt_bg">관련상품</h5>
+								<div class="banner_list">
+									<div class="banner_slide_wrap">
+										<div class="banner_box">
+											<ul>
+												<li class="ss">
+													<div class="type">
+														<div style="opacity: 0;" class="view_quick"><img src="/images/adidas/common/btn_list_quick.gif" onclick="quickLayerOpen();"></div>
+													</div>
+													<div class="img">
+														<a href="#"><img alt="" src="/images/adidas/common/prod_new2.jpg"></a>
+														<div class="logo spt_bg"></div>
+													</div>
+													<div class="tit">
+														<a href="#">
+															Women's Originals<br>
+															<strong>제레미스캇 레오파드 트랙탑</strong> 
+														</a>
+													</div>
+													<div class="pop_level level0 spt_bg"></div>
+													<div class="price">235,000<span>원</span></div>
+												</li>
+												<li class="ss">
+													<div class="type">
+														<div style="opacity: 0;" class="view_quick"><img src="/images/adidas/common/btn_list_quick.gif"></div>
+														<div class="tp tp1">EXCLUSIVE</div>
+													</div>
+													<div class="img">
+														<a href="#"><img alt="" src="/images/adidas/common/prod_new.jpg"></a>
+														<div class="logo spt_bg"></div>
+													</div>
+													<div class="tit">
+														<a href="#">
+															Women's Originals<br>
+															AS 토날 
+														</a>
+													</div>
+													<div class="pop_level level0 spt_bg"></div>
+													<div class="price">45,000<span>원</span></div>
+												</li>
+												<li class="ss">
+													<div class="type">
+														<div style="opacity: 0;" class="view_quick"><img src="/images/adidas/common/btn_list_quick.gif"></div>
+														<div class="tp tp1">EXCLUSIVE</div>
+													</div>
+													<div class="img">
+														<a href="#"><img alt="" src="/images/adidas/common/prod_new3.jpg"></a>
+														<div class="logo spt_bg"></div>
+													</div>
+													<div class="tit">
+														<a href="#">
+															Women's Originals<br>
+															S 콜레지에이트 스웻셔츠
+														</a>
+													</div>
+													<div class="pop_level level0 spt_bg"></div>
+													<div class="price">75,000<span>원</span></div>
+												</li>
+												<li class="ss" style="margin-right:0;">
+													<div class="type">
+														<div style="opacity: 0;" class="view_quick"><img src="/images/adidas/common/btn_list_quick.gif"></div>
+														<div class="tp tp1">EXCLUSIVE</div>
+													</div>
+													<div class="img">
+														<a href="#"><img alt="" src="/images/adidas/common/prod_new3.jpg"></a>
+														<div class="logo spt_bg"></div>
+													</div>
+													<div class="tit">
+														<a href="#">
+															Women's Originals<br>
+															S 하이라이트 티
+														</a>
+													</div>
+													<div class="pop_level level0 spt_bg"></div>
+													<div class="price">59,000<span>원</span></div>
+												</li>
+											</ul>
+										</div>
+										<!-- //banner_box -->
+									</div>
+									<!-- //banner_slide_wrap -->
+								</div>
+								<!-- banner_list -->
+							</div>
+							<!-- //main_banner 130527 end -->
+
+							<!-- 
+								130703 구조변경
+								-탭 -> 탭컨텐츠1 -> 탭 -> 탭컨텐츠2 -> 탭 -> 탭컨텐츠3 -> 탭 -> 탭컨텐츠4 -> 탭 -> 탭컨텐츠5 방식으로 코딩 구조 변경
+								-탭에는 id속성이 새로 추가.
+							 -->
+							<div class="prod_tab_r" id="tab1">
+								<ul>
+									<li class="t1"><a class="on" href="#" onclick="moveTab('1');return false">상품정보</a></li>
+									<li class="t2"><a href="#" onclick="moveTab('2');return false">상품평<strong>(999개)</strong></a></li>
+									<li class="t3"><a href="#" onclick="moveTab('3');return false">배송/반품</a></li>
+									<li class="t4"><a href="#" onclick="moveTab('4');return false">세탁 및 취급 시 주의사항</a></li>
+									<li class="t5"><a href="#" onclick="moveTab('5');return false">품질 보증 및 AS 정보</a></li>
+								</ul>
+							</div>
+							<div class="tab_cont1">
+								<h4>[Swim] 듀라모 그래픽 슬라이드</h4>
+								<table width="100%" cellspacing="0" cellpadding="0" summary="상품 상세정보" class="prod_info_tb">
+									<caption>상품 상세정보</caption>
+									<colgroup>
+										<col width="130">
+										<col width="200">
+										<col width="90">
+										<col width="*">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="col">제품코드</th>
+											<td>G96418</td>
+											<th scope="col">컬러</th>
+											<td>BLACK / GREEN</td>
+										</tr>
+										<tr>
+											<th scope="row">용도</th>
+											<td colspan="3">슬리퍼</td>
+										</tr>
+										<tr>
+											<th scope="row">소재</th>
+											<td colspan="3">겉감: 사출 EVA/아웃솔:사출 EVA</td>
+										</tr>
+										<tr>
+											<th scope="col">원산지</th>
+											<td>베트남</td>
+											<th scope="col">제조년월</th>
+											<td>2013-05 <a target="_blank" href="/PF080301.action?FAQ_DIVI=11" style="margin-left:30px;"><img style="vertical-align:middle;" alt="자세히 보기" src="/images/adidas/common/btn_view_detail.gif"></a></td>
+										</tr>
+										<tr>
+											<th scope="row">제조자/수입자</th>
+											<td colspan="3">adidasAG/ 아디다스코리아㈜</td>
+										</tr>
+										<tr>
+											<th valign="top" style="padding-top:10px;" scope="row">특징</th>
+											<td style="padding:10px 0 10px 15px;" colspan="3">아디다스의 가장 대표적인 인기 슬라이드 듀라모의 업그레이드 버전으로 그래픽을 접목한 갑피와 칼라를 달리한 풋베드로 차별화한 제품입니다.<br><br> 아디다스 아이코닉 제품인 듀라모 슬라이드의 업그레이드 버전<br> 그래픽을 접목한 갑피와 칼라를 달리한 풋베드로 차별화<br>
+											<img src="/images/adidas/temp/temp.jpg"/.
+											
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- 131112 아디다스 블로그 -->
+								<div id="adibloginfo">
+									<div class="adiblog">
+										<h5>아디다스 블로그에서 소개하는 더 많은 컨텐츠</h5>
+										<ul sizcache="10" sizset="124">		<li sizcache="4" sizset="174">			<div class="img"><img alt="" src="http://alladidas.com/basketball/attach/1/2210659286.jpg" width="230" heigth="138"></div>			<div class="info" sizcache="4" sizset="174">				<p class="tit">로즈3.5  &amp; 아디제로 크레이지 라이트2 로우와 함께 한 농구의 명가 경복고 농구부 방문기</p>				<p class="cont">서서히 날씨가 따뜻해지며 봄을 반기는듯한 햇살이 쨍쨍하게 내리쬐던 3월, 아디다스는 서울 종로구에 위치한 경복고등학교 농구부에 방문하였습니다.아디다스가 경복고등학교에 무슨 일로 찾아갔는지 궁금하신가요? 바로 아디다스 농구화 'd rose 3.5'와 ' adizero crazy light 2 low'를 경복고 농구부 선수들에게 직접 신고 체험하는 기회를 함께 나누기 위해서 입니다. 농구의 명가로 손꼽히는 경복고등학교 농구부는 각종 전국 대회에서 ...</p><a href="#" onclick="window.open('http://alladidas.com/basketball/781')" jquery1384328395975="181">전체내용 보러가기</a> 			</div>		</li>		<li sizcache="4" sizset="174">			<div class="img"><img alt="" src="http://alladidas.com/basketball/attach/1/8076670187.jpg" width="230" heigth="138"></div>			<div class="info" sizcache="4" sizset="174">				<p class="tit">d rose 3.5와 함께 돌아올 NBA 시카고 불스의 데릭 로즈, 그의 2011-12 시즌 NBA(미 프로...</p>				<p class="cont">2011-12 시즌을 앞두고 데릭 로즈와 시카고 불스를 응원하는 팬들은 엄청난 기대에 사로 잡혀 있었습니다. 2010-11 시즌, 데릭 로즈는 NBA 역사상 최연소 MVP라는 대업을 달성했고, 시카고 불스는 13년 만에 리그 최고 승률 타이틀을 탈환했습니다. 비록 컨퍼런스 파이널에서 그 해 챔피언이 되었던 마이애미 히트에게 아쉬운 패배를 당했지만 로즈와 불스는 그들보다 더 젊고 풍부한 가능성을 갖고 있었기에 미래의 주인공은 당연히 로즈와 불스의...</p><a href="#" onclick="window.open('http://alladidas.com/basketball/774')" jquery1384328395975="181">전체내용 보러가기</a> 			</div>		</li>		<li sizcache="4" sizset="174">			<div class="img"><img alt="" src="http://alladidas.com/basketball/attach/1/8720149514.jpg" width="230" heigth="138"></div>			<div class="info" sizcache="4" sizset="174">				<p class="tit">로즈 3.5 - 트리플 블루 &amp; 트로이 리뷰 - NBA 시카고 불스 데릭 로즈의 농구화 d rose 3.5 ...</p>				<p class="cont">시카고의 홈/어웨이 컬러에 이어서 새로운 색상의 두가지 모델이 발매될 예정입니다. 지난 아디볼러스 오리엔테이션 때 이 신발들을 미리 볼 기회가 있었는데, 지금까지의 아디다스와는 사뭇 다른 분위기의 독특한 색상들이였으며 실물이 예뻐서 어서 발매가 되었으면 하고 기다리는 마음이었습니다. 그리고 그렇게 기다리던 두 모델의 발매가 이제 임박한 듯 합니다.(트리플 블루는 현재 판매 중)신발이 정말로 아름답게 나왔기에 사진으로 먼저 보여드리고 싶어서 아디...</p><a href="#" onclick="window.open('http://alladidas.com/basketball/773')" jquery1384328395975="181">전체내용 보러가기</a> 			</div>		</li>		<li sizcache="4" sizset="174">			<div class="img"><img alt="" src="http://alladidas.com/basketball/attach/1/6066973618.jpg" width="230" heigth="138"></div>			<div class="info" sizcache="4" sizset="174">				<p class="tit">아디볼러스 필드테스트3기 친선경기! - NBA 시카고불스 데릭로즈의 스피드와 스타일을 담은 농구화 d rose 3.5</p>				<p class="cont">데릭 로즈의 스피드와 스타일을 담은 농구화, d rose 3.5 필드테스트 참여를 위해 50:1의 치열한 경쟁을 뚫고 선발되었던 아디볼러스 필드테스트 3기.지난 3월1일, d rose 3.5와 함께 3주동안 진행했던 필드테스트 미션을 마무리 하는 파이널 세레모니를 가졌습니다!아디볼러스 3기는 물론 아디볼러스 1,2기와 아디다스 사내농구팀 '아디윙즈', 그리고 '팀 후니훈'까지40여명의 많은 볼러 들이 함께하여 그 의미가 더욱 뜻 깊었는데요.농구...</p><a href="#" onclick="window.open('http://alladidas.com/basketball/772')" jquery1384328395975="181">전체내용 보러가기</a> 			</div>		</li>		<li sizcache="4" sizset="174">			<div class="img"><img alt="" src="http://alladidas.com/basketball/attach/1/4235416317.jpg" width="230" heigth="138"></div>			<div class="info" sizcache="4" sizset="174">				<p class="tit">NBA 코트를 뒤흔들 단 하나의 농구화, d rose 3.5 -  데릭로즈의 스피드와 스타일을 담은 로즈 3...</p>				<p class="cont"> 애타게 주인이 신어주기만을 기다리는 신발이 있습니다. 하긴 시그네처는 있는데 정작 코트에서 그 시그네처를 신은 선수가 시그네처의 주인이 아니라면 정말 아이러니한 상황이겠지요. 그 아이러니한 상황의 주인공은 아디다스 로즈 3.5입니다. 마이클 조던 이 후 시카고 불스의 최고 스타인 데릭로즈의 시그네처인 로즈 3.5. 하지만 작년 플레이오프에서 농구선수에게는 치명적이라고 할 수 있는 무릎을 다쳤고, 그 후 데릭로즈는 자신을 기다리는 팬들을 위해 ...</p><a href="#" onclick="window.open('http://alladidas.com/basketball/768')" jquery1384328395975="181">전체내용 보러가기</a> 			</div>		</li>	</ul>
+
+
+										<!-- 131122 더보기버튼 -->
+										<a href="#" class="more">더 많은 컨텐츠 열기</a>
+										<!-- //131122 더보기버튼 -->
+									</div>									
+								</div>
+								
+								<!-- //131112 아디다스블로그 -->
+								<div class="sizechart">									
+									<div class="size_men">
+										<img border="0" alt="SIZE CHART 신발" usemap="#sizeshoes" src="/images/adidas/common/sizechart_shoes.jpg">
+										<map id="sizeshoes" name="sizeshoes">
+											<area alt="SIZE CHART 신발" coords="788,7,951,27" shape="rect" href="#" onclick="window.open('http://shop.adidas.co.kr/html/adidas/global_size.html','','width=300,height=500,top=100,left=600');return false;">
+										</map>
+										<div class="blind">
+											<h4>신발 사이즈차트</h4>
+											<p>제품마다 약간의 오차가 있을 수 있습니다.</p>
+											<a target="_blank" href="http://shop.adidas.co.kr/html/adidas/global_size.html">신발 사이즈 기준표</a>
+											<table summary="남자 신발 사이즈표">
+												<caption>남자 신발 사이즈표</caption>
+												<thead>
+													<tr>
+														<th scope="col" colspan="2">남자 신발 사이즈표</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>230미리미터</td>
+														<td>235미리미터</td>
+													</tr>
+													<tr>
+														<td>240미리미터</td>
+														<td>245미리미터</td>
+													</tr>
+													<tr>
+														<td>250미리미터</td>
+														<td>255미리미터</td>
+													</tr>
+													<tr>
+														<td>260미리미터</td>
+														<td>265미리미터</td>
+													</tr>
+													<tr>
+														<td>270미리미터</td>
+														<td>275미리미터</td>
+													</tr>
+													<tr>
+														<td>280미리미터</td>
+														<td>285미리미터</td>
+													</tr>
+													<tr>
+														<td>290미리미터</td>
+														<td>295미리미터</td>
+													</tr>
+													<tr>
+														<td>300미리미터</td>
+													</tr>
+												</tbody>
+											</table>
+
+											<table summary="여자 신발 사이즈표">
+												<caption>여자 신발 사이즈표</caption>
+												<thead>
+													<tr>
+														<th scope="col" colspan="2">여자 신발 사이즈표</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>230미리미터</td>
+													</tr>
+													<tr>
+														<td>235미리미터</td>
+													</tr>
+													<tr>
+														<td>240미리미터</td>
+													</tr>
+													<tr>
+														<td>245미리미터</td>
+													</tr>
+													<tr>
+														<td>250미리미터</td>
+													</tr>
+													<tr>
+														<td>255미리미터</td>
+													</tr>
+													<tr>
+														<td>260미리미터</td>
+													</tr>
+												</tbody>
+											</table>
+
+											<table summary="키즈 신발 사이즈표">
+												<caption>키즈 신발 사이즈표</caption>
+												<thead>
+													<tr>
+														<th scope="col">infant (생후 6개월부터 3세까지의 유아)</th>
+														<th scope="col">toddler (4세부터 7세 까지의 어린이)</th>
+														<th scope="col">junior (8세부터 13세 까지의 어린이)</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>70미리미터</td>
+														<td>110미리미터</td>
+														<td>170미리미터</td>
+													</tr>
+													<tr>
+														<td>80미리미터</td>
+														<td>120미리미터</td>
+														<td>180미리미터</td>
+													</tr>
+													<tr>
+														<td>90미리미터</td>
+														<td>130미리미터</td>
+														<td>190미리미터</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>140미리미터</td>
+														<td>200미리미터</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>150미리미터</td>
+														<td>210미리미터</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td>160미리미터</td>
+														<td>220미리미터</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td></td>
+														<td>230미리미터</td>
+													</tr>
+													<tr>
+														<td></td>
+														<td></td>
+														<td>240미리미터</td>
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+									</div>
+								</div>
+														
+								<div id="detail_basic_cut" class="detail_cut"><img alt="[Swim] 듀라모 그래픽 슬라이드" src="http://shop.adidas.co.kr/upload/prod/basic/500/G96418-1_500X500.jpg"><br></div>
+								<div id="detail_cut" class="detail_cut"><img alt="[Swim] 듀라모 그래픽 슬라이드" src="http://shop.adidas.co.kr/upload/prod/etc/500/G96418-2_500X500.jpg"><br></div>
+								<!-- 140220 -->
+								<dl style="overflow:hidden;padding:15px;border:1px solid #e0e0e0;">
+									<dt style="width:150px;float:left;text-align:center;padding-top:9px;color:#707070;font:bold 12px 'Gulim',Gulim;">유의사항</dt>
+									<dd style="width:580px;float:left;">
+										<p style="margin-bottom:4px;color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">본 사이트 상의 모든 컨텐츠에 대한 권리는 아디다스코리아㈜에 있으며,</p>
+										<p style="color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">이에 대한 무단 사용 행위는 저작권법에 근거 5천만원 이하의 벌금 또는 5년 이하의 징역에 처해질 수 있습니다.</p>
+									</dd>
+								</dl>
+								<!-- //140220 -->
+								<div class="btm_faq"><a href="/PF080301.action"><img alt="고객센터" src="/images/adidas/common/bg_prodbtm_faq.jpg"></a></div>
+								
+							</div>
+						
+							<div class="prod_tab_r" id="tab2">
+								<ul>
+									<li class="t1"><a href="#" onclick="moveTab('1');return false">상품정보</a></li>
+									<li class="t2"><a href="#" onclick="moveTab('2');return false" class="on">상품평<strong>(999개)</strong></a></li>
+									<li class="t3"><a href="#" onclick="moveTab('3');return false">배송/반품</a></li>
+									<li class="t4"><a href="#" onclick="moveTab('4');return false">세탁 및 취급 시 주의사항</a></li>
+									<li class="t5"><a href="#" onclick="moveTab('5');return false">품질 보증 및 AS 정보</a></li>
+								</ul>
+							</div>
+							<!--
+								130703
+								두번째 탭 내용인 상품평의 구조가 전체적으로 변경 되었습니다.
+								나머지 탭은 변경 없습니다.
+							-->							
+							<div class="tab_cont2" id="makeListEval">
+								<div class="review_util">
+									<h4>상품평 및 제품 평점 요약</h4>
+						
+									<!-- 140218 상품평이벤트 배너이미지(현재 더미이미지) -->
+									<div style="padding:30px 0;text-align:center;">
+										<img src="/images/adidas/temp/temp_alliance_visual.jpg" alt=""/>
+									</div>
+									<!-- //140218 -->
+
+									<div class="review_util_body">
+										<div class="review_left">
+											<div class="star_level">
+												<div class="spt_bg average">
+													<div class="spt_bg star_bar point50">5/5</div>
+												</div>
+												<p class="arial">5/5</p>
+											</div>
+											<div class="option">
+												<div class="bar size step25 average">
+													<dl>
+														<dt>실착용 사이즈</dt>
+														<dd class="score_bar">
+															<span class="label1">작다</span>
+															<span class="label2">적당함</span>
+															<span class="label3">크다</span>
+															<span class="bar_bullet spt_bg"></span>
+															<div class="bar_line spt_bg"></div>
+														</dd>
+													</dl>
+												</div>
+												<div class="bar color step25 average">
+													<dl>
+														<dt>실제품 컬러</dt>
+														<dd class="score_bar">
+															<span class="label1">어둡다</span>
+															<span class="label2">화면과같다</span>
+															<span class="label3">밝다</span>
+															<span class="bar_bullet spt_bg"></span>
+															<div class="bar_line spt_bg"></div>
+														</dd>
+													</dl>
+												</div>
+												<div class="bar quality step49 average">
+													<dl>
+														<dt>품질 &amp; 만족도</dt>
+														<dd class="score_bar">	
+															<span class="label1">불만</span>
+															<span class="label2">보통</span>
+															<span class="label3">만족</span>
+															<span class="bar_bullet spt_bg"></span>
+															<div class="bar_line spt_bg"></div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</div>
+										<div class="review_right">
+											<p class="total">
+											<strong>1개</strong>의 상품에 총 <strong id="total_eval_size">140개</strong>의 상품평이 있습니다.</p>
+											<div class="sorting_layerbox">
+												<div onclick="sortOpenLayer(this,event);" class="sort_layer">
+													<p id="reglayer"><a href="#">최근 등록일순</a></p>
+													<ul>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;01&quot;);">최근 등록일순</a></li>
+														<li class="last"><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;02&quot;);">과거 등록일순</a></li>
+													</ul>
+												</div>
+												<div onclick="sortOpenLayer(this,event);" class="sort_layer">
+													<p id="staisflayer"><a href="#">전체 평점순</a></p>
+													<ul>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;10&quot;);">전체 평점순</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;15&quot;);">매우만족</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;14&quot;);">만족</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;13&quot;);">보통</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;12&quot;);">불만</a></li>
+														<li class="last"><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;11&quot;);">매우불만</a></li>	
+													</ul>
+												</div>
+
+												<div onclick="sortOpenLayer(this,event);" class="sort_layer prod_sort">
+													<p id="layer_eval_prod"><a href="#">동일모델 전체</a></p>
+													<ul>
+														<li><a href="javascript:fn_searchEvalProdCd(&quot;동일모델 전체&quot;,&quot;&quot;)">동일모델 전체</a></li>
+														<li class="last"><a href="javascript:fn_searchEvalProdCd(&quot;G13265 (BLACK/WHITE/GOLD)&quot;,&quot;G13265&quot;)" title="G13265 (BLACK/WHITE/GOLD)">G13265 (BLACK/WHITE/GOLD)</a></li>
+													</ul>
+													<script>
+														/* 
+														 * 130703
+														 *
+														 * 동일모델 전체 부분 상품정보가 길어졌을 때 처리하는 작업의 스크립트 
+														 *
+														 * */
+														jQuery('.prod_sort ul li  a').each(function(){
+															var txt=jQuery(this).text();
+															if(txt.length > 17){
+																txt=txt.substring(0,16);
+																txt=txt+'<span style="letter-spacing:0;margin-left:1px">...</span>';																
+															}
+															jQuery(this).html(txt);
+														});
+														
+													</script>
+												</div>
+
+												<div onclick="sortOpenLayer(this,event);" class="sort_layer short_sort">
+													<p id="sizelayer"><a href="#">10개씩 보기</a></p>	
+													<ul>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;20&quot;);">20개씩 보기</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;25&quot;);">40개씩 보기</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;24&quot;);">60개씩 보기</a></li>
+													</ul>
+												</div>
+												<div onclick="sortOpenLayer(this,event);" class="sort_layer short_sort">
+													<p id="qltylayer"><a href="#">펼쳐보기</a></p>
+													<ul>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;30&quot;);">피기</a></li>
+														<li><a href="javascript:fn_searchEval(&quot;1&quot;, &quot;30&quot;);">접기</a></li>														
+													</ul>
+												</div>
+												<a href="#" class="sort_submit">적용</a>
+											</div>
+											<div class="write_review">
+												<a class="btn_ir" href="javascript:fn_evalPop();">
+													<span class="spt_bg"></span>
+													<span class="ir">상품평쓰기</span>
+												</a>
+												<p class="desc_ir">
+													<span class="spt_bg"></span>
+													<span class="ir">제품 구매 후 상품평을 작성해주세요!</span>
+												</p>				
+											</div>	
+										</div>	
+									</div>
+								</div>
+								<div class="review_list">
+									<div class="rlist_tit">
+										<h4>상품평</h4>
+										<span>* 상품평은 해당 제품의 구매 및 배송 완료 이후 작성 가능합니다.</span>
+									</div>	
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" class="open" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body">
+											<div class="review_left" style="display:block">
+												<!--
+												<div class="star_level">
+													<div class="level5 spt_bg">5/5</div>
+													<strong><span class="prod_code">[ G13265 ]</span>아디다스가최고.</strong>
+												</div>
+												-->
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<!-- 140206 이미지 태그에 click 이벤트를 넣어주세요  -->
+													<img src="/images/adidas/temp/temp_user.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user.jpg');return false;"/>
+												</div>
+												<!--
+												130702 id 및 sns제거
+
+												
+												<div class="sns">
+													<label class="share"><img alt="SHARE" src="/images/adidas/common/txt_sns_share.gif"></label>
+													<a href="#"><img alt="facebook" src="/images/adidas/common/ico_facebook.gif"></a>
+													<a href="#"><img alt="twitter" src="/images/adidas/common/ico_twt.gif"></a>
+													<a href="#"><img alt="me2day" src="/images/adidas/common/ico_me.gif"></a>
+												</div>
+												-->
+											</div>
+											<!-- //review_left -->
+											<div class="review_right" style="display:block">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+												<!--
+												130702 제거
+												<div class="review_desc spt_bg">이 상품평은 <strong id="evalhpcnt0">0</strong><strong>분</strong>에게 도움이 되었습니다.</div>
+												<div class="btnarea">
+													<label>도움이 되었습니까?</label>
+													<a class="y_ir" href="#"><span class="spt_bg"></span><span class="ir">YES</span></a>
+													<a class="n_ir" href="#"><span class="spt_bg"></span><span class="ir">NO</span></a>
+												</div>
+												-->
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<img src="/images/adidas/temp/temp_user2.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user2.jpg');return false;"/>
+												</div>
+
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<img src="/images/adidas/temp/temp_user3.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user3.jpg');return false;"/>
+												</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<img src="/images/adidas/temp/temp_user4.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user4.jpg');return false;"/>
+												</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<img src="/images/adidas/temp/temp_user5.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user5.jpg');return false;"/>
+												</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">
+													신발넘이쁘구좋아여더좋은상품만들어주세여.<br/>
+													제품사진 올립니다.<br/><br/><br/>
+													<img src="/images/adidas/temp/temp_user6.jpg" alt="" onclick="openImagePop('/images/adidas/temp/temp_user6.jpg');return false;"/>
+												</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">신발넘이쁘구좋아여더좋은상품만들어주세여.</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">신발넘이쁘구좋아여더좋은상품만들어주세여.</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">신발넘이쁘구좋아여더좋은상품만들어주세여.</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+									<div class="review_box" style="padding:0;">
+										<div class="review_box_head">
+											<a href="#" onclick="openReviewBox(this);return false">
+												<span class="left_area">
+													<span class="star_level">
+														<span class="level5 spt_bg">5/5</span>
+													</span>	
+													<span class="prod_info">
+														<span class="prod_tit">[L45845]<strong>정말 좋은 제품입니다!!!대박추천</strong></span>
+														<span class="prod_color">COLOR<em>BLUE/WHITE/GOLD</em></span>
+													</span>
+												</span>
+												<span class="user_id">
+													<span class="id_age"><em>chw***</em>(여,30대)</span>
+													<span class="date">2012.01.15</span>
+												</span>
+											</a>
+										</div>
+										<!-- //review_box_head -->
+
+										<!-- review_box_body -->
+										<div class="review_box_body" style="height:0;">
+											<div class="review_left">
+												<div class="article">신발넘이쁘구좋아여더좋은상품만들어주세여.</div>
+											</div>
+											<!-- //review_left -->
+											<div class="review_right">
+												<div class="option">
+													<div class="bar size step3">
+														<dl>
+															<dt>실착용 사이즈</dt>
+															<dd class="score_bar">
+																<span class="label1">작다</span>
+																<span class="label2">적당함</span>
+																<span class="label3">크다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar color step3">
+														<dl>
+															<dt>실제품 컬러</dt>
+															<dd class="score_bar">
+																<span class="label1">어둡다</span>
+																<span class="label2">화면과같다</span>
+																<span class="label3">밝다</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+													<div class="bar quality step5">
+														<dl>
+															<dt>품질 &amp; 만족도</dt>
+															<dd class="score_bar">
+																<span class="label1">불만</span>
+																<span class="label2">보통</span>
+																<span class="label3">만족</span>
+																<span class="bar_bullet spt_bg"></span>
+																<div class="bar_line spt_bg"></div>
+															</dd>
+														</dl>
+													</div>
+												</div>
+											</div>
+											<!-- //review_right -->
+										</div>
+										<!-- //review_box_body -->
+									</div>
+									<!-- //review_box -->
+
+
+									<div class="paging_r">
+										<strong>1</strong>
+										<a href="javascript:fn_search('2');">2</a>
+										<a href="javascript:fn_search('3');">3</a>
+										<a href="javascript:fn_search('4');">4</a>
+										&nbsp;...&nbsp;
+										<a href="javascript:fn_search('14');">14</a>
+										<a href="javascript:fn_search('2');" class="next spt_bg">다음</a>
+									</div>
+									<!-- //paging_r -->
+								</div>
+								<!-- //review_list -->
+							</div>
+							<!-- //tab_cont2 -->
+
+							<div class="prod_tab_r" id="tab3">
+								<ul>
+									<li class="t1"><a href="#" onclick="moveTab('1');return false">상품정보</a></li>
+									<li class="t2"><a href="#" onclick="moveTab('2');return false">상품평<strong>(999개)</strong></a></li>
+									<li class="t3"><a href="#" onclick="moveTab('3');return false" class="on">배송/반품</a></li>
+									<li class="t4"><a href="#" onclick="moveTab('4');return false">세탁 및 취급 시 주의사항</a></li>
+									<li class="t5"><a href="#" onclick="moveTab('5');return false">품질 보증 및 AS 정보</a></li>
+								</ul>
+							</div>
+							<div class="tab_wrap'">
+
+								<div style="display: block;" class="tab_cont3">
+									<h4>배송/반품</h4>
+									<div class="delivery_desc">
+										<p>아디다스 온라인 스토어에서는 고객서비스를 지속적으로 향상시키는데 도움이 되는 여러분의 모든 의견을 소중히 합니다.<br>주문/배송등에 문제가 있으신 경우에는 아래 고객센터로 연락 주시면 성심껏 답변을 드리겠습니다.</p>
+										<ul class="arial">
+											<li>고객센터 : 1588-8241 (평일 09:00 ~ 18:00 , 점심시간 12:00 ~ 13:00) , 본사로 반품 불가 (교환 및 반품은 고객센터 문의)</li>
+											<li>이메일 : adiCLUB_Korea@adidas.com</li>
+											<li>사이트 : shop.adidas.co.kr</li>
+										</ul>
+									</div>
+									<div class="delivery_desc2">
+										<dl>
+											<dt>배송안내</dt>
+											<dd>
+												<ul>
+													<li>배송은 구매자께서 선택하신 배송지주소에서 <strong>가까운 오프라인매장</strong>에서 배송됩니다.</li>
+													<li>복수의 상품을 한번에 결제하신 경우 빠른 배송을 위해 각각의 상품이 따로 배송될 수 있습니다.<br>따로 배송되는 경우에도 배송비는 추가되지 않습니다.</li>
+													<li>배송은 입금확인일로부터 주중에는 <strong>5일 이내에 배송</strong>해 드립니다.<br>단, 주말/공휴일의 경우 또는 <strong>도서산간지역의 경우 1-2일 더 소요</strong>될 수 있습니다.</li>
+													<li>구매금액이 <strong>5만원 이상인 경우 무료로 배송</strong>해 드리며 5만원 미만 주문 시에는 <strong>배송료 2,500원이 별도 부과</strong>됩니다.<br>단, 도서/산간 지역은 배송비가 추가 될 수 있습니다</li>
+													<li>배송진행상황은 <strong>[마이페이지 &gt; 주문배송조회]</strong>에서 확인하실 수 있습니다.</li>
+												</ul>
+											</dd>
+										</dl>
+										<dl>
+											<dt>반품안내</dt>
+											<dd>
+												<p style="margin-bottom:20px;">반품은 배송완료일로부터 7일 이내에 신청해 주십시오.<br>단, 다음과 같은 경우 반품신청이 불가능 할 수 있습니다.</p>
+												<ul>
+													<li>반품요청기간이 지난 경우</li>
+													<li>포장을 개봉하였거나 포장이 훼손되어(상품의 Tag분리/분실, 비닐포장 훼손, 신발박스 훼손 등) 상품가치가 현저히 감소한 경우 </li>
+													<li>구매자의 책임있는 사유로 상품 등이 멸실 또는 훼손된 경우 </li>
+													<li>구매자의 사용 또는 일부 소비에 의하여 상품가치가 현저히 감소한 경우 </li>
+													<li>기간의 경과에 의하여 재판매가 곤란할 정도로 상품가치가 현저히 감소한 경우</li> 
+													<li>주문확인 후 상품제작에 들어가는 주문제작 상품인 경우 </li>
+													<li style="margin-bottom:15px;">복제가 가능한 상품 등의 포장을 훼손한 경우</li>
+												</ul>
+												<p style="margin-bottom:20px;">반품은 아래 방법으로 진행해 주셔야 빠른 환불처리가 가능합니다.</p>
+												<ul>
+													<li><strong>[로그인 &gt; 마이페이지 &gt; 나의 쇼핑내역 &gt; 취소/반품 조회]</strong> 페이지에서 신청해 주셔야 합니다.</li>
+													<li><strong>고객 단순변심</strong>에 의한 반품 시 <strong>왕복 배송비</strong>를 부담하셔야 합니다.</li>
+													<li>상품불량/오배송 으로 인한 반품시 택배비는 <strong>아디다스</strong>에서 부담하며 반드시 한진 택배를 이용하셔야 합니다. </li>
+													<li>반송하실 상품은 배송된 <strong>오프라인매장</strong>으로 반품해 주셔야 합니다. 오프라인매장주소는 배송박스를 참조해 주십시오. <br>
+													    반품 회수 택배사는 <strong>한진 택배</strong>이며, 다른 택배회사를 이용하여 반품하는 경우 환불이 지연될 수 있습니다. <br>
+													    다른 택배 회사를 통해 반품시 <strong>고객센터(1588-8241)</strong>로 통화 후에 택배비 고객 부담으로 진행해주셔야 합니다.</li>
+													<li>기타 다른 방법으로 반품하시는 경우 환불처리가 지연될 수 있습니다.</li>
+													<li>부분 반품을 하는 경우, 반품하지 않는 상품의 금액이 5만원 이상이면 반품 배송비만 부담하시면 됩니다. <br>
+													    상품 금액이 <strong>5만원 미만</strong>일 경우에는 <strong>왕복 배송비를 부담</strong>해주셔야 합니다.</li>
+												</ul>
+											</dd>
+										</dl>
+										<dl>
+											<dt>교환안내</dt>
+											<dd>
+												<p style="width:700px">
+													아디다스 공식 온라인 스토어에서는 구매자가 선택한 배송지 주소에서 가까운 오프라인 매장에서 배송하므로,<br>
+													교환은 배송완료 후 7일 이내에 해당상품을 반품하신 후 재주문 하여야 합니다.<br>
+													교환의 경우 사이즈 교환 건만 해당되며, 배송한 매장에 동일한 상품 재고 보유 시 가능합니다.<br><br>
+													교환 진행 시 교환 배송비는 고객님이 부담하셔야 합니다. (단, 상품하자는 제외됩니다.)<br>
+													부분 교환 시, 교환하지 않은 상품이 5만원 미만일 경우에는 왕복 배송비를 부담해주셔야 합니다.
+												</p>
+											</dd>
+										</dl>
+										<dl style="margin-bottom:0;">
+											<dt>주의사항</dt>
+											<dd>
+												<p>미성년자가 상품을 구매하시는 경우 법정대리인이 동의하지 않으면<br>미성년자 본인 또는 법정대리인이 구매를 취소할 수 있습니다. </p>
+											</dd>
+										</dl>
+									</div>
+								</div>
+								<!-- //tab_cont3  -->
+								
+								<div style="display: none;" class="tab_cont4">
+									<h4>세탁 및 취급 시 주의사항</h4>
+									<div class="safewarning">
+										<div class="safe_depth1">
+											<ul>
+												<li class="tmap1"><a onclick="toggleSafeCont(1);return false" class="on" href="#">신발</a></li>
+												<li class="tmap1"><a onclick="toggleSafeCont(2);return false" href="#">의류</a></li>
+												<li class="tmap1"><a onclick="toggleSafeCont(3);return false" href="#">용품</a></li>
+											</ul>
+										</div>
+										<div class="safe_depth2">
+											<!-- 신발 -->
+											<div style="display:block;" id="safebox1" class="safemenu">
+												<div class="safe_depth2_menu">
+													<ul>
+														<li><a class="on" href="#">천연가죽</a></li>
+														<li><a href="#">섬유제품 또는 합성제품</a></li>
+														<li><a href="#">금속 스터드(징) 사용제품</a></li>
+													</ul>
+												</div>
+												<div class="safe_depth2_cont">
+													<ol style="display:block;" class="cont1">
+														<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
+														<li>2. 젖었을 때에는 직사일광이나 불로 건조 시키지 마십시오.</li>
+														<li>3. 오염시 부드러운 솔로 닦고, 슈크리너를 사용하십시오.</li>
+														<li>4. 보존시에는 적정한 온도와 습도에서 보관하십시오.</li>
+														<li>5. 본제품은 세탁이 불가합니다.</li>
+														<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
+														<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
+														<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
+													</ol>
+													<ol class="cont2">
+														<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
+														<li>2. 기름기가 있는 장소에서의 사용은 피하십시오.</li>
+														<li>3. 불옆에 놓으면 변화하거나 변형이 발생할 수 있으니 주의 하십시오.</li>
+														<li>4. 표면의 오염 발생시 비눗물을 적신 천을 사용하고, 구두약등의 보혁유를 사용할 필요는 없습니다.</li>
+														<li>5. 본제품은 세탁이 불가합니다.</li>
+														<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
+														<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
+														<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
+													</ol>
+													<ol class="cont3">
+														<li>1. 천연잔디용이므로 맨땅에서 착화시 스터드(징) 파손 및 부상의 위험이 있습니다.</li>
+														<li>2. 사용전 스터드(징) 나사를 단단히 조이지 않으면 부상의 위험이 있습니다.</li>
+														<li><strong>*  주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+														<li><strong>*  주의! 신발이 에스컬레이트 등에 낄 수 있습니다.</strong></li>
+													</ol>
+												</div>
+											</div>
+											<!-- //신발 -->
+	
+											<!-- 의류 -->
+											<div id="safebox2" class="safemenu">
+												<div class="safe_depth2_menu">
+													<ul>
+														<li><a class="on" href="#">100% 면</a></li>
+														<li><a href="#">100% 폴리에스터 (니트)<br>100% 나일론 (니트)</a></li>
+														<li><a href="#">100% 폴리에스터 (우븐)<br>100% 나일론 (우븐)</a></li>
+														<li><a href="#">울</a></li>
+														<li><a href="#">패딩</a></li>
+														<li><a href="#">다운</a></li>
+														<li><a href="#">구스다운</a></li>
+														<li><a href="#">스판덱스</a></li>
+													</ul>
+												</div>
+												<div class="safe_depth2_cont">
+													<ol style="display:block;" class="cont1">
+														<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+														<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+														<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+														<li>6. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
+														<li style="padding-left:11px;">주십시오.</li>
+														<li>7. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+														<li>8. 면이 함유된 제품은 세탁후 약간의 수축현상이 생길수있으니 유의바랍니다.</li>
+														<li>9. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>10. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>11. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+													</ol>
+													<ol class="cont2">
+														<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+														<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+														<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+														<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+														<li>7. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>8. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>9. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>10. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>11. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+													</ol>
+													<ol class="cont3"> 
+														<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+														<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+														<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+														<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+														<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
+														<li>8. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
+														<li style="padding-left:11px;">주십시오.</li>
+														<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>11. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+													</ol>
+													<ol class="cont4">
+														<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 물세탁을</li>
+														<li style="padding-left:11px;">삼가해 주십시오.</li>
+														<li>2. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+														<li>3. 반드시 드라이크리닝을 하십시오.</li>
+														<li>4. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+													</ol>
+													<ol class="cont5">
+														<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+														<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+														<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+														<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+														<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
+														<li>8. 다림질을 할때는 약간 들은 상태에서 다림질을 해야 보온력이 원상태로 유지됩니다</li>
+														<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>11. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>12. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+													</ol>
+													<ol class="cont6">
+														<li>1. 세탁은 가능한 물세탁을 권장합니다.</li>
+														<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+														<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+														<li>6. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>7. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>8. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>9. 세제는 완전히 빠지도록 여러차레 행굽니다.  세제가 남아 있으면 건조후 얼룩이 생깁니다.</li>
+														<li>10. 탈수기를 이용하여 탈수하고 단 시간내에 옷걸이를 사용하여 건조시켜 주십시오.</li>
+														<li>11. 지퍼나 단추는 잠근상태에서 뒤집어 세탁하십시오.</li>
+														<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+													</ol>
+													<ol class="cont7">
+														<li>1. 거위털(DOWN)의 특성이 저하되는 것을 막기 위하여 물세탁을 권장합니다.</li>
+														<li>2. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+														<li>3. 세탁후 얼룩이 발생되면 대부분 헹굼이 부족한 것이오니 헹굼을(3~4회)를 하십시요</li>
+														<li>4. 습한곳이나 폴리백 상태에서 장시간 보관을 절대 금합니다.</li>
+														<li>5. 건조시 건조대를 사용하여 통풍이 잘되는 곳에서 뉘어서 빠른시간내 건조하십시요</li>
+														<li>6. 코팅된 원단은 뒤집어서 탈수하여 주십시요</li>
+														<li>7. 만약 냄새가 나는 경우에는 통풍이 잘되고 햇빛이 양호한곳에서 1~2시간 정도 건조시키면</li>
+														<li style="padding-left:11px;">냄새가 제거되고 불륨감이 좋아집니다.</li>
+														<li>8. 건조후 가볍게 두들겨 주시면 볼륨감이 살아 납니다.</li>
+														<li>9. 세탁시 지퍼나 단추는 잠근상태에서 뒤집어 세탁하여야 지퍼가손상되지 않습니다.</li>
+														<li>10. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하시고 부착된 장신구 등은 강한 충격에</li>
+														<li style="padding-left:11px;">의하여 파손될 수 있으니 유의하십시요</li>
+														<li>11. 기계건조(열건조)는 손상이 되므로 삼가하여 주십시요</li>
+														<li>12. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+													</ol>
+													<ol class="cont8">
+														<li>1. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+														<li>2. 세탁기 및 탈수기는 사용하지 마십시오.</li>
+														<li>3. 신축성이 강한 폴리우레탄 원단은 마찰에 민감하므로 미끄럼등 심한 마찰을 피해 주십시오.</li>
+														<li>4. 생고무등은 오일이 묻은후 오래 방치하여 두면 손상될 우려가 있으니 즉시 세탁하여 주십시오.</li>
+														<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+														<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
+														<li>8. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>9.불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+													</ol>
+													<div class="safe_warning_desc">
+														<h6>공통 유의사항</h6>
+														<ul>
+															<li>*  건조시에는 강한햇볕을 피하고 통풍이 잘되는 그늘에서 건조하십시오.</li>
+															<li><strong>*  주의!  작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+															<li>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</li>
+															<li style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- //의류 -->
+											<div id="safebox3" class="safemenu">
+												<div class="safe_depth2_menu">
+													<ul>
+														<li><a class="on" href="#">모자</a></li>
+														<li><a href="#">가방</a></li>
+														<li><a href="#">밴드류 워머</a></li>
+														<li><a href="#">요가 매트</a></li>
+														<li><a href="#">니트 글러브</a></li>
+														<li><a href="#">양말</a></li>
+														<li><a href="#">가죽 제품류</a></li>
+														<li><a href="#">마이 코치</a></li>
+													</ul>
+												</div>
+												<div class="safe_depth2_cont">
+													<ol style="display:block;" class="cont1">
+														<li>1. 세제를 사용한 물에 제품을 담근 후 30분 이내에 세탁하십시오.</li>
+														<li>2. 모자의 챙 부분은 세탁후 구기거나, 비비지 마십시오.</li>
+														<li>3. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
+														<li>4. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
+														<li>5. 세탁후 응달에서 건조하십시오.</li>
+														<li>6. 불옆에 놓으면 변화하거나 챙이 변형되는 일이 있으므로 유의하십시오.</li>
+														<li>7. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+													</ol>
+													<ol class="cont2">
+														<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
+														<li>2. 오염된 부분만 세탁하십시오. 만약 전체 세탁이 필요할시에는 물에 장기간 담가두지 마십시오.</li>
+														<li>3. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
+														<li>4. 젖었을때는 직사일광 또는 불로 건조 시키지 마십시오.</li>
+														<li>5. 세탁후 응달에서 건조하십시오.</li>
+														<li>6. 기름기가 있는 세제는 사용하지 마십시오.</li>
+														<li>7. 보존시에는 온도나 습도가 높은 곳을 피하십시오.</li>
+														<li>8. 화기옆에 놓으면 상태, 색상이 변할 수 있으니 유의하십시오.</li>
+														<li>9. 가방의 끈이 걸리거나 끼지 않도록 유의하십시오.</li>
+														<li>10. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>11. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하십시요.</li>
+														<li>12. 부착된 장신구 등은 강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+														<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+													</ol>
+													<ol class="cont3">
+														<li>1. 이염 될 우려가 있으므로 별도로 세탁 하십시오.</li>
+														<li>2. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
+														<li>3. 거친 표면에서 심하게 마찰 시키지 마십시오.</li>
+														<li>4. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+														<li>5. 원단 특성상 마찰시 보풀이 일수 있으니 주의 하십시오.</li>
+														<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어 날 수 있으니 유의하십시오.</li>
+														<li>7. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의 하십시오.</li>
+														<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+													</ol>
+													<ol class="cont4">
+														<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
+														<li>2. 건조하고 통풍이 잘되는 곳에 보관하십시오.</li>
+														<li>3. 세탁기 사용은 절대로 하지 마십시오.</li>
+														<li>4. 정상적인 착용으로 발생하는 파손은 교환 사유가 되지 않음을 알려 드립니다.</li>
+														<li>5. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오. </li>
+														<li>7. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+													</ol>
+													<ol class="cont5">
+														<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 </li>
+														<li style="padding-left:11px;">울전용세제를 사용하십시오.</li>
+														<li>2. 표백제 및 강력효소세제는 절대 사용하지 마십시오.</li>
+														<li>3. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+														<li>4. 짙은 색상은 다른것과 구별하여 세탁하십시오.</li>
+														<li>5. 표면이 거친 장소에서 심하게 마찰시키지 마십시오.</li>
+														<li>6. 세탁후 물기를 가볍게 닦고 손으로 펴서 그늘에서 말리십시오.</li>
+														<li>7. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>8. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오. </li>
+														<li>9. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li> 
+													</ol>
+													<ol class="cont6">
+														<li>1. 미지근한물(40℃)에 중성세제를 사용하여 세탁하십시오.</li>
+														<li>2. 충분히 헹군후 발목부분을 위로하여 말리십시오.</li>
+														<li>3. 염소계 표백제는 사용하지 마십시오.</li>
+														<li>4. 삶아 빨지 마십시오.</li>
+														<li>5. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+													</ol>
+													<ol class="cont7">
+														<li>1. 세탁은 반드시 가죽전문점에 맡겨 주십시오.</li>
+														<li>2. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+														<li>3. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+														<li>4. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+														<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+													</ol>
+													<div class="cont8">
+														<ul>
+															<li>이 제품은 레크레이션 용도를 위한 것으로, 의학적 목적으로 사용할 수 없습니다!</li>
+															<li>일반 운동 프로그램을 시작하기 전에 의사와 상담하실 것을 권장합니다.</li>
+															<li>마이코치 제품은 어린이들의 손에 닿지 않는 곳에 보관하십시오!</li>
+														</ul>
+														<h6 style="margin-top:35px;">권장사항/사용자 책임</h6>
+														<p>운동에는 어느 정도의 위험이 따를 수 있습니다. 운동 프로그램을 시작하기 전에 의사와 상담해야 합니다. 운동을 시작하기 전에 준비 운동과 스트레칭을 할 것을 권장합니다. 통증이 있거나 현기증, 어지러움 또는 숨가쁨을 느끼는 경우, 즉시 운동을 중지하십시오.<br>운동의 강도, 복용 약, 혈압, 천식, 카페인, 알코올, 니코틴, 기타 요소등이 심박 속도에 영향을 줄 수 있음에 유의하십시오.</p>
+														<h6>심박조정기, 제세동기 또는 기타 이식한 전자 장치 사용자를 위한 안내</h6>
+														<p>이 스포츠 전자 장치 사용을 시작하기 전에 의사의 감독 하에 운동 테스트를 실시하여 인체에 이식한 장치와 이 장치를 동시 사용할 경우의 안전과 신뢰성에 대해 확인할 것을 권장합니다.<br>본 제품의 이용에 따른 위험은 사용자의 책임입니다.<br>이어폰의 볼륨을 크게 하여 사용할 경우 영구적인 청력 손실이 발생할 수 있습니다.<br>볼륨을 안전한 레벨로 설정하십시오.</p>
+														<h6>기타 상세 정보</h6>
+														<p style="margin-bottom:10px;">배터리 교체, 서비스 및 지원, 요령 및 문제해결, 안전 및 세척은 adidas.com/micoach를 방문하십시오.</p>
+													</div>
+													<div class="safe_warning_desc">
+														<h6>공통 유의사항</h6>
+														<p>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</p>
+														<p style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</p>
+													</div>
+												</div>
+											</div>
+	
+										</div>
+										<!-- //safe_depth2 -->
+									</div>
+									<!-- //safewarning -->
+									<script type="text/javascript">
+										jQuery(document).ready(function(){
+											// 세탁 및 취급 유의사항
+											jQuery('.safe_depth2_menu li').mouseover(function(){
+												var leftmenu=jQuery(this).parent('ul');
+												var par=jQuery(this).parent('ul').parent('div').siblings('div.safe_depth2_cont');
+												var boxid=par.parent('div').attr('id');
+												var idx=jQuery(this).index();
+												leftmenu.find('li').each(function(){
+													jQuery(this).find('a').removeClass('on');
+												});
+												jQuery(this).find('a').addClass('on');
+												par.find('ol').hide();
+												if(boxid=='safebox3'){
+													par.find('.cont8').hide();
+												}
+												par.find('.cont'+(idx+1)).show();
+											});
+											jQuery('.safe_depth2_menu li').click(function(){
+												return false;
+											});									
+										});
+										function toggleSafeCont(num){
+											for(var i=1;i<4;i++){
+												jQuery('#safebox'+i).hide();
+											}
+											jQuery('.safe_depth1 li').each(function(){
+												jQuery(this).find('a').removeClass('on');
+											});
+											jQuery('#safebox'+num).show();
+											jQuery('.safe_depth1 li').eq(num-1).find('a').addClass('on');
+											
+										}
+									</script>
+								</div>
+								<!-- //tab_cont4 -->								
+															
+								<div style="display: none;" class="tab_cont5">
+									<h4>품질 보증 및 AS정보</h4>
+									<div class="asbox">
+										<dl>
+											<dt>품질보증</dt>
+											<dd>
+												<img alt="품질보증" src="/images/adidas/common/bg_prod_as_shoes.jpg">
+												<!-- 접근성 (신발일때) -->
+												<div class="blind">
+													<h5>품질보증표시</h5>
+													<table summary="품질보증표시 정보">
+														<caption>품질보증표시 정보</caption>
+														<tbody>
+															<tr>
+																<th scope="col">보증기간</th>
+																<td>판매일로부터 1일</td>
+															</tr>					
+															<tr>
+																<th scope="col">교환장소</th>
+																<td>구입점</td>
+															</tr>
+															<tr>
+																<th scope="col">기술제휴선</th>
+																<td>독일아디다스</td>
+															</tr>
+															<tr>
+																<th scope="col">수입자</th>
+																<td>아디다스코리아 주식회사</td>
+															</tr>
+															<tr>
+																<th scope="col">대표전화</th>
+																<td>1588-8241</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<!-- 접근성 end -->
+											</dd><!-- 신발 -->
+										
+										</dl>
+									</div>
+									<div style="border-bottom-width:0;" class="asbox">
+										<dl>
+											<dt>AS 정책안내</dt>
+											<dd>
+												<img alt="AS 정책안내" src="/images/adidas/common/bg_prod_aspolicy.jpg">
+												<!-- 접근성 
+													작업내용
+														1. 리더기에서 읽을 수 있도록 이미지 설명코드 삽입
+												-->
+												<div class="blind">
+													<p>아디다스 공식 온라인 스토어에서 구매한 제품은 가까운 매장 방문 접수를 통하여 아디다스 A/S 정책에 따른 서비스를 제공 받을 수 있으며, 제품 수선 문의는 소비자상담실 (080-022-7981)에서 가능합니다.</p>
+													<h5>A/S 접수 / 수선 프로세스</h5>
+													<ol>
+														<li>
+															<dl>
+																<dt>01 A/S 제품 접수</dt>
+																<dd>가까운 매장 방문 접수</dd>
+															</dl>
+														</li>
+														<li>
+															<dl>
+																<dt>02 A/S 판정 및 수선</dt>
+																<dd>소비자 상담실 (080-022-7981)에서 판정 및 수선</dd>
+															</dl>													
+														</li>
+														<li>
+															<dl>
+																<dt>03 제품 배송</dt>
+																<dd>접수 매장으로 수선제품 도착 시, 고객에게 안내</dd>
+															</dl>													
+														</li>
+													</ol>
+													<h5>A/S 판정기준 및 비용</h5>
+													<p>A/S 판정은 아디다스 소비자 상담실 (080-022-7981)에서 이루어지며 판정결과는 품질보증기간 및 내용 연수 경과 여부, 제품 하자 또는 소비자 과실 여부에 따라 결정됩니다. 판정결과에 따라 수선비용이 부가될 수 있으며 제품 수선이 불가능할 경우에는 반송이 이루어집니다.<strong>교환 판정 시, 회수 택배비는 무료이며, 소비자과실로 판정되는 경우 배송비는 소비자 부담입니다.</strong></p>
+	
+													<table border="1" style="border:auto" summary="판정기준 및 결과">
+														<caption>판정기준 및 결과</caption>
+														<thead>
+															<tr>
+																<th scope="col" colspan="2" rowspan="3">기준</th>
+																<th scope="colgroup" colspan="4">판정결과</th>
+															</tr>
+															<tr>
+																<th scope="colgroup" colspan="2">수선 가능 시</th>
+																<th scope="colgroup" colspan="2">수선 불가시</th>
+															</tr>
+															<tr>
+																<th scope="col">수선비용</th>
+																<th scope="col">배송비용</th>
+																<th scope="col">수선비용</th>
+																<th scope="col">배송비용</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<th rowspan="2" scope="rowgroup">품질보증 기간이내</th>
+																<th scope="row">제품 하자 시</th>
+																<td>무상수선</td>
+																<td>회사부담</td>
+																<td>교환</td>
+																<td>회사부담</td>
+															</tr>
+															<tr>
+																<th scope="row">소비자 과실 시</th>
+																<td>유상수선 (일부품목 제외)</td>
+																<td>고객부담</td>
+																<td>반송</td>
+																<td>고객부담</td>
+															</tr>
+	
+															<tr>
+																<th rowspan="2" scope="rowgroup">품질보증 기간경과 및 내용연수 경과</th>
+																<th scope="row">제품 하자 시</th>
+																<td>유상수선 (일부품목 제외)</td>
+																<td>회사부담</td>
+																<td>반송</td>
+																<td>회사부담</td>
+															</tr>
+															<tr>
+																<th scope="row">소비자 과실 시</th>
+																<td>유상수선 (일부품목 제외)</td>
+																<td>고객부담</td>
+																<td>반송</td>
+																<td>고객부담</td>
+															</tr>
+	
+														</tbody>
+													</table>
+													<ul>
+														<li>유상수선 판정 시 고객님으로부터 수선비 결제가 완료된 후 제품이 발송됩니다.</li>
+														<li>수선된 제품은 제품의 수령 가능일로부터 1개월 이내에 수령하셔야 하며, 기간이 초과된 경우 제품의 분실이나 훼손 등에 대하여 당사는 책임을 지지 않습니다..</li>
+													</ul>
+												</div>
+												<!-- 접근성 end -->	
+											</dd>
+										</dl>
+									</div>
+								</div>
+								<!-- //tab_cont5 -->															
+															
+							</div>
+							<!-- //tab_wrap -->
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- //contents -->
+		</div>
+		<!-- //container -->
+		<div id="footer_r">
+			<div class="f_linemenu">
+				<div class="ct950">
+					<div class="notice">
+						<strong>공지사항 </strong>
+						<span> <a href="#">아디다스 온라인 스토어 오픈</a></span>
+					</div>
+					<div class="cscenter_num spt_bg">
+						<strong>고객센터 : </strong>
+						<span><em>1588-8241 (무료)</em></span>
+					</div> 
+				</div>
+			</div>	
+			<!-- //f_linemenu -->
+			<div class="sitemap ct950">
+				<div class="sitemap_area1">
+					<div class="box">
+						<dl>
+							<dt>SHOP MEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP WOMEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP KIDS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+					<div class="box">
+						<dl>
+							<dt>SHOP MEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">축구</a></li>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">야구</a></li>
+									<li><a href="#">용품</a></li>
+									<li><a href="#">기타</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP WOMEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP KIDS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">축구</a></li>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">야구</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+					<div class="box">
+						<dl>
+							<dt>MEN'S ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>WOMEN'S ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>KIDS ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+				</div>
+				<!-- sitemap_area1 -->
+				<div class="sitemap_area2">
+					<dl class="sale">
+						<dt>SALE</dt>
+						<dd>
+							<ul>
+								<li><a href="#">Men's Sale</a></li>
+								<li><a href="#">Women's Sale</a></li>
+								<li><a href="#">Kids Sale</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl class="collection">
+						<dt>SHOP COLLECTIONS</dt>
+						<dd>
+							<ul>
+								<li><a href="#">online exclusive</a></li>
+								<li><a href="#">Stella McCartney</a></li>
+								<li><a href="#">Jeremy Scott</a></li>
+								<li><a href="#">Porsche Design Sport</a></li>
+								<li><a href="#">Micoach</a></li>
+								<li><a href="#">adizero</a></li>
+								<li><a href="#">adipure</a></li>
+								<li><a href="#">f50</a></li>
+								<li><a href="#">Predator</a></li>
+								<li><a href="#">Techfit</a></li>
+								<li><a href="#">Terrex</a></li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<!-- //sitemap -->
+			<div class="f_menu">
+				<div class="ct950" style="position:relative;">
+					<ul>
+						<li style="padding-left:0;"><a href="#"><img src="/images/adidas/common/btn_fmenu1.gif" alt="adidas korea"/></a></li>
+						<li><a href="#"><img src="/images/adidas/common/btn_fmenu2.gif" alt="구매 이용약관"/></a></li>
+						<li><a href="#"><img src="/images/adidas/common/btn_fmenu3.gif" alt="개인정보취급방침"/></a></li>
+						<li><a href="#"><img src="/images/adidas/common/btn_fmenu4.gif" alt="아디클럽 이용약관"/></a></li>
+						<li style="border-right-width:0;"><a href="#"><img src="/images/adidas/common/btn_fmenu5.gif" alt="사이트맵"/></a></li>
+					</ul>
+					<a href="#" class="f_top"style="position:absolute;"><img src="/images/adidas/common/btn_fmenu_top.gif" alt="TOP"/></a></a>
+				</div>
+			</div>
+			<!-- //f_menu -->
+			<div class="address ct950">
+				<div class="footer_left">
+					<h1><img src="/images/adidas/common/bg_logo_footer.gif" alt="아디다스 코리아"/></h1>
+					<address><img src="/images/adidas/common/bg_address.gif" alt="" border="0" usemap="#Map4"/>
+                        <map name="Map4" id="Map4">
+                            <area shape="rect" coords="370,26,523,41" href="mailto:adiCLUB_Korea@adidas.com" />
+                    </map>
+                  </address>
+				</div>
+				<div class="footer_right">
+					<img src="/images/adidas/common/footer_info2.gif" alt="" border="0" usemap="#Map5"/>
+					<map name="Map5" id="Map5">
+						<area shape="rect" coords="168,29,260,47" href="javascript:fn_certifiedInfoPopAdi();return false" />
+                        <area shape="rect" coords="228,4,262,23" href="http://ftc.go.kr/info/bizinfo/communicationList.jsp" target="_blank"/>
+					</map>
+				</div>				
+			</div>
+		</div>
+		<!-- //footer -->
+	</div>
+	<!-- //wrap -->
+ </body>
+</html>

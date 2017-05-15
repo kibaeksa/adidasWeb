@@ -1,0 +1,3407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta property="og:title" content="아디다스 공식 온라인 스토어" /> 
+<meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" /> 
+<meta property="og:url" content="http://shop.adidas.co.kr"/>
+<title>아디다스 공식 온라인 스토어 메인페이지</title>
+
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/adidas/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	
+	jQuery('#new_prodlist li').hover(function(){
+		jQuery(this).find('.type').find('.view_quick').stop();
+		jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
+	},function(){
+		jQuery(this).find('.type').find('.view_quick').stop();
+		jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);		
+	});
+
+	// 150924 footer SNS bind event
+	jQuery('.f_sns>div>a.btn').bind('click',function(){
+		if( jQuery(this).siblings('.layer').hasClass('layer') ){
+			if(jQuery(this).hasClass('on')){
+				jQuery(this).removeClass('on');
+				jQuery(this).siblings('.layer').removeClass('open');
+			}else{
+				jQuery('.f_sns>div>a.btn').removeClass('on');
+				jQuery('.f_sns>div>.layer').removeClass('open');
+				jQuery(this).addClass('on');
+				jQuery(this).siblings('.layer').addClass('open');	
+			}
+			return false;
+		}else{
+			return true;	
+		}
+	});
+
+	jQuery('.f_sns>div>.layer>.close').bind('click',function(){
+		jQuery(this).parent().siblings('.btn').removeClass('on');
+		jQuery(this).parent().removeClass('open');
+		return false;
+	});
+	// 150924 end
+
+});
+
+
+
+/* fa funcion 함수 */
+function strCut(obj,len) {
+	var str = obj;
+	var l = 0;
+	for (var i=0; i<str.length; i++) {				
+		l += (str.charCodeAt(i) > 128) ? 2 : 1;
+		if (l > len) return str.substring(0,i) + "..";
+	}
+	return str;
+}
+/* //150513 */
+
+//151116 러닝클럽 종료 안내 팝업 닫기
+function closeRcEndNotiLayer(){
+	jQuery('#popup_rc_end_noti').hide();
+}
+
+
+/* 150513 */
+jQuery(document).ready(function(){
+	var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
+	var title2 = '생일축하 기념 10% 할인 쿠폰';	
+	var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
+
+	jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
+	jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
+});
+/* //150513 */
+
+</script>
+
+</head>
+<body>
+
+<div class="quickview_layer" id="quickview"></div>
+
+	<div id="wrap">
+	
+		<script type="text/javascript" src="/js/adidas/navigation.js"></script>
+		<script type="text/javascript" src="/js/topSearchR.js"></script>
+		<script type="text/javascript" src="/js/validatorUtil.js"></script>
+		<script type="text/javascript" src="/js/search/dqAutoCompleteCommonTop.js"></script>
+		<script type="text/javascript" src="/js/adidas/select_layer.js"></script>
+		<!-- header HTML -->
+
+		<div class="top_bnn" id="div_top_banner" style="display:none; height:0; background: rgb(224, 224, 224);"><img src="http://shop.adidas.co.kr/upload/banner/1f7f977720964eeebd4b31211e6f4102_0324170535.gif" alt="아디클럽 신규회원 가입 시, 아디클럽 1만원 쿠폰 증정!하드웨어 기획전)" border="0" usemap="#topbnn"><map name="topbnn" id="topbnn"><area onclick="fn_closeBanner();return false" href="#" coords="931,0,950,19" shape="rect" onmousedown="fn_trkClickTrace('^탑배너^아디클럽 1만원 쿠폰^닫기')" alt="닫기">   <area shape="poly" coords="741,0,625,120,0,120,0,0" href="http://shop.adidas.co.kr/PF020701.action?PROD_CD=15005987_M">  <area shape="poly" coords="743,0,950,0,950,120,626,120" href="http://shop.adidas.co.kr/PF080101.action"></map></div>
+
+	
+	<!-- 160324 start -->
+	<div id="header-20160315">		
+		<a href="#" class="topbnn_toggle spt_bg"></a>
+		<div class="util_box">
+			<div class="bar_rpt"></div>			
+			<div class="ct950">
+				<h1><a href="#" class="spt_bg">로고</a></h1>
+				<ul class="utils_menu">
+					<li>
+						<a href="#">주문조회</a>
+					</li>
+					<li>
+						<a href="#">가입 후 혜택 받기</a>
+					</li>
+					<li class="login last">
+						<a href="#">로그인</a>
+						<div class="spt_bg ico_login"></div>
+					</li>
+				</ul>
+				<div class="search_area">
+					<div class="search">
+						<form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" action="">
+							<input type="hidden" id="topSiteCD" name="topSiteCD" value="1">
+							<input type="hidden" id="topSearchCheck" name="topSearchCheck" value="0">
+
+							<label for="S_PROD_NM_TOP" class="blind">검색</label>
+							<input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="sh" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onmousedown="dqtop_setTextbox('1',event);" onkeypress="keyDownTop('1',event);">
+							<a href="#" onclick="fn_search_top();" onmousedown="javascript:fn_trkClickTrace('^최상단^검색');" class="spt_bg btn">검색</a>
+
+							<input type="hidden" name="S_SEARCH_WORDS_URL" id="S_SEARCH_WORDS_URL" value="http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=360%20I"><script type="text/javascript" src="/js/search/dqAutoCompleteTopR.js"></script>
+							<div class="search_box" id="dqAutoTop" style="display:none;z-index:1000;" onmouseover="dqtop_setMouseon();" onmouseout="dqtop_setMouseoff();"></div>
+						</form>
+					</div>					
+				</div>
+				<!-- //search_box -->
+				<div class="market">
+					<a href="#">
+						<span class="spt_bg"></span>
+						<strong>6</strong>
+					</a>
+					<div class="market_layer">
+						<div class="market_header">
+							<span>장바구니 </span>
+							<strong>5개</strong>
+							<a href="#" class="spt_bg close">닫기</a>
+						</div>
+
+						<div class="market_body" id="market_body">
+							<div class="mkt_box">
+								<div class="prod_img">
+									<img src="http://shop.adidas.co.kr/upload/prod/basic/94/S20528-1_94X94.jpg" alt="" width="94" height="94">
+								</div>
+								<div class="prod_info">
+									<p class="tit">[Accessories] 클라이마 3S 캡 </p>
+									<p class="prod_code">상품코드 : <span>S20528 (WHITE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : </p>
+									<p class="price">주문금액 : 25,000원</p>
+									<p class="prod_link"><a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=S20528" class="spt_bg">상품 바로가기</a></p>
+								</div>
+							</div>
+							<div class="mkt_box">
+								<div class="prod_img">
+									<img src="http://shop.adidas.co.kr/upload/prod/basic/94/S79030-1_94X94.jpg" width="94" height="94">
+								</div>
+								<div class="prod_info">
+									<p class="tit">[Men's Originals] 로스엔젤레스</p>
+									<p class="prod_code">상품코드 : <span>S79030 (WHITE/WHITE/BLUE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : 95</p>
+									<p class="price">주문금액 : 109,000원</p>
+									<p class="prod_link"><a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=S79030" class="spt_bg">상품 바로가기</a></p>
+								</div>
+							</div>
+							<div class="mkt_box">
+								<div class="prod_img">
+									<img src="http://shop.adidas.co.kr/upload/prod/basic/94/S79030-1_94X94.jpg" width="94" height="94">
+								</div>
+								<div class="prod_info">
+									<p class="tit">[Men's Originals] 로스엔젤레스</p>
+									<p class="prod_code">상품코드 : <span>S79030 (WHITE/WHITE/BLUE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : 95</p>
+									<p class="price">주문금액 : 109,000원</p>
+									<p class="prod_link"><a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=S79030" class="spt_bg">상품 바로가기</a></p>
+								</div>
+							</div>
+							<div class="mkt_box">
+								<div class="prod_img">
+									<img src="http://shop.adidas.co.kr/upload/prod/basic/94/S79030-1_94X94.jpg" width="94" height="94">
+								</div>
+								<div class="prod_info">
+									<p class="tit">[Men's Originals] 로스엔젤레스</p>
+									<p class="prod_code">상품코드 : <span>S79030 (WHITE/WHITE/BLUE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : 95</p>
+									<p class="price">주문금액 : 109,000원</p>
+									<p class="prod_link"><a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=S79030" class="spt_bg">상품 바로가기</a></p>
+								</div>
+							</div>
+							<div class="mkt_box">
+								<div class="prod_img">
+									<img src="http://shop.adidas.co.kr/upload/prod/basic/94/S79030-1_94X94.jpg" width="94" height="94">
+								</div>
+								<div class="prod_info">
+									<p class="tit">[Men's Originals] 로스엔젤레스</p>
+									<p class="prod_code">상품코드 : <span>S79030 (WHITE/WHITE/BLUE)</span></p>
+									<p class="amount">주문수량 : 1개</p>
+									<p class="size">사이즈 : 95</p>
+									<p class="price">주문금액 : 109,000원</p>
+									<p class="prod_link"><a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=S79030" class="spt_bg">상품 바로가기</a></p>
+								</div>
+							</div>
+						</div>
+
+						<div class="market_bottom" id="market_bottom">
+							<div class="total_price">
+								<p>총 주문 금액 : <strong> 451,000</strong> 원</p>
+								<p class="point">예상 포인트 : <span> 22,550 </span><img alt="p" src="/images/adidas/mypage/ico_point.gif"></p>
+							</div>
+
+							<div class="go_market">
+								<a href="http://shop.adidas.co.kr/PF030101.action"><img src="/images/adidas/common/btn_go_market.gif" alt="장바구니 바로가기"></a>
+							</div>
+							<div class="desc"><span class="spt_bg"></span>5만원 이상 주문시 배송비 무료 (단, CUSTOMIZE 제외)</div>
+						</div>
+						<!-- //market_bottom -->
+					</div>
+				</div>
+				<!-- //market -->
+			</div>
+			<!-- //ct950 -->
+		</div>
+		<!-- //utils -->		
+
+		<div class="gnb_menu">
+			<ul class="ct950 clfix">
+				<li>
+					<a href="#">MEN</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">
+								<div class="box col_18">
+									<dl>
+										<dt>남성</dt>
+										<dd>
+											<ul>
+												<!-- 
+												160415 
+												신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
+												-->
+												<li><a href="#"><strong>신상품</strong></a></li>
+												<li><a href="#"><strong>인기상품</strong></a></li>
+												<li class="line"><a href="#"><strong>할인상품</strong></a></li>
+												<li><a href="#"><storng>온라인 단독상품</storng></a></li>
+												<li><a href="#">마이 아디다스</a></li>
+												<li><a href="#">하이라이트 CONCEPT</a></li>
+												<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
+												<!-- 160415 공식아웃렛 span 태그 추가-->
+												<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt><a href="#">신발</a></dt>
+										<dd>
+											<ul>
+												<li><a href="#">라이프스타일</a></li>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">트레이닝</a></li>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>의류</dt>
+										<dd>
+											<ul>
+												<li><a href="#">자켓</a></li>
+												<li><a href="#">트랙탑</a></li>
+												<li><a href="#">긴팔티</a></li>
+												<li><a href="#">반팔티</a></li>
+												<li><a href="#">민소매</a></li>
+												<li><a href="#">긴바지</a></li>
+												<li><a href="#">반바지</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>용품</dt>
+										<dd>
+											<ul>
+												<li><a href="#">공</a></li>
+												<li><a href="#">가방</a></li>
+												<li><a href="#">모자</a></li>
+												<li><a href="#">양밀</a></li>
+												<li><a href="#">시계</a></li>
+												<li><a href="#">디지털 액세서리</a></li>
+												<li><a href="#">피트니스 용품</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18 last">
+									<dl>
+										<dt>스포츠</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">트레이닝</a></li>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+												<li><a href="#">야구</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all">
+								<div class="col_18"><a href="#">남성 전체보기</a></div>
+								<div class="col_18"><a href="#">남성신발 전체보기</a></div>
+								<div class="col_18"><a href="#">남성의류 전체보기</a></div>
+								<div class="col_18"><a href="#">남성용품 전체보기</a></div>
+								<div class="col_18 last"><a href="#">스포츠 전체보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+				<li>
+					<a href="#">WOMEN</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">
+								<div class="box col_18">
+									<dl>
+										<dt>여성</dt>
+										<dd>
+											<ul>
+												<!-- 
+												160415 
+												신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
+												-->
+												<li><a href="#"><strong>신상품</strong></a></li>
+												<li><a href="#"><strong>인기상품</strong></a></li>
+												<li class="line"><a href="#"><strong>할인상품</strong></a></li>
+												<li><a href="#"><strong>온라인 단독상품</strong></a></li>
+												<li><a href="#">마이 아디다스</a></li>
+												<li><a href="#">팬츠 가이드</a></li>
+												<li><a href="#">하이라이트 CONCEPT</a></li>
+												<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
+												<!-- 160415 공식아웃렛 span 태그 추가-->
+												<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>신발</dt>
+										<dd>
+											<ul>
+												<li><a href="#">오리지널스</a></li>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">트레이닝</a></li>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>의류</dt>
+										<dd>
+											<ul>
+												<li><a href="#">브라탑</a></li>
+												<li><a href="#">민소매</a></li>
+												<li><a href="#">반팔티</a></li>
+												<li><a href="#">긴팔티</a></li>
+												<li><a href="#">트랙탑/자켓</a></li>
+												<li><a href="#">반바지</a></li>
+												<li><a href="#">긴바지</a></li>
+												<li><a href="#">스커트/원피스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>용품</dt>
+										<dd>
+											<ul>
+												<li><a href="#">가방</a></li>
+												<li><a href="#">모자</a></li>
+												<li><a href="#">양밀</a></li>
+												<li><a href="#">시계</a></li>
+												<li><a href="#">디지털 액세서리</a></li>
+												<li><a href="#">피트니스 용품</a></li>
+												<li><a href="#">공</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18 last">
+									<dl>
+										<dt>스포츠</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">트레이닝</a></li>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+												<li><a href="#">수영</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all">
+								<div class="col_18"><a href="#">여성 전체보기</a></div>
+								<div class="col_18"><a href="#">여성신발 전체보기</a></div>
+								<div class="col_18"><a href="#">여성의류 전체보기</a></div>
+								<div class="col_18"><a href="#">여성용품 전체보기</a></div>
+								<div class="col_18 last"><a href="#">스포츠 전체보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+				<li class="line">
+					<a href="#">KIDS</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">
+								<div class="box col_18">
+									<dl>
+										<dt>키즈</dt>
+										<dd>
+											<ul>
+												<!-- 
+												160415 
+												신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
+												-->
+												<li><a href="#"><strong>신상품</strong></a></li>
+												<li><a href="#"><strong>인기상품</strong></a></li>
+												<li class="line"><a href="#"><strong>할인상품</strong></a></li>
+												<li><a href="#"><strong>온라인 단독상품</strong></a></li>
+												<li><a href="#">마이 아디다스</a></li>
+												<li><a href="#">하이라이트 CONCEPT</a></li>
+												<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
+												<!-- 160415 공식아웃렛 span 태그 추가-->
+												<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>유아 (3-36개월)</dt>
+										<dd>
+											<ul>
+												<li><a href="#">신발</a></li>
+												<li><a href="#">의류</a></li>
+												<li><a href="#">용품</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>남아 (4세-13세)</dt>
+										<dd>
+											<ul>
+												<li><a href="#">신발</a></li>
+												<li><a href="#">의류</a></li>
+												<li><a href="#">용품</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>여아 (4세-13세)</dt>
+										<dd>
+											<ul>
+												<li><a href="#">신발</a></li>
+												<li><a href="#">의류</a></li>
+												<li><a href="#">용품</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18 last">
+									<dl>
+										<dt>스포츠</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">트레이닝</a></li>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+												<li><a href="#">수영</a></li>
+												<li><a href="#">기타</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all">
+								<div class="col_18"><a href="#">키즈 전체보기</a></div>
+								<div class="col_18"><a href="#">유아 전체보기</a></div>
+								<div class="col_18"><a href="#">남아 전체보기</a></div>
+								<div class="col_18"><a href="#">여아 전체보기</a></div>
+								<div class="col_18 last"><a href="#">스포츠 전체보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+				<li class="sports">
+					<a href="#">SPORTS</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">
+								<div class="box img_box col_14">
+									<dl>
+										<dt><a href="#">축구</a></dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn1.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box img_box col_14">
+									<dl>
+										<dt>러닝</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn2.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box img_box col_14">
+									<dl>
+										<dt>농구</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn3.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box img_box col_14">
+									<dl>
+										<dt>트레이닝</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn4.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box img_box col_14">
+									<dl>
+										<dt>아웃도어</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn5.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box etcbox col_13 last">
+									<dl>
+										<dt>기타</dt>
+										<dd>
+											<ul>
+												<li><a href="#">아웃도어</a></li>
+												<li><a href="#">테니스</a></li>
+												<li><a href="#">수영</a></li>
+												<li><a href="#">야구</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all img_box">
+								<div class="col_14"><a href="#">축구 전체보기</a></div>
+								<div class="col_14"><a href="#">러닝 전체보기</a></div>
+								<div class="col_14"><a href="#">농구 전체보기</a></div>
+								<div class="col_14"><a href="#">트레이닝 전체보기</a></div>
+								<div class="col_14"><a href="#">아웃도어 전체보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+				<li class="brands line">
+					<a href="#">BRANDS</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">
+								<div class="box img_box col_17 originals">
+									<dl>
+										<dt>
+											<span class="spt_bg">Originals</span>
+										</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn10.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box img_box col_17 neo">
+									<dl>
+										<dt>
+											<span class="spt_bg">adidas neo</span>
+										</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn11.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box img_box col_17 stella">
+									<dl>
+										<dt>
+											<span class="spt_bg">Stella McCartney</span>
+										</dt>
+										<dd>
+											<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn12.jpg" alt="" /></a></div>
+											<ul>
+												<li class="depth3_wrapper">
+													<a href="#">신발</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">의류</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+												<li class="depth3_wrapper">
+													<a href="#">용품</a>
+													<div class="depth3">
+														<a href="#">남성</a>
+														<a href="#">여성</a>
+														<a href="#">키즈</a>
+													</div>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box etcbox col_17 last">
+									<dl>
+										<dt>캠페인</dt>
+										<dd>
+											<ul>
+												<li><a href="#">오리지널스 플래그쉽</a></li>
+												<li><a href="#">TUBULA</a></li>
+												<li><a href="#">KIDS</a></li>
+												<li><a href="#">스텔라 스포츠</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box etcbox col_17">
+									<dl>
+										<dt>컬렉션</dt>
+										<dd>
+											<ul>
+												<li><a href="#">온라인 단독상품</a></li>
+												<li><a href="#">화이트 마운티니어링</a></li>
+												<li><a href="#">포르쉐 디자인</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all img_box">
+								<div class="col_17"><a href="#">전체보기</a></div>
+								<div class="col_17"><a href="#">전체보기</a></div>
+								<div class="col_17"><a href="#">전체보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+				<li>
+					<a href="#">CUSTOMISE</a>
+					<div class="depth2_contents">
+						<div class="ct950">
+							<div class="ctgr_box">								
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>마이 아디다스</dt>
+										<dd>
+											<ul>
+												<li><a href="#">제품1</a></li>
+												<li><a href="#">제품2</a></li>
+												<li><a href="#">제품3</a></li>
+												<li><a href="#">제품4</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box col_18">
+									<dl>
+										<dt>남성</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">오리지널스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box col_18">
+									<dl>
+										<dt>여성</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">오리지널스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+								<div class="box col_18">
+									<dl>
+										<dt>키즈</dt>
+										<dd>
+											<ul>
+												<li><a href="#">축구</a></li>
+												<li><a href="#">농구</a></li>
+												<li><a href="#">러닝</a></li>
+												<li><a href="#">오리지널스</a></li>
+											</ul>
+										</dd>
+									</dl>
+								</div>
+								<!-- //box -->
+
+								<div class="box col_18 last">
+									<div class="img"><a href="#"><img src="/images/adidas/temp/gnb_bnn13.jpg" alt="" /></a></div>
+								</div>
+								<!-- //box -->								
+							</div>
+							<!-- //ctgr_box -->
+
+							<div class="view_all">
+								<div class="col_18"><a href="#">전체보기</a></div>
+								<div class="col_18"><a href="#">남성 전체보기</a></div>
+								<div class="col_18"><a href="#">여성 전체보기</a></div>
+								<div class="col_18"><a href="#">키즈 전체보기</a></div>
+								<div class="col_18 last"><a href="#">제작방법 알아보기</a></div>
+							</div>
+						</div>
+						<!-- //ct950 -->
+					</div>
+					<!-- //depth2_contents -->
+				</li>
+			</ul>
+		</div>
+		<!-- //gnb_menu -->
+	</div>
+	<!-- 160324 end -->
+
+
+
+		
+	<div id="container_r">	
+			
+		<style type="text/css">
+			#climazone{
+				width: 100%;
+				min-width:1200px;
+				background: #fff;
+				position: relative;
+				overflow: hidden;
+			}
+
+			#climazone .button{
+				width: 285px;
+				height: 57px;
+				display: block;
+				text-align: center;
+				font:16px/57px 'adiBlack','NotoSansKR','Nanum Gothic';
+				/*letter-spacing: 3px;*/
+				color: #000;
+				border:2px solid #000;
+			}
+			#climazone .button:hover{
+				color: #fff;
+				background: #000;
+			}
+
+			#climazone>.header{
+				width: 950px;
+				margin: 0 auto;
+				padding:30px 0;
+				overflow: hidden;
+			}
+
+			#climazone>.header *{
+				float: left;
+				color: #000;
+			}
+
+			#climazone>.header h2{
+				position: relative;
+				font:32px 'adinenu-bold';
+			}
+
+			#climazone>.header span{
+    			margin: 5px 0 0 15px;
+    			padding:4px 0 0 15px;
+				font:19px 'adinenuPro-light';
+				border-left:2px solid #dbdbdb;
+				letter-spacing:2px;
+			}
+
+			#climazone>.box{
+				width: 100%;
+				position: relative;
+			}
+
+			#climazone>.box .inner{
+				width: 1300px;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			.ie7 #climazone>.box .inner{
+				z-index: 10;
+			}
+
+			#climazone>.box .imgbox{
+				position: absolute;
+				z-index: 10;
+			}
+
+			#climazone>.box .imgbox p.desc{
+				margin-top: 10px;
+				font:14px 'adiLight';
+				letter-spacing: 1px;
+				color: #000;
+			}
+
+			#climazone>.box .imgbox>img{
+				width: 100%;
+			}
+
+			#climazone>.box .textbox{
+				position: absolute;
+				z-index: 11;
+			}
+
+			#climazone>.box .textbox .tit{
+				position: relative;
+				margin-bottom:40px;
+				font:25px/36px 'adinenuPro-bold';
+				color: #000;
+				letter-spacing:8px;
+				background:url('/images/adidas/event/climazone/text_bg_red.png') 0 0 no-repeat;
+				-webkit-background-size: 150% 150%;
+				background-size: 150% 150%;
+				background-clip: text;
+				-ms-background-clip: text;
+				-webkit-background-clip: text;
+				text-fill-color: transparent;
+				-ms-text-fill-color: transparent;
+			    -webkit-text-fill-color: transparent;
+			    background-color: black;
+			}
+
+			.ie #climazone>.box .textbox .tit{
+				background:none;
+				color: #000;
+			}
+
+			#climazone>.box .textbox.big .tit{
+				font:45px/58px 'adiBlack';
+				letter-spacing:10px;
+			}
+
+			#climazone>.box .textbox .tit::after{
+				content:'';
+				width:30px;
+				height: 1px;
+				background: #000;
+				position: absolute;
+				bottom:-20px;
+				left: 0;
+			}
+
+			#climazone .tbox_slider{
+				position: absolute;				
+				z-index: 10;
+			}
+
+			#climazone .tbox_slider .textbox{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#climazone .tbox_slider .textbox>*{
+				transition:all 0.5s ease-in-out;
+				-webkit-transition:all 0.5s ease-in-out;
+			}
+				
+
+			#climazone .tbox_slider .textbox .tit{
+				transform:translate3d(-10px,0,0);
+				-webkit-transform:translate3d(-10px,0,0);
+				opacity: 0;
+				-ms-filter: alpha(opacity=0);
+				filter: alpha(opacity=0);
+			}
+
+			#climazone .tbox_slider .textbox .desc{
+				transform:translate3d(-10px,0,0);
+				-webkit-transform:translate3d(-10px,0,0);
+				opacity: 0;	
+				-ms-filter: alpha(opacity=0);
+				filter: alpha(opacity=0);
+			}
+
+			#climazone .tbox_slider .textbox.active .tit{
+				opacity: 1;
+				-ms-filter: alpha(opacity=100);
+				filter: alpha(opacity=100);
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);
+			}
+
+			#climazone .tbox_slider .textbox.active .tit::after{
+				width: 30px;
+				opacity: 1;
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);	
+			}
+
+			#climazone .tbox_slider .textbox.active .desc{
+				opacity: 1;
+				-ms-filter: alpha(opacity=100);
+				filter: alpha(opacity=100);
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);
+			}
+
+			#climazone .roll_img{
+				
+			}
+
+			#climazone .roll_img .arrow{
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				top:50%;
+				right:20px;
+				background:url('/images/adidas/event/climazone/btn.png') -80px 0 no-repeat;
+				z-index: 15;
+				transform:translateY(-50%);
+				-webkit-transform:translateY(-50%);				
+			}
+
+			#climazone .roll_img .control{
+				width:32px;
+				height:100%;
+				position: absolute;
+				top: 0;
+				right:-42px;
+			}
+
+			#climazone .roll_img.ctrl-left .control{
+				right: auto;
+				left:-52px;
+			}
+
+			#climazone .roll_img .control .heading{
+				height:22%;
+    			width: 100%; 
+				position: relative;
+			}
+			#climazone .roll_img .control .heading h5{
+				-webkit-transform: rotate(270deg);
+			    -moz-transform: rotate(270deg);
+			    -ms-transform: rotate(270deg);
+			    -o-transform: rotate(270deg);
+			    transform: rotate(270deg);
+			    position: absolute;
+			    top: 0;
+			    transform-origin: top right;
+			    height: 32px;
+			    width: 100%;
+			    margin: 0;
+			    padding: 0;
+			    left: -32px;
+			    line-height: 32px;
+			}
+
+			#climazone .roll_img .control .heading h5 span{
+				position: absolute;
+			    right: 0;
+			    top: 0;
+			    height: 100%;
+			    font:15px 'adinenuPro-light','helvetica','arial',sans-serif;
+			    letter-spacing: 2px;
+			    color: #000;
+			    padding-top:13px;
+			}
+
+			#climazone .roll_img .control .butotns{
+				width: 100%;
+				height: 88%;
+				position: absolute;
+				bottom: 0;
+			}
+
+			#climazone .roll_img .control .butotns .btn{
+				position: relative;
+				height: 20%;
+				cursor: pointer;
+			}
+
+			#climazone .roll_img.box-3 .control .butotns .btn{
+				height: 33.3%;
+			}
+
+			#climazone .roll_img .control .butotns .btn.on .label{
+				margin-left:25px;
+			}
+
+			#climazone .roll_img .control .butotns .btn.on .circle{
+				opacity:1;
+				-ms-filter: alpha(opacity=100);
+				filter: alpha(opacity=100);
+				transform:scale(1);
+				-webkit-transform:scale(1);
+			}
+
+			#climazone .roll_img .control .butotns .btn .arrow{
+				opacity: 0;
+				position: absolute;
+				top:45px;
+				left:7px;
+				width:18px;
+				height:8px;
+				display: block;
+				background:url('/images/adidas/event/climazone/btn.png') 0 -80px no-repeat;
+				transform: rotate(90deg) translate3d(5px,0,0);
+				-webkit-transform: rotate(90deg) translate3d(5px,0,0);
+				transition:all 0.3s;
+				-webkit-transition:all 0.3s;
+			}
+
+			.ie7 #climazone .roll_img .control .butotns .btn .arrow,
+			.ie8 #climazone .roll_img .control .butotns .btn .arrow,
+			.ie9 #climazone .roll_img .control .butotns .btn .arrow{
+				display: none;
+			}
+
+			#climazone .roll_img .control .butotns .btn.on .arrow{
+				opacity: 1;
+				transform: rotate(90deg) translate3d(0,0,0);
+				-webkit-transform: rotate(90deg) translate3d(0,0,0);
+			}
+
+			#climazone .roll_img.ctrl-left .control .butotns .btn .arrow{
+				top:-20px;
+				left:7px;
+				transform: rotate(-90deg) translate3d(5px,0,0);
+				-webkit-transform: rotate(-90deg) translate3d(5px,0,0);
+			}
+
+			#climazone .roll_img.ctrl-left .control .butotns .btn.on .arrow{
+				transform: rotate(-90deg) translate3d(0,0,0);
+				-webkit-transform: rotate(-90deg) translate3d(0,0,0);
+			}
+
+			#climazone .roll_img .control .butotns .btn .btn_inn{
+				-webkit-transform: rotate(270deg);
+				-moz-transform: rotate(270deg);
+				-ms-transform: rotate(270deg);
+				-o-transform: rotate(270deg);
+				transform: rotate(270deg);
+				position: absolute;
+				width: 100%;
+				height: 32px;
+				transform-origin: top right;
+				letter-spacing:-2px;
+				top: 100%;
+				margin-top: -32px;
+				padding-left:5px;
+				left: -32px;
+			}
+
+			#climazone .roll_img .control .butotns .btn .label{
+				font:15px 'adinenuPro-light','helvetica','arial',sans-serif;
+			    text-transform: uppercase;
+			    margin-bottom:10px;
+			    letter-spacing:2px;
+			    width: 32px;
+			    height: 32px;
+			    line-height: 32px;
+			    margin-left: 16px;
+			    margin-bottom: -16px;
+			    position: absolute;
+			    left: 50%;
+			    bottom: 50%;
+			    cursor: pointer;
+			    width: 100%;
+			    color: #000;
+			}
+
+			#climazone .roll_img .control .butotns .btn .icon{
+				width: 32px;
+				height: 32px;
+				position: relative;
+			}
+
+			#climazone .roll_img .control .butotns .btn .dot{
+				width:5px;
+				height:5px;
+				background: #000;
+				border-radius:5px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin:-2.5px 0 0 -2.5px;
+			}
+
+			#climazone .roll_img .control .butotns .btn .circle{
+				width:30px;
+				height:30px;
+				border:1px solid #000;
+				border-radius:32px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+				-ms-filter: alpha(opacity=0);
+				filter: alpha(opacity=0);
+				transform:scale(0);
+				-webkit-transform:scale(0);
+			}
+
+			#climazone .roll_img .images{
+				width: 100%;
+				height: 100%;
+				position: relative;
+				background: #000;
+			}
+
+			#climazone .roll_img .images .box{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				perspective:500px;
+				-webkit-perspective:500px;								
+			}
+
+			#climazone .roll_img .images .box img{
+				width: 100%;
+				opacity: 0;
+				-ms-filter: alpha(opacity=0);
+				filter: alpha(opacity=0);
+				transform:translate3d(0,0,40px);
+				-webkit-transform:translate3d(0,0,40px);
+				transition:opacity 1s,transform 1s ease-in-out;
+				-webkit-transition:opacity 1s,-webkit-transform 1s ease-in-out;
+			}
+
+			#climazone .roll_img .images .box.active img{
+				opacity: 1;
+				-ms-filter: alpha(opacity=100);
+				filter: alpha(opacity=100);
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);
+				transition:opacity 1s,transform 3s cubic-bezier(0.41, 0.15, 0, 0.86);
+				-webkit-transition:opacity 1s,-webkit-transform 3s cubic-bezier(0.41, 0.15, 0, 0.86);
+			}			
+
+			#climazone .roll_img .images:hover .box img{
+				transform:translate3d(0,0,40px);
+				-webkit-transform:translate3d(0,0,40px);
+			}
+
+			#climazone .roll_img .color_name{
+				width: 100%;
+				height: 20px;
+				position: absolute;
+				bottom:-35px;
+				left: 0;
+			}
+
+			#climazone .roll_img .color_name span{
+				opacity: 0;
+				-ms-filter: alpha(opacity=0);
+				filter: alpha(opacity=0);
+				position: absolute;
+				top: 0;
+				left: 0;
+				font:14px 'adiLight';
+				color: #000;
+				letter-spacing: 1px;
+				transition:opacity 0.5s;
+				-webkit-transition:opacity 0.5s;
+			}
+			#climazone .roll_img .color_name span.on{
+				opacity: 1;
+				-ms-filter: alpha(opacity=100);
+				filter: alpha(opacity=100);
+			}
+
+			#climazone>.box .textbox .desc{
+				margin-bottom:50px;
+				font:16px/22px 'NotoSansKRRegular','Nanum Gothic';
+				letter-spacing:2px;
+				color: #000;
+			}
+
+			#climazone>.box .textbox .desc strong{
+				display: block;
+				font:18px/18px 'NotoSansKR','Nanum Gothic';
+				margin-bottom: 10px;
+			}
+
+			#climazone>.intro{
+				height:1224px;
+			}
+
+			#climazone>.intro .tree_l{
+				width: 855px;
+				z-index:7;
+				top:20px;
+			}
+
+			#climazone>.intro .tree_r{
+				width: 855px;
+				z-index: 5;
+			}
+
+			#climazone>.intro .img1{
+				width:760px;
+				top: 321px;
+    			left: 555px;
+			}
+
+			#climazone>.intro .img2{
+				width: 950px;
+				top: 300px;
+			    left: 400px;
+			    z-index: 6;
+			}
+
+			#climazone>.intro .img3{
+				width: 475px;
+				top: 160px;
+    			left: 190px;
+    			z-index: 9;
+			}
+
+			#climazone>.intro .tree_r{
+				top: 320px;
+				right: 0;
+			}
+
+			#climazone>.intro .txt{
+				top: 1095px;
+    			left:560px;
+				font:40px 'NotoSansKrBold','Nanum Gothic';
+				color: #fff;
+				opacity: 0.8;
+			}
+
+			#climazone>.intro .txt2{
+				top: 850px;
+    			left: 565px;
+			}
+
+			#climazone>.intro .txt2 span{
+				font:55px 'adinenuPro-bold';
+				color: #369dd3;
+				display: none;
+			}	
+
+			.ie7 #climazone>.intro .txt2,
+			.ie8 #climazone>.intro .txt2{
+				top: 860px;
+			}
+
+			.ie7 #climazone>.intro .txt2 span,
+			.ie8 #climazone>.intro .txt2 span{
+				display: block;
+			}
+
+			#climazone>.video{
+				height: 1170px;
+			}
+
+			#climazone>.video .txtbg{
+				width: 1710px;
+				left: -380px;
+				top: 150px;
+			}
+
+			#climazone>.video .tree1{
+				width: 760px;
+				left: 0;
+    			top: 515px;
+				z-index: 5;
+			}
+
+			#climazone>.video .roll_video{
+				width: 760px;
+				height:430px;
+				right: 10px;
+    			top: 560px;
+			}
+
+			#climazone>.video .roll_video .images .box{
+				background: #000;
+			}
+
+			#climazone>.video .roll_video .images .box .play{
+				width: 116px;
+			    height: 116px;
+			    display: block;
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin: -58px 0px 0px -58px;
+			    z-index: 5;
+			    background: url("/images/adidas/event/btn_mi_guide_video.png") -130px 0px no-repeat;
+			    opacity:0.3;
+			}
+			#climazone>.video .roll_video .images .box .play:hover{
+				opacity:1;
+			}
+
+			#climazone>.video .roll_video .images:hover .box img{
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);
+			}
+
+			#climazone>.video .roll_video .images .box.active{
+				z-index: 15;
+			}
+
+			#climazone>.video .roll_video .images .box iframe{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 25;
+			}
+				
+
+			#climazone>.layout2{
+				height:1575px;	
+			}
+
+			#climazone>.layout2 .txtbg{
+				width: 1150px;
+				top:360px;
+				left: -220px;
+			}
+
+			.m1400 #climazone>.layout2 .txtbg{
+				left: -500px;
+			}
+
+			#climazone>.layout2 .img1{
+				width: 380px;
+				top: 180px;
+				right:85px;
+			}
+
+			#climazone>.layout2 .img2{
+				width:570px;
+				top: 570px;
+				left: 95px;
+			}
+
+			#climazone>.layout2 .tbox1{
+				width: 465px;
+			    top: 65px;
+			    left: 283px;
+			}
+
+			.m1400 #climazone>.layout2 .tbox1{
+				top:100px;
+			}
+
+			#climazone>.layout2 .tbox2{
+				width:480px;
+				top: 880px;
+				left: 750px;
+			}
+
+			/* layout3 */
+			#climazone>.layout3{
+				height: 3691px;
+			}
+
+			#climazone>.layout3 .tbgbox1{
+				width: 760px;
+				top:100px;
+				right: -30px;
+			}
+
+			#climazone>.layout3 .tbgbox2{
+				width:332px;
+				top:1000px;
+				left: -120px;
+				z-index: 6;
+			}
+
+			.m1400 #climazone>.layout3 .tbgbox2{
+				left:-260px;
+			}
+
+			#climazone>.layout3 .tree1{
+				width: 760px;
+				left: 0;
+				top: 0;
+				z-index: 6;
+			}
+
+			#climazone>.layout3 .tree2{
+				width:665px;
+				z-index: 6;
+				top:2800px;
+				right: 0;
+			}
+
+			#climazone>.layout3 .img1{
+				width:570px;
+				top:420px;
+				left: 120px;
+			}
+
+			#climazone>.layout3 .img2{
+				width: 475px;
+				top: 825px;
+				z-index: 8;
+			}
+
+			#climazone>.layout3 .tbox1{
+				width: 400px;
+				top: 650px;
+    			left: 855px;
+			}
+
+			#climazone>.layout3 .roll_img{
+				width: 380px;
+				height: 600px;
+				top:1260px;
+    			left: 855px;
+			}
+
+			#climazone>.layout3 .roll_img.tech_roll{
+				width: 475px;
+				height: 665px;
+				top: 2020px;
+    			left: 630px;
+			}
+
+			.m1400 #climazone>.layout3 .roll_img.tech_roll{
+				left: 720px;
+			}
+
+			#climazone>.layout3 .tbox_slider{
+				top: 2120px;
+				left:90px;
+			}
+
+			.m1400 #climazone>.layout3 .tbox_slider{
+				left: 160px;
+			}
+
+			#climazone>.layout3 .roll_img.details{
+				width: 570px;
+				height: 860px;
+				top: 2830px;
+    			left: 90px;
+			}
+
+			/* layout4 */
+			#climazone>.layout4{
+				height:3590px;
+			}
+
+			#climazone>.layout4 .tbgbox1{
+				width: 950px;
+				right:150px;
+				top:-80px;
+				z-index: 6;
+			}
+
+			#climazone>.layout4 .img1{
+				width: 570px;
+				left: 640px;
+    			top: 580px;
+			}
+
+			#climazone>.layout4 .img2{
+				width: 475px;
+				z-index: 5;
+				left: 935px;
+    			top: 370px;
+			}
+
+			#climazone>.layout4 .wire{
+				width: 100%;
+				min-width: 950px;
+				z-index: 5;
+				left: 0;
+    			top: 1380px;
+			}
+
+			#climazone>.layout4 .tbox1{
+				width:500px;
+				top: 690px;
+    			left: 110px;
+			}
+
+			#climazone>.layout4 .roll_img.colours{
+				width:380px;
+				height:600px;
+				top:1300px;
+				left:100px;
+			}
+
+			#climazone>.layout4 .roll_img.tech_roll{
+				width: 475px;
+				height: 665px;
+				top: 2010px;
+    			left: 680px;
+			}
+
+			#climazone>.layout4 .tbox_slider{
+				top:2120px;
+				left:100px;
+			}
+
+			#climazone>.layout4 .details{
+				width: 855px;
+				height: 568px;
+				top: 2840px;
+    			left: 180px;
+			}
+
+			#climazone>.shop_clima{
+				
+			}
+
+			#climazone>.shop_clima .logo{
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+				z-index: 15;
+				font:55px 'adinenuPro-bold';
+				color: #369dd3;
+			}
+			#climazone>.shop_clima .logo span{
+				display: none;
+			}
+
+			.ie7 #climazone>.shop_clima span,
+			.ie8 #climazone>.shop_clima span{
+				display:inline;
+			}
+
+			#climazone>.shop_clima .imgbox{
+				width: 100%;
+				position: relative;
+			}
+
+			#climazone>.shop_clima .box_container{
+				width: 100%;
+				position: absolute;
+				bottom:150px;
+				left: 0;
+				z-index: 12;
+			}
+
+			#climazone>.shop_clima .box_container>.container_inn{
+				padding: 0 0.5%;
+			}
+
+			#climazone>.shop_clima .box_container .box{
+				width: 33%;
+				float: left;
+			}
+
+			#climazone>.shop_clima .box_container .box .inn{
+				padding: 30px;
+				
+			}
+
+			#climazone>.shop_clima .box_container .box.men .inn{
+				padding:0 0 0 60px;
+			}
+
+			#climazone>.shop_clima .box_container .box.women .inn{
+				padding:0 30px;
+			}
+
+			#climazone>.shop_clima .box_container .box.kids .inn{
+				padding:0 60px 0 0;
+			}
+
+			#climazone>.shop_clima .box_container .box .inn .contents{
+				position: relative;
+				overflow: hidden;
+				background: #000;
+				perspective:500px;
+				-webkit-perspective:500px;
+			}
+
+			#climazone>.shop_clima .box_container .box .inn .contents img{
+				width: 100%;
+				transition:transform 4s ease-out;
+				-webkit-transition:transform 4s ease-out;
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);
+			}
+
+			#climazone>.shop_clima .box_container .box .inn .contents .button{
+				position: absolute;
+				top:50%;
+				left:50%;
+				margin:0 0 0 -145px;
+				color: #fff;
+				border-color: #fff;
+				transform:translateY(-50%);
+				-webkit-transform:translateY(-50%);
+			}
+
+			#climazone>.shop_clima .box_container .box .inn .contents:hover img{
+				transform:translate3d(0,0,10px);
+				-webkit-transform:translate3d(0,0,10px);
+			}
+
+			#climazone>.shop_clima .box_container .box .inn .contents .button:hover{
+				background: #fff;
+				border-color: #fff;
+				color: #000;
+			}
+
+			#climazone>.slider{
+				background: #000;
+			}
+
+			#climazone>.slider .arw_prev{
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				top:50%;
+				margin-top:-35px;
+				left:20px;
+				background:url('/images/adidas/event/climazone/btn.png') 0 0 no-repeat;
+				z-index: 15;
+			}
+
+			#climazone>.slider .arw_next{
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				top:50%;
+				margin-top:-35px;
+				right:20px;
+				background:url('/images/adidas/event/climazone/btn.png') -80px 0 no-repeat;
+				z-index: 15;
+			}
+
+			#climazone>.slider>.box_image{
+				opacity: 0;
+				visibility: hidden;
+				z-index: 0;
+			}
+
+			#climazone>.slider>.images_stage{
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 10;
+			}
+
+			#climazone>.slider>.images_stage div{
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+				transition:all 0.5s;
+				-webkit-transition:all 0.5s;
+				background: #000;
+			}
+
+			.ie7 #climazone>.slider>.images_stage div,
+			.ie8 #climazone>.slider>.images_stage div,
+			.ie9 #climazone>.slider>.images_stage div{
+				display: none;
+				opacity: 1;
+			}
+
+			#climazone>.slider>.images_stage .active{
+				opacity: 1;
+				transition:all 1s;
+				-webkit-transition:all 1s;
+			}
+
+			#climazone>.slider .bg_black{
+				width: 100%;
+				height: 100%;
+				background: #000;
+				transition:opacity 0.8s;
+				-webkit-transition:opacity 0.8s;
+				z-index:12;
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+			}
+			#climazone>.slider .bg_black.active{
+				opacity: 1;
+				transition:opacity 0.2s;
+				-webkit-transition:opacity 0.2s;
+			}
+
+			.ie7 #climazone>.slider .bg_black,
+			.ie8 #climazone>.slider .bg_black,
+			.ie9 #climazone>.slider .bg_black{
+				display: none;
+			}
+
+			#climazone>.slider>.images_stage img{
+				width: 100%;
+			}
+
+			#climazone>.slider>.images_stage .zoom{
+				overflow: hidden;
+				perspective:500px;
+				-webkit-perspective:500px;
+			}
+			#climazone>.slider>.images_stage .zoom img{
+				transition:transform 5s;
+				-webkit-transition:-webkit-transform 5s;
+				transform:translate3d(0,0,20px);
+				-webkit-transform:translate3d(0,0,20px);
+			}
+
+			#climazone>.slider>.images_stage .zoom.active img{
+				transform:translate3d(0,0,0);
+				-webkit-transform:translate3d(0,0,0);	
+			}
+
+
+		</style>
+
+		<div id="climazone">
+			<div class="header">
+				<h2>climazone</h2>
+				<span>ALL-WEATHER PERFORMANCE</span>
+			</div>
+			<div class="intro box">
+				<div class="inner">
+					<div class="imgbox img1"><img src="/images/adidas/event/climazone/heading.png" alt="" /></div>
+					<div class="imgbox img2"><img src="/images/adidas/event/climazone/bg-portrait-2.jpg" alt="" /></div>
+					<div class="imgbox img3"><img src="/images/adidas/event/climazone/run-sequence-4.jpg" alt="" /></div>	
+					<div class="imgbox tree_l"><img src="/images/adidas/event/climazone/bg-portrait-1.jpg" alt="" /></div>
+					<div class="imgbox txt">날씨가 사라지는 순간, 클라이마칠</div>
+					<div class="imgbox txt2">
+						<span>climachill</span>
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="100" viewBox="0 0 97.1 16.9"><defs><path id="a" d="M18.1 16.6h3.4V4.2h-3.4v12.4zm66.1 0h3.4V4.2h-3.4v12.4zm-37.6-6.1c0-1.8 1.4-3.3 3.3-3.3s3.4 1.5 3.4 3.3c0 1.9-1.5 3.3-3.4 3.3s-3.3-1.5-3.3-3.3m-3.3 0c0 3.6 2.9 6.3 6.3 6.3 1.4 0 2.8-.4 3.6-1.1v.9h3.4V4.2h-3.4v1c-.9-.7-2.2-1.1-3.6-1.1-3.4 0-6.3 2.8-6.3 6.4M33.2 5.7C32.3 4.5 31.1 4 29.7 4c-1.7 0-2.8.8-3.4 1.5V4.2H23v12.4h3.4V9.8c0-1.7 1-2.7 2.5-2.7 1.3 0 2.1 1 2.1 2.4v7.2h3.3V9.8c0-1.7 1-2.7 2.5-2.7 1.3 0 2.1 1 2.1 2.4v7.2h3.3V8.9c0-3-1.8-5-4.9-5-1.8.1-3.1.7-4.1 1.8M0 10.4c0 3.6 2.7 6.5 6.6 6.5 2.7 0 4.6-1.3 5.8-3.2L9.8 12c-.6 1-1.5 1.8-3.1 1.8-2 0-3.3-1.4-3.3-3.4S4.7 7 6.7 7c1.5 0 2.4.8 3.1 1.8l2.6-1.6c-1.2-1.9-3.1-3.3-5.8-3.3C2.7 3.9 0 6.8 0 10.4m57.7 0c0 3.6 2.7 6.5 6.6 6.5 2.7 0 4.6-1.3 5.8-3.2L67.5 12c-.6 1-1.5 1.8-3.1 1.8-2 0-3.3-1.4-3.3-3.4S62.4 7 64.4 7c1.5 0 2.4.8 3.1 1.8l2.6-1.6c-1.1-2-3.1-3.3-5.8-3.3-3.9 0-6.6 2.9-6.6 6.5m-44.3 6.2h3.4V0h-3.4v16.6zm4.7-13.5h3.4V0h-3.4v3.1zm53-3.1v16.6h3.4V9.8c0-1.7 1.1-2.8 2.7-2.8 1.4 0 2.3 1 2.3 2.5v7.1h3.3V9c0-3-1.9-5-4.8-5-1.7 0-3.1.8-3.6 1.5V0h-3.3zm13.1 3.1h3.4V0h-3.4v3.1zM89 16.6h3.4V0H89v16.6zm4.7 0h3.4V0h-3.4v16.6z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><linearGradient id="c" gradientUnits="userSpaceOnUse" y1="16.914" x2="1" y2="16.914" gradientTransform="matrix(97.106 0 0 -97.106 -40.563 1650.792)"><stop offset="0" stop-color="#375493"/><stop offset=".001" stop-color="#375493"/><stop offset="1" stop-color="#35B5E8"/></linearGradient><path clip-path="url(#b)" fill="url(#c)" d="M0 0h97.1v16.9H0z"/></svg>
+					</div>
+				</div>
+				<div class="imgbox tree_r"><img src="/images/adidas/event/climazone/1.jpg" alt="" /></div>
+			</div>
+			<!-- //intro -->
+
+			<div class="video box">
+				<div class="imgbox txtbg"><img src="/images/adidas/event/climazone/6.png" alt="" /></div>
+				<div class="imgbox tree1"><img src="/images/adidas/event/climazone/2.jpg" alt=""></div>
+				<div class="inner">
+					<div id="roll-video" class="imgbox roll_img roll_video ctrl-left">
+						<div class="images">
+							<div class="box active">
+								<a href="javascript:void(0)" class="play"></a>
+								<img src="/images/adidas/event/climazone/video1.jpg" alt="">
+							</div>
+							<div class="box">
+								<a href="javascript:void(0)" class="play"></a>
+								<img src="/images/adidas/event/climazone/video2.jpg" alt="">
+							</div>
+							<div class="box">
+								<a href="javascript:void(0)" class="play"></a>
+								<img src="/images/adidas/event/climazone/video3.jpg" alt="">
+							</div>
+							<div class="box">
+								<a href="javascript:void(0)" class="play"></a>
+								<img src="/images/adidas/event/climazone/video4.jpg" alt="">
+							</div>
+							<div class="box">
+								<a href="javascript:void(0)" class="play"></a>
+								<img src="/images/adidas/event/climazone/video5.jpg" alt="">
+							</div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>MOVIES</span></h5></div>
+							<div class="butotns">
+								<div class="btn on">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">01</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">02</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">03</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">04</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">05</div>
+									</div>
+								</div>
+							</div>
+							<!-- //butotns -->
+						</div>
+						<!-- //control -->
+					</div>
+					<!-- //roll_img roll_video -->
+				</div>
+			</div>
+			<!-- //video -->
+
+			<div class="layout2 box">				
+				<div class="imgbox txtbg"><img src="/images/adidas/event/climazone/5.png" alt="" /></div>
+				<div class="inner">
+					<div class="imgbox img1">
+						<img src="/images/adidas/event/climazone/photo-1.jpg" alt="" />
+						<p class="desc">JASON RICHARDSON | 110M HURDLER</p>
+					</div>
+					<div class="imgbox img2">
+						<img src="/images/adidas/event/climazone/photo-2.jpg" alt="" />
+						<p class="desc">BRIE FELNAGLE | 5000M RUNNER</p>
+					</div>
+					<div class="textbox tbox1">
+						<p class="tit">SUPER-COOL<br/>AND DRY<br/>IN THE HOTTEST<br/>WEATHER.</p>
+						<p class="desc">
+							<strong>클라이마칠: 쿨링의 승리. 클라이마칠</strong>
+							서브 제로 티타늄의 멈추지 않는 쿨링과<br/>
+							폴라 파이버 원단의  탁월한 통기성으로 더위를 압도하다. <br/>
+							더위는 나를 절대 이길 수 없다. <br/><br/>
+							지금 이 순간, 날씨는 없다. <br/>
+							날씨가 사라지는 순간, 클라이마칠.
+						</p>
+					</div>
+
+					<div class="textbox tbox2">
+						<p class="tit">I DESTROY HEAT<br/>AND SWEAT OUT<br/>WEAKNESS.</p>
+						<p class="desc">나는 날씨를 모른다. 나약함 따위도 모른다.<br/>이성의 영역을 벗어난 태양만큼 뜨거운 공간,<br/>그 누구도 가지 않는 그곳으로 나는 질주한다.<br/>나약한 변명이 사라지고 강인한 몸이 만들어지는 극한의 공간.<br/>타는 듯한 태양 아래에서 나는 비로소 깨어난다.<br/>나는 단순히 더위를 견디지 않는다.<br/>더위를 영원히 사라지게 만든다.<br/>  날씨가 사라지는 순간, 클라이마칠.</p>
+						<a href="/PF070102.action?mainId=44&amp;subId=5154" class="button">클라이마칠 제품보기</a>
+					</div>	
+				</div>
+			</div>
+			<!-- //layout2 -->
+
+			<div id="clima_slider" class="box slider">
+				<a href="javascript:void(0)" class="arw_prev"></a>
+				<a href="javascript:void(0)" class="arw_next"></a>
+				<img class="box_image" src="/images/adidas/event/climazone/01.jpg" alt="" style="width:100%;min-width:950px;"/>
+				<div class="bg_black"></div>
+				<div class="images_stage"></div>
+			</div>
+
+			<div class="layout3 box">
+				<div class="imgbox tree1"><img src="/images/adidas/event/climazone/2.jpg" alt="" /></div>
+				<div class="imgbox txtbg tbgbox1"><img src="/images/adidas/event/climazone/1.png" alt="" /></div>
+				<div class="imgbox txtbg tbgbox2"><img src="/images/adidas/event/climazone/2.png" alt="" /></div>
+				<div class="imgbox tree2"><img src="/images/adidas/event/climazone/3.jpg" alt="" /></div>
+
+				<div class="inner">
+					<div class="imgbox img1">
+						<img src="/images/adidas/event/climazone/hero-1.jpg" alt="" />
+					</div>
+					<div class="img2 imgbox"><img src="/images/adidas/event/climazone/product1/bg-portrait-1.jpg" alt="" /></div>
+					<div class="textbox tbox1 big">
+						<p class="tit">WOMEN’S<br/>CLIMACHILL<br/>TANK</p>
+						<p class="desc"><strong>클라이마칠 탱크탑</strong>타는 듯한 태양 아래에서 나는 더욱 강해진다.<br/>궁극의 통기성으로 더위를 잠재우는<br/>서브-제로 폴라 파이버 소재.<br/>오늘, 더위가 사라진다. </p>
+						<a href="/PF070102.action?mainId=44&amp;subId=5154#st_11952" class="button">클라이마칠 여성 제품보기</a>
+					</div>
+
+					<div id="product-women-color" class="imgbox roll_img">
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product1/colors-1.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/colors-2.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/colors-3.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/colors-4.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/colors-5.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>COLOURS</span></h5></div>
+							<div class="butotns">
+								<div class="btn on">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">01</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">02</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">03</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">04</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">05</div>
+									</div>
+								</div>
+							</div>
+							<!-- //butotns -->
+						</div>
+						<!-- //control -->
+
+						<div class="color_name">
+							<span class="on">SHOCK GREEN</span>
+							<span>SHOCK PINK</span>
+							<span>SEMI SOLAR SLIME</span>
+							<span>MINERAL RED</span>
+							<span>BLACK MELANGE</span>
+						</div>
+					</div>
+					<!-- //roll_img //model -->
+
+					<div id="product-women-tech" class="imgbox roll_img tech_roll box-3 ctrl-left">
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product1/tech-1a.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/tech-2a.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/tech-3a.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>TECHNOLOGY</span></h5></div>
+							<div class="butotns">
+								<div class="btn on">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">01</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">02</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">03</div>
+									</div>
+								</div>
+							</div>
+							<!-- //butotns -->
+						</div>
+						<!-- //control -->
+					</div>
+					<!-- //roll_img tech -->
+
+					<div class="tbox_slider">
+						<div class="textbox t_techbox1 big active">
+							<p class="tit">MOST<br/>BREATHABLE<br/>EVER</p>
+							<p class="desc"><strong>궁극의 통기성</strong>열과 습기를 효과적으로 배출하는<br/>폴라 파이버 메쉬의 탁월한 통기성</p>
+						</div>	
+
+						<div class="textbox t_techbox2 big">
+							<p class="tit">INSTANT<br/>COOL<br/>SENSATION</p>
+							<p class="desc"><strong>닿는 순간 느껴지는 시원한 촉감</strong>짧은 접촉만으로 뜨거운 신체 부위를<br/>차갑게 식혀주는 알루미늄 도트의<br/>직감적인 쿨링</p>
+						</div>	
+
+						<div class="textbox t_techbox3 big">
+							<p class="tit">NON-STOP<br/>COOLING</p>
+							<p class="desc"><strong>멈추지 않는 강력한 쿨링</strong>피부의 쿨링 면적을 극대화하는<br/>혁신적인 서브 제로 티타늄 파이버.</p>
+						</div>	
+					</div>
+
+					<div id="product-women-details" class="imgbox roll_img roll_slider details ctrl-left">
+						<a href="javascript:void(0)" class="arrow"></a>
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product1/detail-1.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/detail-2.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/detail-3.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/detail-4.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/detail-5.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product1/detail-6.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>DETAILS</span></h5></div>
+						</div>
+						<!-- //control -->
+					</div>
+					<!-- //roll_img tech -->
+
+				</div>
+				<!-- //inner -->
+			</div>
+			<!-- //layout3 -->
+
+			<div class="layout4 box">
+				<div class="imgbox txtbg tbgbox1"><img src="/images/adidas/event/climazone/3.png" alt="" /></div>
+				<div class="imgbox wire"><img src="/images/adidas/event/climazone/product2/1.jpg" alt="" /></div>
+
+				<div class="inner">
+					<div class="imgbox img1">
+						<img src="/images/adidas/event/climazone/product2/hero-1.jpg" alt="" />
+					</div>
+					<div class="img2 imgbox"><img src="/images/adidas/event/climazone/product2/bg-portrait-1.jpg" alt="" /></div>
+					<div class="textbox tbox1 big">
+						<p class="tit">MEN’S<br/>CLIMACHILL<br/>TEE</p>
+						<p class="desc"><strong>클라이마칠 남성 상의</strong>타는 듯한 더위를 차갑게 식히는 서브-제로 쿨링.<br/>폴라 파이버의 강력한 통기성이 완성하는 궁극의 흡습속건 기능.<br/>알루미늄 도트로 피부에 닿는 순간 온 몸에 퍼지는 시원한 촉감.<br/>더위는 절대 나를 이길 수 없다.</p>
+						<a href="/PF070102.action?mainId=44&amp;subId=5154#st_11971" class="button">클라이마칠 남성 제품보기</a>
+					</div>
+
+					<div id="product-men-color" class="imgbox roll_img colours ctrl-left">
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product2/colors-1.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/colors-2.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/colors-3.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/colors-4.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/colors-5.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>COLOURS</span></h5></div>
+							<div class="butotns">
+								<div class="btn on">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">01</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">02</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">03</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">04</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">05</div>
+									</div>
+								</div>
+							</div>
+							<!-- //butotns -->
+						</div>
+						<!-- //control -->
+						<div class="color_name">
+							<span class="on">SHOCK GREEN</span>
+							<span>MINERAL RED</span>
+							<span>SEMI SOLAR SLIME</span>
+							<span>SHOCK RED</span>
+							<span>SHOCK BLUE</span>
+						</div>
+					</div>
+					<!-- //roll_img //model -->
+
+					<div id="product-men-tech" class="imgbox roll_img tech_roll box-3 ctrl-left">
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product2/tech-1a.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/tech-2a.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/tech-3a.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>TECHNOLOGY</span></h5></div>
+							<div class="butotns">
+								<div class="btn on">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">01</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">02</div>
+									</div>
+								</div>
+								<div class="btn">
+									<div class="btn_inn">
+										<div class="icon">
+											<div class="dot"></div>
+											<div class="circle"></div>
+											<div class="arrow"></div>
+										</div>
+										<div class="label">03</div>
+									</div>
+								</div>
+							</div>
+							<!-- //butotns -->
+						</div>
+						<!-- //control -->
+					</div>
+					<!-- //roll_img tech -->
+
+					<div class="tbox_slider">
+						<div class="textbox t_techbox1 big active">
+							<p class="tit">MOST<br/>BREATHABLE<br/>EVER</p>
+							<p class="desc"><strong>궁극의 통기성</strong>열과 습기를 효과적으로 배출하는<br/>폴라 파이버 메쉬의 탁월한 통기성</p>
+						</div>	
+
+						<div class="textbox t_techbox2 big">
+							<p class="tit">INSTANT<br/>COOL<br/>SENSATION</p>
+							<p class="desc"><strong>닿는 순간 느껴지는 시원한 촉감</strong>짧은 접촉만으로 뜨거운 신체 부위를<br/>차갑게 식혀주는 알루미늄 도트의<br/>직감적인 쿨링</p>
+						</div>		
+
+						<div class="textbox t_techbox3 big">
+							<p class="tit">NON-STOP<br/>COOLING</p>
+							<p class="desc"><strong>멈추지 않는 강력한 쿨링</strong>피부의 쿨링 면적을 극대화하는<br/>혁신적인 서브 제로 티타늄 파이버.</p>
+						</div>	
+					</div>
+
+					<div id="product-men-details" class="imgbox roll_img roll_slider details">
+						<a href="javascript:void(0)" class="arrow"></a>
+						<div class="images">
+							<div class="box active"><img src="/images/adidas/event/climazone/product2/detail-1.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/detail-2.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/detail-3.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/detail-4.jpg" alt="" /></div>
+							<div class="box"><img src="/images/adidas/event/climazone/product2/detail-5.jpg" alt="" /></div>
+						</div>
+						<div class="control">
+							<div class="heading"><h5><span>DETAILS</span></h5></div>
+						</div>
+						<!-- //control -->
+					</div>
+					<!-- //roll_img tech -->
+
+				</div>
+				<!-- //inner -->
+			</div>
+			<!-- //layout4 -->
+
+			<div class="box shop_clima">
+				<div class="logo" style="text-align: center;">
+					<span>climachill</span>
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="100" viewBox="0 0 97.1 16.9"><defs><path id="a" d="M18.1 16.6h3.4V4.2h-3.4v12.4zm66.1 0h3.4V4.2h-3.4v12.4zm-37.6-6.1c0-1.8 1.4-3.3 3.3-3.3s3.4 1.5 3.4 3.3c0 1.9-1.5 3.3-3.4 3.3s-3.3-1.5-3.3-3.3m-3.3 0c0 3.6 2.9 6.3 6.3 6.3 1.4 0 2.8-.4 3.6-1.1v.9h3.4V4.2h-3.4v1c-.9-.7-2.2-1.1-3.6-1.1-3.4 0-6.3 2.8-6.3 6.4M33.2 5.7C32.3 4.5 31.1 4 29.7 4c-1.7 0-2.8.8-3.4 1.5V4.2H23v12.4h3.4V9.8c0-1.7 1-2.7 2.5-2.7 1.3 0 2.1 1 2.1 2.4v7.2h3.3V9.8c0-1.7 1-2.7 2.5-2.7 1.3 0 2.1 1 2.1 2.4v7.2h3.3V8.9c0-3-1.8-5-4.9-5-1.8.1-3.1.7-4.1 1.8M0 10.4c0 3.6 2.7 6.5 6.6 6.5 2.7 0 4.6-1.3 5.8-3.2L9.8 12c-.6 1-1.5 1.8-3.1 1.8-2 0-3.3-1.4-3.3-3.4S4.7 7 6.7 7c1.5 0 2.4.8 3.1 1.8l2.6-1.6c-1.2-1.9-3.1-3.3-5.8-3.3C2.7 3.9 0 6.8 0 10.4m57.7 0c0 3.6 2.7 6.5 6.6 6.5 2.7 0 4.6-1.3 5.8-3.2L67.5 12c-.6 1-1.5 1.8-3.1 1.8-2 0-3.3-1.4-3.3-3.4S62.4 7 64.4 7c1.5 0 2.4.8 3.1 1.8l2.6-1.6c-1.1-2-3.1-3.3-5.8-3.3-3.9 0-6.6 2.9-6.6 6.5m-44.3 6.2h3.4V0h-3.4v16.6zm4.7-13.5h3.4V0h-3.4v3.1zm53-3.1v16.6h3.4V9.8c0-1.7 1.1-2.8 2.7-2.8 1.4 0 2.3 1 2.3 2.5v7.1h3.3V9c0-3-1.9-5-4.8-5-1.7 0-3.1.8-3.6 1.5V0h-3.3zm13.1 3.1h3.4V0h-3.4v3.1zM89 16.6h3.4V0H89v16.6zm4.7 0h3.4V0h-3.4v16.6z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><linearGradient id="c" gradientUnits="userSpaceOnUse" y1="16.914" x2="1" y2="16.914" gradientTransform="matrix(97.106 0 0 -97.106 -40.563 1650.792)"><stop offset="0" stop-color="#375493"/><stop offset=".001" stop-color="#375493"/><stop offset="1" stop-color="#35B5E8"/></linearGradient><path clip-path="url(#b)" fill="url(#c)" d="M0 0h97.1v16.9H0z"/></svg>
+				</div>
+				<div class="imgbox">
+					<img src="/images/adidas/event/climazone/bg.jpg" alt="" />
+				</div>
+				<div class="box_container">
+					<div class="container_inn">
+						<div class="box men">
+							<div class="inn">
+								<div class="contents">
+									<img src="/images/adidas/event/climazone/shop_women.jpg" alt="" />
+									<a href="/PF070102.action?mainId=44&amp;subId=5154#st_11952" class="button">여성 제품보기</a>
+								</div>
+							</div>
+						</div>
+						<div class="box women">
+							<div class="inn">
+								<div class="contents">
+									<img src="/images/adidas/event/climazone/shop_men.jpg" alt="" />
+									<a href="/PF070102.action?mainId=44&amp;subId=5154#st_11971" class="button">남성 제품보기</a>
+								</div>
+							</div>
+						</div>
+						<div class="box kids">
+							<div class="inn">
+								<div class="contents">
+									<img src="/images/adidas/event/climazone/shop_kids.jpg" alt="" />
+									<a href="/PF070102.action?mainId=44&amp;subId=5154#11972" class="button">키즈 제품보기</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //container_inn -->
+				</div>
+				<!-- //box_container -->
+			</div>
+			<!-- //shop_clima -->
+
+		</div>
+		<!-- //climazone -->
+
+		<script type="text/javascript">
+			(function($){
+
+				setWindowSize();
+
+				function setWindowSize(){
+					if( $(window).width() <= 1400 && $(window).width() > 1000 ){
+						$('html').removeClass('m1000').addClass('m1400');
+					}else if($(window).width() <= 1000){
+						$('html').removeClass('m1400').addClass('m1000');
+					}else{
+						$('html').removeClass('m1400').removeClass('m1000');
+					}
+				}
+
+				var ua = navigator.userAgent;
+				var isIE = ua.search(/MSIE/) > -1 ? true : false;
+				if(!isIE){
+					isIE = ua.search(/Trident/) > -1 ? true : false;
+				}
+				var isIEUnder9v = ua.match(/(?:MSIE\s)(\d+).\d/) && ua.match(/(?:MSIE\s)(\d+).\d/)[1] <= 9;
+				var ieVersion = isIEUnder9v != undefined ? ua.match(/(?:MSIE\s)(\d+).\d/)[1] : false;
+				if(isIE){
+					$('html').addClass('ie ie'+ieVersion);
+					if(isIEUnder9v){
+						$('html').addClass('old_ie');
+					}
+				}
+
+				$(window).resize(function(){
+					setWindowSize();
+				});
+
+
+
+
+				$('#roll-video .control .btn').bind('click',function(){
+					if($(this).hasClass('on')){
+						return false;
+					}
+					$('#roll-video .images .box').find('iframe').remove();
+				});
+
+				$('#roll-video .images .box .play').bind('click',function(){
+					var videoArr = [
+						'-gGtWmdQg1k',
+						'YChOrFCy8qM',
+						'AxVN2yXYNQ0',
+						'4_b5fhtT6dE',
+						'7aXBcimIz1s'
+					];
+
+					$('#roll-video .images .box').find('iframe').remove();
+
+					var elem = $(this).parent();
+					var index = elem.index();
+					elem.append('<iframe width="760" height="430" src="http://www.youtube.com/embed/'+videoArr[index]+'?autoplay=1" frameborder="0" allowfullscreen></iframe>');
+
+				});
+
+				function rollImage(id,ops){					
+					var obj = $('#'+id);
+					var imagesElem = obj.find('.images .box');
+					var index = 0;
+					var prevIdx = -1;
+					var length = imagesElem.length;
+					var isAnimating = false;
+					var options = $.extend({
+						type : '',
+						callback : false
+					},ops);
+
+					if(options.type == 'arrow'){
+						var arrowElem = obj.find('.arrow');
+
+						arrowElem.bind('click',function(){
+							isAnimating = true;
+
+							if(index == length-1){
+								prevIdx = index;
+								index = 0;	
+							}else{
+								prevIdx = index;
+								index = index+1;
+							}
+
+
+							if(ieVersion && ieVersion < 10){
+								imagesElem.eq(prevIdx).fadeOut();
+							}else{
+								imagesElem.eq(prevIdx).removeClass('active');	
+							}
+
+							setTimeout(function(){
+								if(ieVersion && ieVersion < 10){
+									imagesElem.eq(index).fadeIn('active');
+								}else{
+									imagesElem.eq(index).addClass('active');	
+								}
+								
+								isAnimating = false;
+							},400);
+
+							if(!!options.callback){
+								options.callback.call(obj,index);
+							}
+
+							return false;
+						});				
+					}else{
+						var btnElem = obj.find('.control .butotns .btn');
+
+						btnElem.bind('click',function(){
+							if( $(this).hasClass('on') || isAnimating){
+								return false;
+							}
+
+							isAnimating = true;
+
+							prevIdx = index;
+							index = $(this).index();
+
+							imagesElem.eq(prevIdx).removeClass('active');
+
+							btnElem.eq(prevIdx).removeClass('on');
+							btnElem.eq(index).addClass('on');
+
+							setTimeout(function(){
+								imagesElem.eq(index).addClass('active');
+								isAnimating = false;
+							},500);
+
+							if(!!options.callback){
+								options.callback.call(obj,index);
+							}
+
+							return false;
+						});				
+					}
+				}
+
+				rollImage('roll-video');
+
+				rollImage('product-women-color',{
+					callback : function(index){
+						this.find('.color_name span').removeClass('on');
+						this.find('.color_name span').eq(index).addClass('on')
+					}
+				});
+				rollImage('product-women-tech',{
+					callback : function(index){
+						$('.layout3 .tbox_slider .textbox').removeClass('active');
+						setTimeout(function(){
+							$('.layout3 .tbox_slider .textbox').eq(index).addClass('active');
+						},100);
+					}
+				});
+
+				rollImage('product-men-color',{
+					callback : function(index){
+						this.find('.color_name span').removeClass('on');
+						this.find('.color_name span').eq(index).addClass('on')
+					}
+				});
+				rollImage('product-men-tech',{
+					callback : function(index){
+						$('.layout4 .tbox_slider .textbox').removeClass('active');
+						setTimeout(function(){
+							$('.layout4 .tbox_slider .textbox').eq(index).addClass('active');
+						},100);
+					}
+				});
+
+				rollImage('product-women-details',{
+					type : 'arrow'
+				});
+				rollImage('product-men-details',{
+					type : 'arrow'
+				});
+
+				function slider(){
+					var width = $(window).width();
+					var height = width * 0.5555555555555556;
+
+					var obj = $('#clima_slider .images_stage');
+					var index = 0;
+					var count = 0;
+					var length = 23;
+					var sceneArray = [4,4,3,2,2,3,5];
+					var sceneLength = sceneArray[0];
+					var sceneIndex = 0;
+
+					var sceneInfo = [
+						{
+							zoom : false
+						},
+						{
+							dir : 'right',
+							zoom : true
+						},
+						{
+							dir : 'left',
+							zoom : true,
+							size : 'middle'
+						},
+						{
+							dir : 'right'
+						},
+						{
+							zoom : false
+						},
+						{
+							dir : 'left',
+							zoom : true
+						},
+						{
+							dir : 'right',
+							zoom : true,
+							size  : 'middle'
+						},
+						{
+							dir : 'left',
+							zoom : true
+						},
+						{
+							zoom : true
+						},
+						{
+							dir : 'right',
+							zoom : true
+						},
+						{
+							dir : 'left',
+							zoom : true,
+							size : 'middle'
+						},
+						{
+							zoom : true
+						},
+						{
+							dir : 'left',
+							zoom : false
+						},
+						{
+							zoom : true
+						},
+						{
+							dir : 'right',
+							zoom : true,
+							size : 'middle'
+						},
+						{
+							zoom : true
+						},
+						{
+							dir : 'right',
+							zoom : true
+						},
+						{
+							dir : 'left',
+							size : 'middle'
+						},
+						{
+							zoom : true
+						},
+						{
+							dir : 'right',
+							zoom : true
+						},
+						{
+							size : 'middle',
+							dir : 'right',
+							zoom : true
+						},
+						{
+							dir : 'left'
+						},
+						{
+							dir : 'right'
+						}
+					];
+
+					$(window).resize(function(){
+						width = $(window).width();
+						height = width * 0.5555555555555556;
+					});
+
+					function setElement(elemInfo,num){
+						/*
+						{
+							dir : left / right / undefined(middle)
+							size : middle / undefined (full)
+							zoom : true / false
+						}
+						*/
+						var elem = $('<div>');
+						var imgSrc = '/images/adidas/event/climazone/lookbook/'+(num < 9 ? '0'+(num+1) : num+1) +'.jpg';
+
+						if(elemInfo.size == 'middle'){
+							elem.css({
+								width : width/2*0.6,
+								left : elemInfo.dir == 'left' ? width/2*0.2 :  width/2*0.2 + (width/2),
+								top : height*0.11
+							});	
+						}else{
+							if(elemInfo.dir == undefined){
+								elem.css({
+									width:'100%'
+								});	
+							}else{
+								elem.css({
+									width:'50%'
+								});	
+
+								if(elemInfo.dir == 'right'){
+									elem.css({
+										left : '50%'
+									});
+									
+								}
+							}
+						}
+
+						if(elemInfo.zoom == true){
+							elem.addClass('zoom');
+						}
+
+						elem.append('<img src="'+imgSrc+'" alt=""/>');
+						
+						return {
+							elem : elem,
+							imgSrc : imgSrc
+						};
+
+					}
+
+					function putElement(elem,imgSrc){
+						obj.append(elem);
+						var img = new Image();
+						img.onload = function(){
+							setTimeout(function(){
+								if(ieVersion && ieVersion < 10){
+									elem.fadeIn();
+								}else{
+									elem.addClass('active');
+								}
+								
+							},10);
+						};
+
+						img.src = imgSrc;
+					}
+
+					function removeElement(elemIdx){
+						if(ieVersion && ieVersion < 10){
+							obj.find('div').eq(elemIdx+1).fadeOut();
+						}else{
+							obj.find('div').eq(elemIdx+1).removeClass('active');	
+						}
+						
+						setTimeout(function(){
+							obj.find('div').eq(elemIdx+1).remove();
+						},300);
+					}
+
+					function resetElement(){
+						var i =0;
+						var c = count - (sceneLength-1);
+						var length = sceneLength;
+						
+						for(; i < length ; i++){
+							
+							var elemObj = setElement(sceneInfo[c],c);
+							putElement(elemObj.elem,elemObj.imgSrc);
+							c += 1;
+						}
+					}
+
+					function reset(cb){
+						if(ieVersion && ieVersion < 10){
+							$('.bg_black').fadeIn(200);
+						}else{
+							$('.bg_black').addClass('active');
+						}
+						
+						setTimeout(function(){
+							obj.html('');
+							cb.call(window);
+						},300);
+						
+
+						setTimeout(function(){
+							if(ieVersion && ieVersion < 10){
+								$('.bg_black').fadeOut(800);
+							}else{
+								$('.bg_black').removeClass('active');	
+							}
+						},500);
+						
+					}
+
+					$('#clima_slider .arw_prev').bind('click',function(){
+						if(count == 0){
+							sceneIndex = sceneArray.length-1;
+							sceneLength = sceneArray[sceneIndex];
+							index = sceneLength-1;
+							count = length-1;
+
+							var elemObj = setElement(sceneInfo[count]);
+							reset(function(){
+								resetElement();
+							});
+
+						}else if(index == 0 && count > 0){							
+							sceneIndex -= 1;
+							sceneLength = sceneArray[sceneIndex];
+							index = sceneLength-1;
+							count -= 1;
+
+							var elemObj = setElement(sceneInfo[count]);
+							reset(function(){
+								resetElement();
+							});
+						}else{
+							count -= 1;
+							index -= 1;	
+							removeElement(index);
+						}
+					});
+
+					$('#clima_slider .arw_next').bind('click',function(){
+						if(count == length-1){
+							index = 0;
+							sceneIndex = 0;
+							count = 0;
+							sceneLength = sceneArray[0];
+
+							var elemObj = setElement(sceneInfo[count],count);
+							
+							reset(function(){
+								putElement(elemObj.elem,elemObj.imgSrc);
+							});
+
+						}else if(index == sceneLength-1){
+							index = 0;
+							sceneIndex += 1;
+							sceneLength = sceneArray[sceneIndex];
+							count += 1;
+
+							var elemObj = setElement(sceneInfo[count],count);
+							reset(function(){
+								putElement(elemObj.elem,elemObj.imgSrc);
+							});
+						}else{
+							count += 1;
+							index += 1;	
+							var elemObj = setElement(sceneInfo[count],count);
+							putElement(elemObj.elem,elemObj.imgSrc);
+						}
+					});
+
+					var elemObj = setElement(sceneInfo[0],0);
+					putElement(elemObj.elem,elemObj.imgSrc);
+
+					// obj
+				}
+
+				slider();
+				
+			})(jQuery);
+		</script>
+	</div>
+
+		<div id="footer_r" class="m20160302">
+		<!-- footer HTML -->
+
+			<div class="f_linemenu">
+				<div class="ct950">
+					<div class="notice">
+						<strong><a href="#">공지사항</a></strong>
+						<span> <a href="#">아디다스 온라인 스토어 오픈</a></span>
+					</div>
+					<div class="cscenter_num spt_bg">
+						<strong><a href="#">고객센터</a> : </strong>
+						<span><em>1588-8241</em></span>
+					</div> 
+				</div>
+			</div>	
+			<!-- //f_linemenu -->
+		
+			<div class="sitemap ct950">
+				<div class="sitemap_area1">
+					<div class="box">
+						<dl>
+							<dt>SHOP MEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP WOMEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP KIDS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">연령별</a></li>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<div class="dlbox">
+							<!-- 
+							160302 arial 클래스 제거
+							<p class="sale arial"><a href="#">SALE</a></p>
+							<p class="arial"><a href="#">NEW ARRIVALS</a></p>
+							<p class="arial" style="margin-bottom:49px;"><a href="#">HOT ITEMS</a></p>
+							 -->
+							<p class="sale"><a href="#">SALE</a></p>
+							<p><a href="#">NEW ARRIVALS</a></p>
+							<p style="margin-bottom:49px;"><a href="#">HOT ITEMS</a></p>
+						</div>
+						<dl>
+							<dt>CUSTOMER SERVICE</dt>
+							<dd>
+								<ul>
+									<li><a href="#">FAQ</a></li>
+									<li><a href="#">1:1 문의</a></li>
+									<li><a href="#">공지사항</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+					<div class="box">
+						<dl>
+							<dt>SHOP MEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">축구</a></li>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">야구</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP WOMEN</dt>
+							<dd>
+								<ul>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>SHOP KIDS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">축구</a></li>
+									<li><a href="#">농구</a></li>
+									<li><a href="#">러닝</a></li>
+									<li><a href="#">테니스</a></li>
+									<li><a href="#">아웃도어</a></li>
+									<li><a href="#">트레이닝</a></li>
+									<li><a href="#">스윔</a></li>
+									<li><a href="#">야구</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl class="collection">
+							<dt>SHOP COLLECTIONS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">online exclusive</a></li>
+									<li><a href="#">Stella McCartney</a></li>
+									<li><a href="#">Jeremy Scott</a></li>
+									<li><a href="#">Micoach</a></li>
+									<li><a href="#">adizero</a></li>
+									<li><a href="#">adipure</a></li>
+									<li><a href="#">f50</a></li>
+									<li><a href="#">Predator</a></li>
+									<li><a href="#">Techfit</a></li>
+									<li><a href="#">Terrex</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>MY PAGE</dt>
+							<dd>
+								<ul>
+									<li><a href="#">회원가입</a></li>
+									<li><a href="#">회원정보 수정</a></li>
+									<li><a href="#">주문/배송조회</a></li>
+									<li><a href="#">취소/반품조회</a></li>
+									<li><a href="#">취소/반품 결제대기</a></li>
+									<li><a href="#">증빙서류발급</a></li>
+									<li><a href="#">쿠폰 현황</a></li>
+									<li><a href="#">포인트 현황</a></li>
+									<li><a href="#">관심상품</a></li>
+									<li><a href="#">배송지 관리</a></li>
+									<li><a href="#">나의 이벤트 현황</a></li>
+									<li><a href="#">내가 작성한 상품평</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+					<div class="box">
+						<dl>
+							<dt>MEN'S ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>WOMEN'S ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>KIDS ORIGINALS</dt>
+							<dd>
+								<ul>
+									<li><a href="#">신발</a></li>
+									<li><a href="#">의류</a></li>
+									<li><a href="#">용품</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<div class="dlbox">
+							<!-- 
+							160302 arial 클래스 제거
+							<p class="arial"><a href="#">PROMOTION</a></p>
+							<p class="arial"><a href="#">TECHNOLOGY</a></p>
+							 -->
+							<p><a href="#">PROMOTION</a></p>
+							<p><a href="#">TECHNOLOGY</a></p>
+							<dl>
+								<dt>ADICLUB</dt>
+								<dd>
+									<ul>
+										<li><a href="#">아디클럽소개</a></li>
+										<li><a href="#">캠페인</a></li>
+										<li><a href="#">체험단</a></li>
+									</ul>
+								</dd>
+							</dl>
+						</div>
+						<dl>
+							<dt>POLICIES</dt>
+							<dd>
+								<ul>
+									<li><a href="#">구매 이용약관</a></li>
+									<li><a href="#">개인정보 취급방침</a></li>
+									<li><a href="#">아디클럽 이용약관</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!-- //box -->
+				</div>
+				<!-- sitemap_area1 -->
+			</div>
+			<!-- //sitemap -->
+
+
+			<!-- /footer HTML -->
+			<div class="f_menu">				
+				<div class="ct950" style="position:relative;">
+					<!-- 160302 다른국가 사이트 레이어 -->
+					<div class="country_selector">
+						<a href="javascript:void(0)" class="btn spt_bg"></a>
+						<ul>
+							<li class="nation1"><a href="http://www.adidas.com/us/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^미국');"><span class="spt_bg">&nbsp;</span>United States</a></li>
+							<li class="nation2"><a href="http://www.adidas.ca/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^캐나다');"><span class="spt_bg">&nbsp;</span>Canada</a></li>
+							<li class="nation3"><a href="http://www.adidas.de/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^독일');"><span class="spt_bg">&nbsp;</span>Germany</a></li>
+							<li class="nation4"><a href="http://www.adidas.fr/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^프랑스');"><span class="spt_bg">&nbsp;</span>France</a></li>
+							<li class="nation5"><a href="http://www.adidas.nl/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^네덜란드');"><span class="spt_bg">&nbsp;</span>The Netherlands</a></li>
+							<li class="nation6"><a href="http://www.adidas.co.uk/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^영국');"><span class="spt_bg">&nbsp;</span>United Kingdom</a></li>
+							<li class="nation7"><a href="http://www.adidas.es/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^스페인');"><span class="spt_bg">&nbsp;</span>Spain</a></li>
+							<li class="nation8"><a href="http://www.adidas.it/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^이탈리아');"><span class="spt_bg">&nbsp;</span>Italy</a></li>
+							<li class="nation9"><a href="http://www.adidas.ru/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^러시아');"><span class="spt_bg">&nbsp;</span>Russia</a></li>
+							<li class="nation10"><a href="http://shop.adidas.jp/pc/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^일본');"><span class="spt_bg">&nbsp;</span>Japan</a></li>
+							<li class="nation11"><a href="http://shop.adidas.cn/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^중국');"><span class="spt_bg">&nbsp;</span>China</a></li>
+							<li class="nation12"><a href="http://www.adidas.co/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^콜롬비아');"><span class="spt_bg">&nbsp;</span>Colombia</a></li>
+							<li class="nation13"><a href="http://www.adidas.com.br/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^브라질');"><span class="spt_bg">&nbsp;</span>Brazil</a></li>
+						</ul>
+					</div>
+					<!-- //160302 다른국가 사이트 레이어 -->
+					<ul>
+						<li style="padding-left:0;"><a target="_blank" href="http://www.adidas.com"><img src="/images/adidas/common/btn_fmenu1.gif" alt="adidas korea"></a></li>
+						<li><a href="http://shop.adidas.co.kr/PF010107.action?gubn=1"><img src="/images/adidas/common/btn_fmenu2.gif" alt="구매 이용약관"></a></li>
+						<li><a href="http://shop.adidas.co.kr/PF010107.action?gubn=2"><img src="/images/adidas/common/btn_fmenu3.gif" alt="개인정보 취급방침"></a></li>
+						<li><a href="http://shop.adidas.co.kr/PF010107.action?gubn=3"><img src="/images/adidas/common/btn_fmenu4.gif" alt="아디클럽 이용약관"></a></li>
+						<li><a href="http://shop.adidas.co.kr/PF110101.action"><img src="/images/adidas/common/btn_fmenu5.gif" alt="매장안내"></a></li>
+						<li><a href="#" onclick="window.open('/html/adidas/popup_justice_bns.html','','width=680,height=500');return false;"><img src="/images/adidas/common/btn_fmenu7.gif" alt="공정거래 자율준수"></a></li>
+						<li style="border-right-width:0;"><a href="http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&amp;FAQ_DIVI_DTL=02"><img src="/images/adidas/common/btn_fmenu6.gif" alt="팀/단체복 주문 안내"></a></li>
+					</ul>
+					
+					<div class="f_sns">
+						<div class="blog">
+							<a href="http://www.alladidas.com/" class="spt_bg btn" target="_blank"></a>
+						</div>
+						<div class="fb">
+							<a href="#" class="spt_bg btn"></a>
+							<div class="layer">
+								<h4>FACEBOOK</h4>
+								<a href="#" class="spt_bg close"></a>
+								<ul>
+									<li><a href="https://www.facebook.com/adidasfootballkr?fref=ts" target="_blank">FOOTBALL</a></li>
+									<li><a href="https://www.facebook.com/adidasrunningkr" target="_blank">RUNNING</a></li>
+									<li><a href="https://www.facebook.com/adiCourt?fref=ts" target="_blank">BASKETBALL</a></li>
+									<li><a href="https://www.facebook.com/mygirls.kr?fref=ts" target="_blank">WOMEN</a></li>
+									<li><a href="https://www.facebook.com/adidasoutdoorkr?fref=ts" target="_blank">OUTDOOR</a></li>
+									<li><a href="https://www.facebook.com/adidastenniskr?fref=ts" target="_blank">TENNIS</a></li>
+									<li><a href="https://www.facebook.com/originalsmania?fref=ts" target="_blank">ORIGINALS</a></li>
+									<li><a href="https://www.facebook.com/adidaskidskr" target="_blank">KIDS</a></li>
+									<li class="last"><a href="https://www.facebook.com/neolabelkr?fref=ts" target="_blank">NEO</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="twt">
+							<a href="#" class="spt_bg btn" target="_blank"></a>
+							<div class="layer">
+								<h4>TWITTER</h4>
+								<a href="#" class="spt_bg close" onclick="closeSnsLayer();return false;"></a>
+								<ul>
+									<li><a href="https://twitter.com/adidaskorea" target="_blank">SPORT PERFORMANCE</a></li>
+									<li class="last"><a href="https://twitter.com/Originals_kr" target="_blank">ORIGINALS</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="insta">
+							<a href="#" class="spt_bg btn" target="_blank"></a>
+							<div class="layer">
+								<h4>IMSTAGRAM</h4>
+								<a href="#" class="spt_bg close" onclick="closeSnsLayer();return false;"></a>
+								<ul>
+									<li><a href="http://instagram.com/adidashoops_kr" target="_blank">BASKETBALL</a></li>
+									<li><a href="https://instagram.com/adidaswomen_kr" target="_blank">WOMEN</a></li>
+									<li><a href="https://instagram.com/originals_kr" target="_blank">ORIGINALS</a></li>
+									<li class="last"><a href="https://instagram.com/adidaskids_kr" target="_blank">KIDS</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="ytb">
+							<a href="https://www.youtube.com/channel/UCpkEzPDLzgH5dVQbxU0Q6wg" class="spt_bg btn" target="_blank"></a>
+						</div>
+					</div>
+					<!-- //150924 -->
+				</div>
+			</div>
+						
+			<div class="address_r ct950">
+				<div class="footer_left">
+					<!-- 
+					160302 h1 태그 제거
+					<h1><img src="/images/adidas/common/bg_logo_footer.gif" alt="아디다스 코리아"/></h1> -->
+					<div class="info">
+						<!-- 160302 '아디다스코리아(주)' 추가 -->
+						<p><strong>아디다스코리아(주)</strong></p>
+						<p>06620 서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 9층&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대표이사 : 장 미쉘 그라니에&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호 : 214-81-07412</p>
+						<p style="color:#000;font-weight:bold;">교환 및 반품 문의 (본사로 반품불가) : 온라인스토어 고객센터 1588-8241 (평일 09:00 ~ 18:00, 점심시간 : 12:00 ~ 13:00)</p>
+						<p>제품 수선문의 : 아디다스 고객만족센터 080-022-7981 (평일 : 09:00 ~ 18:00)</p>
+						<p>통신판매업신고 : 2007-서울서초-10391&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;개인정보 관리책임자 : 김동일&nbsp;&nbsp;,&nbsp;&nbsp;개인정보 관리담당자 : 황선영</p>
+						<p>이메일 : adiCLUB_Korea@adidas.com</p>
+						<p>Copyright &copy;2011 adidas Korea Inc.</p>
+					</div>			
+					<!-- //151130 text 추가 끝 -->
+				</div>
+				<div class="footer_right">
+					<img src="/images/adidas/common/footer_info2.gif" alt="공정거래위원회 사업자 신원정보 확인 및 한국 스탠다드차타드 은행 채무지급보증 안내" border="0" usemap="#Map5"/>
+					<map name="Map5" id="Map5">
+						<area alt="공정거래 위원회 사업자 신원정보 확인" shape="rect" coords="168,29,260,47" href="javascript:fn_certifiedInfoPopAdi();" title="새창"/>
+						<area target="_blank" href="http://ftc.go.kr/info/bizinfo/communicationList.jsp" coords="214,4,262,23" shape="rect" alt="한국 스탠다드차타드은행 채무지급보증 안내 , 서비스 가입사실 확인" />
+					</map>
+				</div>				
+			</div>
+		</div>
+<!-- WebLog -->
+
+
+</div>
+</body>
+</html>

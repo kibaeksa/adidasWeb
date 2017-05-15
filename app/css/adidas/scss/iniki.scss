@@ -1,0 +1,897 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include prefix-css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+
+	}
+}
+
+#iniki{
+	position: relative;
+	min-width: 1280px;
+	// .visual{
+	// 	position: relative;
+	// 	img{ width: 100%; }
+	// 	.play{
+	// 		position: absolute;
+	// 		top:50%;
+	// 		margin-top: -45px;
+	// 		left:50%;
+	// 		margin-left: -45px;
+	// 		a{
+	//
+	// 		}
+	// 	}
+	// }
+	.buy{
+		position: relative;
+		@include box-sizing(border-box);
+		display: inline-block;
+		padding: 12px 0 15px;
+		text-align: center;
+		width: 177px;
+		border:2px solid #000;
+		letter-spacing: -0.5px;
+		color:#000;
+		font:16px/16px 'NotosansKR', 'Nanum Gothic';
+		&:hover{
+			span.txt{
+				color:#fff;
+			}
+			span.bg{
+				background: #000;
+			}
+			em{
+				background-position: 100% 0;
+			}
+		}
+		span.txt{
+			position: relative;
+			z-index: 1;
+		}
+		span.bg{
+			position: absolute;
+			margin: 0;
+			top:0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			background: #fff;
+		}
+		em{
+			position: relative;
+			top:3px;
+			left:5px;
+			display: inline-block;
+			background: url("http://image.adidas.co.kr/images/adidas/event/iniki/icon.png") no-repeat;
+			background-position: 0 0;
+			width: 17px; height:17px;
+		}
+	}
+	.logo{
+		position: relative;
+		padding: 21px 0;
+		text-align: center;
+		background: #fff;
+	}
+
+
+
+	.video_wrap{
+		position: relative;
+		height: 850px;
+		overflow: hidden;
+		z-index: 2;
+
+		.bg{
+			position: absolute;
+			top:0px;
+			left:50%;
+			margin-left: -960px;
+			z-index: 1;
+		}
+		.player{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left: -982px;
+			z-index: 5;
+		}
+	}
+
+	.prd_buy_section{
+		position: relative;
+		top:0;
+		height: 470px;
+		overflow: hidden;
+		.bg{
+			position: absolute;
+			top:-60px;
+			left:50%;
+			margin-left: -960px;
+		}
+		.txt_wrap{
+			position: absolute;
+			top:100px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			z-index: 1;
+			@include opacity(0);
+			@include prefix-css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+			h3{
+				padding-top: 52px;
+				text-align: center;
+				font:33px/60px 'adinenuPro-black';
+				letter-spacing: 16px;
+				color:#010101;
+			}
+			p{
+				font:16px/28px 'NotosansKRRegular', 'Nanum Gothic';
+				text-align: center;
+				color:#000;
+				letter-spacing: -0.7px;
+				&.tit{
+					padding: 18px 0 32px;
+					font:22px/28px 'NotosansKR';
+				}
+				&.desc{
+					padding-bottom: 40px;
+
+				}
+			}
+
+		}
+	}
+
+	// slider
+	.wrap{
+		width: 100%;
+		background:#fff;
+		overflow: hidden;
+		background: url("http://image.adidas.co.kr/images/adidas/event/iniki/shoe_bg.jpg") no-repeat;
+		background-size: 100% 100%;
+
+		.slider_wrap{
+			margin:0 auto;
+			position: relative;
+			width:952px;
+			height: 766px;
+			text-align: center;
+
+			.title{
+				padding: 64px 0 0 0;
+				text-align: center;
+
+				p{
+					text-align: center;
+					font:28px/28px 'NotoSansKRRegular';
+					color:#000;
+				}
+				span{
+					display: inline-block;
+					text-align: center;
+					padding-top: 36px;
+					font:19px/25px 'NotoSansKRRegular';
+					color:#000;
+				}
+			}
+			a.buy{
+				display: inline-block;
+				margin-top: 30px;
+				padding:0 100px;
+				text-align: center;
+				border:1px solid #000;
+				font:15px/57px 'NotoSansKRRegular';
+				color:#000;
+
+			}
+
+			ul.slider{
+				position: relative;
+				// height: 485px;
+				li{
+					position: relative;
+					width: 952px;
+					margin-top: 295px;
+					float:left;
+					margin-right: 500px;
+					text-align: center;
+					top:100px ;
+					@include opacity(0);
+					@include prefix-css3(transition, all 0.5s);
+
+					&.scroll{
+						top:0 ;
+						@include opacity(1);
+
+					}
+					.title{
+							padding:76px 0 54px 0;
+							text-align: center;
+						p{
+							text-transform: uppercase;
+							text-align: center;
+							font: 40px/45px 'adinenuPro-black';
+							color:#000;
+						}
+						span{
+							font: 26px/28px 'NotoSansKRRegular';
+							color:#000;
+						}
+					}
+
+				}
+			}
+			ul.slider:after{
+				content: '';
+				display: block;
+				width: 0; height: 0;
+				clear:both;
+			}
+			.btn{
+				position: absolute;
+				top:411px;
+				width: 100%;
+				text-align: center;
+				.next{
+					width:33px;
+					height: 64px;
+					position: absolute; right: -100px;
+					@include prefix-css3(transition,right 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow2 2s infinite;
+						-webkit-animation: arrow2 2s infinite;
+					}
+				}
+				.prev{
+					width:33px;
+					height: 64px;
+					position: absolute; left: -100px;
+					@include prefix-css3(transition,left 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow 2s infinite;
+						-webkit-animation: arrow 2s infinite;
+					}
+				}
+
+			}
+		}
+		.num_wrap{
+			position: relative;
+			width: 100%;
+			margin:0px 0 20px 0;
+			// overflow: hidden;
+			height: 45px;
+			.num{
+				position: absolute;
+				left:0;
+				width: 10000px;
+				a{
+					position: relative;
+					top:0;
+					width:317px;
+					display: inline-block; text-align: center;
+					font: 22px/30px 'NotoSansKRRegular';
+					color:#000;
+					vertical-align: middle;
+					transition: all 0.3s ease-out;
+					span{
+						position: relative;
+						display: inline-block;
+						overflow: hidden;
+						height: 45px;
+						line-height: 35px;
+					}
+				}
+				a.on{
+					position: relative;
+					font: 22px/30px 'NotoSansKRBold';
+					overflow: hidden;
+
+					// span:after{
+					// 	position: absolute;
+					// 	bottom: 0px;
+					// 	left:0;
+					// 	display: inline-block;
+					// 	content: '';
+					// 	width: 100%;
+					// 	background: #000;
+					// 	height: 3px;
+					// 	margin-top: 15px;
+					// 	overflow: hidden;
+					// }
+				}
+			}
+		}
+	}
+
+	.centerbar{
+		margin:0 auto;
+		display: block;
+		width: 1px;
+		height: 60px;
+		background: #fff;
+	}
+
+	.gal_wrap{
+		position: relative;
+		width:100%;
+		height:717px;
+		background: #fff;
+		overflow: hidden;
+		.gal_bg_top{
+			position: absolute;
+			top:0;
+			right:0;
+		}
+		.gal_bg_bottom{
+			position: absolute;
+			bottom:0;
+			right:0;
+		}
+		.gal{
+			width:950px;
+			margin:0 auto;
+			ul{
+				li{
+					position: absolute;
+					width: 950px;
+					// left:50%;
+					// display: none;
+					@include opacity (0);
+					@include prefix-css3(transition,all 0.6s);
+					&.on{
+						z-index: 10;
+						@include opacity (1);
+					}
+
+					.box_left{
+						position: relative;
+						left:-329px;
+						top:100px ;
+						@include opacity(0);
+						@include prefix-css3(transition, all 0.5s);
+						&.scroll{
+							top:0;
+							@include opacity (1);
+						}
+					}
+					.box_right{
+						position: absolute;
+						right:0;
+						width:475px;
+						top:204px;
+						text-align: right;
+						p{
+							&.s_title{
+								padding-bottom: 3px;
+								text-align: right;
+								font:22px/22px 'NotosansKRBold', 'Nanum Gothic';
+								color:#000;
+							}
+							&.title{
+								position: relative;
+								padding-bottom: 20px;
+								left:10px;
+								text-align: right;
+								font:33px/33px 'adinenuPro-black';
+								letter-spacing: 16px;
+								color:#000;
+							}
+							&.desc{
+								display: block;
+								padding-bottom: 30px;
+								text-align: right;
+								padding-top: 20px;
+								font:16px/28px 'NotosansKRRegular', 'Nanum Gothic';
+								color:#333;
+								letter-spacing: -1px;
+							}
+						}
+						a.buy{
+							width:240px;
+
+
+						}
+					}
+				}
+				li:after{
+					content: '';
+					display: block;
+					clear:both;
+					width: 0;
+					height: 0;
+				}
+
+			}
+		}
+		.gal_btn{
+			position: absolute;
+			left:0;
+			bottom: 50px;
+			width: 100%;
+			text-align: center;
+			a{
+				display: inline-block;
+				padding:0 22px;
+				height: 45px;
+				font: 16px/45px 'NotoSansKRBold';
+				background: #fff;
+				color:#000;
+				opacity: .8;
+				transition:all 0.6s;
+				.icons{
+					display: inline-block;
+					margin-left: 30px;
+					width:14px;
+					height: 13px;
+					background-image: url('/images/adidas/event/sports17/icons.png');
+				}
+			}
+			a:hover{
+				opacity: 1;
+			}
+		}
+
+	}
+	.collections_wrap{
+		position: relative;
+		@include prefix-css3(transition, all 0.5s);
+		@include opacity(0);
+
+
+		&.scroll{
+			top:0;
+			@include opacity(1);
+		}
+		.collections{
+			min-width: 1200px;
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+			display: none;
+			&.on{
+				display: block;
+			}
+			&#col0{
+				.imgs{
+					.img3{
+						background: url("http://image.adidas.co.kr/images/adidas/event/iniki/col0_3.jpg") no-repeat;
+						background-size: 100% 100%;
+					}
+				}
+			}
+			&#col1{
+				.imgs{
+					.img3{
+						background: url("http://image.adidas.co.kr/images/adidas/event/iniki/col1_3.jpg") no-repeat;
+						background-size: 100% 100%;
+					}
+				}
+			}
+			&#col2{
+				.imgs{
+					.img3{
+						background: url("http://image.adidas.co.kr/images/adidas/event/iniki/col2_3.jpg") no-repeat;
+						background-size: 100% 100%;
+					}
+				}
+			}
+			&#col3{
+				.imgs{
+					.img3{
+						background: url("http://image.adidas.co.kr/images/adidas/event/iniki/col3_3.jpg") no-repeat;
+						background-size: 100% 100%;
+					}
+				}
+			}
+			.colfix{
+				position: absolute;
+				top:0;
+				left:0;
+				overflow: hidden;
+				width: 25%;
+				img{
+					width: 100%;
+					@include prefix-css3(transition,all 5s);
+				}
+			}
+			.colfix:hover{
+				img{
+					// transform:scale(1.1);
+					@include prefix-css3(transform, scale(1.1));
+				}
+			}
+			.imgs{
+				position: relative;
+
+				width:100%;
+				left:25%;
+				.col>div{
+					overflow: hidden;
+				}
+				.col{
+					.img2{
+						width: 25%;
+						position: relative;
+						float:left;
+						img{
+							width: 100%;
+							@include prefix-css3(transition,all 5s);
+
+							&:hover{
+							@include prefix-css3(transform, scale(1.1));
+
+							}
+						}
+					}
+					.img3{
+						width: 50%;
+						position: relative;
+						float:left;
+						text-align: center;
+						overflow: visible;
+						padding-bottom: 25%;
+						div{
+							position: absolute;
+							top:38%;
+							text-align: center;
+							left:50%;
+							margin-left: -234px;
+
+							p{
+								text-align: center;
+								font:20px/23px 'NotoSansKRRegular';
+								color:#000;
+							}
+							a.buy{
+								display: inline-block;
+								margin-top: 30px;
+								padding:0 100px;
+								text-align: center;
+								border:1px solid #000;
+								font:15px/57px 'NotoSansKRRegular';
+								color:#000;
+
+							}
+						}
+
+
+					}
+					.img4{
+						width: 25%;
+						position: relative;
+						float: left;
+						img{
+							width: 100%;
+							@include prefix-css3(transition,all 5s);
+							&:hover{
+							@include prefix-css3(transform, scale(1.1));
+
+							}
+						}
+					}
+				}
+			}
+
+
+		}
+	}
+
+	.bottom{
+		position: relative;
+		height: 398px;
+		overflow: hidden;
+		.bg{
+			position: absolute;
+			top:-52px;
+			left:50%;
+			margin-left: -960px;
+		}
+		.txt{
+			position: relative;
+			top:100px;
+			padding-top: 120px;
+			width: 950px;
+			margin: 0 auto;
+			text-align: center;
+			font: 33px/62px 'adinenuPro-black';
+    		letter-spacing: 16px;
+			text-transform: uppercase;
+			color:#000;
+
+			@include opacity(0);
+			@include prefix-css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+			p{
+				padding-top: 17px;
+				text-align: center;
+				font: 20px/40px 'NotosansKRBold', 'Nanum Gothic';
+				letter-spacing: -0.7px;
+
+			}
+		}
+	}
+}
+
+
+
+
+@include keyframe(shining){
+	0%{
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+
+	100%{
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+@include keyframe(arrow){
+	0%{
+		left: 100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: -110%;
+	}
+}
+@include keyframe(arrow2){
+	0%{
+		left: -100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: 110%;
+	}
+}

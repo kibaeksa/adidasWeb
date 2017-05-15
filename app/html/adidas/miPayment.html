@@ -1,0 +1,2661 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어 주문/결제</title>
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="https://plugin.inicis.com/pay40_sec_unissl.js"></script>
+
+<script type="text/javascript">
+StartSmartUpdate();
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var v_preOrdYn = "N";	
+var SS_MEM_ID = "kkbdream";
+var mi_order_agree = "N";
+
+jQuery(document).ready(function(){
+	if(""=="Y"){
+		if(""!="Y"){
+			alert("죄송합니다. 본 국군장병 기획전 상품은 국군장병만 구매가 가능합니다.");
+			history.back();
+		}
+	}
+	
+	if(""=="Y"){
+		alert("죄송합니다. 본 국군장병 기획전 상품과 일반상품은 함께 구매가 불가 합니다.");
+		//history.back();
+	}
+	
+	jQuery("#payAccount").hide();
+	
+	jQuery("input[name=SMS_RET]").click(function() {
+		jQuery("#SMS_RET_YN").val(jQuery(this).val());
+	});
+	jQuery("input[name=payMethod]").click(function() {
+		jQuery("#PAYMT_TYPE").val(jQuery(this).val());
+	});
+
+	var titleProdNmKor = "";
+	titleProdNmKor = jQuery("#PROD_NM_KOR").val();
+	jQuery("#TITLR_PROD_NM").val(titleProdNmKor);
+
+	jQuery("#memPhoneNo").attr("innerHTML", setPhoneNumberFormat(jQuery("#memPhoneNo").attr("innerHTML")));
+
+	//changeDlvAmount();
+	setSaveRate();
+
+	if (jQuery("#PAYMT_TYPE").val()=="04") {
+		fn_ChangePayMethod("account");
+	} else if (jQuery("#PAYMT_TYPE").val()=="05") {
+		fn_ChangePayMethod("vbank");
+	} else if (jQuery("#PAYMT_TYPE").val()=="03") {
+		fn_ChangePayMethod("credit");
+	} else if (jQuery("#PAYMT_TYPE").val()=="07") {
+		fn_ChangePayMethod("mobile");
+	} else {
+		fn_ChangePayMethod("ready");
+	}
+});
+
+function setSaveRate() {
+	var prePoint = parseInt((jQuery("#TOTAL_PAY_AMT").val()-jQuery("#DLIVY_FEE").val())/100)*parseInt(jQuery("#SAVE_RATE").val());
+	if ( prePoint <= 0 ) {
+		prePoint = 0;
+	}
+	jQuery("#preSaveRate").html(toCurrency(prePoint));
+	jQuery("#PRE_SAVE_POINT").val(prePoint);
+}
+
+function setPhoneNumberFormat(value, seq){
+	var retVal = "";
+	if(value.length == 12) {
+		retVal = value.substring(0, 4) + "-" + value.substring(4, 8) + "-" + value.substring(8, 12);
+    } else if(value.length == 11) {        // 11 자리일때
+		retVal = value.substring(0, 3) + "-" + value.substring(3, 7) + "-" + value.substring(7, 11);
+	} else if(value.length == 10) { // 10 자리일때
+		if(value.substring(0, 2) == "02") {
+			retVal = value.substring(0, 2) + "-" + value.substring(2, 6) + "-" + value.substring(6, 10);
+		} else {
+			retVal = value.substring(0, 3) + "-" + value.substring(3, 6) + "-" + value.substring(6, 10);
+		}
+	} else if(value.length == 9) {  // 9 자리 일때
+		retVal = value.substring(0, 2) + "-" + value.substring(2, 5) + "-" + value.substring(5, 9);
+	} else if(value.length > 6) {
+		retVal = value.substring(0, 2) + "-" + value.substring(2, 5) + "-" + value.substring(5, value.length);
+	} else if(value.length > 3) {
+		retVal = value.substring(0, 2) + "-" + value.substring(2, value.length);
+	} else {
+		retVal = value;
+	}
+
+	if ( seq == 1 ) {
+		retVal = retVal.split("-")[0];
+	} else if ( seq == 2 ) {
+		retVal = retVal.split("-")[1];
+	} else if ( seq == 3 ) {
+		retVal = retVal.split("-")[2];
+	}
+
+	return retVal;
+}
+
+var dlivyList = new Array();
+var defaultDlivy = new Object();
+defaultDlivy.recvNm = "김기백";
+defaultDlivy.tel1 = setPhoneNumberFormat("0316388328", 1);
+defaultDlivy.tel2 = setPhoneNumberFormat("0316388328", 2);
+defaultDlivy.tel3 = setPhoneNumberFormat("0316388328", 3);
+defaultDlivy.mob1 = setPhoneNumberFormat("01068162520", 1);
+defaultDlivy.mob2 = setPhoneNumberFormat("01068162520", 2);
+defaultDlivy.mob3 = setPhoneNumberFormat("01068162520", 3);
+defaultDlivy.zip1 = "461180".substring(0, 3);
+defaultDlivy.zip2 = "461180".substring(3);
+defaultDlivy.addr = "경기 성남시 수정구 수진동";
+defaultDlivy.dtlAddr = "1238번지";
+defaultDlivy.sido = "경기";
+defaultDlivy.gun = "성남시 수정구";
+defaultDlivy.dong = "수진동";
+defaultDlivy.delvya = "";
+defaultDlivy.nm_doro = "";
+defaultDlivy.num_bldg = "";
+dlivyList[0] = defaultDlivy;
+
+function fn_changeDlivy(sel) {
+	jQuery("#RCIVR_NM").val(dlivyList[sel].recvNm);
+	jQuery("#RCIVR_TELNO1").val(dlivyList[sel].tel1);
+	jQuery("#RCIVR_TELNO2").val(dlivyList[sel].tel2);
+	jQuery("#RCIVR_TELNO3").val(dlivyList[sel].tel3);
+	jQuery("#RCIVR_MOBL1").val(dlivyList[sel].mob1);
+	jQuery("#RCIVR_MOBL2").val(dlivyList[sel].mob2);
+	jQuery("#RCIVR_MOBL3").val(dlivyList[sel].mob3);
+	jQuery("#DLIVY_POST_NO1").val(dlivyList[sel].zip1);
+	jQuery("#DLIVY_POST_NO2").val(dlivyList[sel].zip2);
+	jQuery("#DLIVY_ADDR").val(dlivyList[sel].addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dlivyList[sel].dtlAddr);
+	jQuery("#SIDO").val(dlivyList[sel].sido);
+	jQuery("#GUN").val(dlivyList[sel].gun);
+	jQuery("#DONG").val(dlivyList[sel].dong);
+	jQuery("#DELVYA").val(dlivyList[sel].delvya);
+	jQuery("#NM_DORO").val(dlivyList[sel].nm_doro);
+	jQuery("#NUM_BLDG").val(dlivyList[sel].num_bldg);
+
+	changeDlvAmount();
+}
+
+function fn_ChangePayMethod(sel) {
+	if ( sel == "credit" ) {
+
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw").hide();
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").show();
+
+		//소비자 피해보상 신청
+		jQuery("#escrw_reward_apply").hide();
+		
+		jQuery("#cardReport").show();
+		jQuery("#mobile_payment").hide();
+		
+		jQuery("#cardReport_choice2").hide();
+		jQuery("#CARD_PAYMT_TYPE").val("01");
+
+	} else if (sel == "account" || sel == "vbank"){
+
+		jQuery("#escrw").show();
+		jQuery("#escrw_info").show();
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").hide();
+		
+		jQuery("#cardReport").hide();
+
+		//소비자 피해보상 신청
+		jQuery("#escrw_reward_apply").show();
+
+		if( sel == 'account'){
+			var htmlsc='- 실시간 계좌이체시 은행별 서비스 가능시간을 확인바랍니다.<br/>- 실시간 계좌이체는 10분 이내로 입금확인을 하실 수 있습니다.';
+		}else if( sel == 'vbank'){
+			var htmlsc='- 아래 ‘결제하기’ 버튼클릭 후 입금은행 및 계좌, 입금기한을 확인하실 수 있습니다.';
+		}
+		jQuery('#account_desc').html(htmlsc);
+		jQuery("#mobile_payment").hide();
+		
+		jQuery("#cardReport_choice2").hide();
+		jQuery("#CARD_PAYMT_TYPE").val("01");
+		
+	} else if ( sel == "kpay" ) {
+
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw").hide();
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").show();
+
+		//소비자 피해보상 신청
+		jQuery("#escrw_reward_apply").hide();
+		
+		jQuery("#cardReport").show();
+		jQuery("#mobile_payment").hide();
+		
+		jQuery("#cardReport_choice2").show();
+		jQuery("#CARD_PAYMT_TYPE").val("02");
+	} else if ( sel == "mobile" ) {
+		jQuery("#escrw").hide();
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").hide();
+		jQuery("#escrw_reward_apply").hide();
+		jQuery("#cardReport").hide();
+		jQuery("#mobile_payment").show();
+		
+		jQuery("#cardReport_choice2").hide();
+		jQuery("#CARD_PAYMT_TYPE").val("01");
+	} else {
+		jQuery("#escrw").hide();
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").hide();
+		jQuery("#escrw_reward_apply").hide();
+		jQuery("#cardReport").hide();
+		jQuery("#mobile_payment").hide();
+		
+		jQuery("#cardReport_choice2").hide();
+		jQuery("#CARD_PAYMT_TYPE").val("01");
+	}
+}
+
+//핸드폰번호 초기화
+function fn_initCashRecptMoblno() {
+	jQuery("#CASH_RECPT_MOBLNO1").val("");
+	jQuery("#CASH_RECPT_MOBLNO2").val("");
+	jQuery("#CASH_RECPT_MOBLNO3").val("");
+}
+//사업자번호 초기화
+function fn_initCashRecptBizrno() {
+	jQuery("#CASH_RECPT_BIZRNO1").val("");
+	jQuery("#CASH_RECPT_BIZRNO2").val("");
+	jQuery("#CASH_RECPT_BIZRNO3").val("");
+}
+
+//현금영수증 신청(Y:발행, N:미발행)
+function fn_ChangeCashRecptApply(sel) {
+	if ( sel == "Y" ) {
+		jQuery("#escrw_info").show();
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+	} else {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+	}
+}
+
+//현금영수증 발행용도(01:개인소득공제용, 02:지출증빙용)
+function fn_ChangeCashRecptPubl(sel) {
+	if ( sel == "01" ) {
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+	} else {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").show();
+	}
+}
+
+//현금영수증 인증구분(10:휴대폰, 20:주민등록번호, 30:사업자번호)
+function fn_ChangeCashRecptCrt(sel) {
+	if ( sel == "10" ) {
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		// 핸드폰 자동셋팅
+		fn_setCashRecptMoblno();
+
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+
+	} else if ( sel == "30" ) {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").show();
+	}
+}
+
+//핸드폰 셋팅
+function fn_setCashRecptMoblno() {
+
+	var moblno = '01068162520';
+	if( moblno != "" ) {
+		jQuery("#CASH_RECPT_MOBLNO1").val( setPhoneNumberFormat(moblno, 1) );
+		jQuery("#CASH_RECPT_MOBLNO2").val( setPhoneNumberFormat(moblno, 2) );
+		jQuery("#CASH_RECPT_MOBLNO3").val( setPhoneNumberFormat(moblno, 3) );
+	}
+}
+
+//Focus 이동
+function moveFocus(num,fromform,toform) {
+	var str = fromform.value.length;
+	if(str == num) {
+		toform.focus();
+	}
+}
+
+//사업자 번호 체크
+function fn_companyCheck() {
+	var li_temp, li_lastid;
+	biz_value = new Array(10);
+	var ju = jQuery("#CASH_RECPT_BIZRNO1").val() + jQuery("#CASH_RECPT_BIZRNO2").val() + jQuery("#CASH_RECPT_BIZRNO3").val();
+
+
+	biz_value[0] = ( parseFloat(ju.substring(0 ,1)) * 1 ) % 10;
+	biz_value[1] = ( parseFloat(ju.substring(1 ,2)) * 3 ) % 10;
+	biz_value[2] = ( parseFloat(ju.substring(2 ,3)) * 7 ) % 10;
+	biz_value[3] = ( parseFloat(ju.substring(3 ,4)) * 1 ) % 10;
+	biz_value[4] = ( parseFloat(ju.substring(4 ,5)) * 3 ) % 10;
+	biz_value[5] = ( parseFloat(ju.substring(5 ,6)) * 7 ) % 10;
+	biz_value[6] = ( parseFloat(ju.substring(6 ,7)) * 1 ) % 10;
+	biz_value[7] = ( parseFloat(ju.substring(7,8)) * 3 ) % 10;
+	li_temp = parseFloat(ju.substring(8,9)) * 5 + "0";
+	biz_value[8] = parseFloat(li_temp.substring(0,1)) + parseFloat(li_temp.substring(1,2));
+	biz_value[9] = parseFloat(ju.substring(9,10));
+	li_lastid = (10 - ( ( biz_value[0] + biz_value[1] + biz_value[2] + biz_value[3] + biz_value[4] + biz_value[5] + biz_value[6] + biz_value[7] + biz_value[8] ) % 10 ) ) % 10;
+
+	if (biz_value[9] == li_lastid) {
+
+		return true;
+
+	} else {
+		alert("고객님께서 입력하신 사업자등록번호는 확인되지 않습니다. 다시한번 확인해 주세요!!");
+		jQuery("#CASH_RECPT_BIZRNO1").val('');
+		jQuery("#CASH_RECPT_BIZRNO2").val('');
+		jQuery("#CASH_RECPT_BIZRNO3").val('');
+		jQuery("#CASH_RECPT_BIZRNO1").focus();
+		return false;
+	}
+
+}
+
+//최근 배송지 팝업(이은용)
+function adRecentDeliveryPop(){
+	//window.open('/PF030301.action','popup','width=800,height=390,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+	var url = "/PF030301.action";
+	var width = "800";
+	var height = "600";
+	var asppop = cfn_openPop(url, "dlvPopup", width, height);
+	asppop.focus();
+}
+
+function dlivyRcivr(dlivy_pl_nm, dlivy_rcivr, dlivy_tel_no, dlivy_mobl_no, dlivy_post_no, dlivy_addr, dlivy_dtl_addr, dlivy_sido, dlivy_gun, dlivy_dong, delvya, num_bldg, nm_doro){
+	var dlivy_post_no1 = dlivy_post_no.substr(0,3);
+	var dlivy_post_no2 = dlivy_post_no.substr(3,3);
+
+	jQuery("#RCIVR_NM").val(dlivy_rcivr);
+	jQuery("#RCIVR_TELNO1").val(setPhoneNumberFormat(dlivy_tel_no, 1));
+	jQuery("#RCIVR_TELNO2").val(setPhoneNumberFormat(dlivy_tel_no, 2));
+	jQuery("#RCIVR_TELNO3").val(setPhoneNumberFormat(dlivy_tel_no, 3));
+	jQuery("#RCIVR_MOBL1").val(setPhoneNumberFormat(dlivy_mobl_no, 1));
+	jQuery("#RCIVR_MOBL2").val(setPhoneNumberFormat(dlivy_mobl_no, 2));
+	jQuery("#RCIVR_MOBL3").val(setPhoneNumberFormat(dlivy_mobl_no, 3));
+	jQuery("#DLIVY_POST_NO1").val(dlivy_post_no1);
+	jQuery("#DLIVY_POST_NO2").val(dlivy_post_no2);
+	jQuery("#DLIVY_ADDR").val(dlivy_addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dlivy_dtl_addr);
+	jQuery("#SIDO").val(dlivy_sido);
+	jQuery("#GUN").val(dlivy_gun);
+	jQuery("#DONG").val(dlivy_dong);
+	jQuery("#DELVYA").val(delvya);
+	jQuery("#NM_DORO").val(nm_doro);
+	jQuery("#NUM_BLDG").val(num_bldg);
+
+	clearDlvRadio();
+	changeDlvAmount();
+}
+
+function dlivyInfo(){
+	var dlivy_post_no = $("DLIVY_POST_NO1").value + $("DLIVY_POST_NO2").value;
+	var command = "LIST_4";
+	var param = "command="+command+"&POST_NO="+ dlivy_post_no;
+	var url = "/PF0601006.action?";
+
+	var onSuccess = function(req){
+		var json = req.responseJSON;
+
+		JsonUtil.alert(json);			
+		
+		fn_dlivySearch(json);
+	};
+	var onFailure = function(){			
+	};
+
+	cfn_ajaxRequest(url, param, onSuccess, onFailure);
+}
+
+function fn_dlivySearch(obj){
+
+	var dlivyString = '';
+
+	for ( var i = 0; i < obj.length ; i++ ) {
+		dlivyString = obj[i].DLIVY_CD;
+	}
+
+	if (dlivyString == '5'){
+		alert('사서함으로는 주문이 불가능 합니다.');
+	}
+
+	$("DELVYA").value = dlivyString;
+
+}
+
+function crazyweekendDlvChk(){
+	if("N"=="Y"){
+		jQuery("#CHK_USE_DLIVY_CPON").attr("checked", "");
+		alert('CRAZY WEEKEND 상품은 모든 쿠폰의 사용이 제한됩니다.');
+		return;
+	}
+	
+	changeDlvAmount();
+}
+
+function changeDlvAmount() {
+	dlivyInfo();
+	var vOrgDlivyFee = parseInt("2500");
+	var vTOTAL_ORDER_AMT = parseInt(jQuery("#TOTAL_ORDER_AMT").val());
+	var vIslndSupCntryDlivyFee = parseInt("4500");
+	var vJejudoDlivyFee = parseInt("3000");
+    var vMiDlivyFee = parseInt("15000");
+	var vDlivyFee = vOrgDlivyFee;
+	var vTotalPayAmt = vTOTAL_ORDER_AMT;
+	var vDlivyCponAmt = 0;
+
+	if (jQuery("#MI_ORDER_YN").val() == "Y") {
+		vDlivyFee = vMiDlivyFee;
+		vOrgDlivyFee = vMiDlivyFee;
+		vDlivyCponAmt = 0;
+	} else {
+		if (jQuery("#H_ONLINE_ONLY").val() == "Y" && "N" == "Y") {
+			vDlivyFee = 0;
+			vIslndSupCntryDlivyFee = 0;
+			vJejudoDlivyFee = 0;
+			vOrgDlivyFee = 0;
+		} else {
+			if (vTOTAL_ORDER_AMT >= parseInt("50000")) {
+				vDlivyFee = 0;
+				vOrgDlivyFee = 0;
+			}
+			if ((vTOTAL_ORDER_AMT < parseInt("50000")) ||
+					(vTOTAL_ORDER_AMT < 50000 && parseInt("50000") < 50000)) {
+				if ( jQuery("#DELVYA").val() == "9" ) { // 도서산간 배송...
+					vDlivyFee = vDlivyFee + vIslndSupCntryDlivyFee;
+				} else if ( jQuery("#DELVYA").val() == "7" ) { // 제주 배송...
+					vDlivyFee = vDlivyFee + vJejudoDlivyFee;
+				}
+			}
+		}
+	}
+	if (jQuery("#CHK_USE_DLIVY_CPON").length > 0 && jQuery("#H_DLIVY_CPON_PUBL_ID").length > 0) {
+		if (jQuery("#CHK_USE_DLIVY_CPON").attr("checked") && jQuery("#H_DLIVY_CPON_PUBL_ID").val() != "") {
+			vDlivyCponAmt = vDlivyFee;
+		}
+	}
+	
+	vTotalPayAmt = parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val()) - parseInt(vOrgDlivyFee) + vDlivyFee - vDlivyCponAmt - parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val());
+
+	jQuery("#DLIVY_FEE_CPON_AMT").val(vDlivyCponAmt);
+	jQuery("#viewDlvFee").attr("innerHTML", toCurrency(vDlivyFee));
+	jQuery("#viewDlvFeeCpn").attr("innerHTML", toCurrency(vDlivyCponAmt));
+	jQuery("#viewDlvFeePay").attr("innerHTML", toCurrency(vDlivyFee - vDlivyCponAmt));
+	jQuery("#DLIVY_FEE").val(vDlivyFee - vDlivyCponAmt);
+	jQuery("#TOTAL_PAY_AMT").val(vTotalPayAmt);
+	jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(vTotalPayAmt)+" 원");
+}
+
+function clearDlvRadio() {
+	//jQuery("input[@name=dlivyRadio][@checked]").val();
+	jQuery("input[name=dlivyRadio]").attr("checked", "");
+}
+
+//우편번호 팝업
+function fn_zipPop(){
+	var url = "/PF0601006.action?func=fn_return_zipaddr";
+	var width = "480";
+	var height = "550";
+
+	var asppop = cfn_openPop2(url, "post", width, height);
+	asppop.focus();
+}
+//우편번호 셋팅
+function fn_return_zipaddr(firstpost,lastpost,addr,sido,gun,dong,delvya, basic_addr, dtl_addr, num_bldg, nm_doro) {
+	jQuery("#DLIVY_POST_NO1").val(firstpost);
+	jQuery("#DLIVY_POST_NO2").val(lastpost);
+	jQuery("#DLIVY_ADDR").val(basic_addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dtl_addr);
+	jQuery("#SIDO").val(sido);
+	jQuery("#GUN").val(gun);
+	jQuery("#DONG").val(dong);
+	jQuery("#DELVYA").val(delvya);
+	jQuery("#NM_DORO").val(nm_doro);
+	jQuery("#NUM_BLDG").val(num_bldg);
+	$("DLIVY_DTL_ADDR").focus();
+
+	changeDlvAmount();
+}
+
+function fn_pay() {
+	
+	// 결제이후 뒤로가기 버튼으로 주문서 출력하여 결재버튼 클릭 시
+	if(jQuery("#command").val() == "TEMP_ORDER"){
+		alert("화면이 정상적이지 않아 새로고침 합니다.");
+		history.go(0);
+	}
+	
+	changePayButton(false);
+
+    jQuery("#RCIVR_NM").val(cfn_trim(jQuery("#RCIVR_NM").val()));
+    jQuery("#RCIVR_TELNO1").val(cfn_trim(jQuery("#RCIVR_TELNO1").val()));
+    jQuery("#RCIVR_TELNO2").val(cfn_trim(jQuery("#RCIVR_TELNO2").val()));
+    jQuery("#RCIVR_TELNO3").val(cfn_trim(jQuery("#RCIVR_TELNO3").val()));
+
+	jQuery("#RCIVR_MOBL1").val(cfn_trim(jQuery("#RCIVR_MOBL1").val()));
+	jQuery("#RCIVR_MOBL2").val(cfn_trim(jQuery("#RCIVR_MOBL2").val()));
+	jQuery("#RCIVR_MOBL3").val(cfn_trim(jQuery("#RCIVR_MOBL3").val()));
+
+    jQuery("#DLIVY_POST_NO1").val(cfn_trim(jQuery("#DLIVY_POST_NO1").val()));
+    jQuery("#DLIVY_POST_NO2").val(cfn_trim(jQuery("#DLIVY_POST_NO2").val()));
+    jQuery("#DLIVY_ADDR").val(cfn_trim(jQuery("#DLIVY_ADDR").val()));
+    jQuery("#DLIVY_DTL_ADDR").val(cfn_trim(jQuery("#DLIVY_DTL_ADDR").val()));
+    jQuery("#DLIVY_MEMO").val(cfn_trim(jQuery("#DLIVY_MEMO").val()));
+    jQuery("#SIDO").val(cfn_trim(jQuery("#SIDO").val()));
+    jQuery("#GUN").val(cfn_trim(jQuery("#GUN").val()));
+    jQuery("#DONG").val(cfn_trim(jQuery("#DONG").val()));
+    jQuery("#NM_DORO").val(cfn_trim(jQuery("#NM_DORO").val()));
+    jQuery("#NUM_BLDG").val(cfn_trim(jQuery("#NUM_BLDG").val()));
+    jQuery("#CASH_RECPT_MOBLNO1").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO1").val()));
+    jQuery("#CASH_RECPT_MOBLNO2").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO2").val()));
+    jQuery("#CASH_RECPT_MOBLNO3").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO3").val()));
+    jQuery("#CASH_RECPT_BIZRNO1").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO1").val()));
+    jQuery("#CASH_RECPT_BIZRNO2").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO2").val()));
+    jQuery("#CASH_RECPT_BIZRNO3").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO3").val()));
+
+	if ( jQuery("#RCIVR_NM").val() == "" ) {
+		alert("받으시는 분이 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_NM").focus();
+		return;
+	}
+	
+	/*
+	if ( jQuery("#RCIVR_TELNO1").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO1").focus();
+		return;
+	}
+	if ( !checkTelNo1(jQuery("#RCIVR_TELNO1").val()) ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO1").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO2").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO2").focus();
+		return;
+	}
+	if ( !(jQuery("#RCIVR_TELNO2").val().length == 3 || jQuery("#RCIVR_TELNO2").val().length == 4) ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO2").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO3").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO3").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO3").val().length != 4 ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO3").focus();
+		return;
+	}
+	*/
+	
+
+	if ( jQuery("#RCIVR_MOBL1").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL1").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL2").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL2").focus();
+		return;
+	}
+	if ( !(jQuery("#RCIVR_MOBL2").val().length == 3 || jQuery("#RCIVR_MOBL2").val().length == 4) ) {
+		alert("휴대폰번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL2").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL3").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL3").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL3").val().length != 4 ) {
+		alert("휴대폰번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL3").focus();
+		return;
+	}
+
+
+	if ( jQuery("#DELVYA").val() == "5" ) {
+		alert("사서함 주소는 한진택배 배송이 되지 않습니다. \n배송지 주소를 변경하시어 주문해 주시면 감사하겠습니다.");
+		changePayButton(true);
+		return;
+	}
+
+	if ( jQuery("#DLIVY_POST_NO1").val() == "" ) {
+		alert("우편번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		return;
+	}
+	if ( jQuery("#DLIVY_POST_NO2").val() == "" ) {
+		alert("우편번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		return;
+	}
+	if ( jQuery("#DLIVY_ADDR").val() == "" ) {
+		alert("배송지 주소가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#DLIVY_ADDR").focus();
+		return;
+	}
+	if ( jQuery("#DLIVY_DTL_ADDR").val() == "" || jQuery("#DLIVY_DTL_ADDR").val() == "상세주소" ) {
+		alert("배송지 주소가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#DLIVY_DTL_ADDR").focus();
+		return;
+	}
+
+	if ( jQuery("#SIDO").val() == ""
+		//|| jQuery("#GUN").val() == ""	
+		|| jQuery("#DONG").val() == "" ) {
+		alert("배송지 주소가 잘못 입력되었습니다.");
+		changePayButton(true);
+		return;
+	}
+
+	if(v_preOrdYn == "Y") {	
+		var f = document.frm;
+		var objCase = document.getElementsByName("rd_case_sel");
+		if(getRadiosValue(objCase) == "") {
+			alert("케이스 종류를 선택해 주세요.");
+			changePayButton(true);
+			document.getElementById("rd_case_sel_1").focus();
+			return;
+		}
+	}
+	
+	if ( jQuery("#PAYMT_TYPE").val() == "" && parseInt(jQuery("#TOTAL_PAY_AMT").val()) != 0) {
+		alert("결제수단을 선택해 주세요.");
+		changePayButton(true);
+		jQuery("#PAYMT_TYPE").focus();
+		return;
+	}
+	
+
+	// 실시간계좌이체 금액이 존재할 경우 현금영수증 처리
+	if( (jQuery("#PAYMT_TYPE").val() == "04" || jQuery("#PAYMT_TYPE").val() == "05") && jQuery("#TOTAL_PAY_AMT").val() >= 0 ) {
+
+		var f = document.frm;
+
+		// 발행
+		if(jQuery("#CASH_RECPT_APPLY_Y").attr("checked")) {
+			//소득공제용
+			if( jQuery("#CASH_RECPT_PUBL_PRPOS_01").attr("checked")) {
+
+				jQuery("#CASH_RECPT_PUBL_PRPOS").val("01");
+				jQuery("#CASH_RECPT_CRT_DIVI").val("10");
+
+				if ( jQuery("#CASH_RECPT_MOBLNO1").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO1").focus();
+					return;
+				}
+				if ( jQuery("#CASH_RECPT_MOBLNO2").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO2").focus();
+					return;
+				}
+				if ( jQuery("#CASH_RECPT_MOBLNO3").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO3").focus();
+					return;
+				}
+
+				var mobl_no = jQuery("#CASH_RECPT_MOBLNO1").val() + jQuery("#CASH_RECPT_MOBLNO2").val() + jQuery("#CASH_RECPT_MOBLNO3").val();
+				jQuery("#CASH_RECPT_CRT_NO").val(mobl_no);
+			} else {
+				//지출증빙용
+				if( fn_companyCheck() ) {
+
+					jQuery("#CASH_RECPT_PUBL_PRPOS").val("02");
+					jQuery("#CASH_RECPT_CRT_DIVI").val(f.CASH_RECPT_CRT_DIVI_BIZR.value);
+
+					if ( jQuery("#CASH_RECPT_BIZRNO1").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO1").focus();
+						return;
+					}
+					if ( jQuery("#CASH_RECPT_BIZRNO2").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO2").focus();
+						return;
+					}
+					if ( jQuery("#CASH_RECPT_BIZRNO3").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO3").focus();
+						return;
+					}
+
+					var bizr_no = jQuery("#CASH_RECPT_BIZRNO1").val() + jQuery("#CASH_RECPT_BIZRNO2").val() + jQuery("#CASH_RECPT_BIZRNO3").val();
+					jQuery("#CASH_RECPT_CRT_NO").val(bizr_no);
+				} else {
+					changePayButton(true);
+					jQuery("#CASH_RECPT_BIZRNO1").focus();
+					return;
+				}
+			}
+		} else {
+			// 미발행
+			// 소득공제용(01), 핸드폰 발행(10), 자진발급번호(0100001234) 셋팅
+			jQuery("#CASH_RECPT_PUBL_PRPOS").val("01");
+			jQuery("#CASH_RECPT_CRT_DIVI").val("10");
+			var mobl_no = "0100001234";
+			jQuery("#CASH_RECPT_CRT_NO").val(mobl_no);
+		}
+
+	}
+
+	if ( jQuery("#TOTAL_PAY_AMT").val() < 1000
+	     && jQuery("#PAYMT_TYPE").val() == "03"
+	     && jQuery("#TOTAL_PAY_AMT").val() != 0 ) {
+		alert("1000원 이하는 신용카드로 결제하실수 없습니다.");
+		jQuery("#PAYMT_METHOD").focus();
+		changePayButton(true);
+		return;
+	} else if ( (jQuery("#PAYMT_TYPE").val() == "04" || jQuery("#PAYMT_TYPE").val() == "05") && jQuery("#TOTAL_PAY_AMT").val() >= 100000 ) { // 에스크로 설정
+		// 고객이 소비자 피해보상  에스크로 신청 없음
+		// 보증보험 적용
+		jQuery("#ESCRW_YN").val("N");
+	}
+
+	jQuery("#RCIVR_TELNO").val(jQuery("#RCIVR_TELNO1").val()+jQuery("#RCIVR_TELNO2").val()+jQuery("#RCIVR_TELNO3").val());
+	jQuery("#RCIVR_MOBL").val(jQuery("#RCIVR_MOBL1").val()+jQuery("#RCIVR_MOBL2").val()+jQuery("#RCIVR_MOBL3").val());
+
+	if (jQuery("#CHK_USE_DLIVY_CPON").length > 0 && jQuery("#H_DLIVY_CPON_PUBL_ID").length > 0) {
+		if (jQuery("#CHK_USE_DLIVY_CPON").attr("checked") && jQuery("#H_DLIVY_CPON_PUBL_ID").val() != "")  
+			jQuery("#DLIVY_CPON_PUBL_ID").val(jQuery("#H_DLIVY_CPON_PUBL_ID").val());
+		else
+			jQuery("#DLIVY_CPON_PUBL_ID").val("");
+	} else {
+		jQuery("#DLIVY_CPON_PUBL_ID").val("");
+	}
+
+	if (parseInt(jQuery("#ADD_PROD_CNT").val()) > 0) {
+		if (!confirm("교환/반품/환불 불가한 상품이 포함되어있습니다.\n결제하시겠습니까?")) {
+			changePayButton(true);
+			return;
+		}
+	}
+	
+	if(v_preOrdYn == "Y") {	
+		var f = document.frm;
+		var objCase = document.getElementsByName("rd_case_sel");
+
+		var v_pickup_val = "[" + getRadiosValue(objCase) + "]";
+		var v_memo = jQuery("#DLIVY_MEMO").val();
+		if(v_memo.indexOf("[") > -1 && v_memo.indexOf("]") > -1) {
+			v_memo = v_memo.substring(v_memo.indexOf("]")+1);
+		}
+		var v_dliv_memo = v_pickup_val + v_memo;
+
+		jQuery("#DLIVY_MEMO").val(v_dliv_memo);
+	}
+	
+
+	// mi adidas 주문의 경우 우편번호 5자리만 가능
+	var dlivy_post_no = $("DLIVY_POST_NO1").value + $("DLIVY_POST_NO2").value;
+	if (dlivy_post_no.length != 5) {
+		alert("마이 아디다스 상품의 경우 도로명 주소(5자리 우편번호)로만\n주문 가능합니다");
+		changePayButton(true);
+		return;
+	}
+	openMiadidasLayer();
+
+}
+
+function fn_pay_submit() {
+
+	if (mi_order_agree!="Y") {
+		alert("결제 동의 후 진행하시기 바랍니다.");
+		changePayButton(true);
+		return;
+	}
+
+    	
+	if ( jQuery("#TOTAL_PAY_AMT").val() == 0 ) { // 전액쿠폰 결제시 pg사를 통하지 않는다.
+		jQuery("#command").val("TEMP_ORDER");
+		jQuery("#frm").attr("action","PF030201.action");
+		jQuery("#frm").attr("target","_self").submit();
+	} else {
+		jQuery("#command").val("LIST");
+		jQuery("#frm").attr("action","PF040102.action");
+		jQuery("#frm").attr("target","PAY_FRAME").submit();
+	}
+}
+
+function changePayButton(flag) {
+	if ( flag ) {
+		jQuery("#paymtButton").attr("innerHTML", "<a href='javascript:fn_pay();'><img src='/images/adidas/order/btn_payment.gif' alt='결제하기' style='margin:0px;' /></a>");
+	} else {
+		jQuery("#paymtButton").attr("innerHTML", "<a href='javascript:alert(\"결제중입니다.\");'><img src='/images/adidas/order/btn_payment_disable.gif' alt='결제하기' style='margin:0px;' /></a>");
+	}
+}
+
+function fn_showCpon() {
+	jQuery("#command").val("CPON");
+
+	var width = "650";
+	var height = "800";
+//	var asppop = cfn_openPop("about:Tabs", "popup", width, height);
+//	jQuery("#frm").attr("target","popup").submit();
+
+	var asppop = cfn_openPop("about:blank", "cpnPopup", width, height);
+
+	jQuery("#frm").attr('action',"/PF030302.action");
+	jQuery("#frm").attr("target","cpnPopup").submit();
+
+	asppop.focus();
+
+
+	/* #####################
+	var info = new Object();
+
+	var prodCpons = new Array();
+	var prodCpon = new Object();
+	prodCpon.PROD_CD = "123456";// 쿠폰 적용대상 상품
+
+	prodCpon.CPON_PUBL_ID = "123456";// 쿠폰번호
+	prodCpon.CPON_AMT = "3000";// 할인금액
+	prodCpons[0] = prodCpon;
+
+	info.prodCpons = prodCpons;
+
+	var ordCpons = new Array();
+	var ordCpon = new Object();
+	ordCpon.CPON_PUBL_ID = "123456";
+	ordCpon.CPON_AMT = "3000";
+	ordCpon.CPON_TYPE_CD = "";
+	ordCpons[0] = ordCpon;
+
+	info.ordCpons = ordCpons;
+
+	*/
+
+}
+
+function fn_showCponSet(arr, totCpon, totAmt){
+    var discountAmt = 0;
+    var prodCponAmt = 0;
+    var ordCponAmt = 0;
+    var cponPublIds = "";
+    var ordCponNos = "";
+    var vDlivyFee = 0;
+    var vDlivyCponAmt = 0;
+
+    if(arr.prodCpons != undefined){
+
+    	for (var i=0 ; i<arr.prodCpons.length ; i++) {
+        	var info = arr.prodCpons[i];
+       		discountAmt += parseInt(info.CPON_AMT);
+       		prodCponAmt += parseInt(info.CPON_AMT);
+       		cponPublIds += info.CPON_PUBL_ID+":";
+       		jQuery("#PROD_CPON_"+info.PROD_CD+"_"+info.PROD_OPT+"_"+info.PROD_QTY).val(info.CPON_PUBL_ID);
+       		jQuery("#PROD_CPON_AMT_"+info.PROD_CD+"_"+info.PROD_OPT+"_"+info.PROD_QTY).val(parseInt(info.CPON_AMT));
+    	}
+    }
+
+    if(arr.ordCpons != undefined){
+
+    	for (var i=0 ; i<arr.ordCpons.length ; i++) {
+           	var info = arr.ordCpons[i];
+        	discountAmt += parseInt(info.CPON_AMT);
+        	ordCponAmt += parseInt(info.CPON_AMT);
+        	ordCponNos += info.CPON_PUBL_ID+":";
+        	cponPublIds += info.CPON_PUBL_ID+":";
+       	}
+    }
+
+	jQuery("#PROD_CPON_AMT").val(prodCponAmt);
+	jQuery("#ORD_CPON_AMT").val(ordCponAmt);
+	jQuery("#ORD_CPON_NOS").val(ordCponNos);
+	jQuery("#CPON_PUBL_IDS").val(cponPublIds);
+
+	if ( parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(jQuery("#ORG_DLIVY_FEE").val()) <= discountAmt ) { // 쿠폰 사용금액이 주문금액보다 큰 경우.
+		discountAmt = parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(jQuery("#ORG_DLIVY_FEE").val()); // 할인금액을 주문금액으로 바꾼다.
+	}
+	
+	vDlivyFee = parseInt(jQuery("#DLIVY_FEE").val());
+	
+	if (jQuery("#CHK_USE_DLIVY_CPON").length > 0 && jQuery("#H_DLIVY_CPON_PUBL_ID").length > 0) {
+		if (jQuery("#CHK_USE_DLIVY_CPON").attr("checked") && jQuery("#H_DLIVY_CPON_PUBL_ID").val() != "") {
+			vDlivyCponAmt = vDlivyFee;
+		}
+	}
+	
+	jQuery("#TOTAL_DISCOUNT_AMT_TEMP").val(toCurrency(discountAmt));
+	jQuery("#TOTAL_DISCOUNT_AMT").val(discountAmt);
+	jQuery("#TOTAL_PAY_AMT").val(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val()) - parseInt(jQuery("#ORG_DLIVY_FEE").val()) + vDlivyFee - vDlivyCponAmt - parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val()));
+	jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(jQuery("#TOTAL_PAY_AMT").val())+" 원");
+
+	showPayMethod(jQuery("#TOTAL_PAY_AMT").val());
+
+	setSaveRate();
+}
+
+function registerPayInfo() {
+	jQuery("#command").val("TEMP_ORDER");
+	jQuery("#frm").attr("action","PF030201.action");
+	jQuery("#frm").attr("target","_self").submit();
+}
+
+function showPayMethod(totalPayAmt) {
+	if ( totalPayAmt == 0 ) {
+		jQuery("#payMethodTr").hide();
+	} else {
+		jQuery("#payMethodTr").show();
+	}
+	//
+}
+
+function viewMemoCnt(){
+	if ( jQuery("#DLIVY_MEMO").val().length > 50 ) {
+		alert("50자 이하로 입력할 수 있습니다.");
+		jQuery("#DLIVY_MEMO").val(jQuery("#DLIVY_MEMO").val().substring(0, 50));
+	}
+	jQuery("#dlivyMemoLength").attr("innerHTML", jQuery("#DLIVY_MEMO").val().length);
+}
+
+function fn_onlyFigureKey(ev) {
+	if(cfn_isUndefined(ev) || cfn_isNull(ev)) {
+		ev = event;
+	}
+
+	var keyCode = ev.keyCode;
+
+    //숫자열 0 ~ 9 : 48 ~ 57, 키패드 0 ~ 9 : 96 ~ 105 ,8 : backspace, 46 : delete 키코드값을 구분합니다. 저것들이 숫자랍니다.
+    if(keyCode >= 48 && keyCode <= 57 || keyCode >= 96 && keyCode <= 105 || keyCode == 8 || keyCode == 46 || (keyCode >= 37 && keyCode <= 40 ) || keyCode == 9 ) {
+        return; //입력시킨다.
+    }
+    ev.returnValue=false;
+	Event.stop(ev);
+}
+
+var tel1Arr = new Array("02", "031", "032", "033", "041", "042", "043", "051", "052", "053", "054", "055", "061", "061", "062", "063", "064", "010", "011", "016", "017", "018", "019", "0130", "070", "080", "0502", "0504", "0505", "0506", "0303");
+function checkTelNo1(tel1) {
+	for ( var i = 0; i < tel1Arr.length ; i++) {
+		if ( tel1 == tel1Arr[i] )
+			return true;
+	}
+	return false;
+}
+
+function fn_ChangeCardRecptApply(sel) {	
+	if ( sel == "Y" ) {	
+		jQuery('#cardReport_choice2').show();
+	} else {		
+		jQuery('#cardReport_choice2').hide();
+	}
+}
+
+//mi adidas 레이어 열기
+function openMiadidasLayer(){
+    mi_order_agree = "N";
+    jQuery("#sign_nm").val("");
+	openLayer('popup_miadidas',730,404);
+    jQuery("#sign_nm").focus();
+}
+
+//mi adidas 레이어 닫기
+function closeMiadidasLayer(){
+	closeLayer('popup_miadidas',1);
+}
+
+//mi adidas 결제 동의
+function fn_miad_agree(param){
+    if (param=="Y") {
+    	if (jQuery("#MEM_NM").val() == jQuery("#sign_nm").val()) {
+    		mi_order_agree = "Y";
+            jQuery('#popup_miadidas').hide();
+            jQuery('.layer_bg').hide(); 
+    		fn_pay_submit();
+    	} else {
+    		mi_order_agree = "N";
+    		alert("주문자명을 정확히 입력해주세요.");
+    	    jQuery("#sign_nm").val("");
+    	    jQuery("#sign_nm").focus();
+    	}
+    } else {   
+		mi_order_agree = "N"; 	
+  		changePayButton(true);  		
+        jQuery('#popup_miadidas').hide();
+        jQuery('.layer_bg').hide();
+    }
+}
+/* ]]> */
+</script>
+</head>
+
+<body>
+	
+<div class="mi_buy_check_layer" id="popup_miadidas" style="display:none;z-index:91000;">  
+	<h1><img src="/images/adidas/common/tit_mi_buy_check.gif" alt="customize 결제에 따른 동의"/></h1>
+
+	<p class="str">customize 주문을 원하시는 경우 하기 항목 확인 후 빈칸에 <strong>고객님 성함</strong>을 입력 후 결제 부탁 드립니다.</p>
+	<ol>
+		<li>1. 결제 완료 후 작업하신 <strong>제품 정보 수정이 불가</strong>함을 이해 하였습니다.</li>
+		<li>2. 결제 완료 후 지정하신 <strong>배송 정보(주소,연락처 등) 수정이 불가</strong>함을 이해 하였습니다.</li>
+		<li style="margin-bottom:0;">3. 주문 제작 상품으로 <strong>결제 완료 후 주문 취소 불가</strong>함을 이해 하였습니다.</li>
+	</ol>
+	<div class="sign">
+		<label for="sign_nm">주문자 :</label>
+		<input type="text" id="sign_nm" name="sign_nm" maxlength="40" />
+		<span>은 상기 내역을 이해하고 결제 후 주문 취소가 불가함에 동의 합니다.</span>
+	</div>
+	<p class="desc">* 주문/결제 페이지 상 주문자의 동일한 이름만 입력 가능합니다.</p>
+	<div class="btn_area">
+		<div class="l">
+			<a href="javascript:fn_miad_agree('N');"><span class="spt_bg">동의 하지 않습니다 </span></a>
+			<p>주문 정보 다시 확인한 후 결제 진행</p>
+		</div>
+		<div class="r">
+			<a href="javascript:fn_miad_agree('Y');"><span class="spt_bg">동의 하고 주문합니다</span></a>
+			<p>입력된 정보로 주문.결제 완료 후 주문 취소 불가</p>
+		</div>
+	</div>
+	<a href="javascript:fn_miad_agree('N');" class="close spt_bg">닫기</a>
+</div>
+
+
+<div id="wrap">
+	<!-- header -->
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M2JMMC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M2JMMC');</script>
+<!-- End Google Tag Manager -->
+
+<script type="text/javascript" src="/js/adidas/navigation.js"></script>
+<script type="text/javascript" src="/js/topSearchR.js?v=150624"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/search/dqAutoCompleteCommonTop.js"></script>
+<script type="text/javascript" src="/js/adidas/select_layer.js"></script>
+
+
+
+
+	
+
+<script type="text/javascript">
+
+
+/* <![CDATA[ */
+	
+jQuery(document).ready(function(){
+	
+	var topbnnopen = false;
+
+
+	
+	//if (fn_getCookie('top_bnn') != 'close') { // 기본 열림 처리 
+
+	//if (fn_getCookie('top_bnn') == 'open') { // 기본 닫힘 처리 
+
+	//}	// End of if (fn_getCookie
+
+	
+	jQuery('body').prepend('<div class="layer_bg" style="z-index:90000;"></div>');	
+
+	
+		if (fn_getCookie('today_close_mycpn')!='close') {
+			openMyCpnLayer();
+		}
+		jQuery("#today_close_mycpn").click(function(){
+			fn_setCookie('today_close_mycpn','close',1);
+			closeMyCpnLayer();
+		});
+	
+	
+		
+			
+	
+	
+	
+	
+
+	
+		
+});
+	
+
+var EchoID = "iprospect1";
+var EchoGoodNm = "";
+var EchoAmount = "";
+var EchoUIP = "";
+var EchoTarget = "";
+var EchoLogSend = "Y";
+var EchoCV = "";
+var EchoPN = "";
+
+
+function fn_trkClickTrace(val){
+	if(""!=""){
+		var navi="^"+""+val;
+		trk_clickTrace("EVT",navi);
+	}
+}
+
+var V_HD_MEM_NO = "00108684535";
+var V_HD_MEM_TYPE = "R";
+var V_HD_MEM_CART_CNT = "6";
+var V_MAIN_PAGE_YN = "/PF030201.action"
+var V_HD_LIMIT_PROD_CD = "S79478";
+	
+    function fn_logInChk(){
+	    var url = "/PF060801.action?command=loginCheck";
+	    var login = "N";
+
+	    var onSuccess = function(req){
+	        var json = req.responseJSON;	
+	        JsonUtil.alert(json);	
+	        if(JsonUtil.isError(json)){
+	            login = json.login;
+	        }
+	        return login;
+	    };
+	    var onFailure = function(){
+	        alert('수정 중 에러가 발생했습니다.');
+            return login;
+
+	    };
+	    cfn_ajaxRequest(url, "", onSuccess, onFailure);
+    }
+	
+//logIn
+	function fn_logIn(parame){
+        var url = "/PF060801.action?command=loginCheck";
+        var login = "N";
+        var onSuccess = function(req){
+            var json = req.responseJSON;    
+            JsonUtil.alert(json);   
+            if(JsonUtil.isError(json)){
+                login = json.login;
+            }
+            if (login=="Y") {
+                if(parame == '0' || parame == '5'){
+                    alert("로그인 상태가 변경되었습니다. 화면을 다시 로드하겠습니다.");
+                    location.reload();
+                } else if(parame == '1'){
+	                top.location.href = 'https://shop.adidas.co.kr:443/PF060100.action';
+	            } else {
+	                //alert("로그인 상태가 변경되었습니다. 화면을 다시 로드하겠습니다.");
+	                //location.reload();
+	                fn_logIns(parame);
+	            }
+            } else {
+            	fn_logIns(parame);
+            }
+            
+        };
+        var onFailure = function(){
+            alert('수정 중 에러가 발생했습니다.');
+            fn_logIns(parame);
+
+        };
+        cfn_ajaxRequest(url, "", onSuccess, onFailure);
+    }
+
+    function fn_logIns(parame){
+		var goLoginPage = 'https://shop.adidas.co.kr:443/PF060801.action?';
+		
+		if(false){
+			$("linkGb").value = parame;
+			
+			var param = $("ssoSrch").serialize(true);
+			var url = "/PF060806.action";
+			var onSuccess = function(req){
+				var json = req.responseJSON;
+				JsonUtil.alert(json);
+				var rturl = json.URL_PARAM;
+				
+				if(parame == '1'){
+					var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+					popup.focus();
+				}else if(parame == '2'||parame == '5'||parame == '7'||parame == '0'){
+					document.location.href = "http://m.adidas.co.kr"+"/MO/Main/mainIF.action?"+rturl;
+				}else if(parame == '6'){
+					document.location.href = 'https://shop.adidas.co.kr:443/PF060100.action';
+				}else if(parame == '8'){
+					document.location.href = 'http://shop.adidas.co.kr/PF060101.action';
+				}
+			};
+			var onFailure = function(){
+				alert('수정 중 에러가 발생했습니다.');
+			};
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+
+		}else{
+			if(parame == '1'){
+				var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '2'){
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.adidas.co.kr/PF030201.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '3'){
+				var popup = window.open(goLoginPage+'checkbtn=buyLogIn&returnURL=http://shop.adidas.co.kr/PF030201.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '5'){
+				document.location.href = 'https://shop.adidas.co.kr:443/PF0601001.action';
+			}else if(parame == '6'){
+				document.location.href = 'https://shop.adidas.co.kr:443/PF060100.action';
+			}else if(parame == '7'){
+				if(V_HD_MEM_CART_CNT==0||V_HD_MEM_CART_CNT=="null"){
+					alert("장바구니에 담긴 상품이 없습니다.");
+					//return false;
+				}else{
+					fn_marketBody();
+					marketLayer();
+				}			
+			}else if(parame == '8'){
+				document.location.href = 'http://shop.adidas.co.kr/PF060101.action';
+			
+			} else if (parame == '9') {
+				var optionSel = jQuery("#option_sel").val();
+				var qtySel    = jQuery("#qty_sel").html();
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.adidas.co.kr/PF030201.action&preCal=Y&optionSel=' + optionSel + '&qtySel=' + qtySel,'logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			} else {
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.adidas.co.kr/PF030201.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}
+			
+		}
+		
+	}
+	
+	//LogOut
+	function fn_logOut(){
+		if(confirm('로그아웃 하시겠습니까?')){
+			document.location.href = "/PF060801.action?command=logOut&redirectMan=http://shop.adidas.co.kr/adiMain.action";
+		}
+	}
+	
+	function getCookie(id, name){
+
+		var param = "S_POPUP_ID="+id;
+		var url = "/makePopUp.action?"+param;
+	
+	    var nameOfCookie = name + "=";
+	    var x = 0;
+	    while ( x <= document.cookie.length ){
+	            var y = (x+nameOfCookie.length);
+	            if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+	                    if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+	                            endOfCookie = document.cookie.length;
+	                    return unescape( document.cookie.substring( y, endOfCookie ) );
+	            }
+	            x = document.cookie.indexOf( " ", x ) + 1;
+	            if ( x == 0 )
+	                    break;
+	    }
+	    return "";
+	}
+
+	function fnSetSearchWords() {
+		var var_arrLen = search_words.length;
+		var var_randVal;
+		
+		do {
+			var_randVal = (Math.floor(Math.random() * 100)) % var_arrLen;	// 랜덤하게 가져오기
+		} while(search_disp_yn[var_randVal] == 'N'); // 검색어전시여부가 Y인 경우에만 검색창에 세팅
+		
+		var f = document.frmSrchTop;
+		f.S_PROD_NM_TOP.value = search_words[var_randVal];
+		f.S_SEARCH_WORDS_URL.value = search_words_url[var_randVal];
+	}
+	
+	/*  장바구니 */ 
+	function fn_marketBody() {
+		var command = "LIST_4";
+		
+		var url = "/PF010101.action?command="+command+"&ssoSiteCD="+$("ssoSiteCD").value ;
+
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			var arr_cart = json.list.list;
+			var arr_tot = json.tot.list;
+			
+			var listHTML = "";
+			var totHTML = "";
+
+			//장바구니 리스트
+			listHTML += "	<div class='mkt_arrow_top'><a href='#' onclick='mktMoveTop(this);return false' class='spt_bg disable'></a></div>";
+			listHTML += "		<div class='mkt_slide_wrap'>";
+			listHTML += "			<div class='mkt_slide'>";
+			
+			for(var i=0; i<arr_cart.size(); i++){
+				listHTML += "			<div class='mkt_box'>";
+				listHTML += "				<div class='prod_img'>";
+				listHTML += "					<img src='" + arr_cart[i].PROD_VW_IMG + "' alt='"+arr_cart[i].PROD_NM_KOR+"' width='94' height='94' />";
+
+				if (arr_cart[i].ONLINE_ONLY_YN == "Y") {
+					if (arr_cart[i].BRAND_AUTH == "1") {
+						listHTML += "						<span class='oo_label size94'><img src='/images/adidas/common/bg_oo_label_ss_50.jpg' alt='온라인단독 상품' /></span>";
+					} else {
+						listHTML += "						<span class='oo_label size94'><img src='/images/adidas/common/bg_oo_label_sp_50.jpg' alt='온라인단독 상품' /></span>";
+					}
+				}	
+				
+				listHTML += "				</div>";
+				listHTML += "				<div class='prod_info'>";
+				listHTML += "					<p class='tit'>"+arr_cart[i].PROD_NM_KOR+"</p>";
+				listHTML += "					<p class='prod_code'>상품코드 : <span>"+arr_cart[i].COLOR_NM+"</span></p>";
+				listHTML += "					<p class='amount'>주문수량 : "+arr_cart[i].PROD_QTY+"개</p>";
+				listHTML += "					<p class='size'>사이즈 : "+arr_cart[i].OPTION_NO+"</p>";
+				listHTML += "					<p class='price'>주문금액 : "+arr_cart[i].SALES_PRICE+"원</p>";
+				if (arr_cart[i].ADD_PROD_DIVI != "02") {
+					if (arr_cart[i].MI_PROD_YN == "Y") {
+						listHTML += "                   <p class='prod_link'><a href='javascript:fn_prod_mi_u(\""+arr_cart[i].PROD_CD+"\",\""+arr_cart[i].MI_RECIPE_URL+"\",\"update\");' class='spt_bg'>상품 바로가기</a></p>";
+					} else {
+						listHTML += "					<p class='prod_link'><a href='http://shop.adidas.co.kr/PF020401.action?PROD_CD="+arr_cart[i].PROD_CD+"' class='spt_bg'>상품 바로가기</a></p>";
+					}
+				}
+				listHTML += "				</div>";
+				listHTML += "			</div>";
+			}
+			
+			if(arr_cart.size()==1){
+				listHTML += "			<div class='mkt_box'>";
+				listHTML += "				<img src='images/adidas/common/bg_no_market.gif' alt='장바구니에 상품을 담아주세요.'/>";
+				listHTML += "			</div>";
+			}
+
+			listHTML += "		</div>";
+			listHTML += "	</div>";
+			
+			if(arr_cart.size()>2){
+				listHTML += "	<div class='mkt_arrow_btm'><a href='#' onclick='mktMoveBtm(this);return false' class='spt_bg'></a></div>";
+			}else{
+				listHTML += "	<div class='mkt_arrow_btm'><a href='#' class='spt_bg disable'></a></div>";
+			}
+			
+			totHTML += "	<div class='total_price'>";
+			totHTML += "		<p>총 주문 금액 : <strong>"+arr_tot[0].TOT_SALES_PRICE+"</strong> 원</p>";
+			totHTML += "		<p class='point'>예상 포인트 : <span>"+arr_tot[0].TOT_POINT+" </span><img alt='p' src='/images/adidas/mypage/ico_point.gif'/></p>";
+			totHTML += "	</div>";
+			totHTML += "	<div class='go_market'><a href='http://shop.adidas.co.kr/PF030101.action'><img src='/images/adidas/common/btn_go_market.gif' alt='장바구니 바로가기'/></a></div>";
+			totHTML += "	<div class='desc'><span class='spt_bg'></span>5만원 이상 주문시 배송비 무료 (단, customize 제외)</div>";
+
+			jQuery("#market_body").html("");
+			jQuery("#market_body").html(listHTML);
+			
+			jQuery("#market_bottom").html("");
+			jQuery("#market_bottom").html(totHTML);
+			
+		};
+		
+	    var onFailure = function(){
+	    	alert("error");
+	    };
+	    
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+	}
+	
+	//메인바로가기
+	function fn_main(){
+		document.location.href = "http://shop.adidas.co.kr/adiMain.action";
+	}
+
+	var mem_id = 'kkbdream';
+	function go_logInPage(){
+		if(mem_id == 'null' || mem_id == 'GUEST'){
+			fn_logIn(0);
+		}else{
+			alert('로그인 중입니다.');
+			return;
+		}
+	}
+	
+	function go_myPageMan(url){
+		if(mem_id == 'null' || mem_id == 'GUEST'){
+			var popup = window.open('http://shop.adidas.co.kr/PF060801.action?checkbtn=fromTop&returnURL='+url,'logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+			popup.focus();
+		}else{
+			location.href = url;
+		}
+	}
+
+	function strCut(obj,len) {
+		var str = obj;
+		var l = 0;
+		for (var i=0; i<str.length; i++) {				
+			l += (str.charCodeAt(i) > 128) ? 2 : 1;
+			if (l > len) return str.substring(0,i) + "..";
+		}
+		return str;
+	}
+
+	//쿠폰 레이어 열기
+	function openMyCpnLayer(){		
+		var arr_list;
+		var url = "/PF060808.action?command=LIST_1";
+		var rateamt = "";
+		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			arr_list = json.list.list;
+
+			if(arr_list.size() > 0) {
+				var cpn_cnt = arr_list.size() > 2 ? 2 : arr_list.size();
+				for(var i=0; i<cpn_cnt; i++){
+
+					jQuery("#popup_mycpn ul li:eq("+i+") p:eq(0)").attr('title',arr_list[i].CPON_NM).text(strCut(arr_list[i].CPON_NM , cutln));
+					if(arr_list[i].RATE_AMT_CD=="01"){
+						rateamt = arr_list[i].RATE_AMT+"<span>원</span>";
+					}else{
+						rateamt = arr_list[i].RATE_AMT+"<span>%</span>";
+					}
+					jQuery("#popup_mycpn ul li:eq("+i+") p:eq(1)").html(rateamt);
+					jQuery("#popup_mycpn ul li:eq("+i+") p:eq(2)").html("유효기간 " + arr_list[i].USE_END_DT + " 까지");					
+				}
+				if (cpn_cnt == 1) jQuery("#popup_mycpn ul li:eq(1)").remove();
+				jQuery("#popup_mycpn").show();
+			}
+		};		
+	    var onFailure = function(){
+	    	alert("error");
+	    };	    
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+	}
+	
+	//쿠폰 레이어 닫기
+	function closeMyCpnLayer(){
+		jQuery('#popup_mycpn').hide();
+	}
+
+	//러닝클럽 가입대상 알림 레이어 열기
+	function openRcNotiLayer(){
+		jQuery('#popup_rc_target_noti').show();
+	}
+	
+	//러닝클럽 가입대상 알림 레이어 닫기
+	function closeRcNotiLayer(){
+		jQuery('#popup_rc_target_noti').hide();
+	}
+	
+	//러닝클럽 마일리지 알림 레이어 열기
+	function openRcMlgNotiLayer(){
+		jQuery('#popup_rc_mlg_noti').show();
+	}
+	
+	//러닝클럽 마일리지 알림 레이어 닫기
+	function closeRcMlgNotiLayer(){
+		jQuery('#popup_rc_mlg_noti').hide();
+	}
+		
+	// 폐쇄 기획전 알림 레이어 열기
+	function openSpstNotiLayer(){	
+		jQuery('#popup_spst_noti').show();
+	}
+	
+	// 폐쇄 기획전 알림 레이어 닫기
+	function closeSpstNotiLayer(){
+		jQuery('#popup_spst_noti').hide();
+	}
+		
+	
+/* ]]> */
+</script>
+<form id="ssoSrch" name="ssoSrch" method="post" onsubmit="return false;" action="/PF060806.action">
+	<input type = "hidden" id="ssoSiteCD" name="ssoSiteCD" value="1"/>
+	<input type = "hidden" id="ssoMemNo" name="ssoMemNo" value="00108684535"/>
+	<input type = "hidden" id="linkGb" name="linkGb" value=""/>
+</form>
+
+		<!-- header HTML -->
+
+		
+<script type="text/javascript">/* <![CDATA[ */var domain_url = "http://shop.adidas.co.kr";var domain_url_ssl = "https://shop.adidas.co.kr:443";var search_words = new Array(15);var search_words_url = new Array(15);var search_disp_yn   = new Array(15);search_words[0]= "온라인단독 슈퍼스타 입고";search_words_url[0]= "http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009";search_disp_yn[0]= "Y";search_words[0]= "";search_words_url[0]= "";search_disp_yn[0]= "";search_words[1]= "인펀트 슬립온 입고";search_words_url[1]= "http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=360%20I";search_disp_yn[1]= "Y";search_words[1]= "";search_words_url[1]= "";search_disp_yn[1]= "";search_words[2]= "러닝마일리지샵";search_words_url[2]= "http://shop.adidas.co.kr/PF080501.action";search_disp_yn[2]= "N";search_words[2]= "";search_words_url[2]= "";search_disp_yn[2]= "";search_words[3]= "단체 유니폼";search_words_url[3]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&FAQ_DIVI_DTL=02";search_disp_yn[3]= "N";search_words[3]= "";search_words_url[3]= "";search_disp_yn[3]= "";search_words[4]= "인기 트레포일 신상 입고";search_words_url[4]= "http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=%ED%8A%B8%EB%A0%88%ED%8F%AC%EC%9D%BC";search_disp_yn[4]= "Y";search_words[4]= "";search_words_url[4]= "";search_disp_yn[4]= "";search_words[5]= "팀복 주문";search_words_url[5]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=12";search_disp_yn[5]= "N";search_words[5]= "";search_words_url[5]= "";search_disp_yn[5]= "";search_words[6]= "단체복 주문";search_words_url[6]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&FAQ_DIVI_DTL=02";search_disp_yn[6]= "N";search_words[6]= "";search_words_url[6]= "";search_disp_yn[6]= "";search_words[7]= "팀 유니폼";search_words_url[7]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=12";search_disp_yn[7]= "N";search_words[7]= "";search_words_url[7]= "";search_disp_yn[7]= "";search_words[8]= "슈퍼스타 슬립온 드디어 재입고";search_words_url[8]= "http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=S81337";search_disp_yn[8]= "Y";search_words[8]= "";search_words_url[8]= "";search_disp_yn[8]= "";search_words[9]= "슈퍼스타 재입고";search_words_url[9]= "http://shop.adidas.co.kr/PF020401.action?PROD_CD=C77124";search_disp_yn[9]= "Y";search_words[9]= "";search_words_url[9]= "";search_disp_yn[9]= "";search_words[10]= "아디클럽 러닝";search_words_url[10]= "http://shop.adidas.co.kr/PF080501.action";search_disp_yn[10]= "N";search_words[10]= "";search_words_url[10]= "";search_disp_yn[10]= "";search_words[11]= "러닝 클럽";search_words_url[11]= "http://shop.adidas.co.kr/PF080501.action";search_disp_yn[11]= "N";search_words[11]= "";search_words_url[11]= "";search_disp_yn[11]= "";search_words[12]= "팀복";search_words_url[12]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=12";search_disp_yn[12]= "N";search_words[12]= "";search_words_url[12]= "";search_disp_yn[12]= "";search_words[13]= "단체복";search_words_url[13]= "http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&FAQ_DIVI_DTL=02";search_disp_yn[13]= "N";search_words[13]= "";search_words_url[13]= "";search_disp_yn[13]= "";search_words[14]= "인기 벌크화 코트밴티지";search_words_url[14]= "http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=%EC%BD%94%ED%8A%B8%EB%B0%B4%ED%8B%B0%EC%A7%80";search_disp_yn[14]= "Y";search_words[14]= "";search_words_url[14]= "";search_disp_yn[14]= "";/* ]]> */</script><script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script><script type="text/javascript" src="/js/adidas/adidas.js?q=160428"></script><script type="text/javascript" src="/js/netfunnel.js" charset="UTF-8"></script><!-- 퀵뷰,상품상세/평 바로가기 --><script type="text/javascript" src="/js/adidas/common.js?ver=20151217"></script><form id="frmSmartView" name="frmSmartView" method="post" action=""><input type="hidden" id="SV_COMMAND"  name="command" /><input type="hidden" id="SV_PROD_CD"  name="PROD_CD" /></form><form id="frmProdEval" name="frmProdEval" method="post" action=""></form><!-- //퀵뷰,상품상세/평 바로가기 --><!-- 탑배너 --><div class="top_bnn" id="div_top_banner" style="display:none;background:#efefef;"></div><!-- 130620 start --><div class="skip_nav"><script type="text/javascript">/* <![CDATA[ */    if(V_MAIN_PAGE_YN == "/main.action"){    document.write("<h2 class='blind'>skip navigation</h2>");    document.write("<a href='#gnb_r' onclick='document.getElementById(\"gnb_r\").tabIndex = -1;document.getElementById(\"gnb_r\").focus();return false;'>상단메뉴 바로가기</a>");    document.write("<a href='#collection_bnn' onclick='document.getElementById(\"collection_bnn\").tabIndex = -1;document.getElementById(\"collection_bnn\").focus();return false;'>COLLECTION 메뉴 바로가기</a>");    document.write("<a href='#features' onclick='document.getElementById(\"features\").tabIndex = -1;document.getElementById(\"features\").focus();return false;'>FEATURES 메뉴 바로가기</a>");    document.write("<a href='#best_prodlist' onclick='document.getElementById(\"best_prodlist\").tabIndex = -1;document.getElementById(\"best_prodlist\").focus();return false;'>베스트상품 바로가기</a>");    document.write("<a href='#new_prodlist' onclick='document.getElementById(\"new_prodlist\").tabIndex = -1;document.getElementById(\"new_prodlist\").focus();return false;'>신상품 바로가기</a>");    document.write("<a href='#expl_more' onclick='document.getElementById(\"expl_more\").tabIndex = -1;document.getElementById(\"expl_more\").focus();return false;'>EXPLORE MORE 바로가기</a>");    document.write("<a href='#footer_r' onclick='document.getElementById(\"footer_r\").tabIndex = -1;document.getElementById(\"footer_r\").focus();return false;'>하단 바로가기</a>");    }else{    document.write("<h2 class='blind'>skip navigation</h2>");    document.write("<a href='#gnb_r' onclick='document.getElementById(\"gnb_r\").tabIndex = -1;document.getElementById(\"gnb_r\").focus();return false;'>상단메뉴 바로가기</a>");    document.write("<a href='#expl_more'onclick='document.getElementById(\"container_r\").tabIndex = -1;document.getElementById(\"container_r\").focus();return false;'>본문 바로가기</a>");    document.write("<a href='#footer_r' onclick='document.getElementById(\"footer_r\").tabIndex = -1;document.getElementById(\"footer_r\").focus();return false;'>하단 바로가기</a>");    }/* ]]> */</script></div><!-- 130620 start --><!-- 160324 start --><div id="header-20160315"><a href="#" class="topbnn_toggle spt_bg"></a><div class="util_box"><div class="bar_rpt"></div><div class="ct950"><h1><a href="javascript:fn_main();" onmousedown="javascript:fn_trkClickTrace('^최상단^로고');" class="spt_bg">로고</a></h1><ul class="utils_menu"><!-- li><a href="#">주문조회</a></li><li><a href="#">가입 후 혜택 받기</a></li><li class="login last"><a href="#">로그인</a><div class="spt_bg ico_login"></div></li--><script type="text/javascript">    /* <![CDATA[ */    if(V_HD_MEM_NO != "null" && V_HD_MEM_NO != "") { /* 로그인상태인 경우 */        if(V_HD_MEM_TYPE == "R" ) { /* 회원인 경우 */        document.write("<li><a href='javascript:fn_logIn(6);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");'>마이페이지</a></li>");        document.write("<li><a href='javascript:fn_logIn(8);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");'>주문조회</a></li>");        }else {        document.write("<li><a href='javascript:fn_logIn(8);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");'>주문조회</a></li>");        }    document.write("<li class='login last'><a href='javascript:fn_logOut();'>로그아웃</a><div class='spt_bg ico_login'></div></li>");        }else { /* 로그아웃 상태인 경우 */        document.write("<li><a href='javascript:fn_logIn(1);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");' title='새창 로그인'>주문조회</a></li>");        document.write("<li><a href='javascript:fn_logIn(5);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^회원가입\");'>가입 후 혜택 받기</a></li>");        document.write("<li class='login last'><a href='javascript:fn_logIn(0);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^로그인\");' title='새창 로그인'>로그인</a><div class='spt_bg ico_login'></div></li>");        }    /* ]]> */        </script></ul><div class="search_area"><div class="search"><form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" action=""><input type="hidden" id="topSiteCD" name="topSiteCD" value="1"><input type="hidden" id="topSearchCheck" name="topSearchCheck" value="0"><label for="S_PROD_NM_TOP" class="blind">검색</label><input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="sh" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onmousedown="dqtop_setTextbox('1',event);" onkeypress="keyDownTop('1',event);"><a href="#" onclick="fn_search_top();" onmousedown="javascript:fn_trkClickTrace('^최상단^검색');" class="spt_bg btn">검색</a><input type="hidden" name="S_SEARCH_WORDS_URL" id="S_SEARCH_WORDS_URL" value="http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=360%20I"><script type="text/javascript" src="/js/search/dqAutoCompleteTopR.js"></script><div class="search_box" id="dqAutoTop" style="display:none;z-index:1000;" onmouseover="dqtop_setMouseon();" onmouseout="dqtop_setMouseoff();"></div></form></div></div><!-- //search_box --><div class="market"><script type="text/javascript">/* <![CDATA[ */    if(V_HD_MEM_CART_CNT != "null" && V_HD_MEM_CART_CNT != "") { /* 로그인상태인 경우 */                if(V_HD_MEM_CART_CNT > 1){                document.write("<a href='javascript:void(0);fn_logIn(7);' onclick='marketLayer();' onmousedown='javascript:fn_trkClickTrace(\"^최상단^장바구니\");'><span class='spt_bg'></span><strong>"+V_HD_MEM_CART_CNT+"</strong></a>");                }else{    document.write("<a href='javascript:void(0);fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^장바구니\");'><span class='spt_bg'></span><strong>"+V_HD_MEM_CART_CNT+"</strong></a>");                }        }else{    document.write("<a href='javascript:fn_logIn(7);'><span class='spt_bg'></span><strong>0</strong></a>");        }    /* ]]> */</script><div class="market_layer"><div class="market_header"><span>장바구니 </span><strong><script type="text/javascript">/* <![CDATA[ */if(V_HD_MEM_CART_CNT != "null" && V_HD_MEM_CART_CNT != ""){ /* 로그인상태인 경우 */document.write(""+V_HD_MEM_CART_CNT+"");}else{document.write("<strong>0</strong>");}/* ]]> */</script>개</strong><a href="#" onclick="jQuery('.market_layer').hide();return false" class="spt_bg close">닫기</a>        </div><div class="market_body" id="market_body"></div><div class="market_bottom" id="market_bottom"></div></div></div><!-- //market --></div><!-- //ct950 --></div><!-- //utils --><div class="gnb_menu"><ul class="ct950 clfix"><li><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=MEN&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN');">MEN</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=MEN&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^남성');">남성</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF010102.action?S_LEVEL=3&S_CTGR_CD=01001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^신상품');"><strong>신상품</strong></a></li><li><a href='http://shop.adidas.co.kr/PF010103.action?S_LEVEL=3&S_CTGR_CD=01001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^인기상품');"><strong>인기상품</strong></a></li><li class="line"><a href='http://shop.adidas.co.kr/PF010104.action?S_LEVEL=3&S_CTGR_CD=01001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^할인상품');"><strong>할인상품</strong></a></li>                    <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^온라인 단독상품');"><strong>온라인 단독상품</strong></a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^mi adidas');">mi adidas</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006029' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^X');">X</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006030' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ACE');">ACE</a>                    </li>                           <li class="line">                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006032' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^White Mountaineering');">White Mountaineering</a>                    </li>       <li><a href='http://shop.adidas.co.kr/PF020801.action?S_CTGR_CD=01001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^공식 아울렛');"><span style="color:#a6141e;">공식 아울렛</span></a></li></ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^신발');">신발</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001010' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^라이프스타일');">라이프스타일</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^축구');">축구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^농구');">농구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^러닝');">러닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^테니스');">테니스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^아웃도어');">아웃도어</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^트레이닝');">트레이닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001001008' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^스윔');">스윔</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^의류');">의류</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002011' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^수영복');">수영복</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^자켓');">자켓</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^트랙탑 / 져지탑');">트랙탑 / 져지탑</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^긴팔티');">긴팔티</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^반팔티');">반팔티</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^슬리브리스');">슬리브리스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002006' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^팬츠');">팬츠</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002007' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^숏팬츠 / 타이즈');">숏팬츠 / 타이즈</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002002009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^기타');">기타</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^용품');">용품</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^시계');">시계</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^양말');">양말</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001007' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^디지털 액세서리');">디지털 액세서리</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^모자');">모자</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^가방');">가방</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^공/피트니스 용품');">공/피트니스 용품</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^기타');">기타</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18 last"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^스포츠');">스포츠</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^축구');">축구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^농구');">농구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^러닝');">러닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^테니스');">테니스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^아웃도어');">아웃도어</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^트레이닝');">트레이닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^스윔');">스윔</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001008' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^용품');">용품</a></li>       </ul></dd></dl></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all"><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^남성 전체보기');">남성 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^남성신발 전체보기');">남성신발 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^남성의류 전체보기');">남성의류 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^남성용품 전체보기');">남성용품 전체보기</a></div><div class="col_18 last"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^스포츠 전체보기');">스포츠 전체보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li><li><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=WOMEN&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN');">WOMEN</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=WOMEN&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^여성');">여성</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF010102.action?S_LEVEL=4&S_CTGR_CD=01002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^신상품');"><strong>신상품</strong></a></li><li><a href='http://shop.adidas.co.kr/PF010103.action?S_LEVEL=4&S_CTGR_CD=01002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^인기상품');"><strong>인기상품</strong></a></li><li class="line"><a href='http://shop.adidas.co.kr/PF010104.action?S_LEVEL=4&S_CTGR_CD=01002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^할인상품');"><strong>할인상품</strong></a></li>                    <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^온라인 단독상품');"><strong>온라인 단독상품</strong></a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^mi adidas');">mi adidas</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=874&subId=4295' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^브라 팬츠 가이드');">브라 팬츠 가이드</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Stella McCartney');">Stella McCartney</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006026' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^STELLA SPORT');">STELLA SPORT</a>                    </li>                           <li class="line">                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=HYKE' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Hyke by adidas Originals');">Hyke by adidas Originals</a>                    </li>       <li><a href='http://shop.adidas.co.kr/PF020801.action?S_CTGR_CD=01002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^공식 아울렛');"><span style="color:#a6141e;">공식 아울렛</span></a></li></ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^신발');">신발</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001009' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^라이프스타일');">라이프스타일</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^러닝');">러닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^테니스');">테니스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^아웃도어');">아웃도어</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001008' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^스윔');">스윔</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^트레이닝');">트레이닝</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^의류');">의류</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002008' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^브라탑');">브라탑</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002005' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^슬리브리스');">슬리브리스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002004' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^반팔티');">반팔티</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^긴팔티');">긴팔티</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^트랙탑 / 져지탑');">트랙탑 / 져지탑</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002001' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^자켓');">자켓</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002007' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^숏팬츠 / 타이즈');">숏팬츠 / 타이즈</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002006' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^팬츠');">팬츠</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002009' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^스커트 / 원피스');">스커트 / 원피스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002011' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^수영복');">수영복</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002002010' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^기타');">기타</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^용품');">용품</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^시계');">시계</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001007' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^디지털 액세서리');">디지털 액세서리</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^모자');">모자</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^가방');">가방</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^공/피트니스 용품');">공/피트니스 용품</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^기타');">기타</a></li>       </ul></dd></dl></div><!-- //box --><div class="box col_18 last"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^스포츠');">스포츠</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^농구');">농구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^러닝');">러닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002004' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^테니스');">테니스</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002005' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^아웃도어');">아웃도어</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002009' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^스윔');">스윔</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002006' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^트레이닝');">트레이닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002007' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^용품');">용품</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002008' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^기타');">기타</a></li>       </ul></dd></dl></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all"><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^여성 전체보기');">여성 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^여성신발 전체보기');">여성신발 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^여성의류 전체보기');">여성의류 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^여성용품 전체보기');">여성용품 전체보기</a></div><div class="col_18 last"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^스포츠 전체보기');">스포츠 전체보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li><li class="line"><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=KIDS&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS');">KIDS</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020101.action?GUBUN=KIDS&LEVEL=1' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^키즈');">키즈</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF010102.action?S_LEVEL=5&S_CTGR_CD=01003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^신상품');"><strong>신상품</strong></a></li><li><a href='http://shop.adidas.co.kr/PF010103.action?S_LEVEL=5&S_CTGR_CD=01003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^인기상품');"><strong>인기상품</strong></a></li><li class="line"><a href='http://shop.adidas.co.kr/PF010104.action?S_LEVEL=5&S_CTGR_CD=01003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^할인상품');"><strong>할인상품</strong></a></li>                    <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^온라인 단독상품');"><strong>온라인 단독상품</strong></a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^mi adidas');">mi adidas</a>                    </li>                           <li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=%ED%82%A4%EC%A6%88%20360' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^키즈 360');">키즈 360</a>                    </li>                           <li class="line">                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=%ED%82%A4%EC%A6%88%20%ED%8A%B8%EB%9E%99%EC%88%98%ED%8A%B8' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^키즈 트랙수트');">키즈 트랙수트</a>                    </li>       <li><a href='http://shop.adidas.co.kr/PF020801.action?S_CTGR_CD=01003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^공식 아울렛');"><span style="color:#a6141e;">공식 아울렛</span></a></li></ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^유아 (3-36개월)');">유아 (3-36개월)</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003001004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^신발');">신발</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003002004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^의류');">의류</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003003003002' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^용품');">용품</a></li></ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^남아 (4세-13세)');">남아 (4세-13세)</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003001004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^신발');">신발</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003002004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^의류');">의류</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003003003003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^용품');">용품</a></li></ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004004' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^여아 (4세-13세)');">여아 (4세-13세)</a></dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003001004004' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^신발');">신발</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003002004004' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^의류');">의류</a></li><li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003003003003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^용품');">용품</a></li></ul></dd></dl></div><!-- //box --><div class="box col_18 last"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^스포츠');">스포츠</a></dt><dd><ul>                    <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003001' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^축구');">축구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^농구');">농구</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^러닝');">러닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003005' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^아웃도어');">아웃도어</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003006' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^트레이닝');">트레이닝</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003009' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^스윔');">스윔</a></li>                           <li><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003008' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^용품');">용품</a></li>       </ul></dd></dl></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all"><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^키즈 전체보기');">키즈 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004001' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^유아 전체보기');">유아 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^남아 전체보기');">남아 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004004004' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^여아 전체보기');">여아 전체보기</a></div><div class="col_18 last"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003' onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS^스포츠 전체보기');">스포츠 전체보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li><li class="sports"><a href="javascript:void(0)">SPORTS</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><div class="box img_box col_14"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=FOOTBALL' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^FOOTBALL');">축구</a> </dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=FOOTBALL' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^FOOTBALL');"><img src="http://shop.adidas.co.kr//upload/banner/2cf3d726012b43968c60b406f09d2d5e_0609094652.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001&CATG_CHK=1&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004003001&CATG_CHK=1&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001&CATG_CHK=2&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004003001&CATG_CHK=2&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001&CATG_CHK=3&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004003001&CATG_CHK=3&CATG_CLK=Y' >키즈</a></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_14"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=RUNNING' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^RUNNING');">러닝</a> </dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=RUNNING' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^RUNNING');"><img src="http://shop.adidas.co.kr//upload/banner/278edba325b349dba9081a821eddf9b9_0408154928.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004001003&CATG_CHK=1&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004002003&CATG_CHK=1&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004003003&CATG_CHK=1&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004001003&CATG_CHK=2&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004002003&CATG_CHK=2&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004003003&CATG_CHK=2&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004001003&CATG_CHK=3&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004002003&CATG_CHK=3&CATG_CLK=Y' >여성</a></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_14"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=BASKETBALL' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^BASKETBALL');">농구</a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=BASKETBALL' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^BASKETBALL');"><img src="http://shop.adidas.co.kr//upload/banner/da35c4bafd48488eb77646d47b25ec09_0408154056.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004001002&CATG_CHK=1&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004003002&CATG_CHK=1&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004001002&CATG_CHK=2&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004003002&CATG_CHK=2&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004001002&CATG_CHK=3&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004002002&CATG_CHK=3&CATG_CLK=Y' >여성</a></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_14"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=TRAINING' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^TRAINING');">트레이닝</a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=TRAINING' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^TRAINING');"><img src="http://shop.adidas.co.kr//upload/banner/8e5fe1811e414296987dd2afdf09e9b4_0408154644.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004001006&CATG_CHK=1&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004002006&CATG_CHK=1&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004003006&CATG_CHK=1&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004001006&CATG_CHK=2&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004002006&CATG_CHK=2&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004003006&CATG_CHK=2&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004001006&CATG_CHK=3&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004002006&CATG_CHK=3&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004003006&CATG_CHK=3&CATG_CLK=Y' >키즈</a></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_14"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=OUTDOOR' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^OUTDOOR');">아웃도어</a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=OUTDOOR' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^OUTDOOR');"><img src="http://shop.adidas.co.kr//upload/banner/1bda91c4dbce4cc1b4bb40ee4205e602_0408154707.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004001005&CATG_CHK=1&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004002005&CATG_CHK=1&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004003005&CATG_CHK=1&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004001005&CATG_CHK=2&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004002005&CATG_CHK=2&CATG_CLK=Y' >여성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004003005&CATG_CHK=2&CATG_CLK=Y' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004001005&CATG_CHK=3&CATG_CLK=Y' >남성</a><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004002005&CATG_CHK=3&CATG_CLK=Y' >여성</a></div></li></ul></dd></dl></div><!-- //box --><div class="box etcbox col_13 last"><dl><dt>기타</dt><dd><ul><li><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=8&S_CTGR_CD=01004001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^테니스');">테니스</a></li></ul></dd></dl></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all img_box"><div class="col_14"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^FOOTBALL');">축구 전체보기</a></div><div class="col_14"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=2&S_CTGR_CD=01004001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^RUNNING');">러닝 전체보기</a></div><div class="col_14"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=3&S_CTGR_CD=01004001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^BASKETBALL');">농구 전체보기</a></div><div class="col_14"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=4&S_CTGR_CD=01004001006' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^TRAINING');">트레이닝 전체보기</a></div><div class="col_14"><a href='http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=5&S_CTGR_CD=01004001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^OUTDOOR');">아웃도어 전체보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li><li class="brands line"><a href="javascript:void(0)">BRANDS</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><div class="box img_box col_17 originals"><dl><dt><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=ORIGINALS' ><span class="spt_bg">Originals</span></a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020107.action?GUBUN=ORIGINALS' ><img src="http://shop.adidas.co.kr//upload/banner/026842eb19944c23aaca482c8cbce81f_0408155137.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001002' >남성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002001' >여성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005003001' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001001' >남성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002002' >여성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005003002' >키즈</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001003' >남성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002003' >여성</a></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_17 neo"><dl><dt><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01008' ><span class="spt_bg">adidas neo</span></a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01008' ><img src="http://shop.adidas.co.kr//upload/banner/e07c99805d124c7b9414206be78ad126_0411091417.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01008001001' >남성</a><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01008002001' >여성</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"></div></li></ul></dd></dl></div><!-- //box --><div class="box img_box col_17 stella"><dl><dt><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007'><span class="spt_bg">Stella McCartney</span></a></dt><dd><div class="img"><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007' ><img src="http://shop.adidas.co.kr//upload/banner/0ab6b0cdee2d4ca69c40f9ad219ecbaa_0408155250.jpg" alt="" /></a></div><ul><li class="depth3_wrapper"><a href="#">신발</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007&CATG_CHK=1&CATG_CLK=Y' >여성</a></div></li><li class="depth3_wrapper"><a href="#">의류</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007&CATG_CHK=2&CATG_CLK=Y' >여성</a></div></li><li class="depth3_wrapper"><a href="#">용품</a><div class="depth3"><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007&CATG_CHK=3&CATG_CLK=Y' >여성</a></div></li></ul></dd></dl></div><!-- //box --><div class="box etcbox col_17 last"><dl><dt><a href='http://shop.adidas.co.kr/PF070101.action'>캠페인</a></dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5614' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^MUST HAVE');">MUST HAVE</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5434' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^SHOW ME THE MONEY');">SHOW ME THE MONEY</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5634' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ORIGINALS ICONS');">ORIGINALS ICONS</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5594' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ORIGINALS SUMMER STYLE');">ORIGINALS SUMMER STYLE</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5514' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^FOOTBALL MERCURY PACK');">FOOTBALL MERCURY PACK</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5154' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^CLIMACHILL');">CLIMACHILL</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5534' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^MY BODYGUARD');">MY BODYGUARD</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5494' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^OUTDOOR - VOYAGER');">OUTDOOR - VOYAGER</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5295' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^EURO 2016');">EURO 2016</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5414' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^PHARRELL WILLIAMS');">PHARRELL WILLIAMS</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070102.action?mainId=44&subId=5334' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^KIDS');">KIDS</a>                    </li>       </ul></dd></dl></div><!-- //box --><div class="box etcbox col_17"><dl><dt>컬렉션</dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^온라인 단독상품');">온라인 단독상품</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Stella McCartney');">Stella McCartney</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006026' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^adidas StellaSport');">adidas StellaSport</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006011' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Techfit');">Techfit</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006017' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Boost');">Boost</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006029' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^adidas X');">adidas X</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006030' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^adidas ACE');">adidas ACE</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006031' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Messi');">Messi</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006028' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^adidas neo');">adidas neo</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006006' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Porsche Design Sport');">Porsche Design Sport</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006032' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^White Mountaineering');">White Mountaineering</a>                    </li>       </ul></dd></dl></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all img_box"><div class="col_17"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001'>전체보기</a></div><div class="col_17"><a href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01008'>전체보기</a></div><div class="col_17"><a href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007'>전체보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li><li><a href='http://shop.adidas.co.kr/PF020105.action' onmousedown="javascript:fn_trkClickTrace('^상단내비^CUSTOMIZE');">CUSTOMIZE</a><div class="depth2_contents"><div class="ct950"><div class="ctgr_box"><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020105.action' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스');">마이 아디다스</a></dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=MI%20ZX%20FLUX%20ADV' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ZX Flux ADV');">ZX Flux ADV</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=mi%20Superstar' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Superstar');">Superstar</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=mi%20Stan%20Smith' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Stan Smith');">Stan Smith</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=mi%20eqt' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^EQT');">EQT</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=mi%20firebird' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^Firebird Track Top');">Firebird Track Top</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070801.action?pageNo=5' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^mi Pure Boost X');">mi Pure Boost X</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF070801.action?pageNo=6' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^D Lillard 2');">D Lillard 2</a>                    </li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^남성');">남성</a></dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^RUNNING');">RUNNING</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^FOOTBALL');">FOOTBALL</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^BASKETBALL');">BASKETBALL</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ORIGINALS');">ORIGINALS</a>                    </li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^여성');">여성</a></dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^RUNNING');">RUNNING</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^FOOTBALL');">FOOTBALL</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002001004' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^BASKETBALL');">BASKETBALL</a>                    </li>       <li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002001005' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ORIGINALS');">ORIGINALS</a>                    </li>       </ul></dd></dl></div><!-- //box --><div class="box col_18"><dl><dt><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007003' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^키즈');">키즈</a></dt><dd><ul><li>                    <a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007003001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^ORIGINALS');">ORIGINALS</a>                    </li>       </ul></dd></dl></div><!-- //box --><div class="box col_18 last"><div class="img"><a href='http://shop.adidas.co.kr/PF020611.action?pn=miGallery' ><img src="http://shop.adidas.co.kr//upload/banner/1d17eaa5cd6d4351a2de917711ba882b_0620140341.jpg" alt="" /></a></div></div><!-- //box --></div><!-- //ctgr_box --><div class="view_all"><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^전체보기');">전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007001' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^남성 전체보기');">남성 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007002' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^여성 전체보기');">여성 전체보기</a></div><div class="col_18"><a href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01007003' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^여성 전체보기');">키즈 전체보기</a></div><div class="col_18 last"><a href='http://shop.adidas.co.kr/PF020106.action' onmousedown="javascript:fn_trkClickTrace('^상단내비^마이 아디다스^제작방법 알아보기');">제작방법 알아보기</a></div></div></div><!-- //ct950 --></div><!-- //depth2_contents --></li></ul></div><!-- //gnb_menu --></div><!-- 160324 end --><script type="text/javascript">/* <![CDATA[ *//*  탑배너 */ function fn_topBannerWrite() {jQuery("#div_top_banner").html("<img src='/upload/banner/a00d61d0b1e04a6c85bb1dd61135b1b5_0628114117.jpg' alt='아디클럽 신규회원 가입 시, 아디클럽 1만원 쿠폰 증정!하드웨어 기획전)' border='0' usemap='#topbnn'/><map name='topbnn' id='topbnn'><area onclick=\"fn_closeBanner();return false\" href=\"#\" coords=\"931,0,950,19\" shape=\"rect\" onmousedown=\"fn_trkClickTrace('^탑배너^아디클럽 1만원 쿠폰^닫기')\" alt=\"닫기\">   <area shape=\"poly\" coords=\"0,0,0,120,546,120,662,0\" href=\"http://shop.adidas.co.kr/PF020105.action\" />  <area shape=\"poly\" coords=\"564,119,678,0,950,0,950,120\" href=\"http://shop.adidas.co.kr/PF050101.action?S_PROD_NM=NMD\" /></map>");jQuery("#div_top_banner").height("0");}/* ]]> */</script> <script type="text/javascript">fn_topBannerWrite();</script> 
+
+
+		<!-- /header HTML -->
+
+		<div class="top_down">
+			<a href="#" class="top" onclick="jQuery('html, body').animate({scrollTop:0},1000,'easeOutCubic');return false;">top</a>
+			<a href="#" class="down" onclick="jQuery('html, body').animate({scrollTop:jQuery(document).height()},1000,'easeOutCubic');return false;">down</a>
+		</div>
+
+	
+
+		
+	
+		
+
+	
+
+
+<div class="coupon_popup_layer" id="popup_mycpn" style="display:none;z-index:10000;">		
+	<h1>쿠폰 발급 안내</h1>
+	<a href="#" onclick="closeMyCpnLayer();" class="close"><img src="/images/adidas/common/btn_cpn_close_layer.gif" alt="팝업 닫기"/></a>
+	<div class="body">
+		<p class="info"><strong>김기백</strong> 님 쿠폰이 <strong>1매</strong> 있습니다.</p>	
+		<ul class="cpn">
+			<li>
+				<p class="label"></p>
+				<p class="price"></p>
+				<p class="date"></p>
+			</li>
+			<li>
+				<p class="label"></p>
+				<p class="price"></p>
+				<p class="date"></p>
+			</li>
+		</ul>
+		<dl>
+			<dt>지금 쿠폰을 확인해 보세요!</dt>
+			<dd><a href="http://shop.adidas.co.kr/PF060201.action" ><img src="/images/adidas/common/btn_view_cpn.gif" alt="쿠폰 확인하기"/></a></dd>
+		</dl>
+	</div>
+	<div class="bottom">
+		<input type="checkbox" id="today_close_mycpn"/>
+		<label for="today_close_mycpn">오늘 하루 보지 않기</label>
+	</div>
+</div>
+	
+
+	
+
+
+
+	
+
+
+
+	<!-- //header -->
+<script type="text/javascript">
+	_TRK_CP="^Home^주문/결제";
+</script>
+	<div id="container_r" class="white">
+		<!-- contents -->
+		<div id="contents_r">
+			<div class="location_r">
+				<div class="go_back spt_bg"><a href="javascript:history.back();">Back</a></div>
+				<span><a href="javascript:fn_main();">Home</a></span>
+				<span class="ico"></span>
+				<span>주문/결제</span>
+			</div>
+
+	 		<form name="frm" id="frm" method="post" action="">
+			<input type="hidden" name="command" id="command" value=""/>
+			<input type="hidden" name="SITE_CD" id="SITE_CD" value="1"/>
+			<input type="hidden" name="SITE_TYPE" id="SITE_TYPE" value="01"/>
+			<input type="hidden" name="ORDER_AMT" id="ORDER_AMT"/>
+			<input type="hidden" name="PAYMT_AMT" id="PAYMT_AMT"/>
+			<input type="hidden" name="EMAIL_RET_YN" id="EMAIL_RET_YN" value="N"/>
+			<input type="hidden" name="ORDER_TYPE" id="ORDER_TYPE" value="01"/>
+			<input type="hidden" name="ORDER_ST" id="ORDER_ST" value="01"/>
+			<input type="hidden" name="SMS_RET_YN" id="SMS_RET_YN" value="Y"/>
+			<input type="hidden" name="CART_NOS" id="CART_NOS" value="'201606296009425'"/>
+			<input type="hidden" name="MEM_DIVI" id="MEM_DIVI" value="01"/>
+			<input type="hidden" name="SETL_YN" id="SETL_YN" value="N"/>
+			<input type="hidden" name="SALES_YN" id="SALES_YN" value="N"/>
+			<input type="hidden" name="PAYMT_TYPE" id="PAYMT_TYPE" value=""/>
+			<input type="hidden" name="PAYMT_ST" id="PAYMT_ST" value="02"/>
+			<input type="hidden" name="CPON_PUBL_IDS" id="CPON_PUBL_IDS" value=""/>
+			<input type="hidden" name="DLIVY_CPON_PUBL_ID" id="DLIVY_CPON_PUBL_ID" value=""/>
+			<input type="hidden" name="DLIVY_FEE_CPON_AMT" id="DLIVY_FEE_CPON_AMT" value="0"/>
+			<input type="hidden" name="TITLR_PROD_NM" id="TITLR_PROD_NM"/>
+			<input type="hidden" name="ESCRW_YN" id="ESCRW_YN" value=""/>
+			<input type="hidden" name="SCRTNO" id="SCRTNO" value=""/>
+			<input type="hidden" name="SPST_ID" id="SPST_ID" value=""/>
+			<input type="hidden" name="SRCH_NM" id="SRCH_NM" value=""/>
+
+			<input type="hidden" name="RCIVR_TELNO" id="RCIVR_TELNO" value=""/>
+			<input type="hidden" name="RCIVR_MOBL" id="RCIVR_MOBL" value=""/>
+			<input type="hidden" name="CHECK_KEY" id="CHECK_KEY" value="20050947"/>
+
+			<!-- PG에서 받은 정보 -->
+			<input type="hidden" name="ORDER_NO" id="ORDER_NO" value=""/> <!-- 주문번호 -->
+			<input type="hidden" name="PG_CD" id="PG_CD" value="01"/> <!-- PG코드 -->
+			<input type="hidden" name="PG_STORE_ID" id="PG_STORE_ID" value=""/> <!-- mid -->
+			<input type="hidden" name="PG_STORE_KEY" id="PG_STORE_KEY" value=""/> <!-- null -->
+			<input type="hidden" name="PG_ACPT_NO" id="PG_ACPT_NO" value=""/> <!-- PG tid(승인번호) -->
+			<input type="hidden" name="PAYMT_DT" id="PAYMT_DT" value=""/>
+			<!-- 카드결제 -->
+			<input type="hidden" name="CARD_CD" id="CARD_CD" value=""/>
+			<input type="hidden" name="CARD_TYPE" id="CARD_TYPE" value=""/>
+			<input type="hidden" name="CARD_NO" id="CARD_NO" value=""/>
+			<input type="hidden" name="MIP_MONTH" id="MIP_MONTH" value=""/>
+			<input type="hidden" name="NOINT_YN" id="NOINT_YN" value=""/>
+			
+			<!-- kpay 결제 -->
+			<input type="hidden" name="CARD_PAYMT_TYPE" id="CARD_PAYMT_TYPE" value=""/>
+			
+			<!-- 계좌이체 -->
+			<input type="hidden" name="BANK_CD" id="BANK_CD" value=""/>
+
+			<!-- 계좌이체 현금영수증 -->
+			<input type="hidden" name="CASH_RCPT_YN" id="CASH_RCPT_YN" value=""/>
+			<input type="hidden" name="CASH_RECPT_TYPE" id="CASH_RECPT_TYPE" value=""/> <!-- (0 - 소득공제용, 1 - 지출증빙용) -->
+
+			<input type="hidden" name="CASH_RECPT_CRT_DIVI" id="CASH_RECPT_CRT_DIVI" value=""/> <!-- 현금영수증 인증구분 (10:휴대폰번호, 20:주민등록번호, 30:사업자번호) -->
+			<input type="hidden" name="CASH_RECPT_CRT_NO" id="CASH_RECPT_CRT_NO" value=""/> <!-- 현금영수증 인증번호(휴대폰번호,주민등록번호,사업자번호,자진발급번호) -->
+
+			<!--  -->
+			<input type="hidden" name="acceptmethod" id="acceptmethod" value=""/>
+			<input type="hidden" name="currency" id="currency" value=""/>
+			<input type="hidden" name="oid" id="oid" size="40" value=""/>
+			<input type="hidden" name="ini_encfield" id="ini_encfield" value=""/>
+			<input type="hidden" name="ini_certid" id="ini_certid" value=""/>
+			<input type="hidden" name="quotainterest" id="quotainterest" value=""/>
+			<input type="hidden" name="paymethod" id="paymethod" value=""/>
+			<input type="hidden" name="cardcode" id="cardcode" value=""/>
+			<input type="hidden" name="cardquota" id="cardquota" value=""/>
+			<input type="hidden" name="rbankcode" id="rbankcode" value=""/>
+			<input type="hidden" name="reqsign" id="reqsign" value=""/>
+			<input type="hidden" name="encrypted" id="encrypted" value=""/>
+			<input type="hidden" name="sessionkey" id="sessionkey" value=""/>
+			<input type="hidden" name="uid" id="uid" value=""/>
+			<input type="hidden" name="sid" id="sid" value=""/>
+			<input type="hidden" name="version" id="version" value=""/>
+			<input type="hidden" name="clickcontrol" id="clickcontrol" value=""/>
+			<input type="hidden" name="gopaymethod" id="gopaymethod" />
+			<input type="hidden" name="goodname" id="goodname" size="20" value=""/>
+	        <input type="hidden" name="tempPrice" id="tempPrice" size="20" value=""/>
+	        <input type="hidden" name="buyername" id="buyername" size="20" value=""/>
+	        <input type="hidden" name="buyeremail" id="buyeremail" size="20" value=""/>
+	        <input type="hidden" name="buyertel" id="buyertel" size="20" value=""/>
+			<!--  -->
+
+			<input type="hidden" name="MEM_NO" id="MEM_NO" value="00108684535"/>
+
+			<!-- order -->
+			<div class="title_area">
+				<h2><img src="/images/adidas/order/tit_payment.gif" alt="주문/결제" /></h2>
+				<div class="step">
+					<ul>
+						<li><img src="/images/adidas/order/step_cart_off.gif" alt="장바구니" /></li>
+						<li><img src="/images/adidas/order/step_order_on.gif" alt="주문/결제" /></li>
+						<li class="last"><img src="/images/adidas/order/step_orderok_off.gif" alt="주문완료" /></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="contents_area2">
+				<div class="grid">
+					<dl class="notice_read">
+						<dt>주문 전 꼭 읽어보세요.</dt>
+						<dd>
+							<ul>
+								<li>주문하실 상품 및 수량이 모두 맞는지 다시 한 번 확인해 주십시오.</li>
+								
+								<li>수정이 필요할 경우 목록 하단의 장바구니로 이동 버튼을 클릭 하시면 장바구니 화면으로 이동합니다.</li>
+								
+								
+							</ul>
+						</dd>
+					</dl>
+				</div>
+
+				<div class="nogrid">
+				<h3><img src="/images/adidas/order/tit_s_order_product.gif" alt="주문상품" /></h3>
+				<!-- list -->
+				<div class="cart_list">
+				<table summary="예약구매 장바구니">
+				<caption>예약구매 장바구니</caption>
+				<colgroup>
+					<col />
+					<col width="160px" />
+					<col width="68px" />
+					<col width="98px" />
+					<col width="100px" />
+					<col width="100px" />
+				</colgroup>
+				<thead>
+				<tr>
+					<th scope="col">상품명</th>
+					<th scope="col">판매금액</th>
+					<th scope="col">수량</th>
+					<th scope="col">옵션</th>
+					<th scope="col">포인트</th>
+					<th scope="col">주문금액</th>
+				</tr>
+				</thead>
+				<tbody>
+				
+				
+				
+
+				<!--
+					온라인 단독 상품 일 경우 배송비 무료 처리
+					2012.01.11
+					최병언
+					2431
+				-->
+				
+				
+                
+                
+				
+					
+						
+
+							
+                            
+                                
+                            
+                            
+							<tr>
+								<td class="product">
+									<input type="hidden" name="PROD_CD" id="PROD_CD1" value="4001835_W"/>
+									<input type="hidden" name="OPTION_NO" id="OPTION_NO1" value="230"/>
+									<input type="hidden" name="OPTION_NM" id="OPTION_NM1" value="230"/>
+									<input type="hidden" name="PROD_QTY" id="PROD_QTY1" value="1"/>
+									<input type="hidden" name="ADD_OPTION_NO" id="ADD_OPTION_NO1" value=""/>
+									<input type="hidden" name="MI_PROD_YN" id="MI_PROD_YN1" value="Y"/>
+                                    
+                                    
+                                        
+                                            <a href="javascript:fn_prod_mi_u('4001835_W','/configurator/services/miadidas-configurator/recipeService/recipeIdent/R1467187842489_NG/region/{region}/channel/{channel}/partner/{partner}','update');">
+                                        
+                                        
+                                    
+									
+										<img src="https://adidasagw2p.scene7.com/is/image/adidasAG/agm?&src=ir(adidasAGRender/FTW16_enc_1?&obj=a/m/2la&src=enc_prism_blue&show&obj=a/m/lin&src=enc_grey&show&obj=a/m/out&src=enc_core_black&show&obj=a/m/soc&src=enc_core_black&show&obj=a/m/mi2&src=enc_ftwr_white&show&obj=a/s/xxx&hide&obj=a/s/shg&show&obj=a/o/sol_o1&src=enc_ftwr_white&show&obj=a/o/bas_m2&src=enc_ray_red&show&obj=a/o/mid_r0&src=enc_grey&show&obj=a/o/gra_0g&show&obj=a/o/ms2_s1&show&obj=a/o/tpu&src=enc_grey&show&obj=a/o/log_a1&src=enc_vivid_red_reflective&show&obj=a/o/hlo&src=enc_vivid_red_reflective&show&obj=a/o/tpa_p0&src=enc_ftwr_white&show&obj=a/o/tca&src=enc_vivid_red_toe&show&obj=a/o/plo_l0&show&obj=a/o/geo_g0&show&obj=a/o/lac_0j&src=enc_grey&show&obj=a/o/jew_j0&show&obj=a/o/etc_e0&decal&res=60&pos=0,0&src=fxg(adidasAG/FTW16_enc_template?&$variant=laser_etching_embroidery_off&$text=%20&$color=%20)&show&obj=a&req=object)&resMode=sharp2&op_usm=1.2,1,4,0&wid=522&fmt=png-alpha&qlt=85,1&op_sharpen=0&resMode=sharp2&op_usm=1,1,6,0&iccEmbed=0&printRes=72&wid=142&amp;wid=94" class="prd" alt="mi Energy Cloud" width="60" height="60" />
+											
+									
+									
+										</a>
+									
+									<p>
+										
+											
+											
+                                                
+                                                    
+                                                        <a href="javascript:fn_prod_mi_u('4001835_W','/configurator/services/miadidas-configurator/recipeService/recipeIdent/R1467187842489_NG/region/{region}/channel/{channel}/partner/{partner}','update');">mi Energy Cloud</a>
+                                                    
+                                                    
+                                                
+											
+										
+										<input type="hidden" name="PROD_NM_KOR" id="PROD_NM_KOR" value="mi Energy Cloud"/>
+										<input type="hidden" name="PROD_CPON_4001835_W_230_1" id="PROD_CPON_4001835_W_230_1" value=""/>
+								        <input type="hidden" name="PROD_CPON_AMT_4001835_W_230_1" id="PROD_CPON_AMT_4001835_W_230_1" value="0"/>
+										
+											
+										
+									</p>
+								</td>
+								
+									
+								
+									<td class="price"><strong>129,000 원</strong></td>
+								
+								
+								<td>1</td>
+								<td>사이즈 : 230</td>
+								<td class="point"><span>6,450 <img src="/images/adidas/mypage/ico_point.gif" alt="p" /></span><br />(5%)</td>
+								<td class="price"><strong>129,000 원 </strong></td>
+								
+				    			
+				    			
+							</tr>
+				        
+					
+				
+				</tbody>
+				</table>
+				</div>
+				<!-- //list -->
+				<input type="hidden" name="SAVE_RATE" id="SAVE_RATE" value="5"/>
+				<input type="hidden" name="ADD_PROD_CNT" id="ADD_PROD_CNT" value="0"/>
+
+				<!-- total -->
+				<div class="total space25">
+					
+					<p class="select">
+						수정을 원하세요?
+						<a href="http://shop.adidas.co.kr/PF030101.action"><img src="/images/adidas/order/btn_cart_go.gif" alt="장바구니로 이동" /></a>
+					</p>
+					
+					<dl>
+						<dt><strong>총주문금액</strong></dt>
+						<dd>
+							<strong>129,000 원</strong>
+							<input type="hidden" name="TOTAL_ORDER_AMT" id="TOTAL_ORDER_AMT" value="129000"/>
+						</dd>
+						<dt>예상포인트</dt>
+						<dd>
+						    6,450 원
+						    <input type="hidden" name="TOTAL_POINT" id="TOTAL_POINT" value="6450"/>
+						</dd>
+					</dl>
+				</div>
+				<!-- //total -->
+
+				<!-- 주문자 정보확인 -->
+				<div class="order_info">
+					<div class="area">
+						<h3><img src="/images/adidas/order/step_info01.gif" alt="STEP 01.주문자 정보확인" /></h3>
+						<div class="write">
+							<table summary="주문자 정보확인">
+							<caption>주문자 정보확인</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row">주문자</th>
+								<td>
+									김기백
+								    <input type="hidden" name="MEM_NM" id="MEM_NM" value="김기백"/>
+								    <input type="hidden" name="MEM_ID" id="MEM_ID" value="kkbdream"/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">휴대폰</th>
+								<td>
+									<div id="memPhoneNo">01068162520</div>
+									<input type="hidden" name="MEM_TELNO" id="MEM_TELNO" value="0316388328"/>
+									<input type="hidden" name="MEM_MOBL" id="MEM_MOBL" value="01068162520"/>
+									<input type="hidden" name="MEM_TELNO1" id="MEM_TELNO1" value=""/>
+									<input type="hidden" name="MEM_TELNO2" id="MEM_TELNO2" value=""/>
+									<input type="hidden" name="MEM_TELNO3" id="MEM_TELNO3" value=""/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">이메일</th>
+								<td>
+									rvdppv@naver.com
+									<input type="hidden" name="MEM_EMAIL" id="MEM_EMAIL" value="rvdppv@naver.com"/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">주소</th>
+								<td>[461-180] 경기 성남시 수정구 수진동 1238번지</td>
+							</tr>
+							<tr class="noline">
+								<th scope="row">SMS 정보수신</th>
+								<td class="text">
+									<input type="radio" name="SMS_RET" id="SMS_RET_Y" value="Y" checked="checked"/><label for="SMS_RET_Y">네</label>
+									<input type="radio" name="SMS_RET" id="SMS_RET_N" value="N" /><label for="SMS_RET_N">아니오</label>
+									* 주문상품에 대한 결제/배송 관련 정보를 SMS로 받으실 수 있습니다.
+								</td>
+							</tr>							
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //주문자 정보확인 -->
+
+				<!-- 배송정보 입력 -->
+				<div class="order_info">
+					<div class="area">
+						<h3><img src="/images/adidas/order/step_info02.gif" alt="STEP 02. 배송정보 입력" /></h3>
+						<div class="write">
+							<table summary="배송정보 입력">
+							<caption>배송정보 입력</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>	
+							<!-- 160629 문구추가 -->
+							<tr>
+								<td colspan="2" style="padding-left:7px;font-weight:bold;color:#ff0000;">마이아디다스 상품은  해외에서 국내로 직배송 되는 상품입니다.&nbsp;&nbsp;배송 받으실 주소 확인 후 반드시 정확한 주소를 입력해주세요. </td>
+							</tr>
+							<!-- //160629 -->
+							<tr>
+								<th scope="row">배송지 선택</th>
+								<td>
+									<input type="radio" name="dlivyRadio" id="addr0" onclick="fn_changeDlivy(0);" /><label for="addr0">기본주소</label>
+									
+										
+										    
+											
+									        <input type="radio" name="dlivyRadio" id='addr1' onclick='fn_changeDlivy(1);'/><label for='addr1'>최근배송지1</label>
+									        <script type="text/javascript">
+									        var recentDlivy = new Object();
+									        recentDlivy.recvNm = "김기백";
+									        recentDlivy.tel1 = setPhoneNumberFormat("0316388328", 1);
+									        recentDlivy.tel2 = setPhoneNumberFormat("0316388328", 2);
+									        recentDlivy.tel3 = setPhoneNumberFormat("0316388328", 3);
+									        recentDlivy.mob1 = setPhoneNumberFormat("01068162520", 1);
+									        recentDlivy.mob2 = setPhoneNumberFormat("01068162520", 2);
+									        recentDlivy.mob3 = setPhoneNumberFormat("01068162520", 3);
+									        recentDlivy.zip1 = "461180".substring(0, 3);
+									        recentDlivy.zip2 = "461180".substring(3);
+									        recentDlivy.addr = "경기 성남시 수정구 수진동";
+									        recentDlivy.dtlAddr = "1238번지";
+									        recentDlivy.sido = "경기";
+									        recentDlivy.gun = "성남시 수정구";
+									        recentDlivy.dong = "수진동";
+									        recentDlivy.delvya = "";
+									        recentDlivy.nm_doro = "";
+									        recentDlivy.num_bldg = "";
+									        dlivyList["1"] = recentDlivy;
+									        </script>
+									        
+									        
+									        <input type="radio" name="dlivyRadio" id='addr2' onclick='fn_changeDlivy(2);'/><label for='addr2'>최근배송지2</label>
+									        <script type="text/javascript">
+									        var recentDlivy = new Object();
+									        recentDlivy.recvNm = "김기백";
+									        recentDlivy.tel1 = setPhoneNumberFormat("0316388328", 1);
+									        recentDlivy.tel2 = setPhoneNumberFormat("0316388328", 2);
+									        recentDlivy.tel3 = setPhoneNumberFormat("0316388328", 3);
+									        recentDlivy.mob1 = setPhoneNumberFormat("01068162520", 1);
+									        recentDlivy.mob2 = setPhoneNumberFormat("01068162520", 2);
+									        recentDlivy.mob3 = setPhoneNumberFormat("01068162520", 3);
+									        recentDlivy.zip1 = "131200".substring(0, 3);
+									        recentDlivy.zip2 = "131200".substring(3);
+									        recentDlivy.addr = "서울 중랑구 면목동";
+									        recentDlivy.dtlAddr = "74-16번지 102호";
+									        recentDlivy.sido = "서울";
+									        recentDlivy.gun = "중랑구";
+									        recentDlivy.dong = "면목동";
+									        recentDlivy.delvya = "";
+									        recentDlivy.nm_doro = "";
+									        recentDlivy.num_bldg = "";
+									        dlivyList["2"] = recentDlivy;
+									        </script>
+									        
+									        
+									        <input type="radio" name="dlivyRadio" id='addr3' onclick='fn_changeDlivy(3);'/><label for='addr3'>최근배송지3</label>
+									        <script type="text/javascript">
+									        var recentDlivy = new Object();
+									        recentDlivy.recvNm = "허정욱";
+									        recentDlivy.tel1 = setPhoneNumberFormat("01031368328", 1);
+									        recentDlivy.tel2 = setPhoneNumberFormat("01031368328", 2);
+									        recentDlivy.tel3 = setPhoneNumberFormat("01031368328", 3);
+									        recentDlivy.mob1 = setPhoneNumberFormat("01031368328", 1);
+									        recentDlivy.mob2 = setPhoneNumberFormat("01031368328", 2);
+									        recentDlivy.mob3 = setPhoneNumberFormat("01031368328", 3);
+									        recentDlivy.zip1 = "448769".substring(0, 3);
+									        recentDlivy.zip2 = "448769".substring(3);
+									        recentDlivy.addr = "경기 용인시 수지구 죽전2동";
+									        recentDlivy.dtlAddr = "현인마을e-편한세상아파트 302동 902호";
+									        recentDlivy.sido = "경기";
+									        recentDlivy.gun = "용인시 수지구";
+									        recentDlivy.dong = "죽전2동";
+									        recentDlivy.delvya = "";
+									        recentDlivy.nm_doro = "";
+									        recentDlivy.num_bldg = "";
+									        dlivyList["3"] = recentDlivy;
+									        </script>
+									        
+									        
+									    
+									
+									<a href="javascript:adRecentDeliveryPop();" title="새창"><img src="/images/adidas/order/btn_addr_change.gif" style="margin:-2px 0 2px;" alt="배송지 변경" /></a>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="RCIVR_NM">받으시는 분</label></th>
+								<td><input type="text" name="RCIVR_NM" id="RCIVR_NM" maxlength="20" style="width:114px;" /></td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="RCIVR_TELNO1">전화번호</label></th>
+								<td>
+									<input type="text" name="RCIVR_TELNO1" id="RCIVR_TELNO1" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:76px;"/> - <label for="RCIVR_TELNO2" class="blind">전화번호2</label><input type="text" name="RCIVR_TELNO2" id="RCIVR_TELNO2" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:76px;" title="전화번호2"/> - <label for="RCIVR_TELNO3" class="blind">전화번호3</label><input type="text" name="RCIVR_TELNO3" id="RCIVR_TELNO3" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:76px;" title="전화번호3"/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="RCIVR_MOBL1">휴대폰번호</label></th>
+								<td>
+									<select name="RCIVR_MOBL1" id="RCIVR_MOBL1" style="width:87px;">
+										<option value="" selected="selected">선택</option>
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="018">018</option>
+										<option value="019">019</option>
+									</select> -
+									<label for="RCIVR_MOBL2" class="blind">휴대폰번호2</label><input type="text" name="RCIVR_MOBL2" id="RCIVR_MOBL2" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:76px;" title="휴대폰번호2" /> - <label for="RCIVR_MOBL3" class="blind">휴대폰번호3</label><input type="text" name="RCIVR_MOBL3" id="RCIVR_MOBL3" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:76px;" title="휴대폰번호3" />
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="DLIVY_DTL_ADDR">배송지 주소</label></th>
+								<td>
+									<label for="DLIVY_POST_NO1" class="blind">우편번호1</label><input type="text" name="DLIVY_POST_NO1" id="DLIVY_POST_NO1" style="width:76px;" title="우편번호1" readonly="readonly"/> - <label for="DLIVY_POST_NO2" class="blind">우편번호2</label><input type="text" name="DLIVY_POST_NO2" id="DLIVY_POST_NO2" style="width:76px;" title="우편번호2" readonly="readonly"/>
+									&nbsp;<a href="javascript:fn_zipPop();" title="새창"><img src="/images/adidas/order/btn_zipcode.gif" alt="우편번호 찾기" /></a>
+									<label for="DLIVY_ADDR" class="blind">주소</label><input type="text" name="DLIVY_ADDR" id="DLIVY_ADDR" value="" class="addr" style="width:430px;" maxlength="35" title="주소" readonly="readonly"/>
+									<input type="text" name="DLIVY_DTL_ADDR" id="DLIVY_DTL_ADDR" value="" class="addr" style="width:430px;" maxlength="30" title="상세 주소"/>
+									<input type="hidden" name="SIDO" id="SIDO" value=""/>
+									<input type="hidden" name="GUN" id="GUN" value=""/>
+									<input type="hidden" name="DONG" id="DONG" value=""/>
+									<input type="hidden" name="DELVYA" id="DELVYA" value=""/>
+									<input type="hidden" name="NM_DORO" id="NM_DORO" value=""/>
+									<input type="hidden" name="NUM_BLDG" id="NUM_BLDG" value=""/>
+								</td>
+							</tr>
+							
+							<tr class="noline">
+								<th scope="row"><label for="DLIVY_MEMO">배송시 요청사항</label></th>
+								<td>
+									<textarea name="DLIVY_MEMO" id="DLIVY_MEMO" rows="2" cols="" style="width:430px;" onkeyup="viewMemoCnt();"></textarea>
+									<p class="text_count">(<span id="dlivyMemoLength">0</span>/50자)</p>
+								</td>
+							</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- //배송정보 입력 -->
+
+				<!-- 결제금액 확인 -->
+				<div class="order_info">
+					<div class="area">
+						<h3><img src="/images/adidas/order/step_info03.gif" alt="STEP 03. 결제금액 확인" /></h3>
+						<div class="write">
+							<table summary="결제금액 확인">
+							<caption>결제금액 확인</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row">총 주문금액</th>
+								<td class="pay">
+									129,000 원
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="TOTAL_DISCOUNT_AMT_TEMP">쿠폰사용 금액</label></th>
+								<td>
+								    <input type="text" name="TOTAL_DISCOUNT_AMT_TEMP" id="TOTAL_DISCOUNT_AMT_TEMP" value="0" readonly="readonly"/>
+									<input type="hidden" name="TOTAL_DISCOUNT_AMT" id="TOTAL_DISCOUNT_AMT" value="0" style="width:114px;" readonly="readonly"/>
+									<input type="hidden" name="PROD_CPON_AMT" id="PROD_CPON_AMT" value="0" />
+									<input type="hidden" name="ORD_CPON_AMT" id="ORD_CPON_AMT" value="0" />
+									<input type="hidden" name="ORD_CPON_NOS" id="ORD_CPON_NOS" value="" />
+                                    
+									
+									    
+									    
+									    
+									    	
+									    
+									
+									<a href="javascript:fn_showCpon();" title="새창"><img src="/images/adidas/order/btn_coupon_view.gif" alt="쿠폰조회" /></a>
+									<span id="cponCnt" class="cp">( 사용가능쿠폰 <em>1 장</em> )</span>
+									<p class="couponSerial">쿠폰 시리얼 번호가 있으신 고객님은 쿠폰조회 버튼을 눌러 시리얼 번호를 입력해 주세요.</p>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">예상 포인트</th>
+								<td>
+									<span id="preSaveRate">0</span> <img src="/images/adidas/mypage/ico_point.gif" alt="p" />
+									<input type="hidden" name="PRE_SAVE_POINT" id="PRE_SAVE_POINT"/>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">배송비</th>
+								<td>
+                                    
+                                    
+                                    <input type="hidden" name="MI_ORDER_YN" id="MI_ORDER_YN" value="Y"/>
+                                    
+                                    
+                                    
+                                                배송비 : <span id="viewDlvFee">15,000</span> 원
+                                                
+                                                <input type="hidden" name="DLIVY_FEE" id="DLIVY_FEE" value="15000"/>
+                                                <input type="hidden" name="ORG_DLIVY_FEE" id="ORG_DLIVY_FEE" value="15000"/>
+                                    
+                                    
+                                    
+								</td>
+							</tr>	
+					
+						
+						
+							
+							<tr>
+								<th scope="row">최종 결제금액</th>
+								<td class="pay">
+									<span id="TOTAL_PAY_AMT_STR">144,000 원</span>
+									<input type="hidden" name="TOTAL_PAY_AMT" id="TOTAL_PAY_AMT" value="144000"/>
+									<input type="hidden" name="ORG_TOTAL_PAY_AMT" id="ORG_TOTAL_PAY_AMT" value="144000"/>
+									<input type="hidden" name="H_ONLINE_ONLY" id="H_ONLINE_ONLY" value="N"/>
+								</td>
+							</tr>
+							
+							<tr>
+						         <th scope="row">&nbsp;</th>
+						         <td style="padding:10px 0;color:#000;">
+				                  <p style="margin-bottom:2px;"><img src="/images/adidas/common/ico_exl_mark.gif" alt="" style="vertical-align:middle;margin-right:5px;"/>아디다스 온라인 공식쇼핑몰은 고객님의 결제정보를 저장하고 있지 않습니다.</p>
+				                  <p style="padding-left:21px;">신용카드의 정보 유출로 인해 우려되신다면, 무통장입금(가상계좌)을 이용해보세요.</p>
+						         </td>
+							</tr>
+													
+							<tr class="noline" id="payMethodTr">
+								<th scope="row">결제수단 선택</th>
+								<td>
+									<input type="radio" name="payMethod" id="creditcard" onclick="fn_ChangePayMethod('credit');" value="03" /><label for="creditcard">신용카드(일반)</label>
+									<input type="radio" name="payMethod" id="kpay" onclick="fn_ChangePayMethod('kpay');" value="03" /><label for="kpay">kpay</label>
+									<input type="radio" name="payMethod" id="account" onclick="fn_ChangePayMethod('account');" value="04"/><label for="account">실시간 계좌이체</label>
+									
+									<input type="radio" name="payMethod" id="vbank" onclick="fn_ChangePayMethod('vbank');" value="05"/><label for="vbank">무통장 입금</label>
+									
+									<input type="radio" name="payMethod" id="mobile" onclick="fn_ChangePayMethod('mobile');" value="07"/><label for="mobile">휴대폰 결제</label>
+								</td>
+							</tr>
+
+							
+							
+								
+							
+							
+							</tbody>
+							</table>
+							
+							<div id="mobile_payment" style="display:none;">
+								<table summary="카드 결제">
+									<caption>카드결제 선택</caption>
+									<colgroup>
+										<col width="142px" />
+										<col />
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" class="noline"></th>
+											<td colspan="2" class="noline" style="padding:5px 0;">
+												<table border="0" cellpadding="0" cellspacing="0">
+													<tr>
+														<td colspan="2" style="padding:5px 0;">
+															<div style="padding-left:8px;">
+																<p style="margin-bottom:12px;font-size:13px;color:#222;font-weight:bold;">결제 안내</p>
+																<p style="margin-bottom:5px;font-size:11px;color:#888;">결제 한도금액은 통신사별, 회원등급별, 신규/번호이동 여부에 따라 다를 수 있습니다.</p>
+																<p style="margin-bottom:15px;font-size:11px;color:#ff0000;">※ 결제 제한 및 이용한도에 대한 자세한 내용은 FAQ 참고</p>
+
+																<p style="margin-bottom:3px;font-size:11px;color:#888;">휴대폰 결제의 경우, 현금영수증 및 세금계산서 발급은 불가능합니다.</p>
+																<p style="margin-bottom:15px;font-size:11px;color:#888;">(현금영수증은 휴대폰 요금 현금 지불 시에만 통신사 통해 발급 가능)</p>
+
+																<p style="margin-bottom:12px;font-size:13px;color:#222;font-weight:bold;">취소 및 반품 안내</p>
+
+																<ul>
+																	<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																		-결제한 달과 취소/반품한 달이 같은 경우, 결제 금액은 당일 취소 됩니다.
+																	</li>
+																	<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																		-결제한 달과 취소/반품한 달이 다른 경우, 입력하신 은행 계좌로 영업일 기준 3일 이내에 환불 됩니다.
+																	</li>
+																	<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																		-부분 취소/반품의 경우, 취소 건을 제외한 금액을 재결제 하시면 이전 결제 건 전체가 취소 됩니다.
+																	</li>
+																	<li style="margin-bottom:10px;font-size:11px;color:#888;">
+																		-부분 취소 시 결제한도 금액이 부족한 경우, 휴대폰 결제 외에 다른 결제 수단으로 이용해주세요.
+																	</li>
+																</ul>
+																<p style="margin-bottom:15px;font-size:11px;color:#ff0000;">※ 자세한 결제 취소 및 반품 절차는 FAQ 참고</p>
+															</div>
+														</td>
+													</tr>			
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+														
+							<!-- 141121 -->
+							<div id="cardReport">
+								<table summary="카드 결제">
+									<caption>카드결제 선택</caption>
+									<colgroup>
+										<col width="142px" />
+										<col />
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" class="noline"></th>
+											<td colspan="2" class="noline" style="padding:5px 0;">
+											<div id="cardReport_choice2" style="display:none;">
+												<!-- 141217 K-Pay 가이드 -->
+																									
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr>
+															<td colspan="2" style="padding:5px 0;">
+																<div style="padding-left:8px;">
+																	<p style="margin-bottom:12px;font-size:13px;color:#222;font-weight:bold;">KG이니시스의 스마트폰 앱 간편결제 서비스</p>
+																	<p style="margin-bottom:15px;font-size:11px;color:#888;">사용자가 신용카드 결제정보를 Kpay에 미리 등록하고, 가맹점 결제 시 Kpay 어플리케이션을 실행, 간편하게 결제하는 서비스 입니다.</p>
+	
+																	<dl>
+																		<dt style="margin-bottom:2px;font-size:11px;color:#ff0000;">※ Kpay 지원 카드</dt>
+																		<dd style="margin-bottom:15px;padding-left:13px;">
+																			<ul>
+																				<li style="line-height:15px;font-size:11px;color:#888;">신한, 비씨, 삼성, 롯데, 하나, 국민, 현대, 농협, 외환카드 사용가능</li>
+																			</ul>
+																		</dd>
+																		<dt style="line-height:15px;margin-bottom:2px;font-size:11px;color:#ff0000;">※ Kpay 안드로이드 지원 단말</dt>
+																		<dd style="margin-bottom:15px;padding-left:13px;">
+																			<ul>
+																				<li style="line-height:15px;">
+																					<strong style="font-size:11px;color:#444;font-weight:normal;margin-right:3px;">지원 OS :</strong>
+																					<span style="font-size:11px;color:#888;margin:0;">안드로이드 4.0 아이스크림 샌드위치 이상</span>
+																				</li>
+																				<li style="line-height:15px;">
+																					<strong style="font-size:11px;color:#444;font-weight:normal;margin-right:3px;">해상도 : </strong>
+																					<span style="font-size:11px;color:#888;margin:0;">1280 x 720 이상 단말 <em style="margin-left:5px;">(갤럭시S2 와 해당 동급 스마트폰 사용 불가)</em></span>
+																				</li>
+																			</ul>
+																		</dd>
+																		<dt style="margin-bottom:2px;font-size:11px;color:#ff0000;">※ Kpay iOS 지원 단말</dt>
+																		<dd style="margin-bottom:20px;padding-left:13px;">
+																			<ul>
+																				<li style="line-height:15px;">
+																					<strong style="font-size:11px;color:#444;font-weight:normal;margin-right:3px;">지원 OS : </strong>
+																					<span style="font-size:11px;color:#888;margin:0;">iOS 6.0 이상<em style="margin-left:5px;">(iPhone 4 이상 단말기 사용가능)</em></span>
+																				</li>
+																				<li style="line-height:15px;">
+																					<strong style="font-size:11px;color:#444;font-weight:normal;margin-right:3px;">해상도 :</strong>
+																					<span style="font-size:11px;color:#888;margin:0;">1280 x 720 이상 단말<em style="margin-left:5px;">(갤럭시S2 와 해당 동급 스마트폰 사용 불가)</em></span>
+																				</li>
+																			</ul>
+																		</dd>										
+																	</dl>
+	
+	
+																	<p style="font-size:11px;color:#ff0000;font-weight:bold;">위의 지원 카드 및 지원 단말기 등을 확인 후 사용해 주세요.</p>
+	
+																</div>
+															</td>
+														</tr>			
+													</table>
+															
+												<!-- //141217 -->
+											</div>
+											</td>
+										</tr>
+									
+									</tbody>
+								</table>
+							</div>
+							<!-- //141121 -->
+							
+
+							<!-- 결제금액 확인 - 실시간 계좌이체 - 신청하기 - 개인소득공제용 (실시간 계좌이체 클릭시 디폴트)-->
+							<div id="escrw">
+							<table summary="현금영수증 신청">
+							<caption>현금영수증 신청</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<td id="account_desc" class="desc" colspan="2">
+									- 실시간 계좌이체시 은행별 서비스 가능시간을 확인바랍니다.<br />
+									- 실시간 계좌이체는 10분 이내로 입금확인을 하실 수 있습니다.
+								</td>
+							</tr>
+							<tr class="noline">
+								<th scope="row" class="noline"></th>
+								<th scope="row">현금영수증 신청</th>
+								<td style="width:402px;">
+									<input type="radio" name="CASH_RECPT_APPLY" id="CASH_RECPT_APPLY_Y" onclick="fn_ChangeCashRecptApply(this.value);" value="Y" checked="checked"/><label for="CASH_RECPT_APPLY_Y"> 신청하기</label>
+									<input type="radio" name="CASH_RECPT_APPLY" id="CASH_RECPT_APPLY_N" onclick="fn_ChangeCashRecptApply(this.value);" value="N" /><label for="CASH_RECPT_APPLY_N"> 신청안함</label>
+								</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+
+							<div id="escrw_info">
+							<table summary="현금영수증 발급">
+							<caption>현금영수증 발급</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<th scope="row"></th>
+				 				<td class="desc">
+									- 개인 소득공제용으로 신청하실 경우 국세청으로 자동전송됩니다.<br />
+									- 사업자 지출 증빙용으로 신청하시면 세금계산서로 활용 가능합니다.
+								</td>
+							</tr>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<th scope="row">현금영수증 발급</th>
+								<td>
+									<input type="hidden" name="CASH_RECPT_PUBL_PRPOS" id="CASH_RECPT_PUBL_PRPOS"/>
+									<input type="radio" name="CASH_RECPT_PUBL_PRPOS_R" id="CASH_RECPT_PUBL_PRPOS_01" value="01" onclick="fn_ChangeCashRecptPubl(this.value);" checked="checked" /><label for="CASH_RECPT_PUBL_PRPOS_01"> 개인소득공제용</label>
+									<input type="radio" name="CASH_RECPT_PUBL_PRPOS_R" id="CASH_RECPT_PUBL_PRPOS_02" value="02" onclick="fn_ChangeCashRecptPubl(this.value);" /><label for="CASH_RECPT_PUBL_PRPOS_02"> 사업자증빙용</label>
+								</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+
+							<div id="escrw_personal">
+							<table summary="휴대폰 번호">
+							<caption>휴대폰 번호</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<th scope="row" ><input type="radio" name="CASH_RECPT_CRT_DIVI_PERS" id="CASH_RECPT_CRT_DIVI_PERS" value="10" onclick="fn_ChangeCashRecptCrt(this.value);" checked="checked" /><label for="CASH_RECPT_CRT_DIVI_PERS">휴대폰번호</label></th>
+								<td>
+									<label for="CASH_RECPT_MOBLNO1" class="blind">휴대폰 번호1</label>
+									<select name="CASH_RECPT_MOBLNO1" id="CASH_RECPT_MOBLNO1" style="width:100px;">
+										<option value="" selected="selected">선택</option>
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="018">018</option>
+										<option value="019">019</option>
+									</select> -
+									<label for="CASH_RECPT_MOBLNO2" class="blind">휴대폰 번호2</label>
+									<input type="text" name="CASH_RECPT_MOBLNO2" id="CASH_RECPT_MOBLNO2" onkeydown="fn_onlyFigureKey()" onkeyup="moveFocus(4,this,this.form.CASH_RECPT_MOBLNO3);" maxlength="4" style="width:87px" /> -
+									<label for="CASH_RECPT_MOBLNO3" class="blind">휴대폰 번호3</label>
+									<input type="text" name="CASH_RECPT_MOBLNO3" id="CASH_RECPT_MOBLNO3" onkeydown="fn_onlyFigureKey()" maxlength="4" style="width:87px" />
+								</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+
+							<div id="escrw_business">
+							<table summary="사업자 등록번호">
+							<caption>사업자 등록번호</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<tbody>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<th scope="row"><input type="radio" name="CASH_RECPT_CRT_DIVI_BIZR" id="CASH_RECPT_CRT_DIVI_BIZR" value="30" onclick="fn_ChangeCashRecptCrt(this.value);" checked="checked"/><label for="CASH_RECPT_CRT_DIVI_BIZR">사업자 등록번호</label></th>
+								<td>
+									<label for="CASH_RECPT_BIZRNO1" class="blind">사업자 등록번호1</label>
+									<input type="text" name="CASH_RECPT_BIZRNO1" id="CASH_RECPT_BIZRNO1" onkeydown="fn_onlyFigureKey()" onkeyup="moveFocus(3,this,this.form.CASH_RECPT_BIZRNO2);" maxlength="3" style="width:87px;" /> -
+									<label for="CASH_RECPT_BIZRNO2" class="blind">사업자 등록번호2</label>
+									<input type="text" name="CASH_RECPT_BIZRNO2" id="CASH_RECPT_BIZRNO2" onkeydown="fn_onlyFigureKey()" onkeyup="moveFocus(2,this,this.form.CASH_RECPT_BIZRNO3);" maxlength="2" style="width:87px;" /> -
+									<label for="CASH_RECPT_BIZRNO3" class="blind">사업자 등록번호3</label>
+									<input type="text" name="CASH_RECPT_BIZRNO3" id="CASH_RECPT_BIZRNO3" onkeydown="fn_onlyFigureKey()" maxlength="5" style="width:87px;" />
+								</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+
+							<div id="escrw_reward_apply">
+							<table summary="한국스탠다드차타드은행 채무지급보증안내">
+							<caption>한국스탠다드차타드은행 채무지급보증안내</caption>
+							<colgroup>
+								<col width="142px" />
+								<col />
+							</colgroup>
+							<thead>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<th scope="row" class="noline" colspan="2">
+									한국스탠다드차타드은행 채무지급보증안내
+									<a href="javascript:fn_certifiedInfoPopAdi();" style="margin-left:10px;" title="새창 서비스 가입사실 확인"><img src="/images/adidas/order/btn_securityCheck.gif" alt="서비스 가입사실 확인" style="vertical-align:middle;"/></a>
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<th scope="row" class="noline"></th>
+								<td class="noline" colspan="2" style="padding:1px 0 0 7px;">당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드은행과 채무 지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</td>
+							</tr>
+							</tbody>
+							</table>
+							</div>
+							<!-- //결제금액 확인 - 실시간 계좌이체 - 신청하기 - 개인소득공제용 -->
+						</div>
+					</div>
+				</div>
+				<!-- //결제금액 확인 -->
+
+				<!-- button -->
+				<div class="button last_mg">
+				    
+					<ul class="btn_l">
+						<li><a href="http://shop.adidas.co.kr/PF030101.action"><img src="/images/adidas/order/btn_cart_go02.gif" alt="장바구니로 이동" style="margin:0px;" /></a></li>
+					</ul>
+					
+					<ul class="btn_rt">
+						<li><div id="paymtButton"><a href="javascript:fn_pay();"><img src="/images/adidas/order/btn_payment.gif" alt="결제하기" style="margin:0px;" /></a></div></li>
+					</ul>
+				</div>
+				<div class="clfix"></div>
+				<!-- //button -->
+				</div>
+			</div>
+			<!-- //order -->
+			</form>
+
+			<!-- 결제용 frame -->
+			<iframe src="" name="PAY_FRAME" id="PAY_FRAME" style="width:0;height:0;visibility:hidden" title="빈프레임"></iframe>
+			<!-- // 결제용 frame -->
+		</div>
+		<!-- //contents -->
+
+		<script type="text/javascript">
+		_TRK_PI="ODF";
+		</script>
+	</div>
+	<!-- //container -->
+
+	<!-- footer -->
+	
+
+
+
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.f_sns>div>a.btn').bind('click',function(){
+		if( jQuery(this).siblings('.layer').hasClass('layer') ){
+			if(jQuery(this).hasClass('on')){
+				jQuery(this).removeClass('on');
+				jQuery(this).siblings('.layer').removeClass('open');
+			}else{
+				jQuery('.f_sns>div>a.btn').removeClass('on');
+				jQuery('.f_sns>div>.layer').removeClass('open');
+				jQuery(this).addClass('on');
+				jQuery(this).siblings('.layer').addClass('open');	
+			}
+			return false;
+		}else{
+			return true;	
+		}
+	});
+
+	jQuery('.f_sns>div>.layer>.close').bind('click',function(){
+		jQuery(this).parent().siblings('.btn').removeClass('on');
+		jQuery(this).parent().removeClass('open');
+		return false;
+	});
+});
+</script>
+		<div id="footer_r" class="m20160302">
+		<!-- footer HTML -->
+
+		
+<script type="text/javascript">function fnc_sessionChk(){var sessionChk = "";var url = "/adiSessionChk.action";var onSuccess = function(req){var json = req.responseJSON;JsonUtil.alert(json);sessionChk = json.sessionChk;if(sessionChk==undefined||sessionChk=="GUEST"){jQuery(".schkN").css("display", "block");}else{jQuery(".schkY").css("display", "block");}};    var onFailure = function(){    alert("error");    };    cfn_ajaxRequest(url, null, onSuccess, onFailure);}fnc_sessionChk();</script><div class="f_linemenu"><div class="ct950"><div class="notice"><strong><a onmousedown="javascript:fn_trkClickTrace('^하단내비^공지사항');" href="http://shop.adidas.co.kr/PF080306.action">공지사항</a></strong><span><a onmousedown="javascript:fn_trkClickTrace('^하단내비^공지사항');" href='http://shop.adidas.co.kr/PF080307.action?ANNOID=2248&amp;S_PAGE=1&amp;command=VIEW'>구매 이용약관, 아디클럽 이용약관 개정 공지</a></span></div><div class="cscenter_num spt_bg"><strong><a onmousedown="javascript:fn_trkClickTrace('^하단내비^고객센터');" href="http://shop.adidas.co.kr/PF080301.action">고객센터</a> : </strong><span><em>1588-8241</em></span></div> </div></div><!-- sitemap --><div class="sitemap ct950"><!-- sitemap_area1 --><div class="sitemap_area1"><!-- box --><div class="box"><dl><dt>SHOP MEN</dt><dd><ul>                                         <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP MEN^신발');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001001'>신발</a></li>                                                       <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP MEN^의류');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001002'>의류</a></li>                                                       <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP MEN^용품');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01001003'>용품</a></li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul></dd></dl><dl><dt>SHOP WOMEN</dt><dd><ul>                                      <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP WOMEN^신발');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002001'>신발</a></li>                                                     <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP WOMEN^의류');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002002'>의류</a></li>                                                     <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP WOMEN^용품');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01002003'>용품</a></li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul></dd></dl><dl><dt>SHOP KIDS</dt><dd><ul>                                         <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP KIDS^연령별');"   href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003004'>연령별</a></li>                                   <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP KIDS^신발');"   href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003001'>신발</a></li>                                   <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP KIDS^의류');"   href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003002'>의류</a></li>                                   <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP KIDS^용품');"   href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01003003'>용품</a></li>                                                                                                                                                                                                                  </ul></dd></dl><div class="dlbox"><p class="sale"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SALE');" href="http://shop.adidas.co.kr/PF010104.action?S_LEVEL=1&amp;S_CTGR_CD=01&amp;S_ORDER_BY=1">SALE</a> / <a onmousedown="javascript:fn_trkClickTrace('^하단내비^OUTLET');" href="http://shop.adidas.co.kr/PF020801.action?S_CTGR_CD=01001">OUTLET</a></p><p><a onmousedown="javascript:fn_trkClickTrace('^하단내비^NEW ARRIVALS');" href="http://shop.adidas.co.kr/PF010102.action?S_LEVEL=1&amp;S_CTGR_CD=01&amp;S_ORDER_BY=1">NEW ARRIVALS</a></p><p><a onmousedown="javascript:fn_trkClickTrace('^하단내비^ALL BEST ITEMS');" href="http://shop.adidas.co.kr/PF010103.action?S_LEVEL=1&amp;S_CTGR_CD=01&amp;S_ORDER_BY=1">ALL BEST ITEMS</a></p><p><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMIZE');" href="http://shop.adidas.co.kr/PF020105.action">CUSTOMIZE</a></p></div><dl><dt>CUSTOMER CENTER</dt><dd><ul><li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^FAQ');" href="http://shop.adidas.co.kr/PF080301.action">FAQ</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^1:1 문의');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF080304.action')">1:1 문의</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^1:1 문의');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF080304.action')" title="새창 로그인">1:1 문의</a></li><li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^공지사항');" href="http://shop.adidas.co.kr/PF080306.action">공지사항</a></li><li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^매장안내');" href="http://shop.adidas.co.kr/PF110101.action">매장안내</a></li><li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^CUSTOMER CENTER^팀/단체복 주문 안내');" href="http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&FAQ_DIVI_DTL=02">팀/단체복 주문 안내</a></li></ul></dd></dl></div><!-- //box --><div class="box"><dl><dt>MEN SPORT</dt><dd><ul>                                                                                                                               <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^축구');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001001'>축구</a></li>                                                            <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^농구');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001002'>농구</a></li>                                                                                <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^러닝');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001003'>러닝</a></li>                                                                                <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^테니스');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001004'>테니스</a></li>                                                                                <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^아웃도어');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001005'>아웃도어</a></li>                                                            <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^트레이닝');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001006'>트레이닝</a></li>                                                            <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^스윔');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001009'>스윔</a></li>                                                            <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN SPORT^용품');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004001008'>용품</a></li>                    </ul></dd></dl><dl><dt>WOMEN SPORT</dt><dd><ul>                                                                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^농구');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002002'>농구</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^러닝');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002003'>러닝</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^테니스');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002004'>테니스</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^아웃도어');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002005'>아웃도어</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^스윔');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002009'>스윔</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^트레이닝');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002006'>트레이닝</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^용품');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002007'>용품</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN SPORT^기타');"  href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004002008'>기타</a></li>                     </ul></dd></dl><dl><dt>KIDS SPORT</dt><dd><ul>                                                                                                                                                       <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^축구');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003001'>축구</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^농구');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003002'>농구</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^러닝');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003003'>러닝</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^아웃도어');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003005'>아웃도어</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^트레이닝');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003006'>트레이닝</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^스윔');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003009'>스윔</a></li>                                                             <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS SPORT^용품');" href='http://shop.adidas.co.kr/PF020201.action?S_CTGR_CD=01004003008'>용품</a></li>                     </ul></dd></dl><dl class="collection"><dt>SHOP COLLECTIONS</dt><dd><ul>                                                                                                                                                          <li><a style="font-size:11px;font-family:dotum,'Dotum';letter-spacing:-.75px;" onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^온라인 단독상품');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009'>온라인 단독상품</a></li>                                                                                                                <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^Stella McCartney');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006007'>adidas by Stella McCartney</a></li>                                                                                                                                                          <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^adidas StellaSport');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006026'>adidas StellaSport</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^Techfit');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006011'>Techfit</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^Boost');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006017'>Boost</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^adidas X');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006029'>adidas X</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^adidas ACE');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006030'>adidas ACE</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^Messi');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006031'>Messi</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^adidas neo');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006028'>adidas neo</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^Porsche Design Sport');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006006'>Porsche Design Sport</a></li>                                                                                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^SHOP COLLECTIONS^White Mountaineering');" href='http://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006032'>White Mountaineering</a></li>                                          </ul></dd></dl><dl><dt>MY PAGE</dt><dd><ul><li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^회원가입');" href="https://shop.adidas.co.kr:443/PF0601001.action">회원가입</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^회원정보 수정');" href="javascript:go_myPageMan('https://shop.adidas.co.kr:443/PF060401.action')">회원정보 수정</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^회원정보 수정');" href="javascript:go_myPageMan('https://shop.adidas.co.kr:443/PF060401.action')" title="새창 로그인">회원정보 수정</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^주문 / 배송 조회');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060101.action')">주문 / 배송 조회</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^취소 / 반품 조회');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060103.action')">취소 / 반품 조회</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^주문 / 배송 조회');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060101.action')" title="새창 로그인">주문 / 배송 조회</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^취소 / 반품 조회');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060103.action')" title="새창 로그인">취소 / 반품 조회</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^취소 / 반품 결제대기');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060106.action')">취소 / 반품 결제대기</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^증빙서류 발급');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060105.action')">증빙서류 발급</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^취소 / 반품 결제대기');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060106.action')" title="새창 로그인">취소 / 반품 결제대기</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^증빙서류 발급');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060105.action')" title="새창 로그인">증빙서류 발급</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^쿠폰 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060201.action')">쿠폰 현황</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^포인트 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060202.action')">포인트 현황</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^관심상품');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060302.action')">관심상품</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^쿠폰 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060201.action')" title="새창 로그인">쿠폰 현황</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^포인트 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060202.action')" title="새창 로그인">포인트 현황</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^관심상품');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060302.action')" title="새창 로그인">관심상품</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^배송지 관리');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060403.action')">배송지 관리</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^나의 이벤트 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060701.action')">나의 이벤트 현황</a></li><li class="schkY" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^내가 작성한 상품평');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060702.action')">내가 작성한 상품평</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^배송지 관리');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060403.action')" title="새창 로그인">배송지 관리</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^나의 이벤트 현황');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060701.action')" title="새창 로그인">나의 이벤트 현황</a></li><li class="schkN" style="display: none;"><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MY PAGE^내가 작성한 상품평');" href="javascript:go_myPageMan('http://shop.adidas.co.kr/PF060702.action')" title="새창 로그인">내가 작성한 상품평</a></li></ul></dd></dl></div><!-- //box --><div class="box"><dl><dt>MEN ORIGINALS</dt><dd><ul>                                                                                                                                                                           <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN ORIGINALS^의류');"  href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001001'>의류</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN ORIGINALS^신발');"  href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001002'>신발</a></li>                                                                                  <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^MEN ORIGINALS^용품');"  href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005001003'>용품</a></li>                                                                                                         </ul></dd></dl><dl><dt>WOMEN ORIGINALS</dt><dd><ul>                                                                                               <li><a  onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN ORIGINALS^의류');" href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002002'>의류</a></li>                                                     <li><a  onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN ORIGINALS^신발');" href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002001'>신발</a></li>                                                                   <li><a  onmousedown="javascript:fn_trkClickTrace('^하단내비^WOMEN ORIGINALS^용품');" href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005002003'>용품</a></li>                                                        </ul></dd></dl><dl><dt>KIDS ORIGINALS</dt><dd><ul>                                                                                                        <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS ORIGINALS^신발');" href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005003001'>신발</a></li>                                                              <li><a onmousedown="javascript:fn_trkClickTrace('^하단내비^KIDS ORIGINALS^의류');" href='http://shop.adidas.co.kr/PF020206.action?S_CTGR_CD=01005003002'>의류</a></li>                                                                                    </ul></dd></dl><div class="dlbox"><p><a onmousedown="javascript:fn_trkClickTrace('^하단내비^PROMOTION');" href="http://shop.adidas.co.kr/PF070101.action">PROMOTION</a></p><p><a onmousedown="javascript:fn_trkClickTrace('^하단내비^INNIVATIONS');" href="http://shop.adidas.co.kr/PF020501.action">INNOVATIONS</a></p><dl><dt>ADICLUB</dt><dd><ul><li><a onmousedown="fn_trkClickTrace('^하단내비^ADICLUB^아디클럽 소개');" href="http://shop.adidas.co.kr/PF080101.action">아디클럽 소개</a></li><li><a onmousedown="fn_trkClickTrace('^하단내비^ADICLUB^캠페인');" href="http://shop.adidas.co.kr/PF070201.action">캠페인</a></li><li><a onmousedown="fn_trkClickTrace('^하단내비^ADICLUB^체험단');" href="http://shop.adidas.co.kr/PF070201.action?AD_CLUB_GB=adClubExp#">체험단</a></li></ul></dd></dl></div><dl><dt>POLICIES</dt><dd><ul><li><a onmousedown="fn_trkClickTrace('^하단내비^POLICIES^구매 이용약관');" href="http://shop.adidas.co.kr/PF010107.action?gubn=1">구매 이용약관</a></li><li><a onmousedown="fn_trkClickTrace('^하단내비^POLICIES^개인정보 취급방침');" href="http://shop.adidas.co.kr/PF010107.action?gubn=2">개인정보 취급방침</a></li><li><a onmousedown="fn_trkClickTrace('^하단내비^POLICIES^아디클럽 이용약관');" href="http://shop.adidas.co.kr/PF010107.action?gubn=3">아디클럽 이용약관</a></li></ul></dd></dl></div><!-- //box --></div><!-- //sitemap_area2 --></div><!-- //sitemap -->
+
+
+		<!-- /footer HTML -->
+			<div class="f_menu">
+				<div class="ct950" style="position:relative;">
+					<div class="country_selector">
+						<a href="javascript:void(0)" class="btn spt_bg"></a>
+						<ul>
+							<li class="nation1"><a href="http://www.adidas.com/us/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^미국');"><span class="spt_bg">&nbsp;</span>United States</a></li>
+							<li class="nation2"><a href="http://www.adidas.ca/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^캐나다');"><span class="spt_bg">&nbsp;</span>Canada</a></li>
+							<li class="nation3"><a href="http://www.adidas.de/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^독일');"><span class="spt_bg">&nbsp;</span>Germany</a></li>
+							<li class="nation4"><a href="http://www.adidas.fr/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^프랑스');"><span class="spt_bg">&nbsp;</span>France</a></li>
+							<li class="nation5"><a href="http://www.adidas.nl/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^네덜란드');"><span class="spt_bg">&nbsp;</span>The Netherlands</a></li>
+							<li class="nation6"><a href="http://www.adidas.co.uk/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^영국');"><span class="spt_bg">&nbsp;</span>United Kingdom</a></li>
+							<li class="nation7"><a href="http://www.adidas.es/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^스페인');"><span class="spt_bg">&nbsp;</span>Spain</a></li>
+							<li class="nation8"><a href="http://www.adidas.it/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^이탈리아');"><span class="spt_bg">&nbsp;</span>Italy</a></li>
+							<li class="nation9"><a href="http://www.adidas.ru/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^러시아');"><span class="spt_bg">&nbsp;</span>Russia</a></li>
+							<li class="nation10"><a href="http://shop.adidas.jp/pc/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^일본');"><span class="spt_bg">&nbsp;</span>Japan</a></li>
+							<li class="nation11"><a href="http://shop.adidas.cn/" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^중국');"><span class="spt_bg">&nbsp;</span>China</a></li>
+							<li class="nation12"><a href="http://www.adidas.co/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^콜롬비아');"><span class="spt_bg">&nbsp;</span>Colombia</a></li>
+							<li class="nation13"><a href="http://www.adidas.com.br/shop" target="_blank" class="arial" onmousedown="javascript:fn_trkClickTrace('^최상단^국가^브라질');"><span class="spt_bg">&nbsp;</span>Brazil</a></li>
+						</ul>
+					</div>
+					
+					<ul>
+						<li style="padding-left:0;"><a onmousedown="javascript:fn_trkClickTrace('^풋터^adidas Korea');" target="_blank" href="http://www.adidas.com"><img src="/images/adidas/common/btn_fmenu1.gif" alt="adidas korea"/></a></li>
+						<li><a onmousedown="javascript:fn_trkClickTrace('^풋터^구매 이용약관');" href="http://shop.adidas.co.kr/PF010107.action?gubn=1"><img src="/images/adidas/common/btn_fmenu2.gif" alt="구매 이용약관"/></a></li>
+						<li><a onmousedown="javascript:fn_trkClickTrace('^풋터^개인정보취급방침');" href="http://shop.adidas.co.kr/PF010107.action?gubn=2"><img src="/images/adidas/common/btn_fmenu3.gif" alt="개인정보 취급방침"/></a></li>
+						<li><a onmousedown="javascript:fn_trkClickTrace('^풋터^아디클럽 이용약관');" href="http://shop.adidas.co.kr/PF010107.action?gubn=3"><img src="/images/adidas/common/btn_fmenu4.gif" alt="아디클럽 이용약관"/></a></li>
+						<li><a onmousedown="javascript:fn_trkClickTrace('^풋터^매장안내');" href="http://shop.adidas.co.kr/PF110101.action"><img src="/images/adidas/common/btn_fmenu5.gif" alt="매장안내"/></a></li>
+						<li><a onmousedown="javascript:fn_trkClickTrace('^풋터^공정거래 자율준수');" href="#" onclick="window.open('/html/adidas/popup_justice_bns.html','','width=680,height=500');return false;"><img src="/images/adidas/common/btn_fmenu7.gif" alt="공정거래 자율준수"/></a></li>
+						<li style="border-right-width:0;"><a onmousedown="javascript:fn_trkClickTrace('^풋터^팀/단체복 주문 안내');" href="http://shop.adidas.co.kr/PF080301.action?FAQ_DIVI=01&FAQ_DIVI_DTL=02"><img src="/images/adidas/common/btn_fmenu6.gif" alt="팀/단체복 주문 안내"/></a></li>
+					</ul>
+					
+					<div class="f_sns">
+						<div class="blog">
+							<a href="http://www.alladidas.com/" class="spt_bg btn" target="_blank"></a>
+						</div>
+						<div class="fb">
+							<a href="#" class="spt_bg btn"></a>
+							<div class="layer">
+								<h4>FACEBOOK</h4>
+								<a href="#" class="spt_bg close"></a>
+								<ul>
+									<li><a href="https://www.facebook.com/adidasfootballkr?fref=ts" target="_blank">FOOTBALL</a></li>
+									<li><a href="https://www.facebook.com/adidasrunningkr" target="_blank">RUNNING</a></li>
+									<li><a href="https://www.facebook.com/adiCourt?fref=ts" target="_blank">BASKETBALL</a></li>
+									<li><a href="https://www.facebook.com/mygirls.kr?fref=ts" target="_blank">WOMEN</a></li>
+									<li><a href="https://www.facebook.com/adidasoutdoorkr?fref=ts" target="_blank">OUTDOOR</a></li>
+									<li><a href="https://www.facebook.com/adidastenniskr?fref=ts" target="_blank">TENNIS</a></li>
+									<li><a href="https://www.facebook.com/originalsmania?fref=ts" target="_blank">ORIGINALS</a></li>
+									<li><a href="https://www.facebook.com/adidaskidskr" target="_blank">KIDS</a></li>
+									<li class="last"><a href="https://www.facebook.com/neolabelkr?fref=ts" target="_blank">NEO</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="twt">
+							<a href="#" class="spt_bg btn" target="_blank"></a>
+							<div class="layer">
+								<h4>TWITTER</h4>
+								<a href="#" class="spt_bg close"></a>
+								<ul>
+									<li><a href="https://twitter.com/adidaskorea" target="_blank">SPORT PERFORMANCE</a></li>
+									<li class="last"><a href="https://twitter.com/Originals_kr" target="_blank">ORIGINALS</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="insta">
+							<a href="#" class="spt_bg btn" target="_blank"></a>
+							<div class="layer">
+								<h4>INSTAGRAM</h4>
+								<a href="#" class="spt_bg close"></a>
+								<ul>
+									<li><a href="http://instagram.com/adidashoops_kr" target="_blank">BASKETBALL</a></li>
+									<li><a href="https://instagram.com/adidaswomen_kr" target="_blank">WOMEN</a></li>
+									<li><a href="https://instagram.com/originals_kr" target="_blank">ORIGINALS</a></li>
+									<li class="last"><a href="https://instagram.com/adidaskids_kr" target="_blank">KIDS</a></li>
+								</ul>
+								<div class="arw spt_bg"></div>
+							</div>
+						</div>
+						<div class="ytb">
+							<a href="https://www.youtube.com/channel/UCpkEzPDLzgH5dVQbxU0Q6wg" class="spt_bg btn" target="_blank"></a>
+						</div>
+					</div>
+					<!-- <a href="#" class="f_top" style="position:absolute;"><img src="images/adidas/common/btn_fmenu_top.gif" alt="TOP"/></a> -->
+				</div>
+			</div>
+			<!-- //f_menu -->
+			
+			<div class="address_r ct950">
+				<div class="footer_left">
+					<div class="info">
+						<p><strong>아디다스코리아(주)</strong></p>
+						<p>06620 서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 9층&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대표이사 : 장 미쉘 그라니에&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사업자 등록번호 : 214-81-07412</p>
+						<p style="color:#000;font-weight:bold;">교환 및 반품 문의 (본사로 반품불가) : 온라인스토어 고객센터 1588-8241 (평일 09:00 ~ 18:00, 점심시간 : 12:00 ~ 13:00)</p>
+						<p>제품 수선문의 : 아디다스 고객만족센터 080-022-7981 (평일 : 09:00 ~ 18:00)</p>
+						<p>통신판매업신고 : 2007-서울서초-10391&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;개인정보 관리책임자 : 김동일&nbsp;&nbsp;,&nbsp;&nbsp;개인정보 관리담당자 : 황선영</p>
+						<p>이메일 : adiCLUB_Korea@adidas.com</p>
+						<p>Copyright &copy;2011 adidas Korea Inc.</p>
+					</div>
+				</div>
+				<div class="footer_right">
+					<img src="images/adidas/common/footer_info2.gif" alt="공정거래위원회 사업자 신원정보 확인 및 한국 스탠다드차타드 은행 채무지급보증 안내" border="0" usemap="#Map5"/>
+					<map name="Map5" id="Map5">
+						<area alt="공정거래 위원회 사업자 신원정보 확인" shape="rect" coords="214,4,262,23" href="#" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">
+						<area alt="한국 스탠다드차타드은행 채무지급보증 안내 , 서비스 가입사실 확인" shape="rect" coords="168,29,260,47" href="javascript:fn_certifiedInfoPopAdi();" title="새창"/>
+					</map>
+				</div>				
+			</div>
+		</div>
+
+</body>
+</html>

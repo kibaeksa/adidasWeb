@@ -1,0 +1,209 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-/W3C/DTD XHTML 1.0 Transitional/EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http:/www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+
+<script type="text/javascript">
+	
+	jQuery(document).ready( function(){
+		
+		jQuery("#CLAIM_TYPE option[value=98]").remove();
+	});
+	
+	function fn_cancelAllOrder() {
+		if($("CLAIM_TYPE").value == "") {
+			alert("취소사유를 선택해주세요.");
+			return;
+		}
+		
+		if($("CLAIM_CONTENT").value == "" || $("CLAIM_CONTENT").value == "상세사유 입력") {
+			alert("취소사유 내용을 입력해주세요.");
+			$("CLAIM_CONTENT").focus();
+			return;
+		}
+		
+		//$("S_COMMAND").value = "TEMP_CLAIM";
+		$("S_COMMAND").value = "CLAIM_CANCEL_UPDATE";
+
+		jQuery("#TOTAL").attr("disabled",true);
+		
+		var param = $("frmOrdCancel").serialize(true);
+		var url = "/PF0601013.action";
+		
+		if(confirm('등록하시겠습니까?')){
+			var onSuccess = function(req){
+				var json = req.responseJSON;					
+				JsonUtil.alert(json);
+				
+				jQuery("#TOTAL").attr("disabled",false);
+				
+				if(JsonUtil.isError(json)){
+					//opener결제정보
+					//param = "command=VIEW&ORDER_NO="+order_no;
+					opener.fn_search();
+					self.close();
+				} else {
+					alert("처리 중 오류가 발생하였습니다. 다시 처리 해 주세요 \n\r동일한 오류가 계속 발생시 고객센터에 문의해 주세요 ");
+				}
+			};
+
+		    var onFailure = function(){
+			    alert('등록 중 에러가 발생했습니다.');
+		    };
+		    cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	    }
+	}
+	
+	function fn_clear() {
+		$("CLAIM_CONTENT").value = "";
+	}
+	
+	function fn_guide() {
+		opener.location = "/PF080301.action?FAQ_DIVI=10";
+		self.close();
+	}
+	
+	function fn_close() {
+		close();
+	}
+	
+	
+</script>
+</head>
+
+<body>
+<div id="pop">
+	<div id="popupHeader">
+		<h1>주문취소</h1>
+		<a href="javascript:self.close();"><img src="/images/adidas/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+	
+	<form id="frmOrdCancel" name="frmOrdCancel">
+	<input type="hidden" id="S_COMMAND" name="command" value="VIEW"/>
+	<input type="hidden" id="CLAIM_CD" name="CLAIM_CD" value="11"/>
+	<input type="hidden" id="ORDER_NO" name="ORDER_NO" value="201301080040252" />
+	<input type="hidden" id="RCPT_TYPE" name="RCPT_TYPE" value="01"/>	<!-- 접수유형 01 취소 -->
+	<input type="hidden" id="RCPT_PATH" name="RCPT_PATH" value="01"/>	<!-- 접수경로 01 온라인 -->
+	<input type="hidden" id="RCPT_ST" name="RCPT_ST" value="02"/>		<!-- 접수상태 02 확정 -->
+	<input type="hidden" id="DLVRSVC_CD" name="DLVRSVC_CD" value=""/>
+	<input type="hidden" id="RETURN_POST_NO" name="RETURN_POST_NO" value="799801" />
+	<input type="hidden" id="RETURN_ADDR" name="RETURN_ADDR" value="경북 울릉군 울릉읍" />
+	<input type="hidden" id="RETURN_DTL_ADDR" name="RETURN_DTL_ADDR" value="도동1리" />
+	<input type="hidden" id="CNSLR_MEMO" name="CNSLR_MEMO" value="" />
+	<input type="hidden" id="MEM_CHARG" name="MEM_CHARG" value="0" />
+	<input type="hidden" id="RETURN_DLVRSVC_CD" name="RETURN_DLVRSVC_CD" value="0" />
+	<input type="hidden" id="REAL_RELES_YN" name="REAL_RELES_YN" value="N" />
+	<input type="hidden" id="MEM_CHGMIND_YN" name="MEM_CHGMIND_YN" value="Y" />
+		
+		<div id="popupContents">
+			<ul class="guide mg10">
+				<li>주문하신 전체상품 취소만 가능합니다. &nbsp;<strong>전체상품에 대한 주문을 취소하시겠습니까?</strong></li>
+			</ul>
+	
+			<table class="view mg20" summary="주문정보">
+			<caption>주문정보</caption>
+			<colgroup>
+				<col width="130px" />
+				<col />
+			</colgroup>
+			<tr>
+				<th>주문일</th>
+				<td class="last">2013-01-08</td>
+			</tr>
+			<tr>
+				<th>주문번호</th>
+				<td class="last"><strong>201301080040252</strong></td>
+			</tr>
+			<tr>
+				<th>쿠폰할인</th>
+				<td class="last"><strong>0</strong>원  (배송비 : <strong>0</strong>원)</td>
+			</tr>
+			</table>
+			
+			<table class="list" summary="구매상품">
+			<caption>구매상품</caption>
+			<colgroup>
+				<!-- 130319 -->
+				<col width="65px"/>
+				<col />
+				<col width="100" />
+				<col width="102px" />
+				<!-- 130319 end -->
+			</colgroup>					
+			<thead>
+			<tr>
+				<!-- 130319 -->
+				<th colspan="2">상품명</th>
+				<th>주문금액</th>
+				<th class="last">사이즈/수량</th>
+				<!-- 130319 end -->
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<!-- 130319 55X55 상품이미지 td 추가-->
+					<td><img src="http://shop.adidas.co.kr/upload/prod/basic/55/Z32627-1_55X55.jpg" alt=""/></td>
+					<!-- 130319 end -->
+					<td class="sub">[Accessories] 레인보우 신발 가방</td>
+					<!-- 130319 price td 스타일 추가-->
+					<td class="price" style="text-align:center;padding-right:0;"><strong><span>29,000</span><strong></td>
+					<!-- 130319 end -->
+					<td class="size">000/1</td>
+					<input type = "hidden" id="ORDER_DTL_NO" name="ORDER_DTL_NO" value="201301080040255" />
+					<input type = "hidden" id="CLAIM_CANCL_QTY" name="CLAIM_CANCL_QTY" value="1" />
+				</tr>
+			
+				<tr>
+					<td><img src="http://shop.adidas.co.kr/upload/prod/basic/55/Z32627-1_55X55.jpg" alt=""/></td>
+					<td class="sub">[Men&#039;s Running] 밴퀴시 4</td>
+					<td class="price" style="text-align:center;padding-right:0;"><strong><span>45,500</span><strong></td>
+					<td class="size">250/1</td>
+					<input type = "hidden" id="ORDER_DTL_NO" name="ORDER_DTL_NO" value="201301080040254" />
+					<input type = "hidden" id="CLAIM_CANCL_QTY" name="CLAIM_CANCL_QTY" value="1" />
+				</tr>
+			</tbody>
+			</table>
+						
+			<div class="cancel">
+				<table width="100%" border="0" cellpadding="0" cellspacing="1"  class="table_C">
+					<tr>
+						<td class="text_left">
+							<select id='CLAIM_TYPE' name='CLAIM_TYPE' size=''  style='width:100px;'><option value=''>취소사유 선택</option><option value='01'>고객단순변심</option><option value='02'>배송불만</option><option value='03'>품질불만</option><option value='04'>사이즈불만</option><option value='05'>색상불만</option><option value='06'>주문오류</option><option value='98'>결품처리</option><option value='99'>기타</option></select>
+							<input type="text" name="CLAIM_CONTENT" id="CLAIM_CONTENT" value="상세사유 입력" style="width:310px;" onfocus="fn_clear();" />
+						</td>
+					</tr>
+				</table>
+			</div>
+	
+			<ul class="advice">
+				<li class="btn">취소/반품 가이드를 확인하세요. <a href="#"><img src="/images/adidas/popup/btn_guide.gif" alt="취소/반품/교환 가이드" onclick="fn_guide()" /></a></li>
+				<li>온라인 주문취소는 결제완료 후 배송준비 전 단계에서만 처리 가능합니다.</li>
+			</ul>
+	
+			<div class="button">
+				<a href="javascript:fn_cancelAllOrder();"><img src="/images/adidas/popup/btn_order_cancel.gif" id="TOTAL" alt="전체주문취소" /></a>
+				<a href="javascript:fn_close();"><img src="/images/adidas/popup/btn_cancel.gif" alt="취소" /></a>
+			</div>
+	
+		</div>
+	</form>
+</div>
+</body>
+</html>

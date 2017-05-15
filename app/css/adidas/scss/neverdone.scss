@@ -1,0 +1,651 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include prefix-css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right, 
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;	
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;	
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+#neverdone{
+	width: 100%;
+	background: #fff;
+
+	.button{
+		padding:15px 45px;
+		background: #fff;
+		background: rgba(255,255,255,0.8);
+		display: inline-block;
+		font:18px/18px 'NotoSansKR','Nanum Gothic';
+		color: #000;
+
+		@include prefix-css3(transition,all 0.3s);
+
+		img{
+			position: relative;
+			top: -2px;
+			vertical-align: middle;
+		}
+
+		&:hover{
+			background: rgba(255,255,255,1);
+		}
+	}
+
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	.sptbg{
+		background: url('/images/adidas/event/neverdone/sprite.png') 0 0 no-repeat;
+		display: block;
+		text-indent: -9999px;
+	}
+
+	.visual{
+		width: 100%;
+		height: 620px;
+		position: relative;
+
+		@media screen and (max-width: 1366px) {
+			height: 502px;
+		}
+
+		.bg{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -951px;
+
+			@media screen and (max-width: 1366px) {
+				margin-left: -770px;
+			}
+
+			img{
+				
+				@media screen and (max-width: 1366px) {
+					width: 1540px;
+				}
+			}
+		}
+
+		h2{
+			width: 706px;
+			height: 128px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -135px 0 0 -353px;
+		}
+
+		.btn_area{
+			width: 230px;
+			position: absolute;
+			bottom: 155px;
+			left: 50%;
+			margin-left: -115px;
+			z-index: 10;
+
+			@media screen and (max-width: 1366px) {
+				bottom:105px;
+			}
+
+			.button{
+				width: 140px;
+				margin-bottom: 10px;
+				display: block;
+			}
+		}
+	}
+	// visual
+
+	.slider_wrap{
+		.nav{
+			width:720px;
+			margin:20px auto;
+
+			li{
+				width: 240px;
+				height:50px;
+				float: left;
+				overflow: hidden;
+				position: relative;
+
+				@include opacity(0.3);
+				
+				a{
+					position: relative;
+					height: 21px;
+					margin: 13px auto 0;
+
+					&.m1{
+						width: 82px;
+						background-position: -110px -130px;
+					}
+
+					&.m2{
+						width: 103px;
+						background-position: 0 -130px;
+					}
+
+					&.m3{
+						width: 168px;
+						height: 22px;
+						background-position: -200px -130px;	
+					}
+
+					&::before , &::after{
+						content:'';
+						width: 0;
+					    height: 2px;
+					    background: #363636;
+					    position: absolute;
+					    bottom: -10px;
+					    @include prefix-css3(transition,width 0.2s);
+					}
+
+					&::after{
+						left: 50%;
+					}
+
+					&::before{
+						right: 50%;
+					}
+				}
+
+				
+
+				&.on{
+					@include opacity(1);
+
+					a{
+						&::before , &::after{
+							width: 50%;
+						}	
+					}
+				}
+
+
+			}
+		}
+
+		.slider_contents{
+			width: 100%;
+			height: 565px;
+			padding-bottom: 95px;
+			position: relative;
+
+			.prev,.next{
+				width: 26px;
+				height: 48px;
+				position: absolute;
+				top: 180px;
+				left: 50%;
+				z-index: 10;
+
+				&.prev{
+					margin-left: -528px;
+					background-position:-410px -130px;
+				}
+
+				&.next{
+					margin-left: 528px;
+					background-position:-380px -130px;
+				}
+			}
+
+			.slider_box{
+				width: 950px;
+				height: 565px;
+				margin:0 auto;
+				position: relative;
+				overflow: hidden;
+
+				.slider{
+					position: absolute;
+					width: 5000px;
+					height: 565px;
+
+					li{
+						width: 950px;
+						float: left;
+					}
+				}	
+			}
+		}
+		// slider_contents
+	}
+	// slider_wrap
+	
+	.statement{
+		width: 100%;
+		height:490px;
+		position: relative;
+		overflow: hidden;
+
+		@media screen and (max-width: 1366px) {
+			height: 380px;
+		}
+
+		.bg{
+			width: 1900px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -950px;
+		}
+
+		.sptbg{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			z-index: 10;
+
+			@include opacity(0);
+
+			&.karlie{
+				width: 530px;
+				height: 236px;
+				margin: -118px 0 0 -265px;
+				background-position: 0 -180px;
+
+				@include opacity(1);
+			}
+
+			&.rose{
+				width: 523px;
+				height: 236px;
+				margin: -118px 0 0 -265px;
+				background-position: 0 -1400px;
+
+				@include opacity(1);
+			}
+
+			&.james{
+				width: 480px;
+				height: 236px;
+				margin: -118px 0 0 -240px;
+				background-position: 0 -760px;
+
+				@include opacity(1);
+			}
+		}
+	}
+	// statement
+	
+	.feature{
+		width: 100%;
+		height:580px;
+		position: relative;
+		overflow: hidden;
+
+		@media screen and (max-width: 1366px) {
+			height: 500px;
+		}
+
+		.bg{
+			width: 1900px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -950px;
+		}
+
+		.box{
+			width: 950px;
+			height: 100%;
+			position: absolute;
+			top:0;
+			left: 50%;
+			z-index: 10;
+			margin-left: -475px;
+			
+			.img{
+				width: 475px;
+				height: 400px;
+				margin-top: -200px;
+				position: absolute;
+				top: 50%;
+				left:0;
+
+				.sptbg{
+					width: 475px;
+					height: 400px;
+
+					&.rose{
+						background-position: right -0px;
+					}
+
+					&.james{
+						background-position: right -430px;
+					}
+
+					&.karlie{
+						background-position: right -870px;
+					}
+				}
+			}
+			// img
+
+			.textbox{
+				margin-top: -137px;
+				position: absolute;
+				top: 50%;
+				left: 410px;
+
+				.text{
+					margin-bottom: 30px;
+
+					&.karlie{
+						width: 318px;
+						height: 189px;
+						background-position: 0 -429px;
+					}
+
+					&.rose{
+						width: 318px;
+						height: 191px;
+						background-position: 0 -1650px;
+					}
+
+					&.james{
+						width: 365px;
+						height: 191px;
+						background-position: 0 -1050px;
+					}
+				}
+			}
+			// textbox
+		}
+		// box
+	}
+	// feature
+	
+	.guide{
+		width: 100%;
+		padding: 140px 0;
+		background: url('/images/adidas/event/neverdone/background-wall.jpg') center 0 no-repeat;
+		@include prefix-css3(background-size,cover);
+
+
+		@media screen and (max-width: 1366px) {
+			padding: 80px 0;
+		}
+
+		.box{
+			width: 100%;
+			text-align: center;
+			margin-bottom: 120px;
+			@media screen and (max-width: 1366px) {
+				margin-bottom: 60px;
+
+				img{
+					width: 890px;
+				}
+			}
+
+			&.last{
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.collection{
+		width: 100%;
+		min-width:1300px;
+		position: relative;
+
+		.img_box{
+			width: 100%;
+			position: relative;
+			left: 25%;
+		}
+
+		.vi{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 25%;
+			overflow: hidden;
+
+			@include prefix-css3(perspective,500px);
+
+			img{
+				width: 100%;
+				@include prefix-css3(transform,translate3d(0,0,0));
+				@include prefix-css3(transition-duration,1s);
+			}
+
+			&:hover{
+				img{
+					@include prefix-css3(transform,translate3d(0,0,100px));
+					@include prefix-css3(transition-duration,10s);	
+				}
+			}
+		}
+
+		.r{
+			>div{
+				width: 25%;
+				float: left;
+				position: relative;
+				overflow: hidden;
+
+				@include prefix-css3(perspective,500px);
+
+				>img{
+					width: 100%;
+					@include prefix-css3(transform,translate3d(0,0,0));
+					@include prefix-css3(transition-duration,1s);
+				}
+
+				&:hover{
+					img{
+						@include prefix-css3(transform,translate3d(0,0,100px));
+						@include prefix-css3(transition-duration,10s);	
+					}
+				}
+
+				&.c2{
+					width: 50%;
+					@include prefix-css3(perspective,0);
+
+					&:hover{
+						img{
+							@include prefix-css3(transform,translate3d(0,0,0));
+						}
+					}
+
+					.textbox{
+						position: absolute;
+						top:50%;
+						left: 50px;
+						margin-top: -100px;
+						text-align: center;
+
+						.text{
+							margin-bottom: 30px;
+
+							&.karlie{
+								width: 407px;
+								height: 108px;
+								background-position: 0 -630px;
+							}
+							
+						}
+					}
+				}
+
+				
+			}
+		}
+	}
+}
+
+
+@include keyframe(shining){
+	0%{
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+
+	100%{
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}

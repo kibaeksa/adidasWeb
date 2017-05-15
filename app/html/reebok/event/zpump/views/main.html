@@ -1,0 +1,214 @@
+<div class="body-wrapper">
+    <main class="body zpump">
+
+        <div id="slider">
+            <div id="noUi-slider"></div>
+        </div>
+
+        <h1 class="zpumplogo icon icon-svg-reebok-zpump-logo-b" data-to="0"><a href="#">Reebok ZPump Fusion</a></h1>
+
+        <section class="shop-links hidden-xs hidden-sm">
+            <ul>
+                <li><a href="{{languageObj.shopUrlMen}}?cm_sp=BRAND_ZPUMP-_-{{currentSlideName}}-_-SHOPMENS" class="btn red-btn warrow" target="_blank">{{languageObj.shopMens}}<i class="icon icon-svg-z_play_triangle_c"></i></a></li>
+                <li><a href="{{languageObj.shopUrlWomen}}" class="btn red-btn warrow" target="_blank"><em style="font-family:'DINWebPro-CondBold';font-style:normal;line-height:48px;">ZPump</em> {{languageObj.shopWomens}}<i class="icon icon-svg-z_play_triangle_c"></i></a></li>
+            </ul>
+        </section>
+
+        <div class="main-bg-container">
+            <div id="main-bg" class="main-bg" data-ng-if="deviceResolution !== 'mobile'">
+                <canvas id="aniCanvas"></canvas>
+            </div>
+            <div class="canvas-wrapper">
+                <section id="intro-canvas" class="intro-canvas" data-intro></section>
+            </div>
+        </div>
+
+        <!-- Desktop & Tablet Slider Start -->
+        <section class="module slider" data-slider>
+
+            <section data-ng-repeat="slide in slides" class="slide-{{ $index }} scene"
+                     data-ng-class="{ 'active': currentPage === $index }">
+
+                <!-- First Slide Start -->
+                <div id="{{ 'scroll-to-' + $index}}" data-ng-if="$index === 0"
+                     class="container text-center intro-slide vertical-align">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-4">
+                            <h2 class="color-cream" data-ng-bind-html="renderHtml(slide.headline)"></h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-4">
+                            <h4 class="epsilon color-cream" data-ng-bind-html="renderHtml(slide.subheadline)"></h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-4">
+                            <a class="scroll-to-cta animatedpump" href="#" data-to="1">&nbsp;</a>
+                            <!-- <img src="images/pump.png" alt="" class="inline-block" /> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+                            <h3 class="gamma color-cream" data-ng-bind-html="renderHtml(slide.headlineTwo)"></h3>
+
+                            <div class="row nomargin">
+                                <div class="col-xs-8 col-xs-offset-2" style="float:none;margin:0 auto;">
+                                    <h5 data-ng-bind-html="renderHtml(slide.copyBody)"
+                                        class=" color-cream margin-bottom5 margin-top5"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- First Slide End -->
+
+                <!-- Other Slides Start -->
+                <!-- vertical-align -->
+                <section data-ng-if="$index !== 0" id="{{ 'scroll-to-' + $index}}" class="scroll-section"
+                         data-ng-class="{'float-right-pin-outer': $index === 2 && deviceResolution === 'desktop', 'slide-2-top': $index === 2 && deviceResolution !== 'desktop' }">
+
+                    <div class="container" data-ng-class="{ 'vertical-align': deviceResolution !== 'mobile' || $index === 1}"> 
+
+
+                        <div class="row">
+
+                            <!-- INFO SLIDES Start -->
+                            <div class="" data-ng-if="$index !== 1" data-ng-class="{'col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-0': $index === 2 || $index === 3, 'col-xs-10 col-xs-offset-1 col-sm-7 col-sm-offset-5 col-md-6 col-md-offset-6 left': $index === 4, 'col-xs-10 col-sm-6 col-sm-offset-6 left no-icon': $index === 5}">
+
+                                <div class="swap-box box-0" data-ng-class="{'col-xs-12': deviceResolution !== 'desktop'}" ng-repeat="module in slide.modules" data-ng-show="!($parent.$index === 2 && deviceResolution !== 'desktop' && $index === 1)">
+                                    <div class="info-box">
+                                        <div class="inner-wrapper" data-ng-if="module.type === 'infoblock'"
+                                             data-ng-class="{'blur': ($parent.$index === 2 && $index === 0)}">
+                                            <div class="row nomargin color-cream">
+                                                <div class="col-xs-12 nopadding" data-ng-class="{'border-bottom-white': ($parent.$parent.$index === 5 || deviceResolution === 'mobile')}">
+                                                    <h2 class="epsilon-din color-cream margin-bottom10" data-ng-bind-html="renderHtml(module.title)"></h2>
+                                                    <a href data-ng-hide="(module.videoId === '' )" data-ng-click="openVideoDialog(module.videoId, module.videoTitle);">
+                                                        <span  class="plus-label">
+                                                            <i class="icon icon-75 icon-svg-large-circle"></i>
+                                                            <i class="icon icon-75 icon-svg-z_play_button_c"></i>
+                                                        </span>
+                                                    </a>
+                                                    <div class="hotspot">
+                                                        <i class="icon icon-75 icon-svg-z_hot_spot_color"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row nomargin">
+                                                <div class="col-xs-12 nopadding">
+                                                    <h3 class="color-cream margin-top20"
+                                                        data-ng-bind-html="renderHtml(module.subTitle)"></h3>
+
+                                                    <p class=" color-cream margin-top5"
+                                                       data-ng-bind-html="renderHtml(module.copyBody)"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="hotspot">-->
+                                            <!--<i class="icon icon-75 icon-svg-z_hot_spot_color"></i>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- INFO SLIDES End -->
+
+                            <!-- VIDEO SLIDE Start  -->
+                            <div data-ng-if="$index === 1" class="col-xs-12 col-sm-10 col-sm-offset-1">
+                                <div data-video-box class="info-box video-box">
+
+                                    <div class="inner-wrapper nopadding">
+
+                                        <div class="row nomargin border-bottom-white">
+                                            <a href
+                                               class="video-tab col-xs-6 col-sm-3 col-md-2 text-center color-cream video-tab-{{$index}}"
+                                               data-ng-class="{'active': $index === activeTab }"
+                                               data-ng-repeat="module in slide.modules"
+                                               data-ng-click="activateTab($index)">
+                                                {{module.title}}
+                                            </a>
+
+                                            <div class="right-text text-right col-xs-0 col-sm-6 col-md-8 hidden-xs color-cream">
+                                                {{ slide.subheadline }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row nomargin">
+                                            <div data-ng-if="$index === activeTab" class="video-holder video-{{$index}}"
+                                                 ng-repeat="module in slide.modules">
+                                                <a href data-ng-click="openVideoDialog(module.videoId, 1);"
+                                                   class="block">
+
+                                                    <div data-ng-if="!videoActive" class="video-cta-wrapper block">
+                                                        <div class="play-length-cta">
+                                                            <span class="time">{{module.videoDuration}}</span>
+
+                                                            <div class="play-button">
+                                                                <span class="icon icon-120 icon-svg-large-circle"></span>
+                                                                <span class="icon icon-120 icon-svg-z_play_button_c"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="video-text">
+                                                            <h3 class="color-cream"
+                                                                data-ng-bind-html="renderHtml(module.videoTitle)"></h3>
+
+                                                            <p class="color-cream"
+                                                               data-ng-bind-html="renderHtml(module.videoCopyBody)"></p>
+                                                        </div>
+                                                        <!--<img class="img-responsive" src="images/video_placeholder.jpg"/> -->
+                                                    </div>
+
+                                                    <div data-ng-if="videoActive" class="video-item-wrapper">
+                                                        <a href
+                                                           data-ng-click="openVideoDialog(module.videoId, 1);"><span
+                                                                class="icon icon-15 icon-svg-close-c close-video"></span></a>
+                                                        <!--<iframe data-youtube-player id="video-dialog-yplayer" class="video-tab-item" data-video-name="Testing Youtube" ng-src="{{getIframeSrc(module.videoId, 1)}}" frameborder="0" allowfullscreen></iframe>-->
+                                                    </div>
+
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- VIDEO SLIDE End  -->
+
+                        </div>
+
+                    </div>
+
+                    <a href="#" class="animatedpump small-pump scroll-to-cta"
+                       data-ng-class="{'last-pump': $index === 5} " data-to="{{$index+1}}"></a>
+                    <!--<a data-ng-if="$index === 2 && deviceResolution !== 'desktop'" href="#" class="animatedpump small-pump scroll-to-cta" data-to="2.5"></a>-->
+                </section>
+                <!-- Other Slides End -->
+
+
+                <figure data-ng-if="deviceResolution === 'mobile'" class="module-bg" data-back-img="images/mobile_0{{$index+1}}.jpg"></figure>
+                <figure data-ng-if="deviceResolution === 'tablet'" class="module-bg"
+                        data-back-img="images/tablet_0{{$index+1}}.jpg"></figure>
+
+            </section>
+
+        </section>
+        <!-- Desktop & Tablet Slider End -->
+
+    </main>
+
+    <!-- preloader start -->
+    <div class="zpump-preloader active">
+            <span class="zpumplogo">
+                <img src="images/loading.gif" alt="Reebok ZPumpFusion"/>
+            </span>
+    </div>
+    <!-- preloader end -->
+</div>

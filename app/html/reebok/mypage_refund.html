@@ -1,0 +1,1907 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>리복 공식 온라인 스토어 취소/반품조회</title>
+
+<link rel="shortcut icon" href="/images/reebok/favicon.ico"/>
+<link rel="apple-touch-icon-precomposed" href="/images/reebok/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/reebok/reebok.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css" media="all" />
+<link rel="stylesheet" type="text/css" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" media="all" />
+<script type="text/javascript" src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/datepicker_jquery.css"/>
+<script type="text/javascript" src="/js/jquery/datepicker_jquery.js"></script>
+<script type="text/javascript">
+	_TRK_CP="^HOME^마이페이지^나의쇼핑내역^취소/반품조회";
+</script>	
+<script type="text/javascript">	
+/* <![CDATA[ */
+	var command = "";
+	
+	jQuery(document).ready( function(){
+		if(command == "VIEW") {
+			jQuery("#tab1").hide();
+			jQuery("#tab2").show();
+			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_off.gif';
+			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_on.gif';
+		} else {
+			jQuery("#tab1").show();
+			jQuery("#tab2").hide();
+			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_on.gif';
+			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_off.gif';
+		}
+		
+		jQuery("#FROM_ORDER_DY").val("2014-05-06");
+		jQuery("#TO_ORDER_DY").val("2014-08-04");
+		jQuery("#FROM_USE_BEGIN_DT").val("2014-05-06");
+		jQuery("#TO_USE_END_DT").val("2014-08-04");
+		
+		fn_search();
+		fn_searchView();
+	});	
+
+	var prodSize = new Array;	
+	var listHTML = "";
+	var pagingHTML = "";
+	
+	//목록 조회 (Tab1)
+	function fn_search(page){
+		var validator = new Validator("frmSrch");
+		validator.addItem("FROM_ORDER_DY", "Y:MaxByteLength=10:Y:검색시작일:");
+		validator.addItem("TO_ORDER_DY", "Y:MaxByteLength=10:Y:검색종료일:");
+		validator.addItem("FROM_ORDER_DY", "N:period=FROM_ORDER_DY=TO_ORDER_DY:Y:검색시작 일자:"); // 앞 날짜가 더 빠른지 체크
+		validator.addItem("TO_ORDER_DY", "N:period=FROM_ORDER_DY=TO_ORDER_DY:Y:검색종료 일자:"); // 앞 날짜가 더 빠른지 체크
+		
+		if(!validator.validateForm("frmSrch")){
+			return false;
+		}
+	    if(cfn_isUndefined(page)) {
+	   		$("S_PAGE").value = 1;
+	  	} else {
+	  	 	$("S_PAGE").value = page;
+	  	}
+	  
+		$("S_COMMAND").value = 'LIST';
+		var url = "/RPF060103.action";
+		var param = Object.toQueryString($("frmSrch").serialize(true));
+
+		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			jQuery("#makeList").html("");
+			//jQuery("#makeList *").remove();
+			
+			if(JsonUtil.isError(json)){
+				var arr = json.list.list;
+				
+				//비회원경우 주문 수량 추가
+				var ss_mem_type = 'R';
+				if(ss_mem_type == 'P'){
+					document.getElementById("noMemberOrderIng").innerHTML = json.noMemberOrderIng;
+					document.getElementById("noMemberOrder").innerHTML = json.noMemberOrder;
+				}
+				
+				listHTML =  "<div class='my_list'>";
+				listHTML += "<table summary='취소/반품 요청'>";
+				listHTML += "	<caption>취소/반품 요청</caption>";
+				listHTML += "	<colgroup>";
+				listHTML += "		<col width='120px'>";
+				listHTML += "		<col width='65px'>";
+				listHTML += "		<col>";
+				listHTML += "		<col width='112px'>";
+				listHTML += "		<col width='75px'>";
+				listHTML += "		<col width='75px'>";
+				listHTML += "		<col width='80px'>";
+				listHTML += "	</colgroup>";
+				listHTML += "	<thead>";
+				listHTML += "	<tr>";
+				listHTML += "		<th scope='col'>주문번호 / 일자</th>";
+				listHTML += "		<th scope='col' colspan='2'>상품명</th>";
+				listHTML += "		<th scope='col'>결제금액</th>";
+				listHTML += "		<th scope='col'>사이즈 / 수량</th>";
+				listHTML += "		<th scope='col'>상태</th>";
+				listHTML += "		<th scope='col' class='last'>취소/반품</th>";
+				listHTML += "	</tr>";
+				listHTML += "	</thead>";
+				listHTML += "	<tbody>";
+				
+				// 동일한 ORDER_NO가 있는지 확인하고 카운트를 구한다!
+				for(var i=0; i<arr.size(); i++){
+					var prodCnt = 0;
+					
+					for(var j=0; j<arr.size(); j++){
+						if(i != j) {
+							if(arr[i].ORDER_NO == arr[j].ORDER_NO) {
+								prodCnt += 1;
+							}
+						}
+					}
+					if(prodCnt != 0) {
+						prodSize[i] = prodCnt+1;
+					} else {
+						prodSize[i] = 0;
+					}
+				}
+				
+				var mOrderNo = "";
+
+				for(var i=0; i<arr.size(); i++){
+					if(prodSize[i] == 0) {
+						listHTML += "		<tr class='online'>";
+						
+						if(arr[i].BUY_TYPE == 'online' && arr[i].ORDER_TYPE == '02') {
+							listHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"<br />(예약 주문)</td>";						
+						} else {
+							listHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";
+						}
+						listHTML += "			<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt='"+arr[i].PROD_NM+"'/></td>";
+						listHTML += "			<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+						listHTML += "			<td class='price'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+						listHTML += "			<td>"+arr[i].ORDER_STYLE+"</td>";
+						
+						// 배송중, 배송완료 상태면 '배송추적' 버튼 보여준다!
+						if(arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') {
+							listHTML += "			<td>"+arr[i].ORDER_ST_NM+"<br />";
+							listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='새창'><img src='/images/reebok/mypage/btn_cargo.gif' alt='배송추적'/></a>";
+							listHTML += "				</td>";
+						} else {
+							listHTML += "			<td>"+arr[i].ORDER_ST_NM+"</td>";
+						}
+						listHTML += "			<td class='btn'>";
+						
+						// 결제완료 상태면 '주문취소' 버튼 보여준다!
+						if( (arr[i].ORDER_ST == '11' || arr[i].ORDER_ST == '01' || arr[i].ORDER_ST == '02') && ( arr[i].CNT_01 == arr[i].CNT_02 ) ) {
+							listHTML += "				<a href='javascript:fn_orderCancleAll("+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_cancel02.gif' alt='주문취소' /></a>";
+							
+						} else if( (arr[i].ORDER_ST == '11' || arr[i].ORDER_ST == '01' || arr[i].ORDER_ST == '02') && ( arr[i].CNT_01 != arr[i].CNT_02 ) ) {
+							listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='취소신청' /></a><br />";
+							
+						} else if(arr[i].ORDER_ST == '03') {
+							
+							if(arr[i].ORDER_ST_NM == '배송요청') {
+								listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='취소신청' /></a><br />";
+							} else {
+								listHTML += "				<a href='javascript:fn_dlvIngMsg();'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='취소신청' /></a><br />";
+							}
+							
+						} else if(arr[i].ORDER_ST == '04') {
+							listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_return.gif' alt='반품신청' /></a><br />";
+							
+						} else if(arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '구매완료') {
+							listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_return.gif' alt='반품신청' /></a>";
+							//listHTML += "				<a href='javascript:fn_total(\"exchange\", "+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_change.gif' alt='교환신청' /></a><br />";
+						}
+						listHTML += "			</td>";
+						listHTML += "		</tr>";
+						
+						mOrderNo = arr[i].ORDER_NO;
+						
+					} else {
+						if(arr[i].ORDER_NO != mOrderNo) {
+							var startIdx = i;
+							var endIdx = i + (prodSize[i] -1);
+														
+							var completeCnt = 0;	// 결제 완료 카운트
+							var buyCnt = 0;			// 구매 완료 카운트
+							
+							for(var k=startIdx; k<=endIdx; k++) {
+								if(arr[k].ORDER_ST == '11' || arr[k].ORDER_ST == '01' || arr[k].ORDER_ST == '02'){
+									completeCnt += 1;
+								} else if(arr[k].ORDER_ST == '05' && arr[k].ORDER_ST_NM == '구매완료') {
+									buyCnt += 1;
+								}
+							}
+							listHTML += "		<tr class='online'>";
+							
+							if(arr[i].BUY_TYPE == 'online' && buyCnt != prodSize[i]) {
+								if(arr[i].ORDER_TYPE == '02') {
+									listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"<br />(예약 주문)</td>";	
+								} else {
+									listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";
+								}
+							} else {
+								listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'>"+arr[i].ORDER_NO+"<br />"+arr[i].ORDER_DY+"</td>";
+							}
+							listHTML += "			<td class='no_underline'><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
+							listHTML += "			<td class='left no_underline'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+							listHTML += "			<td class='price no_underline'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+							listHTML += "			<td class='no_underline'>"+arr[i].ORDER_STYLE+"</td>";
+							listHTML += "			<td class='no_underline'>"+arr[i].ORDER_ST_NM+"<br />";
+							
+							// 배송중, 배송완료 상태면 '배송추적' 버튼 보여준다!
+							if((arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') || (arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '구매완료' && arr[i].DLVRSVC_INVC_NO != '')) {
+								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='새창'><img src='/images/reebok/mypage/btn_cargo.gif' alt='배송추적'/></a>";
+							}
+							listHTML += "			</td>";
+							listHTML += "			<td rowspan='"+prodSize[i]+"' class='btn'>";
+																			
+							// 다 결제 완료 상태면 '주문취소'
+							if( (completeCnt == prodSize[i]) && ( arr[i].CNT_01 == arr[i].CNT_02 )) {
+								listHTML += "				<a href='javascript:fn_orderCancleAll("+arr[i].ORDER_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_cancel02.gif' alt='주문취소' /></a>";
+							}
+							
+							var dlivyReady = true;	// 배송준비중
+							var dlivyIng = true;	// 배송중
+							var dlivyEnd = true;	// 배송완료
+							
+							for(var p=startIdx; p<=endIdx; p++) {
+								if(dlivyReady && dlivyIng) {
+									if(arr[p].ORDER_ST == '03') {
+										listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='취소신청' /></a><br />";
+										dlivyReady = false;
+										
+									} else if(arr[p].ORDER_ST == '04') {
+										listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_return.gif' alt='반품신청' /></a><br />";
+										dlivyIng = false;
+									}
+								}
+								if(dlivyEnd) {
+									if(arr[p].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '구매완료') {
+										listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_return.gif' alt='반품신청' /></a>";
+										//listHTML += "				<a href='javascript:fn_total(\"exchange\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_change.gif' alt='교환신청' /></a><br />";
+										dlivyEnd = false;
+									}
+								}
+							}
+							listHTML += "			</td>";
+							listHTML += "		</tr>";
+							mOrderNo = arr[i].ORDER_NO;
+							
+						} else {
+							listHTML += "		<tr class='online'>";
+															
+							if( (i+1) == arr.length ) {
+								listHTML += "		<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
+								listHTML += "		<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+								listHTML += "		<td class='price'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+								listHTML += "		<td>"+arr[i].ORDER_STYLE+"</td>";
+								listHTML += "		<td>"+arr[i].ORDER_ST_NM+"<br />";
+								
+							} else if( (i+1) != arr.length && (i+1) <= arr.length ) {
+								
+								if(arr[i].ORDER_NO == arr[i+1].ORDER_NO){
+									listHTML += "		<td class='no_underline'><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
+									listHTML += "		<td class='left no_underline'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+									listHTML += "		<td class='price no_underline'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+									listHTML += "		<td class='no_underline'>"+arr[i].ORDER_STYLE+"</td>";
+									listHTML += "		<td class='no_underline'>"+arr[i].ORDER_ST_NM+"<br />";
+								} else {
+									listHTML += "		<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
+									listHTML += "		<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+									listHTML += "		<td class='price'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+									listHTML += "		<td>"+arr[i].ORDER_STYLE+"</td>";
+									listHTML += "		<td>"+arr[i].ORDER_ST_NM+"<br />";
+								}
+							}
+							
+							if(arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') {
+								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='새창'><img src='/images/reebok/mypage/btn_cargo.gif' alt='배송추적'/></a>";
+							} else if(arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '구매완료' && arr[i].DLVRSVC_INVC_NO != ''){
+								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='새창'><img src='/images/reebok/mypage/btn_cargo.gif' alt='배송추적'/></a>";
+							}
+							listHTML += "			</td>";
+							listHTML += "		</tr>";
+							mOrderNo = arr[i].ORDER_NO;
+						}
+					}
+				}
+				listHTML += "	</tbody>";
+				
+				if(arr.size() == 0){
+					listHTML += "	<tfoot>";
+					listHTML += "		<tr>";
+					listHTML += "			<td colspan='8'>";
+					listHTML += "				취소/반품 요청가능 주문이 없습니다.";
+					listHTML += "			</td>";
+					listHTML += "		</tr>";
+					listHTML += "	</tfoot>";
+				}
+				listHTML += "	</table>";
+				listHTML += "	</div>";
+				
+				jQuery("#makeList").append(listHTML);
+				
+				// 페이징
+				pagingHTML = "";
+				jQuery("#makePaging *").remove();
+				
+				var paging = json.list.paging;
+				var tpage = json.list.tpage;
+				
+				if(tpage != 0) {
+					pagingHTML =  " <div class='paging'>";
+					
+					if(tpage == 1) {
+						pagingHTML += "		<a href='#' onclick='return false;'>1</a>";
+					} else {
+						pagingHTML += paging;
+					}
+					pagingHTML += " </div>";
+									
+					jQuery("#makePaging").append(pagingHTML);
+				}
+			}
+		};
+	    var onFailure = function(){
+	    	alert("error");
+	    };
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	}
+	
+	// 목록 조회 (Tab2)
+	var viewHTML = "";
+	var pagingViewHTML = "";
+		
+	function fn_searchView(page){
+		var validator = new Validator("frmDetail");
+		validator.addItem("FROM_USE_BEGIN_DT", "Y:MaxByteLength=10:Y:검색시작일:");
+		validator.addItem("TO_USE_END_DT", "Y:MaxByteLength=10:Y:검색종료일:");
+		validator.addItem("FROM_USE_BEGIN_DT", "N:period=FROM_USE_BEGIN_DT=TO_USE_END_DT:Y:검색시작 일자:"); // 앞 날짜가 더 빠른지 체크
+		validator.addItem("TO_USE_END_DT", "N:period=FROM_USE_BEGIN_DT=TO_USE_END_DT:Y:검색종료 일자:"); // 앞 날짜가 더 빠른지 체크
+		if(!validator.validateForm("frmDetail")){
+			return false;
+		}
+		if(cfn_isUndefined(page)) {
+	   		$("D_PAGE").value = 1;
+	  	} else {
+	  	 	$("D_PAGE").value = page;
+	  	}
+		$("D_COMMAND").value ='VIEW';
+		var url = "/RPF060103.action";
+		var param = Object.toQueryString($("frmDetail").serialize(true));
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			jQuery("#makeViewList").html("");
+			
+			if(JsonUtil.isError(json)){
+				var arr = json.view.list;
+				
+				viewHTML =  "<div class='my_list'>";
+				viewHTML += "<table summary='취소/반품 내역'>";
+				viewHTML += "	<caption>취소/반품 내역</caption>";
+				viewHTML += "	<colgroup>";
+				viewHTML += "		<col width='100px' />";
+				viewHTML += "		<col width='115px' />";
+				viewHTML += "		<col />";
+				viewHTML += "		<col width='112px' />";
+				viewHTML += "		<col width='75px' />";
+				viewHTML += "		<col width='75px' />";
+				viewHTML += "		<col width='80px' />";
+				viewHTML += "	</colgroup>";
+				viewHTML += "	<thead>";
+				viewHTML += "	<tr>";
+				viewHTML += "		<th scope='col'>매장명</th>";
+				viewHTML += "		<th scope='col'>주문번호 / 일자</th>";
+				viewHTML += "		<th scope='col'>상품명</th>";
+				viewHTML += "		<th scope='col'>결제금액</th>";
+				viewHTML += "		<th scope='col'>사이즈 / 수량</th>";
+				viewHTML += "		<th scope='col'>접수유형</th>";
+				viewHTML += "		<th scope='col' class='last'>취소/반품</th>";
+				viewHTML += "	</tr>";
+				viewHTML += "	</thead>";
+				viewHTML += "	<tbody>";	
+				
+				for(var i=0; i<arr.size(); i++){
+					viewHTML += "		<tr class='online'>";
+									
+					if(arr[i].BUY_TYPE == 'online') {
+						if(arr[i].ORDER_TYPE == '02') {
+							viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"<br />(예약 주문)</td>";
+						} else {
+							viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"</td>";
+						}
+					} else {
+						viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"</td>";
+					}
+					
+					if(arr[i].BUY_TYPE == 'online') {
+						viewHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";	
+					} else {
+						viewHTML += "			<td class='order_num'><strong>"+arr[i].ORDER_NO+"</strong><br />"+arr[i].ORDER_DY+"</td>";
+					}
+					//listHTML += "		    <td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
+					viewHTML += "			<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
+					viewHTML += "			<td class='price'>"+arr[i].CASH_PAYMT_AMT+" 원</td>";
+					viewHTML += "			<td>"+arr[i].ORDER_STYLE+"</td>";
+					
+					if(arr[i].BUY_TYPE == 'online') {
+						if(arr[i].PRE_ORDER_ST == '11' || arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03') {
+							viewHTML += "			<td>취소</td>";			
+						} else if( (arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
+							viewHTML += "			<td>반품</td>";
+						} else if(arr[i].RCPT_TYPE == '02') {
+							viewHTML += "			<td>교환</td>";
+						}
+					} else {
+						viewHTML += "			<td>취소</td>";
+					}
+					
+					//if(arr[i].RCPT_ST == '04') {
+					//	viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"<br />";
+					//	
+					//	// 이전주문 상태 : 01, 02, 03, 04 이면  취소완료!
+					//	if(arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03' || arr[i].PRE_ORDER_ST == '04') {
+					//		viewHTML += "			<a href='javascript:fn_cancle("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='새창'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+					//	
+					//	} else if(arr[i].PRE_ORDER_ST == '05' && arr[i].FLAG == 'cancle') {
+					//		viewHTML += "			<a href='javascript:fn_return("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+					//			
+					//	} else if(arr[i].PRE_ORDER_ST == '05' && arr[i].FLAG == 'exchg') {
+					//		viewHTML += "			<a href='javascript:fn_exchange("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");'  title='새창'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+					//	}
+					//	
+					//	viewHTML += "			</td>";
+					//	
+					//} else {
+					//	viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"</td>";
+					//}
+					
+					if(arr[i].BUY_TYPE == 'online') {
+						viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"<br />";
+					} else {
+						viewHTML += "			<td>";
+					}
+					
+					if(arr[i].PRE_ORDER_ST == '11' || arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03') {
+						viewHTML += "			<a href='javascript:fn_cancle("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='새창'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+					
+					} else if( (arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
+						viewHTML += "			<a href='javascript:fn_return("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='새창'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+							
+					} else if(arr[i].RCPT_TYPE == '02') {
+						//viewHTML += "			<a href='javascript:fn_exchange("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='새창'><img src='/images/reebok/mypage/btn_detail.gif' alt='상세내역' /></a>";
+					}
+					
+					//반품 취소 버튼 노출
+					if((arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
+						if(arr[i].RC_CLAIM_NO != ""&&arr[i].RC_ORDER_NO != ""&&arr[i].RC_ORDER_DTL_NO != "") {
+							viewHTML += "				<a href='javascript:fn_return_cancel("+arr[i].RC_CLAIM_NO+", "+arr[i].RC_ORDER_NO+", "+arr[i].RC_ORDER_DTL_NO+")' title='새창'><img src='/images/reebok/mypage/btn_order_return_cancle.gif' alt='반품취소' /></a><br />";
+						}
+					}
+						
+					viewHTML += "			</td>";
+					viewHTML += "		</tr>";
+				}
+				viewHTML += "	</tbody>";
+				
+				if(arr.size() == 0){
+					viewHTML += "	<tfoot>";
+					viewHTML += "		<tr>";
+					viewHTML += "			<td colspan='7'>";
+					viewHTML += "				취소/반품 내역이 없습니다.";
+					viewHTML += "			</td>";
+					viewHTML += "		</tr>";
+					viewHTML += "	</tfoot>";
+				}
+				viewHTML += "	</table>";
+				viewHTML += "	</div>";
+				
+				jQuery("#makeViewList").append(viewHTML);
+								
+				// 페이징
+				pagingViewHTML = "";
+				jQuery("#makeViewPaging *").remove();
+				
+				var pagingView = json.view.paging;
+				var tpageView = json.view.tpage;
+				var pagingValue = pagingView.split("fn_search").join("fn_searchView");
+				
+				if(tpageView != 0) {
+					pagingViewHTML =  " <div class='paging'>";
+					
+					if(tpageView == 1) {
+						pagingViewHTML += "		<a href='#' onclick='return false;'>1</a>";
+					} else {
+						pagingViewHTML += pagingValue;
+					}
+					pagingViewHTML += " </div>";
+						
+					jQuery("#makeViewPaging").append(pagingViewHTML);
+				}
+			}
+		};
+	    var onFailure = function(){
+	    	alert("error");
+	    };
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	}
+	
+	
+	//tab change
+	function fn_changTab(val){
+		if(val == 1) {
+			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_on.gif';
+			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_off.gif';
+			document.getElementById('tab1').style.display='block';
+			document.getElementById('tab2').style.display='none';
+		} else {
+			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_off.gif';
+			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_on.gif';
+			document.getElementById('tab1').style.display='none';
+			document.getElementById('tab2').style.display='block';
+		}
+	}
+	
+	// 조회날짜 셋팅 (3개월, 6개월, 2년)
+	function fn_period(val) {
+		if(val == 1) {
+			$("FROM_ORDER_DY").value = "2014-05-06";
+			$("TO_ORDER_DY").value     = "2014-08-04";
+		} else if(val == 2) {
+			$("FROM_ORDER_DY").value = "2014-02-05";
+			$("TO_ORDER_DY").value 	 = "2014-08-04";
+		} else if(val == 3) {
+			$("FROM_ORDER_DY").value = "2012-08-04";
+			$("TO_ORDER_DY").value 	 = "2014-08-04";
+		} else if(val == 4) {
+			$("FROM_USE_BEGIN_DT").value = "2014-05-06";
+			$("TO_USE_END_DT").value 	 = "2014-08-04";
+		} else if(val == 5) {
+			$("FROM_USE_BEGIN_DT").value = "2014-02-05";
+			$("TO_USE_END_DT").value 	 = "2014-08-04";
+		} else if(val == 6) {
+			$("FROM_USE_BEGIN_DT").value = "2012-08-04";
+			$("TO_USE_END_DT").value 	 = "2014-08-04";
+		}
+	}
+	
+	// 배송추적
+	function fn_delive_trace(InvcNo, TracePath) {
+		var url = TracePath.replace('$INVC_NO$', InvcNo);
+		var width = "700";
+		var height = "663";
+		var asppop = cfn_openPop(url, "tracePopUp", width, height);
+		asppop.focus();
+	}
+	
+	function fn_orderCancleAll(orderNo) {
+		// 주문취소
+		var asppop = cfn_openPop('/RPF0601013.action?command=VIEW&ORDER_NO='+orderNo, "ordCancelPop", 487, 550);
+		asppop.focus();
+	}
+	
+	function fn_total(gubun, orderNo) {
+		if(gubun == 'cancel' || gubun == 'return' ) {
+			// 취소접수 또는 반품신청(배송완료건 취소신청 - 취소접수 의미)
+			var asppop = cfn_openPop('/RPF0601014.action?command=VIEW&GUBUN='+gubun+'&ORDER_NO='+orderNo, "ordReturnPop", 617, 650);
+			asppop.focus();
+			
+		} else if(gubun == 'exchange') {
+			// 교환신청
+			var asppop = cfn_openPop('/RPF0601015.action?command=VIEW&GUBUN='+gubun+'&ORDER_NO='+orderNo, "ordExchangePop", 617, 650);
+			asppop.focus();
+		}
+	}
+	
+	// 상세내역
+	function fn_cancle(claimNo, orderNo, orderDtlNo){
+		var asppop = cfn_openPop('/RPF0601031.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 500);
+		asppop.focus();
+	
+	}
+	function fn_return(claimNo, orderNo, orderDtlNo){
+		var asppop = cfn_openPop('/RPF0601032.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 550);
+		asppop.focus();
+	}
+	function fn_exchange(claimNo, orderNo, orderDtlNo){
+		var asppop = cfn_openPop('/RPF0601033.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 500);
+		asppop.focus();
+	}
+	
+	// 상품명 클릭시 상품상세로 이동
+	function fn_linkProd(prodCd, display) {
+		if(display == "Y") {
+			var url = "/RPF020401.action?PROD_CD="+prodCd;
+			location.href=url;
+		}else {
+			alert("판매종료된 상품입니다!");
+		}
+	}
+	
+	function fn_rbReturnPop() {
+		var url = "/jsp/reebok/rbReturnPop.jsp";
+		var winName = "rbReturnPop";
+
+		var width = 700;
+		var height = 700;
+	 	var wid = (screen.width)/2 - width/2 ;
+	 	var hei = (screen.height)/2 - height/2;
+	 	var win = window.open(url, winName, "menubar=no, scrollbars=yes, resizable=no, width=" + width + ", height=" + height+ ",top=" + hei + ",left=" + wid + "");
+	 	if(win != null)
+	 		win.focus();
+		target = winName;
+	}
+	
+	function fn_return_cancel(claim_no,order_no,order_dtl_no) {
+		
+		if(confirm('반품취소 하시겠습니까?')){
+			var onSuccess = function(req){
+				var json = req.responseJSON;					
+				JsonUtil.alert(json);
+
+				if(JsonUtil.isError(json)){
+					fn_searchView();
+					fn_search();
+				}else{
+					
+				}
+			};
+
+		    var onFailure = function(){
+			    alert('등록 중 에러가 발생했습니다.');
+		    };
+
+		    cfn_ajaxRequest("/RPF060103.action", 
+		    				"command=CLAIM_RETURN_CANCEL&CLAIM_NO="+claim_no+"&ORDER_NO="+order_no+"&ORDER_DTL_NO="+order_dtl_no, 
+		    				onSuccess, 
+		    				onFailure);
+	    }
+
+	}
+	
+  	
+  	function fn_dlvIngMsg() {
+  		alert("배송준비중 상태에서는 취소접수 할 수 없습니다.\n고객센터로 문의해 주세요.\n\n고객 단순변심일 경우 교환 및 반품 시 왕복배송비를 부담하셔야 합니다.\n(배송지에 따라 배송비는 상이합니다.)");
+  	}	
+/* ]]> */
+</script>
+</head>
+<body onload="fn_classChg(2)">
+
+<div id="wrap">
+	<div id="container">
+		<!-- header -->
+		
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/js/reebok/navigation.js"></script>
+<script type="text/javascript" src="/js/topSearchR.js"></script>
+<script type="text/javascript" src="/js/reebok/main.js"></script>
+<script type="text/javascript" src="/js/search/dqAutoCompleteCommonTop.js"></script>
+<script type="text/javascript" src="/js/reebok/select_layer.js"></script>
+<script type="text/javascript" src="/js/reebok/common.js"></script>
+
+
+	
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+	
+	var EchoID = "iprospect1";
+	var EchoGoodNm = "";
+	var EchoAmount = "";
+	var EchoUIP = "";
+	var EchoTarget = "";
+	var EchoLogSend = "Y";
+	var EchoCV = "";
+	var EchoPN = "";
+		
+	jQuery(document).ready(function(){
+		
+		jQuery('body').prepend('<div class="layer_bg" style="z-index:90000;"></div>');	
+		
+	
+		
+		
+	
+		
+		
+		
+		
+	});
+
+	
+	
+	function fn_trkClickTrace(val){
+		if(""!=""){
+			var navi="^"+""+val;
+			trk_clickTrace("EVT",navi);
+		}
+	}
+	
+
+	function fn_logIn(parame){
+		var goLoginPage = 'https://shop.reebok.co.kr:444/RPF060801.action?';
+		
+		if(false){
+			$("linkGb").value = parame;
+			
+			var param = $("ssoSrch").serialize(true);
+			var url = "/RPF060806.action";
+			var onSuccess = function(req){
+				var json = req.responseJSON;
+				JsonUtil.alert(json);
+				var rturl = json.URL_PARAM;
+				if(parame == '1'){
+					var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+					popup.focus();
+				}else if(parame == '2'||parame == '5'||parame == '7'||parame == '0'){
+					document.location.href = "http://m.reebok.co.kr"+"/MO/Main/mainIF.action?"+rturl;
+				}else if(parame == '4'){
+					var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF080304.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+					popup.focus();
+				}else if(parame == '6'){
+					document.location.href = 'http://shop.reebok.co.kr/RPF060100.action';
+				}else if(parame == '8'){
+					document.location.href = 'http://shop.reebok.co.kr/RPF060101.action';
+				}
+			};
+			var onFailure = function(){
+				alert('수정 중 에러가 발생했습니다.');
+			};
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+
+		}else{
+			if(parame == '1'){
+				var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '2'){
+				var popup = window.open(goLoginPage+'checkbtn=myBasket','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '3'){
+				var popup = window.open(goLoginPage+'checkbtn=buyLogIn&returnURL=http://shop.reebok.co.kr/RPF060103.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '4'){
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF080304.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}else if(parame == '5'){
+				document.location.href = 'https://shop.reebok.co.kr:444/RPF0601001.action';
+			}else if(parame == '6'){
+				document.location.href = 'http://shop.reebok.co.kr/RPF060100.action';
+			}else if(parame == '7'){
+				document.location.href = 'http://shop.reebok.co.kr/RPF030101.action';
+			}else if(parame == '8'){
+				document.location.href = 'http://shop.reebok.co.kr/RPF060101.action';
+			} else if (parame == '9') {
+				var optionSel = jQuery("#option_sel").val();
+				var qtySel    = jQuery("#qty_sel").html();
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF060103.action&preCal=Y&optionSel=' + optionSel + '&qtySel=' + qtySel,'logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();				
+			}else{
+				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF060103.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+				popup.focus();
+			}			
+		}		
+	}
+	
+	//LogOut
+	function fn_logOut(){
+		if(confirm('로그아웃 하시겠습니까?')){
+			document.location.href = "/RPF060801.action?command=logOut&redirectMan=http://shop.reebok.co.kr/reeMain.action";
+		}
+	}
+
+	function getCookie(id, name){
+		var param = "S_POPUP_ID="+id;
+		var url = "/makePopUp.action?"+param;
+		
+		//name = $("POPUP_NM").value;
+		var nameOfCookie = name + "=";
+		var x = 0;
+		while ( x <= document.cookie.length ){
+				var y = (x+nameOfCookie.length);
+				if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+						if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+								endOfCookie = document.cookie.length;
+						return unescape( document.cookie.substring( y, endOfCookie ) );
+				}
+				x = document.cookie.indexOf( " ", x ) + 1;
+				if ( x == 0 )
+						break;
+		}
+		return "";	
+	}
+
+	function fnSetSearchWords() {
+		var var_arrLen = search_words.length;
+		var var_randVal;
+		
+		do {
+			var_randVal = (Math.floor(Math.random() * 100)) % var_arrLen;	// 랜덤하게 가져오기
+		} while(search_disp_yn[var_randVal] == 'N'); // 검색어전시여부가 Y인 경우에만 검색창에 세팅
+		
+		var f = document.frmSrchTop;
+		f.S_PROD_NM_TOP.value = search_words[var_randVal];
+		f.S_SEARCH_WORDS_URL.value = search_words_url[var_randVal];
+	}
+	
+	function fn_myCpnPopup(){		
+		var arr_list;
+		var url = "/RPF060808.action?command=LIST_1";
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			arr_list = json.list.list;
+
+			if(arr_list.size() > 0) {
+				var cpn_cnt = arr_list.size() > 2 ? 2 : arr_list.size();
+				for(var i=0; i<cpn_cnt; i++){
+					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(0)").html(arr_list[i].CPON_NM);
+					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(2)").html(arr_list[i].USE_BEGIN_DT + " ~ " + arr_list[i].USE_END_DT);					
+				}
+				if (cpn_cnt == 1) jQuery("#popup_mycpn_contents tbody tr:eq(1)").remove();
+				openLayer('popup_mycpn',611,470);
+			}
+		};		
+	    var onFailure = function(){
+	    	alert("error");
+	    };	    
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+	}
+
+	//쿠폰 레이어 열기
+	function openMyCpnLayer(){		
+		var arr_list;
+		var url = "/RPF060808.action?command=LIST_1";
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			JsonUtil.alert(json);
+			
+			arr_list = json.list.list;
+
+			if(arr_list.size() > 0) {
+				var cpn_cnt = arr_list.size() > 2 ? 2 : arr_list.size();
+				for(var i=0; i<cpn_cnt; i++){										
+					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(0)").html(arr_list[i].CPON_NM);
+					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(2)").html(arr_list[i].USE_BEGIN_DT + " ~ " + arr_list[i].USE_END_DT);					
+				}
+				if (cpn_cnt == 1) jQuery("#popup_mycpn_contents tbody tr:eq(1)").remove();				
+				jQuery("#popup_mycpn").show();				
+			}
+		};		
+	    var onFailure = function(){
+	    	alert("error");
+	    };	    
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+	}
+	
+	//쿠폰 레이어 닫기
+	function closeMyCpnLayer(){
+		jQuery('#popup_mycpn').hide();
+	}
+	
+	function fn_closeBanner(){
+		fn_setCookie('rtop_bnn','close',1);
+		jQuery('#div_top_banner').animate({height:'0'});
+	}	
+/* ]]> */
+</script>
+		
+<!-- 탑배너 -->
+<div class="top_bnn" id="div_top_banner" style="display:none;height:0;"></div>
+		<!-- header_wrap -->
+		<div id="header_wrap">
+			<div class="skip_nav">
+				<h2 class="blind">skip navigation</h2>
+				<a href="#gnb_r" onclick="document.getElementById('gnb_r').tabIndex = -1;document.getElementById('gnb_r').focus();return false;">상단메뉴 바로가기</a>
+				<a href="#contents_wrap"onclick="document.getElementById('contents_wrap').tabIndex = -1;document.getElementById('contents_wrap').focus();return false;">본문 바로가기</a>
+				<a href="#footer_wrap" onclick="document.getElementById('footer_wrap').tabIndex = -1;document.getElementById('footer_wrap').focus();return false;">하단 바로가기</a>
+		   	</div>
+
+			<!-- header -->
+
+			<div id="header">
+				<!-- header_top -->
+				<div class="header_top">
+					<div class="utilbox">
+						<ul>
+							<li>리복 공식온라인스토어</li>
+							<li class="last"><a href="http://shop.reebok.co.kr/RPF080301.action" onmousedown="javascript:fn_trkClickTrace('^최상단^고객센터');">고객센터</a>&nbsp;<strong>1588-7324</strong></li>
+						</ul>
+					</div>
+					<h1><a href="/reeMain.action" onmousedown="javascript:fn_trkClickTrace('^최상단^Reebok(로고)');"><img src="/images/reebok/common/logo_reebok.gif" alt="Reebok" /></a></h1>					
+					<div id="div_top_evt" style="position:absolute;top:0;left:0;width:100%;text-align: center;"></div>
+					<script type="text/javascript">
+					/* <![CDATA[ */
+						document.write("<ul class='topmenu'>");
+						if("00200208507" != "null") {//로그인상태인 경우
+							document.write("<li><a href='javascript:fn_logOut();' onmousedown='javascript:fn_trkClickTrace(\"^최상단^로그아웃\");'>로그아웃</a></li>");							 			
+							if("R" == "R" ) { //회원인 경우
+								document.write("<li><a href='javascript:fn_logIn(6);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");'>마이페이지</a></li>");
+								document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^장바구니\");'>장바구니<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
+							} else {
+								document.write("<li><a href='javascript:fn_logIn(8);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");'>마이페이지</a></li>");			
+							}							
+						} else {//로그아웃 상태인 경우							
+							document.write("<li><a href='javascript:fn_logIn(0);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^로그인\");' title='새창 로그인'>로그인</a></li>");
+							document.write("<li><a href='javascript:fn_logIn(5);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^회원가입\");'>회원가입</a></li>");
+							document.write("<li><a href='javascript:fn_logIn(1);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^마이페이지\");' title='새창 로그인'>마이페이지</a></li>");
+							//document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^장바구니\");' title='새창 로그인'>장바구니<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
+							//20130924 비회원 장바구니 관련 수정 
+							document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^최상단^장바구니\");'>장바구니<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
+						}				        
+				        
+						document.write("<li><a href='http://shop.reebok.co.kr/RPF110101.action?brand_nm=reebok' onmousedown='javascript:fn_trkClickTrace(\"^최상단^매장안내\");'>매장안내</a></li>");
+						document.write("<li class='last'><a href='http://shop.reebok.co.kr/RPF080201.action' onmousedown='javascript:fn_trkClickTrace(\"^최상단^공지사항\");'>공지사항</a></li>");
+					
+						document.write("</ul>");
+					/* ]]> */
+					</script>
+						
+					
+					<ul class="submenu">
+						<li><a href="http://shop.reebok.co.kr/RPF010102.action"><img src="/images/reebok/common/submenu_01.gif" alt="신상품" onmousedown="javascript:fn_trkClickTrace('^최상단^신상품');trk_flashEnvView('_TRK_PI=NEWARR');" /></a></li>
+						<li><a href="http://shop.reebok.co.kr/RPF010103.action"><img src="/images/reebok/common/submenu_02.gif" alt="베스트상품" onmousedown="javascript:fn_trkClickTrace('^최상단^베스트상품');trk_flashEnvView('_TRK_PI=BEST');"/></a></li>
+						<li><a href="http://shop.reebok.co.kr/RPF070101.action"><img src="/images/reebok/common/submenu_03.gif" alt="기획전" onmousedown="javascript:fn_trkClickTrace('^최상단^기획전');trk_flashEnvView('_TRK_PI=PROMO');"/></a></li>
+						<li><a href="http://shop.reebok.co.kr/RPF010104.action"><img src="/images/reebok/common/submenu_04.gif" alt="SALE" onmousedown="javascript:fn_trkClickTrace('^최상단^SALE');trk_flashEnvView('_TRK_PI=SALE');"/></a></li>
+						<li class="last"><a href="http://shop.reebok.co.kr/RPF080101.action?GUBN=1"><img src="/images/reebok/common/submenu_05.gif" alt="ReeClub" onmousedown="javascript:fn_trkClickTrace('^최상단^ReeClub');trk_flashEnvView('_TRK_PI=RCLUB');"/></a></li>
+						<!-- <li class="last btm_space"><a href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=J90922" onmousedown="javascript:fn_trkClickTrace('^최상단^온라인단독상품');trk_flashEnvView('_TRK_PI=EXCLU');"><img src="/images/reebok/common/submenu_excl.gif" alt="EXCLUSIVE" /></a></li> -->
+					</ul>
+                    <div class="search_area_r">
+                        <form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" action="">
+							<fieldset>
+								<legend>SEARCH</legend>								
+								<label class="blind" for="S_PROD_NM_TOP">검색</label> 
+								<input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="search_box" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onblur="fn_inputBlur()" onmousedown="dqtop_setTextbox('1',event);" onkeypress="keyDownTop('1',event);" onkeydown="javascript:if(event.keyCode==13) fn_search_top();fn_trkClickTrace('^최상단^검색');" />
+								<input type="hidden" name="S_SEARCH_WORDS_URL" id="S_SEARCH_WORDS_URL"/>
+								<input type="submit" class="submit" onclick="fn_search_top();fn_trkClickTrace('^최상단^검색');"/>
+				 				<input type="hidden" id="topSiteCD" name="topSiteCD" value="2"/>
+								
+<script type="text/javascript" src="/js/search/dqAutoCompleteTopR.js"></script>
+<div class="search_box" id="dqAutoTop" style="display:none;z-index:1000;" onmouseover="dqtop_setMouseon();" onmouseout="dqtop_setMouseoff();">
+</div>
+
+							</fieldset>
+                        </form>
+                    </div>
+                    <a href="#" class="fast_shopping spt_bg" onclick="fastShopping_r();" onfocus="fastShopping_r();">빠른쇼핑</a>
+				</div>
+				<form id="ssoSrch" name="ssoSrch" method="post" onsubmit="return false;" action="">
+					<input type = "hidden" id="ssoSiteCD" name="ssoSiteCD" value="2"/>
+					<input type = "hidden" id="ssoMemNo"  name="ssoMemNo"  value="00200208507"/>
+					<input type = "hidden" id="linkGb"    name="linkGb"    value=""/>
+				</form>
+				<!-- //header_top -->
+				
+				<!-- header HTML -->
+				
+						
+<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script><script type="text/javascript">/* <![CDATA[ */var search_words = new Array(12);var search_words_url = new Array(12);var search_disp_yn   = new Array(12);search_words[0]= "GL6000";search_words_url[0]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[0]= "N";search_words[1]= "지엘6000";search_words_url[1]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[1]= "N";search_words[2]= "펌프퓨리";search_words_url[2]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[2]= "N";search_words[3]= "솜사탕 퓨리 입고";search_words_url[3]= "http://shop.reebok.co.kr/RPF020401.action?PROD_CD=M44764";search_disp_yn[3]= "Y";search_words[4]= "리복 요가 제품 런칭";search_words_url[4]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EC%9A%94%EA%B0%80";search_disp_yn[4]= "Y";search_words[5]= "커플 운동화 펌프 그래프라이트";search_words_url[5]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EA%B7%B8%EB%9E%98%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8";search_disp_yn[5]= "Y";search_words[6]= "기다리던 레코드피니쉬 재입고";search_words_url[6]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EB%A0%88%EC%BD%94%EB%93%9C%20%ED%94%BC%EB%8B%88%EC%89%AC";search_disp_yn[6]= "Y";search_words[7]= "FURY";search_words_url[7]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[7]= "N";search_words[8]= "크로스핏 게임스 의류";search_words_url[8]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=GAMES";search_disp_yn[8]= "Y";search_words[9]= "GL 6000 FW 신상 입고";search_words_url[9]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[9]= "Y";search_words[10]= "퓨리";search_words_url[10]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[10]= "N";search_words[11]= "SUMMER 느낌의 스카이스케이프";search_words_url[11]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84";search_disp_yn[11]= "Y";/* ]]> */</script>                <div id="gnb_r2">                    <h2 class="blind">주메뉴</h2><ul class="gnb_menu1"><li id="men"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=MEN&amp;LEVEL=1" class="depth1_btn">MEN</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt class="arial">Category</dt><dd><ul>                    <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001001' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^신발');">신발</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001002' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^의류');">의류</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001003' onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Category^용품');">용품</a></li>           </ul></dd></dl><dl class="last"><dt>Sports</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^SPORTS^러닝');">러닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^SPORTS^트레이닝');">트레이닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001007" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^SPORTS^기타');">기타</a></li>    </ul></dd></dl></div><div class="menubox"><dl><dt>Brand</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Brand^Sports');">Sports</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^Brand^Classic');">Classic</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^More Choices^신상품');">신상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^More Choices^베스트상품');">베스트 상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^상단내비^MEN^More Choices^세일');" style="color:#f00000;">세일</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF050101.action?S_PROD_NM=baremove"><img src="/upload/banner/710ec5baca184e3a89be33dfc6786097_0205173915.jpg" alt="피트니스"/></a></div><!-- //righttarea -->                  </div><!-- //men depth2 menu --></li><!-- //men --><li id="women"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=WOMEN&amp;LEVEL=1" class="depth1_btn">WOMEN</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Category</dt><dd><ul>                    <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002001' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^신발');">신발</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002002' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^의류');">의류</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002003' onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Category^용품');">용품</a></li>           </ul></dd></dl><dl class="last"><dt>Sports</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^SPORTS^러닝');">러닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^SPORTS^트레이닝');">트레이닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002007" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^SPORTS^기타');">기타</a></li>    </ul></dd></dl></div><div class="menubox"><dl><dt>Brand</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Brand^Sports');">Sports</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^Brand^Classic');">Classic</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^More Choices^신상품');">신상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^More Choices^베스트상품');">베스트 상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^상단내비^WOMEN^More Choices^세일');" style="color:#f00000;">세일</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF070102.action?mainId=954&amp;subId=1416"><img src="/upload/banner/35cbd18b4cb14caea67939d045b48aa2_0623110044.jpg" alt="gl6000"/></a></div><!-- //righttarea --></div><!-- //women depth2 menu --></li><!-- //women --><!-- kids --><li id="kids"><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02003001" class="depth1_btn_nodep" onmousedown="javascript:fn_trkClickTrace('^상단내비^KIDS');">KIDS</a></li><!-- //kids --></ul><!-- gnb_menu1 --><ul class="gnb_menu2"><!-- sports --><li id="sports"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=SPORTS&amp;LEVEL=1" class="depth1_btn">SPORTS</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Men</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^MEN^러닝');">러닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^MEN^트레이닝');">트레이닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001007" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^MEN^기타');">기타</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^More Choices^신상품');">신상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^More Choices^베스트상품');">베스트 상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORT^More Choices^세일');" style="color:#f00000;">세일</a></li></ul></dd></dl></div><div class="menubox"><dl><dt>Women</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^WOMEN^러닝');">러닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^WOMEN^트레이닝');">트레이닝</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002007" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^WOMEN^기타');">기타</a></li></ul></dd></dl><dl class="last"><dt>Collection</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^크로스핏 (CROSSFIT)');">크로스핏 (CROSSFIT)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006005" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^리얼플렉스 (REALFLEX)');">리얼플렉스 (REALFLEX)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006006" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^서브라이트(SUBLITE)');">서브라이트(SUBLITE)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006007" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^원 시리즈(ONE Series)');">원 시리즈(ONE Series)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006010" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^리복 피트니스 컬렉션');">리복 피트니스 컬렉션</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011" onmousedown="javascript:fn_trkClickTrace('^상단내비^SPORTS^Collection^리복 요가 컬렉션(YOGA)');">리복 요가 컬렉션(YOGA)</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF020201.action?ALL=ALL&amp;S_CTGR_CD=02006003&amp;S_HIGH_CTGR_CD=02006&amp;S_LEVEL=2&amp;GUBUN=KEYCONCEPT&amp;S_LABEL=크로스핏 (CROSS FIT)"><img src="/upload/banner/36d4ef220c59448f94660b3335123948_0630181752.jpg" alt="크로스핏"/></a></div><!-- //righttarea --></div><!-- //sports depth2 menu --></li><!-- //sports --><li id="classic"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=CLASSICS&amp;LEVEL=1" class="depth1_btn">CLASSIC</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Men</dt><dd><ul><li><a class="ss" href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^MEN');">전체보기</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^More Choices^신상품');">신상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^More Choices^베스트상품');">베스트 상품</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^More Choices^세일');" style="color:#f00000;">세일</a></li></ul></dd></dl></div><div class="menubox"><dl><dt>Women</dt><dd><ul><li><a class="ss" href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^WOMEN');">전체보기</a></li></ul></dd></dl><dl class="last"><dt>Collection</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^Collection^PUMP FURY');">PUMP FURY</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006008" onmousedown="javascript:fn_trkClickTrace('^상단내비^CLASSIC^Collection^GL 6000');">GL 6000</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF070102.action?mainId=954&amp;subId=1354"><img src="/upload/banner/8149bcb3d4cb4ebc9076da10d4f3c353_0529110737.jpg" alt="퓨리"/></a></div><!-- //righttarea --></div><!-- //sports depth2 menu --></li><!-- //classic --><li id="collection"><a href="#" class="depth1_btn">COLLECTION</a><div class="depth2_menu"><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^크로스핏 (CROSSFIT)');">크로스핏 (CROSSFIT)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006005" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^리얼플렉스 (REALFLEX)');">리얼플렉스 (REALFLEX)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006006" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^서브라이트(SUBLITE)');">서브라이트(SUBLITE)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006007" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^원 시리즈(ONE Series)');">원 시리즈(ONE Series)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006010" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^리복 피트니스 컬렉션');">리복 피트니스 컬렉션</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^리복 요가 컬렉션(YOGA)');">리복 요가 컬렉션(YOGA)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^PUMP FURY');">PUMP FURY</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006008" onmousedown="javascript:fn_trkClickTrace('^상단내비^COLLECTION^GL 6000');">GL 6000</a></li></ul></div><!-- //collection depth2 menu --></li><!-- //collection --></ul><!-- menu2 --><ul class="gnb_menu3"><li id="toprank"><a href="#" onclick="topRank();" class="depth1_btn" onmousedown="javascript:fn_trkClickTrace('^상단내비^TOP 인기 검색어');"><em>TOP</em>&nbsp;&nbsp;인기&nbsp;검색어</a><form id="frmShoppingLiveSrch" name="frmShoppingLiveSrch" method="post" action=""><input type="hidden" id="shoppingLiveSrchCmd" name="shoppingLiveSrchCmd" value=""/><input type="hidden" id="shoppingLiveSiteCd" name="shoppingLiveSiteCd" value="2"/></form><div id="top_rank" style="display:none;"><div class="rank_leftarea"><div class="top"><h2 class="spt_bg">TOP 인기검색어</h2><span id="rank_leftarea_date"></span></div><!-- //top --><div class="body" id="rank_leftarea_body"></div><!-- //body --></div><!-- //rank_leftarea --><div class="rank_rightarea"><div class="top"><h2 class="spt_bg">Best Selling Items</h2><a href="#" onclick="topRankOff();" class="spt_bg close">닫기</a></div><!-- //top --><div class="body"><div class="rank_prod_wrap"><a href="#" class="spt_bg rankprod_prev">이전</a><a href="#" class="spt_bg rankprod_next">다음</a><div class="rankprod_slider_wrap"><ul class="rankprod_slider" id="rankprod_slider0" ><li></li></ul><ul class="rankprod_slider" id="rankprod_slider1" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider2" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider3" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider4" style="display:none;"><li></li></ul></div></div><div class="rankprod_paging"></div></div><!-- //body --></div><!-- //rank_rightarea --></div></li><!-- //toprank  --><li id="live"><a href="http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354" class="depth1_btn" onmousedown="javascript:fn_trkClickTrace('^상단내비^PUMP FURY');" style="padding-left:3px;padding-right:3px;"><em>PUMP</em>&nbsp;FURY</a></li><li id="rbk_sns"><a href="#" class="depth1_btn">리복 SNS</a><div class="depth2_menu"><h3 class="fit_tit" style="margin-top:2px"><span class="spt_bg">Reebok Fitness</span></h3><ul class="fit"><li class="fb"><a href="https://www.facebook.com/Reebokkr" class="spt_bg" title="새창" target="_blank">리복 fitness 페이스북 바로가기</a></li><li class="cf last"><a href="http://cafe.naver.com/zigtech" class="spt_bg" title="새창" target="_blank">리복 fitness 네이버카페 바로가기</a></li></ul><h3 class="classic_tit"><span class="spt_bg">Reebok Classic</span></h3><ul class="classic"><li class="fb"><a href="https://www.facebook.com/rbk.classic" class="spt_bg" title="새창" target="_blank">리복 classic 페이스북 바로가기</a></li><li class="blog last"><a href="http://blog.naver.com/rbk_classic" class="spt_bg" title="새창" target="_blank">리복 classic 네이버블로그 바로가기</a></li></ul></div></li></ul><!-- gnb_menu3 --><!-- fast_shopping_r --> <form id="fastSrch" name="fastSrch" method="post" onsubmit="return false;" action=""> <input type = "hidden" id="topSiteCD_F" name="topSiteCD" value="2"/> <input type = "hidden" id="searchParam" name="searchParam" value="N"/> <input type = "hidden" id="HIRANK_CTGR_CD1" name="HIRANK_CTGR_CD1" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD2" name="HIRANK_CTGR_CD2" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD3" name="HIRANK_CTGR_CD3" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD4" name="HIRANK_CTGR_CD4" value=""/> <input type = "hidden" id="CTGR_NM1" name="CTGR_NM1" value=""/> <input type = "hidden" id="CTGR_NM2" name="CTGR_NM2" value=""/> <input type = "hidden" id="CTGR_NM3" name="CTGR_NM3" value=""/> <input type = "hidden" id="CTGR_NM4" name="CTGR_NM4" value=""/> <input type = "hidden" id="searchColor" name="searchColor" value=""/> <input type = "hidden" id="searchPrice" name="searchPrice" value=""/> <input type = "hidden" id="searchPriceCheck" name="searchPriceCheck" value=""/> <input type = "hidden" id="FASTSHOPPING_S_PAGE" name="FASTSHOPPING_S_PAGE" value="1"/> <input type = "hidden" id="topSearchCheck" name="topSearchCheck" value="0"/> <input type = "hidden" id="fastSearchCheck" name="fastSearchCheck" value="0"/><div id="fast_shopping_r" style="display:none;"><div class="shlinebox_r"><div class="shoppingHeader_r"><h1><img src="/images/reebok/common/tit_fast_shopping.gif" alt="빠른쇼핑" /></h1><span>원하는 제품을 빠르게 검색하여 볼 수 있습니다.</span><a href="#" onclick="jQuery('#fast_shopping_r').hide();return false"><img src="/images/reebok/common/btn_close_st.gif" alt="빠른쇼핑 메뉴 닫기" /></a></div><div class="border1"><div class="border2" id="fastSearchID"><div class="shline01_r" ><ul class="shline_01"><li class="title">카테고리 선택</li><li id="topCategoryLarge"><ul><li class="line">&nbsp;</li><li><div onmouseover="javascript:ViewLayerLarge()" onmouseout="javascript:HideLayerLarge()" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerLarge();">selectbox button</a> <span onclick="javascript:ViewLayerLarge();" class="tit"><a id="selectLarge">대분류선택</a></span><ul id="view21" style="width:128px;display:none;"><li style="display:none;"></li><li><a href="#" onclick="javascript:setCatg1('02001','MEN');">MEN</a></li><li><a href="#" onclick="javascript:setCatg1('02002','WOMEN');">WOMEN</a></li><li><a href="#" onclick="javascript:setCatg1('02003','KIDS');">KIDS</a></li><li><a href="#" onclick="javascript:setCatg1('02004','SPORT');">SPORT</a></li><li><a href="#" onclick="javascript:setCatg1('02005','CLASSICS');">CLASSICS</a></li></ul></div><!--//select layer --></li></ul></li><li id="topCategoryMid"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerMid()" onmouseout="javascript:HideLayerMid()" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerMid();">selectbox button</a> <span onclick="javascript:ViewLayerMid();" class="tit"><a id="selectMid">중분류선택</a></span><ul id="view2202001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020011"><a href="#" onclick="javascript:setCatg2('02001001','신발');">신발</a></li><li id="CatgCheckMid020012"><a href="#" onclick="javascript:setCatg2('02001002','의류');">의류</a></li><li id="CatgCheckMid020013"><a href="#" onclick="javascript:setCatg2('02001003','용품');">용품</a></li></ul><ul id="view2202002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020021"><a href="#" onclick="javascript:setCatg2('02002001','신발');">신발</a></li><li id="CatgCheckMid020022"><a href="#" onclick="javascript:setCatg2('02002002','의류');">의류</a></li><li id="CatgCheckMid020023"><a href="#" onclick="javascript:setCatg2('02002003','용품');">용품</a></li></ul><ul id="view2202003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020031"><a href="#" onclick="javascript:setCatg2('02003001','전체보기');">전체보기</a></li></ul><ul id="view2202004" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020041"><a href="#" onclick="javascript:setCatg2('02004001','MEN');">MEN</a></li><li id="CatgCheckMid020042"><a href="#" onclick="javascript:setCatg2('02004002','WOMEN');">WOMEN</a></li></ul><ul id="view2202005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020051"><a href="#" onclick="javascript:setCatg2('02005001','MEN');">MEN</a></li><li id="CatgCheckMid020052"><a href="#" onclick="javascript:setCatg2('02005002','WOMEN');">WOMEN</a></li></ul></div><!--//select layer --></li></ul></li><li id="topCategorySmall"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerSmall();" onmouseout="javascript:HideLayerSmall();" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerSmall();">selectbox button</a> <span onclick="javascript:ViewLayerSmall();" class="tit"><a id="selectSmall">소분류선택</a></span><ul id="view2302001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010011"><a href="#" onclick="javascript:setCatg3('02001001001','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020010012"><a href="#" onclick="javascript:setCatg3('02001001002','상품별');">상품별</a></li></ul><ul id="view2302001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010021"><a href="#" onclick="javascript:setCatg3('02001002001','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020010022"><a href="#" onclick="javascript:setCatg3('02001002002','상품별');">상품별</a></li></ul><ul id="view2302001003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010031"><a href="#" onclick="javascript:setCatg3('02001003005','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020010032"><a href="#" onclick="javascript:setCatg3('02001003006','상품별');">상품별</a></li></ul><ul id="view2302002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020011"><a href="#" onclick="javascript:setCatg3('02002001001','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020020012"><a href="#" onclick="javascript:setCatg3('02002001002','상품별');">상품별</a></li></ul><ul id="view2302002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020021"><a href="#" onclick="javascript:setCatg3('02002002001','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020020022"><a href="#" onclick="javascript:setCatg3('02002002002','상품별');">상품별</a></li></ul><ul id="view2302002003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020031"><a href="#" onclick="javascript:setCatg3('02002003005','스포츠별');">스포츠별</a></li><li id="CatgCheckSmall020020032"><a href="#" onclick="javascript:setCatg3('02002003006','상품별');">상품별</a></li></ul><ul id="view2302003001" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2302004001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020040011"><a href="#" onclick="javascript:setCatg3('02004001003','러닝');">러닝</a></li><li id="CatgCheckSmall020040012"><a href="#" onclick="javascript:setCatg3('02004001006','트레이닝');">트레이닝</a></li><li id="CatgCheckSmall020040013"><a href="#" onclick="javascript:setCatg3('02004001007','기타');">기타</a></li></ul><ul id="view2302004002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020040021"><a href="#" onclick="javascript:setCatg3('02004002003','러닝');">러닝</a></li><li id="CatgCheckSmall020040022"><a href="#" onclick="javascript:setCatg3('02004002006','트레이닝');">트레이닝</a></li><li id="CatgCheckSmall020040023"><a href="#" onclick="javascript:setCatg3('02004002007','기타');">기타</a></li></ul><ul id="view2302005001" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2302005002" style="width:128px;display:none;"><li style="display:none;"></li></ul></div><!--//select layer --></li></ul></li><li id="topCategoryTiny"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerTiny();" onmouseout="javascript:HideLayerTiny();" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerTiny();">selectbox button</a> <span onclick="javascript:ViewLayerTiny();" class="tit"><a id="selectTiny">세분류선택</a></span><ul id="view2402001001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010010011"><a href="#" onclick="javascript:setCatg4('02001001001002','농구');">농구</a></li><li id="CatgCheckTiny020010010012"><a href="#" onclick="javascript:setCatg4('02001001001003','러닝');">러닝</a></li><li id="CatgCheckTiny020010010013"><a href="#" onclick="javascript:setCatg4('02001001001006','트레이닝');">트레이닝</a></li><li id="CatgCheckTiny020010010014"><a href="#" onclick="javascript:setCatg4('02001001001007','캐주얼');">캐주얼</a></li><li id="CatgCheckTiny020010010015"><a href="#" onclick="javascript:setCatg4('02001001001008','기타');">기타</a></li></ul><ul id="view2402001001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010010021"><a href="#" onclick="javascript:setCatg4('02001001002001','하이컷/미드컷');">하이컷/미드컷</a></li><li id="CatgCheckTiny020010010022"><a href="#" onclick="javascript:setCatg4('02001001002002','로우컷');">로우컷</a></li><li id="CatgCheckTiny020010010023"><a href="#" onclick="javascript:setCatg4('02001001002003','샌들/슬리퍼');">샌들/슬리퍼</a></li></ul><ul id="view2402001002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010020011"><a href="#" onclick="javascript:setCatg4('02001002001003','러닝');">러닝</a></li><li id="CatgCheckTiny020010020012"><a href="#" onclick="javascript:setCatg4('02001002001006','트레이닝');">트레이닝</a></li><li id="CatgCheckTiny020010020013"><a href="#" onclick="javascript:setCatg4('02001002001007','캐주얼');">캐주얼</a></li><li id="CatgCheckTiny020010020014"><a href="#" onclick="javascript:setCatg4('02001002001008','기타');">기타</a></li></ul><ul id="view2402001002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010020021"><a href="#" onclick="javascript:setCatg4('02001002002001','자켓');">자켓</a></li><li id="CatgCheckTiny020010020022"><a href="#" onclick="javascript:setCatg4('02001002002002','티셔츠');">티셔츠</a></li><li id="CatgCheckTiny020010020023"><a href="#" onclick="javascript:setCatg4('02001002002003','팬츠');">팬츠</a></li><li id="CatgCheckTiny020010020024"><a href="#" onclick="javascript:setCatg4('02001002002007','슬리브리스');">슬리브리스</a></li></ul><ul id="view2402001003005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010030051"><a href="#" onclick="javascript:setCatg4('02001003005008','전체보기');">전체보기</a></li></ul><ul id="view2402001003006" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010030061"><a href="#" onclick="javascript:setCatg4('02001003006005','전체보기');">전체보기</a></li></ul><ul id="view2402002001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020010011"><a href="#" onclick="javascript:setCatg4('02002001001003','러닝');">러닝</a></li><li id="CatgCheckTiny020020010012"><a href="#" onclick="javascript:setCatg4('02002001001006','트레이닝');">트레이닝</a></li><li id="CatgCheckTiny020020010013"><a href="#" onclick="javascript:setCatg4('02002001001007','캐주얼');">캐주얼</a></li><li id="CatgCheckTiny020020010014"><a href="#" onclick="javascript:setCatg4('02002001001008','기타');">기타</a></li></ul><ul id="view2402002001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020010021"><a href="#" onclick="javascript:setCatg4('02002001002001','하이컷/미드컷');">하이컷/미드컷</a></li><li id="CatgCheckTiny020020010022"><a href="#" onclick="javascript:setCatg4('02002001002002','로우컷');">로우컷</a></li><li id="CatgCheckTiny020020010023"><a href="#" onclick="javascript:setCatg4('02002001002003','샌들/슬리퍼');">샌들/슬리퍼</a></li></ul><ul id="view2402002002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020020011"><a href="#" onclick="javascript:setCatg4('02002002001001','러닝');">러닝</a></li><li id="CatgCheckTiny020020020012"><a href="#" onclick="javascript:setCatg4('02002002001002','트레이닝');">트레이닝</a></li><li id="CatgCheckTiny020020020013"><a href="#" onclick="javascript:setCatg4('02002002001003','캐주얼');">캐주얼</a></li></ul><ul id="view2402002002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020020021"><a href="#" onclick="javascript:setCatg4('02002002002001','자켓');">자켓</a></li><li id="CatgCheckTiny020020020022"><a href="#" onclick="javascript:setCatg4('02002002002002','티셔츠');">티셔츠</a></li><li id="CatgCheckTiny020020020023"><a href="#" onclick="javascript:setCatg4('02002002002003','팬츠');">팬츠</a></li><li id="CatgCheckTiny020020020024"><a href="#" onclick="javascript:setCatg4('02002002002004','기타');">기타</a></li><li id="CatgCheckTiny020020020025"><a href="#" onclick="javascript:setCatg4('02002002002005','트랙탑 / 져지탑');">트랙탑 / 져지탑</a></li><li id="CatgCheckTiny020020020026"><a href="#" onclick="javascript:setCatg4('02002002002006','브라탑/언더웨어');">브라탑/언더웨어</a></li></ul><ul id="view2402002003005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020030051"><a href="#" onclick="javascript:setCatg4('02002003005007','전체보기');">전체보기</a></li></ul><ul id="view2402002003006" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020030061"><a href="#" onclick="javascript:setCatg4('02002003006005','전체보기');">전체보기</a></li></ul><ul id="view2402004001003" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004001006" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004001007" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002003" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002006" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002007" style="width:128px;display:none;"><li style="display:none;"></li></ul></div><!--//select layer --></li></ul></li></ul></div><div class="shline02_r"><ul class="shline_01"><li class="title">컬러 선택</li><li class="line2">&nbsp;</li><li><ul class="select_color"><li><a href="#" onclick="javascript:setColor('BLACK');"><img src="/images/reebok/search/btn_sort_color_black.gif" id="BLACK" alt="BLACK" onclick="changeColorImage('BLACK');"/></a></li><li><a href="#" onclick="javascript:setColor('GREY');"><img src="/images/reebok/search/btn_sort_color_grey.gif" id="GREY" alt="GREY" onclick="changeColorImage('GREY');"/></a></li><li><a href="#" onclick="javascript:setColor('SILVER');"><img src="/images/reebok/search/btn_sort_color_silver.gif" id="SILVER" alt="SILVER" onclick="changeColorImage('SILVER');"/></a></li><li><a href="#" onclick="javascript:setColor('WHITE');"><img src="/images/reebok/search/btn_sort_color_white.gif" id="WHITE" alt="WHITE" onclick="changeColorImage('WHITE');"/></a></li><li><a href="#" onclick="javascript:setColor('NAVY');"><img src="/images/reebok/search/btn_sort_color_navy.gif" id="NAVY" alt="NAVY" onclick="changeColorImage('NAVY');"/></a></li><li><a href="#" onclick="javascript:setColor('BLUE');"><img src="/images/reebok/search/btn_sort_color_blue.gif" id="BLUE" alt="BLUE" onclick="changeColorImage('BLUE');"/></a></li><li><a href="#" onclick="javascript:setColor('BROWN');"><img src="/images/reebok/search/btn_sort_color_brown.gif" id="BROWN" alt="BROWN" onclick="changeColorImage('BROWN');"/></a></li><li><a href="#" onclick="javascript:setColor('GOLD');"><img src="/images/reebok/search/btn_sort_color_gold.gif" id="GOLD" alt="GOLD" onclick="changeColorImage('GOLD');"/></a></li><li><a href="#" onclick="javascript:setColor('PURPLE');"><img src="/images/reebok/search/btn_sort_color_purple.gif" id="PURPLE" alt="PURPLE" onclick="changeColorImage('PURPLE');"/></a></li><li><a href="#" onclick="javascript:setColor('RED');"><img src="/images/reebok/search/btn_sort_color_red.gif" id="RED" alt="RED" onclick="changeColorImage('RED');"/></a></li><li><a href="#" onclick="javascript:setColor('ORANGE');"><img src="/images/reebok/search/btn_sort_color_orange.gif" id="ORANGE" alt="ORANGE" onclick="changeColorImage('ORANGE');"/></a></li><li><a href="#" onclick="javascript:setColor('YELLOW');"><img src="/images/reebok/search/btn_sort_color_yellow.gif" id="YELLOW" alt="YELLOW" onclick="changeColorImage('YELLOW');"/></a></li><li><a href="#" onclick="javascript:setColor('GREEN');"><img src="/images/reebok/search/btn_sort_color_green.gif" id="GREEN" alt="GREEN" onclick="changeColorImage('GREEN');"/></a></li><li><a href="#" onclick="javascript:setColor('KHAKI');"><img src="/images/reebok/search/btn_sort_color_khaki.gif" id="KHAKI" alt="KHAKI" onclick="changeColorImage('KHAKI');"/></a></li><li><a href="#" onclick="javascript:setColor('CHAMPAGNE');"><img src="/images/reebok/search/btn_sort_color_champagne.gif" id="CHAMPAGNE" alt="CHAMPAGNE" onclick="changeColorImage('CHAMPAGNE');"/></a></li><li><a href="#" onclick="javascript:setColor('BEIGE');"><img src="/images/reebok/search/btn_sort_color_beige.gif" id="BEIGE" alt="BEIGE" onclick="changeColorImage('BEIGE');"/></a></li><li><a href="#" onclick="javascript:setColor('IVORY');"><img src="/images/reebok/search/btn_sort_color_ivory.gif" id="IVORY" alt="IVORY" onclick="changeColorImage('IVORY');"/></a></li><li><a href="#" onclick="javascript:setColor('PINK');"><img src="/images/reebok/search/btn_sort_color_pink.gif" id="PINK" alt="PINK" onclick="changeColorImage('PINK');"/></a></li></ul></li></ul></div><div class="shline03_r"><ul class="shline_01"><li class="title">가격대 선택</li><li class="line">&nbsp;</li><li class="radios"><div class="topmm"><input name="memAgre1" id="memAgre1" type="radio" value="" class="radios" onclick="javascript:setPrice('0','50000','1');"/><label for="memAgre1">50,000원 이하</label><input name="memAgre1" id="memAgre2" type="radio" value="" class="radios" onclick="javascript:setPrice('50000','100000','2');"/><label for="memAgre2">50,000원~100,000원</label><input name="memAgre1" id="memAgre3" type="radio" value="" class="radios" onclick="javascript:setPrice('100000','200000','3');"/><label for="memAgre3">100,000원~200,000원</label><input name="memAgre1" id="memAgre4" type="radio" value="" class="radios" onclick="javascript:setPrice('200000','999999999','4');"/><label for="memAgre4">200,000원 이상</label><input name="memAgre1" id="memAgre5" type="radio" value="" class="radios" onclick="javascript:setPrice('','','5');"/><label for="memAgre5">모든 가격대</label></div></li></ul></div><div class="shline04_r"><span id="fastShoppingSearchResult"></span></div></div></div></div><iframe class="ie6_fast_shopping" title="내용 없는 프레임"></iframe></div></form><!-- //fast_shopping --></div><!-- //gnb_r -->
+
+				
+				<!-- //header HTML -->
+				<!-- //gnb -->
+			</div>
+			<!-- //header -->
+		</div>
+		<!-- //header_wrap -->
+
+		<div class="top_down">
+			<a href="#" class="top" onclick="jQuery('html, body').animate({scrollTop:0},1000,'easeOutCubic');return false;">top</a>
+			<a href="#" class="down" onclick="jQuery('html, body').animate({scrollTop:jQuery(document).height()},1000,'easeOutCubic');return false;">down</a>
+		</div>
+		
+
+<div class="layer_popup" id="popup_mycpn" style="padding:4px;position:absolute;left:0px;top:0px;z-index:10000;display:none;background:#4b4b4b;border:1px solid #fff;">
+	<div style="width:430px;height:305px;background:#fff;">
+		<a href="#" onclick="closeMyCpnLayer();" style="position:absolute;top:3px;right:3px;"><img src="/images/adidas/popup/btn_popup_close_140325.gif" alt="닫기"/></a>
+		<h1 style="padding:24px 0 20px;"><img src="/images/adidas/popup/tit_pop_coupon_140325.gif" alt="쿠폰이 발급되었습니다."/></h1>
+		<div id="popup_mycpn_contents" style="padding:0 25px;">
+			<p style="margin-bottom:10px;color:#383838;">지금 쿠폰을 확인하세요!</p>
+			<table summary="내 쿠폰 현황" cellpadding="0" cellspacing="0" width="381" style="border:1px solid #b1b1b1;margin-bottom:12px;">
+				<caption>내 쿠폰 현황</caption>
+				<colgroup>
+					<col width="50%"/>
+					<col width="10%"/>
+					<col width="40%"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">쿠폰명</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">매수</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;">유효기간</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;"></td>
+					</tr>
+					<tr>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p style="color:#383838;margin-bottom:15px;"><strong>김기백</strong>님이 현재 사용 가능한 쿠폰이 <strong>0매</strong> 있습니다</p>
+			<p style="color:#383838;margin-bottom:25px;"><a href="http://shop.reebok.co.kr/RPF060201.action"><img src="/images/adidas/popup/btn_view_coupon_140325.gif" alt="쿠폰 확인하기"/></a></p>
+		</div>		
+	</div>
+	<p style="padding:10px 0 6px 2px;">
+		<input type="checkbox" id="today_close_mycpn" style="margin-right:3px;"/>
+		<label for="today_close_mycpn" style="font:12px 'Dotum',gulim;color:#fff;">오늘 하루 보지않기</label>
+	</p>
+</div>
+	
+
+	
+
+	
+		<!-- //header -->
+		
+		<!-- contents -->
+		<div id="contents">
+			<!-- snb -->
+			<div id="snb">
+				<h2 class="mypage"><a href="/RPF060100.action"><img src="/images/reebok/mypage/tit_mypage.gif" alt="마이페이지" /></a></h2>
+				<!-- leftmenu -->				
+				
+
+
+
+
+
+
+
+	
+
+
+
+<script type="text/javascript">	
+/* <![CDATA[ */
+function fn_classChg(arg){
+
+	for(var i = 1;i<=16;i++){
+		if(i == arg){
+			str = "li"+i;
+			document.getElementById(str).className="on";
+		}
+	}
+	
+}
+/* ]]> */
+</script>
+<!-- leftmenu -->
+				<dl class="mypage">
+			
+					<dt>나의 쇼핑내역</dt>
+					<dd>
+						<ul>
+							<li id="li1"><a href="http://shop.reebok.co.kr/RPF060101.action">주문/배송조회</a></li>
+							<li id="li2"><a href="http://shop.reebok.co.kr/RPF060103.action">취소/반품조회</a></li>
+							
+							<li id="li3"><a href="http://shop.reebok.co.kr/RPF060106.action">취소/반품 결제대기</a></li>
+							<li id="li4" class="last"><a href="http://shop.reebok.co.kr/RPF060105.action">증빙서류발급</a></li>
+									
+						</ul>
+					</dd>
+					
+					<dt>나의 혜택관리</dt>                                                        
+					<dd>	                                                                         
+						<ul>	                                                                         
+							<li id="li5"><a href="http://shop.reebok.co.kr/RPF060201.action">쿠폰 현황</a></li>	                   
+							<li id="li6"><a href="http://shop.reebok.co.kr/RPF060202.action">포인트 현황</a></li>	                 
+						</ul>	                                                                       
+					</dd>	                                                                       
+					<dt>나의 관심목록</dt>                                                        
+					<dd>                                                                          
+						<ul>  
+							<li  id="li9"  class="last"><a href="http://shop.reebok.co.kr/RPF060302.action">관심 상품</a></li>
+					
+							<li  id="li8"><a href="http://shop.reebok.co.kr/RPF060301.action">오늘 본 상품</a></li>
+					
+						</ul>                                                                         
+					</dd>
+						
+					<dt>나의 회원정보</dt>                                                        
+					<dd>                                                                          
+						<ul>                                                                          
+							<li id="li10"><a href="https://shop.reebok.co.kr:444/RPF060401.action">회원정보 수정</a></li>               
+							<li id="li11"> <a href="http://shop.reebok.co.kr/RPF060403.action">배송지 관리</a></li>                
+							<li id="li12" class="last"><a href="http://shop.reebok.co.kr/RPF060405.action">회원탈퇴</a></li>                    
+						</ul>                                                                         
+					</dd>  
+					
+					<dt>나의 문의내역</dt>                                                        
+					<dd>                                                                          
+						<ul>
+						
+							<li  id="li13"><a href="http://shop.reebok.co.kr/RPF060604.action">상품 문의내역</a></li>
+					
+							<li id="li14" class="last"><a href="http://shop.reebok.co.kr/RPF060603.action">1:1 문의내역</a></li>                
+						</ul>                                                                         
+					</dd>
+					
+					<dt>나의 컨텐츠</dt>                                                          
+					<dd class="last">                                                             
+						<ul>                                                                          
+							<li id="li15"><a href="http://shop.reebok.co.kr/RPF060701.action">나의 이벤트 현황</a></li>            
+							<li id="li16"  class="last"><a href="http://shop.reebok.co.kr/RPF060702.action">내가 작성한 상품평</a></li>          
+						</ul>                                                                         
+					</dd>
+					
+				
+			
+
+				</dl>
+				<!-- //leftmenu -->
+				
+				<!-- //leftmenu -->
+			</div>
+			<!-- //snb -->
+
+			<!-- mypage -->
+			<div id="mypage">
+				<div class="cont705">
+					<div class="loc">
+						<p>HOME &gt; 마이페이지 &gt; 나의 쇼핑내역 &gt; 취소/반품</p>
+					</div>
+					
+					
+
+
+
+
+
+
+
+
+<div class="level">
+	<!-- 회원일경우 -->
+	
+		
+		
+			
+					<div class="border1"><div class="border2">
+					
+						
+						<p class="name"><strong>김기백</strong>
+						
+					(kkbdream)
+						
+					<a href="https://shop.reebok.co.kr:444/RPF060401.action">
+						<img src="/images/reebok/mypage/btn_membership_modify.gif" alt="회원정보 수정" />
+					</a>
+						
+				</p>
+				<div class="info">
+					<div class="border1">
+						<dl>
+							<!-- dt><img src="/images/reebok/mypage/tit_mylevel.gif" alt="나의등급" /></dt>
+							<dd>
+								<span class="bronze">
+									Bronze
+								</span>
+							</dd -->
+							<dt><img src="/images/reebok/mypage/tit_mycoupon.gif" alt="나의쿠폰" /></dt>
+							<dd>
+								<strong>
+									0
+								</strong> 장
+							</dd>
+							<dt class="point"><img src="/images/reebok/mypage/tit_mypoint.gif" alt="나의포인트" /></dt>
+							<dd class="point">
+								<strong>0</strong>
+								<img src="/images/reebok/mypage/ico_p.gif" alt="p" />
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div></div>
+			
+		
+		
+	
+	<!-- 회원일경우 끝 -->
+	<!-- 비회원일경우 끝 -->
+	
+	<!-- 비회원일경우 끝 -->
+</div>								 
+				 
+					<h3><img src="/images/reebok/mypage/tit_cancel_return_change.gif" alt="취소/반품" /></h3>
+
+					<ul class="page_tab">
+						<li><a href="#" onclick="fn_changTab(1);return false"><img id='tabImg1' src="/images/reebok/mypage/tab_mypage01_on.gif" alt="취소/반품 요청"/></a></li>
+						<li><a href="#" onclick="fn_changTab(2);return false"><img id='tabImg2' src="/images/reebok/mypage/tab_mypage02_off.gif" alt="취소/반품 내역"/></a></li>
+						<li class="return"><a href="#" onclick="javascript:fn_rbReturnPop();" title="새창"><img src="/images/adidas/mypage/btn_return_step.gif" alt="반품신청절차"/></a></li>
+					</ul>
+
+					<ul class="advice">
+						<li>오프라인 매장에서 구매하신 상품에 대한 취소내역도 확인하실 수 있습니다.</li>
+						<li>배송작업이 이미 시작된 경우에는 취소신청이 불가능하며 반품으로 간주됩니다. 이 경우 상품을 수령하신 후 반품절차를 진행하셔야 합니다.</li>
+						<li>무통장입금의 환불은 주말, 공휴일을 제외한 영업일기준, 익일 16시에 처리됩니다.<br/>
+							(배송시작전 : 주문취소 후 익일 16시, 배송시작후 : 반품절차 완료 후 익일 16시)
+						</li>
+					</ul>
+					
+					<div id="tab1">
+						<form id="frmSrch" name="frmSrch" action="">
+						<input type="hidden" id="S_COMMAND" name="command" value=""/>
+						<input type="hidden" id="S_PAGE" name="PAGE_CUR" value="1" />
+						
+						<div class="sorting">
+							<p>기간조회</p>
+							<ul>
+								<li><a href="#" onclick="fn_period(1);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3개월"/></a></li>
+								<li><a href="#" onclick="fn_period(2);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6개월"/></a></li>
+								<li><a href="#" onclick="fn_period(3);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2년"/></a></li>
+							</ul>
+	
+							<div class="date">
+								<input onkeydown="cfn_setDateFld(FROM_ORDER_DY)" type="text" name="FROM_ORDER_DY" id="FROM_ORDER_DY" title="시작일" />
+								~
+								<input onkeydown="cfn_setDateFld(TO_ORDER_DY)" type="text" name="TO_ORDER_DY" id="TO_ORDER_DY" title="종료일" />
+								<a href="#" onclick="fn_search();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="조회"/></a>
+							</div>
+						</div>
+						
+						<div id="makeList"></div>
+						
+						<!-- paging -->
+						<div id="makePaging"></div>
+						<!-- //paging -->
+						
+						</form>
+					</div>
+					
+					<div id="tab2">
+						<form id ="frmDetail" name="frmDetail" action="">
+						<input type="hidden" id="D_COMMAND" name="command" value=""/>
+						<input type="hidden" id="D_PAGE" name="PAGE_CUR" value="1" />
+							
+		                    <div class="sorting">
+								<p>기간조회</p>
+									<ul>
+									<li><a href="#" onclick="fn_period(4);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3개월"/></a></li>
+									<li><a href="#" onclick="fn_period(5);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6개월"/></a></li>
+									<li><a href="#" onclick="fn_period(6);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2년"/></a></li>
+								</ul>
+								
+								<div class="date">
+									<input onkeydown="cfn_setDateFld(FROM_USE_BEGIN_DT)" type="text" name="FROM_USE_BEGIN_DT" id="FROM_USE_BEGIN_DT" title="시작일" />
+									~
+									<input onkeydown="cfn_setDateFld(TO_USE_END_DT)" type="text" name="TO_USE_END_DT" id="TO_USE_END_DT" title="종료일" />
+									<a href="#" onclick="fn_searchView();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="조회"/></a>
+								</div>
+							</div>
+												
+							<!-- my_list -->
+							<div id="makeViewList"></div>
+							
+		                    <!-- paging -->
+							<div id="makeViewPaging"></div>
+							
+						</form>
+					</div>
+
+					<!-- refund_step 140804 -->
+					<div class="refund_step" style="overflow:hidden;border:1px solid #b6b6b6;margin-top:40px;padding-top:0;margin-top:40px;">
+						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">반품신청</div>
+						<div style="background:#fff;padding:0 25px;">
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1단계 : 반품신청</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">반품은 <strong style="color:#595959;">[마이페이지 > 나의쇼핑내역 > 주문/배송조회  또는 취소/반품조회]</strong> 에서 신청하실 수 있습니다.</li>
+									<li style="color:#828282;font-size:11px;">반품은 상품 수령하고 주문상태가 배송완료가 된 후, 반품신청을 통해 가능 합니다.</li>
+									<li style="color:#828282;font-size:11px;">상품의 택을 제거하였거나 신발 박스가 훼손 되었을 경우 반품이 불가능합니다.</li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2단계 : 반품배송</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">반품신청 후 3~5일 내에 입력한 주소로 택배 기사가 방문하여 상품을 회수 합니다.</li>
+									<li style="color:#828282;font-size:11px;">배송 위탁 계약사인 한진택배 외 다른 택배회사를 이용하여 반품하는 경우 반품이 지연될 수 있으며, 분실 시 보상이 불가능합니다.</li>
+									<li style="color:#828282;font-size:11px;">부득이 하게 다른 택배 회사를 이용하였을 경우 반드시 고객센터로 연락을 주셔야 원활한 반품이 진행됩니다.</li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3단계 : 상품 상태 확인</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">회수되어 매장에 도착한 상품은 상태 확인 후 이상이 없을 시 반품완료 처리 됩니다.</li>
+									<li style="color:#828282;font-size:11px;">상품 훼손이나 반품 시 선택한 사유와 상이하여 이상이 있을 경우 콜센터에서 연락을 드리며, 환불이 지연되거나 불가능할 수 있습니다.</li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:0px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4단계 : 반품 환불</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">반품 금액은 사유에 따라 배송비를 차감한 금액만큼 환불 됩니다.</li>
+									<li style="color:#828282;font-size:11px;">신용카드 및 체크카드 :  영업일 기준 약 2~3일 후 카드승인 취소</li>
+									<li style="color:#828282;font-size:11px;">실시간 계좌 이체 : 영업일 기준 약2~3일 후 이체 진행 계좌로 환불</li>
+									<li style="color:#828282;font-size:11px;">무통장입금 : 영업일 기준 약1~2일 후 반품 시 입력한 계좌로 환불</li>
+								</ul>
+							</div>
+							
+						</div>
+					</div>
+					<!-- //refund_step 140804 -->
+
+					<!-- exhange_step 140804 -->
+					<div class="refund_step" style="overflow:hidden;border:1px solid #b6b6b6;margin-top:40px;padding-top:0;margin-top:40px;">
+						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">교환신청</div>
+						<div style="background:#fff;padding:0 25px;">
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1단계 : 교환신청</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">교환은 <strong style="color:#595959;">[마이페이지 > 나의쇼핑내역 > 주문/배송조회]</strong> 에서 주문상태가 배송완료가 된 후, 교환신청을 통해 가능 합니다.</li>
+									<li style="color:#828282;font-size:11px;">교환은 동일한 제품의 사이즈 변경만 가능하며, 다른 제품으로 교환하실 경우 반품 후 재주문 해주셔야 합니다.</li>
+									<li style="color:#828282;font-size:11px;">교환은 상품의 택을 제거하였거나 신발 박스가 훼손 되었을 경우 교환이 불가능합니다.</li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2단계 : 교환배송</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">교환신청 후 3~5일 내에 입력한 주소로 택배 기사가 방문하여 상품을 회수 합니다.</li>
+									<li style="color:#828282;font-size:11px;">배송 위탁 계약사인 한진택배 외 다른 택배회사를 이용하여 교환하는 경우 교환이 지연될 수 있으며, 분실 시 보상이 불가능합니다.</li>
+									<li style="color:#828282;font-size:11px;">부득이 하게 다른 택배 회사를 이용하였을 경우 반드시 고객센터로 연락을 주셔야 원활한 교환이 진행됩니다. </li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3단계 : 상품 상태 확인</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">회수되어 매장에 도착한 상품은 상태 확인 후 이상이 없을 시 상품상태 확인이 완료되며, 교환 배송비 결제 안내 SMS가 발송 됩니다.</li>
+									<li style="color:#828282;font-size:11px;">상품 훼손이나 교환 시 선택한 사유와 상이하여 이상이 있을 경우 콜센터에서 연락을 드리며, 교환이 지연되거나 불가능할 수 있습니다.</li>
+								</ul>
+							</div>
+
+							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4단계 : 교환 배송비 결제</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">교환 배송비는 로그인 시에 생성되는 페이지 혹은 [마이페이지 > 나의쇼핑내역 > 교환결제대기] 에서 결제가 가능합니다.</li>
+									<li style="color:#828282;font-size:11px;">배송비는 교환 사유에 따라 책정되며, 제주도 및 도서산간 지역은 배송비가 추가될 수 있습니다.</li>
+								</ul>
+							</div>
+							
+							<div style="padding:22px 0;">
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">5단계 : 교환 상품 발송</p>
+								<ul>
+									<li style="color:#828282;font-size:11px;">교환 배송비 결제가 완료되면 교환 요청한 상품이 발송 되며, 발송 전 1~2일 정도의 기간이 소요될 수 있습니다.</li>
+									<li style="color:#828282;font-size:11px;">매장 재고 상황에 따라 최초 배송 매장이 아닌 타매장에서 발송 될 수도 있습니다.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- //exchange_step 140804 -->
+				</div>
+			</div>
+			<!-- //mypage -->
+
+			<!-- quick -->
+			
+
+
+
+
+	
+
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+	var login_yn = "N";
+	if("00200208507" != "null" && "00200208507" != "") { login_yn = "Y"; }
+	var mem_type = "R";
+	
+	jQuery(document).ready(function(){
+		if(login_yn=="Y") {
+			if(mem_type=="R") { //회원인 경우
+				
+						
+						
+							jQuery("#quick_cart_cnt").html("<a href='http://shop.reebok.co.kr/RPF030101.action'>0</a>");
+						
+						
+						
+				
+						
+						
+												
+							jQuery("#quick_wish_cnt").html("<a href='http://shop.reebok.co.kr/RPF060302.action'>0</a>");
+						
+						
+				
+					
+				jQuery("#CPON_CNT").val("R");
+		 
+				var param = "";
+				var url = "/RQuick.action?CPON_CNT=R";
+				
+				var onSuccess = function(req){						
+					var json = req.responseJSON;				
+					var cpon = json.cponList;				
+					if(JsonUtil.isError(json)){		
+						fn_cpon(cpon);
+					}						
+				};
+				var onFailure = function(){
+				};
+				cfn_ajaxRequest(url, param, onSuccess, onFailure);
+			 }
+		}else{  //20130924 비회원 장바구니 관련 수정
+			
+				
+				
+					jQuery("#quick_cart_cnt").html("<a href='http://shop.reebok.co.kr/RPF030101.action'>0</a>");
+				
+				
+			
+				
+				
+				
+			
+		}
+		
+		loadCookie();
+	});
+
+	function fn_cpon(obj) {							 
+		if ( obj == null || obj.length == 0 ) return;
+		var htmlString = '';			
+		for ( var i = 0; i < obj.length ; i++ ) {
+			if(obj[i].ST == "쿠폰") {
+				htmlString = htmlString + "<a href='http://shop.reebok.co.kr/RPF060201.action'>"+obj[i].CPON_CNT+"</a>";	
+			}											
+		}			
+		jQuery("#quick_cpon").html(htmlString);
+	}
+	
+	var arr_prodImg;
+	var start_prodImg = 0;				
+	
+	// 쿠키 읽기
+	function loadCookie()
+	{
+		var cookies = window.document.cookie;
+		var prodCd = new Array;
+		var prodCdOrder = new Array;
+		prodCd.length = 0;
+		prodCdOrder.length = 0;
+		
+		var startIndex = "";
+		var endIndex = "";
+
+		for(var n=1;n<=20;n++) {
+			startIndex = cookies.indexOf("rb_prod_"+n);
+			if(startIndex != -1) {
+				endIndex = cookies.indexOf(";",startIndex);
+				if(endIndex == -1) {
+					endIndex = cookies.length;
+				}
+				if(n<10){
+					prodCd[prodCd.length] = "'"+unescape(cookies.substring(startIndex + 10,endIndex))+"'";
+					prodCdOrder[prodCdOrder.length] = unescape(cookies.substring(startIndex + 10,endIndex));	
+				}else{
+					prodCd[prodCd.length] = "'"+unescape(cookies.substring(startIndex + 11,endIndex))+"'";
+					prodCdOrder[prodCdOrder.length] = unescape(cookies.substring(startIndex + 11,endIndex));
+				}
+			}	
+		}
+								
+		if(prodCd.length > 0) {
+			jQuery("#QUICK_PROD_CD").val(prodCd);
+			
+			var param = "";
+			var url = "/RQuick.action?QUICK_PROD_CD="+prodCd;
+			
+	 		var onSuccess = function(req){
+				var json = req.responseJSON;
+				JsonUtil.alert(json);
+				arr_prodImg = json.prodImgList;	
+				
+				if(JsonUtil.isError(json)){	
+					fn_prodImg_view(prodCdOrder,arr_prodImg,arr_prodImg.length);
+				}			
+			};
+			var onFailure = function(){
+			};
+				
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+		}else {
+			fn_prodImg_view2(0,0);
+		}
+		
+	}
+		
+	//오늘 본 상품 이미지(쿠키 값 없을때)
+	function fn_prodImg_view2(obj,cnt) {							
+		var link = "";			
+		if(login_yn=="Y") {		 
+			 if(mem_type=="R") { //회원인 경우
+				 link = "/RPF060301.action";								 
+			 }else {
+				 link = "#";
+			 }
+		}else {
+			link="javascript:fn_logIn();";
+		}
+		
+		var htmlStringCnt = '';								
+		htmlStringCnt = htmlStringCnt + "<a href='"+link+"'>"+cnt+"</a>";
+		
+		jQuery('#cookiewCnt').html(htmlStringCnt);
+		jQuery('#todayProd1').attr("style", "display:none");
+	}
+		
+	//오늘 본 상품 이미지 
+	function fn_prodImg_view(prodCdOrder,obj,cnt) {							
+		var link = "";
+		
+		if(login_yn=="Y") {//로그인상태인 경우						 
+			 if(mem_type=="R") { //회원인 경우
+				 link = "/RPF060301.action";								 
+			 }else {
+				 link = "#";
+			 }
+		}else {
+			link="javascript:fn_logIn();";
+		}
+
+		var htmlString = '';
+		htmlString = htmlString + "<ul>";
+		var htmlStringCnt = '';
+		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
+		var num = 0;
+
+		for(var j=0;j<prodCdOrder.length; j++){	
+				
+			for(var i=0;i<obj.length; i++){	
+				
+				if(obj[i].PROD_CD == prodCdOrder[j]) { 
+					
+					if(num < 2) {
+						htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+obj[i].PROD_CD+"'>";
+						htmlString = htmlString + "<img src='"+PATH_IMG_60+obj[i].IMG_NM_60+"' width='60' height='60' name='img' alt=\""+obj[i].PROD_NM_KOR+"\" /></a></li>";
+						num = num + 1;
+					}
+				}
+			}
+		}
+								
+		htmlString = htmlString + "</ul>";					
+		htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
+		htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
+		htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
+		htmlStringCnt = htmlStringCnt + "</div>";
+		htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
+		htmlStringCnt = htmlStringCnt + htmlString;					
+		htmlStringCnt = htmlStringCnt + "</div>";
+		
+		jQuery('#cookiewCnt').html("<a href='"+link+"'>"+obj.length+"</a>");							
+		jQuery('#todayProd1').html(htmlStringCnt);
+		jQuery('#todayProd1').attr("style", "display:block");
+	
+	}
+		
+ 	// 오늘본상품 스크롤
+	function fn_img_up_src(){				 		
+		var link = "";			
+			if(login_yn=="Y") {//로그인상태인 경우						 
+				 if(mem_type=="R") { //회원인 경우
+					 link = "/RPF060301.action";								 
+				 }else {
+					 link = "#";
+				 }
+			}else {
+				link="javascript:fn_logIn();";
+			}	
+ 										 	
+		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
+		
+		var temp = $("QUICK_PROD_CD").value;
+		var arrLastCookie = "";
+		var prodCd = "";
+		
+		prodCd = temp.replaceAll("\'","");
+		arrLastCookie = prodCd.split(",");
+		var arrTemp = new Array;
+		var arrTemp1 = new Array;
+		
+		for(var i=0;i<arrLastCookie.length;i++) {							
+			
+			for(var j=0;j<arr_prodImg.length;j++) {						
+				
+				if(arrLastCookie[i] == arr_prodImg[j].PROD_CD) {								
+					arrTemp[i] = arr_prodImg[j].IMG_NM_60;
+					arrTemp1[i] = arr_prodImg[j].PROD_NM_KOR;
+				}
+			}
+		}
+		
+		if(arrTemp.size() > 2 && start_prodImg > 0) {					
+			start_prodImg = start_prodImg - 1;
+			
+			var htmlString = '';
+			htmlString = htmlString + "<ul>";
+			var htmlStringCnt = '';								
+			var num = 0;
+			
+			for(var i=start_prodImg;i<arrTemp.length; i++){
+				if(num < 2) {
+					htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+arrLastCookie[i]+"'>";
+					htmlString = htmlString + "<img src='"+PATH_IMG_60+arrTemp[i]+"' width='60' height='60' name='img' alt='"+arrTemp1[i]+"' /></a></li>";
+					num = num + 1;
+				}		
+			}
+
+			htmlString = htmlString + "</ul>";					
+			htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
+			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
+			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
+			htmlStringCnt = htmlStringCnt + "</div>";
+			htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
+			htmlStringCnt = htmlStringCnt + htmlString;					
+			htmlStringCnt = htmlStringCnt + "</div>";
+			
+			jQuery('#cookiewCnt').html("<a href='"+link+"'>"+arrTemp.length+"</a>");							
+			jQuery('#todayProd1').html(htmlStringCnt);
+			jQuery('#todayProd1').attr("style", "display:block");
+		}
+	}
+ 	
+	function fn_img_down_src(){						
+		var link = "";			
+		if(login_yn=="Y") {//로그인상태인 경우						 
+			 if(mem_type=="R") { //회원인 경우
+				 link = "/RPF060301.action";								 
+			 }else {
+				 link = "#";
+			 }
+		}else {
+			link="javascript:fn_logIn();";
+		}	
+												
+		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
+		var temp = $("QUICK_PROD_CD").value;
+		var arrLastCookie = "";
+		var prodCd = "";
+		
+		prodCd = temp.replaceAll("\'","");
+		arrLastCookie = prodCd.split(",");
+		var arrTemp = new Array;
+		var arrTemp1 = new Array;
+		
+		for(var i=0;i<arrLastCookie.length;i++) {							
+			
+			for(var j=0;j<arr_prodImg.length;j++) {						
+				
+				if(arrLastCookie[i] == arr_prodImg[j].PROD_CD) {								
+					arrTemp[i] = arr_prodImg[j].IMG_NM_60;
+					arrTemp1[i] = arr_prodImg[j].PROD_NM_KOR;
+				}
+			}
+		}						
+		
+		if(arrTemp.size() > 2 && arrTemp[start_prodImg+2] != null) {
+			start_prodImg = start_prodImg + 1;
+			
+			var htmlString = '';
+			htmlString = htmlString + "<ul>";
+			var htmlStringCnt = '';								
+			var num = 0;
+			
+			for(var i=start_prodImg;i<arrTemp.length; i++){								
+				if(num < 2) {
+					htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+arrLastCookie[i]+"'>";
+					htmlString = htmlString + "<img src='"+PATH_IMG_60+arrTemp[i]+"' width='60' height='60' name='img' alt='"+arrTemp1[i]+"' /></a></li>";
+					num = num + 1;
+				}		
+			}
+
+			htmlString = htmlString + "</ul>";					
+			htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
+			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
+			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
+			htmlStringCnt = htmlStringCnt + "</div>";
+			htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
+			htmlStringCnt = htmlStringCnt + htmlString;					
+			htmlStringCnt = htmlStringCnt + "</div>";
+			
+			jQuery('#cookiewCnt').html("<a href='"+link+"'>"+arrTemp.length+"</a>");							
+			jQuery('#todayProd1').html(htmlStringCnt);					
+			jQuery('#todayProd1').attr("style", "display:block");
+		}							
+	}
+/* ]]> */
+</script>
+		<!-- quick -->
+		<div id="quick" >		
+			<form name="frmQuick" id="frmQuick" method="post" action="">
+				<input type="hidden" name="QUICK_PROD_CD" id="QUICK_PROD_CD" />								
+				<input type="hidden" name="CPON_CNT" id="CPON_CNT" value=""/>
+			</form>
+			
+			<div class="area">
+				<dl>
+					<dt class="first"><img src="/images/reebok/common/tit_cart.gif" alt="장바구니" /></dt> 
+					<dd class="first"><span id="quick_cart_cnt"><a href="javascript:fn_logIn();">0</a></span></dd>
+					<dt><img src="/images/reebok/common/tit_wish.gif" alt="관심상품" /></dt>
+					<dd><span id="quick_wish_cnt"><a href="javascript:fn_logIn();">0</a></span></dd>	
+					<dt><img src="/images/reebok/common/tit_coupon.gif" alt="쿠폰" /></dt>
+					<dd><span id="quick_cpon"><a href='javascript:fn_logIn();'>0</a></span></dd>		
+					<dt class="last"><img src="/images/reebok/common/tit_today_prd.gif" alt="오늘 본 상품" /></dt>				
+					<dd class="last" id="cookiewCnt"></dd>
+				</dl>
+					
+				<div class="today_prod" id="todayProd1"></div>
+				
+				<!-- 즐겨찾기 -->
+				<div class="favorite">
+					<a href="javascript:addFavorite()" ><img src="/images/reebok/common/btn_favority.gif" alt="즐겨찾기" /></a>
+				</div>	
+			</div>
+			<!-- //area -->
+			
+			<!-- 회원가입쿠폰 -->
+			<!-- <p class="q_category"><a href="https://shop.reebok.co.kr:444/RPF0601001.action" onmousedown="javascript:fn_trkClickTrace('^우측 숏컷^회원가입시 1만원 쿠폰');"><img src="/images/reebok/common/bg_quick_sub02.gif" alt="회원가입시 1만원 쿠폰" /></a></p> -->
+			
+			<!-- SNS 링크 -->
+			<p class="q_category">
+	           <img src="/images/reebok/common/bg_quick_sns2.jpg" alt="SNS" usemap="#quick_sns2"/>
+	           <map name="quick_sns2" id="quick_sns2">
+                  <area shape="rect" coords="14,66,39,90" href="https://www.facebook.com/reebokkr" target="_blank" onmousedown="javascript:fn_trkClickTrace('^우측 숏컷^reebok korea Facebook 바로가기');" alt="reebok korea Facebook 바로가기"/>    
+                  <area shape="rect" coords="43,66,68,90" href="http://cafe.naver.com/zigtech" target="_blank" onmousedown="javascript:fn_trkClickTrace('^우측 숏컷^fitness Blog 바로가기');" alt="fitness Blog 바로가기"/>
+	           </map>
+			</p>
+
+			<!-- SNS 링크 -->
+			<p class="q_category">
+	           <img src="/images/reebok/common/bg_quick_sns.jpg" alt="SNS" usemap="#quick_sns"/>
+	           <map name="quick_sns" id="quick_sns">
+                  <area shape="rect" coords="14,66,39,90" href="https://www.facebook.com/rbk.classic" target="_blank" onmousedown="javascript:fn_trkClickTrace('^우측 숏컷^classic Facebook 바로가기');" alt="classic Facebook 바로가기"/>    
+                  <area shape="rect" coords="43,66,68,90" href="http://blog.naver.com/rbk_classic" target="_blank" onmousedown="javascript:fn_trkClickTrace('^우측 숏컷^classic Blog 바로가기');" alt="classic Blog 바로가기"/>
+	           </map>
+			</p>
+			
+		</div>	
+		<!-- //quick -->
+
+		<script type="text/javascript">		
+		/* <![CDATA[ */
+			var url = "http://shop.reebok.co.kr";
+			var title = "리복 공식 온라인 스토어";
+			
+			//즐겨찾기 만들기
+			function addFavorite(){
+				if ( navigator.appName != 'Microsoft Internet Explorer' ) {
+					window.sidebar.addPanel(title,url,""); 
+				} else { 
+					window.external.AddFavorite(url,title);
+				} 
+			}
+					
+			var stmnLEFT = 900; //첫로드 y축 forcus
+			var stmnGAP1 = 79; //첫로드 x축 forcus
+			var stmnGAP2 = 79; //첫로드 x축 defult
+			var stmnBASE = 155;
+			var stmnActivateSpeed = 200;
+			var stmnScrollSpeed = 10;
+			
+			var stmnTimer;
+			var clickCnt;
+			var cnt;
+		
+			 // 스크롤 메뉴의 위치 갱신
+			 function RefreshStaticMenu()
+			 {
+				 var stmnStartPoint, stmnEndPoint, stmnRefreshTimer;			 
+				
+				 stmnStartPoint = parseInt(document.getElementById('quick').style.top, 10);
+				 stmnEndPoint = document.documentElement.scrollTop + stmnGAP2;
+				
+				 if (stmnEndPoint < stmnGAP1) stmnEndPoint = stmnGAP1;
+				 stmnRefreshTimer = stmnActivateSpeed;
+				 if ( stmnStartPoint != stmnEndPoint ) {
+					stmnScrollAmount = Math.ceil( Math.abs( stmnEndPoint - stmnStartPoint ) / 15 );
+					document.getElementById('quick').style.top = parseInt(document.getElementById('quick').style.top, 10) + ( ( stmnEndPoint <stmnStartPoint ) ? -stmnScrollAmount : stmnScrollAmount );
+					stmnRefreshTimer = stmnScrollSpeed;
+				 }
+				 stmnTimer = setTimeout ("RefreshStaticMenu();", stmnRefreshTimer);
+			 }	
+			
+			 // 메뉴 초기화
+			 function InitializeStaticMenu() {					 
+				document.getElementById('quick').style.top = document.documentElement.scrollTop+ stmnBASE; // 기본위치로 이동한다.
+				RefreshStaticMenu(); // 스크립트 가동		
+				document.getElementById('quick').style.left = eval('stmnLEFT'); // 메뉴 왼쪽 위치 초기화. 필요없을 경우 삭제
+			 }	 
+			 
+			 //화면 상단으로 이동
+			 function MoveTop(){
+			 	document.documentElement.scrollTop = 0;
+			 	document.getElementById('quick').style.top = document.documentElement.scrollTop+ stmnBASE; 
+			 }
+		/* ]]> */
+		</script>
+		<!-- //quick -->
+		
+
+			<!-- //quick -->		
+		</div>
+		<!-- //contents -->	
+			
+		<!-- footer -->
+		
+
+		<!-- footer_wrap -->
+		<div id="footer_wrap">
+			<!-- footer -->
+			<div id="footer">
+				<div class="f_top">
+					<h1><img src="../images/reebok/common/logo_reebok_f.gif" alt="REEBOK KOREA"/></h1>
+					<div class="fmenu">
+						<ul>
+							<li class="first"><a target="_blank" href="http://www.reebok.com" class="menu01" onmousedown="javascript:fn_trkClickTrace('^풋터^About Reebok');"><img src="../images/reebok/common/btn_f_menu01.gif" alt="about Reebok"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=2" class="menu02" onmousedown="javascript:fn_trkClickTrace('^풋터^개인정보취급방침');"><img src="../images/reebok/common/btn_f_menu02.gif" alt="개인정보보호정책"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=1" class="menu03" onmousedown="javascript:fn_trkClickTrace('^풋터^구매 이용약관');"><img src="../images/reebok/common/btn_f_menu03.gif" alt="구매 이용약관"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=3" class="menu04" onmousedown="javascript:fn_trkClickTrace('^풋터^리클럽 이용약관');"><img src="../images/reebok/common/btn_f_menu04.gif" alt="리클럽 이용약관"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010106.action" class="menu05" onmousedown="javascript:fn_trkClickTrace('^풋터^사이트맵');"><img src="../images/reebok/common/btn_f_menu05.gif" alt="사이트맵"/></a></li>
+						</ul>
+					</div>
+					<div class="language">
+							
+					</div>
+				</div>
+				<!--//f_top-->
+		
+				<div class="f_bottom"> 
+					<div class="address">
+						<p><img src="/images/reebok/common/bg_address.gif" alt="137-955 서울특별시 서초구 서초2동 1321-15 삼성생명 서초타워 7층 , 대표이사:쟝 미쉘 그라니에, 교환 및 반품 문의(본사로 반품불가) 온라인 스토어 고객센터: 1588-7324 (평일 09:00 ~ 18:00, 점심시간 12:00 ~ 13:00), 제품 수선문의: 리복 고객만족센터 080-344-3732 (평일 09:00 ~ 18:00), 사업자 등록번호 : 214-81-07412, 통신판매업신고: 2007-서울서초-10391, 개인정보 보호 책임자: 황선영 "/></p>
+					</div>
+					<div class="footer_right">
+						<img src="../images/reebok/common/footer_info2.gif" alt="당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드 은행과 채무 지급보증 계약을 채결하여 안전거래를 보장하고 있습니다." usemap="#Map2"/>
+						<map name="Map2" id="Map2">
+							<area shape="rect" coords="222,4,270,22" href="#" alt="공정거래 위원회 사업자 신원정보 확인" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">
+							<area shape="rect" coords="178,28,270,46" href="#" onclick="javascript:fn_certifiedInfoPopRbk();return false" alt="한국 스탠다드차타드은행 채무지급보증 안내 , 서비스 가입사실 확인" title="새창"/>
+						</map>
+					</div>
+				</div>
+				<!--//f_bottom-->
+			</div>
+			<!-- //footer -->
+		</div>
+		<!-- //footer_wrap -->
+
+
+
+
+
+
+
+
+		<!-- //footer -->
+	</div>
+</div>
+</body>
+</html>

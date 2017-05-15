@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어 비회원 주문조회</title>
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+
+</head>
+<body>
+<div id="pop">
+	<div id="popupHeader">
+		<h1>비회원 주문조회</h1>
+		<a href="javascript:self.close();"><img src="/images/adidas/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+
+	
+	<div id="popupContents">
+		<div class="joinbox">
+			<p class="radiobox">
+				<input name="memAgre1" id="memAgre2" type="radio" value="" checked="checked" /><label for="memAgre2">아이핀 인증</label>
+				<input name="memAgre1" id="memAgre3" type="radio" value="" /><label for="memAgre3">휴대폰 인증</label>
+			</p> 
+			
+			<div class="errorbox" id="errorDiv" style="display: none;">
+				<div class="errorboxs">
+					<p>주문내역이 없습니다.<br />
+					주문하실 때 입력했던 주문자 정보로 주문조회 하실 수 있습니다.</p> 
+					<span>고객님의 연락처를 정확하게 다시 입력 후 본인인증을 진행하세요.</span>
+				</div>
+			</div>
+			
+			<div class="logintit" style="background:#fafafa;border:1px solid #D3D3D3;padding:10px;">
+				<p>비회원으로 주문하신 고객께서는 주문하실 때 입력했던 전화번호를 입력 후<br/>본인 인증을 진행하세요.</p>
+				<p>본인 확인 인증을 위하여 다음의 정보가 인증기관에 제공됩니다. 인증기관은 인증 이외의 용도로 이용 또는 저장하지 않습니다.</p>
+				<table width="415" cellspacing="0" cellpadding="0" style="border:1px solid #666;margin:5px 0 0 0;" summary="개인정보 사용기관 및 사용정보">
+					<caption>개인정보 사용기관 및 사용정보</caption>
+					<colgroup>
+						<col width="40%"/>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" style="border-right:1px solid #666;border-bottom:1px solid #666;padding:5px;font-weight:normal;">개인정보를 제공받는 자</th>	
+							<td style="border-bottom:1px solid #666;padding:5px;">아이핀 인증 : 서울신용평가정보㈜<br/>휴대폰 인증 : 한국모바일인증㈜</td>
+						</tr>
+						<tr>
+							<th scope="row" style="border-right:1px solid #666;border-bottom:1px solid #666;padding:5px;font-weight:normal;">제공받는 자의 이용목적</th>
+							<td style="border-bottom:1px solid #666;padding:5px;">본인 확인 인증</td>
+						</tr>
+						<tr>
+							<th scope="row" style="border-right:1px solid #666;border-bottom:1px solid #666;padding:5px;font-weight:normal;">제공하는 개인정보의 항목</th>
+							<td style="border-bottom:1px solid #666;padding:5px;">이름, 생년월일, 성별, 휴대전화번호, 내외국인 정보</td>
+						</tr>
+						<tr>
+							<th scope="row" style="border-right:1px solid #666;padding:5px;font-weight:normal;">개인정보 보유 및 이용기간</th>
+							<td style="padding:5px;">본인 확인 인증 완료 시 까지</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p class="checkbox" style="margin:15px 0;text-align:left;height:auto;border-bottom-width:0;">
+					<input type="checkbox" name="chk_agree" id="chk_agree" value=""/>
+					<label for="chk_agree" style="color: #E83921;font-family: gulim;font-size: 12px;vertical-align: middle;">본인 확인을 위한 개인정보 제공에 동의합니다.</label>
+				</p>
+			</div>
+			
+			<form id="frmDetail" name="frmDetail" method="post" action="">
+			<input type="hidden" id="D_COMMAND"   name="command"     value=""/>
+			<input type="hidden" id="SCRTNO"      name="SCRTNO"      value="*"/>
+			<input type="hidden" id="NMEM_TEL_NO" name="NMEM_TEL_NO" value=""/>
+			<input type="hidden" id="SITE_CD"     name="SITE_CD"     value="1"/>
+			<input type="hidden" id="CI_INFO"     name="CI_INFO"     value=""/>
+			<input type="hidden" id="USER_INFO"   name="USER_INFO"   value=""/>
+			<input type="hidden" id="MEM_NM"      name="MEM_NM"      value=""/>
+
+				<!-- 160406 정보입력 삭제 -->
+				<div class="loginbox2" style="height:auto;padding:5px 0 15px;text-align: right;border-bottom: 1px dashed #e0e0e0;">
+					<span class="btn">
+						<a href="#" onclick="javascript:fnMcert();return false" title="새창">
+							<img src="/images/adidas/popup/btn_login_nomem.gif" alt="본인인증"/>
+						</a>					
+					</span> 
+				</div> 
+				<!-- //160406 -->
+			</form>
+
+			<!-- 가상주민번호 서비스 팝업 페이지에서 인증받기 버튼 클릭후, 해당 부모 페이지를 이동하기 위해 필요한 form 입니다 -->
+			<form name="vnoform" method="post" action="">
+			    <input type="hidden" name="retInfo"/>
+			    <input type="hidden" name="param_r1" value=""/>
+			    <input type="hidden" name="param_r2" value=""/>
+			    <input type="hidden" name="param_r3" value=""/>
+			    <input type="hidden" name="rec_cert"/>
+			    <input type="hidden" name="certNum"/>
+			    <input type="hidden" name="NMEM_TEL_NO" id="VMEM_TEL_NO" value=""/>
+			    <input type="hidden" name="GUBNSEARCH" id="GUBNSEARCH" value="noMemberLogin"/>
+			</form>	
+			<!-- 휴대폰인증 frame -->
+			<form id="form_mcert" name="form_mcert" method="post" action="">
+				<input type="hidden" name="GUBNSEARCH" value="noMemberLogin"/>
+			</form>
+			<iframe src="" id="certFrame" name="certFrame" style="width:0px;height:0;display:none;" title="빈프레임"></iframe>
+			
+			<div class="btnsbox">			
+				<div class="line0"></div><div class="line0"></div> 
+				 
+				<div class="btn_01"><p>아디다스 공식 온라인 스토어 회원이시면 회원 로그인을 이용해 주시기<br/> 
+				바랍니다.</p>
+				<a href="/PF060801.action"><img src="/images/adidas/popup/btn_joinlogin.gif" alt="회원 로그인" /></a></div>
+				
+				<div class="line2"></div> 
+			  
+				<div class="btn_02"><p>아디다스 공식 온라인 스토어 회원이 아니세요? <br />
+				회원가입을 하시면, 더 많은 혜택을 누리실 수 있습니다. </p>
+				<a href="#"><img src="/images/adidas/popup/btn_join.gif" alt="회원가입" onclick="javascript:memberJoinPage('/PF0601001');"/></a></div>  
+				
+			</div> 
+			<div class="centrebox" id="csDiv" style="display:none;">
+				<p>문의사항은, 고객센터를 이용해 주세요.</p>
+				<a href="#"><img src="/images/adidas/popup/btn_centre.gif" alt="고객센터" onclick="javascript:memberJoinPage('/PF080301');"/></a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

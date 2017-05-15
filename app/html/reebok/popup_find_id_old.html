@@ -1,0 +1,420 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>리복 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/reebok/reebok.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript">
+	var totalReturnURL = 'http://shop.reebok.co.kr/popRedirect.action?redirectPageMan=';
+	function init(){
+		window.resizeTo(480, 530);
+		var ipinMan = '';
+		var crt_diviMan = '';
+		if(ipinMan == 'ipinManNo' || crt_diviMan == '01'){
+			openError('Ipin');
+			jQuery("#memAgre2").attr("checked","checked");
+			$("MEM_NM").value = "";
+			$("FIRST_SCRTNO").value = "";
+			$("LAST_SCRTNO").value = "";
+			jQuery("#jumin").hide();
+			jQuery("#ipin").show();
+		}else if(ipinMan == 'ipinManYes'){
+			jQuery("#memAgre2").attr("checked","checked");
+			$("MEM_NM").value = "";
+			$("FIRST_SCRTNO").value = "";
+			$("LAST_SCRTNO").value = "";
+			jQuery("#jumin").hide();
+			jQuery("#ipin").show();
+			var mem_id = '';
+			var sgnup_dy = '';
+			//fn_pop(mem_id, sgnup_dy);
+			document.location.href = "/PF0609011.action?MEM_ID="+mem_id+"&SGNUP_DY="+sgnup_dy+'&returnURL=http://shop.reebok.co.kr/adiMain.action';
+		}else{
+			jQuery("#jumin").show();
+			jQuery("#ipin").hide();
+		}
+	}
+	//ipin 연동
+	window.name ="Parent_window"; 
+	
+	function fnPopup(){
+		window.open('', 'popupIPIN2', 'width=450,height=550,top=100,left=100,fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=yes,location=no,scrollbar=no');
+		document.form_ipin.target = "popupIPIN2";
+		document.form_ipin.action = "https://cert.vno.co.kr/ipin.cb";
+		document.form_ipin.submit();
+	}
+	//주민번호 인증시 회원가입
+	function go_juminCheck(){
+		fnSubmit();
+		subSave();
+		var jumin_gubn = $("FOREIGN_YN").value;
+		if(jumin_gubn == 'N'){
+			$("CRT_DIVI").value = "01";
+			if(fncChkJuminNo() == false){
+				return;
+			}
+		}else if(jumin_gubn == 'Y'){
+			if(fgn_no_chksum() == false){
+				$("CRT_DIVI").value = "03";
+				alert('외국인 등록번호를 확인하세요.');
+				return;
+			}
+		}
+		$("D_COMMAND").value = "VIEW";
+		var param = $("frmDetail").serialize(true);
+		var url = "/PF0601001.action";
+					
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+
+			JsonUtil.alert(json);
+			if(JsonUtil.isError(json)){
+				var juminNumCheck = json.juminNumCheck;
+				var crt_diviMan = json.CRT_DIVI;
+				if(juminNumCheck == 'juminNumCheckPass' || crt_diviMan == '02'){//처음 웹페이지로 가입하는 회원
+					openError('Jumin');
+				}else if(juminNumCheck == 'juminNumCheckWithDrOK'){//탈퇴한 회원
+					logInWithDr(json.WITHDR_DT);
+					return;
+				}else if(juminNumCheck == '2'){                  //본인 아님 (주민번호는 맞고 이름이 올바르지 않은경우.)
+					alert('주민번호를 확인 하세요.');
+					return;
+				}else if(juminNumCheck == '3'){                  //자료 없음 (한신평정보에 입력한 데이타가 없는경우.)
+					alert('http://www.namecheck.co.kr/per_callcenter.asp로 이동하시게 하셔서 입력해 주시면  입력한 정보가 맞을경우 추후에 실명확인 이용가능하게 됩니다.');
+					return;
+				}else if(juminNumCheck == '50'){                  //자료 없음 (한신평정보에 입력한 데이타가 없는경우.)
+					alert('정보도용 차단 요청 주민번호입니다');
+					return;
+				}else{//2회원가입자
+					var checkbtn = $("checkbtn").value;
+					document.location.href = "/PF0609011.action?MEM_ID="+json.MEM_ID+"&SGNUP_DY="+json.SGNUP_DY+'&checkbtn='+checkbtn+'&returnURL=http://shop.reebok.co.kr/adiMain.action';
+					//self.close();
+				}
+			}
+		};
+		var onFailure = function(){
+			alert('수정 중 에러가 발생했습니다.');
+		};
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	}
+	
+	//아이디찾기 구분
+	function changeTab(gubn){
+		if(gubn == 'jumin'){
+			jQuery("#jumin").show();
+			jQuery("#ipin").hide();
+		}else if(gubn == 'ipin'){
+			$("MEM_NM").value = "";
+			$("FIRST_SCRTNO").value = "";
+			$("LAST_SCRTNO").value = "";
+			jQuery("#jumin").hide();
+			jQuery("#ipin").show();
+		}
+	}
+	//띄어쓰기 금지
+	function KeyDown(){
+		var frm=document.frmDetail;
+	    if(event.keyCode == 32){ 
+			return false;
+	    }else if(event.keyCode == 13){ 
+	        if(frm.LAST_SCRTNO.value==""){ 
+	        	return false;
+	        }else{
+	        	go_juminCheck();
+	        }
+    	}
+	}
+	
+	function openError(gubn){
+		window.resizeTo(480,650);
+		//document.getElementById('errorDiv').style.display = 'block';
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch"+gubn).show();
+		jQuery("#withDr").hide();
+		jQuery("#csDiv").show();
+	}
+	//탈퇴한 회원
+	function logInWithDr(withdr_dt){
+		window.resizeTo(480,630);
+		document.getElementById("withDrDt").innerHTML = withdr_dt;
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch").hide();
+		jQuery("#withDr").show();
+		jQuery("#csDiv").show();
+	}
+/////////////////////////////////////////////////////////////////////////////////////
+	//실명인증
+	//maxlength 만큼 옮기면 다음으로 이동하기....
+	function nextFocus(sFormName,sNow,sNext){
+		var sForm = 'document.'+ sFormName +'.';
+		var oNow = eval(sForm + sNow);
+	
+		if (typeof oNow == 'object'){
+			if ( oNow.value.length == oNow.maxLength){
+				var oNext = eval(sForm + sNext);
+	
+				if ((typeof oNext) == 'object')
+					oNext.focus();
+			}
+		}
+	}
+	
+	function fnSubmit(){
+		with(document.frmDetail){
+			if (FIRST_SCRTNO.value.length != 6 ){
+				alert('주민번호를 확인하세요.');
+				FIRST_SCRTNO.focus();
+				return false;
+			}
+
+			if (LAST_SCRTNO.value.length != 7 ){
+				alert('주민번호를 확인하세요.');
+				LAST_SCRTNO.focus();
+				return false;
+			}
+
+			
+			if (MEM_NM.value == '' ){
+				alert('성명을 입력하십시요.');
+				MEM_NM.focus();
+				return false;
+			}
+		}
+		
+		
+		//document.frmDetail.action = "RPF0601001.action";
+		//$("D_COMMAND").value = "ncp";
+		//document.frmDetail.submit();
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	//주민번호 체크
+	function fncChkJuminNo(){
+    	var jno1= $("FIRST_SCRTNO").value; //첫 번째 필드
+    	var jno2= $("LAST_SCRTNO").value; //두번째 필드
+	    if(jno1.length != 0){
+	        var chk = 0;
+	        var yy  = jno1.substr(0, 2);
+	        var mm  = jno1.substr(2, 2);
+	        var dd  = jno1.substr(4, 2);
+	        var sex = jno2.substr(0, 1);
+	
+	        if((jno1.length!=6) || (mm<1 || mm>12 || dd<1 || dd>31)){
+	            alert('주민번호를 확인하세요.');
+	            return false;
+	        }
+	
+	
+	        if((jno2.length!=7) || (sex!=1 && sex!=2 && sex!=3 && sex!=4 )){
+	            alert('주민번호를 확인하세요.');
+	            return false;
+	        }
+	
+	
+	        for(i=0; i<=5; i++) chk = chk+((i%8+2)*parseInt(jno1.substring(i, i+1)));
+	
+	
+	        for(i=6; i<=11; i++) chk = chk+((i%8+2)*parseInt(jno2.substring(i-6, i-5)));
+	        chk = (11-(chk%11))%10;
+	        if(chk!=jno2.substring(6, 7)){
+	            alert('주민번호를 확인하세요.');
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	
+	//외국인 등록번호 체크
+	function fgn_no_chksum() { 
+		var reg_no = $("SCRTNO").value;
+		var sum = 0; 
+		var odd = 0; 
+
+		buf = new Array(13); 
+		for (i = 0; i < 13; i++) buf[i] = parseInt(reg_no.charAt(i)); 
+
+		odd = buf[7]*10 + buf[8]; 
+
+		if (odd%2 != 0) { 
+		return false; 
+		} 
+
+		if ((buf[11] != 6)&&(buf[11] != 7)&&(buf[11] != 8)&&(buf[11] != 9)) { 
+		return false; 
+		} 
+
+		multipliers = [2,3,4,5,6,7,8,9,2,3,4,5]; 
+		for (i = 0, sum = 0; i < 12; i++) sum += (buf[i] *= multipliers[i]); 
+
+
+		sum=11-(sum%11); 
+
+		if (sum>=10) sum-=10; 
+
+		sum += 2; 
+
+		if (sum>=10) sum-=10; 
+
+		if ( sum != buf[12]) { 
+		return false; 
+		}else{ 
+			return true; 
+		} 
+	} 
+	
+	//문자 합침
+	function subSave(){
+		//주민번호
+		var firstjumin = $("FIRST_SCRTNO").value;
+		var lastjumin = $("LAST_SCRTNO").value;
+		$("SCRTNO").value = firstjumin + lastjumin;
+	}
+	//아이디 검색 완료 팝업.
+	function fn_pop(mem_id, sgnup_dy){
+		var checkbtn = $("checkbtn").value;
+		window.open('/PF0609011.action?MEM_ID='+mem_id+'&SGNUP_DY='+sgnup_dy+'&checkbtn='+checkbtn,'popup','width=480,height=370,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');  
+	}
+	//회원가입, 고객센터
+	function memberJoinPage(url){
+		document.location.href = totalReturnURL + url+'.action';
+		//document.location.href = '/PF0601001.action';
+	}
+</script>
+
+</head>
+<body onload="init();">
+<div id="pop">
+	<div id="popupHeader">
+		<h1>아이디 찾기</h1>
+		<a href="javascript:self.close();"><img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+
+	
+	<div id="popupContents">
+		<div class="joinbox">
+			
+			<p class="radiobox">
+				<input name="memAgre1" id="memAgre1" type="radio" value="" onclick="changeTab('jumin');" checked="checked"/><label for="memAgre1">휴대폰번호 인증</label>
+				<input name="memAgre1" id="memAgre2" type="radio" value="" onclick="changeTab('ipin');" /><label for="memAgre2">아이핀 인증</label>
+			</p> 
+			
+		<!-- 에러의 경우	-->
+		<div class="errorbox2" id="errorDiv" style="display:none;">    
+			<div class="errorboxs2" id="noMatchJumin" style="display:none;">
+				<p>해당 이름/주민등록번호로 가입된 아이디가 없습니다.</p> 
+					<span>다시 한번 확인하시고 정확히 입력해 주세요.</span>
+			</div>
+			<div class="errorboxs2" id="noMatchIpin" style="display:none;">
+				<p>해당 아이핀(I-PIN)으로 가입된 아이디가 없습니다.</p> 
+					<span>다시 한번 확인하시고 정확히 입력해 주세요.</span>
+			</div>
+			<div class="errorboxs2" id="withDr" style="display:none;">
+				<p>회원 탈퇴 후 재가입시에는 7일 경과후 재가입이 가능하고,<br />
+				신규회원가입으로 처리되며 기존 아이디는 다시 사용하실 수 없습니다.
+				</p>
+				<span>탈퇴한 날짜 : <span id="withDrDt"></span></span>
+			</div>
+		</div>
+			
+			
+			<div class="line0"></div>  
+		 	<form id="frmDetail" name="frmDetail" method="post">
+		 	<input type="hidden" id="D_COMMAND" name="command" value=""/>
+		 	<input type="hidden" id="CRT_DIVI" name="CRT_DIVI" value=""/>
+		 	<input type="hidden" id="SITE_CD" name="SITE_CD" value="1"/>
+		 	<input type="hidden" id="SCRTNO" name="SCRTNO" value=""/>
+		 	<input type="hidden" id="GUBNSEARCH" name="GUBNSEARCH" value="searchId"/>
+		 	<input type="hidden" id="checkbtn" name="checkbtn" value="fromTop"/>
+		 	<input type="hidden" name="CHECK_KEY" id="CHECK_KEY" value="4806721"/>
+				<div class="loginbox3_1" id="jumin" style="display:none;">
+					<div class="loginsbox3_1" >
+						<p>위의 인증방식 중 한 가지를 선택하여 아이디를 확인하실 수 있습니다 <br/>
+							본인인증 시 제공되는 정보는 해당 인증기관에서 직접 수집하며, 인증 이외의 용도로 이용 또는 저장되지 않습니다 </p>
+						<p class="btn">
+							<img src="/images/reebok/popup/btn_ok.gif" alt="확인" onclick="javascript:fnPopup()" style="cursor: pointer;"/>
+						</p> 
+					</div>
+				</div>  
+			</form>
+			
+			<!--   아이핀 인증을 선텍할 경우 -->
+			<div class="loginbox3_3" id="ipin" style="display:none;">
+				<div class="loginsbox3_3">
+					<p>위의 인증방식 중 한 가지를 선택하여 아이디를 확인하실 수 있습니다 <br/>
+						본인인증 시 제공되는 정보는 해당 인증기관에서 직접 수집하며, 인증 이외의 용도로 이용 또는 저장되지 않습니다 </p>
+					<p class="btn">
+						<img src="/images/reebok/popup/btn_ok.gif" alt="확인" onclick="javascript:fnPopup()" style="cursor: pointer;"/>
+					</p> 
+				</div>
+			</div>  
+			<form name="form_ipin" method="post">
+			    <input type="hidden" name="m" value="pubmain">
+			    <input type="hidden" name="enc_data" value="AgEEQTg2M+0J4vb9lOq9z5bdRnBlF1IeDh9xrag0XdWRq7O0yYjpK2yBeimuJ5F0VdUlGe+Cff99+NjNvvtFrUytgqz8UFKA0B54ihdg4A4nRv/izIWid5sVFUQHBouHqFg14yKyGTV0iY1eyyllUTZmDL4L1qIViyZIt1VUpinyrHI4NBhl5AuXxcDDYCH2V5pfMXocC03HDm87ppke23mEbBQ4fJ/saOmoOxxvr4IQRCBDl9DvLTgx9IcZaX3Nc5NHkDtq24zvamWjjOk6MUSxhM/pQO81TOoEW1WTLqwgJLF1XVaE">
+			    <!-- 업체에서 응답받기 원하는 데이타를 설정하기 위해 사용. 인증결과 응답시, 해당 값을 그대로 송신함. -->
+			    <input type="hidden" name="param_r1" value="">
+			    <input type="hidden" name="param_r2" value="">
+			    <input type="hidden" name="param_r3" value="">
+			</form>
+			
+			<!-- 가상주민번호 서비스 팝업 페이지에서 인증받기 버튼 클릭후, 해당 부모 페이지를 이동하기 위해 필요한 form 입니다 -->
+			<form name="vnoform" method="post">
+			    <input type="hidden" name="enc_data">
+			    <!-- 업체에서 응답받기 원하는 데이타를 설정하기 위해 사용. 인증결과 응답시, 해당 값을 그대로 송신함. -->
+			    <input type="hidden" name="param_r1" value="">
+			    <input type="hidden" name="param_r2" value="">
+			    <input type="hidden" name="param_r3" value="">
+			    <input type="hidden" id="GUBN" name="GUBN" value=""/>
+			    <input type="hidden" id="GUBNSEARCH" name="GUBNSEARCH" value="searchId"/>
+			    <input type="hidden" id="MOBL" name="MOBL" value=""/>
+			</form>
+						<!-- //i-PIN -->
+			
+			<div class="btnsbox">
+			
+				<div class="line0"></div><div class="line0"></div><div class="line0"></div><div class="line0"></div>   
+				 
+				<div class="btn_line1"><p>아이디를 잊으셨나요? </p>
+				<img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_ch_id.gif" alt="아이디 찾기" /></div>
+				<div class="btn_line2"><p>비밀번호를 잊으셨나요? </p>
+				<a href="/PF060902.action"><img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_ch_pw.gif" alt="비밀번호 찾기" /></a></div>
+				
+				<div class="line1"></div>
+				
+				<div class="btn_02"><p>아디다스 공식 온라인 스토어 회원이 아니세요? <br />
+				회원가입을 하시면, 더 많은 혜택을 누리실 수 있습니다. </p>
+				<img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_join.gif" alt="회원가입" onclick="javascript:memberJoinPage('/PF0601001');" style="cursor: pointer;"/></div>
+				
+				<div class="line2"></div>
+				
+				<div class="btn_02"><p>아디다스 공식 온라인 스토어에서 비회원으로 구매하셨을 경우, 비회원 주문<br />
+				조회에서 주문/배송 내역을 확인할 수 있습니다.</p>
+				<a href="/PF060803.action"><img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_join_but.gif" alt="비회원 주문조회" /></a></div>
+				
+			</div> 
+			<div class="centrebox" id="csDiv" style="display:none;">
+				<p>문의사항은, 고객센터를 이용해 주세요.</p>
+				<img src="https://shop.reebok.co.kr:443/images/reebok/popup/btn_centre.gif" alt="고객센터" onclick="javascript:memberJoinPage('/PF080301');" style="cursor: pointer;"/>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

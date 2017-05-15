@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+
+<style type="text/css">
+	.bst_step{margin-bottom:20px;padding-left:15px;}
+	.bst_list li{color:#777;letter-spacing:-.75px;line-height:16px;font-size:11px;}
+	.bst_agreebox h4{color:#333;font-weight:bold;letter-spacing:-.75px;margin-bottom:10px;}
+	.bst_agreebox h4 strong{margin-left:8px;color:#ff6000;font-size:11px;font-weight:normal;}
+	.bst_agreebox label{color:#333;letter-spacing:-.75px;}
+	.bst_agreebox .label_txt{padding:5px 0 25px;color:#777;letter-spacing:-.75px;font-size:11px;border-bottom:1px solid #cdcdcd;padding-left:17px;}
+
+	.bst_agreebox .agr_box{width:758px;height:98px;padding:10px;margin-bottom:20px;background:#fff;border:1px solid #d5d5d5;overflow-y:auto;color:#666;letter-spacing:-.75px;}
+	.bst_agreebox .agr_box h6{font-size:12px;margin-bottom:20px;}
+	.bst_agreebox .agr_box p{line-height:19px;}
+
+	.bst_table{}
+
+	.bst_table table{width:730px;border-top:2px solid #808080;border-bottom:2px solid #808080;}
+	.bst_table th,.bst_table td{height:60px;border-bottom:1px solid #bcbcbc;text-align:left;} /* 130222 */
+	.bst_table th{padding-left:10px;border-right:1px solid #bcbcbc;}
+	.bst_table td{padding-left:20px;background:#fff;}
+	.bst_table td strong{margin-left:15px;color:#999;letter-spacing:-.75px;font-weight:normal;}
+	.bst_table td label{margin-right:15px;}
+	.bst_agrchk p label{color:#666;}
+
+	.bst_cont{padding-left:33px;}
+</style>
+<script>
+	function chkSizeType(num){
+		
+		switch(num){
+			case 0:
+				jQuery('.top_mn').hide();
+				jQuery('.top_wmn').hide();
+				jQuery('.top_jr').show();
+				break;
+			case 1:
+				jQuery('.top_mn').hide();
+				jQuery('.top_wmn').show();
+				jQuery('.top_jr').hide();
+				break;
+			case 2:
+				jQuery('.top_mn').show();
+				jQuery('.top_wmn').hide();
+				jQuery('.top_jr').hide();
+				break;
+		}
+	}
+</script>
+
+</head>
+<body onload="init();"style="background-color:#f2f2f2;">
+
+
+
+<div id="pop"style="background-color:#f2f2f2;">
+	<div id="popupHeader2">
+		<h1>신청서 작성</h1>
+		<a href="javascript:self.close();"><img src="https://shop.adidas.co.kr:443/images/adidas/popup/btn_popup_close2.gif" alt="close" /></a>
+	</div>
+	<div id="popupContents2"style="padding:20px 0 30px;background-color:#f2f2f2;">
+		<div class="bst_step"><img src="/images/adidas/popup/bg_step02_130219.gif" alt="STEP2 상세 정보 입력"/></div>
+		<h2 style="padding-left:15px;margin-bottom:10px;"><img src="/images/adidas/popup/tit_boost_130219_02.gif" alt="참가자 유의사항 및 동의서약서"/></h2>
+		<div class="bst_cont" style="border-bottom:1px solid #cdcdcd">
+			<p style="margin-bottom:20px;"><img src="/images/adidas/popup/txt_boost_130219_04.gif" alt=""/></p>
+			<!-- 130221 start --> 
+			<p style="margin-bottom:20px;"><img src="/images/adidas/popup/txt_boost_130219_07.gif" alt=""/></p>
+			<!-- 130221 end --> 
+			<h3 style="width:730px;height:12px;margin-bottom:10px;">
+				<img style="float:left;" src="/images/adidas/popup/txt_boost_130219_05.gif" alt="기재사항"/>
+				<a style="float:right;margin-top:-18px;" href="#"><img src="/images/adidas/popup/btn_boost_130219_02.gif" alt="개인정보 수정하기"></a>
+			</h3>
+			<div class="bst_table" style="padding:0 0 40px;">
+				<table cellpadding="0" cellspacing="0">
+					<colgroup>
+						<col width="120"/>
+						<col width="242"/>
+						<col width="126"/>
+						<col width="*"/>
+					</colgroup>
+					<!--
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_.gif" alt=""/></th>
+						<td></td>
+					</tr>
+					-->
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_01.gif" alt="참가코스"/></th>
+						<td colspan="3">15km 코스</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_02.gif" alt="이름"/></th>
+						<td style="border-right:1px solid #BCBCBC;">김기백</td>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_03.gif" alt="단체일 경우 팀이름 추가기입"/></th>
+						<td><input type="text" style="width:117px;height:21px;"/></td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_04.gif" alt="생년월일"/></th>
+						<td colspan="3">
+							<select style="width:73px;height:23px;margin-right:10px;">
+								<option value="">년도</option>
+								<option title="2013년" value="2013" selected="selected">2013년</option>
+								<option title="2012년" value="2012">2012년</option>
+								<option title="2011년" value="2011">2011년</option>
+								<option title="2010년" value="2010">2010년</option>
+								<option title="2009년" value="2009">2009년</option>
+								<option title="2008년" value="2008">2008년</option>
+								<option title="2007년" value="2007">2007년</option>
+								<option title="2006년" value="2006">2006년</option>
+								<option title="2005년" value="2005">2005년</option>
+								<option title="2004년" value="2004">2004년</option>
+								<option title="2003년" value="2003">2003년</option>
+								<option title="2002년" value="2002">2002년</option>
+								<option title="2001년" value="2001">2001년</option>
+								<option title="2000년" value="2000">2000년</option>
+								<option title="1999년" value="1999">1999년</option>
+								<option title="1998년" value="1998">1998년</option>
+								<option title="1997년" value="1997">1997년</option>
+								<option title="1996년" value="1996">1996년</option>
+								<option title="1995년" value="1995">1995년</option>
+								<option title="1994년" value="1994">1994년</option>
+								<option title="1993년" value="1993">1993년</option>
+								<option title="1992년" value="1992">1992년</option>
+								<option title="1991년" value="1991">1991년</option>
+								<option title="1990년" value="1990">1990년</option>
+								<option title="1989년" value="1989">1989년</option>
+								<option title="1988년" value="1988">1988년</option>
+								<option title="1987년" value="1987">1987년</option>
+								<option title="1986년" value="1986">1986년</option>
+								<option title="1985년" value="1985">1985년</option>
+								<option title="1984년" value="1984">1984년</option>
+								<option title="1983년" value="1983">1983년</option>
+								<option title="1982년" value="1982">1982년</option>
+								<option title="1981년" value="1981">1981년</option>
+								<option title="1980년" value="1980">1980년</option>
+								<option title="1979년" value="1979">1979년</option>
+								<option title="1978년" value="1978">1978년</option>
+								<option title="1977년" value="1977">1977년</option>
+								<option title="1976년" value="1976">1976년</option>
+								<option title="1975년" value="1975">1975년</option>
+								<option title="1974년" value="1974">1974년</option>
+								<option title="1973년" value="1973">1973년</option>
+								<option title="1972년" value="1972">1972년</option>
+								<option title="1971년" value="1971">1971년</option>
+								<option title="1970년" value="1970">1970년</option>
+								<option title="1969년" value="1969">1969년</option>
+								<option title="1968년" value="1968">1968년</option>
+								<option title="1967년" value="1967">1967년</option>
+								<option title="1966년" value="1966">1966년</option>
+								<option title="1965년" value="1965">1965년</option>
+								<option title="1964년" value="1964">1964년</option>
+								<option title="1963년" value="1963">1963년</option>
+								<option title="1962년" value="1962">1962년</option>
+								<option title="1961년" value="1961">1961년</option>
+								<option title="1960년" value="1960">1960년</option>
+								<option title="1959년" value="1959">1959년</option>
+								<option title="1958년" value="1958">1958년</option>
+								<option title="1957년" value="1957">1957년</option>
+								<option title="1956년" value="1956">1956년</option>
+								<option title="1955년" value="1955">1955년</option>
+								<option title="1954년" value="1954">1954년</option>
+								<option title="1953년" value="1953">1953년</option>
+								<option title="1952년" value="1952">1952년</option>
+								<option title="1951년" value="1951">1951년</option>
+								<option title="1950년" value="1950">1950년</option>
+								<option title="1949년" value="1949">1949년</option>
+								<option title="1948년" value="1948">1948년</option>
+								<option title="1947년" value="1947">1947년</option>
+								<option title="1946년" value="1946">1946년</option>
+								<option title="1945년" value="1945">1945년</option>
+								<option title="1944년" value="1944">1944년</option>
+								<option title="1943년" value="1943">1943년</option>
+								<option title="1942년" value="1942">1942년</option>
+								<option title="1941년" value="1941">1941년</option>
+								<option title="1940년" value="1940">1940년</option>
+								<option title="1939년" value="1939">1939년</option>
+								<option title="1938년" value="1938">1938년</option>
+								<option title="1937년" value="1937">1937년</option>
+								<option title="1936년" value="1936">1936년</option>
+								<option title="1935년" value="1935">1935년</option>
+								<option title="1934년" value="1934">1934년</option>
+								<option title="1933년" value="1933">1933년</option>
+								<option title="1932년" value="1932">1932년</option>
+								<option title="1931년" value="1931">1931년</option>
+								<option title="1930년" value="1930">1930년</option>
+								<option title="1929년" value="1929">1929년</option>
+								<option title="1928년" value="1928">1928년</option>
+								<option title="1927년" value="1927">1927년</option>
+								<option title="1926년" value="1926">1926년</option>
+								<option title="1925년" value="1925">1925년</option>
+								<option title="1924년" value="1924">1924년</option>
+								<option title="1923년" value="1923">1923년</option>
+								<option title="1922년" value="1922">1922년</option>
+								<option title="1921년" value="1921">1921년</option>
+								<option title="1920년" value="1920">1920년</option>
+								<option title="1919년" value="1919">1919년</option>
+								<option title="1918년" value="1918">1918년</option>
+								<option title="1917년" value="1917">1917년</option>
+								<option title="1916년" value="1916">1916년</option>
+								<option title="1915년" value="1915">1915년</option>
+								<option title="1914년" value="1914">1914년</option>
+								<option title="1913년" value="1913">1913년</option>
+								<option title="1912년" value="1912">1912년</option>
+								<option title="1911년" value="1911">1911년</option>
+								<option title="1910년" value="1910">1910년</option>
+								<option title="1909년" value="1909">1909년</option>
+								<option title="1908년" value="1908">1908년</option>
+								<option title="1907년" value="1907">1907년</option>
+								<option title="1906년" value="1906">1906년</option>
+								<option title="1905년" value="1905">1905년</option>
+								<option title="1904년" value="1904">1904년</option>
+								<option title="1903년" value="1903">1903년</option>
+								<option title="1902년" value="1902">1902년</option>
+								<option title="1901년" value="1901">1901년</option>
+								<option title="1900년" value="1900">1900년</option>
+							</select>
+							<select style="width:73px;height:23px;margin-right:10px;">
+								<option value="">월</option>
+								<option value="01" title="1월"> 1월 </option>
+								<option value="02" title="2월"> 2월 </option>
+								<option value="03" title="3월"> 3월 </option>
+								<option value="04" title="4월"> 4월 </option>
+								<option value="05" title="5월"> 5월 </option>
+								<option value="06" title="6월"> 6월 </option>
+								<option value="07" title="7월"> 7월 </option>
+								<option value="08" title="8월"> 8월 </option>
+								<option value="09" title="9월"> 9월 </option>
+								<option value="10" title="10월"> 10월 </option>
+								<option value="11" title="11월"> 11월 </option>
+								<option value="12" title="12월"> 12월 </option>						
+							</select>
+							<select style="width:73px;height:23px;">
+								<option value="">일</option>
+								<option value="01" title="1일">  1일 </option>
+								<option value="02" title="2일">  2일 </option>
+								<option value="03" title="3일">  3일 </option>
+								<option value="04" title="4일">  4일 </option>
+								<option value="05" title="5일">  5일 </option>
+								<option value="06" title="6일">  6일 </option>
+								<option value="07" title="7일">  7일 </option>
+								<option value="08" title="8일">  8일 </option>
+								<option value="09" title="9일">  9일 </option>
+								<option value="10" title="10일"> 10일 </option>
+								<option value="11" title="11일"> 11일 </option>
+								<option value="12" title="12일"> 12일 </option>
+								<option value="13" title="13일"> 13일 </option>
+								<option value="14" title="14일"> 14일 </option>
+								<option value="15" title="15일"> 15일 </option>
+								<option value="16" title="16일"> 16일 </option>
+								<option value="17" title="17일"> 17일 </option>
+								<option value="18" title="18일"> 18일 </option>
+								<option value="19" title="19일"> 19일 </option>
+								<option value="20" title="20일"> 20일 </option>
+								<option value="21" title="21일"> 21일 </option>
+								<option value="22" title="22일"> 22일 </option>
+								<option value="23" title="23일"> 23일 </option>
+								<option value="24" title="24일"> 24일 </option>
+								<option value="25" title="25일"> 25일 </option>
+								<option value="26" title="26일"> 26일 </option>
+								<option value="27" title="27일"> 27일 </option>
+								<option value="28" title="28일"> 28일 </option>
+								<option value="29" title="29일"> 29일 </option>
+								<option value="30" title="30일"> 30일 </option>
+								<option value="31" title="31일"> 31일 </option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_05.gif" alt="성별"/></th>
+						<td style="border-right:1px solid #bcbcbc;">
+							<input type="radio" id="" name=""/>
+							<label for=""style="margin-right:10px;">남자</label>
+							<input type="radio" id="" name=""/>
+							<label for="">여자</label>
+						</td>
+						<th rowspan="2"><img src="/images/adidas/popup/txt_th_boost_130219_07.gif" alt="혈액형"/></th>
+						<td>
+							<input type="radio" id="" name=""/>
+							<label for="" style="margin-right:10px;">A</label>
+							<input type="radio" id="" name=""/>
+							<label for="" style="margin-right:10px;">B</label>
+							<input type="radio" id="" name=""/>
+							<label for="" style="margin-right:10px;">O</label>
+							<input type="radio" id="" name=""/>
+							<label for="">AB</label>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_06.gif" alt="이메일"/></th>
+						<td style="border-right:1px solid #bcbcbc;">appeal748@naver.com</td>
+						<td><input type="checkbox" id="" name=""/><label for=""style="margin-left:10px;">RH- 일 경우 체크</label></td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_08.gif" alt="주소"/></th>
+						<td colspan="3">서울특별시 서초구 서초2동 1321-15 서초타워 7층</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_09.gif" alt="전화번호"/></th>
+						<td style="border-right:1px solid #bcbcbc;">02-1234-5678</td>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_10.gif" alt="핸드폰번호"/></th>
+						<td>010-354-4578</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_11.gif" alt="스마트폰 사용여부"/></th>
+						<td style="border-right:1px solid #bcbcbc;">
+							<input type="radio" id="" name=""/>
+							<label for="">사용</label>
+							<input type="radio" id="" name=""/>
+							<label for="">미사용</label>					
+						</td>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_12.gif" alt="아이폰 사용여부"/></th>
+						<td>
+							<input type="radio" id="" name=""/>
+							<label for="">사용</label>
+							<input type="radio" id="" name=""/>
+							<label for="">미사용</label>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_13.gif" alt="스티커 이름"/></th>
+						<td colspan="3">
+							<input type="text" style="height: 21px;width: 117px;"/>
+							<strong>* 아디클럽  러닝 스티커 이름 입력(한글 최대 4글자 혹은 영문 최대 8글자)</strong>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_14.gif" alt="티셔츠 사이즈"/></th>
+						<td colspan="3">
+							<input type="radio" name="aaaa" id="size_top_jr" onclick="chkSizeType(0);"/>
+							<label for="size_top_jr">주니어</label>
+							<input type="radio" name="aaaa" id="size_top_women" onclick="chkSizeType(1);"/>
+							<label for="size_top_women">여자</label>
+							<input type="radio" name="aaaa" id="size_top_men" onclick="chkSizeType(2);"/>
+							<label for="size_top_men">남자</label>
+							<span style="margin-right:15px;">&gt;</span>
+
+							<select style="width:62px;height:21px;display:none;" class="top_jr">
+								<option value="">76</option>
+							</select>
+
+							<select style="width:62px;height:21px;display:none;" class="top_wmn">
+								<option value="">80</option>
+								<option value="">85</option>
+								<option value="">90</option>
+								<option value="">95</option>
+								<option value="">100</option>
+								<option value="">105</option>
+							</select>
+
+							<select style="width:62px;height:21px;display:none;" class="top_mn">
+								<option value="">90</option>
+								<option value="">95</option>
+								<option value="">100</option>
+								<option value="">105</option>
+								<option value="">110</option>
+								<option value="">115</option>
+							</select>
+
+							<strong>* 성별 선택 후 사이즈 선택</strong>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_16.gif" alt="2012년 아디다스 mbc 한강마라톤 참석 여부"/></th>
+						<td colspan="3">
+							<input type="radio" name="" id=""/>
+							<label for="">예</label>
+							<input type="radio" name="" id=""/>
+							<label for="">아니오</label>
+						</td>
+					</tr>
+				</table>
+				<!-- 130221 start -->
+				<p style="margin-top:20px;color:#666;">* 개인정보 보유기간 : 회원의 탈퇴 시까지 보유합니다.</p>
+				<div class="bst_agrchk" style="overflow:hidden;margin:10px 0 10px;">
+					<p style="float:left;margin-right:5px;"><input type="checkbox" id="" name=""/></p>
+					<p style="float:left;"><label for="">상기 개인정보 수집에 동의합니다.</label></p>
+				</div>
+				<!-- 130221 end -->
+
+				<div class="bst_agrchk" style="overflow:hidden;clear:both;">
+					<p style="float:left;margin-right:5px;"><input type="checkbox" id="" name=""/></p>
+					<p style="width:690px;float:left;"><label for="">상기에 기재된 모든 개인정보 항목은 2013 아디다스 MBC 한강마라톤 참가신청을 위하여 ㈜MBC스포츠, ㈜MBC플러스미디어(이하 “MBC한강마라톤 사무국” 또는 “사무국”)에 제공되며 해당 행사진행을 위하여 1년간 보유합니다. 개인정보의 제공에 동의하지 않는 경우 행사에 참가하실 수 없습니다.</label></p>
+				</div>
+			</div>
+		</div>
+
+		<h2 style="margin-bottom:10px;padding:40px 0 0 15px;border-top:1px solid #fff;"><img alt="마이코치 러닝 챌린지 팀 참가 신청서" src="/images/adidas/popup/tit_boost_130219_03.gif"></h2>
+		<div class="bst_cont">
+			<p style="width:730px;height:30px;margin-bottom:4px;">
+				<img  style="float:left;" alt="본 참가 신청서는 자유 선택입니다.  마이코치 러닝 챌린지 팀 참가를 원하는 분은 아래 신청서를 작성해 주십시오" src="/images/adidas/popup/txt_boost_130219_06.gif">
+				<a href="#" style="float:right;margin-top:-10px;"><img alt="마이코치 러닝 챌린지 팀 혜택 자세히 보기 " src="/images/adidas/popup/btn_boost_130219_03.gif"></a>
+			</p>
+			<div class="bst_table" style="clear:both;">
+				<table cellpadding="0" cellspacing="0">
+					<colgroup>
+						<col width="120"/>
+						<col width="242"/>
+						<col width="145"/>
+						<col width="*"/>
+					</colgroup>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_17.gif" alt="2012 마이코치 러닝 챌린지 팀 신청"/></th>
+						<td colspan="3">
+							<input type="radio" name="" id=""/>
+							<label for="">예</label>
+							<input type="radio" name="" id=""/>
+							<label for="">아니오</label>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="/images/adidas/popup/txt_th_boost_130219_18.gif" alt="지원 동기"/></th>
+						<td colspan="3" style="padding:10px 0 10px 20px;">
+							<textarea style="width:552px;height:82px;padding:10px;border:1px solid #a8acad;background:#f3f3f3;font-size:12px;"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th style="height:40px;"><img src="/images/adidas/popup/txt_th_boost_130219_19.gif" alt="10km 경험 유무"/></th>
+						<td style="height:40px;border-right:1px solid #bcbcbc;">
+							<input type="radio" name="" id=""/>
+							<label for="">예</label>
+							<input type="radio" name="" id=""/>
+							<label for="">아니오</label>
+						</td>
+						<th style="height:40px;"><img src="/images/adidas/popup/txt_th_boost_130219_20.gif" alt="10km 평균 기록(경험있는 회원만 기재)"/></th>
+						<td style="height:40px;"><input type="text" style="width:117px;height:21px;"></td>
+					</tr>
+					<!-- 130222 start -->
+					<tr>
+						<th style="height:40px;"><img src="/images/adidas/popup/txt_th_boost_130219_21.gif" alt="SNS주소기재 (사용하는 플랫폼 주소만 기재)"/></th>
+						<td colspan="3" style="height:40px;padding:15px 0 15px 20px;">
+							<p style="margin-bottom:5px;"><span style="display:block;float:left;width:74px;padding-top:4px;color:#666;">블로그</span><input type="text" style="width:422px;height:21px;"/></p>
+							<p style="margin-bottom:5px;"><span style="display:block;float:left;width:74px;padding-top:4px;color:#666;">페이스북</span><input type="text" style="width:422px;height:21px;"/></p>
+							<p style="margin-bottom:5px;"><span style="display:block;float:left;width:74px;padding-top:4px;color:#666;">트위터</span><input type="text" style="width:422px;height:21px;"/></p>
+							<p><span style="display:block;float:left;width:74px;padding-top:4px;color:#666;">기타</span><input type="text" style="width:422px;height:21px;"/></p>
+						</td>
+					</tr>
+					<tr>
+						<th style="height:40px;"><img src="/images/adidas/popup/txt_th_boost_130219_22.gif" alt="활동하는 온라인 러닝 커뮤니티 기재"/></th>
+						<td colspan="3" style="height:40px;">
+							<input type="text" name="" id="" style="width:497px;height:21px;"/>
+						</td>
+					</tr>
+					<tr>
+						<th style="height:40px;padding:15px 0 15px 10px;"><img src="/images/adidas/popup/txt_th_boost_130219_23.gif" alt="마이코치 러닝 챌린지 팀 트레이닝 시간 선택"/></th>
+						<td colspan="3" style="height:40px;">
+							<input type="radio" name="" id=""/>
+							<label for="">토요일 오전반</label>
+							<input type="radio" name="" id=""/>
+							<label for="">토요일 오후반</label>
+						</td>
+					</tr>
+					<!-- 130222 end -->
+				</table>
+			</div>
+		</div>
+
+		<div class="btn_area" style="text-align:center;padding:30px 0;"><a href="#"><img src="/images/adidas/popup/btn_boost_130219_04.gif" alt="참가신청하기"/></a></div>
+	</div>
+</div>
+
+</body>
+</html>

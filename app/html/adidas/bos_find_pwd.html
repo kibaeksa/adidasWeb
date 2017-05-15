@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2차 비밀번호 변경</title>
+
+<link rel="stylesheet" type="text/css" media="screen" href="/css/grid/jquery-ui-1.7.1.custom.popup.css"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="http://shop.adidas.co.kr/css/grid/ui.jqgrid.popup.css"></link>
+<link href="http://shop.adidas.co.kr/css/style.css" rel="stylesheet" type="text/css">
+
+<script src="http://shop.adidas.co.kr/css/embeded.js" language="JavaScript"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/pbcommon.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery/grid/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" src="/js/jquery/grid/jquery.jqGrid.js"></script>
+
+
+<script type="text/javascript">
+
+	window.resizeTo('330','400');
+	function fn_save(){
+
+		if(checkPassWord() == false){ //비밀번호 체크
+			return;
+		}
+		
+		var frm = document.frmDetail;
+	//		jQuery("#D_COMMAND").val("subUpdate");
+			jQuery("#SS_USER_ID").val('kimkb');
+		var param = jQuery("#frmDetail").serialize();
+		var url = "/CSPwChPopup.action";
+
+		var onSuccess = function(req){
+			var json = req.responseJSON;		// 요청에 대한 대답을 json으로
+
+			JsonUtil.alert(json);				// 메시지 처리
+			
+			if(JsonUtil.isError(json)){			// 정상 처리 라면
+				if(json.check == "0"){
+					//alert("수정되었습니다.");
+					self.close();
+				} else if (json.check == "last4" || json.check == "same") {
+		        	$("PW").value = '';
+		            $("CHECK_PW").value = '';
+		            document.frmDetail.PW.focus(); 
+		        	return false;
+				} else {
+					//alert("기존 비밀번호가 틀렸습니다.");
+		        	$("OLD_PW").value = '';
+		        	$("PW").value = '';
+		            $("CHECK_PW").value = '';
+					document.frmDetail.OLD_PW.focus(); 
+					return;
+				}
+			} 
+			
+		};
+
+	    var onFailure = function(){
+		    alert("잘못보내셨습니다.");
+	    };
+	    
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);		
+	}
+	
+	function fn_resave(){
+		cfn_clearForm2("frmDetail");
+	}
+	
+	//비밀번호 체크
+	function checkPassWord(){
+		var passWord = $("PW").value;
+		var passWordCh = $("CHECK_PW").value;
+		
+		var chk_num = passWord.search(/[0-9]/g); 
+        var chk_eng = passWord.search(/[a-z]/ig); 
+    	var chk_char = passWord.search(/[\!\@\#$\%\^\&\*\(\)\_\+\{\}\[\]\'\"\;\:\/\?\.\>\,\<]/g); 
+        if(passWord != passWordCh){
+        	alert('새 2차 비밀번호를 확인 하십시오.');
+        	$("PW").value = '';
+            $("CHECK_PW").value = '';
+            document.frmDetail.PW.focus(); 
+        	return false;
+        }
+
+        var isStr = /^[a-zA-Z0-9\!\@\#$\%\^\&\*\(\)\_\+\{\}\[\]\'\"\;\:\/\?\.\>\,\<]{10,15}$/;
+        if(!isStr.test(passWord) || chk_num < 0 || chk_eng < 0 || chk_char < 0){
+            alert('새 2차 비밀번호는 10~15자의 영문 대/소문자,숫자 및 특수문자(!@#$%^&*()_+{}[]\'\";:/?.>,<)의 조합만 가능합니다.');
+            $("PW").value = '';
+            $("CHECK_PW").value = '';
+            document.frmDetail.PW.focus(); 
+            return false;
+        }
+        if(/(\w)\1\1\1/.test(passWord)){
+            alert('새 2차 비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.'); 
+            $("PW").value = '';
+            $("CHECK_PW").value = '';
+            document.frmDetail.PW.focus(); 
+            return false;
+        }
+        
+        var consecutively  = "qwertyuiopasdfghjklzxcvbnm1234567890987654321kimkb";
+        var start   = 4 - 1; 
+        var seq     = "_" + passWord.slice(0, start);
+        for (i = start; i < passWord.length; i++) {
+        	seq = seq.slice(1) + passWord.charAt(i);
+	        if (consecutively.indexOf(seq) > -1) {
+	        	alert('새 2차 비밀번호에 4자리 이상 반복되는 문구 및 숫자, 아이디와 유사한 문구는 사용 불가합니다.');
+	        	$("PW").value = '';
+	            $("CHECK_PW").value = '';
+	            document.frmDetail.PW.focus(); 
+	        	return false;
+	        }
+        }
+        
+	}
+</script>
+
+</head>
+<body>
+
+
+<form name="frmDetail" id="frmDetail" method="post" onsubmit="return false;">
+	<input type="hidden" id="D_COMMAND" name="command" value="subInsert"/>
+	<input type="hidden" id="SS_USER_ID" name="SS_USER_ID" value=""/>
+	
+	<table width="100%" height="100%" border="0"  cellpadding="0" cellspacing="0"  >
+	  <tr> 
+	    <td width="23" background="http://shop.adidas.co.kr/img/popup_titlebag.gif" > 
+	    	<img src="http://shop.adidas.co.kr/img/popup_titlebag1.gif" width="23" style="vertical-align:top;">
+	    </td>
+	    <td width="280"  background="http://shop.adidas.co.kr/img/popup_titlebag.gif" > 
+	      <div class="popup_title"> 2차 비밀번호 변경</div></td>
+	    <td width="23"> 
+	      <div align="right">
+	      	<img src="http://shop.adidas.co.kr/img/popup_titlebag2.gif" width="23" height="47" style="vertical-align:top;">
+	      </div>
+	    </td>
+	  </tr>
+	  <tr class="popup_body">
+	  	<td colspan="3" class="popup_body">
+	  		<table width="100%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+	  			<tr> 
+		          <td colspan="2" height="20"></td>
+		        </tr>
+	  			<tr>
+	  				<td class="2table_line_c" colspan="2" align="center">
+	  					[새로운 2차 비밀번호를 설정해주세요]
+	  					<br/>
+	  					<br/>10~15자의 영문 대/소문자,숫자 및 특수문자 조합<br/>특수문자 → !@#$%^&*()_+{}[]’”;:/?.>,<
+	  				</td>
+	  			</tr>
+	  			<tr> 
+		          <td colspan="2" height="40"></td>
+		        </tr>
+	  			<tr> 
+		          <td colspan="2" height="20"></td>
+		        </tr>
+				<tr>
+	  				<td width="120" class="2table_line_c"><img src="http://shop.adidas.co.kr/img/icon_07.gif" width="5" height="7" align="absmiddle">새 2차 비밀번호 입력</td>
+	  				<td class="2table_line">
+			  			<input type="password" id="PW" name="PW" style="ime-mode:disabled;" maxlength="15"/>  
+			 		</td>
+	  			</tr>
+	  			<tr> 
+		          <td colspan="2" height="20"></td>
+		        </tr>
+	  			<tr>
+	  				<td width="120" class="2table_line_c"><img src="http://shop.adidas.co.kr/img/icon_07.gif" width="5" height="7" align="absmiddle">새 2차 비밀번호 확인</td>
+	  				<td class="2table_line">
+			  			<input type="password" id="CHECK_PW" name="CHECK_PW" style="ime-mode:disabled;" maxlength="15"/> 
+			 		</td>
+	  			</tr>
+	  			<tr> 
+		          <td colspan="2" height="33"></td>
+		        </tr>
+				<tr>
+					<td align="center" colspan="2"> 
+						<a href="#"><img src="http://shop.adidas.co.kr/img/btn/btn_a_update_1.gif" alt="확인" onclick="javascript:fn_save()"/></a>
+					</td>
+				</tr>
+	  		</table>
+	  	</td>
+	  </tr>
+	 
+	</table>
+	
+</form>
+
+
+</body>
+</html>

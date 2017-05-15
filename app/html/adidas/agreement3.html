@@ -1,0 +1,1268 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어 회원가입</title>
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/adidas/leftmenu.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+	var execIng = false;
+	_TRK_PI="RGF";
+	//생일 입력 콤보 설정
+	now = new Date();
+	Y = now.getYear();
+	M = now.getMonth()+1;
+	D = now.getDate();
+	
+	
+	function makeSel(tgt,fr,to,def){
+	 var cnt=0;
+	 
+	 document.getElementById(tgt).options.length=0;
+	 
+	 var str = "";
+
+	 window.status = '선택';
+	  newItem = new Option(cnt);
+	  document.getElementById(tgt).options[cnt]  = newItem;
+	  document.getElementById(tgt).options[cnt].text = '선택';
+	  document.getElementById(tgt).options[cnt].value = '';
+	  document.getElementById(tgt).options[cnt].selected = true;
+	  cnt++;
+	  
+	 for(var i = fr ; i < to ; i++){
+		 if(i < 10){
+			 var k = '0' + i;
+			 window.status = k;
+			  newItem = new Option(cnt);
+			  document.getElementById(tgt).options[cnt]  = newItem;
+			  document.getElementById(tgt).options[cnt].text = k;
+			  document.getElementById(tgt).options[cnt].value = k;
+			  if(k == def) document.getElementById(tgt).options[cnt].selected = true;
+			  cnt++;
+		 }else{
+			  window.status = i;
+			  newItem = new Option(cnt);
+			  document.getElementById(tgt).options[cnt]  = newItem;
+			  document.getElementById(tgt).options[cnt].text = i;
+			  document.getElementById(tgt).options[cnt].value = i;
+			  if(i == def) document.getElementById(tgt).options[cnt].selected = true;
+			  cnt++;
+			 
+		 }
+	 }  
+	}
+	
+	window.onload = function(){
+		var memChe = $("D_MEM_NO").value;
+		if(memChe != null && memChe != ''){
+			$("D_COMMAND").value = '<%= Constant.CMD_UPDATE %>';
+			$("hpCheCnt").value = '1';
+		}
+		var memCheId = '<c:out value='${map.view.MEM_ID}'/>';
+		if(memCheId != null && memCheId != ''){
+			$("idCheCnt").value = '1';
+		}
+		var birthDay = '<%= strBirthData %>';
+		makeSel("s0" , 1900 , 2011 , '');
+		makeSel("s1" , 1 , 13 , '');
+		 
+		var tday = new Date(document.getElementById("s0").value,document.getElementById("s1").value,0);
+		 
+		document.getElementById("t").value = tday.getDate();
+		 
+		prtDM("s2div","s2",document.getElementById("t").value);
+		
+		var birth1 = birthDay.substr(0,4);
+		var birth2 = birthDay.substr(4,2);
+		var birth3 = birthDay.substr(6,2);
+		$("s0").value = birth1;
+		$("s1").value = birth2;
+		chk(birth1);
+		chk(birth2);
+		$("s2").value = birth3;
+		
+		var strNationalInfo = '<%= strNationalInfo %>';
+		if(strNationalInfo == '0'){
+			$("FOREIGN_YN").value = 'N';
+		}else if(strNationalInfo == '1'){
+			$("FOREIGN_YN").value = 'Y';
+		}
+		var strGender = '<%= strGender %>';
+		if(strGender == '2'){
+			$("GD").value = 'F';
+		}else if(strGender == '1'){
+			$("GD").value = 'M';
+		}
+		var mem_level_cd = '<c:out value='${map.view.MEM_LEVEL_CD}'/>';
+		if(mem_level_cd != null && mem_level_cd != ''){
+			//$("MEM_LEVEL_CD").value = mem_level_cd;
+		}
+		var mobl = '<c:out value='${param.MOBL}'/>';
+		if(mobl == null || mobl == ''){
+			var mobl = '<c:out value='${map.view.MOBL}'/>';
+		}
+		if(mobl != null && mobl != ''){
+			var mem_id = '<c:out value='${param.MEM_ID}'/>';
+			var mem_no = '<c:out value='${param.MEM_NO}'/>';
+			$("MOBL").value = mobl;
+			cutTelNo(mobl, 'moblno');
+		}
+		var telno = '<c:out value='${map.view.TELNO}'/>';
+		if(telno != null && telno != ''){
+			var telnumber = $("TELNO").value;
+			cutTelNo(telnumber, 'telno');
+		}
+		var email = '';
+		email = '<c:out value= '${ param.EMAIL }'/>';
+		if(email == null || email == ''){
+			email = '<c:out value= '${ map.view.EMAIL }'/>';
+		}
+		if(email != null && email != ''){
+			var email2 = email.split("@");
+			$("FIRST_EMAIL").value = email2[0];
+			$("LAST_EMAIL_IN").value = email2[1];
+			var sel = document.getElementById("LAST_EMAIL_SE");
+			var checkMail = true;
+			for ( var i = 0; i < sel.length; i++) {
+				if(sel[i].value == email2[1]){
+					emailSetting(email2[1]);
+					checkMail = false;
+					break;
+				} 
+			}
+			
+			if(checkMail) {
+				emailSetting('self');
+			}
+		}
+		//var scrtno = '<%= strVno %>';
+		//var scrtno2 = "******-*******";//scrtno.substr(0,4)+'**-*******';
+		//document.getElementById("NEWSCRTNO").innerHTML = scrtno2;
+		
+		
+	};
+	function chk(v){
+		 var tday = new Date(document.getElementById("s0").value,document.getElementById("s1").value,0);
+		 
+		 document.getElementById("t").value = tday.getDate();
+		 
+		 prtDM("s2div" , "s2" , document.getElementById("t").value);
+	}
+
+		function prtDM(seldiv , selbx , lastDate){
+		 var arr = new Array(lastDate);
+		 
+		 arr[0] = "<option value=\"\">선택</option>";
+		 for (var i=1; i<=lastDate; i++) {
+			 if(i < 10){
+				 var k = '0' + i;
+				 arr[i] = "<option value=\""+k+"\">" + k + "</option>";
+			 }else{
+			  arr[i] = "<option value=\""+i+"\">" + i + "</option>";
+				 
+			 }
+		 }
+		 
+		 document.getElementById(seldiv).innerHTML = "<select ID='"+selbx+"' NAME='"+selbx+"' style='width:88px;'>" + arr.join() + "</select> 일";
+		}
+	
+	//저장
+	function fn_save(){
+		if(execIng) {
+			alert("처리중입니다. 잠시만 기다려주세요.");
+			return;
+		}
+
+		var frm = document.frmDetail;
+		var cnt = 0;
+		var validator = new Validator("frmLog");
+
+		validator.addItem("MEM_ID", "Y:maxByteLength=100:Y:아이디:");
+		//validator.addItem("MEM_ID", "Y:alphanum:Y:아이디:");
+		validator.addItem("MEM_ID", "Y:minlength=1:Y:아이디:");
+		validator.addItem("FIRST_EMAIL", "Y:minlength=1:Y:이메일:");
+		validator.addItem("LAST_EMAIL_IN", "Y:minlength=1:Y:이메일:");
+		validator.addItem("FIRST_TEL_NO", "Y:minlength=2:Y:전화번호:");
+		validator.addItem("MIDDLE_TEL_NO", "Y:minlength=3:Y:전화번호:");
+		validator.addItem("MIDDLE_TEL_NO", "Y:figure:Y:전화번호:");
+		validator.addItem("LAST_TEL_NO", "Y:minlength=4:Y:전화번호:");
+		validator.addItem("LAST_TEL_NO", "Y:figure:Y:전화번호:");
+		if(!checkTelNo()){
+			alert("지역번호를 정확히 입력하세요.");
+			document.frmDetail.FIRST_TEL_NO.focus(); 
+			return;
+		}
+		for ( var i = 0; i < frm.TELECOMM_DIVI.length; i++) {
+			if(frm.TELECOMM_DIVI[i].checked){
+				cnt++;
+			}else{
+				cnt;
+			}
+		}
+		if(cnt < 1){
+			alert('통신사를 선택하여 주세요.');
+			document.frmDetail.TELECOMM_DIVI1.focus();
+			return;
+		}
+
+		cnt = 0;
+		for ( var i = 0; i < frm.SMRTPHN_YN.length; i++) {
+			if(frm.SMRTPHN_YN[i].checked){
+				cnt++;
+			}else{
+				cnt;
+			}
+		}
+		if(cnt < 1){
+			alert('스마트폰여부를 선택하여 주세요.');
+			document.frmDetail.SMRTPHN_Y.focus();
+			return;
+		}
+		
+		validator.addItem("FIRST_MOBL", "Y:minlength=1:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("MIDDLE_MOBL", "Y:minlength=3:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("MIDDLE_MOBL", "Y:figure:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("LAST_MOBL", "Y:minlength=4:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("LAST_MOBL", "Y:figure:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("FIRSTPOST", "Y:minlength=1:Y:우편번호:");
+		validator.addItem("DTL_ADDR", "Y:minlength=1:Y:상세주소:");
+		var sido = $("SIDO").value;
+		var gun = $("GUN").value;
+		var dong = $("DONG").value;
+		if(sido == null || dong == null || sido == '' || dong == ''){
+			alert('현재 사용되지 않는 우편번호를 사용하고 계십니다. 주소를 수정해 주세요.');
+			$("FIRSTPOST").value = '';
+			$("LASTPOST").value = '';
+			$("ADDR").value = '';
+			$("DTL_ADDR").value = '';
+			document.frmDetail.DTL_ADDR.focus();
+			return;
+		}
+		validator.addItem("RCMND_ID", "N:alphanum:Y:추천인 아이디:");
+		validator.addItem("RCMND_ID", "N:minlength=5:Y:추천인 아이디:");
+		if(!validator.validateForm()) {
+			return false;
+		}
+		
+		var idCnt = $("idCheCnt").value;
+		if(idCnt < 1 ){
+			alert('아이디 중복확인을 해야 합니다.');
+			document.frmDetail.MEM_ID.focus();
+			return;
+		}
+		var hpCnt = $("hpCheCnt").value;
+		if(hpCnt < 1 ){
+			alert('휴대폰번호 중복확인을 해야 합니다.');
+			document.frmDetail.FIRST_MOBL.focus();
+			return;
+		}
+		
+		if(checkPassWord() == false){ //비밀번호 체크
+			$("MEM_PW").value = '';
+            $("CHECK_MEM_PW").value = '';
+            document.frmDetail.MEM_PW.focus(); 
+			return false;
+		}
+		if(!checkEmail()){
+			alert("E-Mail형식을 확인 하세요."); 
+            $("FIRST_EMAIL").focus(); 
+            return;
+		}
+		var rcmnd_id = $("RCMND_ID").value;
+		var mem_id = $("MEM_ID").value;
+		if(rcmnd_id == mem_id){
+			alert("자신을 추천 할 수 없습니다.");
+			return;
+		}
+
+		if (jQuery("#RCMND_ID").val() != ""){
+			var rcmndIdCheCnt = jQuery("#rcmndIdCheCnt").val();
+			if(rcmndIdCheCnt < 1 ){
+				alert('추천인 아이디 확인을 해야 합니다.');
+				return;
+			}	
+		}
+		if($("s0").value == '' || $("s1").value == '' || $("s2").value == '') {
+			alert("생일을 올바르게 입력해주세요.");
+			$("s0").focus();
+			return;			
+		}
+		if(	
+			!(
+				($("s0").value != '' && $("s1").value != '' && $("s2").value != '') ||
+				($("s0").value == '' && $("s1").value == '' && $("s2").value == '')
+			)
+		) {
+			alert("생일을 올바르게 입력해주세요.");
+			$("s0").focus();
+			return;			
+		}
+		
+		subSave();
+
+		if(confirm("가입 하시겠습니까?")){
+			jQuery("#frmDetail").attr("method","post");
+			jQuery("#frmDetail").attr("action","PF0601004.action");
+			execIng = true;
+			jQuery("#frmDetail").submit();
+		}
+	}
+	
+	//아이디중복체크
+	function dbIdCheck(newMem_Id){
+		if(newMem_Id == null || newMem_Id == ''){
+			var validator = new Validator("frmLog");
+			validator.addItem("MEM_ID", "Y:maxByteLength=100:Y:아이디:");
+			validator.addItem("MEM_ID", "Y:alphanum:Y:아이디:");
+			validator.addItem("MEM_ID", "Y:minlength=6:Y:아이디:");
+			if(!validator.validateForm()) {
+				return false;
+			}
+			if(checkID() == false){
+				alert('아이디는 영문소문자, 숫자포함 6~15자 사용가능합니다.');
+				return;
+			}
+			var mem_id = $("MEM_ID").value;
+		}else{
+			var mem_id = newMem_Id;
+		}
+		var url = "/PF0601004.action?command=idCheck&MEM_ID="+mem_id+"&SITE_CD=1";
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+
+			JsonUtil.alert(json);
+
+			if(JsonUtil.isError(json)){
+				var idCheckMan = json.idCheck;
+				if(idCheckMan < 1){
+					//사용가능 아이디 일 경우
+					idCheckOkPop(mem_id);
+				}else{
+					//사용불가능 아이디일 경우
+					$("MEM_ID").value = '';
+					idCheckNoPop(mem_id);
+					return;
+				}
+			}
+		};
+		var onFailure = function(){
+			alert('<%= MessageHandler.get("update.error")%>');
+		};
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+		
+	}
+	
+	//추천인 아이디 확인
+	function rcmndIdChk(chkMemId) {
+	
+		var mem_id = "";
+		if (chkMemId == null || chkMemId == ""){
+			mem_id = jQuery("#RCMND_ID").val();
+			
+			if (mem_id == null || mem_id == ""){
+				alert("추천인 아이디를 입력해 주세요");
+				return;
+			}
+		}else{
+			mem_id = chkMemId;
+		}
+		
+		var url = "/PF0601004.action?command=idCheck&MEM_ID="+mem_id+"&SITE_CD=1";
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+
+			JsonUtil.alert(json);
+
+			if(JsonUtil.isError(json)){
+				var idCheckMan = json.idCheck;
+				if(idCheckMan < 1){
+					
+					// 추천 가능 아이디일 경우
+					jQuery("#RCMND_ID").val("");
+					rcmndIdCheckNoPop(mem_id);
+					return;
+					
+				}else{
+					//추천 불가 아이디 일 경우
+					rcmndIdCheckOkPop(mem_id);
+				}
+			}
+		};
+		var onFailure = function(){
+			alert('<%= MessageHandler.get("update.error")%>');
+		};
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+		
+	}
+	
+	//핸드폰 번호 중복체크
+	function dbHpCheck(){
+		var validator = new Validator("frmLog");
+		validator.addItem("FIRST_MOBL", "Y:minlength=1:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("MIDDLE_MOBL", "Y:minlength=3:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("MIDDLE_MOBL", "Y:figure:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("LAST_MOBL", "Y:minlength=4:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		validator.addItem("LAST_MOBL", "Y:figure:Y:아디클럽 1차 회원인지 확인하기 위한 절차이므로 휴대폰번호:");
+		if(!validator.validateForm()) {
+			return false;
+		}
+		var cnt = $("hpCheCnt").value;
+		$("hpCheCnt").value = Number(cnt)+1;
+			
+		//휴대폰번호
+		var first_mobl = $("FIRST_MOBL").value;
+		var middle_mobl = $("MIDDLE_MOBL").value;
+		var last_mobl = $("LAST_MOBL").value;
+		$("MOBL").value = first_mobl + middle_mobl + last_mobl;
+		var mobl = $("MOBL").value;
+		var sameMobl = $("OLD_MOBL").value;
+		
+		if(mobl == sameMobl){
+			hpCheckNoPop(mobl, 'newHp');
+			return;
+		}
+		
+		var oldMobl = '<c:out value='${param.MOBL}'/>';
+		var url = "/PF0601004.action?command=hpCheck&MOBL="+mobl+"&SITE_CD=1";
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+
+			JsonUtil.alert(json);
+
+			if(JsonUtil.isError(json)){
+				var hpCheckMan = json.hpCheck;
+				if(hpCheckMan == 'newHP'){     //중복안된 휴대폰번호인 경우
+					hpCheckNoPop(mobl, 'newHp');
+				}else{      				   //중복된 휴대폰번호일 경우
+					if(hpCheckMan == 'firstHP'){//1회원임 확인. 임시번호 팝업 띄움.
+						if(oldMobl != null && oldMobl != ''){
+							if(oldMobl == mobl){
+								hpCheckNoPop(mobl, 'newHp');
+							}else{
+								$("FIRST_MOBL").value = '';
+								$("MIDDLE_MOBL").value = '';
+								$("LAST_MOBL").value = '';
+								hpCheckNoPop(mobl, 'oldHp');
+							}
+						}else{
+							if($("CHECK_MOBL").value == $("MOBL").value){
+								hpCheckNoPop(mobl, 'newHp');
+							}else{
+								$("FIRST_MOBL").value = '';
+								$("MIDDLE_MOBL").value = '';
+								$("LAST_MOBL").value = '';
+								hpCheckSgupPop(mobl);
+							}
+							return;
+						}
+					}else if('falseHP'){        //2회원 또는 웹가입자 휴대폰번호 확인. 사용불가 휴대폰번호 팝업 띄움
+						if(oldMobl == mobl){
+							hpCheckNoPop(mobl, 'newHp');
+						}else{
+							$("FIRST_MOBL").value = '';
+							$("MIDDLE_MOBL").value = '';
+							$("LAST_MOBL").value = '';
+							hpCheckNoPop(mobl, 'oldHp');
+						}
+						return;
+					}
+				}
+			}
+		};
+		var onFailure = function(){
+			alert('<%= MessageHandler.get("update.error")%>');
+		};
+		cfn_ajaxRequest(url, null, onSuccess, onFailure);
+		
+	}
+	//비밀번호 체크
+	function checkPassWord(){
+		var passWord = $("MEM_PW").value;
+		var passWordCh = $("CHECK_MEM_PW").value;
+		var id = $("MEM_ID").value;
+		
+		var chk_num = passWord.search(/[0-9]/g); 
+        var chk_eng = passWord.search(/[a-z]/ig); 
+		
+        var isStr = /^[a-zA-Z0-9]{6,15}$/;
+        if(passWord != passWordCh){
+        	alert('비밀번호를 확인 하십시요.');
+        	return false;
+        }
+        if(!isStr.test(passWord) || chk_num < 0 || chk_eng < 0){
+            alert('비밀번호는 6~15자리의 영문과 숫자의 조합만 가능합니다.(4자리 이상 반복되는 문구와 숫자는 사용 불가합니다.)');
+            return false;
+        }
+        if(/(\w)\1\1\1/.test(passWord)){
+            alert('비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.'); 
+            return false;
+        }
+        if(id == passWord){
+        	alert('비밀번호와 아이디는 같을 수 없습니다.');
+            return false;
+        }
+	}
+	//아이디 체크
+	function checkID(){
+		var mem_id = $("MEM_ID").value;
+		
+		var isStr = /^[a-z0-9]{6,16}$/;
+		var chk_eng = mem_id.search(/[a-z]/ig); 
+		
+		if(!isStr.test(mem_id) || chk_eng < 0){
+			return false;
+		}
+		return true;
+	}
+	//E-Mail 체크
+	function checkEmail(){
+		var obj1 = $("FIRST_EMAIL").value;
+        var obj2 = $("LAST_EMAIL_IN").value;
+		var str = obj1+"@"+obj2;
+	    var reg = /^((\w|[\-\.])+)@((\w|[\-\.][^(\.)\1])+)\.([A-Za-z]+)$/;
+	    if (str.search(reg) != -1) {
+	        return true;
+	    }
+		return false;
+	}
+	
+	//E-Mail 설정 
+	function emailSetting(emailval){
+		var last_email_in = document.frmDetail.LAST_EMAIL_IN;
+		if(emailval != 'self'){
+			jQuery("#LAST_EMAIL_IN").hide();
+			last_email_in.value = emailval;
+			document.frmDetail.LAST_EMAIL_IN.value = emailval;
+			document.frmDetail.LAST_EMAIL_SE.value = emailval;
+		}else if(emailval == 'self'){
+			jQuery("#LAST_EMAIL_IN").show();
+			$("LAST_EMAIL_SE").value = 'self';
+		}
+	}
+	//우편번호 팝업
+	function fn_pop(){
+		var url = "/PF0601006.action?func=fn_return_zipaddr";
+		var width = "480";
+		var height = "550";
+	
+		var asppop = cfn_openPop2(url, "popup", width, height);
+		asppop.focus();
+	//window.open('/PF0601006.action','popup','width=480,height=550,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+	}
+	//우편번호 셋팅
+	function fn_return_zipaddr(firstpost,lastpost,addr,sido,gun,dong,delvya, basic_addr, dtl_addr, num_bldg, nm_doro) {
+		//var addrPlus = sido+' '+gun+' '+dong;
+		$("FIRSTPOST").value = firstpost;
+		$("LASTPOST").value = lastpost;
+		$("ADDR").value = basic_addr;
+		$("DTL_ADDR").value = dtl_addr;
+		$("SIDO").value = sido;
+		$("GUN").value = gun;
+		$("DONG").value = dong;
+		$("NUM_BLDG").value = num_bldg;
+		$("NM_DORO").value = nm_doro;
+		$("DTL_ADDR").select();
+	}
+	
+	//띄어쓰기 금지
+	function KeyDown(gubn){
+	    if(event.keyCode == 32){ 
+			return false;
+	    }
+	    if(gubn == 'readOnly'){
+	    	if(event.keyCode == 8){ 
+				return false;
+		    }
+	    }
+	}
+	
+	//휴대폰번호 중복횟수 클릭 수
+	function KeyDown2(){
+	    $("hpCheCnt").value = 0;
+	}
+	function KeyDown3(){
+		$("idCheCnt").value = 0;
+	}
+	
+	
+	function KeyDown4(){
+		jQuery("#rcmndIdCheCnt").val(0);
+	}
+	
+	
+	function KeyUp(){
+		if (jQuery("#RCMND_ID").val() != "" ){
+			jQuery("#rcmnd_id_chk").show();
+		}else{
+			jQuery("#rcmnd_id_chk").hide();
+		}
+	}
+	
+	//문자 합침
+	function subSave(){
+		//우편번호
+		var firstpost = $("FIRSTPOST").value;
+		var lastpost = $("LASTPOST").value;
+		$("POST_NO").value = firstpost + lastpost;
+		//이메일
+		var first_email = $("FIRST_EMAIL").value;
+		var last_email = $("LAST_EMAIL_IN").value;
+		$("EMAIL").value = first_email + '@' + last_email;
+		//전화번호
+		var first_tel_no = $("FIRST_TEL_NO").value;
+		var middle_tel_no = $("MIDDLE_TEL_NO").value;
+		var last_tel_no = $("LAST_TEL_NO").value;
+		$("TELNO").value = first_tel_no + middle_tel_no + last_tel_no;
+		$("TEL_NO").value = first_tel_no + middle_tel_no + last_tel_no;
+		//휴대폰번호
+		var first_mobl = $("FIRST_MOBL").value;
+		var middle_mobl = $("MIDDLE_MOBL").value;
+		var last_mobl = $("LAST_MOBL").value;
+		$("MOBL").value = first_mobl + middle_mobl + last_mobl;
+		$("MOBL_NO").value = first_mobl + middle_mobl + last_mobl;
+		//생일
+		var s0 = $("s0").value;
+		var s1 = $("s1").value;
+		var s2 = $("s2").value;
+		$("BRTHDY").value = s0 + s1 + s2;
+		$("REG_ID").value = $("MEM_ID").value;
+		
+		var yearDate = '<%= DateUtil.getYear() %>';
+		var age = '';
+		if(s0 != '') {	
+			age = yearDate - s0 + 1;
+		}
+		$("AGE").value = age; 
+	}
+	
+	//아이디 사용가능팝업
+	function idCheckOkPop(mem_id){
+		var popup = window.open('/PF0601009.action?MEM_ID='+mem_id,'idCheckOkPop','width=480,height=235,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	//아이디 사용불가능팝업
+	function idCheckNoPop(mem_id){
+		var popup = window.open('/PF06010010.action?MEM_ID='+mem_id,'idCheckOkPop','width=480,height=235,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	
+	//아이디 사용가능팝업
+	function rcmndIdCheckOkPop(mem_id){
+		var popup = window.open('/RcmndIdCheckOkPop.action?MEM_ID='+mem_id,'idCheckOkPop','width=480,height=235,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	//아이디 사용불가능팝업
+	function rcmndIdCheckNoPop(mem_id){
+		var popup = window.open('/RcmndIdCheckNoPop.action?MEM_ID='+mem_id,'idCheckOkPop','width=480,height=235,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	
+	//아이디값 세팅
+	function getParents(mem_id){
+		var cnt = $("idCheCnt").value;
+		$("idCheCnt").value = Number(cnt)+1;
+		$("MEM_ID").value = mem_id;
+	}
+	
+	//아이디값 세팅
+	function setRcmndIdParents(mem_id){
+		var cnt = jQuery("#rcmndIdCheCnt").val();
+		jQuery("#rcmndIdCheCnt").val(Number(cnt)+1);
+		jQuery("#RCMND_ID").val(mem_id);
+	}
+	
+	//휴대폰번호 팝업
+	function hpCheckNoPop(mobl, gubn){
+		var popup = window.open('/PF06010012.action?GUBN='+gubn,'hpCheckOkPop','width=480,height=235,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	//1차회원 로그인 팝업
+	function hpCheckSgupPop(mobl){
+		var popup = window.open('/PF06010011.action?MOBL='+mobl,'hpCheckOkPop','width=480,height=355,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+		popup.focus();
+	}
+	//1차회원가입시 핸드폰번호 셋팅,등급설정
+	function setMobl(mobl, mem_id, mem_no, email){
+		if(email != null && email != ''){
+			var email2 = email.split("@");
+			$("FIRST_EMAIL").value = email2[0];
+			$("LAST_EMAIL_IN").value = email2[1];
+			var sel = document.getElementById("LAST_EMAIL_SE");
+			var checkMail = true;
+			for ( var i = 0; i < sel.length; i++) {
+				if(sel[i].value == email2[1]){
+					emailSetting(email2[1]);
+					checkMail = false;
+					break;
+				} 
+			}
+			
+			if(checkMail) {
+				emailSetting('self');
+			}
+		}
+		$("CHECK_MOBL").value = mobl;
+		var mobl = $("MOBL").value;
+		if(mobl != null && mobl != ''){
+			cutTelNo(mobl, 'moblno');
+		}
+		//등급 bronze
+		$("D_MEM_ID").value = mem_id;
+		$("D_MEM_NO").value = mem_no;
+		$("D_COMMAND").value = '<%= Constant.CMD_UPDATE %>';
+		$("hpCheCnt").value = '1';
+	}
+	//maxlength 만큼 옮기면 다음으로 이동하기....
+	function nextFocus(sFormName,sNow,sNext){
+		var sForm = 'document.'+ sFormName +'.';
+		var oNow = eval(sForm + sNow);
+	
+		if (typeof oNow == 'object'){
+			if ( oNow.value.length == oNow.maxLength){
+				var oNext = eval(sForm + sNext);
+	
+				if ((typeof oNext) == 'object')
+					oNext.focus();
+			}
+		}
+	}
+	
+	document.onkeydown=checkKey;
+
+	 // back-space 누를 때 
+	function checkKey(){
+		if(window.event.keyCode == 8){
+		 	if(!window.event.srcElement.isTextEdit){// TextEdit가 아니면 작동하지 않도록
+			   	window.event.returnValue = false;
+			   	return;
+	 		}else if(window.event.srcElement.readOnly || window.event.srcElement.disabled){// readOnly나 disabled인 경우 작동하지 않도록
+			    window.event.returnValue = false;
+			    return;
+			}
+		}
+	event.returnValue = true;
+	}
+	
+	//전화번호 체크 펑션
+	function checkTelNo(){
+		var firstTelno = $("FIRST_TEL_NO").value;
+		  tel1 = "";
+		  tel2 = "";
+		  
+		for (ia=0; ia<localNum.length; ia++) {  // 앞에 두 자리(ex.02) 가운데 지역번호 유효성 검사
+			if (firstTelno == localNum[ia]) {
+				return true;
+			}
+		}
+		return false;
+	}
+	//전화번호 자르기
+	function cutTelNo(telnumber, gubn){
+		var tel1 = "";
+		var tel2 = "";
+		var tel3 = "";
+		for (ia=0; ia<localNum.length; ia++) {
+			   
+			if(telnumber.indexOf(localNum[ia]) == 0){
+				tel1 = localNum[ia];
+				tel2 = telnumber.substring(tel1.length, telnumber.length - 4);
+				tel3 = telnumber.substring(telnumber.length - 4, telnumber.length);
+				break;
+			}
+		}
+		if(gubn == 'telno'){
+			$("FIRST_TEL_NO").value = tel1;
+			$("MIDDLE_TEL_NO").value = tel2;
+			$("LAST_TEL_NO").value = tel3;
+		}else{
+			$("FIRST_MOBL").value = tel1;
+			$("MIDDLE_MOBL").value = tel2;
+			$("LAST_MOBL").value = tel3;
+		}
+	}
+	
+	//키이벤트 숫자만 입력받기
+	function numbersonly(e, decimal) { 
+	    var key; 
+	    var keychar; 
+
+	    if (window.event) { 
+	       // IE에서 이벤트를 확인하기 위한 설정 
+	        key = window.event.keyCode; 
+	    } else if (e) { 
+	      // FireFox에서 이벤트를 확인하기 위한 설정 
+	        key = e.which; 
+	    } else { 
+	        return true; 
+	    } 
+
+	    keychar = String.fromCharCode(key); 
+	    if ((key == null) || (key == 0) || (key == 8) || (key == 9) || (key == 13) 
+	            || (key == 27)) { 
+	        return true; 
+	    } else if ((("0123456789").indexOf(keychar) > -1)) { 
+	        return true; 
+	    } else if (decimal && (keychar == ".")) { 
+	        return true; 
+	    } else 
+	        return false; 
+	}
+/* ]]> */
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	_TRK_CP="^Home^회원가입^정보입력"; 
+
+	//기타 선택시
+	jQuery("#OTHERS1, #OTHERS2").click(function(){
+		if(jQuery(this).attr("checked")){
+			jQuery(this).next().next().show();							
+		}else{
+			jQuery(this).next().next().hide();	
+		}
+	});
+</script>
+<div id="wrap">
+	<!-- header -->
+	<s:action name="frontTop" executeResult="true"/>	
+	<!-- /header -->
+		
+	<!-- container -->
+	<div id="container_r" class="white">
+		<!-- contents -->
+		<div id="contents_r">
+			<div class="location_r">
+				<div class="go_back spt_bg"><a href="javascript:history.back();">Back</a></div>
+				<span><a href="javascript:fn_main();">Home</a></span>
+				<span class="ico"></span>
+				<span>회원가입</span>
+				<span class="ico"></span>
+				<span>정보입력</span>
+			</div>
+			<!-- customer -->
+			<div class="title_area">
+				<h2><img src="/images/adidas/customer/tit_memJoin.gif" alt="회원가입" /><span>온라인 스토어에 오신것을 환영합니다!!</span></h2>
+
+				<div class="step">
+					<ul>
+						<li><img src="/images/adidas/customer/step_Join01-1_off.gif" alt="약관동의" /></li>
+						<li><img src="/images/adidas/customer/step_Join02_on.gif" alt="정보입력" /></li>
+						<li><img src="/images/adidas/customer/step_Join03_off.gif" alt="가입완료" /></li>
+					</ul>
+				</div> 
+			</div>
+				<!-- 중복체크 숫자 -->
+				<input type="hidden" id="idCheCnt" name="idCheCnt" value="0"/>
+				<input type="hidden" id="hpCheCnt" name="HpCheCnt" value="0"/>
+				<input type="hidden" id="rcmndIdCheCnt" name="rcmndIdCheCnt" value="0"/>
+				<input type="hidden" id="CHECK_MOBL" name="CHECK_MOBL" value=""/>
+			<form action="" id="frmDetail" name="frmDetail">
+			
+				<!-- 회원정보 저장 -->
+				<input type="hidden" id="D_COMMAND" name="command" value=""/>
+				<input type="hidden" id="POST_NO" name="POST_NO" value=""/>
+				<input type="hidden" id="MAKE_SITE_CD" name="MAKE_SITE_CD" value="001"/><!-- MEM_NO를 만들기 위함 -->
+				<input type="hidden" id="EMAIL" name="EMAIL" value=""/>
+				<input type="hidden" id="TELNO" name="TELNO" value="${ map.view.TELNO }"/>
+				<input type="hidden" id="BRTHDY" name="BRTHDY" value=""/>
+				<input type="hidden" id="AGE" name="AGE" value=""/>
+				<input type="hidden" id="MOBL" name="MOBL" value=""/>
+				<input type="hidden" id="OLD_MOBL" name="OLD_MOBL" value="${ param.MOBL }"/>
+				<input type="hidden" id="SGNUP_DIVI" name="SGNUP_DIVI" value=""/>
+				<input type="hidden" id="SITE_CD" name="SITE_CD" value="1"/>
+				<input type="hidden" id="CRT_DIVI" name="CRT_DIVI" value="${param.CRT_DIVI}"/>
+				<input type="hidden" id="MEM_ST" name="MEM_ST" value="01"/>
+				<input type="hidden" id="ADI_MEM_NO" name="ADI_MEM_NO" value=""/>
+				<input type="hidden" id="LINK_CMPY_CD" name="LINK_CMPY_CD" value="01"/>
+				<input type="hidden" id="FOREIGN_YN" name="FOREIGN_YN" value="${param.FOREIGN_YN}"/>
+				<input type="hidden" id="GD" name="GD" value="${ param.GD }"/>
+				<input type="hidden" id="USER_INFO" name="USER_INFO" value=""/>
+				<input type="hidden" id="CI_INFO" name="CI_INFO" value=""/>
+				<input type="hidden" name="D_MEM_ID" id="D_MEM_ID" value=""/>    <!-- 1차, 2차회원가입시만 사용 -->
+				<!-- 배송지 저장 -->
+				<input type="hidden" name="D_MEM_NO" id="D_MEM_NO" value="${ param.MEM_NO }"/>    <!-- 1차, 2차회원가입시만 사용 -->
+				<input type="hidden" name="DLIVY_PL_NM" id="DLIVY_PL_NM" value="우리집"/>
+				<input type="hidden" name="SIDO" id="SIDO" value="${ map.view.SIDO }"/>
+				<input type="hidden" name="GUN" id="GUN" value="${ map.view.GUN }"/>
+				<input type="hidden" name="DONG" id="DONG" value="${ map.view.DONG }"/>
+				<input type="hidden" name="NM_DORO" id="NM_DORO" value="${ map.view.NM_DORO }"/>
+				<input type="hidden" name="NUM_BLDG" id="NUM_BLDG" value="${ map.view.NUM_BLDG }"/>
+				<input type="hidden" name="BASIC_DLIVY_PL_YN" id="BASIC_DLIVY_PL_YN" value="Y"/>
+				<input type="hidden" name="RCIVR" id="RCIVR" value=""/>
+				<input type="hidden" name="TEL_NO" id="TEL_NO" value=""/>
+				<input type="hidden" name="MOBL_NO" id="MOBL_NO" value=""/>
+				<input type="hidden" name="REG_ID" id="REG_ID" value=""/>
+				<input type="hidden" name="enc_data" value=""/>
+				<input type="hidden" id="SCRTNO" name="SCRTNO" value=""/>
+				
+				<!-- 회원등급 저장 -->
+				<input type="hidden" name="CHANGE_BF_MEM_LEVEL" id="CHANGE_BF_MEM_LEVEL" value=""/>
+				
+				<div class="contents_area">
+				 
+				 
+					<h3><img src="/images/adidas/customer/tit_s_memInput03.gif" alt="정보입력" /></h3>
+					
+					<div class="MemberIn">
+						<span>회원님의 개인정보를 신중히 취급하며, 회원님의 동의 없이 정보가 공개되지 않습니다.</span><br />
+						<span>아디다스 공식 온라인 스토어에 회원가입 하시면 동시에 아디클럽 회원으로 자동가입 됩니다. &nbsp;회원가입을 완료하시면 아디클럽 회원증을 가입하신 핸드폰으로 발송해 드립니다.</span><br />
+						<span>발송해드린 회원증을 다운로드 하신 후 매장에서 상품구매시 제시하시면 포인트가 자동 적립됩니다.</span><br />
+						<span><em><img src="/images/adidas/customer/blt_check_t.gif" alt="필수" /></em>표시는 필수 입력사항입니다. 반드시 입력해주세요.</span>
+					</div>
+					
+					<table class="mwrite" summary="정보입력">
+					<caption>정보입력aption>  
+					<colgroup>
+						<col width="160px" />
+						<col />
+					<colgroup>
+					<tbody>
+					<tr>
+						<th scope="row"><em>이름</em></th>
+						<td class="text">
+							김기백
+							<input type="hidden" id="MEM_NM" name="MEM_NM" value="김기백"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="MEM_ID">아이디</label></span></th>
+						<td class="last">
+								<input type="text" id="MEM_ID" name="MEM_ID" style="width:118px;ime-mode:disabled;" maxlength="15" onkeypress="return KeyDown()" onkeydown="KeyDown3();"/>
+								<span class="mm1"></span>
+								<a href="#" onclick="dbIdCheck();return false" title="새창"><img src="/images/adidas/customer/btn_overlapok.gif" alt="중복확인"/></a> 
+								<span>아이디는 띄어쓰기 없는 <em>영문소문자, 숫자포함 6~15자 사용가능</em>합니다.</span> 															
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="MEM_PW">비밀번호</label></span></th>
+						<td class="last">
+							<input type="password" id="MEM_PW" name="MEM_PW" style="width:118px;ime-mode:disabled;" onkeypress="return KeyDown()" maxlength="15" value="${ map.MEM_PW }"/> 
+							<span>비밀번호는 <em>6~15자리의 영문과 숫자의 조합만 가능</em>합니다.&nbsp;(4자리 이상 반복되는 문구와 숫자는 사용 불가합니다.)</span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="CHECK_MEM_PW">비밀번호 확인</label></span></th>
+						<td class="last">
+							<input type="password" id="CHECK_MEM_PW" name="CHECK_MEM_PW" onkeypress="return KeyDown()" style="width:118px; ime-mode:disabled;" maxlength="15" value="${ map.MEM_PW }"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="FIRST_EMAIL">이메일 주소</label></span></th>
+						<td class="last">
+							<input type="text" id="FIRST_EMAIL" name="FIRST_EMAIL" maxlength="20" style="width:118px;ime-mode:disabled;"/> 
+							<span class="mm1">@</span> 
+							<label for="LAST_EMAIL_IN" class="blind">이메일 도메인 직접입력</label>
+							<input type="text" title="이메일 도메인 직접입력" id="LAST_EMAIL_IN" name="LAST_EMAIL_IN" maxlength="20" style="width:118px;ime-mode:disabled;" />
+							<label for="LAST_EMAIL_SE" class="blind">이메일 도메인 선택</label>
+							<select name="LAST_EMAIL_SE" title="이메일 도메인 선택" id="LAST_EMAIL_SE" onchange="emailSetting(this.value)" style="width:115px;" >  
+								<option value="self" selected="selected">직접입력</option>
+								<option value="naver.com">naver.com</option>
+								<option value="hanmail.net">hanmail.net</option>
+								<option value="hotmail.com">hotmail.com</option>
+								<option value="nate.com">nate.com</option>
+								<option value="yahoo.co.kr">yahoo.co.kr</option>
+								<option value="empas.com">empas.com</option>
+								<option value="dreamwiz.com">dreamwiz.com</option>
+								<option value="freechal.com">freechal.com</option>
+								<option value="lycos.co.kr">lycos.co.kr</option>
+								<option value="korea.com">korea.com</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="hanmir.com">hanmir.com</option>
+								<option value="paran.com">paran.com</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><em>이메일 수신여부</em></th>
+						<td class="last2"> 
+							<input name="EMAIL_RET_YN" id="EMAIL_RET_YN1" type="radio" value="Y" class="radios" checked="checked"/>
+							<label for="EMAIL_RET_YN1">수신동의</label>
+							<input name="EMAIL_RET_YN" id="EMAIL_RET_YN2" type="radio" value="N" class="radios" checked="checked"/>
+							<label for="EMAIL_RET_YN2">수신하지 않음</label> 
+							<p class="txt1">이메일 수신동의를 하셔야 아디다스 공식 온라인 스토어의 여러가지 혜택과 각종 이벤트/기획전 등의 정보를 우선적으로 받아보실 수 있습니다.</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="FIRST_TEL_NO">전화번호</label></span></th>
+						<td class="last">
+							<input type="text" title="전화번호1" id="FIRST_TEL_NO" name="FIRST_TEL_NO" style="width:88px;ime-mode:disabled;" maxlength="4" onkeypress="return numbersonly(event, false)" onkeyup="nextFocus('frmDetail','FIRST_TEL_NO','MIDDLE_TEL_NO')" />
+							<span class="mm1">-</span>
+							<label for="MIDDLE_TEL_NO" class="blind">전화번호2</label>
+							<input type="text" title="전화번호2" id="MIDDLE_TEL_NO" name="MIDDLE_TEL_NO" style="width:88px;ime-mode:disabled;" maxlength="4" onkeypress="return numbersonly(event, false)" onkeyup="nextFocus('frmDetail','MIDDLE_TEL_NO','LAST_TEL_NO')" />
+							<span class="mm1">-</span>
+							<label for="LAST_TEL_NO" class="blind">전화번호3</label> 
+							<input type="text" title="전화번호3" id="LAST_TEL_NO" name="LAST_TEL_NO" style="width:88px;ime-mode:disabled;" maxlength="4" onkeypress="return numbersonly(event, false)"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="FIRST_MOBL">휴대폰번호</label></span></th>
+						<td class="last2"> 
+							<input title="SKT" name="TELECOMM_DIVI" id="TELECOMM_DIVI1" type="radio" value="SKT" class="radios" checked="checked"/><label for="TELECOMM_DIVI1">SKT</label>
+							<input title="KT" name="TELECOMM_DIVI" id="TELECOMM_DIVI2" type="radio" value="KT" class="radios" checked="checked"/><label for="TELECOMM_DIVI2">KT</label>
+							<input title="LG U+" name="TELECOMM_DIVI" id="TELECOMM_DIVI3" type="radio" value="LG U+" class="radios" checked="checked"/><label for="TELECOMM_DIVI3">LG U+</label>
+							<!-- 141106 군장병 휴대전화 선택폼 -->
+							<input title="LG U+" name="TELECOMM_DIVI" id="TELECOMM_DIVI3" type="radio" value="LG U+" class="radios" checked="checked"/><label for="TELECOMM_DIVI3" style="color:#2f2e2e;font-weight:bold;font-family:'Dotum';">휴대폰 없음(군 장병만 선택 가능)</label>
+
+							<span class="line"></span>
+							<select id="FIRST_MOBL" name="FIRST_MOBL" style="width:88px;" title="휴대폰번호1">
+								<option value="" selected="selected">선택</option>      
+								<option value="010">010</option>
+								<option value="011">011</option>
+								<option value="016">016</option>
+								<option value="017">017</option>
+								<option value="018">018</option>
+								<option value="019">019</option>
+							</select> <span class="mm1">-</span>
+							<label for="MIDDLE_MOBL" class="blind">휴대폰번호2</label> 
+							<input type="text" title="휴대폰번호2" id="MIDDLE_MOBL" name="MIDDLE_MOBL" style="width:88px;ime-mode:disabled;" maxlength="4" onkeypress="return KeyDown('readOnly')" onkeydown="KeyDown2();" onkeyup="nextFocus('frmDetail','MIDDLE_MOBL','LAST_MOBL')"/> 
+							<span class="mm1">-</span> 
+							<label for="LAST_MOBL" class="blind">휴대폰번호3</label> 
+							<input type="text" title="휴대폰번호3" id="LAST_MOBL" name="LAST_MOBL" style="width:88px;ime-mode:disabled;" maxlength="4" onkeypress="return KeyDown('readOnly')" onkeydown="KeyDown2();"/>
+							<span class="mm1"></span>
+							<a href="#" onclick="dbHpCheck();return false" title="새창"><img src="/images/adidas/customer/btn_overlapok.gif" alt="중복확인"/></a>
+							<br />
+							<p class="txt2">아디클럽 모바일 멤버십 카드 전송을 위해 스마트폰 여부를 확인해주십시오.<br />회원님의 휴대폰은 스마트폰입니까?&nbsp;(블랙베리 사용자는 “아니요”를 체크해주세요)&nbsp;<span class="mir"></span>
+							<input name="SMRTPHN_YN" id="SMRTPHN_Y" type="radio" value="Y" class="radios" checked="checked"/><label for="SMRTPHN_Y">예</label>
+							<input name="SMRTPHN_YN" id="SMRTPHN_N" type="radio" value="N" class="radios" checked="checked"/><label for="SMRTPHN_N">아니요</label></p>
+							<p class="txt2">이벤트와 혜택에 대한 소식 안내를 SMS로 받으시겠습니까?<span class="mir"></span>
+							<input name="SMS_RET_YN" id="SMS_RET_Y" type="radio" value="Y" class="radios" checked="checked"/><label for="SMS_RET_Y">예</label>
+							<input name="SMS_RET_YN" id="SMS_RET_N" type="radio" value="N" class="radios" checked="checked"/><label for="SMS_RET_N">아니요</label></p>
+							<p class="txt1">결제/배송/반품 등과 관련된 거래정보를 SMS로 받으시겠습니까?<span class="mir2"></span>
+							<input name="ORDER_SMS_YN" id="ORDER_SMS_Y" type="radio" value="Y" class="radios" checked="checked"/><label for="ORDER_SMS_Y">예</label>
+							<input name="ORDER_SMS_YN" id="ORDER_SMS_N" type="radio" value="N" class="radios" checked="checked"/><label for="ORDER_SMS_N">아니요</label></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><span><label for="DTL_ADDR">주소</label></span></th>
+						<td class="last2">
+							<p class="txt">구매하신 상품을 받으실 주소입니다.</p> 
+							<label for="FIRSTPOST" class="blind">우편번호1</label> 
+							<input title="우편번호1" type="text" name="FIRSTPOST" id="FIRSTPOST" style="width:88px;" readonly="readonly" onkeypress="return KeyDown('readOnly')" value="${ map.view.FIRSTPOST}"/><span class="mm1">-</span>
+							<label for="LASTPOST" class="blind">우편번호2</label>  
+							<input title="우편번호2" type="text" name="LASTPOST" id="LASTPOST" style="width:88px;" readonly="readonly" onkeypress="return KeyDown('readOnly')" value="${ map.view.LASTPOST}"/><span class="mm1"></span>
+							<a href="#" onclick="javascript:fn_pop();return false" title="새창"><img src="/images/adidas/order/btn_zipcode.gif" alt="우편번호 찾기"/></a><br />
+							<label for="ADDR" class="blind">기본주소</label>
+							<input title="주소" type="text" name="ADDR" id="ADDR" value="${ map.view.ADDR}" class="addr" style="width:505px;" readonly="readonly" onkeypress="return KeyDown('readOnly')" /><br />
+							<input title="상세 주소" type="text" name="DTL_ADDR" id="DTL_ADDR" value="${ map.view.DTL_ADDR}" class="addr" style="width:505px;" maxlength="50"/><br />
+							<p class="txt2">이벤트와 혜택에 대한 소식 안내를 우편으로 받으시겠습니까?<span class="mir"></span></p>
+							<input name="POST_RET_YN" id="POST_RET_Y" type="radio" value="Y" class="radios" checked="checked"/><label for="POST_RET_Y">예</label>
+							<input name="POST_RET_YN" id="POST_RET_N" type="radio" value="N" class="radios" checked="checked"/><label for="POST_RET_N">아니요</label>
+						</td>
+					</tr>
+					<tr>
+				      <th scope="row"><span><label for="s0">생일</label></span></th>
+				            <td class="last2">
+				              <p class="txt birth">생일을 입력해 주시면 생일쿠폰 등 다양한 혜택을 받으실 수 있습니다.</p> 
+				                <select title="년" name="s0" id="s0" onchange="chk(this.value);" style="width:88px;"><option value="">선택</option></select> <span class="mm2">년</span>&nbsp; 
+				                <label for="s1" class="blind">월</label>
+				                <select title="월" name="s1" id="s1" onchange="chk(this.value);" style="width:88px;"><option value="">선택</option></select> <span class="mm2">월</span>
+	                            <label for="s2" class="blind">일</label>
+	                            <span title="일" id="s2div" class="mm2"><span class="mm2">일</span>&nbsp;</span><input type="hidden" name="t" id="t" size="3"/>
+				            </td>
+					</tr>
+					<tr>
+						<th scope="row"><em>관심분야(스포츠)</em></th>
+						<td class="last2">
+							<input type="checkbox" name="SOCCER" id="SOCCER" class="checkboxs" value="Y" checked="checked"/><label for="SOCCER">축구</label>	
+							<input type="checkbox" name="RUNNING" id="RUNNING"  class="checkboxs" value="Y" checked="checked"/><label for="RUNNING">러닝</label>	
+							<input type="checkbox" name="BASKETBALL" id="BASKETBALL" class="checkboxs" value="Y" checked="checked"/><label for="BASKETBALL">농구</label>	
+							<input type="checkbox" name="TENNIS" id="TENNIS" class="checkboxs" value="Y" checked="checked"/><label for="TENNIS">테니스</label>	
+							<input type="checkbox" name="OUTDOOR" id="OUTDOOR" class="checkboxs" value="Y" checked="checked"/><label for="OUTDOOR">아웃도어</label>	
+							<input type="checkbox" name="TRAINING" id="TRAINING" class="checkboxs" value="Y" checked="checked"/><label for="TRAINING">트레이닝 (짐 / 피트니스)</label>
+							<span class="line"></span>
+							<input type="checkbox" name="YOGA" id="YOGA" class="checkboxs" value="Y" checked="checked"/><label for="YOGA">요가</label>	
+							<input type="checkbox" name="GOLF" id="GOLF" class="checkboxs" value="Y" checked="checked"/><label for="GOLF">골프</label>	
+							<input type="checkbox" name="WINTER" id="WINTER" class="checkboxs" value="Y" checked="checked"/><label for="WINTER">윈터스포츠</label>	
+							<input type="checkbox" name="OTHERS1" id="OTHERS1" class="checkboxs2" value="Y" checked="checked"/><label for="OTHERS1" class="last">기타</label>
+							<label for="ETC1" class="blind">기타</label>
+							<input title="기타" type="text" name="ETC1" id="ETC1" style="width:88px;" value="격투기" maxlength="10"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row"><em>라이프스타일</em></th>
+						<td class="last">	
+							<input type="checkbox" name="MUSIC" id="MUSIC" class="checkboxs" value="Y" checked="checked"/><label for="MUSIC">뮤직</label>	
+							<input type="checkbox" name="DANCE" id="DANCE" class="checkboxs" value="Y" checked="checked"/><label for="DANCE">댄스</label>	
+							<input type="checkbox" name="FASHION" id="FASHION" class="checkboxs" value="Y" checked="checked"/><label for="FASHION">패션, 스타일</label>
+							<input type="checkbox" name="OTHERS2" id="OTHERS2" class="checkboxs" value="Y" checked="checked"/>
+							<label for="OTHERS2" class="last" >기타</label>
+							<label for="ETC2" class="blind">기타</label>
+							<input title="기타" type="text" name="ETC2" id="ETC2" style="width:88px;" value="격투기" maxlength="10"/>													
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row"><em><label for="SHOES_SIZE">사이즈</label></em></th>
+						<td class="last">
+							<ul>
+								<li class="tit"><label for="SHOES_SIZE" style="margin-right:0;">신발</label></li>
+								<li>
+									
+									<select id='SHOES_SIZE' name='SHOES_SIZE' size='' style='width:100px;'>
+										<option value=''>선택</option>
+									</select>
+								</li>
+								<li class="tit"><label for="TOP_SIZE" style="margin-right:0;">상의</label></li>
+								<li>
+									
+									<select id='TOP_SIZE' name='TOP_SIZE' size='' style='width:100px;'>
+										<option value=''>선택</option>									
+									</select>
+								</li>
+								<li class="tit"><label for="BOTTOM_SIZE" style="margin-right:0;">하의</label></li>
+								<li>
+
+									<select id='BOTTOM_SIZE' name='BOTTOM_SIZE' size='' style='width:100px;'>
+										<option value=''>선택</option>										
+									</select>
+								</li> 
+							</ul>	
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><em><label for="RCMND_ID">추천인 아이디</label></em></th>
+						<td class="last">
+							<input type="text" name="RCMND_ID" id="RCMND_ID" style="width:138px;ime-mode:disabled;" maxlength="15" onkeypress="return KeyDown()" onkeydown="KeyDown4();" onkeyup="return KeyUp();"/>
+							<a href="#" onclick="rcmndIdChk();return false"><img id="rcmnd_id_chk" src="/images/adidas/customer/btn_Joinok.gif" alt="확인" style="display:none" /></a> 
+						</td>
+					</tr>
+					</tbody>
+					</table>  
+
+<h3>
+	<img src="/images/adidas/customer/tit_s_memInput_army.gif" alt="국군장병 추가 입력사항" />
+	<!-- 141107 문구수정-->
+	<span>군장병 회원가입 진행을 위해 아래 2가지 항목의 입력 및 약관동의를 해주십시오.</span>
+</h3>				
+
+<!-- 141106 군장병 추가정보 입력 테이블 -->
+<table class="mwrite" summary="정보입력">
+	<caption>정보입력aption>  
+	<colgroup>
+		<col width="160px" />
+		<col />
+	<colgroup>
+	<tbody>
+		<tr>
+			<th scope="row"><span><label for="FIRST_TEL_NO">국방복지 멤버십카드</label></span></th>
+			<td class="last">
+				<input type="text" id="" name="" style="width:88px;ime-mode:disabled;">
+				<span class="mm1">-</span>
+				<input type="text" id="" name="" style="width:88px;ime-mode:disabled;">
+				<span class="mm1">-</span>
+				<input type="text" id="" name="" style="width:88px;ime-mode:disabled;">
+				<span class="mm1">-</span>
+				<input type="text" id="" name="" style="width:88px;ime-mode:disabled;">
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><span><label for="FIRST_TEL_NO">전역일 (예정일)</label></span></th>
+			<td class="last">
+				<ul>								
+					<li style="padding-right:8px">											
+						<select id='SHOES_SIZE' name='SHOES_SIZE' size='' style='width:100px;'>
+							<option value=''>선택</option>
+						</select>
+					</li>
+					<li class="tit" style="padding-right:0;color:#888;font-weight:normal;">년</li>
+					<li style="padding-right:8px">
+						
+						<select id='TOP_SIZE' name='TOP_SIZE' size='' style='width:100px;'>
+							<option value=''>선택</option>									
+						</select>
+					</li>
+					<li class="tit" style="padding-right:0;color:#888;font-weight:normal;">월</li>
+					<li style="padding-right:8px">
+
+						<select id='BOTTOM_SIZE' name='BOTTOM_SIZE' size='' style='width:100px;'>
+							<option value=''>선택</option>										
+						</select>
+					</li> 
+					<li class="tit" style="padding-right:0;color:#888;font-weight:normal;">일</li>
+				</ul>	
+			</td>
+		</tr>
+		<!-- 141107 동의내용 추가-->
+		<tr>
+			<th scope="row"><span><label for="FIRST_TEL_NO">추가 약관 동의</label></span></th>
+			<td class="last" style="padding:15px 0 15px 22px;">
+				<dl style="margin-bottom:16px;">
+					<dt style="color:#888;font-weight:bold;">추가 개인정보 수집 및 이용동의</dt>
+					<dd>
+						<p style="margin-bottom:5px;color:#aaa;line-height:15px;">국군장병 확인 및 특별혜택 제공기간을 확인하기 위하여 국방복지멤버십카드번호 및 전역일을 수집하고 있으며<br/>전역일로부터 3개월이 경과하면 해당 정보들은 자동 파기됩니다</p>
+						<p>
+							<input type="checkbox" id="army_agr1_y"/>
+							<label for="army_agr1_y" style="color:#888;font-family:'Dotum';">동의함</label>
+							<input type="checkbox" id="army_agr1_n"/>
+							<label for="army_agr1_n" style="color:#888;font-family:'Dotum';">동의안함</label>
+						</p>
+					</dd>
+				</dl>
+				<dl style="margin-bottom:16px;">
+					<dt style="color:#888;font-weight:bold;">추가 취급 위탁동의</dt>
+					<dd>
+						<p style="margin-bottom:5px;color:#aaa;line-height:15px;">우체국 : 상품배송 업무 및 배송 위치•도착 정보 등의 서비스 제공</p>
+						<p>
+							<input type="checkbox" id="army_agr2_y"/>
+							<label for="army_agr2_y" style="color:#888;font-family:'Dotum';">동의함</label>
+							<input type="checkbox" id="army_agr2_n"/>
+							<label for="army_agr2_n" style="color:#888;font-family:'Dotum';">동의안함</label>
+						</p>
+					</dd>
+				</dl>
+				<dl>
+					<dt style="color:#888;font-weight:bold;">추가 서비스 약관 동의</dt>
+					<dd>
+						<p style="margin-bottom:5px;color:#aaa;line-height:15px;">국군장병을 위한 특별 혜택은 전역3개월까지만 제공</p>
+						<p>
+							<input type="checkbox" id="army_agr3_y"/>
+							<label for="army_agr3_y" style="color:#888;font-family:'Dotum';">동의함</label>
+							<input type="checkbox" id="army_agr3_n"/>
+							<label for="army_agr3_n" style="color:#888;font-family:'Dotum';">동의안함</label>
+						</p>
+					</dd>
+				</dl>
+			</td>
+		</tr>
+		<!-- //141107 동의내용 추가-->
+	</tbody>
+</table>
+<!-- //141106 -->
+
+					<div class="btnbox">
+						<a href="#" onclick="fn_save();return false"><img src="/images/adidas/customer/btn_ok.gif" alt="확인"/></a> 
+						<a href="#"><img src="/images/adidas/customer/btn_cancellation.gif" alt="취소" /></a>			
+					</div> 
+	 
+					
+				</div>
+			</form>
+			<!-- //customer -->
+		</div>
+		<!-- //contents -->	
+	</div>
+
+	<!-- footer -->
+
+	<!-- /footer -->
+</div>
+</body>
+</html>

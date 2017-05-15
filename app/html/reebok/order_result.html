@@ -1,0 +1,1561 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>리복 공식 온라인 스토어 주문/결제</title>
+
+<link rel="shortcut icon" href="/images/reebok/favicon.ico"/>
+<link rel="apple-touch-icon-precomposed" href="/images/reebok/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/reebok/reebok.css" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanskr.css"></link>
+<script type="text/javascript" src="/js/reebok/leftmenu.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="https://plugin.inicis.com/pay40_sec_unissl.js"></script>
+<script type="text/javascript">
+StartSmartUpdate();
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+_TRK_CP="^HOME^주문/결제";
+
+jQuery(document).ready(function(){
+	jQuery("#payAccount").hide();
+	fn_changeDlivy(0);
+	jQuery("input[name=SMS_RET]").click(function() {
+		jQuery("#SMS_RET_YN").val(jQuery(this).val());
+	});
+	jQuery("input[name=payMethod]").click(function() {
+		jQuery("#PAYMT_TYPE").val(jQuery(this).val());
+	});
+
+	var titleProdNmKor = "";
+	titleProdNmKor = jQuery("#PROD_NM_KOR").val();
+	jQuery("#TITLR_PROD_NM").val(titleProdNmKor);
+
+	jQuery("#memPhoneNo").attr("innerHTML", setPhoneNumberFormat(jQuery("#memPhoneNo").attr("innerHTML")));
+
+	changeDlvAmount();
+	setSaveRate();
+
+	if (jQuery("#PAYMT_TYPE").val()=="04") {
+		fn_ChangePayMethod("account");
+	} else if (jQuery("#PAYMT_TYPE").val()=="05") {
+		fn_ChangePayMethod("vbank");
+	} else {
+		fn_ChangePayMethod("credit");
+	}
+	
+	if (jQuery("#INIpay").length > 0) {
+		jQuery("#INIpay").hide();		
+	};
+});
+
+function setSaveRate() {
+	var prePoint = parseInt((jQuery("#TOTAL_PAY_AMT").val()-jQuery("#DLIVY_FEE").val())/100)*parseInt(jQuery("#SAVE_RATE").val());
+	if ( prePoint <= 0 ) {
+		prePoint = 0;
+	}
+	jQuery("#preSaveRate").html(toCurrency(prePoint));
+	jQuery("#PRE_SAVE_POINT").val(prePoint);
+}
+
+function setPhoneNumberFormat(value, seq){
+	var retVal = "";
+	if(value.length == 12) {
+		retVal = value.substring(0, 4) + "-" + value.substring(4, 8) + "-" + value.substring(8, 12);
+    } else if(value.length == 11) {        // 11 자리일때
+		retVal = value.substring(0, 3) + "-" + value.substring(3, 7) + "-" + value.substring(7, 11);
+	} else if(value.length == 10) { // 10 자리일때
+		if(value.substring(0, 2) == "02") {
+			retVal = value.substring(0, 2) + "-" + value.substring(2, 6) + "-" + value.substring(6, 10);
+		} else {
+			retVal = value.substring(0, 3) + "-" + value.substring(3, 6) + "-" + value.substring(6, 10);
+		}
+	} else if(value.length == 9) {  // 9 자리 일때
+		retVal = value.substring(0, 2) + "-" + value.substring(2, 5) + "-" + value.substring(5, 9);
+	} else if(value.length > 6) {
+		retVal = value.substring(0, 2) + "-" + value.substring(2, 5) + "-" + value.substring(5, value.length);
+	} else if(value.length > 3) {
+		retVal = value.substring(0, 2) + "-" + value.substring(2, value.length);
+	} else {
+		retVal = value;
+	}
+
+	if ( seq == 1 ) {
+		retVal = retVal.split("-")[0];
+	} else if ( seq == 2 ) {
+		retVal = retVal.split("-")[1];
+	} else if ( seq == 3 ) {
+		retVal = retVal.split("-")[2];
+	}
+
+	return retVal;
+}
+
+var dlivyList = new Array();
+var defaultDlivy = new Object();
+defaultDlivy.recvNm = "김기백";
+defaultDlivy.tel1 = setPhoneNumberFormat("01068162520", 1);
+defaultDlivy.tel2 = setPhoneNumberFormat("01068162520", 2);
+defaultDlivy.tel3 = setPhoneNumberFormat("01068162520", 3);
+defaultDlivy.mob1 = setPhoneNumberFormat("01068162520", 1);
+defaultDlivy.mob2 = setPhoneNumberFormat("01068162520", 2);
+defaultDlivy.mob3 = setPhoneNumberFormat("01068162520", 3);
+defaultDlivy.zip1 = "131200".substring(0, 3);
+defaultDlivy.zip2 = "131200".substring(3);
+defaultDlivy.addr = "서울 중랑구 면목동";
+defaultDlivy.dtlAddr = "69-30번지 지층 2호";
+defaultDlivy.sido = "서울";
+defaultDlivy.gun = "중랑구";
+defaultDlivy.dong = "면목동";
+defaultDlivy.delvya = "";
+defaultDlivy.nm_doro = "";
+defaultDlivy.num_bldg = "";
+
+dlivyList[0] = defaultDlivy;
+
+function fn_changeDlivy(sel) {
+	jQuery("#RCIVR_NM").val(dlivyList[sel].recvNm);
+	jQuery("#RCIVR_TELNO1").val(dlivyList[sel].tel1);
+	jQuery("#RCIVR_TELNO2").val(dlivyList[sel].tel2);
+	jQuery("#RCIVR_TELNO3").val(dlivyList[sel].tel3);
+	jQuery("#RCIVR_MOBL1").val(dlivyList[sel].mob1);
+	jQuery("#RCIVR_MOBL2").val(dlivyList[sel].mob2);
+	jQuery("#RCIVR_MOBL3").val(dlivyList[sel].mob3);
+	jQuery("#DLIVY_POST_NO1").val(dlivyList[sel].zip1);
+	jQuery("#DLIVY_POST_NO2").val(dlivyList[sel].zip2);
+	jQuery("#DLIVY_ADDR").val(dlivyList[sel].addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dlivyList[sel].dtlAddr);
+	jQuery("#SIDO").val(dlivyList[sel].sido);
+	jQuery("#GUN").val(dlivyList[sel].gun);
+	jQuery("#DONG").val(dlivyList[sel].dong);
+	jQuery("#DELVYA").val(dlivyList[sel].delvya);
+	jQuery("#NM_DORO").val(dlivyList[sel].nm_doro);
+	jQuery("#NUM_BLDG").val(dlivyList[sel].num_bldg);
+
+	changeDlvAmount();
+}
+
+function fn_ChangePayMethod(sel) {
+	if ( sel == "credit" ) {
+
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw").hide();
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").show();
+
+		//소비자 피해보상 신청
+		jQuery("#escrw_reward_apply").hide();
+
+	} else if (sel == "account" || sel == "vbank"){
+
+		jQuery("#escrw").show();
+		jQuery("#escrw_info").show();
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+		jQuery("#noInt").hide();
+
+		//소비자 피해보상 신청
+		jQuery("#escrw_reward_apply").show();
+
+		if( sel == 'account'){
+			var htmlsc='- 실시간 계좌이체시 은행별 서비스 가능시간을 확인바랍니다.<br/>- 실시간 계좌이체는 10분 이내로 입금확인을 하실 수 있습니다.';
+		}else if( sel == 'vbank'){
+			var htmlsc='- 아래 ‘결제하기’ 버튼클릭 후 입금은행 및 계좌, 입금기한을 확인하실 수 있습니다.';
+		}
+		jQuery('#account_desc').html(htmlsc);
+	}
+}
+
+//핸드폰번호 초기화
+function fn_initCashRecptMoblno() {
+	jQuery("#CASH_RECPT_MOBLNO1").val("");
+	jQuery("#CASH_RECPT_MOBLNO2").val("");
+	jQuery("#CASH_RECPT_MOBLNO3").val("");
+}
+//사업자번호 초기화
+function fn_initCashRecptBizrno() {
+	jQuery("#CASH_RECPT_BIZRNO1").val("");
+	jQuery("#CASH_RECPT_BIZRNO2").val("");
+	jQuery("#CASH_RECPT_BIZRNO3").val("");
+}
+
+//현금영수증 신청(Y:발행, N:미발행)
+function fn_ChangeCashRecptApply(sel) {
+	if ( sel == "Y" ) {
+		jQuery("#escrw_info").show();
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+	} else {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw_info").hide();
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").hide();
+	}
+}
+
+//현금영수증 발행용도(01:개인소득공제용, 02:지출증빙용)
+function fn_ChangeCashRecptPubl(sel) {
+	if ( sel == "01" ) {
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+	} else {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").show();
+	}
+}
+
+//현금영수증 인증구분(10:휴대폰, 20:주민등록번호, 30:사업자번호)
+function fn_ChangeCashRecptCrt(sel) {
+	if ( sel == "10" ) {
+		// 사업자번호 초기화
+		fn_initCashRecptBizrno();
+
+		// 핸드폰 자동셋팅
+		fn_setCashRecptMoblno();
+
+		jQuery("#escrw_personal").show();
+		jQuery("#escrw_business").hide();
+
+	} else if ( sel == "30" ) {
+		// 핸드폰번호 초기화
+		fn_initCashRecptMoblno();
+
+		jQuery("#escrw_personal").hide();
+		jQuery("#escrw_business").show();
+	}
+}
+
+//핸드폰 셋팅
+function fn_setCashRecptMoblno() {
+
+	var moblno = '01068162520';
+	if( moblno != "" ) {
+		jQuery("#CASH_RECPT_MOBLNO1").val( setPhoneNumberFormat(moblno, 1) );
+		jQuery("#CASH_RECPT_MOBLNO2").val( setPhoneNumberFormat(moblno, 2) );
+		jQuery("#CASH_RECPT_MOBLNO3").val( setPhoneNumberFormat(moblno, 3) );
+	}
+}
+
+//Focus 이동
+function moveFocus(num,fromform,toform) {
+	var str = fromform.value.length;
+	if(str == num) {
+		toform.focus();
+	}
+}
+
+//사업자 번호 체크
+function fn_companyCheck() {
+	var li_temp, li_lastid;
+	biz_value = new Array(10);
+	var ju = jQuery("#CASH_RECPT_BIZRNO1").val() + jQuery("#CASH_RECPT_BIZRNO2").val() + jQuery("#CASH_RECPT_BIZRNO3").val();
+
+
+	biz_value[0] = ( parseFloat(ju.substring(0 ,1)) * 1 ) % 10;
+	biz_value[1] = ( parseFloat(ju.substring(1 ,2)) * 3 ) % 10;
+	biz_value[2] = ( parseFloat(ju.substring(2 ,3)) * 7 ) % 10;
+	biz_value[3] = ( parseFloat(ju.substring(3 ,4)) * 1 ) % 10;
+	biz_value[4] = ( parseFloat(ju.substring(4 ,5)) * 3 ) % 10;
+	biz_value[5] = ( parseFloat(ju.substring(5 ,6)) * 7 ) % 10;
+	biz_value[6] = ( parseFloat(ju.substring(6 ,7)) * 1 ) % 10;
+	biz_value[7] = ( parseFloat(ju.substring(7,8)) * 3 ) % 10;
+	li_temp = parseFloat(ju.substring(8,9)) * 5 + "0";
+	biz_value[8] = parseFloat(li_temp.substring(0,1)) + parseFloat(li_temp.substring(1,2));
+	biz_value[9] = parseFloat(ju.substring(9,10));
+	li_lastid = (10 - ( ( biz_value[0] + biz_value[1] + biz_value[2] + biz_value[3] + biz_value[4] + biz_value[5] + biz_value[6] + biz_value[7] + biz_value[8] ) % 10 ) ) % 10;
+
+	if (biz_value[9] == li_lastid) {
+
+		return true;
+
+	} else {
+		alert("고객님께서 입력하신 사업자등록번호는 확인되지 않습니다. 다시한번 확인해 주세요!!");
+		jQuery("#CASH_RECPT_BIZRNO1").val('');
+		jQuery("#CASH_RECPT_BIZRNO2").val('');
+		jQuery("#CASH_RECPT_BIZRNO3").val('');
+		jQuery("#CASH_RECPT_BIZRNO1").focus();
+		return false;
+	}
+
+}
+
+//최근 배송지 팝업(이은용)
+function adRecentDeliveryPop(){
+	//window.open('/RPF030301.action','popup','width=800,height=390,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
+	var url = "/RPF030301.action";
+	var width = "800";
+	var height = "600";
+	var asppop = cfn_openPop(url, "dlvPopup", width, height);
+	asppop.focus();
+}
+
+function dlivyRcivr(dlivy_pl_nm, dlivy_rcivr, dlivy_tel_no, dlivy_mobl_no, dlivy_post_no, dlivy_addr, dlivy_dtl_addr, dlivy_sido, dlivy_gun, dlivy_dong, delvya, num_bldg, nm_doro){
+	var dlivy_post_no1 = dlivy_post_no.substr(0,3);
+	var dlivy_post_no2 = dlivy_post_no.substr(3,3);
+
+	jQuery("#RCIVR_NM").val(dlivy_rcivr);
+	jQuery("#RCIVR_TELNO1").val(setPhoneNumberFormat(dlivy_tel_no, 1));
+	jQuery("#RCIVR_TELNO2").val(setPhoneNumberFormat(dlivy_tel_no, 2));
+	jQuery("#RCIVR_TELNO3").val(setPhoneNumberFormat(dlivy_tel_no, 3));
+	jQuery("#RCIVR_MOBL1").val(setPhoneNumberFormat(dlivy_mobl_no, 1));
+	jQuery("#RCIVR_MOBL2").val(setPhoneNumberFormat(dlivy_mobl_no, 2));
+	jQuery("#RCIVR_MOBL3").val(setPhoneNumberFormat(dlivy_mobl_no, 3));
+	jQuery("#DLIVY_POST_NO1").val(dlivy_post_no1);
+	jQuery("#DLIVY_POST_NO2").val(dlivy_post_no2);
+	jQuery("#DLIVY_ADDR").val(dlivy_addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dlivy_dtl_addr);
+	jQuery("#SIDO").val(dlivy_sido);
+	jQuery("#GUN").val(dlivy_gun);
+	jQuery("#DONG").val(dlivy_dong);
+	jQuery("#DELVYA").val(delvya);
+	jQuery("#NM_DORO").val(nm_doro);
+	jQuery("#NUM_BLDG").val(num_bldg);
+	
+	clearDlvRadio();
+	changeDlvAmount();
+}
+
+function dlivyInfo(){
+	var dlivy_post_no = $("DLIVY_POST_NO1").value + $("DLIVY_POST_NO2").value;
+	var command = "LIST_4";
+	var param = "command="+command+"&POST_NO="+ dlivy_post_no;
+	var url = "/PF0601006.action?";
+
+	var onSuccess = function(req){
+		var json = req.responseJSON;
+
+		JsonUtil.alert(json);			
+		
+		fn_dlivySearch(json);
+	};
+	var onFailure = function(){			
+	};
+
+	cfn_ajaxRequest(url, param, onSuccess, onFailure);
+}
+
+function fn_dlivySearch(obj){
+
+	var dlivyString = '';
+
+	for ( var i = 0; i < obj.length ; i++ ) {
+		dlivyString = obj[i].DLIVY_CD;
+	}
+	
+	if (dlivyString == '5'){
+		alert('사서함으로는 주문이 불가능 합니다.');
+	}
+	$("DELVYA").value = dlivyString;
+}
+
+function changeDlvAmount() {
+	
+	dlivyInfo();
+	var vOrgDlivyFee = parseInt("2500");
+	var vTOTAL_ORDER_AMT = jQuery("#TOTAL_ORDER_AMT").val();
+	var vIslndSupCntryDlivyFee = parseInt("4500");
+	var vJejudoDlivyFee = parseInt("3000");
+	
+	if(vTOTAL_ORDER_AMT >= parseInt("50000") || ("Y" == "Y" && parseInt("2") >= parseInt("4")) || (jQuery("#H_ONLINE_ONLY").val() == "Y" && "N" == "Y")) {
+	 	vOrgDlivyFee = 0;
+	}
+
+	if( (parseInt(jQuery("#TOTAL_ORDER_AMT").val()) >= 50000) 
+			|| ("Y" == "Y" && parseInt("2") >= parseInt("4")) 
+			|| (jQuery("#H_ONLINE_ONLY").val() == "Y" && "N" == "Y")) {
+		vIslndSupCntryDlivyFee = 0;
+		vJejudoDlivyFee = 0;
+	}
+
+	if ( jQuery("#DELVYA").val() == "9" ) { // 도서산간 배송...
+		jQuery("#DLIVY_FEE").val(vIslndSupCntryDlivyFee+parseInt(vOrgDlivyFee));
+		jQuery("#viewDlvFee").attr("innerHTML", toCurrency(vOrgDlivyFee+vIslndSupCntryDlivyFee));
+		jQuery("#TOTAL_PAY_AMT").val(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(vOrgDlivyFee)+parseInt(jQuery("#DLIVY_FEE").val())-parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val()));
+		jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(jQuery("#TOTAL_PAY_AMT").val())+" 원");
+	} else if ( jQuery("#DELVYA").val() == "7" ) { // 제주 배송...
+		jQuery("#DLIVY_FEE").val(vJejudoDlivyFee+parseInt(vOrgDlivyFee));
+		jQuery("#viewDlvFee").attr("innerHTML", toCurrency(vOrgDlivyFee+vJejudoDlivyFee));
+		jQuery("#TOTAL_PAY_AMT").val(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(vOrgDlivyFee)+parseInt(jQuery("#DLIVY_FEE").val())-parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val()));
+		jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(jQuery("#TOTAL_PAY_AMT").val())+" 원");
+	} else {
+		jQuery("#DLIVY_FEE").val(parseInt(vOrgDlivyFee));
+		jQuery("#viewDlvFee").attr("innerHTML", toCurrency(vOrgDlivyFee));
+		jQuery("#TOTAL_PAY_AMT").val(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(vOrgDlivyFee)+parseInt(jQuery("#DLIVY_FEE").val())-parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val()));
+		jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(jQuery("#TOTAL_PAY_AMT").val())+" 원");
+	}
+}
+
+function clearDlvRadio() {
+	//jQuery("input[@name=dlivyRadio][@checked]").val();
+	jQuery("input[name=dlivyRadio]").attr("checked", "");
+}
+
+//우편번호 팝업
+function fn_zipPop(){
+	var url = "/RPF0601006.action?func=fn_return_zipaddr";
+	var width = "480";
+	var height = "550";
+
+	var asppop = cfn_openPop2(url, "post", width, height);
+	asppop.focus();
+}
+//우편번호 셋팅
+function fn_return_zipaddr(firstpost,lastpost,addr,sido,gun,dong,delvya, basic_addr, dtl_addr, num_bldg, nm_doro) {
+	jQuery("#DLIVY_POST_NO1").val(firstpost);
+	jQuery("#DLIVY_POST_NO2").val(lastpost);
+	jQuery("#DLIVY_ADDR").val(basic_addr);
+	jQuery("#DLIVY_DTL_ADDR").val(dtl_addr);
+	jQuery("#SIDO").val(sido);
+	jQuery("#GUN").val(gun);
+	jQuery("#DONG").val(dong);
+	jQuery("#DELVYA").val(delvya);
+	jQuery("#NM_DORO").val(nm_doro);
+	jQuery("#NUM_BLDG").val(num_bldg);
+	$("DLIVY_DTL_ADDR").focus();
+
+	changeDlvAmount();
+}
+
+function fn_pay() {
+	
+	// 결제이후 뒤로가기 버튼으로 주문서 출력하여 결재버튼 클릭 시
+	if(jQuery("#command").val() == "TEMP_ORDER"){
+		alert("화면이 정상적이지 않아 새로고침 합니다.");
+		history.go(0);
+	}
+
+	changePayButton(false);
+
+    jQuery("#RCIVR_NM").val(cfn_trim(jQuery("#RCIVR_NM").val()));
+    jQuery("#RCIVR_TELNO1").val(cfn_trim(jQuery("#RCIVR_TELNO1").val()));
+    jQuery("#RCIVR_TELNO2").val(cfn_trim(jQuery("#RCIVR_TELNO2").val()));
+    jQuery("#RCIVR_TELNO3").val(cfn_trim(jQuery("#RCIVR_TELNO3").val()));
+    jQuery("#RCIVR_MOBL1").val(cfn_trim(jQuery("#RCIVR_MOBL1").val()));
+    jQuery("#RCIVR_MOBL2").val(cfn_trim(jQuery("#RCIVR_MOBL2").val()));
+    jQuery("#RCIVR_MOBL3").val(cfn_trim(jQuery("#RCIVR_MOBL3").val()));
+    jQuery("#DLIVY_POST_NO1").val(cfn_trim(jQuery("#DLIVY_POST_NO1").val()));
+    jQuery("#DLIVY_POST_NO2").val(cfn_trim(jQuery("#DLIVY_POST_NO2").val()));
+    jQuery("#DLIVY_ADDR").val(cfn_trim(jQuery("#DLIVY_ADDR").val()));
+    jQuery("#DLIVY_DTL_ADDR").val(cfn_trim(jQuery("#DLIVY_DTL_ADDR").val()));
+    jQuery("#DLIVY_MEMO").val(cfn_trim(jQuery("#DLIVY_MEMO").val()));
+    jQuery("#SIDO").val(cfn_trim(jQuery("#SIDO").val()));
+    jQuery("#GUN").val(cfn_trim(jQuery("#GUN").val()));
+    jQuery("#DONG").val(cfn_trim(jQuery("#DONG").val()));
+    jQuery("#NM_DORO").val(cfn_trim(jQuery("#NM_DORO").val()));
+    jQuery("#NUM_BLDG").val(cfn_trim(jQuery("#NUM_BLDG").val()));
+    jQuery("#CASH_RECPT_MOBLNO1").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO1").val()));
+    jQuery("#CASH_RECPT_MOBLNO2").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO2").val()));
+    jQuery("#CASH_RECPT_MOBLNO3").val(cfn_trim(jQuery("#CASH_RECPT_MOBLNO3").val()));
+    jQuery("#CASH_RECPT_BIZRNO1").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO1").val()));
+    jQuery("#CASH_RECPT_BIZRNO2").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO2").val()));
+    jQuery("#CASH_RECPT_BIZRNO3").val(cfn_trim(jQuery("#CASH_RECPT_BIZRNO3").val()));
+
+	if ( jQuery("#RCIVR_NM").val() == "" ) {
+		alert("받으시는 분이 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_NM").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO1").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO1").focus();
+		return;
+	}
+	if ( !checkTelNo1(jQuery("#RCIVR_TELNO1").val()) ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO1").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO2").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO2").focus();
+		return;
+	}
+	if ( !(jQuery("#RCIVR_TELNO2").val().length == 3 || jQuery("#RCIVR_TELNO2").val().length == 4) ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO2").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO3").val() == "" ) {
+		alert("전화번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO3").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_TELNO3").val().length != 4 ) {
+		alert("전화번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_TELNO3").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL1").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL1").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL2").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL2").focus();
+		return;
+	}
+	if ( !(jQuery("#RCIVR_MOBL2").val().length == 3 || jQuery("#RCIVR_MOBL2").val().length == 4) ) {
+		alert("휴대폰번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL2").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL3").val() == "" ) {
+		alert("휴대폰번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL3").focus();
+		return;
+	}
+	if ( jQuery("#RCIVR_MOBL3").val().length != 4 ) {
+		alert("휴대폰번호가 잘못 입력되었습니다.");
+		changePayButton(true);
+		jQuery("#RCIVR_MOBL3").focus();
+		return;
+	}
+	if ( jQuery("#DELVYA").val() == "5" ) {
+		alert("사서함 주소는 한진택배 배송이 되지 않습니다. \n배송지 주소를 변경하시어 주문해 주시면 감사하겠습니다.");
+		changePayButton(true);
+		return;
+	}
+	if ( jQuery("#DLIVY_POST_NO1").val() == "" ) {
+		alert("우편번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		return;
+	}
+	if ( jQuery("#DLIVY_POST_NO2").val() == "" ) {
+		alert("우편번호가 입력되지 않았습니다.");
+		changePayButton(true);
+		return;
+	}
+	if ( jQuery("#DLIVY_ADDR").val() == "" ) {
+		alert("배송지 주소가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#DLIVY_ADDR").focus();
+		return;
+	}
+	if ( jQuery("#DLIVY_DTL_ADDR").val() == "" || jQuery("#DLIVY_DTL_ADDR").val() == "상세주소" ) {
+		alert("배송지 주소가 입력되지 않았습니다.");
+		changePayButton(true);
+		jQuery("#DLIVY_DTL_ADDR").focus();
+		return;
+	}
+
+	if ( jQuery("#SIDO").val() == ""
+		//|| jQuery("#GUN").val() == ""	
+		|| jQuery("#DONG").val() == "" ) {
+		alert("배송지 주소가 잘못 입력되었습니다.");
+		changePayButton(true);
+		return;
+	}
+
+	// 실시간계좌이체 금액이 존재할 경우 현금영수증 처리
+	if( (jQuery("#PAYMT_TYPE").val() == "04" || jQuery("#PAYMT_TYPE").val() == "05") && jQuery("#TOTAL_PAY_AMT").val() >= 0 ) {
+
+		var f = document.frm;
+
+		// 발행
+		if(jQuery("#CASH_RECPT_APPLY_Y").attr("checked")) {
+			//소득공제용
+			if(jQuery("#CASH_RECPT_PUBL_PRPOS_01").attr("checked")) {
+
+				jQuery("#CASH_RECPT_PUBL_PRPOS").val("01");
+				jQuery("#CASH_RECPT_CRT_DIVI").val("10");
+
+				if ( jQuery("#CASH_RECPT_MOBLNO1").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO1").focus();
+					return;
+				}
+				if ( jQuery("#CASH_RECPT_MOBLNO2").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO2").focus();
+					return;
+				}
+				if ( jQuery("#CASH_RECPT_MOBLNO3").val() == "" ) {
+					alert("핸드폰번호가 입력되지 않았습니다.");
+					changePayButton(true);
+					jQuery("#CASH_RECPT_MOBLNO3").focus();
+					return;
+				}
+
+				var mobl_no = jQuery("#CASH_RECPT_MOBLNO1").val() + jQuery("#CASH_RECPT_MOBLNO2").val() + jQuery("#CASH_RECPT_MOBLNO3").val();
+				jQuery("#CASH_RECPT_CRT_NO").val(mobl_no);
+			} else {
+				//지출증빙용
+				if( fn_companyCheck() ) {
+
+					jQuery("#CASH_RECPT_PUBL_PRPOS").val("02");
+					jQuery("#CASH_RECPT_CRT_DIVI").val(f.CASH_RECPT_CRT_DIVI_BIZR.value);
+
+					if ( jQuery("#CASH_RECPT_BIZRNO1").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO1").focus();
+						return;
+					}
+					if ( jQuery("#CASH_RECPT_BIZRNO2").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO2").focus();
+						return;
+					}
+					if ( jQuery("#CASH_RECPT_BIZRNO3").val() == "" ) {
+						alert("사업자번호가 입력되지 않았습니다.");
+						changePayButton(true);
+						jQuery("#CASH_RECPT_BIZRNO3").focus();
+						return;
+					}
+
+					var bizr_no = jQuery("#CASH_RECPT_BIZRNO1").val() + jQuery("#CASH_RECPT_BIZRNO2").val() + jQuery("#CASH_RECPT_BIZRNO3").val();
+					jQuery("#CASH_RECPT_CRT_NO").val(bizr_no);
+				} else {
+					changePayButton(true);
+					jQuery("#CASH_RECPT_BIZRNO1").focus();
+					return;
+				}
+			}
+		} else {
+			// 미발행
+			// 소득공제용(01), 핸드폰 발행(10), 자진발급번호(0100001234) 셋팅
+			jQuery("#CASH_RECPT_PUBL_PRPOS").val("01");
+			jQuery("#CASH_RECPT_CRT_DIVI").val("10");
+			var mobl_no = "0100001234";
+			jQuery("#CASH_RECPT_CRT_NO").val(mobl_no);
+		}
+
+	}
+
+	if ( jQuery("#TOTAL_PAY_AMT").val() < 1000
+	     && jQuery("#PAYMT_TYPE").val() == "03"
+	     && jQuery("#TOTAL_PAY_AMT").val() != 0 ) {
+		alert("1000원 이하는 신용카드로 결제하실수 없습니다.");
+		jQuery("#PAYMT_METHOD").focus();
+		changePayButton(true);
+		return;
+	} else if ( (jQuery("#PAYMT_TYPE").val() == "04" || jQuery("#PAYMT_TYPE").val() == "05") && jQuery("#TOTAL_PAY_AMT").val() >= 100000 ) { // 에스크로 설정
+		// 고객이 소비자 피해보상 신청시 에스크로 신청 미적용
+		// 보증보험 적용
+		jQuery("#ESCRW_YN").val("N");
+	}
+
+	jQuery("#RCIVR_TELNO").val(jQuery("#RCIVR_TELNO1").val()+jQuery("#RCIVR_TELNO2").val()+jQuery("#RCIVR_TELNO3").val());
+	jQuery("#RCIVR_MOBL").val(jQuery("#RCIVR_MOBL1").val()+jQuery("#RCIVR_MOBL2").val()+jQuery("#RCIVR_MOBL3").val());
+
+	if ( jQuery("#TOTAL_PAY_AMT").val() == 0 ) { // 전액쿠폰 결제시 pg사를 통하지 않는다.
+		jQuery("#command").val("TEMP_ORDER");
+		jQuery("#frm").attr("action","RPF030201.action");
+		jQuery("#frm").attr("target","_self").submit();
+	} else {
+		jQuery("#command").val("LIST");
+		jQuery("#frm").attr("action","RPF040102.action");
+		jQuery("#frm").attr("target","PAY_FRAME").submit();
+	}
+
+}
+
+function changePayButton(flag) {
+	if ( flag ) {
+		jQuery("#paymtButton").attr("innerHTML", "<a href='javascript:fn_pay();'><img src='/images/reebok/order/btn_payment.gif' alt='결제하기' /></a>");
+	} else {
+		jQuery("#paymtButton").attr("innerHTML", "<a href='javascript:alert(\"결제중입니다.\");'><img src='/images/reebok/order/btn_payment_disable.gif' alt='결제하기' /></a>");
+	}
+}
+
+function fn_showCpon() {
+	jQuery("#command").val("CPON");
+
+	var width = "650";
+	var height = "800";
+//	var asppop = cfn_openPop("about:Tabs", "popup", width, height);
+//	jQuery("#frm").attr("target","popup").submit();
+
+	var asppop = cfn_openPop("about:blank", "cpnPopup", width, height);
+
+	jQuery("#frm").attr('action',"/RPF030302.action");
+	jQuery("#frm").attr("target","cpnPopup").submit();
+
+	asppop.focus();
+
+
+	/* #####################
+	var info = new Object();
+
+	var prodCpons = new Array();
+	var prodCpon = new Object();
+	prodCpon.PROD_CD = "123456";// 쿠폰 적용대상 상품
+
+	prodCpon.CPON_PUBL_ID = "123456";// 쿠폰번호
+	prodCpon.CPON_AMT = "3000";// 할인금액
+	prodCpons[0] = prodCpon;
+
+	info.prodCpons = prodCpons;
+
+	var ordCpons = new Array();
+	var ordCpon = new Object();
+	ordCpon.CPON_PUBL_ID = "123456";
+	ordCpon.CPON_AMT = "3000";
+	ordCpon.CPON_TYPE_CD = "";
+	ordCpons[0] = ordCpon;
+
+	info.ordCpons = ordCpons;
+
+	*/
+
+}
+
+function fn_showCponSet(arr, totCpon, totAmt){
+    var discountAmt = 0;
+    var prodCponAmt = 0;
+    var ordCponAmt = 0;
+    var cponPublIds = "";
+    var ordCponNos = "";
+
+    if(arr.prodCpons != undefined){
+
+    	for (var i=0 ; i<arr.prodCpons.length ; i++) {
+        	var info = arr.prodCpons[i];
+       		discountAmt += parseInt(info.CPON_AMT);
+       		prodCponAmt += parseInt(info.CPON_AMT);
+       		cponPublIds += info.CPON_PUBL_ID+":";
+       		jQuery("#PROD_CPON_"+info.PROD_CD+"_"+info.PROD_OPT+"_"+info.PROD_QTY).val(info.CPON_PUBL_ID);
+       		jQuery("#PROD_CPON_AMT_"+info.PROD_CD+"_"+info.PROD_OPT+"_"+info.PROD_QTY).val(parseInt(info.CPON_AMT));
+    	}
+    }
+
+    if(arr.ordCpons != undefined){
+
+    	for (var i=0 ; i<arr.ordCpons.length ; i++) {
+           	var info = arr.ordCpons[i];
+        	discountAmt += parseInt(info.CPON_AMT);
+        	ordCponAmt += parseInt(info.CPON_AMT);
+        	ordCponNos += info.CPON_PUBL_ID+":";
+        	cponPublIds += info.CPON_PUBL_ID+":";
+       	}
+    }
+
+	jQuery("#PROD_CPON_AMT").val(prodCponAmt);
+	jQuery("#ORD_CPON_AMT").val(ordCponAmt);
+	jQuery("#ORD_CPON_NOS").val(ordCponNos);
+	jQuery("#CPON_PUBL_IDS").val(cponPublIds);
+
+	//alert(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())+":"+discountAmt);
+	if ( parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(jQuery("#ORG_DLIVY_FEE").val()) <= discountAmt ) { // 쿠폰 사용금액이 주문금액보다 큰 경우.
+		//alert("set orgAmt");
+		discountAmt = parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(jQuery("#ORG_DLIVY_FEE").val()); // 할인금액을 주문금액으로 바꾼다.
+	}
+	jQuery("#TOTAL_DISCOUNT_AMT_TEMP").val(toCurrency(discountAmt));
+	jQuery("#TOTAL_DISCOUNT_AMT").val(discountAmt);
+	jQuery("#TOTAL_PAY_AMT").val(parseInt(jQuery("#ORG_TOTAL_PAY_AMT").val())-parseInt(jQuery("#ORG_DLIVY_FEE").val())+parseInt(jQuery("#DLIVY_FEE").val())-parseInt(jQuery("#TOTAL_DISCOUNT_AMT").val()));
+	jQuery("#TOTAL_PAY_AMT_STR").html(toCurrency(jQuery("#TOTAL_PAY_AMT").val())+" 원");
+
+	showPayMethod(jQuery("#TOTAL_PAY_AMT").val());
+
+	setSaveRate();
+}
+
+function registerPayInfo() {
+	jQuery("#command").val("TEMP_ORDER");
+	jQuery("#frm").attr("action","RPF030201.action");
+	jQuery("#frm").attr("target","_self").submit();
+}
+
+function showPayMethod(totalPayAmt) {
+	if ( totalPayAmt == 0 ) {
+		jQuery("#payMethodTr").hide();
+	} else {
+		jQuery("#payMethodTr").show();
+	}
+	//
+}
+
+function viewMemoCnt(){
+	if ( jQuery("#DLIVY_MEMO").val().length > 50 ) {
+		alert("50자 이하로 입력할 수 있습니다.");
+		jQuery("#DLIVY_MEMO").val(jQuery("#DLIVY_MEMO").val().substring(0, 50));
+	}
+	jQuery("#dlivyMemoLength").attr("innerHTML", jQuery("#DLIVY_MEMO").val().length);
+}
+
+function fn_onlyFigureKey(ev) {
+	if(cfn_isUndefined(ev) || cfn_isNull(ev)) {
+		ev = event;
+	}
+
+	var keyCode	= ev.keyCode;
+
+    //숫자열 0 ~ 9 : 48 ~ 57, 키패드 0 ~ 9 : 96 ~ 105 ,8 : backspace, 46 : delete -->키코드값을 구분합니다. 저것들이 숫자랍니다.
+    if(keyCode >= 48 && keyCode <= 57 || keyCode >= 96 && keyCode <= 105 || keyCode == 8 || keyCode == 46 || (keyCode >= 37 && keyCode <= 40 ) || keyCode == 9 ) {
+        return; //-->입력시킨다.
+    }
+    ev.returnValue=false;
+	Event.stop(ev);
+}
+
+var tel1Arr = new Array("02", "031", "032", "033", "041", "042", "043", "051", "052", "053", "054", "055", "061", "061", "062", "063", "064", "010", "011", "016", "017", "018", "019", "0130", "070", "080", "0502", "0504", "0505", "0506", "0303");
+function checkTelNo1(tel1) {
+	for ( var i = 0; i < tel1Arr.length ; i++) {
+		if ( tel1 == tel1Arr[i] )
+			return true;
+	}
+	return false;
+}
+/* ]]> */
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="container_r">
+		<div id="header_wrap_150930">
+               <!-- header -->
+
+               <div id="header_150930">
+                  <!-- header_top -->
+                  <div class="header_top">                     
+                     <h1>
+                     	<a class="spt_bg" href="/reeMain.action" onMouseDown="javascript:fn_trkClickTrace('^AO≫o´U^Reebok(·I°i)');">¸®º¹ ¿A¶oAI ½ºAa¾i</a>
+                     </h1>
+                     <div class="search_area_r spt_bg">
+                        <form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" autocomplete="off">
+                           <fieldset>
+                              <legend>SEARCH</legend>
+                              <label class="blind" for="S_PROD_NM_TOP">°E≫o</label> 
+
+                              <input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="search_box" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onblur="fn_inputBlur()" onmousedown="dqtop_setTextbox('1',event);" onKeyPress="keyDownTop('1',event);" onkeydown="javascript:if(event.keyCode==13) fn_search_top();fn_trkClickTrace('^AO≫o´U^°E≫o');" />
+                              <input type="submit" class="submit spt_bg" onclick="fn_search_top();fn_trkClickTrace('^AO≫o´U^°E≫o');">
+                              <script language="JavaScript" src="/js/search/dqAutoCompleteTopR.js"></script>
+                              
+                           </fieldset>
+                        </form>
+                     </div>
+					 <!-- //search_area_r -->
+                     <ul class="utilmenu">
+                        <li><a href="#">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
+                        <li class="mkt"><a href="#">장바구니 <span>( <strong>13</strong> item)</span></a></li>
+                     </ul>
+                  </div>
+
+					<div id="gnb_150930">
+						<h2 class="blind">AO¸Þ´º</h2>
+						<ul class="gnb_menu1">
+							<li id="men">
+								<a href="#" class="depth1_btn dep2btn">Men</a>
+								<div class="depth2_menu">
+              						<div class="leftarea">
+										<div class="menubox">
+											<dl>
+												<dt>Category</dt>
+												<dd>
+													<ul>
+														<li><a href="#">½A¹ß</a></li>
+														<li><a href="#">AC·u</a></li>
+														<li><a href="#">¿eC°</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>Sports</dt>
+												<dd>
+													<ul>
+														<li><a href="#">·?´×</a></li>
+														<li><a href="#">Æ®·¹AI´×</a></li>
+														<li><a href="#">A³AO¾o</a></li>
+														<li><a href="#">±aA¸</a></li>
+													</ul>
+												</dd>
+											</dl>
+										</div>
+										<div class="menubox">
+											<dl>
+												<dt>Brand</dt>
+												<dd>
+													<ul>
+														<li><a href="#">Sports</a></li>
+														<li><a href="#">Classic</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>More Choices</dt>
+												<dd>
+													<ul>
+														<li><a href="#">½A≫oC°</a></li>
+														<li><a href="#">º￡½ºÆ®≫oC°</a></li>
+														<li><a href="#" style="color:#f00000;">SALE</a></li>
+													</ul>
+												</dd>
+											</dl>										
+										</div>
+									</div>
+									<!-- //leftarea -->
+									<div class="rightarea">
+										<a href="#"><img src="/images/reebok/temp/gnb_men_banner.jpg" alt="ONE SERIES ·?´×¿¡ AOAuE­μE ¼¼°¡Ao ±a´E! AU¼¼E÷º¸±a"/></a>
+									</div>
+									<!-- //righttarea -->
+								</div>
+								<!-- men depth2 menu end -->
+							</li>
+							<!-- //men -->
+
+							<li id="women">
+								<a href="#" class="depth1_btn dep2btn">Women</a>
+								<div class="depth2_menu">
+              						<div class="leftarea">
+										<div class="menubox">
+											<dl>
+												<dt>Category</dt>
+												<dd>
+													<ul>
+														<li><a href="#">½A¹ß</a></li>
+														<li><a href="#">AC·u</a></li>
+														<li><a href="#">¿eC°</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>Sports</dt>
+												<dd>
+													<ul>
+														<li><a href="#">·?´×</a></li>
+														<li><a href="#">Æ®·¹AI´×</a></li>
+														<li><a href="#">A³AO¾o</a></li>
+														<li><a href="#">±aA¸</a></li>
+													</ul>
+												</dd>
+											</dl>
+										</div>
+										<div class="menubox">
+											<dl>
+												<dt>Brand</dt>
+												<dd>
+													<ul>
+														<li><a href="#">Sports</a></li>
+														<li><a href="#">Classic</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>More Choices</dt>
+												<dd>
+													<ul>
+														<li><a href="#">½A≫oC°</a></li>
+														<li><a href="#">º￡½ºÆ®≫oC°</a></li>
+														<li><a href="#" style="color:#f00000;">SALE</a></li>
+													</ul>
+												</dd>
+											</dl>										
+										</div>
+									</div>
+									<!-- //leftarea -->
+									<div class="rightarea">
+										<a href="#"><img src="/images/reebok/temp/gnb_women_banner.jpg" alt="SUB LITE "/></a>
+									</div>
+									<!-- //righttarea -->
+								</div>
+								<!-- women depth2 menu end -->
+							</li>
+							<!-- //women -->
+
+							<!-- kids -->
+							<li id="kids">
+								<a href="#" class="depth1_btn">Kids</a>
+							</li>
+							<!-- //kids -->
+						</ul>
+						<!-- 130807 menu1 -->
+
+
+						<ul class="gnb_menu2">
+							<!-- sports -->
+							<li id="fitness">
+								<a href="#" class="depth1_btn dep2btn">Fitness</a>
+								<div class="depth2_menu">
+              						<ul>
+              							<li class="m1"><a href="#" class="spt_bg">Æ®·¹AI´× ¹U·I°¡±a</a></li>
+              							<li class="m2"><a href="#" class="spt_bg">·?´× ¹U·I°¡±a</a></li>
+              							<li class="m3"><a href="#" class="spt_bg">Aⓒ·I½ºCI ¹U·I°¡±a</a></li>
+              							<li class="m4"><a href="#" class="spt_bg">¿a°¡ ¹U·I°¡±a</a></li>
+              							<!-- 151230 Aß°¡ -->
+              							<li class="m5 last"><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006012" class="spt_bg">AA¹i ¹U·I°¡±a</a></li>
+              						</ul>
+								</div>
+								<!-- sports depth2 menu end -->
+							</li>
+							<!-- //sports -->
+
+							<li id="classic">
+								<a href="#" class="depth1_btn dep2btn">Classic</a>
+								<div class="depth2_menu">
+              						<div class="leftarea">
+										<div class="menubox">
+											<dl>
+												<dt>Men</dt>
+												<dd>
+													<ul>
+														<li><a href="#">AuA¼º¸±a</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>More Choices</dt>
+												<dd>
+													<ul>
+														<li><a href="#">½A≫oC°</a></li>
+														<li><a href="#">º￡½ºÆ®≫oC°</a></li>
+														<li><a href="#" style="color:#f00000;">SALE</a></li>
+													</ul>
+												</dd>
+											</dl>
+										</div>
+										<div class="menubox">
+											<dl>
+												<dt>Women</dt>
+												<dd>
+													<ul>
+														<li><a href="#">AuA¼º¸±a</a></li>
+													</ul>
+												</dd>
+											</dl>
+											<dl class="last">
+												<dt>Collection</dt>
+												<dd>
+													<ul>      
+														<li><a href="#">PUMP FURY</a></li>
+														<li><a href="#">GL6000</a></li>
+													</ul>
+												</dd>
+											</dl>										
+										</div>
+									</div>
+									<!-- //leftarea -->
+									<div class="rightarea">
+										<a href="#"><img src="/images/reebok/temp/gnb_classic_banner.jpg" alt="SUB LITE °¡º­¿o°u Ai¼A´×AC ¿Iº®CN A¶E­"/></a>
+									</div>
+									<!-- //righttarea -->
+								</div>
+								<!-- sports depth2 menu end -->						
+							</li>
+							<!-- //classic -->
+
+							<li id="collection">
+								<a href="#" class="depth1_btn dep2btn">Collection</a>
+								<div class="depth2_menu">
+									<ul>
+										<li><a href="#">Aⓒ·I½ºCI(CrossFit) </a></li>
+										<li><a href="#">¸®¾oCA·º½º(RealFlex)</a></li>
+										<li><a href="#">A÷AØ(ZigTech)</a></li>
+										<li><a href="#">¼­ºe¶oAIÆ®(SubLite)</a></li>
+										<li><a href="#">¸®º¹ CCÆ®´I½º AA·º¼C</a></li>
+										<li><a href="#">¸®º¹ ¿a°¡ AA·º¼C</a></li>
+										<li><a href="#">PUMP FURY</a></li>
+										<li><a href="#">GL6000</a></li>
+									</ul>
+								</div>
+								<!-- collection depth2 menu end -->
+							</li>
+							<!-- //collection -->							
+						</ul>
+						<!-- 130807 menu2 -->
+
+						<ul class="gnb_menu3">
+							<li class="promo">
+								<a href="#" class="depth1_btn">기획전</a>
+							</li>
+							<li>
+								<a href="#" class="depth1_btn">New</a>
+							</li>
+							<li>
+								<a href="#" class="depth1_btn">Best</a>
+							</li>
+							<li class="sale">
+								<a href="#" class="depth1_btn dep2btn">Sale</a>
+								<div class="depth2_menu">								
+									<ul>
+										<li><a href="#">Men</a></li>
+										<li><a href="#">Women</a></li>
+										<li><a href="#">Kids</a></li>
+										<li><a href="#" style="color:#d3000f">OUTLET</a></li>
+									</ul>
+								</div>
+							</li>
+							<li class="club">
+								<a href="#" class="depth1_btn">Reeclub</a>
+							</li>
+						</ul>
+
+					</div>
+					<!-- //gnb_150930 -->
+               </div>
+               <!-- //header_150930 -->
+            </div>
+
+		<div class="top_down">
+			<a href="#" class="top" onclick="jQuery('html, body').animate({scrollTop:0},1000,'easeOutCubic');return false;">top</a>
+			<a href="#" class="down" onclick="jQuery('html, body').animate({scrollTop:jQuery(document).height()},1000,'easeOutCubic');return false;">down</a>
+		</div>
+		
+
+<div class="layer_popup" id="popup_mycpn" style="padding:4px;position:absolute;left:0px;top:0px;z-index:10000;display:none;background:#4b4b4b;border:1px solid #fff;">
+	<div style="width:430px;height:305px;background:#fff;">
+		<a href="#" onclick="closeMyCpnLayer();" style="position:absolute;top:3px;right:3px;"><img src="/images/adidas/popup/btn_popup_close_140325.gif" alt="닫기"/></a>
+		<h1 style="padding:24px 0 20px;"><img src="/images/adidas/popup/tit_pop_coupon_140325.gif" alt="쿠폰이 발급되었습니다."/></h1>
+		<div id="popup_mycpn_contents" style="padding:0 25px;">
+			<p style="margin-bottom:10px;color:#383838;">지금 쿠폰을 확인하세요!</p>
+			<table summary="내 쿠폰 현황" cellpadding="0" cellspacing="0" width="381" style="border:1px solid #b1b1b1;margin-bottom:12px;">
+				<caption>내 쿠폰 현황</caption>
+				<colgroup>
+					<col width="50%"/>
+					<col width="10%"/>
+					<col width="40%"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">쿠폰명</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">매수</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;">유효기간</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;"></td>
+					</tr>
+					<tr>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;border-right:1px solid #d1d1d1;"></td>
+						<td style="height:32px;color:#383838;text-align:center;font:12px 'Gulim',gulim;"></td>
+					</tr>
+				</tbody>
+			</table>
+			<p style="color:#383838;margin-bottom:15px;"><strong>김기백</strong>님이 현재 사용 가능한 쿠폰이 <strong>4매</strong> 있습니다</p>
+			<p style="color:#383838;margin-bottom:25px;"><a href="http://shop.reebok.co.kr/RPF060201.action"><img src="/images/adidas/popup/btn_view_coupon_140325.gif" alt="쿠폰 확인하기"/></a></p>
+		</div>		
+	</div>
+	<p style="padding:10px 0 6px 2px;">
+		<input type="checkbox" id="today_close_mycpn" style="margin-right:3px;"/>
+		<label for="today_close_mycpn" style="font:12px 'Dotum',gulim;color:#fff;">오늘 하루 보지않기</label>
+	</p>
+</div>
+	
+
+	
+
+
+		<!-- //header -->
+
+
+		<div id="contents">
+			<!-- order -->
+			<div class="title_area">
+				<h2><img src="/images/reebok/order/tit_order_finish.gif" alt="주문완료" /><span>Complete Order</span></h2>
+				<div class="step">
+					<ul>
+						<li><img src="/images/reebok/order/step_cart_off.gif" alt="장바구니" /></li>
+						<li><img src="/images/reebok/order/step_order_off.gif" alt="주문/결제" /></li>
+						<li class="last"><img src="/images/reebok/order/step_orderok_on.gif" alt="주문완료" /></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="contents_area2">
+				<div class="grid">
+					<dl class="order_finish">
+						<dt><img src="/images/reebok/order/msg_order_finish.gif" alt="주문이 완료되었습니다." /></dt>
+						<dd>감사합니다. 주문이 정상적으로 완료되었습니다.</dd>
+						<dd>두 개 이상의 상품을 구매하셨을 경우, 빠른 배송을 위해 주문하신 상품이 각각 배송될 수 있습니다.</dd>
+					</dl>
+
+					<!-- 160202 start -->
+					<div style="padding-bottom: 18px;">
+						<div style="width:800px;padding:30px 25px;background: #ebebeb;">
+							<p style="margin-bottom:5px;color:#545454;font:bold 16px 'NotoSansKRRegular';">배송 지연 안내</p>
+							<p style="color:#545454;font:12px 'NotoSansKRRegular';">설 명절로 인한 택배사의 배송 물량 증가로 배송이 지연되고 있습니다.<br/>2월4일 오후 주문부터는 설 명절 이후(2월 11일) 순차적으로 배송 됩니다. 이점 양해 부탁 드립니다.배송 관련 문의는 고객센터 1588-7324로 연락 부탁 드립니다.</p>
+						</div>	
+					</div>
+					<!-- //160202 -->
+					
+				</div>
+
+
+
+				<div class="nogrid">
+				<h3><img src="/images/reebok/order/tit_s_order_list.gif" alt="주문내역" /></h3>
+				<!-- list -->
+				<div class="cart_list">
+				<table class="mg30" summary="예약구매 장바구니">
+				<caption>예약구매 장바구니</caption>
+				<colgroup>
+					<col />
+					<col width="160px" />
+					<col width="68px" />
+					<col width="98px" />
+					<col width="98px" />
+					<col width="100px" />
+				</colgroup>
+				<thead>
+				<tr>
+					<th scope="col">상품명</th>
+					<th scope="col">판매금액</th>
+					<th scope="col">수량</th>
+					<th scope="col">옵션</th>
+					<c:if test="${not empty map.orderInfo.MEM_ID}">
+					<th scope="col">포인트</th>
+					</c:if>
+					<th scope="col" class="last">주문금액</th>
+				</tr>
+				</thead>
+				<tbody>
+				<c:set var="sumCpn" value="0"/>
+				<c:set var="sumEvtCpn" value="0"/>
+				<c:set var="sumPntCpn" value="0"/>
+				<c:set var="sumPoint" value="0"/>
+				<c:set var="saveRate" value="0"/>
+				<c:set var="_TRK_PNG" value=""/>   <!-- 주문되는 상품의 카테고리 명 -->
+				<c:set var="_TRK_PNC" value=""/>   <!-- 주문되는 상품코드 -->
+				<c:set var="_TRK_PNC_NM" value=""/><!-- 주문되는 상품 명 -->
+				<c:set var="_TRK_EA" value=""/>    <!-- 주문되는 상품수 -->
+				<c:set var="_TRK_AMT" value=""/>   <!-- 주문금액 -->
+				<c:choose>
+					<c:when test="${map.orderProd.size > 0}">
+						<c:forEach var="prodList" items="${map.orderProd.list}">
+							<c:if test="${not empty prodList.CPON_PUBL_ID}">
+								<c:if test="${prodList.CPON_TYPE_CD == '01'}">
+									<c:set var="sumPntCpn" value="${sumPntCpn+prodList.CPON_AMT}"/>
+								</c:if>
+								<c:if test="${prodList.CPON_TYPE_CD == '02'}">
+									<c:set var="sumEvtCpn" value="${sumEvtCpn+prodList.CPON_AMT}"/>
+								</c:if>
+								<c:set var="sumDiscount" value="${sumDiscount+prodList.CPON_AMT}"/>
+								<c:set var="sumCpn" value="${sumCpn+prodList.CPON_AMT}"/>
+							</c:if>
+				<tr>
+					<td class="product">
+					    <c:set var="_TRK_PNG" value="${_TRK_PNG};${prodList.TRK_PROD_GROUP}"/>
+					    <c:set var="_TRK_PNC" value="${_TRK_PNC};${prodList.PROD_CD}"/>
+					    <c:set var="_TRK_PNC_NM" value="${_TRK_PNC_NM};${prodList.TRK_PROD_NM}"/>
+					    <c:set var="_TRK_EA" value="${_TRK_EA};${prodList.ORDER_QTY}"/>
+					    <c:set var="_TRK_AMT" value="${_TRK_AMT};${prodList.SALES_PRICE}"/>
+						<a href="javascript:fn_prod_c('${prodList.PROD_CD}');"><img src="http://shop.reebok.co.kr/upload/prod/basic/60/AA4453-1_60X60.jpg" class="prd" alt="상품" width="60" height="60" /></a>
+						<p><a href="javascript:fn_prod_c('${prodList.PROD_CD}');">펌프퓨리</a>
+						</p>
+					</td>
+					
+					<td class="price">
+						<span class="line_through">109,000 원</span><br />
+						<strong class="discount">109,000 원</strong>
+					</td>
+						
+					<td>1</td>
+					<td>사이즈 : 90</td>
+					<c:if test="${not empty map.orderInfo.MEM_ID}">
+					<td class="point"><span>1,200<img src="/images/reebok/mypage/ico_point.gif" alt="p" /></span><br />(5%)</td>
+					<td class="price"><strong>109,000원</strong></td>
+				</tr>
+							<c:set var="saveRate" value="${prodList.SAVE_RATE}"/>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+				</tbody>
+				</table>
+				</div>
+				<!-- //list -->
+				
+				<h3><img src="/images/reebok/order/tit_s_info.gif" alt="정보확인" /></h3>
+				<table class="view" summary="정보확인">
+				<caption>정보확인</caption>
+				<colgroup>
+					<col width="142px" />
+					<col width="235px" />
+					<col width="142px" />
+					<col />
+				</colgroup>
+				<tr>
+					<th scope="row">주문자</th>
+					<td>홍길동</td>
+					<th scope="row">주문번호</th>
+					<td class="last">11223455512</td>
+				</tr>
+				<tr>
+					<th scope="row">주문금액</th>
+					<td colspan="3" class="last">상품금액 <strong>109,000</strong> 원 + 배송비 <strong>2,500</strong> 원 = <strong>111,000</strong> 원</td>
+				</tr>
+				
+				
+				
+
+
+				<tr>
+					<th scope="row">결제금액</th>
+					
+					
+					<td colspan="3" class="last"><strong class="discount"><span>109,000</span></strong> 원
+					</td>
+				</tr>
+				
+				<tr>
+					<th scope="row">예상적립 포인트</th>
+					<td colspan="3" class="last">
+						<strong>1,200</strong>  <img src="/images/reebok/mypage/ico_point.gif" alt="p" />
+					</td>
+				</tr>
+				
+				</table>
+                
+				<h3><img src="/images/reebok/order/tit_s_payment.gif" alt="결제정보" /></h3>
+				<table class="view" summary="결제정보">
+				<caption>결제정보</caption>
+				<colgroup>
+					<col width="142px" />
+					<col width="235px" />
+					<col width="142px" />
+					<col />
+				</colgroup>
+				<tr>
+					<th scope="row">카드종류</th>
+					<td>신한은행</td>
+					<th scope="row">결제금액</th>
+					<td class="last"><strong><span>109,000</span></strong> 원</td>
+				</tr>
+				<tr>
+					<th scope="row">카드번호</th>
+					<td>1215-****-****-****</td>
+					<th scope="row">납부방식</th>
+					<td class="last">3개월</td>
+				</tr>
+				</table>
+					
+				<h3><img src="/images/adidas/order/tit_s_payment.gif" alt="결제정보" /></h3>
+				<table class="view" summary="결제정보">
+				<caption>결제정보</caption>
+				<colgroup>
+					<col width="142px" />
+					<col width="235px" />
+					<col width="142px" />
+					<col />
+				</colgroup>
+				<tbody>
+				<tr>
+					<th scope="row">결제유형</th>
+					<td><c:out value="${map.orderPaymt.PAYMT_TYPE_NM}"/></td>
+					<th scope="row">결제금액</th>
+					<td class="last"><strong><span><fmt:formatNumber value="${map.orderPaymt.PAYMT_AMT}" type="number" /></span></strong> 원</td>
+				</tr>
+				</tbody>
+				</table>
+					
+				<h3><img src="/images/reebok/order/tit_s_payment.gif" alt="결제정보" /></h3>
+				<table class="view" summary="결제정보">
+				<caption>결제정보</caption>
+				<colgroup>
+					<col width="142px" />
+					<col width="235px" />
+					<col width="142px" />
+					<col />
+				</colgroup>
+				<tr>
+					<th scope="row">계좌이체 은행</th>
+					<td colspan="3"><c:out value="${map.orderPaymt.BANK_NM}"/></td>
+					<!-- 
+					<th scope="row">입금자명</th>
+					<td class="last"></td>
+					 -->
+				</tr>
+				<tr>
+					<th scope="row">계좌이체 금액</th>
+					<td colspan="3" class="last"><strong><span><fmt:formatNumber value="${map.orderPaymt.PAYMT_AMT}" type="number" /></span></strong> 원</td>
+				</tr>
+				</table>
+
+				<ul style="margin-bottom:30px;">
+					<li style="font:11px 'Dotum';padding-bottom:5px;">- 본 주문은 무통장입금 주문으로 <strong style="color:#EB0000;">2015.12.21</strong>까지 입금이 완료되지 않을 경우, 주문은 자동취소 됩니다.</li>
+					<li style="font:11px 'Dotum';padding-bottom:5px;">- 입금하실 은행과 예금주 정보는 고객님의 휴대폰 <strong style="color:#EB0000;">010-1234-5678</strong>으로 발송된 문자 메세지를 확인하시기 바랍니다.</li>
+					<li style="font:11px 'Dotum';">- 주문 완료와 입금완료 사이에 주문하신 상품이 품절될 수 있습니다.</li>
+				</ul>                 	
+				<h3><img src="/images/reebok/order/tit_s_payment.gif" alt="결제정보" /></h3>
+				<table class="view" summary="결제정보">
+					<caption>결제정보</caption>
+					<colgroup>
+						<col width="142px" />
+						<col width="235px" />
+						<col width="142px" />
+						<col />
+					</colgroup>
+					<tr>
+						<th scope="row">입금은행</th>
+						<td><c:out value="${map.orderPaymt.BANK_NM}"/></td>
+						<th scope="row">결제금액</th>
+						<td class="last"><strong><span><fmt:formatNumber value="${map.orderPaymt.PAYMT_AMT}" type="number" /></span></strong> 원</td>
+					</tr>
+					<tr>
+						<th scope="row">입금계좌번호</th>
+						<td><c:out value="${map.orderPaymt.ACNT_NO}"/></td>
+						<th scope="row">예금주</th>
+						<td class="last"><c:out value="${map.orderPaymt.VBANK_OWN_NAME}"/></td>
+					</tr>
+					<tr>
+						<th scope="row">입금기한</th>
+						<td><c:out value="${map.orderPaymt.DPST_LST_DY_DISP}"/> <c:out value="${map.orderPaymt.DPST_LST_TIME_DISP}"/></td>
+						<th scope="row">입금자명</th>
+						<td class="last"><c:out value="${map.orderPaymt.DPSTR}"/></td>
+					</tr>
+				</table>                
+					
+                                
+				<h3><img src="/images/reebok/order/tit_s_cargo.gif" alt="배송정보" /></h3>
+				<table class="view mg20" summary="배송정보">
+				<caption>배송정보</caption>
+				<colgroup>
+					<col width="142px" />
+					<col width="235px" />
+					<col width="142px" />
+					<col />
+				</colgroup>
+				<tr>
+					<th scope="row">받으시는 분</th>
+					<td colspan="3" class="last"><c:out value="${map.orderInfo.RCIVR_NM}"/></td>
+				</tr>
+				<tr>
+					<th scope="row">전화번호</th>
+					<td>
+						<div id="rcivrTelno"><c:out value="${map.orderInfo.RCIVR_TELNO}"/></div>
+					</td>
+					<th scope="row">휴대폰번호</th>
+					<td class="last">
+						<div id="rcivrMobl"><c:out value="${map.orderInfo.RCIVR_MOBL}"/></div>
+					</td>
+				</tr>	
+				<tr>
+					<th scope="row">배송지 주소</th>
+					<td colspan="3" class="last"><c:out value="${map.orderInfo.DLIVY_ADDR}"/> <c:out value="${map.orderInfo.DLIVY_DTL_ADDR}"/></td>
+				</tr>
+				<tr>
+					<th scope="row">배송시 요청사항</th>
+					<td colspan="3" class="last"><c:out value="${map.orderInfo.DLIVY_MEMO}"/></td>
+				</tr>
+				</table>
+
+				<!-- button -->
+				<div class="button " style="margin:0;">
+					<a href="/reeMain.action" class="center"><img src="/images/reebok/order/btn_confirm.gif" alt="확인" /></a>
+					<a href="/RPF060100.action" class="center"><img src="/images/reebok/order/btn_mypage.gif" alt="마이페이지" /></a>
+				</div>
+				<div class="clfix"></div>
+				<!-- //button -->
+				</div>
+
+
+			</div>
+			<!-- //order -->
+
+		</div>
+		<!-- //contents -->
+
+		<!-- 결제용 frame -->
+		<iframe src="" name="PAY_FRAME" id="PAY_FRAME" style="width:0;height:0;visibility:hidden" title="빈 프레임"></iframe>
+		<!-- // 결제용 frame -->
+<script type="text/javascript">
+_TRK_PI="ODF";
+</script>
+		<!-- footer -->
+		
+
+
+<!-- Google Code for &#54856;&#54168;&#51060;&#51648; &#48169;&#47928; -->
+<!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 982167473;
+var google_conversion_label = "OuHJCMemkwgQsd-q1AM";
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/982167473/?value=0&amp;label=OuHJCMemkwgQsd-q1AM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+
+		<!-- footer_wrap -->
+		<div id="footer_wrap">
+			<!-- footer -->
+			<div id="footer">
+				<div class="f_top">
+					<h1><img src="../images/reebok/common/logo_reebok_f.gif" alt="REEBOK KOREA"/></h1>
+					<div class="fmenu">
+						<ul>
+							<li class="first"><a target="_blank" href="http://www.reebok.com" class="menu01" onmousedown="javascript:fn_trkClickTrace('^풋터^About Reebok');"><img src="../images/reebok/common/btn_f_menu01.gif" alt="about Reebok"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=2" class="menu02" onmousedown="javascript:fn_trkClickTrace('^풋터^개인정보취급방침');"><img src="../images/reebok/common/btn_f_menu02.gif" alt="개인정보보호정책"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=1" class="menu03" onmousedown="javascript:fn_trkClickTrace('^풋터^구매 이용약관');"><img src="../images/reebok/common/btn_f_menu03.gif" alt="구매 이용약관"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=3" class="menu04" onmousedown="javascript:fn_trkClickTrace('^풋터^리클럽 이용약관');"><img src="../images/reebok/common/btn_f_menu04.gif" alt="리클럽 이용약관"/></a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010106.action" class="menu05" onmousedown="javascript:fn_trkClickTrace('^풋터^사이트맵');"><img src="../images/reebok/common/btn_f_menu05.gif" alt="사이트맵"/></a></li>
+						</ul>
+					</div>
+					<div class="language">
+							
+					</div>
+				</div>
+				<!--//f_top-->
+		
+				<div class="f_bottom"> 
+					<div class="address">
+						<p><img src="/images/reebok/common/bg_address.gif" alt="137-955 서울특별시 서초구 서초2동 1321-15 삼성생명 서초타워 7층 , 대표이사:쟝 미쉘 그라니에, 교환 및 반품 문의(본사로 반품불가) 온라인 스토어 고객센터: 1588-7324 (평일 09:00 ~ 18:00, 점심시간 12:00 ~ 13:00), 제품 수선문의: 리복 고객만족센터 080-344-3732 (평일 09:00 ~ 18:00), 사업자 등록번호 : 214-81-07412, 통신판매업신고: 2007-서울서초-10391, 개인정보 보호 책임자: 황선영 "/></p>
+					</div>
+					<div class="footer_right">
+						<img src="../images/reebok/common/footer_info2.gif" alt="당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드 은행과 채무 지급보증 계약을 채결하여 안전거래를 보장하고 있습니다." usemap="#Map2"/>
+						<map name="Map2" id="Map2">
+							<area shape="rect" coords="222,4,270,22" href="#" alt="공정거래 위원회 사업자 신원정보 확인" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">
+							<area shape="rect" coords="178,28,270,46" href="#" onclick="javascript:fn_certifiedInfoPopRbk();return false" alt="한국 스탠다드차타드은행 채무지급보증 안내 , 서비스 가입사실 확인" title="새창"/>
+						</map>
+					</div>
+				</div>
+				<!--//f_bottom-->
+			</div>
+			<!-- //footer -->
+		</div>
+		<!-- //footer_wrap -->
+
+		<!-- //footer -->
+	</div>
+</div>
+</body>
+</html>

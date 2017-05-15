@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css">
+	<style type="text/css">
+		#test{
+			width: 100px;
+			height: 100px;
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="test"></div>
+
+	<script type="text/javascript">
+		var elem = document.getElementById('test');
+		// setTransform(elem , 'translate3d(-10px 0 0) rotate(-45deg)');
+
+		function setTransform(elem , value){
+			var regProp = /.+?(?=\()/;
+			var regValue = /\((.+)(?=\))/;
+			// var regValue = /\((\d+)\)/;
+			var regAllInfo = /^:?|^\s/;
+			var i = 0;
+
+			var arrayValue = value.split(/(?:\)) \s/);
+			var values = [];
+
+			for(; i < arrayValue.length; i++){
+				console.log(arrayValue);
+				values.push({
+					prop : arrayValue[i].match(regProp),
+					value : arrayValue[i].match(regValue)
+				});	
+			}
+
+			console.log(values);
+
+			// var propArray = ['transform','WebkitTransforrm','MozTransform','msTransform'];
+			// var cssValue = (function(){
+			// 	var i = 0;
+			// 	for(; i < propArray.length; i++){
+			// 		if(elem.style[propArray[i]] != undefined || elem.style[propArray[i]] != ''){
+			// 			return elem.style[propArray[i]];
+			// 		}
+			// 	}
+			// 	return '';
+			// })();
+
+			// if(cssValue.indexOf(value.match(regProp)[0]) > -1){
+			// 	cssValue.replace(/(^:?|^\s{1}).+(?=\))/ , value);
+			// }else{
+
+			// }
+
+			// elem.style[propArray[0]] = elem.style[propArray[1]] = elem.style[propArray[2]] = elem.style[propArray[3]] = cssValue;
+
+		}
+
+
+		var test = 'translate3d(10px -10px) rotate(90deg) matrix(1,0.2241,-12.41235,0,1,0,0,0,1)';
+		var testArray = test.split(/(?=\))?\s(?=\w)/);
+		var result = test.match(/(.*)(?:\()(.*)(?:\))/);
+
+		var regTransformProp = /.+(?=\()/;
+		var regTransformValue = /\((.+)\)/;
+
+		var regGetNumber = /-?\d+\.?\d/g;
+		var i = 0;
+
+		var cssArray = [];
+
+		for(;i < testArray.length; i++){
+			cssArray[i] = {
+				prop : testArray[i].match(regTransformProp) , 
+				// value : {
+				// 	val : 
+				// 	prefix : ,
+				// 	unit : ,
+				// }
+			};
+			console.log('property : ' , testArray[i].match(regTransformProp));
+			console.log('value : ' , testArray[i].match(regTransformValue));
+
+			var va = testArray[i].match(regTransformValue)[1];
+
+			console.log(va.match(regGetNumber))
+		}
+		
+
+		console.log(testArray);
+		// console.log(result);
+	</script>
+</body>
+</html>

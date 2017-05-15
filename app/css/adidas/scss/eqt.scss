@@ -1,0 +1,375 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	// filter:alpha(opacity=$value * 100);
+	// -ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+/* video_layer */
+.video_layer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 45px;
+		height: 45px;
+		position: absolute;
+		top: 25px;
+		right: 25px;
+		z-index: 20;
+		display: block;
+		background:url('/images/reebok/event/about/sprite.png') -80px 0 no-repeat;
+		text-indent: -5000px;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s ease-in 0.5s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+	}
+}
+/* video_layer end */
+
+
+/* eqt */
+.eqt{
+	position: relative;
+	background: #fff;
+	// height: 13000px;
+
+	.main_wrap{
+		position: relative;
+		width: 1100px;
+		overflow: hidden;
+		margin: 100px auto 100px;
+		&:after{
+			content: '';
+			display: block;
+			height: 0;
+			clear: both;
+		}
+		.main_txt{
+			float:left;
+			img.img_s{
+				position: absolute;
+				bottom:0;
+				left:0;
+			}
+			p{
+				&.title{
+					padding-top: 78px;
+					font:53px/49px 'adinenuPro-black';
+					color:#000;
+				}
+				&.sub{
+					padding-top: 60px;
+
+					font:21px/25px 'Decima Mono';
+					color:#000;
+				}
+				&.sub_kr{
+					padding-top: 17px;
+
+					font:18px/23px 'NotosansKR';
+					color:#949393;
+				}
+			}
+		}
+		.main_visual{
+			position: relative;
+			float:right;
+			overflow: hidden;
+
+				img{
+					&.on{
+						transform: scale(1.1);
+						@include prefix-css3(transition ,transform 10s);
+					}
+
+			}
+		}
+
+
+
+	}
+
+	.content_wrap{
+		position: relative;
+		width: 1100px;
+		margin:0 auto;
+		border-top:1px solid #c5c5c5;
+		.title{
+			padding: 30px 0 100px 0;
+			font:20px 'Decima Mono';
+			text-transform: uppercase;
+			color:#000;
+			.num{
+				padding-right: 10px;
+				color:#ff7276;
+			}
+
+		}
+		&:after{
+			content: '';
+			display: block;
+			height: 0;
+			clear: both;
+		}
+		.box{
+			width: 528px;
+			display: inline-block;
+			float:left;
+			&:last-child{
+				float:right;
+			}
+			.content{
+				.video{
+					position: absolute;
+					bottom: 0;
+					right: 0;
+				}
+			}
+		}
+		.item_wrap{
+			&:after{
+				content: '';
+				display: block;
+				height: 0;
+				clear: both;
+			}
+			ul{
+				position: relative;
+				margin-bottom: 173px;
+
+				&:after{
+					content: '';
+					display: block;
+					height: 0;
+					clear: both;
+				}
+				li{
+					width: 240px;
+					float:left;
+					margin-right: 46px;
+					overflow: hidden;
+					&:last-child{
+						margin-right: 0;
+					}
+					.item_name{
+						color:#000;
+						font:20px 'Decima Mono';
+						text-transform: uppercase;
+						span{
+							display: block;
+							color:#848484;
+							font:17px 'Decima Mono';
+						}
+					}
+					.thumb{
+						position: relative;
+						text-align: center;
+						a.link{
+							position: absolute;
+							top:0;
+							left:0;
+							width: 100%;
+							height: 100%;
+						}
+						a.buy{
+							@include opacity(0);
+							position: absolute;
+							top:50%;
+							left:-100%;
+							margin-left: -103px;
+							margin-top: -30px;
+							width: 207px;
+							display: inline-block;
+							text-align: center;
+							@include prefix-css3(transition ,opacity 0.2s);
+							&.on{
+								@include opacity(1);
+							}
+							&.leave{
+								left:150% !important;
+							}
+
+							span{
+								position: relative;
+								z-index: 1;
+								color:#fff;
+								font:16px/58px 'NotosansKRRegular','Nanum Gothic';
+							}
+							em{
+								position: absolute;
+								top:0;
+								left:0;
+								width: 100%;
+								height: 100%;
+								background: #000;
+								@include opacity(0.7);
+							}
+						}
+					}
+				}
+			}
+			a.all{
+				display: inline-block;
+				float:right;
+				margin: 60px 0;
+				padding: 0 20px;
+				background: #ff7276;
+				font:16px/72px 'NotosansKRLight','Nanum Gothic';
+				color:#fff;
+				span{
+					display: inline-block;
+					margin-right: 7px;
+				}
+				em{
+					margin-left: 367px;
+				}
+			}
+		}
+		.slider_wrap{
+			position: relative;
+			height:705px;
+			.num{
+				position: absolute;
+				bottom: 12px;
+				width: 100%;
+				text-align: center;
+				a{
+					display: inline-block;
+					width:14px;
+					height:14px;
+					margin-right: 5px;
+					background: #cfd2d4;
+					@include opacity(0.9);
+					border-radius: 50px;
+					-webkit-border-radius: 50px;
+					&:last-child{
+						margin-right: 0;
+					}
+					&.on{
+						background:#ff7276;
+					}
+
+				}
+			}
+			ul{
+				li{
+					position: absolute;
+					top:0;
+					left:0;
+					@include opacity(0);
+					@include prefix-css3(transition ,opacity 0.5s);
+					&.on{
+						@include opacity(1);
+					}
+				}
+			}
+		}
+	}
+
+
+
+}
+/* End of stella */
+
+
+/*
+ * For ie old version
+ */

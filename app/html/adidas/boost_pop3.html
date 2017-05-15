@@ -1,0 +1,121 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript">
+	var totalReturnURL = 'http://shop.adidas.co.kr/popRedirect.action?redirectPageMan=';
+	function init(){
+		window.resizeTo(480, 730);
+		var ipinMan = '';
+		var crt_diviMan = '';		
+		if(ipinMan == 'ipinManNo'){
+			openError('Ipin');
+			jQuery("#memAgre2").attr("checked","checked");
+			jQuery("#ipin").show();
+			jQuery("#mcert").hide();
+		}else if(ipinMan == 'ipinManYes'){
+			jQuery("#memAgre2").attr("checked","checked");
+			jQuery("#ipin").show();
+			jQuery("#mcert").hide();
+			var mem_id = '';
+			var sgnup_dy = '';
+			document.location.href = "/PF0609011.action?MEM_ID="+mem_id+"&SGNUP_DY="+sgnup_dy+'&returnURL=http://shop.adidas.co.kr/adiMain.action';
+		}else if(ipinMan == 'mcertManNo'){
+			openError('mcert');
+			jQuery("#memAgre3").attr("checked","checked");
+			jQuery("#ipin").hide();
+			jQuery("#mcert").show();
+		}else if(ipinMan == 'mcertManYes'){
+			jQuery("#memAgre3").attr("checked","checked");
+			jQuery("#ipin").hide();
+			jQuery("#mcert").show();
+			var mem_id = '';
+			var sgnup_dy = '';
+			document.location.href = "/PF0609011.action?MEM_ID="+mem_id+"&SGNUP_DY="+sgnup_dy+'&returnURL=http://shop.adidas.co.kr/adiMain.action';
+		}else{
+			jQuery("#ipin").show();
+			jQuery("#mcert").hide();
+		}
+	}
+	
+	//ipin 연동
+	window.name ="Parent_window";
+	
+	//i-PIN / 휴대폰인증
+	function fnPopup(){
+        if(!jQuery("#chk_agree").attr("checked")) {
+            alert('본인 확인을 위한 개인정보 제공에 동의하셔야합니다.');
+            jQuery("#chk_agree").focus();
+            return;
+        }
+		if (jQuery("#memAgre2").attr("checked")) {
+			window.open('', 'popupIPIN2', 'width=450,height=550,top=100,left=100,fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=yes,location=no,scrollbar=no');
+			document.form_ipin.target = "popupIPIN2";
+			document.form_ipin.action = "https://cert.vno.co.kr/ipin.cb";
+			document.form_ipin.submit();
+		} else {
+			jQuery("#certFrame").attr("src","https://shop.adidas.co.kr:443/kmcisCert.action");
+		}
+	}
+	
+	//에러처리
+	function openError(gubn){
+		window.resizeTo(480,850);
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch"+gubn).show();
+		jQuery("#withDr").hide();
+		jQuery("#csDiv").show();
+	}
+	
+	//탈퇴한 회원
+	function logInWithDr(withdr_dt){
+		window.resizeTo(480,830);
+		document.getElementById("withDrDt").innerHTML = withdr_dt;
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch").hide();
+		jQuery("#withDr").show();
+		jQuery("#csDiv").show();
+	}
+
+	//회원가입, 고객센터
+	function memberJoinPage(url){
+		document.location.href = totalReturnURL + url+'.action';
+	}
+</script>
+
+</head>
+<body onload="init();">
+<div id="pop">
+	<div id="popupHeader">
+		<h1>boost + 2013 MBC 한강마라톤 이벤트</h1>
+		<a href="javascript:self.close();"><img src="https://shop.adidas.co.kr:443/images/adidas/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+
+	<div id="popupContents">
+		<p style="text-align:center;margin-bottom:35px;"><img src="/images/adidas/popup/txt_boost_130219_08.gif" alt="감사합니다. 201"/></p>
+		<p class="btn" style="text-align:center;">
+			<img src="/images/adidas/popup/btn_ok.gif" alt="확인" onclick="javascript:fnPopup()" style="cursor: pointer;"/>
+		</p> 
+	</div>
+</div>
+</body>
+</html>

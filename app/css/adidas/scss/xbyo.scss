@@ -1,0 +1,758 @@
+/*
+	break width
+ */
+$break-small: 1366px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+		
+	}
+}
+
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include prefix-css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right, 
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;	
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;	
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+#xbyo{
+	width: 100%;
+	min-width:1200px;
+	background: #fff;
+	overflow: hidden;
+	/* Button */
+	.button{
+		padding: 18px 70px 18px 40px;
+		display: inline-block;
+		border: 1px solid  #000;
+		position: relative;
+		background: #fff;
+
+		.text{
+			font:15px/15px 'NotoSansKRRegular','Nanum Gothic';
+			color: #000;
+		}
+
+		.icon{
+			position: absolute;
+			top: 17px;
+   			right: 45px;
+			display: block;
+			width: 16px;
+			height: 15px;
+			background: url('/images/adidas/event/xbyo/8613-btn-icon-b.png') 0 0 no-repeat;
+		}
+
+		&:hover{
+			background: #000 !important;
+
+			.text{
+				color:#fff;
+			}
+
+			.icon{
+				background-image:url('/images/adidas/event/xbyo/8613-btn-icon-a.png');
+			}
+
+		}
+
+		&.btype{
+			background: #000;
+			.text{
+				color:#fff;
+			}
+
+			.icon{
+				background-image:url('/images/adidas/event/xbyo/8613-btn-icon-a.png');
+			}
+
+			&:hover{
+				border-color: #333;
+				background: #333 !important;
+			}
+		}
+	}
+
+	/* visual */
+	.visual{
+		width: 100%;
+		height: 900px;
+		position: relative;
+		overflow: hidden;
+
+		@media screen and (max-width: $break-small) {
+			height: 600px;
+		}
+
+		.deco{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 170px;
+			margin-left: -85px;
+			z-index: 2;
+
+			img{
+				width: 100%;
+			}
+		}
+
+		.bg{
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			@media screen and (max-width: $break-small) {
+				width: 1600px;
+				left: 50%;
+				margin-left: -800px;
+			}
+
+			img{
+				width: 100%;
+			}
+		}
+
+		.textbox{
+			position: absolute;
+			top:50%;
+			left: 100px;
+			margin:-137px 0 0 0;
+			z-index: 10;
+
+			h2{
+				margin-bottom: 30px;
+			}
+
+			.desc{
+				margin-bottom: 20px;
+				color:#fff;
+				font:19px/33px 'NotoSansKRRegular','Nanum Gothic';
+			}
+		}
+
+		.video_layer{
+			width: 700px;
+			height: 386px;
+			position: absolute;
+			top: 50%;
+			right: 140px;
+			z-index: 6;
+			margin:-193px 0 0 0;
+
+			@media screen and (max-width: $break-small) {
+			    width: 440px;
+				height: 219px;
+				margin:-173px 0 0 0;
+			}
+
+			a{
+				position: absolute;
+				left: -100px;
+				top: 52px;
+				z-index: 5;
+
+				@media screen and (max-width: $break-small) {
+
+					top: 50px;
+					img{
+						width: 500px;
+					}
+				}
+			}
+
+			.box{
+				width: 600px;
+				height: 490px;
+				position: absolute;
+				top: 0;
+				left: 50px;
+				border: 2px solid  #fff;
+				z-index: 2;
+
+				@media screen and (max-width: $break-small) {
+					width: 420px;
+    				height: 370px;
+    				left: 0;
+				}
+			}
+
+			.logo-line{
+				width: 38px;
+				height: 162px;
+				background: url('/images/adidas/event/xbyo/icon-originals.png') 0 0 no-repeat;
+				position: absolute;
+				bottom: -107px;
+				right: 0;
+
+				@media screen and (max-width: $break-small) {
+					bottom: -155px;
+    				right: -40px;
+				}
+			}
+
+			.logo-ss{
+				width: 57px;
+				height: 53px;
+				background: url('/images/adidas/event/xbyo/logo-ss.png') 0 0 no-repeat;
+				position: absolute;
+				top: -100px;
+				right: 45px;
+
+				@media screen and (max-width: $break-small) {
+					top: -80px;
+    				right: 20px;
+				}
+			}
+
+		}
+	}
+
+	/* statement */
+	.statement{
+		padding: 100px 0;
+		text-align: center;
+		font:50px/50px 'adihausDIN-Cond';
+		letter-spacing: 5px;
+		color: #a6a6a6;
+	}
+
+	/* features */
+	.features{
+		.box{
+			position: relative;
+			width: 100%;
+			height: 900px;
+
+			.img{
+				position: absolute;
+			}
+
+			.textbox{
+				position: absolute;
+				top:50%;
+				margin-top: -150px;
+
+				h3{
+					margin-bottom: 20px;
+					font:52px/26px 'adihausDIN-Cond-medium';
+					color: #000;
+				}
+
+				.desc{
+					margin-bottom: 20px;
+					font:17px/28px 'NotoSansKRRegular','Nanum Gothic';
+					color: #000;
+				}
+			}
+
+			&.box1{
+				.img1-1{
+					top: 0;
+					left: 0;
+				}
+
+				.img1-2{
+					top: 420px;
+					left: 460px;
+					@media screen and (max-width: $break-small) {
+						top: 360px;
+						left: 260px;
+					}
+				}
+
+				.textbox{
+					right:200px;
+					@media screen and (max-width: $break-small) {
+						right: 120px;
+					}
+				}
+			}
+
+			&.box2{
+				.img1-1{
+					top: 0;
+					right: 0;
+				}
+
+				.img1-2{
+					top: 410px;
+					right: 460px;
+					@media screen and (max-width: $break-small) {
+						top: 360px;
+						right: 320px;
+					}
+				}
+
+				.textbox{
+					left:200px;
+					@media screen and (max-width: $break-small) {
+						left: 120px;
+					}
+				}
+			}
+
+		}
+	}
+
+	/* lookbook */
+	.lookbook{
+		
+		.tit{
+			background: #f7f6f6;
+			padding: 60px 0;
+			text-align: center;
+			font:46px/46px 'adihausDIN-Cond';
+			letter-spacing: 5px;
+			color: #a6a6a6;
+		}
+
+		.lookbook_slider_wrap{
+			width: 100%;
+			padding-bottom: 53.33333333%;
+			position: relative;
+			overflow: hidden;
+
+			.prev , .next{
+				overflow: hidden;
+				position: absolute;
+				top: 50%;
+				width: 32px;
+				height: 61px;
+				z-index: 10;
+				margin-top: -30px;
+
+				span{
+					display: block;
+					width: 32px;
+					height: 61px;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			.prev{
+				left: 100px;
+				.ie7 & span , .ie8 & span , .ie9 & span{
+					background: url('/images/adidas/event/xbyo/8613-chevron-left-b.png') 0 0 no-repeat;
+				}
+
+				&::before{
+					width: 32px;
+					height: 61px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background: url('/images/adidas/event/xbyo/8613-chevron-left-b.png') 0 0 no-repeat;
+
+					@include animation(0s,2s,leftArrowAnim);
+					@extend .pseudo-element;
+				}
+
+			}
+
+			.next{
+				right: 100px;
+				.ie7 & span , .ie8 & span , .ie9 & span{
+					background: url('/images/adidas/event/xbyo/8613-chevron-right-b.png') 0 0 no-repeat;	
+				}
+
+				&::before{
+					width: 32px;
+					height: 61px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background: url('/images/adidas/event/xbyo/8613-chevron-right-b.png') 0 0 no-repeat;
+
+					@include animation(0s,2s,rightArrowAnim);
+					@extend .pseudo-element;
+				}
+			}
+			.bg{
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				img{
+					width: 100%;
+				}
+			}
+
+			.item{
+				width: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+				display: none;
+
+				img{
+					width: 100%;
+				}
+			}
+		}
+
+		.button_area{
+			width: 100%;
+			padding: 50px 0;
+			text-align: center;
+			background: #f7f6f6;
+
+			.button{
+				margin: 0 auto;
+				background: #f7f6f6;
+			}
+		}
+	}
+
+	/* image_grids */
+	.image_grids{
+		.product_show{
+			width: 100%;
+			position: relative;
+
+			.fix{
+				width: 25%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				overflow: hidden;
+				@include prefix-css3(perspective,500px);
+
+				img{
+					width: 100%;
+					@include prefix-css3(transform,translate3d(0,0,0));
+					@include prefix-css3(transition-duration,1s);
+				}
+
+				&:hover{
+					img{
+						@include prefix-css3(transform,translate3d(0,0,100px));
+						@include prefix-css3(transition-duration,10s);	
+					}
+				}
+			}
+
+			.image-grid{
+				width: 100%;
+				position: relative;
+				left: 25%;
+
+				.col{
+					>div{
+						overflow: hidden;
+						@include prefix-css3(perspective,500px);
+						
+						img{
+							@include prefix-css3(transform,translate3d(0,0,0));
+							@include prefix-css3(transition-duration,1s);
+						}
+
+						&:hover{
+							img{
+								@include prefix-css3(transform,translate3d(0,0,100px));
+								@include prefix-css3(transition-duration,10s);	
+							}
+						}
+					}
+					.img1-3{
+						width: 25%;
+						position: relative;
+						float: left;
+					}
+
+					.img2-3{
+						width: 50%;
+						padding-bottom: 25%;
+						position: relative;
+						float: left;
+						background:url('/images/adidas/event/xbyo/img-grid_horiz-1_tcm65-116510.jpg') center center no-repeat;
+
+						.copy{
+							width: 100%;
+							position: absolute;
+							top:50%;
+							left: 0;
+							text-align: center;
+
+							@include prefix-css3(transform,translate3d(0,-50%,0));
+							p{
+								margin-bottom: 20px;
+								font:18px/18px 'NotoSansKRRegular','Nanum Gothic';
+								text-align: center;
+								color: #000;
+							}
+						}
+					}
+
+					img{
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+
+	.last_statement{
+		padding: 60px 0;
+		background: url('/images/adidas/event/xbyo/statementqote_tcm49-120617.jpg') center 0 no-repeat;
+		.button_area{
+			padding:0 0 70px;
+			text-align: center;
+		}
+
+		h4{
+			margin: 30px;
+			text-align: center;
+			font:30px/30px 'NotoSansKRRegular','Nanum Gothic';
+			color: #000;
+		}
+
+		.by{
+			text-align: center;
+			font:16px/16px 'NotoSansKRRegular','Nanum Gothic';
+			color: #a6a6a6;
+		}
+	}
+
+}
+/* xbyo end */
+
+
+@include keyframe(leftArrowAnim){
+	0% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+	25% {
+		transform:translate3d(-101%,0,0);
+		-webkit-transform:translate3d(-101%,0,0);
+	}
+	25.1% {
+		transform:translate3d(101%,0,0);
+		-webkit-transform:translate3d(101%,0,0);
+	}
+	50% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+	100% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+}
+
+@include keyframe(rightArrowAnim){
+	0% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+	25% {
+		transform:translate3d(101%,0,0);
+		-webkit-transform:translate3d(101%,0,0);
+	}
+	25.1% {
+		transform:translate3d(-101%,0,0);
+		-webkit-transform:translate3d(-101%,0,0);
+	}
+	50% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+	100% {
+		transform:translate3d(0%,0,0);
+		-webkit-transform:translate3d(0%,0,0);
+	}
+}

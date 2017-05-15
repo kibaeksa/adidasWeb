@@ -1,0 +1,520 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#tubular{
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+
+	.lazyeffect{
+		@include opacity(0);
+		@include prefix-css3(transform,translate3d(0,15px,0));
+		@include prefix-css3(transition,all 0.3s);
+		
+		&.loaded{
+			@include opacity(1);
+			@include prefix-css3(transform,translate3d(0,0,0));
+		}
+	}
+
+	.button{
+		position: relative;
+		padding:15px 50px 19px 35px;
+		display: inline-block;
+		font:16px/16px 'NotoSansKRRegular','Nanum Gothic';
+		color: #fff;
+		background: #000;
+
+		.eng{
+			display: inline;
+			font:16px/16px 'adihaus-bold';
+			text-transform: uppercase;
+		}
+
+		span{
+			width: 16px;
+			height: 15px;
+			position: absolute;
+			top: 50%;
+			right: 20px;
+			margin-top: -8px;
+			background: url('/images/adidas/event/tubular2016/161214/8082-btn-icon-a.png') 0 0 no-repeat;
+		}
+
+		&:hover{
+			background: #333;
+		}
+	}
+
+	.masthead{
+		width: 100%;
+		overflow: hidden;
+		position:relative;
+		background: url('/images/adidas/event/tubular2016/161214/8082-tubular_two_masthead_bg.jpg') 0 0 repeat;
+	
+		.inner{
+			height: 620px;
+
+			@media screen and (min-width:1360px) {
+				height: 500px;
+			}
+
+			.masthead_image{
+				width: 100%;
+				text-align: center;
+				margin-top: 45px;
+
+				@media screen and (min-width:1360px) {
+					margin-top: 20px;
+				}
+
+				img{
+					width: 1150px;
+
+					@media screen and (min-width:1360px) {
+						width:1000px;
+					}
+				}	
+			}
+
+			.masthead_logo{
+				position: absolute;
+				top: 305px;
+				left: 50%;
+				margin-left: -625px;
+
+				@media screen and (min-width:1360px) {
+					top: 240px;
+				}
+
+				.button{
+					position: absolute;
+					top: 74px;
+					right: 0;
+				}
+			}
+			
+		}
+		// inner
+	}
+
+	.products_display{
+		width: 100%;
+		height: 600px;
+		position: relative;
+
+		.prev , .next{
+			position: absolute;
+			top: 180px;
+			left: 50%;
+
+			&.prev{
+				margin-left: -400px;
+			}
+
+			&.next{
+				margin-left: 400px;
+			}
+		}
+
+		.bg{
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+		}
+
+		.product_slider_wrap{
+			position: relative;
+			width: 100%;
+
+			.slider{
+				width: 10000%;
+				position: absolute;
+				top: 30px;
+				left: 0;	
+				overflow: hidden;
+
+				.item{
+					width: 900px;
+					float: left;
+					text-align: center;
+
+					@extend .lazyeffect;
+					@include prefix-css3(transform,translate3d(0,60px,0));
+					@include prefix-css3(transition-duration,0.6s);
+				}
+			}
+		}
+
+		.product_slider_label{
+			width: 1000%;
+			position: absolute;
+			bottom: 80px;
+			left: 0;
+
+			div{
+				position:relative;
+				margin-right: 60px;
+				float: left;
+				color:#808080;
+				font:28px 'adihaus';
+
+				@extend .lazyeffect;
+				@include prefix-css3(transform,translate3d(0,10px,0));
+				@include prefix-css3(transition-duration,0.5s);
+				@include prefix-css3(transition-delay,0.45s);
+
+
+				&:after{
+					@extend .pseudo-element;
+					width: 0;
+					height: 16px;
+					position: absolute;
+					bottom: -30px;
+					left: 0;
+					background: url('/images/adidas/event/tubular2016/161214/8082-tubular_two_product_thumb_bg.png') 0 0 no-repeat;
+
+					@include prefix-css3(transition,width 0.3s);
+
+				}
+
+				&.on{
+					font-family:'adihaus-bold';
+
+					&:after{
+						width: 100%;
+						@include prefix-css3(transition-delay,0.2s);
+					}
+				}
+			}
+		}	
+
+	}
+
+	.product_infomation{
+		min-height: 500px;
+		.box{
+			display: none;
+			.product_show{
+				width: 100%;
+				position: relative;
+
+				.fix{
+					width: 25%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					overflow: hidden;
+					@include prefix-css3(perspective,500px);
+
+					img{
+						width: 100%;
+						@include prefix-css3(transform,translate3d(0,0,0));
+						@include prefix-css3(transition-duration,1s);
+					}
+
+					&:hover{
+						img{
+							@include prefix-css3(transform,translate3d(0,0,100px));
+							@include prefix-css3(transition-duration,10s);	
+						}
+					}
+				}
+
+				.image-grid{
+					width: 100%;
+					position: relative;
+					left: 25%;
+
+					.col{
+						>div{
+							overflow: hidden;
+							@include prefix-css3(perspective,500px);
+							
+							img{
+								@include prefix-css3(transform,translate3d(0,0,0));
+								@include prefix-css3(transition-duration,1s);
+							}
+
+							&:hover{
+								img{
+									@include prefix-css3(transform,translate3d(0,0,100px));
+									@include prefix-css3(transition-duration,10s);	
+								}
+							}
+						}
+						.img1-3{
+							width: 25%;
+							position: relative;
+							float: left;
+						}
+
+						.img2-3{
+							width: 50%;
+							padding-bottom: 25%;
+							position: relative;
+							float: left;
+							background:url('/images/adidas/event/tubular2016/161214/Horiz-Generic_tcm65-114436.jpg') center center no-repeat;
+
+							.copy{
+								width: 100%;
+								position: absolute;
+								top:50%;
+								left: 0;
+								text-align: center;
+
+								@include prefix-css3(transform,translate3d(0,-50%,0));
+								p{
+									margin-bottom: 20px;
+									font:18px/18px 'NotoSansKRRegular','Nanum Gothic';
+									text-align: center;
+									color: #000;
+								}
+							}
+						}
+
+						img{
+							width: 100%;
+						}
+					}
+				}	
+			}
+
+			.product_feature{
+				width: 100%;
+				height: 690px;
+				position: relative;
+
+				.bg{
+					width: 100%;
+					height: 100%;
+
+					img{
+						width: 100%;
+					}
+				}
+				.inner{
+					width: 1000px;
+					height: 690px;
+					margin-left: -500px;
+					position: absolute;
+					top: 0;
+					left:50%;
+
+					.image{
+						position: absolute;
+						top: 50%;
+						left: -100px;
+						margin-top: -250px;
+						img{
+							width: 600px;
+						}
+					}
+
+					.textbox{
+						width: 50%;
+						position: absolute;
+						top: 50%;
+						right: -50px;
+
+						@include prefix-css3(transform,translate3d(0,-50%,0));
+
+						.tit{
+							margin-bottom: 30px;
+							font:60px/60px 'adihaus-bold';
+							color: #000; 
+						}
+
+						.desc{
+							margin-bottom: 30px;
+							font:18px/30px 'NotoSansKRRegular','Nanum Gothic';
+							color: #000; 
+						}
+
+					}
+				}
+			}
+
+		}
+	}
+
+	.statement{
+		padding:100px 0;
+		background: #f0f0f2;
+
+		@media screen and (min-width:1360px) {
+			padding: 80px 0 60px;
+		}
+
+		.ct950{
+			width: 700px;
+			
+			p{
+				margin-bottom: 20px;
+				font:20px/20px 'NotoSansKRRegular','Nanum Gothic';
+				color: #000;	
+
+				@extend .lazyeffect;
+				span{
+					font:20px/20px 'adihaus-bold';	
+				}
+			}
+		}
+	}
+	// statement
+	
+	.teaser{
+		display:flex;
+		display:-webkit-flex;
+		display:-moz-flex;
+		display:-ms-flex;
+
+		.ie7 &,
+		.ie8 &,
+		.ie9 &{
+			overflow: hidden;
+		}
+
+		.box{
+			position: relative;
+			overflow: hidden;
+			@include prefix-css3(perspective,500px);
+			.ie7 &,
+			.ie8 &,
+			.ie9 &{
+				width: 33%;
+				float: left;
+
+				&:last-child{
+					width: 34%;
+				}
+			}
+
+			a{
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: block;
+				z-index: 3;
+			}	
+
+			img{
+				width: 100%;
+				@include prefix-css3(transition,all 2s);
+				@include prefix-css3(transform,translate3d(0,0,0));
+			}
+
+			.button{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -25px -0px 0 -63px;
+				z-index: 2;
+			}
+
+			&:after{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: #000;
+				z-index: 1;
+				
+				@extend .pseudo-element;
+				@include opacity(0);
+				@include prefix-css3(transition,opacity 1s);
+			}
+
+			&:hover{
+				img{
+					@include prefix-css3(transform,translate3d(0,0,100px));
+					@include prefix-css3(transition-duration,10s);
+				}
+			}
+
+			&.blocked{
+				&:after{
+					@include opacity(0.3);
+				}
+			}
+		}
+	}
+
+	.statement_last{
+		height: 400px;
+		overflow: hidden;
+		background: url('/images/adidas/event/tubular2016/161214/Marble-BG_1920x800_tcm65-114582.jpg') center top no-repeat;
+		.ct950{
+			width:auto;
+			margin-top:100px;	
+			padding-left: 150px;
+
+			p{
+				margin-bottom: 20px;
+				font:24px/24px 'adihaus';
+				color: #000;	
+
+				strong{
+					display: block;
+					margin-top: 70px;
+					font-weight: normal;
+					font-size: 46px;
+				}
+			}
+		}
+	}
+	
+}

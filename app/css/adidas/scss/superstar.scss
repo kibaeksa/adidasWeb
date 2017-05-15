@@ -1,0 +1,720 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include prefix-css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right, 
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;	
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;	
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+		
+	}
+}
+#superstar{
+	.visual{
+		position: relative;
+		img{ width: 100%; }
+		.play{
+			position: absolute;
+			top:50%;
+			margin-top: -45px;
+			left:50%;
+			margin-left: -45px;
+			a{
+
+			}
+		}
+	}
+	.video_wrap{
+		padding:36px 0 0 0;
+		background: #f5f5f5;
+		height: 671px;
+		.player{
+			position: relative;
+			padding:60px 47px 60px 47px;
+			margin:0 auto;
+			width: 980px;
+			
+			video{
+				width: 100%;
+			}
+
+			.logos{
+				.logo1{
+					position: absolute;
+					top:0;
+					left:50%;
+					margin-left: -20px;
+				}
+				.logo2{
+					position: absolute;
+					left:0;
+					top:50%;
+					margin-top: -60px;
+					
+				}
+				.logo3{
+					position: absolute;
+					right:0;
+					top:50%;
+					margin-top: -60px;
+					
+					
+				}
+			}
+		}
+	}
+	
+	// slider
+	.wrap{
+		width: 100%;
+		background:#fff;
+		overflow: hidden;
+		
+		.slider_wrap{
+			margin:0 auto;
+			position: relative;
+			width:952px;
+			text-align: center;
+
+			
+			.title{
+				padding: 64px 0 0 0;
+				text-align: center;
+
+				p{
+					text-align: center;
+					font:28px/28px 'NotoSansKRRegular';
+					color:#000;
+				}
+				span{
+					display: inline-block;
+					text-align: center;
+
+					padding-top: 36px;
+					font:19px/25px 'NotoSansKRRegular';
+					color:#000;
+				}
+			}
+			a.buy{
+				display: inline-block;
+				margin-top: 30px;
+				padding:0 100px;
+				text-align: center;
+				border:1px solid #000;
+				font:15px/57px 'NotoSansKRRegular';
+				color:#000;
+
+			}
+
+			ul.slider{
+				position: relative;
+				// height: 485px;
+				li{
+					position: relative;
+					width: 952px;
+					margin-top: 50px;
+					float:left;
+					margin-right: 500px;
+					text-align: center;
+					.title{
+							padding:76px 0 54px 0;
+							text-align: center;
+						p{
+							text-transform: uppercase;
+							text-align: center;
+							font: 40px/45px 'adinenuPro-black';
+							color:#000;
+						}
+						span{
+							font: 26px/28px 'NotoSansKRRegular';
+							color:#000;
+						}
+					}
+					
+				}
+			}
+			ul.slider:after{
+				content: '';
+				display: block;
+				width: 0; height: 0;
+				clear:both;
+			}
+			.btn{
+				position: absolute; top:411px; width: 100%; text-align: center;
+				.next{ 
+					width:33px;
+					height: 64px;
+					position: absolute; right: -100px;
+					@include opacity(0.5);
+					@include prefix-css3(transition,right 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+
+						animation: arrow2 2s infinite;
+						-webkit-animation: arrow2 2s infinite;
+					}
+				}
+				.prev{ 
+					width:33px;
+					height: 64px;
+					position: absolute; left: -100px; opacity: 0.5;
+					@include prefix-css3(transition,left 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow 2s infinite;
+						-webkit-animation: arrow 2s infinite;
+					}
+				}
+				
+			}
+		}
+		.num_wrap{
+			position: relative;
+			width: 100%;
+			margin:0px 0 20px 0;
+			// overflow: hidden;
+			height: 45px;
+			.num{
+				position: absolute;
+				left:0; 
+				width: 10000px;
+				a{
+					position: relative;
+					top:0;
+					width:317px;
+					display: inline-block; text-align: center;
+					font: 22px/30px 'NotoSansKRRegular';
+					color:#000;
+					vertical-align: middle;
+					transition: all 0.3s ease-out;
+					span{
+						position: relative;
+						display: inline-block;
+						overflow: hidden;
+						height: 45px;
+						line-height: 35px;
+					}
+				}
+				a.on{
+					position: relative;
+					font: 22px/30px 'NotoSansKRBold';
+					overflow: hidden;
+					
+					// span:after{
+					// 	position: absolute;
+					// 	bottom: 0px;
+					// 	left:0;
+					// 	display: inline-block;
+					// 	content: '';
+					// 	width: 100%;
+					// 	background: #000;
+					// 	height: 3px;
+					// 	margin-top: 15px;
+					// 	overflow: hidden;
+					// }
+				}
+			}
+		}
+	}
+
+	.centerbar{
+		margin:0 auto;
+		display: block;
+		width: 1px;
+		height: 60px;
+		background: #808080;
+	}
+	
+	.gal_wrap{
+		position: relative;
+		width:100%;
+		height:874px;
+		background: #fff;
+		overflow: hidden;
+		padding-bottom: 70px;
+		
+		// background-attachment: fixed;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		// background-size:100%;
+		.gal{
+			width:950px;
+			margin:0 auto;
+			ul{
+				li{
+					position: absolute;
+					left:50%;
+					top:90px;
+					margin-left:-475px;
+					display: none;
+					// @include opacity (0);
+					// @include prefix-css3(transition,all 0.6s);
+					
+					.box_left{
+						position: relative;
+						width:475px;
+						height: 785px;
+						float:left;
+						
+						.img1{
+							position: absolute;
+							top:0;
+							left:0;
+							height: 630px;
+							width: 500px;
+						}
+						.img2{
+							position: absolute;
+							top:284px;
+							right:-166px;
+						}
+					}
+					.box_right{
+						position: relative;
+						width:475px;
+						float:right;
+						top:204px;
+						left:240px;
+						.title{
+							font:30px/30px 'NotoSansKR';
+							color:#333;
+							letter-spacing: 2px;
+						}
+						.desc{
+							display: block;
+							padding-top: 20px;
+							font:19px/25px 'NotoSansKRRegular';
+							color:#333;
+							letter-spacing: -1px;
+
+						}
+						a.buy{
+							display: inline-block;
+							margin-top: 30px;
+							padding:0 100px;
+							text-align: center;
+							border:1px solid #000;
+							font:15px/57px 'NotoSansKRRegular';
+							color:#000;
+
+						}
+					}
+
+					img:hover{
+						// transform:scale(1.1);
+					}
+				}
+				li:after{
+					content: '';
+					display: block;
+					clear:both;
+					width: 0;
+					height: 0;
+				}
+				li.on{
+					display: block;
+					// @include opacity (1);
+					
+				}
+			}
+		}
+		.gal_btn{
+			position: absolute;
+			left:0;
+			bottom: 50px;
+			width: 100%;
+			text-align: center;
+			a{
+				display: inline-block;
+				padding:0 22px;
+				height: 45px;
+				font: 16px/45px 'NotoSansKRBold';
+				background: #fff;
+				color:#000;
+				opacity: .8;
+				transition:all 0.6s;
+				.icons{
+					display: inline-block;
+					margin-left: 30px;
+					width:14px;
+					height: 13px;
+					background-image: url('/images/adidas/event/sports17/icons.png');
+				}
+			}
+			a:hover{
+				opacity: 1;
+			}
+		}
+
+	}
+	.collections{
+		min-width: 1200px;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		.colfix{
+			position: absolute;
+			top:0;
+			left:0;
+			overflow: hidden;
+			width: 25%;
+			img{
+				width: 100%;
+				@include prefix-css3(transition,all 5s);
+			}
+		}
+		.colfix:hover{
+			img{
+				// transform:scale(1.1);
+				@include prefix-css3(transform, scale(1.1));
+			}
+		}
+		.imgs{
+			position: relative;
+
+			width:100%;
+			left:25%;
+			.col>div{
+				overflow: hidden;
+			}
+			.col{
+				.img2{
+					width: 25%;
+					position: relative;
+					float:left;
+					img{
+						width: 100%;
+						@include prefix-css3(transition,all 5s);
+
+						&:hover{
+						@include prefix-css3(transform, scale(1.1));
+
+						}
+					}
+				}
+				.img3{
+					width: 50%;
+					position: relative;
+					float:left;
+					text-align: center;
+					overflow: visible;
+					padding-bottom: 25%;
+					div{
+						position: absolute;
+						top:38%;
+						text-align: center;
+						left:50%;
+						margin-left: -234px;
+
+						p{
+							text-align: center;
+							// position: absolute;
+							// top:139px;
+							// left:50%;
+							// margin-left: -225px;
+							font:20px/23px 'NotoSansKRRegular';
+							color:#000;
+						}
+						a.buy{
+							display: inline-block;
+							margin-top: 30px;
+							padding:0 100px;
+							text-align: center;
+							border:1px solid #000;
+							font:15px/57px 'NotoSansKRRegular';
+							color:#000;
+							// position: absolute;
+							// top:159px;
+							// left:50%;
+							// margin-left: -123px;
+
+						}
+					}
+					
+
+				}
+				.img4{
+					width: 25%;
+					position: relative;
+					float: left;
+					img{
+						width: 100%;
+						@include prefix-css3(transition,all 5s);
+						&:hover{
+						@include prefix-css3(transform, scale(1.1));
+
+						}
+					}
+				}
+			}
+		}
+
+		
+	}
+}
+
+
+
+
+@include keyframe(shining){
+	0%{
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+
+	100%{
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+@include keyframe(arrow){
+	0%{
+		left: 100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: -110%;
+	}
+}
+@include keyframe(arrow2){
+	0%{
+		left: -100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: 110%;
+	}
+}

@@ -1,0 +1,1051 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value...){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation , $fillmode , $iteration) {
+
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:$iteration;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:$iteration;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:$iteration;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    animation-iteration-count:$iteration;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+.bra_common_inner{
+	width: 100%;
+	max-width: 1190px;
+	min-width:1000px;
+	position: relative;
+	margin: 0 auto;
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include opacity(0);
+	@include prefix-css3(transition,opacity 1s);
+
+	div{
+		position: relative;
+		font:60px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+		text-transform:uppercase;
+
+
+		&::after {
+			@extend .pseudo-element;
+    			position: absolute;
+    			top: -110%;
+    			left: -210%;
+    			width: 200%;
+    			height: 100%;
+
+    			background: rgba(255, 255, 255, 0.5);
+    			background: linear-gradient(
+    			to right,
+    			rgba(255, 255, 255, 0.5) 0%,
+    			rgba(255, 255, 255, 0.5) 77%,
+    			rgba(255, 255, 255, 0.5) 92%,
+    			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(0.5s,1.6s,shining,fowards,infinite);
+
+			transition-property: left, top, opacity;
+			transition-duration: 1.2s, 1.7s, 0.15s;
+			transition-timing-function: ease;
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 1.2s, 1.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+
+	&.loaded{
+		@include prefix-css3(transition-duration,0.3s);
+		@include opacity(1);
+	}
+}
+
+.button1{
+	width: 250px;
+	padding: 16px 0;
+	display: inline-block;
+	background: #fff;
+	background:rgba(255,255,255,0.9);
+	text-align: center;
+	transition:background 0.3s;
+	-webkit-transition:background 0.3s;
+
+	&:hover{
+		background:rgba(255,255,255,1);
+	}
+
+	span{
+		position: relative;
+		left: -5px;
+		display: inline-block;
+		font:16px 'NotoSansKRRegular','Nanum Gothic';
+		color: #000;
+		display: block;
+
+		.spt_bg{
+			width: 15px;
+			height: 15px;
+			background-position: right -758px;
+			position: absolute;
+			top: 4px;
+			left: auto;
+			right: -19px;
+		}
+	}
+}
+
+.no_scroll{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+#brafinder{
+	width: 100%;
+	position: relative;
+	background: #ededed;
+	overflow: hidden;
+
+	/* Size selector */
+	.size_selector{
+		.sizebox{
+			width: 133px;
+			float: left;
+			margin-right: 15px;
+
+			&.last{
+				margin-right: 0;
+			}
+
+			.tit{
+				margin-bottom: 15px;
+				font:18px/18px 'NotoSansKR','Nanum Gothic';
+				color: #000;
+				letter-spacing: -0.5px;
+				text-align: center;
+
+				span{
+					margin-left: 5px;
+					font:16px/16px 'adihaus';
+				}
+			}
+
+			.select{
+				position: relative;
+
+				&.disabled{
+					@include opacity(0.6);
+				}
+
+				.value{
+					width: 133px;
+					height: 53px;
+					position: relative;
+					border-top: 1px solid  #bfbfbf;
+					background: #fff url('/images/adidas/event/brafinder/ico_arrow_select.gif') 107px center no-repeat;
+					cursor: pointer;
+
+					.line{
+						width: 28px;
+						height: 5px;
+						background: #000;
+						position: absolute;
+						top: 24px;
+						left: 50%;
+						margin-left: -14px;
+					}
+
+					.num{
+						display: none;
+						padding-top: 9px;
+						font:24px 'adihaus';
+						color: #000;
+						text-align: center;
+					}
+				}
+
+				.options_wrap{
+					display: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 0;
+					height: 54px;
+					background: #fff;
+
+					box-shadow:0 5px 10px rgba(120,120,120,0.6);
+
+					z-index: 10;
+
+					@include opacity(0);
+					@include prefix-css3(transition,width 0.2s,opacity 0.05s);
+
+					&.open{
+						width: 280px;
+						@include opacity(1);
+					}
+
+					.prev{
+						width: 25px;
+						height: 54px;
+						position: absolute;
+						top: 0;
+						left: 0;
+						background: #fff url('/images/adidas/event/brafinder/ico_arrow_left.gif') center center no-repeat;
+
+						&.disabled{
+							@include opacity(0.6);
+						}
+					}
+
+					.next{
+						width: 25px;
+						height: 54px;
+						position: absolute;
+						top: 0;
+						right: 0;
+						background: #fff url('/images/adidas/event/brafinder/ico_arrow_right.gif') center center no-repeat;
+
+						&.disabled{
+							@include opacity(0.6);
+						}
+					}
+
+					div.options{
+						width: 230px;
+						height: 54px;
+						position: absolute;
+						top: 0;
+						left: 25px;
+						background: #fff;
+						overflow: hidden;
+
+						ul{
+							width: 3000px;
+							height: 54px;
+							position: absolute;
+							top: 0;
+							left: 0;
+
+							li{
+								width: 46px;
+								height: 54px;
+								float: left;
+
+								&.selected{
+									a{
+										background: #e1e1e1;
+									}
+								}
+								a{
+									width: 46px;
+									height: 54px;
+									display: block;
+									font:16px/50px 'adihaus';
+									color: #000;
+									text-align: center;
+
+									&:hover{
+										background: #e1e1e1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	.contents{
+		position: relative;
+		padding-top: 40px;
+	}
+
+	.guide_tab{
+		position: absolute;
+		top: -57px;
+		left: 0;
+		z-index: 20;
+
+		&.fixed{
+			position: fixed;
+			top: 0;
+			left: -60px;
+
+			@include prefix-css3(transition,left 0.3s);
+
+			&.on{
+				left: 0;
+			}
+		}
+
+		.text{
+			width: 254px;
+			height: 57px;
+			float: left;
+			border-right: 1px solid  #3ca5e1;
+			text-align: center;
+			font:15px/57px 'NotoSansKR','Nanum Gothic';
+			background: #0084cf;
+			color: #fff;
+		}
+
+		.btn{
+			width: 60px;
+			height: 57px;
+			float: left;
+			background:url('/images/adidas/event/brafinder/btn_ruller.jpg');
+		}
+
+	}
+
+	.masthead{
+		position: relative;
+
+		.bg{
+			position: relative;
+
+			img{
+				width: 100%;
+				min-width:1000px;
+			}
+		}
+
+		.textbox{
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			margin-top: -62px;
+			>*{
+				color: #fff;
+				text-align: center;
+			}
+
+			h2{
+				margin-bottom: 16px;
+				font:52px/52px 'adiBlack';
+				text-transform: uppercase;
+			}
+
+			p{
+				font:16px/28px 'NotoSansKRRegular','Nanum Gothic';
+			}
+		}
+	}
+	/* Masthead END */
+
+	.select_size_tabbox{
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.3s);
+
+		&.active{
+			@include opacity(1);
+		}
+
+		.tab_container{
+			position: relative;
+
+			.close{
+				display: block;
+				position: absolute;
+				right: 0;
+				top: -56px;
+				width: 57px;
+				height: 56px;
+				background:url('/images/adidas/event/brafinder/btn_close.jpg');
+			}
+		}
+
+		.inner{
+			width: 100%;
+		    max-width: 1190px;
+		    min-width: 1000px;
+		    position: relative;
+		    margin: 0 auto 35px;
+
+			h3{
+				margin-bottom: 25px;
+				font: 34px/34px 'NotoSansKRBold','Nanum Gothic';
+				text-align: center;
+				color: #000;
+			}
+
+			p.desc{
+				margin-bottom: 40px;
+				font: 16px/22px 'NotoSansKRLight','Nanum Gothic';
+				text-align: center;
+				color: #000;
+			}
+
+			.tab_list{
+				overflow: hidden;
+
+				li{
+					width: 50%;
+					height: 54px;
+					float: left;
+
+					&.t1{
+						div{
+							border-left-width: 0;
+							border-right: 4px solid  #ededed;
+						}
+					}
+
+					&:hover{
+						div{
+							background: #959595;
+						}
+					}
+
+					&.on{
+						div{
+							border-color: #dedede;
+							background: #dedede;
+						}
+					}
+
+					a{
+						display: block;
+						height: 54px;
+					}
+
+					div{
+						height: 50px;
+						color: #000;
+						font:16px/50px 'NotoSansKR','Nanum Gothic';
+						text-align: center;
+						border-left: 4px solid  #ededed;
+						border-bottom: 4px solid  #ededed;
+						background: #aeaeae;
+
+						@include prefix-css3(transition,background 0.2s);
+					}
+
+				}
+			}
+
+			.tab_contents_wrap{
+				position: relative;
+				height: 560px;
+				background: #dedede;
+
+				h4{
+					font: 18px/18px 'NotoSansKRBold','Nanum Gothic';
+					color: #000;
+
+					.ie7 & , .ie8 &{
+						font-weight: bold;
+					}
+				}
+
+				.btn-ctm{
+					width: 282px;
+					margin: 0 auto;
+					background: #c5c5c5;
+
+					&.active{
+						background: #000;
+					}
+				}
+
+				.tab_cont{
+					width: 100%;
+					height: 560px;
+					display: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					&.active{
+						display: block;
+					}
+
+					.size_selector{
+						width: 281px;
+						height: auto;
+						margin: 0 auto;
+					}
+
+					/* 첫번째 탭 내용 */
+					&.check_size{
+						position: relative;
+						.left_area{
+							width: 50%;
+							padding: 40px 30px;
+							box-sizing:border-box;
+							-webkit-box-sizing:border-box;
+
+							h4{
+								margin-bottom: 25px;
+							}
+
+							dl{
+								margin-bottom: 20px;
+								>*{
+									color: #000;
+								}
+								dt{
+									margin-bottom: 10px;
+									font:16px/16px 'NotoSansKR','Nanum Gothic';
+									.ie7 & , .ie8 &{
+										font-weight: bold;
+									}
+								}
+
+								dd{
+									font:14px/20px 'NotoSansKRLight','Nanum Gothic';
+								}
+							}
+
+							.size_selector{
+								margin: 40px auto;
+							}
+
+
+						}
+
+						.right_area{
+							width: 50%;
+							height: 560px;
+							position: absolute;
+							top: 0;
+							right: 0;
+							overflow: hidden;
+
+							box-sizing:border-box;
+							-webkit-box-sizing:border-box;
+
+							padding:20px;
+
+							.bg{
+								width: 100%;
+								height: 100%;
+								background:url('/images/adidas/event/brafinder/img_guide_size.jpg') center bottom no-repeat;
+								background-size: cover;
+								-webkit-background-size: cover;
+							}
+
+							img{
+								width: 100%;
+							}
+						}
+
+					}
+					// 첫번째 탭 내용 끝
+
+					&.input_size{
+						overflow: hidden;
+
+						.tit{
+							font: 16px/16px 'NotoSansKRBold','Nanum Gothic';
+							color: #000;
+							text-align: center;
+						}
+
+						h4{
+							margin:85px 0 15px;
+							text-align: center;
+						}
+
+						.desc{
+							font-size: 14px;
+						}
+
+						.size_selector{
+							margin:15px auto 50px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/* Result box */
+	.result_box{
+		width: 100%;
+		display: none;
+		height: 0;
+		margin-bottom: 35px;
+		position: relative;
+		overflow: hidden;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.3s);
+
+		&.active{
+			@include opacity(1);
+		}
+
+		.inner{
+			width: 100%;
+		    max-width: 1190px;
+		    min-width: 1000px;
+		    position: relative;
+		    margin: 0 auto;
+			padding: 65px 0 50px;
+			background: #fff;
+
+			h3{
+				width: 635px;
+				padding-bottom: 25px;
+				margin: 0 auto;
+				font: 34px/34px 'NotoSansKRBold','Nanum Gothic';
+				text-align: center;
+				border-bottom: 1px solid  #b0b0b0;
+				color: #000;
+			}
+
+			ul{
+				width: 635px;
+				padding-top: 35px;
+				margin: 0 auto;
+
+				li{
+					position: relative;
+					margin-bottom: 25px;
+
+					.label{
+						width: 385px;
+						text-align: right;
+						font:24px/24px 'adiBlack';
+						color: #000;
+					}
+
+					.size{
+						width: 178px;
+						height: 30px;
+						position: absolute;
+						top: 0;
+						left: 400px;
+						padding-left: 7px;
+						font:26px/30px 'adiLight';
+						background: #fffd5a;
+						color: #000;
+
+						.line{
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/* recommend_box start */
+	.recommend_box{
+		width: 100%;
+		margin-bottom: 40px;
+
+		&.medium{
+			.line{
+				background: #dbd34a;
+			}
+
+			.link_ctgr{
+				background: #dbd34a;
+			}
+		}
+
+		&.light{
+			.line{
+				background: #96c9c1;
+			}
+
+			.link_ctgr{
+				background: #96c9c1;
+			}
+		}
+
+		.inner{
+			background: #fff;
+			padding-top: 28px;
+
+			@extend .bra_common_inner;
+		}
+
+		h3{
+			margin-bottom: 28px;
+			font:40px/40px 'adiBlack';
+			color: #010101;
+			text-align: center;
+		}
+
+		.line{
+			width: 340px;
+			height: 4px;
+			background: #e31a55;
+			position: absolute;
+			top: 77px;
+			left: 50%;
+			margin-left: -170px;
+		}
+
+		.category{
+			margin-bottom: 6px;
+			text-align: center;
+			span{
+				position: relative;
+				display: inline-block;
+				padding: 0 16px 0 9px;
+				font:16px/16px 'NotoSansKRRegular','Nanum Gothic';
+				color: #010101;
+				background:url('/images/adidas/event/brafinder/ico_circle.gif') right 5px no-repeat;
+
+				&.last{
+					background: none;
+				}
+			}
+			text-align: center;
+		}
+
+		.desc{
+			margin-bottom: 30px;
+			font:16px/16px 'NotoSansKRRegular','Nanum Gothic';
+			color: #010101;
+			text-align: center;
+		}
+
+		.link_ctgr{
+			width: 100%;
+			height: 70px;
+			display: block;
+			text-align: center;
+			background: #e31a55;
+
+			span{
+				margin-top:25px;
+				margin-left: -27px;
+				position: relative;
+				display: inline-block;
+				color: #000;
+				font:18px/18px 'NotoSansKRRegular','Nanum Gothic';
+				.ico{
+					width: 18px;
+					height: 18px;
+					position: absolute;
+					top: 0;
+					right: -27px;
+					margin: 0;
+					background:url('/images/adidas/event/brafinder/ico_button.png') 0 0 no-repeat;
+				}
+			}
+		}
+
+		.bra_items{
+
+			&.itemcol_1{
+				.bra_item{
+					margin-left: 33.333333%;
+				}
+			}
+
+			&.itemcol_2{
+				.bra_item{
+					margin-left: 16.6666665%;
+				}
+			}
+
+			.bra_item{
+				width: 33.333333%;
+				float: left;
+				position: relative;
+				overflow: hidden;
+
+				@include prefix-css3(box-sizing,border-box);
+
+				&.last{
+					margin-right: 0;
+				}
+
+				&:hover{
+					.info_box{
+						bottom: 0;
+					}
+				}
+
+				.img{
+					width: 100%;
+					img{
+						width: 100%;
+					}
+				}
+
+				.info_box{
+					position: absolute;
+					bottom: -35px;
+					left: 0;
+					width: 100%;
+
+					@include prefix-css3(transition,bottom 0.3s);
+
+					.overlay{
+						width: 100%;
+						height: 100%;
+						background: #000;
+						position: absolute;
+						top: 0;
+						left: 0;
+
+						@include opacity(0.5);
+					}
+
+					.info_body{
+						padding: 20px 0;
+						position: relative;
+						width: 100%;
+						z-index: 2;
+						text-align: center;
+
+						>*{
+							color: #fff;
+							text-align: center;
+						}
+
+						.size{
+							margin-bottom: 6px;
+							font:24px/24px 'adinenuPro-regular';
+						}
+
+						.ctgr{
+							margin-bottom: 5px;
+							font:18px/18px 'adiBlack';
+							text-transform: uppercase;
+						}
+
+						.ctgr_kor{
+							font:14px/14px 'NotoSansKRRegular','Nanum Gothic';
+						}
+
+						a{
+							margin-left: -15px;
+							position: relative;
+							display: inline-block;
+							margin-top: 20px;
+							font:14px/14px 'NotoSansKRLight','Nanum Gothic';
+
+							.ico{
+								width: 16px;
+								height: 16px;
+								background:url('/images/adidas/event/brafinder/ico_button_white.png') 0 0 no-repeat;
+								position: absolute;
+								top: 0;
+								right: -20px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	/* recommend_box END */
+
+	/* bra_faq start */
+	.bra_faq{
+		margin-bottom: 100px;
+
+		.inner{
+			@extend .bra_common_inner;
+
+			>*{
+				text-align: center;
+				color: #000;
+			}
+		}
+
+		h4{
+			margin-bottom: 20px;
+			font:30px/30px 'NotoSansKRBold','Nanum Gothic';
+
+			.ie7 & , .ie8 &{
+				font-weight: bold;
+			}
+		}
+
+		.desc{
+			margin-bottom: 40px;
+			font:14px/20px 'NotoSansKRRegular','Nanum Gothic';
+		}
+
+		.faq_wrap{
+			padding: 0 35px;
+
+			.faq{
+				li{
+					margin-bottom: 5px;
+
+					&.active{
+						.q{
+							.arrow{
+								@include prefix-css3(transform-origin,center center);
+								@include prefix-css3(transform,rotate(90deg));
+							}
+						}
+					}
+
+					.q{
+						position: relative;
+						height: 54px;
+						background: #dedede;
+
+						a{
+							overflow: hidden;
+							height: 54px;
+							display: block;
+							padding: 0 25px;
+						}
+
+						span{
+							display: block;
+							margin-top: 18px;
+							font:18px/18px 'NotoSansKRRegular','Nanum Gothic';
+							color: #000;
+						}
+
+						.arrow{
+							width: 9px;
+							height: 17px;
+							background:url('/images/adidas/event/brafinder/ico_toggle.png') 0 0 no-repeat;
+							position: absolute;
+							top:19px;
+							right:25px;
+
+							transition:transform 0.3s;
+							-webkit-transition:transform 0.3s;
+						}
+					}
+
+					.a{
+						display: none;
+						padding: 28px 25px;
+						background: #f3f3f3;
+						color: #000;
+						font:15px/22px 'NotoSansKRRegular','Nanum Gothic';
+					}
+				}
+			}
+		}
+	}
+	/* bra_faq END */
+}

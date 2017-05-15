@@ -1,0 +1,535 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include prefix-css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include prefix-css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right, 
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include prefix-css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;	
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;	
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+		
+	}
+}
+#sports17{
+	.visual{
+		position: relative;
+		img{ width: 100%; }
+		.play{
+			position: absolute;
+			top:50%;
+			margin-top: -45px;
+			left:50%;
+			margin-left: -45px;
+			a{
+
+			}
+		}
+	}
+	.bg{
+		width:100%;
+		height:520px;
+		background-image: url('/images/adidas/event/sports17/bg.jpg');
+		background-attachment: fixed;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size:cover;
+		p{
+			padding-top:120px;
+			font: 26px/35px 'NotoSansKR';
+			text-align: center;
+			color:#000;
+		}
+	}
+	// slider
+	.wrap{
+		width: 100%;
+		// height:882px;
+		overflow: hidden;
+		background:url('/images/adidas/event/sports17/slider_bg.jpg');
+		.slider_wrap{
+			margin:0 auto; position: relative;
+			width:952px;
+			// height: 882px;
+			ul.slider{
+				position: relative;
+				// height: 485px;
+				li{
+					width: 952px;
+					// height: 688px;
+					float:left;
+					margin-right: 250px;
+					.title{
+							padding:76px 0 54px 0;
+							text-align: center;
+						p{
+							text-transform: uppercase;
+							text-align: center;
+							font: 40px/45px 'adinenuPro-black';
+							color:#000;
+						}
+						span{
+							font: 26px/28px 'NotoSansKRRegular';
+							color:#000;
+						}
+					}
+					img{width: 100%}
+				}
+			}
+			ul.slider:after{
+				content: '';
+				display: block;
+				width: 0; height: 0;
+				clear:both;
+			}
+			.btn{
+				position: absolute; top:411px; width: 100%; text-align: center;
+				.next{ 
+					width:33px;
+					height: 64px;
+					position: absolute; right: -100px;
+					@include opacity(0.5);
+					@include prefix-css3(transition,right 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						position: relative;
+						animation: arrow2 2s infinite;
+						-webkit-animation: arrow2 2s infinite;
+					}
+				}
+				.prev{ 
+					width:33px;
+					height: 64px;
+					position: absolute; left: -100px; opacity: 0.5;
+					@include prefix-css3(transition,left 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow 2s infinite;
+						-webkit-animation: arrow 2s infinite;
+					}
+				}
+				
+			}
+		}
+		.num_wrap{
+			position: relative;
+			width: 100%;
+			margin:76px 0 83px 0;
+			// overflow: hidden;
+			height: 45px;
+			.num{
+				position: absolute;
+				left:0; 
+				width: 10000px;
+				a{
+					position: relative;
+					top:0;
+					width:317px;
+					display: inline-block; text-align: center;
+					font: 28px/30px 'NotoSansKRRegular';
+					color:#000;
+					vertical-align: middle;
+					transition: all 0.3s ease-out;
+					span{
+						position: relative;
+						display: inline-block;
+						overflow: hidden;
+						height: 45px;
+						line-height: 35px;
+					}
+				}
+				a.on{
+					position: relative;
+					font: 28px/30px 'NotoSansKRBold';
+					overflow: hidden;
+					top:-17px;
+					span:after{
+						position: absolute;
+						bottom: 0px;
+						left:0;
+						display: inline-block;
+						content: '';
+						width: 100%;
+						background: #000;
+						height: 3px;
+						margin-top: 15px;
+						overflow: hidden;
+					}
+				}
+			}
+		}
+	}
+	//video
+	.video_wrap{
+		position: relative;
+		height: 807px;
+		width: 100%;
+		overflow: hidden;
+		ul{
+			li{
+				position: absolute;
+				top:0;
+				left:50%;
+				margin-left: -950px;
+				display: none;
+				a{
+					
+				}
+				.play{
+					position: absolute;
+					top:50%;
+					left:50%;
+					text-align: center;
+					// width: 100%;
+					margin-top: -49px;
+					margin-left: -49px;
+				}
+			}
+		}
+	}
+	.gal_wrap{
+		position: relative;
+		width:100%;
+		height:820px;
+		overflow: hidden;
+		background-image: url('/images/adidas/event/sports17/gal_bg.jpg');
+		// background-attachment: fixed;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		// background-size:100%;
+		.gal{
+			width:950px;
+			margin:0 auto;
+			ul{
+				li{
+					position: absolute;
+					left:50%;
+					top:0;
+					margin-left:-475px;
+					overflow: hidden;
+					display: none;
+					.box_left{
+						width:475px;
+						float:left;
+						overflow: hidden;
+					}
+					.box_right{
+						width:475px;
+						float:right;
+						overflow: hidden;
+					}
+					img{
+						width: 100%;
+						// transition: all 3s ease;
+						// @include prefix-css3(transition,scale ease 4s);
+					}
+					img:hover{
+						// transform:scale(1.1);
+					}
+				}
+				li:after{
+					content: '';
+					display: block;
+					clear:both;
+					width: 0;
+					height: 0;
+				}
+				li.on{
+					display: block;
+				}
+			}
+		}
+		.gal_btn{
+			position: absolute;
+			left:0;
+			bottom: 50px;
+			width: 100%;
+			text-align: center;
+			a{
+				display: inline-block;
+				padding:0 22px;
+				height: 45px;
+				font: 16px/45px 'NotoSansKRBold';
+				background: #fff;
+				color:#000;
+				opacity: .8;
+				transition:all 0.6s;
+				.icons{
+					display: inline-block;
+					margin-left: 30px;
+					width:14px;
+					height: 13px;
+					background-image: url('/images/adidas/event/sports17/icons.png');
+				}
+			}
+			a:hover{
+				opacity: 1;
+			}
+		}
+
+	}
+}
+
+
+
+
+@include keyframe(shining){
+	0%{
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+
+	100%{
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+@include keyframe(arrow){
+	0%{
+		left: 100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: -110%;
+	}
+}
+@include keyframe(arrow2){
+	0%{
+		left: -100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: 110%;
+	}
+}

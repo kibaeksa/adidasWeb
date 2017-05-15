@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-/W3C/DTD XHTML 1.0 Transitional/EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http:/www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+
+<script type="text/javascript">
+	
+	jQuery(document).ready( function(){
+		jQuery("#CLAIM_TYPE option[value=98]").remove();
+		fn_dlvrsvc();
+	});
+	
+	function fn_dlvrsvc(){
+		$("S_COMMAND").value = 'DLVRSVC_LIST';
+		
+		var param = $("frmOrdCancel").serialize(true);
+		var url = "/PF0601017.action";
+		
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+			if(JsonUtil.isError(json)){		// 정상 처리 라면
+				
+				var select = "";
+				for(var i = 0; i < json.list.size(); i++){
+					
+					if (i == 0){
+						select = "selected";
+					}else{
+						select = "";
+					}
+					jQuery("#RETURN_DLVRSVC_CD").append("<option value='"+ json.list[i].DLVRSVC_CD +"'"+select+">" + json.list[i].DLVRSVC_NM + "</option>");
+				}
+			}
+		};
+
+		var onFailure = function(){
+		};
+		
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	}
+	
+	function fn_totalOrder() {
+		if($("CLAIM_TYPE").value == "") {
+			alert("취소사유를 선택해주세요.");
+			return;
+		}
+		
+		if($("CLAIM_CONTENT").value == "" || $("CLAIM_CONTENT").value == "상세사유 입력") {
+			alert("취소사유 내용을 입력해주세요.");
+			$("CLAIM_CONTENT").focus();
+			return;
+		}
+		
+		// 취소, 반품 신청
+		if("cancel" == 'cancel' || "cancel" == 'return') {
+			//$("S_COMMAND").value = "TEMP_CLAIM";
+			$("S_COMMAND").value = "CLAIM_CANCEL_UPDATE";
+			$("RCPT_TYPE").value = '01';	// 접수유형(01-취소)
+			$("RCPT_PATH").value = '01';	// 접수경로(01-온라인)
+			$("RCPT_ST").value = '01';		// 접수상태(01-접수)
+			
+		// 교환
+		} else if("cancel" == 'exchange') {
+			//$("S_COMMAND").value = "TEMP_CLAIM";
+			$("S_COMMAND").value = "CLAIM_EXCHANGE_UPDATE";
+			$("RCPT_TYPE").value = '02';	// 접수유형(01-교환)
+			$("RCPT_PATH").value = '01';	// 접수경로(01-온라인)
+			$("RCPT_ST").value = '01';		// 접수상태(01-접수)
+		}
+		
+		//alert(jQuery("#frmOrdCancel .list tbody tr :checkbox:checked").length);
+		if(jQuery("#frmOrdCancel .list tbody tr :checkbox:checked").length == 0)
+		{
+			alert("처리할 상품을 선택해주세요.");
+			return;
+		}
+		
+		//체크박스 안된 데이터들 제외
+		jQuery("#frmOrdCancel .list tbody tr").each(function(i){
+			if(jQuery(this).find(":checkbox").attr("checked") == false)
+			{
+				//jQuery(this).find(":checkbox").parent().html("");
+				
+				jQuery(this).find(":checkbox").parent().find("input:not(:checkbox)").each(function(i){
+					//if(jQuery(this).find(":checkbox").attr("checked") == false)
+					//{
+						jQuery(this).remove();
+					//}
+				});
+			}
+		});
+		
+		//alert(jQuery("#frmOrdCancel .list tbody").html());
+		//return;
+		
+		//$("TOTAL").disabled = true;
+		jQuery("#TOTAL").attr("disabled",true);
+		
+		var param = $("frmOrdCancel").serialize(true);
+		var url = "/PF0601017.action";
+		
+		if(confirm('등록하시겠습니까?')){
+			var onSuccess = function(req){
+				var json = req.responseJSON;					
+				JsonUtil.alert(json);
+				
+				//$("TOTAL").disabled = false;
+				jQuery("#TOTAL").attr("disabled",false);
+				
+				if(JsonUtil.isError(json)){
+					//opener결제정보
+					//param = "command=VIEW&ORDER_NO="+order_no;
+					opener.fn_search();
+					opener.fn_searchView();
+				} else {
+					
+				}
+				self.close();
+			};
+			
+		    var onFailure = function(){
+			    alert('등록 중 에러가 발생했습니다.');
+		    };
+		    cfn_ajaxRequest(url, param, onSuccess, onFailure);
+	    }
+	}
+	
+	function fn_chkCancel(idx) {
+		//if(document.getElementById("chkCancel_"+idx).checked == true) {
+		//	document.getElementsByName("CHK_C_VALUE")[idx].value = "Y";
+		//} else {
+		//	document.getElementsByName("CHK_C_VALUE")[idx].value = "N";
+		//}
+		
+		//if (jQuery("#addr_"+idx).css('display') == "none"){
+		//	jQuery("#addr_"+idx).css('display','block');
+		//}else{
+		//	jQuery("#addr_"+idx).css('display','none');
+		//}
+	}
+	
+	function fn_chkExch(idx) {
+		//if(document.getElementById("chkExch_"+idx).checked == true) {
+		//	document.getElementsByName("CHK_E_VALUE")[idx].value = "Y";
+		//} else {
+		//	document.getElementsByName("CHK_E_VALUE")[idx].value = "N";
+		//}
+		//if (jQuery("#addr_"+idx).css('display') == "none"){
+		//	jQuery("#addr_"+idx).css('display','block');
+		//}else{
+		//	jQuery("#addr_"+idx).css('display','none');
+		//}
+	}
+	
+	function fn_guide() {
+		opener.location = '/PF080311.action';
+		self.close();
+	}
+	
+	function fn_close() {
+		close();
+	}
+	
+	
+</script>
+</head>
+
+<body>
+<div id="pop">
+	<div id="popupHeader">
+		 
+			<h1>취소/반품 신청</h1>
+		
+		<a href="javascript:self.close();"><img src="/images/adidas/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+	
+	<form id="frmOrdCancel" name="frmOrdCancel">
+	<input type="hidden" id="S_COMMAND" name="command" value=""/>
+	<input type="hidden" id="ORDER_NO" name="ORDER_NO" value="201303250041071" />
+	<input type="hidden" id="CLAIM_CD" name="CLAIM_CD" value="10"/>
+	<input type="hidden" id="GUBUN" name="GUBUN" value="cancel" />
+	<input type="hidden" id="RCPT_TYPE" name="RCPT_TYPE" value=""/>	<!-- 접수유형 01 취소 	02 교환 -->
+	<input type="hidden" id="RCPT_PATH" name="RCPT_PATH" value=""/>	<!-- 접수경로 01 온라인 02 전화상담-->
+	<input type="hidden" id="RCPT_ST" name="RCPT_ST" value=""/>		<!-- 접수상태 01 접수    02 확정 - -->
+	<input type="hidden" id="DLVRSVC_CD" name="DLVRSVC_CD" value=""/>
+	<input type="hidden" id="RETURN_POST_NO" name="RETURN_POST_NO" value="442819" />
+	<input type="hidden" id="RETURN_ADDR" name="RETURN_ADDR" value="경기 수원시 팔달구 우만1동" />
+	<input type="hidden" id="RETURN_DTL_ADDR" name="RETURN_DTL_ADDR" value="556-5호 1층주인집" />
+	<input type="hidden" id="CNSLR_MEMO" name="CNSLR_MEMO" value="" />
+	<input type="hidden" id="MEM_CHARG" name="MEM_CHARG" value="0" />
+<!-- 	<input type="hidden" id="RETURN_DLVRSVC_CD" name="RETURN_DLVRSVC_CD" value="" /> -->
+	<input type="hidden" id="REAL_RELES_YN" name="REAL_RELES_YN" value="" />
+	<input type="hidden" id="MEM_CHGMIND_YN" name="MEM_CHGMIND_YN" value="" />
+		
+		<div id="popupContents">
+			<ul class="guide mg10">
+				<li>주문상품이 2개 이상인 경우, 배송지가 다를 수 있으며 주문상태에 따라 취소/반품 신청으로 진행됩니다.</li>
+			</ul>
+	
+			<table class="view mg20" summary="주문정보">
+			<caption>주문정보</caption>
+			<colgroup>
+				<col width="145px" />
+				<col width="415px" />
+			</colgroup>	
+			<tr>
+				<th>주문일</th>
+				<td class="last">2013-03-25</td>
+			</tr>
+			<tr>
+				<th>주문번호</th>
+				<td class="last"><strong>201303250041071</strong></td>
+			</tr>
+			<tr>
+				<th>쿠폰할인</th>
+				<td class="last"><strong id="cpon_sale_amt">0</strong>원  (배송비 : <strong>0</strong>원)</td>
+			</tr>
+			</table>
+			
+			<table class="list mg20" summary="구매상품">
+			<caption>구매상품</caption>
+			<colgroup>
+				<!-- 130319 -->
+				<col width="65" />
+				<col />
+				<col width="100" />
+				<col width="102" />
+				<col width="68" />
+				<col width="80" />
+				<!-- 130319 end -->
+			</colgroup>
+			<thead>
+			<tr class="multiline">
+				<th colspan="2">상품명</th>
+				<th>주문금액<br /><em>(배송비제외)</em></th>
+				<th>사이즈변경/수량</th>
+				<th>주문상태</th>
+				
+					
+						<th class="last">취소/반품</th>
+					
+					
+				
+			</tr>
+			</thead>
+			<tbody>
+			
+			
+				
+				
+					
+						<tr>
+							<!-- 130319 60X60 상품이미지 td 추가-->
+							<td><img src="http://shop.adidas.co.kr/upload/prod/basic/60/L34818-1_60X60.jpg" alt=""/></td>
+							<!-- 130319 end -->
+							<td class="sub">[Accessories] 레인보우 책가방</td>
+							<td class="price" style="padding-right:0;text-align:center;"><strong><span>73,000</span><strong></td>
+							<td class="size">000/1</td>
+							<td>배송요청</td>
+							<td class="form" id="data_0">
+								
+									
+										<input type="checkbox" id="chkCancel_0" name="chkCancel" onclick="fn_chkCancel(0);" />
+									
+									
+									
+									
+									
+								
+								<input type = "hidden" id="CHK_C_VALUE" name="CHK_C_VALUE" value="N" />
+								<input type = "hidden" id="CHK_E_VALUE" name="CHK_E_VALUE" value="N" />
+								<input type = "hidden" id="ORDER_DTL_NO" name="ORDER_DTL_NO" value="201303250041073" />
+								<input type = "hidden" id="STORE_ID" name=STORE_ID value="" />
+								<input type = "hidden" id="CLAIM_CANCL_QTY" name="CLAIM_CANCL_QTY" value="1" />
+								<input type = "hidden" id="EXCHG_QTY" name="EXCHG_QTY" value="1" />
+								<input type = "hidden" id="EXCHG_OPTION_NO" name=EXCHG_OPTION_NO value="000" />
+								<input type = "hidden" id="EXCHG_PROD_CD" name=EXCHG_PROD_CD value="L34818" />
+							</td>
+						</tr>
+						
+							
+							
+						
+					
+						<tr>
+							<!-- 130319 60X60 상품이미지 td 추가-->
+							<td><img src="http://shop.adidas.co.kr/upload/prod/basic/60/L10515-1_60X60.jpg" alt=""/></td>
+							<!-- 130319 end -->
+							<td class="sub">[Accessories] 후드 백팩</td>
+							<td class="price" style="padding-right:0;text-align:center;"><strong><span>69,000</span><strong></td>
+							<td class="size">000/1</td>
+							<td>배송요청</td>
+							<td class="form" id="data_1">
+								
+									
+										<input type="checkbox" id="chkCancel_1" name="chkCancel" onclick="fn_chkCancel(1);" />
+									
+									
+									
+									
+									
+								
+								<input type = "hidden" id="CHK_C_VALUE" name="CHK_C_VALUE" value="N" />
+								<input type = "hidden" id="CHK_E_VALUE" name="CHK_E_VALUE" value="N" />
+								<input type = "hidden" id="ORDER_DTL_NO" name="ORDER_DTL_NO" value="201303250041074" />
+								<input type = "hidden" id="STORE_ID" name=STORE_ID value="" />
+								<input type = "hidden" id="CLAIM_CANCL_QTY" name="CLAIM_CANCL_QTY" value="1" />
+								<input type = "hidden" id="EXCHG_QTY" name="EXCHG_QTY" value="1" />
+								<input type = "hidden" id="EXCHG_OPTION_NO" name=EXCHG_OPTION_NO value="000" />
+								<input type = "hidden" id="EXCHG_PROD_CD" name=EXCHG_PROD_CD value="L10515" />
+							</td>
+						</tr>
+						
+							
+							
+						
+					
+				
+				
+			
+			
+			</tbody>
+			</table>
+			
+			<table class="write mg20" summary="주문정보">
+			<caption>주문정보</caption>
+			<colgroup>
+				<col width="145px" />
+				<col width="415px" />
+			</colgroup>	
+			<tr>
+				<th>취소/반품 사유</th>
+				<td class="last">
+					<select id='CLAIM_TYPE' name='CLAIM_TYPE' size=''  style='width:110px;'><option value=''>취소사유 선택</option><option value='01'>고객단순변심</option><option value='02'>배송불만</option><option value='03'>품질불만</option><option value='04'>사이즈불만</option><option value='05'>색상불만</option><option value='06'>주문오류</option><option value='98'>결품처리</option><option value='99'>기타</option></select>
+				</td>
+			</tr>
+			<tr>
+				<th>상담신청내용</th>
+				<td class="last"><textarea name="CLAIM_CONTENT" id="CLAIM_CONTENT" style="width:393px;height:27px;"></textarea></td>
+			</tr>
+			<tr style="display:none">
+				<th>택배구분</th>
+				<td class="last"><select name="RETURN_DLVRSVC_CD" id="RETURN_DLVRSVC_CD" style="width:90px;"></select></td>
+			</tr>
+			<!-- 130416 start -->
+			<tr>
+				<th>환불은행</th>
+				<td class="last">
+					<select style="width:110px;">
+						<option>신한은행</option>
+						<option>신한은행</option>
+						<option>신한은행</option>
+					</select>				
+				</td>
+			</tr>
+			<tr>
+				<th>환불 계좌번호</th>
+				<td class="last">
+					<input type="text" style="width:282px;height:16px;line-height:16px;"/>
+					<p style="margin-top:5px;">- 없이 입력 해주세요.</p>
+				</td>
+			</tr>
+			<tr>
+				<th>환불 계좌 예금주</th>
+				<td class="last">
+					<input type="text" style="width:282px;height:16px;line-height:16px;"/>				
+				</td>
+			</tr>
+			<!-- 130416 end -->			
+			 
+			</table>
+			
+			<ul class="advice">
+				<li class="btn">취소/반품 가이드를 확인하세요. <a href="#"><img src="/images/adidas/popup/btn_guide.gif" alt="취소/반품 가이드" onclick="fn_guide()" /></a></li>
+				<li>단순변심이나 사이즈 변경으로 인한 취소/반품 시 배송비는 회원님께서 부담하셔야 합니다.</li>
+				<li>취소/반품 불가능한 경우가 있으니 꼭 확인해 주시기 바랍니다.</li>
+			</ul>
+			
+			<div class="button">
+				<a href="javascript:fn_totalOrder();"><img src="/images/adidas/popup/btn_order.gif" id="TOTAL" alt="신청" /></a>
+				<a href="javascript:fn_close();"><img src="/images/adidas/popup/btn_cancel.gif" alt="취소" /></a>
+			</div>
+			
+		</div>
+	</form>
+</div>
+</body>
+</html>

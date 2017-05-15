@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+ <head>
+  <title>아디다스 공식 온라인 스토어</title>
+  <meta http-equiv="content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/zoom/zoom.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css"/>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+
+  <style type="text/css">
+	img{display: none;cursor: pointer;}
+  </style>
+  <script src="/js/jquery/jquery-1.4.2.js"></script>
+  <script type="text/javascript">
+  	var imagePath = '';
+  	var lo = window.location.href;
+  	var param = lo.match(/(?:\?).+/g);
+  	imagePath = param[0].replace(/\?image=/,'');  	
+  </script>
+ </head>
+
+ <body>
+
+	<div id="wrap">
+
+	</div>
+	<!-- //wrap -->	
+
+	<script type="text/javascript">
+		console.log(imagePath);
+		var img = new Image();
+		img.onload = function(){
+			var _this = this;
+			setTimeout(function(){
+				var ratio =  _this.height / _this.width;
+				_this.width = $(window).width();
+				_this.height = _this.width*ratio;
+				$('#wrap').append(_this);
+
+				$('img').fadeIn().bind('click',function(){
+					window.close();
+				});
+			},100);
+			
+		};
+		img.src=imagePath;
+		
+
+	</script>
+ </body>
+</html>

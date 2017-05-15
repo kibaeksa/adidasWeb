@@ -1,0 +1,1423 @@
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리복 공식 온라인 스토어 쿠폰적용</title>
+<link rel="stylesheet" type="text/css" href="/css/reebok/reebok.css" />
+<script type="text/javascript" src="/js/reebok/leftmenu.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/adidas/select_layer.js"></script>
+<script type="text/javascript" src="/js/adidas/function.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+</head>
+<body>
+	
+		
+			<input type="hidden" name="totPrice" id="totPrice" value="129000" />
+			<input type="hidden" name="tmpTotAmt" id="tmpTotAmt" value="129000" /> <!-- 전체 주문금액 - 상품별 할인쿠폰 이 적용된 금액 -->
+		
+	
+	
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		var totPrice = document.getElementById("totPrice").value;
+		
+		// 상품별 할인 쿠폰 금액 적용시 ...
+		function fn_prodCponApply(val, cnt, prod_qty){
+			var frm = document.frmSrch;
+			
+			if (prod_qty > 1){
+				alert("이 쿠폰은 수량이 1개일 경우만 사용가능합니다");
+				frm.CPN_LIST_PROD.value = "clear";
+				frm.oldProdPrice.value = 0;
+				
+				return;
+			}
+			
+			var discountAmt = 0;
+			var htmlAmt = document.getElementById("prodCponAmt").innerHTML.replaceAll(",", "");
+
+			if("1" == "1"){
+
+				var price = frm.SALES_PRICE.value.replaceAll(",", "");
+				
+				var valS = val.split("_");
+				var rateAmtCd = valS[1];
+				var rateAmtVal = valS[2];
+				
+				var useCondAmt = valS[5];
+
+				var ordP = frm.ORDER_PRICE.value.replaceAll(",", "");
+				
+				if(useCondAmt > 0){
+					if(Number(useCondAmt) > Number(ordP)){
+						alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+						frm.CPN_LIST_PROD.value = "clear";
+						val = "clear";
+					}
+				}
+				
+				//PDS 20% DC 쿠폰은 할인 된 상품에는 적용불가
+				for(var k=0; k<frm.CPN_LIST_PROD.length; k++){
+
+					var arrProd = frm.CPN_LIST_PROD[k].value.split("_");
+					if(arrProd[6] == "N"){
+						alert("PDS 20% DC 쿠폰은 할인 된 상품에는 적용불가 합니다.");
+						frm.CPN_LIST_PROD.options[0].selected = true;
+						var oldPrice = frm.oldProdPrice.value;
+						discountAmt = Number(htmlAmt) - Number(oldPrice);
+						frm.oldProdPrice.value = 0;
+						return;
+					}
+				}				
+
+				var eventCpnCnt = isArray(frm.CHK_EVENT_CPON);
+				if(eventCpnCnt == 1) {
+					if(frm.CHK_EVENT_CPON.checked) {
+						alert("이 쿠폰은 이벤트 쿠폰과 중복 적용 불가 합니다.");
+						frm.CPN_LIST_PROD.value = "clear";
+						val = "clear";
+					}
+
+				} else if(eventCpnCnt > 1){
+					
+					for(var vIdx=0; vIdx<eventCpnCnt; vIdx++) {
+						if(frm.CHK_EVENT_CPON[vIdx].checked) {
+							alert("이 쿠폰은 이벤트 쿠폰과 중복 적용 불가 합니다.");
+							frm.CPN_LIST_PROD.value = "clear";
+							val = "clear";
+						}
+					}
+				}					
+				
+				if(val == "clear"){
+					var oldPrice = frm.oldProdPrice.value;
+					discountAmt = Number(htmlAmt) - Number(oldPrice);
+					frm.oldProdPrice.value = 0;
+					
+				}else{
+					
+					var oldPrice = frm.oldProdPrice.value;
+					discountAmt = Number(htmlAmt) - Number(oldPrice);
+					var qty = frm.PROD_QTY.value;
+
+					if(rateAmtCd == "02"){
+						//var amtN = Math.floor(price * rateAmtVal/100)*100;
+						
+						//판매금액 
+						var amtN = (Math.floor(price * rateAmtVal/100)*100) * qty;
+						//discountAmt = Number(discountAmt) + Number(amtN);
+					}else {
+						//var amtN = Math.floor(rateAmtVal/100)*100;
+						
+						//판매금액 
+						//var amtN = (Math.floor(rateAmtVal/100)*100) * qty;
+						
+						var amtN = rateAmtVal * qty;
+						//discountAmt = Number(discountAmt) + Number(amtN);
+						
+					}
+					
+					// 쿠폰금액에서 마이너스 된 금액을 적용한다
+					var selectP = amtN;
+					
+					// 주문금액 - 쿠폰금액
+					var sumP = Number(ordP) - Number(selectP);
+
+					if(Number(sumP) <= 0){
+						amtT = Number(selectP) + (Number(sumP));
+					}else{
+						amtT = selectP;
+					}
+					
+					//alert("amtT___" + amtT + "_________discountAmt________" + discountAmt);
+
+					discountAmt = Number(discountAmt) + Number(amtT);
+					frm.oldProdPrice.value = amtT;
+				}
+				
+			}else if("1" > "1"){
+
+				var price = frm.SALES_PRICE[cnt].value.replaceAll(",", "");
+				var qty = frm.PROD_QTY[cnt].value;
+				
+				var valS = val.split("_");
+				var rateAmtCd = valS[1];
+				var rateAmtVal = valS[2];
+			
+				var useCondAmt = valS[5];
+
+				var ordP = frm.ORDER_PRICE[cnt].value.replaceAll(",", "");
+				
+				if(useCondAmt > 0){
+					if(Number(useCondAmt) > Number(ordP)){
+						alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+						frm.CPN_LIST_PROD[cnt].value = "clear";
+						val = "clear";
+					}
+				}
+				
+				//PDS 20% DC 쿠폰은 할인 된 상품에는 적용불가
+				for(var k=0; k<frm.CPN_LIST_PROD.length; k++){
+
+					var arrProd = frm.CPN_LIST_PROD[k].value.split("_");
+					
+					if(arrProd[7] == cnt) {
+						if(arrProd[6] == "N"){
+							alert("PDS 20% DC 쿠폰은 할인 된 상품에는 적용불가 합니다.");
+							frm.CPN_LIST_PROD[cnt].options[0].selected = true;
+							var oldPrice = frm.oldProdPrice[cnt].value;
+							discountAmt = Number(htmlAmt) - Number(oldPrice);
+							frm.oldProdPrice[cnt].value = 0;
+							return;
+						}
+					}
+				}
+
+				var eventCpnCnt = isArray(frm.CHK_EVENT_CPON);
+				var cpnListProdCnt = isArray(frm.CPN_LIST_PROD);
+
+				if(eventCpnCnt == 1) {
+					if(frm.CHK_EVENT_CPON.checked) {
+						alert("이 쿠폰은 이벤트쿠폰과 중복적용불가 합니다.");
+						if(cpnListProdCnt == 1) {
+							frm.CPN_LIST_PROD.value = "clear";
+						} else if(cpnListProdCnt > 1) {
+							frm.CPN_LIST_PROD[cnt].value = "clear";
+						}
+						val = "clear";
+					}
+
+				} else if(eventCpnCnt > 1){
+					
+					for(var vIdx=0; vIdx<eventCpnCnt; vIdx++) {
+						if(frm.CHK_EVENT_CPON[vIdx].checked) {
+							alert("이 쿠폰은 이벤트 쿠폰과 중복 적용 불가 합니다.");
+							if(cpnListProdCnt == 1) {
+								frm.CPN_LIST_PROD.value = "clear";
+							} else if(cpnListProdCnt > 1) {
+								frm.CPN_LIST_PROD[cnt].value = "clear";
+							}
+							val = "clear";
+						}
+					}
+				}
+
+				if(val == "clear"){
+					var oldPrice = frm.oldProdPrice[cnt].value;
+					discountAmt = Number(htmlAmt) - Number(oldPrice);
+					frm.oldProdPrice[cnt].value = 0;
+					
+				}else{
+
+					//상품별 쿠폰은 중복사용할수 없음.
+					var cponId = valS[0];
+					for(var i=0; i<"1"; i++){
+						var arrProd = frm.CPN_LIST_PROD[i].value.split("_");
+						if(cnt != i){
+							if(arrProd[0] == cponId){
+								alert("여러상품에 동일한 쿠폰을 사용하실 수 없습니다");
+								frm.CPN_LIST_PROD[cnt].options[0].selected = true;
+								rateAmtVal = 0;
+								//return;
+							}
+						}
+						
+					}
+					
+					var oldPrice = frm.oldProdPrice[cnt].value;
+					discountAmt = Number(htmlAmt) - Number(oldPrice);
+	
+					if(rateAmtCd == "02"){
+						//판매금액 
+						var amtN = (Math.floor(price * rateAmtVal/100)*100) * qty;
+					}else {
+						//판매금액 
+						var amtN = rateAmtVal * qty;
+					}
+
+					// 쿠폰금액에서 마이너스 된 금액을 적용한다
+					var selectP = amtN;
+					var amtT = 0;
+					
+					// 주문금액 - 쿠폰금액
+					
+					var sumP = Number(ordP) - Number(selectP);
+
+					if(Number(sumP) <= 0){
+						amtT = Number(selectP) + (Number(sumP));
+					}else{
+						amtT = selectP;
+					}
+					
+					//alert("amtT___" + amtT + "_________discountAmt________" + discountAmt);
+
+					discountAmt = Number(discountAmt) + Number(amtT);
+					frm.oldProdPrice[cnt].value = amtT;
+				}
+				
+			}
+			
+			//alert("totPrice_____" + totPrice + "___discountAmt_____" + discountAmt);
+			
+			var amt = Number(totPrice) - discountAmt;
+			document.getElementById("tmpTotAmt").value = amt;
+			
+			// 상품별 쿠폰 적용 후 전체 금액이 0 이하일때 이벤트 쿠폰, 포인트/생일 쿠폰 초기화..
+			if(amt <= 0){
+				fn_cponChecedF();
+			}
+			
+			// 이벤트 쿠폰, 포인트/생일 이 정율일때 다시 계산..
+			//이벤트 쿠폰
+			if("0" == "1"){
+				if(frm.EVENT_RATE_AMT_CD.value == "02"){
+
+					var amtN = Math.floor(Number(amt) * Number(frm.EVENT_RATE_AMT_VAL.value)/100)*100;
+					
+					if(amtN < 0){
+						amtN = 0;
+					}
+					
+					document.getElementById("event_0").innerHTML = "<strong>" + toCurrency(amtN) + " 원</strong>";
+					
+					if(frm.CHK_EVENT_CPON.checked == true){
+						fn_eventCponApply(frm.CHK_EVENT_CPON.value, i);
+					}
+				}
+			}else if("0" > "1"){
+				for(var i=0; i<"0"; i++){
+					if(frm.EVENT_RATE_AMT_CD[i].value == "02"){
+						
+						var amtN = Math.floor(Number(amt) * Number(frm.EVENT_RATE_AMT_VAL[i].value)/100)*100;
+
+						if(amtN < 0){
+							amtN = 0;
+						}
+						
+						document.getElementById("event_" + i).innerHTML = "<strong>" + toCurrency(amtN) + " 원</strong>";
+						
+						if(frm.CHK_EVENT_CPON[i].checked == true){
+							fn_eventCponApply(frm.CHK_EVENT_CPON[i].value, i);
+						}
+					}
+				}
+				
+			}
+
+			// 포인트 쿠폰
+			if("0" == "1"){
+				if(frm.POINT_RATE_AMT_CD.value == "02"){
+
+					var amtN = Math.floor(Number(amt) * Number(frm.POINT_RATE_AMT_VAL.value)/100)*100;
+					
+					if(amtN < 0){
+						amtN = 0;
+					}
+					
+					document.getElementById("point_0").innerHTML = "<strong>" + toCurrency(amtN) + " 원</strong>";
+					
+					if(frm.CHK_POINT_CPON.checked == true){
+						fn_pointCponApply(frm.CHK_POINT_CPON.value, i);
+					}
+				}
+				
+			}else if("0" > "1"){
+				for(var i=0; i<"0"; i++){
+					if(frm.POINT_RATE_AMT_CD[i].value == "02"){
+	
+						var amtN = Math.floor(Number(amt) * Number(frm.POINT_RATE_AMT_VAL[i].value)/100)*100;
+						
+						if(amtN < 0){
+							amtN = 0;
+						}
+						
+						document.getElementById("point_" + i).innerHTML = "<strong>" + toCurrency(amtN) + " 원</strong>";
+						
+						if(frm.CHK_POINT_CPON[i].checked == true){
+							fn_pointCponApply(frm.CHK_POINT_CPON[i].value, i);
+						}
+					}
+				}
+				
+			}
+			
+			
+			document.getElementById("prodCponAmt").innerHTML = toCurrency(discountAmt);
+			
+			fn_totAmt();		
+			fn_eventUseYn();
+		}
+
+		
+		function fn_eventCponClear() {
+			var frm = document.frmSrch;
+			var eventCpnCnt = isArray(frm.CHK_EVENT_CPON);
+			if(eventCpnCnt == 1) {
+				frm.CHK_EVENT_CPON.checked = false;
+			} else if(eventCpnCnt > 1) {
+				for(var vIdx=0; vIdx<prodCpnCnt; vIdx++) {
+					if(frm.CHK_EVENT_CPON[vIdx].checked) {
+						frm.CHK_EVENT_CPON[vIdx].checked = false;
+					}
+				}
+			}
+			
+			document.getElementById("eventCponAmt").innerHTML = "0";
+			fn_totAmt();			
+		}
+
+		
+		function fn_eventCponClear() {
+			var frm = document.frmSrch;
+			var eventCpnCnt = (frm.CHK_EVENT_CPON == null) ? 0 : frm.CHK_EVENT_CPON.length;
+			if(eventCpnCnt == 1) {
+				frm.CHK_EVENT_CPON.checked = false;
+			} else if(eventCpnCnt > 1) {
+				for(var vIdx=0; vIdx<prodCpnCnt; vIdx++) {
+					if(frm.CHK_EVENT_CPON[vIdx].checked) {
+						frm.CHK_EVENT_CPON[vIdx].checked = false;
+					}
+				}
+			}
+			
+			document.getElementById("eventCponAmt").innerHTML = "0";
+			fn_totAmt();			
+		}
+
+		// 이벤트쿠폰 금액 적용시
+		function fn_eventCponApply(val, cnt){
+			var frm = document.frmSrch;
+			var discountAmt = 0;
+			var dscmt = 0;
+			
+			var tmpTotAmt = document.getElementById("tmpTotAmt").value;
+
+			if(tmpTotAmt <= 0){
+				if(!chkCponAmt("CHK_EVENT_CPON", cnt, "0")){return;};
+			}
+
+			var prodCpnCnt = isArray(frm.CPN_LIST_PROD);
+			var prodCpnUseTf = false;	
+
+			if(prodCpnCnt == 1) {
+				if(frm.CPN_LIST_PROD.value != "clear") {
+					prodCpnUseTf = true;
+				}
+			} else if(prodCpnCnt > 1) {
+				for(var vIdx=0; vIdx<prodCpnCnt; vIdx++) {
+					if(frm.CPN_LIST_PROD[vIdx].value != "clear") {
+						prodCpnUseTf = true;
+						break;
+					}
+				}
+			}				
+
+			if(prodCpnUseTf) {	
+				alert("이벤트 쿠폰은 상품별 할인 쿠폰과 중복적용불가 합니다.");
+
+				if(frm.CHK_EVENT_CPON.checked) {
+					frm.CHK_EVENT_CPON.checked = false;
+				} else {
+					frm.CHK_EVENT_CPON[cnt].checked = false;
+				}
+				document.getElementById("eventCponAmt").innerHTML = "0";
+				fn_totAmt();
+
+				return false;					
+			}
+
+			if(!fn_eventUseYn()){return;};
+			
+			if("0" == "1"){
+				
+				if(frm.EVENT_RATE_AMT_CD.value == "02"){
+					discountAmt = Number(tmpTotAmt) * Number(frm.EVENT_RATE_AMT_VAL.value);
+				}else {
+					discountAmt = frm.EVENT_RATE_AMT_VAL.value;
+				}
+				
+			}else if("0" > "1"){
+				
+				if(frm.EVENT_RATE_AMT_CD[cnt].value == "02"){
+					discountAmt = Number(tmpTotAmt) * Number(frm.EVENT_RATE_AMT_VAL[cnt].value);
+				}else {
+					discountAmt = frm.EVENT_RATE_AMT_VAL[cnt].value;
+				}
+			}
+			
+			dscmt = toCurrency(Math.floor(discountAmt/100)*100);
+			
+			document.getElementById("eventCponAmt").innerHTML = dscmt;
+			
+			fn_totAmt();
+		}
+		
+		// 상품별 할인 쿠폰 금액이 적용된 주문금액이 사용조건 금액이하이면 쿠폰을 사용할 수 없다
+		function fn_eventUseYn(){
+			var frm = document.frmSrch;
+
+			//var amt = Number(totPrice) - Number(document.getElementById("prodCponAmt").innerHTML.replaceAll(",", ""));
+			
+			//var amt = document.getElementById("tmpTotAmt").value;
+			var amt = document.getElementById("totPrice").value;
+
+			if("0" == "1"){
+				if(frm.CHK_EVENT_CPON.checked == true){
+					var useCondAmt = frm.EVENT_USE_COND_AMT.value;
+					if( Number(useCondAmt) > Number(amt)){
+						alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+						frm.CHK_EVENT_CPON.checked = false;
+						document.getElementById("eventCponAmt").innerHTML = "0";
+						fn_totAmt();
+
+						return false;
+					}
+				}
+				
+			}else if("0" > "1"){
+
+				for(var i=0; i < "0"; i++){
+
+					if(frm.CHK_EVENT_CPON[i].checked == true){
+						var useCondAmt = frm.EVENT_USE_COND_AMT[i].value;
+						if(Number(useCondAmt) > Number(amt)){
+							alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+							frm.CHK_EVENT_CPON[i].checked = false;
+							document.getElementById("eventCponAmt").innerHTML = "0";
+							fn_totAmt();
+							
+							return false;
+						}
+					}
+				}
+			}
+			
+			return true;
+			
+		}
+
+		// 포인트쿠폰 금액 적용시
+		function fn_pointCponApply(val, cnt){
+			var frm = document.frmSrch;
+			var discountAmt = 0;
+			var amtN = 0;
+
+			var tmpTotAmt = document.getElementById("tmpTotAmt").value;
+			var amt = document.getElementById("totPrice").value;
+
+			if(tmpTotAmt <= 0){
+				if(!chkCponAmt("CHK_POINT_CPON", cnt, "0")){return;};
+			}
+			
+			var pointCponAmt = document.getElementById("pointCponAmt").innerHTML.replaceAll(",", "");
+			
+			if("0" == "1"){
+
+				//생일쿠폰일때 사용제한금액 적용
+				if(frm.POINT_CPON_TYPE_CD.value == "03"){
+					var useCondAmt = frm.POINT_USE_COND_AMT.value;
+	
+					if( Number(useCondAmt) > Number(amt)){
+						alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+						frm.CHK_POINT_CPON.checked = false;
+						//document.getElementById("eventCponAmt").innerHTML = "0";
+						//fn_totAmt();
+	
+						return;
+					}
+				}
+				
+				if(frm.POINT_RATE_AMT_CD.value == "02"){
+					discountAmt = Number(totPrice) * Number(frm.POINT_RATE_AMT_VAL.value);
+				}else {
+					discountAmt = frm.POINT_RATE_AMT_VAL.value;
+				}
+				
+				discountAmt = Math.floor(discountAmt/100)*100;
+
+				if(frm.CHK_POINT_CPON.checked == true){
+					amtN = Number(pointCponAmt) + Number(discountAmt);
+					frm.oldPointPrice.value = amtN;
+				}else if(frm.CHK_POINT_CPON.checked == false){
+					amtN = Number(pointCponAmt) - Number(discountAmt);
+					frm.oldPointPrice.value = 0;
+				}
+				
+			}else if("0" > "1"){
+
+				//생일쿠폰일때 사용제한금액 적용
+				if(frm.POINT_CPON_TYPE_CD[cnt].value == "03"){
+
+					var useCondAmt = frm.POINT_USE_COND_AMT[cnt].value;
+
+					if( Number(useCondAmt) > Number(amt)){
+						alert("이 쿠폰은 " + toCurrency(useCondAmt) +"원 이상 주문시 사용가능합니다");
+						frm.CHK_POINT_CPON[cnt].checked = false;
+						//document.getElementById("eventCponAmt").innerHTML = "0";
+						//fn_totAmt();
+
+						return;
+					}
+					
+				}
+				
+				if(frm.POINT_RATE_AMT_CD[cnt].value == "02"){
+					//discountAmt = Math.floor((Number(totPrice) * Number(frm.POINT_RATE_AMT_VAL[cnt].value))/100)*100;
+					discountAmt = Number(totPrice) * Number(frm.POINT_RATE_AMT_VAL[cnt].value);
+				}else {
+					discountAmt = frm.POINT_RATE_AMT_VAL[cnt].value;
+				}
+				
+				discountAmt = Math.floor(discountAmt/100)*100;
+
+				if(frm.CHK_POINT_CPON[cnt].checked == true){
+					amtN = Number(pointCponAmt) + Number(discountAmt);
+					frm.oldPointPrice[cnt].value = discountAmt;
+				}else if(frm.CHK_POINT_CPON[cnt].checked == false){
+					amtN = Number(pointCponAmt) - Number(discountAmt);
+					frm.oldPointPrice[cnt].value = 0;
+				}
+				
+			}
+			
+			document.getElementById("pointCponAmt").innerHTML = toCurrency(amtN);
+			
+			fn_totAmt();
+			
+		}
+		
+		// 포인트 총합계, 최종 할인 구매가
+		function fn_totAmt(){
+			var frm = document.frmSrch;	
+			var discountAmt = 0;
+			var discountAmt2 = 0;
+			
+			var prodCponAmt = document.getElementById("prodCponAmt").innerHTML.replaceAll(",", "");
+			var eventCponAmt = document.getElementById("eventCponAmt").innerHTML.replaceAll(",", "");
+			var pointCponAmt= document.getElementById("pointCponAmt").innerHTML.replaceAll(",", "");
+			
+			discountAmt = Number(prodCponAmt) + Number(eventCponAmt) + Number(pointCponAmt);
+			discountAmt2 = totPrice - discountAmt;
+			
+			frm.totCponAmtVal.value = toCurrency(discountAmt);
+			frm.totAmtVal.value = toCurrency(discountAmt2);
+
+			if(Number(discountAmt2) < 0){
+				discountAmt2 = 0;
+			}
+			
+			document.getElementById("totCponAmt").innerHTML = toCurrency(discountAmt);
+			document.getElementById("totAmt").innerHTML = toCurrency(discountAmt2);
+			
+		}
+
+		
+		function fn_getChkNum(obj) {
+			var vSelCnt = 0; 
+			if(typeof(obj) == "undefined"){
+				vSelCnt = 0; 
+			} else {
+			    if(typeof(obj.length) == "undefined"){
+			        if(obj.checked == true){
+			        	vSelCnt = 1;
+			        }else{
+			        	vSelCnt = 0;
+			        }
+			    }else{
+			    	for(i = 0; i < obj.length; i++) {
+			    		if(obj[i].checked == true) {
+			    			vSelCnt++;
+			    		}
+			    	}
+			    }				
+			}
+		    return vSelCnt;			
+		}
+			
+		//쿠폰 적용 버튼 클릭시...
+		function fn_cponApply(){
+			var frm = document.frmSrch;	
+			var temp = "";
+			var tmpTot = frm.totAmtVal.value.replaceAll(",", "");
+			
+			// '최종 할인 구매가' 가  마이너스 값일때 
+			if(frm.totAmtVal.value.replaceAll(",", "").indexOf("-") > -1){
+				//alert(frm.totAmtVal.value.replaceAll("-", "").replaceAll(",", ""));
+				
+				var totAmt = frm.totAmtVal.value.replaceAll("-", "");
+				//alert(0);
+
+				if(fn_getChkNum(frm.CHK_POINT_CPON) > 0){
+					//포인트/생일 쿠폰 ...
+					if(0 == 1){
+						if(frm.CHK_POINT_CPON.checked == true){
+							if(Number(frm.POINT_RATE_AMT_VAL.value) < Number(totAmt.replaceAll(",", ""))){
+								alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+								return;
+							}else{
+
+								//var tmpTot = frm.totAmtVal.value.replaceAll(",", "");
+								var sum = Number(frm.POINT_RATE_AMT_VAL.value) + (Number(tmpTot));
+								
+								frm.tmpAmt.value = sum;
+								frm.tmpCnt.value = 0;
+								//return;
+							}
+						}
+					}else if(0 > 1){
+						var cnt = 0 - 1;
+						
+						for(var i=cnt; i>=0; i--){
+
+							if(frm.CHK_POINT_CPON[i].checked == true){
+								
+								//alert(frm.POINT_RATE_AMT_VAL[i].value);
+								//alert(totAmt.replaceAll(",", ""));
+								
+								if(Number(frm.POINT_RATE_AMT_VAL[i].value) < Number(totAmt.replaceAll(",", ""))){
+									alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+									return;
+								}else{
+
+									//var tmpTot = frm.totAmtVal.value.replaceAll(",", "");
+									var sum = Number(frm.POINT_RATE_AMT_VAL[i].value) + (Number(tmpTot));
+									
+									frm.tmpAmt.value = sum;
+									frm.tmpCnt.value = i;
+									//return;
+								}
+								
+								break;
+							}
+						}
+						
+					}
+					
+				}else if(fn_getChkNum(frm.CHK_POINT_CPON) == 0){	
+					if(fn_getChkNum(frm.CHK_EVENT_CPON) > 0){	
+						// 이벤트 쿠폰..
+
+						var tmpTotAmt = document.getElementById("tmpTotAmt").value;
+
+						if(0 == 1){
+							if(frm.CHK_EVENT_CPON.checked == true){
+								
+								var eventAmtVal = frm.EVENT_RATE_AMT_VAL.value;
+								
+								if(frm.EVENT_RATE_AMT_CD.value == "02"){
+									temp = Number(tmpTotAmt) * Number(eventAmtVal);
+								}else {
+									temp = eventAmtVal;
+								}
+								
+								if(Number(temp) < Number(totAmt.replaceAll(",", ""))){
+									alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+									return;
+								}else{
+
+									//var tmpTot = frm.totAmtVal.value.replaceAll(",", "");
+									var sum = Number(temp) + (Number(tmpTot));
+									
+									frm.tmpAmt.value = sum;
+									frm.tmpCnt.value = 0;
+									//return;
+								}
+								
+								
+							}
+						}else if(0 > 1){
+							var cnt = 0 - 1;
+							
+							for(var i=cnt; i>=0; i--){
+
+								if(frm.CHK_EVENT_CPON[i].checked == true){
+
+									var eventAmtVal = frm.EVENT_RATE_AMT_VAL[i].value;
+									
+									if(frm.EVENT_RATE_AMT_CD[i].value == "02"){
+										temp = Number(tmpTotAmt) * Number(eventAmtVal);
+									}else {
+										temp = eventAmtVal;
+									}
+									
+									if(Number(temp) < Number(totAmt.replaceAll(",", ""))){
+										alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+										return;
+									}else{
+
+										//alert("eventAmtVal____" + eventAmtVal);
+										//alert("tmpTot_____" + tmpTot);
+										//var tmpTot = frm.totAmtVal.value.replaceAll(",", "");
+										var sum = Number(temp) + (Number(tmpTot));
+										
+										frm.tmpAmt.value = sum;
+										frm.tmpCnt.value = i;
+										//return;
+									}
+									
+									break;
+								}
+							}
+						}
+				/*
+					}else if($("input[name=CHK_EVENT_CPON]:radio:checked").length == 0){	
+
+						//상품쿠폰..
+						if(1 == 1){
+							if(frm.oldProdPrice.value > 0){
+
+								var temp = frm.oldProdPrice.value;
+								
+								if(Number(temp) < Number(totAmt.replaceAll(",", ""))){
+									alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+									return;
+								}else{
+
+									var sum = Number(temp) + (Number(tmpTot));
+									frm.tmpAmt.value = sum;
+									frm.tmpCnt.value = 0;
+								}
+							}
+						}else if(1 > 1){
+							var cnt = 1 - 1;
+							
+							for(var i=cnt; i>=0; i--){
+						
+								if(frm.oldProdPrice[i].value > 0){
+									
+									if(Number(frm.POINT_RATE_AMT_VAL[i].value) < Number(totAmt.replaceAll(",", ""))){
+										alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+										return;
+									}else{
+
+										var temp = frm.oldProdPrice[i].value;
+
+										var sum = Number(temp) + (Number(tmpTot));
+										
+										frm.tmpAmt.value = sum;
+										frm.tmpCnt.value = i;
+									}
+									
+									break;
+								}
+							}
+							
+						}
+						*/
+					}
+				}
+				
+				document.getElementById("overAmt").innerHTML = totAmt;
+				document.getElementById("cponCls").className = "open";
+			}else{
+				fn_cponApplySet();
+			}
+			
+		}
+		
+		function fn_cponApplySet(){
+			var frm = document.frmSrch;	
+
+			//if(!event_onload()){return;}
+
+			if(frm.totCponAmtVal.value == 0){
+				alert("선택하신 쿠폰이 없습니다.");
+				return;
+			}
+			
+			//구매금액보다 포인트 금액이 큰경우.. 마이너스 금액은 빼준다 - 빼주는 순서는 맨 아래부터 위로..
+			if(frm.tmpAmt.value > 0){
+				
+				if(fn_getChkNum(frm.CHK_POINT_CPON) > 0){// 포인트/생일 쿠폰
+					if(0 == 1){
+						frm.oldPointPrice.value = frm.tmpAmt.value;
+					}else if(0 > 1){
+						frm.oldPointPrice[frm.tmpCnt.value].value = frm.tmpAmt.value;
+					}
+				}else{
+					if(fn_getChkNum(frm.CHK_EVENT_CPON) > 0){	//이벤트 쿠폰
+						document.getElementById("eventCponAmt").innerHTML = frm.tmpAmt.value;
+					}
+				}
+				
+			}
+			
+			//"prodCponList.CPON_ID_prodCponList.RATE_AMT_CD_prodCponList.RATE_AMT_VAL_prodCponList.CPON_PUBL_ID"
+			var hitCnt 	= 0;
+
+			var info = new Object();
+			var prodCpons = new Array();
+			
+			//상품쿠폰
+			if("1" == "1"){
+
+				if(frm.CPN_LIST_PROD.value != "clear"){
+					
+					var valS = frm.CPN_LIST_PROD.value.split("_");
+					var rateAmtCd = valS[1];
+					var rateAmtVal = valS[2];
+					var cponPublId = valS[3];
+					
+					var prodCpon	= new Object();
+
+					//alert(frm.PROD_CD.value);
+					//alert(cponPublId);
+					//alert(frm.oldProdPrice.value);
+					
+						prodCpon.PROD_CD = frm.PROD_CD.value;		// 쿠폰 적용대상 상품
+						prodCpon.CPON_PUBL_ID = cponPublId;			// 쿠폰번호
+						prodCpon.CPON_AMT = frm.oldProdPrice.value;	// 할인금액
+						prodCpon.PROD_QTY = frm.PROD_QTY.value;		// 수량
+						prodCpon.PROD_OPT = frm.PROD_OPT.value;		// 옵션
+						
+						prodCpons[0] = prodCpon;
+						
+						info.prodCpons = prodCpons;
+				}
+				   
+			}else{
+				for(var i=0;i<"1";i++){
+					
+					if(frm.CPN_LIST_PROD[i].value != "clear"){
+
+						var prodCpon	= new Object();
+
+						var valS = frm.CPN_LIST_PROD[i].value.split("_");
+						var rateAmtCd = valS[1];
+						var rateAmtVal = valS[2];
+						var cponPublId = valS[3];
+						
+						//alert(frm.PROD_CD[i].value);
+						//alert(cponPublId);
+						//alert(frm.oldProdPrice[i].value);
+						
+							prodCpon.PROD_CD = frm.PROD_CD[i].value;		// 쿠폰 적용대상 상품
+							prodCpon.CPON_PUBL_ID = cponPublId;				// 쿠폰번호
+							prodCpon.CPON_AMT = frm.oldProdPrice[i].value;	// 할인금액
+							prodCpon.PROD_QTY = frm.PROD_QTY[i].value;		// 수량
+							prodCpon.PROD_OPT = frm.PROD_OPT[i].value;		// 옵션
+							prodCpons[hitCnt++] = prodCpon;
+							
+					}
+						
+				}
+
+				info.prodCpons = prodCpons;
+			}
+
+			var ordCpons = new Array();
+			var hitCntM = 0;
+			
+			//이벤트 쿠폰
+			if("0" == "1"){
+
+				if(frm.CHK_EVENT_CPON.checked == true ){
+					//alert(frm.EVENT_CPON_PUBL_ID.value);
+					//alert(document.getElementById("eventCponAmt").innerHTML.replaceAll(",", ""));
+					//alert(frm.EVENT_CPON_TYPE_CD.value);
+
+					var ordCpon = new Object();
+					
+					ordCpon.CPON_PUBL_ID = frm.EVENT_CPON_PUBL_ID.value;
+					ordCpon.CPON_AMT = document.getElementById("eventCponAmt").innerHTML.replaceAll(",", "");
+					ordCpon.CPON_TYPE_CD = frm.EVENT_CPON_TYPE_CD.value;
+					
+					ordCpons[hitCntM++] = ordCpon;
+					
+					info.ordCpons = ordCpons;
+				}
+
+			}else{
+				for(var i=0;i<"0";i++){
+					if(frm.CHK_EVENT_CPON[i].checked == true ){
+						//alert(frm.EVENT_CPON_PUBL_ID[i].value);
+						//alert(document.getElementById("eventCponAmt").innerHTML.replaceAll(",", ""));
+						//alert(frm.EVENT_CPON_TYPE_CD[i].value);
+
+						var ordCpon = new Object();
+					
+						ordCpon.CPON_PUBL_ID = frm.EVENT_CPON_PUBL_ID[i].value;
+						ordCpon.CPON_AMT = document.getElementById("eventCponAmt").innerHTML.replaceAll(",", "");
+						ordCpon.CPON_TYPE_CD = frm.EVENT_CPON_TYPE_CD[i].value;
+						
+						ordCpons[hitCntM++] = ordCpon;
+						
+					}
+				}
+				
+				info.ordCpons = ordCpons;
+			}
+
+			//포인트/생일 쿠폰
+			if("0" == "1"){
+				if(frm.CHK_POINT_CPON.checked == true ){
+					//alert(frm.POINT_CPON_PUBL_ID.value);
+					//alert(frm.oldPointPrice.value);
+					//alert(frm.POINT_CPON_TYPE_CD.value);
+
+					var ordCpon = new Object();
+					
+					ordCpon.CPON_PUBL_ID = frm.POINT_CPON_PUBL_ID.value;
+					ordCpon.CPON_AMT = frm.oldPointPrice.value;
+					ordCpon.CPON_TYPE_CD = frm.POINT_CPON_TYPE_CD.value;
+					
+					ordCpons[hitCntM++] = ordCpon;
+					
+					info.ordCpons = ordCpons;
+				}
+
+			}else{
+				for(var i=0;i<"0";i++){
+
+					if(frm.CHK_POINT_CPON[i].checked == true ){
+						//alert(frm.POINT_CPON_PUBL_ID[i].value);
+						//alert(frm.oldPointPrice[i].value);
+						//alert(frm.POINT_CPON_TYPE_CD[i].value);
+
+						var ordCpon = new Object();
+					
+						ordCpon.CPON_PUBL_ID = frm.POINT_CPON_PUBL_ID[i].value;
+						ordCpon.CPON_AMT = frm.oldPointPrice[i].value;
+						ordCpon.CPON_TYPE_CD = frm.POINT_CPON_TYPE_CD[i].value;
+						
+						ordCpons[hitCntM++] = ordCpon;
+
+					}
+				}
+
+				info.ordCpons = ordCpons;
+			}
+			
+			if(frm.totAmtVal.value == 0){
+				frm.totAmtVal.value = totPrice;
+			}
+			
+			//opener.fn_showCponSet(info, frm.totCponAmtVal.value, frm.totAmtVal.value );
+			
+			try {
+				opener.fn_showCponSet(info, frm.totCponAmtVal.value, frm.totAmtVal.value );
+			} catch (exception) {
+			    //alert(exception);
+				// exception시... 아무것도 안함.
+			}
+			
+			self.close();
+			
+		}
+		
+		//class hidden적용...
+		function fn_cponClsHidden(){
+			var frm = document.frmSrch;	
+			
+			frm.tmpAmt.value = 0;
+			frm.tmpCnt.value = 0;
+			
+			document.getElementById("cponCls").className = "open hidden";
+			
+		}
+		
+		// 상품별 할인쿠폰은 중복사용할수 없음
+		function event_onload() {
+			
+		  //var test = new Array("aaa","bbb","aaa","ccc","ccc","bbb","ccc");
+		
+			var frm = document.frmSrch;
+			var cpnListProd = new Array();
+			var cnt =0;
+
+			for(var k=0; k<frm.CPN_LIST_PROD.length; k++ ){
+
+				if(frm.CPN_LIST_PROD[k].value != "clear"){
+					var valS = frm.CPN_LIST_PROD[k].value.split("_");
+					var cponId = valS[4];
+					
+					cpnListProd[cnt++] = cponId;
+				}
+			}
+			
+			var tmpC = "N";
+			var newTest = new Array();
+
+		    for(i=0,j=cpnListProd.length;i<j;i++){
+
+	   		    tmp = cpnListProd[i];
+	   		   // alert(tmp);
+	   		  
+	   		   eval("if( !" + tmp + " || " + tmp + " == 0 ){" +
+			        	"var " + tmp + " = 1; " +
+			        "}else{" +
+		            	tmp + "++;" +
+		            
+			            "if( " + tmp + " > 1 ){" +
+				            "alert(\"여러상품에 동일한 쿠폰을 사용하실 수 없습니다\");" +
+				            "newTest[i] = \"Y\";" + 
+			            "}" +
+			        "};"
+			       );
+
+		    }
+
+			  //alert(newTest.length);
+			  for(k=0,h=newTest.length;k<h;k++){
+				  if(newTest[k] == "Y"){
+					  return false;
+				  }
+			  }
+		    
+		    return true;
+		  
+		 }
+		
+		// 주문/결제 faq로 이동
+		function fn_goFaq(){
+			opener.location.href = "RPF080308.action";
+			self.close();
+		}
+		
+		//상품쿠폰 선택 후 최종할인 구매금액이 0 이하일 경우 이벤트 쿠폰, 포인트/생일 쿠폰은 선택할수 없다.
+		function chkCponAmt(nm, cnt, totCnt){
+			var frm = document.frmSrch;
+			
+			if(totCnt == 1){
+				alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+				eval("frm." + nm + ".checked = false;");
+				return false;
+			}else if(totCnt > 1){
+				alert("쿠폰이 초과선택 되었습니다 \n     확인 후 진행해주세요");
+				eval("frm." + nm + "[" + cnt +"]" + ".checked = false;");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		//상품별 쿠폰이 적용 된 후 
+		function fn_cponChecedF(){
+			var frm = document.frmSrch;
+			var discountAmt = 0;
+			var dscmt = 0;
+
+			//이벤트 쿠폰
+			var tmpTotAmt = document.getElementById("tmpTotAmt").value;
+			
+			if("0" == "1"){
+				frm.CHK_EVENT_CPON.checked = false;
+			}else if("0" > "1"){
+				for(var i=0; i<"0"; i++){
+					frm.CHK_EVENT_CPON[i].checked = false;
+				}
+			}
+			
+			//포인트/생일 쿠폰
+			discountAmt = 0;
+			var amtN = 0;
+
+			//var pointCponAmt = document.getElementById("pointCponAmt").innerHTML.replaceAll(",", "");
+			
+			if("0" == "1"){
+				frm.CHK_POINT_CPON.checked = false;
+				frm.oldPointPrice.value = 0;
+			}else if("0" > "1"){
+				for(var i=0; i<"0"; i++){
+					frm.CHK_POINT_CPON[i].checked = false;
+					frm.oldPointPrice[i].value = 0;
+				}
+			}
+			
+			document.getElementById("pointCponAmt").innerHTML = 0;			
+			document.getElementById("eventCponAmt").innerHTML = 0;
+			
+			fn_totAmt();
+			
+		}
+
+		
+		function fn_paperCpnAuth(){
+			
+			var url = "/RPF030302.action";
+
+			if((document.getElementById("CRT_NO").value).length < 14){
+				alert("쿠폰 시리얼 번호를 14자리로 입력해주세요.");
+				document.getElementById("CRT_NO").focus();
+				return;
+			}
+
+			if(!isNumeric(document.getElementById("CRT_NO"))){
+				alert("숫자만 입력해 주세요.");
+				document.getElementById("CRT_NO").select();
+				document.getElementById("CRT_NO").focus();
+				return;
+			}
+			
+			if(!confirm("등록하시겠습니까?")){
+				return;
+			}
+
+			//fn_colReadOnly();
+			$("S_COMMAND").value = "UPDATE";		// command를 페이퍼 승인등록
+			
+			var param = $("frmSrch").serialize(true);
+
+			var onSuccess = function(req){
+				var json = req.responseJSON;				// 요청에 대한 대답을 json으로
+
+				JsonUtil.alert(json);						// 메시지 처리
+				
+				if(JsonUtil.isError(json)){					// 정상 처리 라면
+//alert(json.key);					
+					if(Number(json.key) >= 0) {	
+						fn_listCpn();	 
+					}
+					
+				}
+			};
+
+		    var onFailure = function(){
+			    alert('등록 중 에러가 발생했습니다.');
+		    };
+				
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+		}
+		
+		
+		function fn_listCpn() {
+			location.reload();
+		}
+		
+		/**
+		 * <pre>
+		 * 인수로 받은 object가 배열인지 판단 한다.
+		 * - null이면 0을 리턴
+		 * - 배열이 아니면 1을 리턴
+		 * - 배열이라면 배열 길이를 리턴
+		 * </pre>
+		 * @param obj 검사할 form.element
+		 * @return number (0, 1, obj.length)
+		 */
+		 isArray = function(obj){
+			if(obj == null){
+				return 0;
+			}else {
+				//alert(obj.type);
+				if(obj.type == 'select-one'){
+					return 1;
+				}else if(obj.type == 'select-multiple'){
+					return 1;
+				}else{
+					if(obj.length > 1){
+						return obj.length;
+					}else {
+						return 1;
+					}
+				}
+			}
+		}
+	/* ]]> */
+	</script>
+	
+<div id="pop">
+	<form name="frmSrch" id="frmSrch" action="">
+		<input type = "hidden" id="S_COMMAND"         name="command" />
+		<input type="hidden" name="totCponAmtVal" id="totCponAmtVal" value="0" /> <!-- 할인될 쿠폰 금액 -->
+		<input type="hidden" name="totAmtVal" id="totAmtVal" value="0" /> <!-- 최종구매금액 -->
+		
+		<!-- 초기값 class="open hidden" 쿠폰적용 버튼 클릭시 class="open " 으로 변경!! 예외상황도 있습니다. -->
+		<div class="open hidden" id="cponCls">
+			<div id="popup_popup"></div>
+			<div id="popup_popupbox">
+				<div class="massage">
+					<p>결제 예정 금액보다 선택하신 쿠폰금액 합계가  더 많습니다.</p> 
+					<p><strong>초과된 금액 <em><span id="overAmt">0</span>원</em></strong>에 대하여 쿠폰이나 포인트로 돌려드리지 않습니다.</p><br /> 
+		
+					<p>선택하신 쿠폰을 사용하시겠습니까?</p>
+				</div>
+		
+				<div class="button">
+					<a href="javascript:fn_cponApplySet();"><img src="/images/reebok/popup/btn_coupon_use.gif" alt="쿠폰사용" /></a>
+					<a href="javascript:fn_cponClsHidden();"><img src="/images/reebok/popup/btn_cancel.gif" alt="취소" /></a>				
+				</div>
+				
+				<input type="hidden" name="tmpCnt" id="tmpCnt" value="0" />
+				<input type="hidden" name="tmpAmt" id="tmpAmt" value="0" />
+				
+			</div>
+		</div>
+		
+		<div id="popupHeader">
+			<h1>나의 쿠폰</h1>
+			<a href="javascript:self.close();"><img src="/images/reebok/popup/btn_popup_close.gif" alt="close" /></a>
+		</div>
+	
+		<div id="popupContents">
+			<h2><img alt="쿠폰 안내" src="/images/reebok/popup/tit_s_coupon04.gif"></h2>
+			<div style="margin-bottom:28px;background:#EDEDED;padding:15px;color:#333;border:1px solid #c0c7ce;font-size:11px;">
+				<ul>
+					<li style="line-height:16px;letter-spacing:-0.5px;">- 전체 주문취소 / 반품의 경우, 포인트쿠폰은 환원되나 생일쿠폰 및 기타 이벤트쿠폰은 환원되지 않습니다.</li>
+					<li style="line-height:16px;letter-spacing:-0.5px;">- 복수개의 상품을 구매 후 일부 상품만 주문취소/반품하는 경우, 쿠폰금액의 차액은 환원되지 않습니다.</li>
+					<li style="line-height:16px;letter-spacing:-0.5px;">- 보다 상세한 유효기간 경과 시 보상 기준 및 잔액환급조건 등의 이용조건 은 이용구매약관 제14조 참조 바랍니다.</li>
+					<li style="line-height:16px;letter-spacing:-0.5px;">- 복수 상품(두 가지 상품 이상 구매) 구매 시, 쿠폰은 상품 금액에 따라 분할 적용됩니다.</li>
+				</ul>
+			</div>
+
+			<!--쿠폰 시리얼번호 입력하는 부분입니다.-->
+			<div class="couponInput">
+				<!-- form -->
+					<label for="coupon_num">쿠폰 시리얼 번호 입력 </label>
+					<input type="text" id="coupon_num" name="CRT_NO" value="" size="20" maxlength="14" />
+					<span><a href="javascript:fn_paperCpnAuth();"><img src="/images/reebok/popup/btn_submit_0322.gif" alt="쿠폰번호 입력" /></a></span>
+				<!-- /form -->
+			</div>
+			<!-- // 쿠폰 시리얼번호 입력하는 부분 끝 -->
+			<h2><img src="/images/reebok/popup/tit_s_coupon01.gif" alt="상품별 할인쿠폰" />
+			<!-- <a href="javascript:fn_goFaq();" class="btn"><img src="/images/reebok/popup/btn_coupon_faq.gif" alt="쿠폰 FAQ" /></a>  -->
+			</h2>
+	
+			<table class="list" summary="상품별 할인쿠폰">
+			<caption>상품별 할인쿠폰</caption>
+			<colgroup>
+				<col width="185px" />
+				<col width="95px" />
+				<col width="50px" />
+				<col width="115px" />
+				<col width="165px" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th scope="col">상품명</th>
+				<th scope="col">판매금액</th>
+				<th scope="col">수량</th>
+				<th scope="col">주문금액</th>
+				<th scope="col" class="last">상품별 적용쿠폰</th>
+			</tr>
+			</thead>
+			<tbody>
+			
+		
+			
+			
+			<tr>
+				<td class="sub">[Women's running]  리복 원 쿠션  </td>
+				<td class="price">129,000 원</td>
+				<td>1</td>
+				<td class="price"><strong>129,000 원</strong>
+					<input type="hidden" name="PROD_CD" value="V47305" />
+					<input type="hidden" name="ORDER_PRICE" value="129,000" />
+					<input type="hidden" name="SALES_PRICE" value="129,000" />
+					<input type="hidden" name="PROD_QTY" value="1" />
+					<input type="hidden" name="PROD_OPT" value="230" />
+
+				</td>
+				<td class="form">
+					<select name="CPN_LIST_PROD" id="D_CPN_LIST_PROD" style="width:160px;" onchange="fn_prodCponApply(this.value, 0, 1)" disabled="disabled">
+						
+						
+						
+						<option value="clear" selected="selected" >상품할인쿠폰 없음</option>
+						
+					</select>
+					
+					<input type="hidden" name="oldProdPrice" value="0" />
+				</td>
+			</tr>
+			
+			
+			
+		
+					
+			</tbody>
+			</table>
+	
+			<div class="total">
+				<p><span>할인 쿠폰적용 :</span> <strong><span id="prodCponAmt">0</span>원</strong></p>
+			</div>
+	
+			<h2><img src="/images/reebok/popup/tit_s_coupon02.gif" alt="이벤트 쿠폰" /><!-- span>상단 쿠폰에 추가사용 가능한 쿠폰입니다.</span --></h2>
+			<table class="list" summary="상품별 할인쿠폰">
+			<caption>상품별 할인쿠폰</caption>
+			<colgroup>
+				<col width="42px" />
+				<col />
+				<col width="115px" />
+				<col width="150px" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th scope="col">선택</th>
+				<th scope="col">보유하신 쿠폰명</th>
+				<th scope="col">할인금액</th>
+				<th scope="col" class="last">유효기간</th>
+			</tr>
+			</thead>
+			<tbody>
+			
+		
+		
+		
+			<tr>
+				<td class="form" colspan="4"> 적용가능 쿠폰이 없습니다. </td>
+			</tr>
+		
+			
+			</tbody>
+			</table>
+	
+			<div class="total">
+				<p><span>할인 쿠폰적용 금액 :</span><strong><span id="eventCponAmt">0</span>원</strong></p>
+			</div>
+	
+			<h2><img src="/images/reebok/popup/tit_s_coupon03.gif" alt="포인트/생일 쿠폰" /><span><strong>중복선택</strong> 가능합니다.</span></h2>
+			<table class="list" summary="상품별 할인쿠폰">
+			<caption>상품별 할인쿠폰</caption>
+			<colgroup>
+				<col width="42px" />
+				<col />
+				<col width="115px" />
+				<col width="150px" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th scope="col">선택</th>
+				<th scope="col">보유하신 쿠폰명</th>
+				<th scope="col">할인금액</th>
+				<th scope="col" class="last">유효기간</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td class="form" colspan="4"> 적용가능 쿠폰이 없습니다. </td>
+			</tr>
+		
+	
+			</tbody>
+			</table>
+	
+			<div class="total">
+				<p><span>할인 쿠폰적용 금액 :</span> <strong><span id="pointCponAmt">0</span>원</strong></p>
+			</div>
+	
+			<div class="final">
+				<p>선택하신 쿠폰 전체 금액 <strong class="discount"><span id="totCponAmt">0</span>원</strong> 적용시, 최종할인 구매가는  <strong><span id="totAmt"><script type="text/javascript">document.write(toCurrency(totPrice));</script></span>원</strong>입니다.</p>
+			</div>
+	
+			<div class="button">
+				<a href="javascript:fn_cponApply();"><img src="/images/reebok/popup/btn_coupon_app.gif" alt="쿠폰적용" /></a>
+				<a href="javascript:self.close();"><img src="/images/reebok/popup/btn_cancel.gif" alt="취소" /></a>
+			</div>
+	
+		</div>
+	</form>
+</div>
+</body>
+</html>

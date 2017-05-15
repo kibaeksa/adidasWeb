@@ -1,0 +1,391 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	// filter:alpha(opacity=$value * 100);
+	// -ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+// for pseudo element
+.pseudo-element{
+	content:'';
+	display: block;
+}
+/* video_layer */
+.video_layer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 45px;
+		height: 45px;
+		position: absolute;
+		top: 25px;
+		right: 25px;
+		z-index: 20;
+		display: block;
+		background:url('/images/reebok/event/about/sprite.png') -80px 0 no-repeat;
+		text-indent: -5000px;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s ease-in 0.5s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+	}
+}
+/* video_layer end */
+
+
+/* alexander_wang */
+.alexander_wang{
+	position: relative;
+	min-width: 1280px;
+	background: #fff;
+	.main_top{
+		position: relative;
+		text-align: center;
+		h2{
+			position: absolute;
+			left: 50%;
+			z-index: 10;
+			width: 460px;
+			top: 27px;
+			margin-left: -230px;
+			img{
+				width: 100%;
+			}
+		}
+		p{
+			position: absolute;
+			top:208px;
+			z-index: 10;
+			width: 100%;
+			text-align: center;
+			color:#fff;
+			font:16.5px 'NotosansKRLight','Nanum Gothic';
+		}
+
+		.glich_section{
+			height:544px;
+			span.stripes{
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				bottom: -20px;
+			}
+
+			div{
+				position: absolute;
+				top:0;
+				left:0;
+				bottom:0;
+				background: #000;
+				width:33.333333%;
+				background: url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_left_org.jpg?v=1") no-repeat center top;
+				background-size:cover;
+				z-index: 0;
+				&.first{
+					bottom: 64px;
+					background-image:url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_left_org.jpg?v=1");
+				}
+				&.second{
+					left:33.3333%;
+					background-image:url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_center_org.jpg?v=1");
+			    background-position: center center;
+					bottom: -20px;
+				}
+				&.third{
+					bottom: 64px;
+					left: 66.66667%;
+					background-image:url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_right_org.jpg?v=1");
+			    background-position: center bottom;
+				}
+
+				.bg_change1,.bg_change2{
+					position: absolute;
+					width: 100%;
+					height:100%;
+					z-index: 1;
+					background-size:cover;
+					visibility: hidden;
+					background-image:url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_change1.jpg?v=1");
+				}
+				.bg_change2{
+					background-image:url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/bg_change2.jpg?v=1");
+					z-index: 2;
+
+
+				}
+
+			}
+		}
+
+		.main_button{
+			position: absolute;
+			top:356px;
+			left:50%;
+			margin-left: -132px;
+			display: inline-block;
+			color:#fff;
+			height:56px;
+			min-width: 22rem;
+			background: #fff;
+			text-align: center;
+			.text_change{
+				position: relative;
+				font:17px/56px 'NotosansKR','Nanum Gothic';
+				color:#000;
+				// letter-spacing: -2px;
+				z-index: 20;
+			}
+			&:hover{
+				background: transparent;
+				&:after{
+					visibility: visible;
+				}
+			}
+			&:after{
+				position: absolute;
+				top:0;
+				left: -1.2rem;
+    		right: -1.2rem;
+				// width: 100%;
+				// height: 100%;
+				bottom:0;
+				content: '';
+				background: url("http://image.adidas.co.kr/images/adidas/event/alexander_wang/btn_glich.gif") no-repeat 0 0;
+		    background-size: 100% 100%;
+				// background-position: 50% 50%;
+				// visibility: hidden;
+			}
+			span.txt{
+				position: relative;
+				z-index: 10;
+
+				>div{
+					display: inline-block;
+					position: relative;
+					span{
+						font:17px/56px 'NotosansKR','Nanum Gothic';
+						color:#000;
+						letter-spacing: -2px;
+
+					}
+				}
+			}
+		}
+
+	}
+
+	.products_collection{
+		width: 100%;
+		height: 870px;
+		position: relative;
+		margin-top: 102px;
+
+		.bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left:-990px;
+			}
+		h4{
+			position: relative;
+			padding-bottom: 60px;
+			z-index: 1;
+			font:50px/90px 'QStencil';
+			text-align: center;
+			color:#fff;
+			}
+		p.title{
+			position: relative;
+			padding-bottom: 44px;
+			width: 100%;
+			font:18px/25px 'NotoSansKRlight';
+			text-align: center;
+			color:#fff;
+		}
+		.wide-slider-wrapper{
+			position: relative;
+			width: 100%;
+			height:761px;
+			left: inherit;
+			margin-left:inherit;
+			z-index: 1;
+			overflow: hidden;
+			.arrow-prev{
+				position: absolute;
+		    top: 0;
+		    left: 0;
+		    z-index: 2;
+		    width: 466px;
+		    height: 100%;
+				span{
+					position: absolute;
+					top:327px;
+					right:88px;
+				}
+			}
+			.arrow-next{
+				position: absolute;
+		    top: 0;
+		    right: 0;
+		    z-index: 2;
+		    width: 466px;
+		    height: 100%;
+				span{
+					position: absolute;
+					top:327px;
+					left:88px;
+				}
+			}
+			ul{
+				position: absolute;
+				top:0;
+				width: 100%;
+				// height: 550px;
+				li{
+			    padding: 0 10px;
+					width: 950px;
+					position: relative;
+					float: left;
+					@include opacity(0.4);
+					@include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+					span{
+						color:#d8d8d8;
+						font:18px 'adihausDIN-Cond';
+						position: absolute;
+						&.top{
+							top:0;
+							right:10px;
+						}
+						&.bottom{
+							bottom:0;
+							left:10px;
+						}
+					}
+					img{
+						// width: 100%;
+					}
+				}
+				li.active{
+					@include opacity(1);
+				}
+			}
+
+		}
+
+	}
+
+	.bottom_area{
+		padding: 85px 0 80px;
+		p{
+			text-align: center;
+			font:17px 'NotosansKRLight','Nanum Gothic';
+			color: #000;
+		}
+	}
+}
+// @keyframes glitch-background {
+// 		0% {
+// 			visibility: visible;
+// 		}
+// 		5% {
+// 			visibility: hidden;
+// 		}
+// 	}
+/* End of alexander_wang */
+
+
+/*
+ * For ie old version
+ */

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html PUBLIC "-/W3C/DTD XHTML 1.0 Transitional/EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http:/www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+
+<script type="text/javascript">
+
+	function fn_close() {
+		close();
+	}
+
+	function fn_cancel_cancel(obj) {
+
+		var isProcess = true;
+		var page = jQuery("#D_PAGE", opener.document).val();
+
+		var claim_no = '201304300042887';
+
+		if(claim_no != "") {
+
+			jQuery("input:hidden[name=RCPT_ST]").each(function(){
+
+				if(jQuery(this).val() != '01') {
+					alert("접수취소는 처리상태가 접수 일경우만 가능합니다.");
+					isProcess = false;
+					return false;
+				}
+			});
+
+			if(isProcess && confirm('접수취소 하시겠습니까?')){
+				var onSuccess = function(req){
+					var json = req.responseJSON;
+					JsonUtil.alert(json);
+
+					if(JsonUtil.isError(json)){
+						jQuery(obj).attr("disabled", "");
+						opener.fn_searchView(page);
+						fn_close();
+					} else {
+						obj.disabled= false;
+					}
+				};
+
+			    var onFailure = function(){
+				    alert('등록 중 에러가 발생했습니다.');
+				    obj.disabled = false;
+				    jQuery(obj).attr("disabled", "");
+			    };
+
+			    jQuery(obj).attr("disabled", "disabled");
+
+			    cfn_ajaxRequest("/PF060103.action",
+			    				"command=CLAIM_CANCEL_CANCEL&CLAIM_NO=" + claim_no,
+			    				onSuccess,
+			    				onFailure);
+		    }
+		}
+	}
+
+
+</script>
+</head>
+
+<body>
+<div id="pop">
+	<div id="popupHeader">
+		<h1>취소 상세내역</h1>
+		<a href="javascript:fn_close();"><img src="/images/adidas/popup/btn_popup_close.gif" alt="close" /></a>
+	</div>
+
+	<div id="popupContents">
+
+		<h2><img src="/images/adidas/popup/tit_prd_info.gif" alt="상품정보" /></h2>
+		<table class="view mg20" summary="상품정보">
+			<caption>주문정보</caption>
+			<colgroup>
+				<col width="145px" />
+				<col width="285px" />
+			</colgroup>
+			<tr>
+				<th>주문일</th>
+				<td class="last">2013-04-30 17:00</td>
+			</tr>
+			<tr>
+				<th>주문번호</th>
+				<td class="last"><strong>201304300042884</strong></td>
+			</tr>
+			<tr>
+				<th>배송비</th>
+				<td class="last"><strong>0</strong>&nbsp;원</td>
+			</tr>
+		</table>
+
+		<table class="list mg20" summary="구매상품">
+			<caption>구매상품</caption>
+			<colgroup>
+				<col />
+				<col width="112" />
+				<col width="102px" />
+				<col width="65" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>상품명</th>
+					<th>구매금액</th>
+					<th>사이즈/수량</th>
+					<th class="last">처리상태</th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+				<tr>
+					<td class="sub">MEGA TORSION RSP II</td>
+					<td class="price"><strong><span>129,000&nbsp;원</span><strong></td>
+					<td class="size">230&nbsp;/&nbsp;1</td>
+					<td>완료<input type='hidden' name='RCPT_ST' id='RCPT_ST_1' value='04'/></td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+		<h2><img src="/images/adidas/popup/tit_cancel_detail.gif" alt="취소 상세내역" /></h2>
+		<table class="view mg20" summary="취소 상세내역">
+			<caption>취소 상세내역</caption>
+			<colgroup>
+				<col width="145px" />
+				<col width="285px" />
+				<col />
+			</colgroup>
+			<tr>
+				<th>취소신청 일시/신청자</th>
+				<td class="last">2013-04-30 18:01&nbsp;/&nbsp;안효진</td>
+			</tr>
+
+			<tr>
+				<th>취소완료 일시/처리자</th>
+				<td class="last">2013-04-30 18:01&nbsp;/&nbsp;안효진</td>
+			</tr>
+
+			<tr>
+				<th>취소신청 사유</th>
+				<td class="last">
+					<strong>[기타]</strong><br />
+					test
+				</td>
+			</tr>
+
+		</table>
+		<!-- 130502 start -->
+		<ul style="margin-bottom:20px;">
+			<li style="font-size:11px;padding-bottom:3px;letter-spacing:-.5px;">무통장입금의 환불은 주말, 공휴일을 제외한 영업일기준, 익일 16시에 처리됩니다.</li> 
+			<li style="font-size:11px;padding-left:3px;letter-spacing:-.5px"> (배송시작전 : 주문취소 후 익일 16시, 배송시작후 : 반품절차 완료 후 익일 16시)</li>
+		</ul>
+		<!-- 130502 end -->
+
+
+		<div class="button">
+			<!-- <a href="#"><img src="/images/adidas/popup/btn_save.gif" alt="저장" /></a> -->
+			<a href="javascript:fn_cancel_cancel(this);"><img src="/images/adidas/popup/btn_inno.gif" alt="접수취소" /></a>
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

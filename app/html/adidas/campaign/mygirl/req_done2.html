@@ -1,0 +1,310 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript">
+	document.doamin = 'adidas.co.kr';	
+	var returnURL = 'http://shop.adidas.co.kr/adiMain.action';
+	if(returnURL == null || returnURL == ''){
+		returnURL = 'http://shop.adidas.co.kr/adiMain.action';
+	}
+	var totalReturnURL = 'http://shop.adidas.co.kr/popRedirect.action?redirectPageMan=';
+	var totalReturnSSLURL = 'https://shop.adidas.co.kr:443/popRedirect.action?redirectPageMan=';
+	function init(){
+		window.resizeTo(480,505);
+		var checkbtn = $("checkbtn").value;
+		if(checkbtn == 'buyLogIn'){
+			jQuery("#fromTop").hide();
+			jQuery("#fromDetail").show();
+		}else{
+			jQuery("#fromDetail").hide();
+			jQuery("#fromTop").show();
+		}
+		var mem_id = '';
+		if(mem_id != '' && mem_id != null){
+			$("MEM_ID").value = mem_id;
+		}
+		// userid 쿠키에서 id 값을 가져온다.
+		 var cook = document.cookie + ";";
+		 var idx = cook.indexOf("adidasUserid", 0);
+		 var val = "";
+
+		 if(idx != -1){
+		  cook = cook.substring(idx, cook.length);
+		  begin = cook.indexOf("=", 0) + 1;
+		  end = cook.indexOf(";", begin);
+		  val = unescape( cook.substring(begin, end) );
+		 }
+
+		 // 가져온 쿠키값이 있으면
+		 if(val != ""){
+		  document.frmDetail.MEM_ID.value = val;
+		  document.frmDetail.idcheck.checked = true;
+		 }
+	}
+	//아이디중복체크
+	function logIn(){
+		var validator = new Validator("frmLog");
+		validator.addItem("MEM_ID", "Y:maxByteLength=20:Y:아이디:");
+		//validator.addItem("MEM_ID", "Y:alphanum:Y:아이디:");
+		validator.addItem("MEM_ID", "Y:minlength=1:Y:아이디:");
+		validator.addItem("MEM_PW", "Y:minlength=1:Y:비밀번호:");
+		if(!validator.validateForm()) {
+			return false;
+		}
+		//아이디자동 저장
+		
+		if(document.frmDetail.idcheck.checked){ 
+			$("checkBoxMan").value = true;
+			saveLogin(document.frmDetail.MEM_ID.value);
+		}else{ 
+			$("checkBoxMan").value = false;
+			saveLogin("");
+		}
+		var param = $("frmDetail").serialize(true);
+		var url = "/PF060801.action";
+		
+		var onSuccess = function(req){
+			var json = req.responseJSON;
+	
+			JsonUtil.alert(json);
+	
+			if(JsonUtil.isError(json)){
+				var mem_st = json.mem_st;
+				if(mem_st == 'logInOK'){   // 웹가입자 로그인 성공
+					try{						
+						var checkbtn = $("checkbtn").value;
+						if(checkbtn == 'buyLogIn'){
+							var pcommand = $("pcommand").value;
+							var prod_cd = $("PROD_CD").value;
+							var option_sel = $("OPTION_NO").value;
+							var qty_sel = $("PROD_QTY").value;
+							var v_spst_id = $("SPST_ID").value;
+							var v_srch_nm = $("SRCH_NM").value;
+							var parameter = "pcommand="+pcommand+"&PROD_CD="+prod_cd+"&OPTION_NO="+option_sel+"&PROD_QTY="+qty_sel+"&SPST_ID="+v_spst_id+"&SRCH_NM="+v_srch_nm;
+							var param2 = 'https://shop.adidas.co.kr:443/PF030201.action?'+parameter;
+							//document.location.href = totalReturnURL + param2;
+							document.location.href = totalReturnURL + param2;
+							//self.close();
+						}else if(checkbtn == 'myPage'){
+							document.location.href = totalReturnURL + 'http://shop.adidas.co.kr/PF060100.action';
+						}else if(checkbtn == 'myBasket'){
+							document.location.href = totalReturnURL + 'http://shop.adidas.co.kr/PF030101.action';
+						}else if(checkbtn == 'payPage'){
+							opener.location.href = 'https://shop.adidas.co.kr:443'+returnURL;
+							self.close();
+						}else if(checkbtn == 'fromTop'){
+							if(returnURL.indexOf('https') == -1 ){
+								if(returnURL.indexOf('/PF030201') != -1){
+									document.location.href = totalReturnURL + 'https://shop.adidas.co.kr:443'+returnURL;
+								}else{
+									document.location.href = totalReturnURL + returnURL;
+								}
+							}else if(returnURL.indexOf('https') != -1){
+								opener.location.href = returnURL;
+								self.close();
+							}else{
+								document.location.href = totalReturnURL + 'http://shop.adidas.co.kr/adiMain.action';
+							}
+						}else{
+							document.location.href = totalReturnURL + 'http://shop.adidas.co.kr/adiMain.action';
+						}
+					}catch(E){
+						document.location.href =  totalReturnURL + 'http://shop.adidas.co.kr/adiMain.action';
+					}
+					var tagParam = '_TRK_PI=LIR^_TRK_MBR=Y^_TRK_ISLOGIN=Y^_TRK_SX='+ json.TRK_SX +'^_TRK_AG='+ json.TRK_AG + '^_TRK_UVP1='+ json.TRK_UVP1;
+					setsave('_TRK_IS_COOKIE',tagParam,1000);
+				}else if(mem_st == 'logInNO'){   // 로그인 실패
+					logInNo();
+					return;
+				}else if(mem_st == 'firstPersonOK'){  // 1차회원인데 웹가입 아직 안한 회원
+					firstPersonOK(json.MOBL, json.MEM_NO, json.EMAIL);
+					$("MOBL").value = json.MOBL;
+					$("D_MEM_NO").value = json.MEM_NO;
+					$("EMAIL").value = json.EMAIL;
+				}else if(mem_st == 'secondPersonOK'){ // 2차회원인데 웹가입 아직 안한 회원
+					var tagParam = '_TRK_PI=LIR^_TRK_MBR=Y^_TRK_ISLOGIN=Y^_TRK_SX='+ json.TRK_SX +'^_TRK_AG='+ json.TRK_AG + '^_TRK_UVP1='+ json.TRK_UVP1;
+					setsave('_TRK_IS_COOKIE',tagParam,1000);
+					alert('아디클럽 회원은 최초 로그인시 약관 동의 및 정보 입력이 필요합니다.');
+					secondPersonOK(json.MEM_ID, json.MEM_NO);
+				}else if(mem_st == 'logInWithDr'){    //탈퇴한 회원
+					logInWithDr(json.WITHDR_DT);
+					return;
+				}
+			}
+		};
+		var onFailure = function(){
+			alert('수정 중 에러가 발생했습니다.');
+		};
+		cfn_ajaxRequest(url, param, onSuccess, onFailure);
+		
+	}
+	
+	// 핸드폰번호 보내기
+	function fn_go(mobl, mem_id){
+		opener.setMobl(mobl, mem_id);
+		opener.focus();
+		window.close();
+	}
+	//로그인 실패시
+	function logInNo(){
+		window.resizeTo(480,660);
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch").show();
+		jQuery("#withDr").hide();
+		jQuery("#csDiv").show();
+	}
+	//1차회원 일때
+	function firstPersonOK(mobl, mem_no, email){
+		document.location.href = totalReturnSSLURL + "/PF0601001.action?MOBL="+mobl+'&MEM_NO='+mem_no+'&EMAIL='+email;
+	}
+	//2차회원 일때
+	function secondPersonOK(mem_id, mem_no){
+		document.location.href = totalReturnSSLURL + "/PF0601001.action?LOGINCHECK=second&MEM_ID="+mem_id+'&MEM_NO='+mem_no;
+	}
+	//탈퇴한 회원일 시
+	function logInWithDr(withdr_dt){
+		window.resizeTo(480,610);
+		document.getElementById("withDrDt").innerHTML = withdr_dt;
+		jQuery("#errorDiv").show();
+		jQuery("#noMatch").hide();
+		jQuery("#withDr").show();
+		jQuery("#csDiv").show();
+	}
+//////////////////////////체크박스 아이디저장//////////////////////////////////////
+	function setsave(name, value, expiredays)
+	{
+	 var today = new Date();
+	 today.setDate( today.getDate() + expiredays );
+	 document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + today.toGMTString() + ";";
+	}
+
+	function saveLogin(id){
+	 if(id != ""){
+	  // userid 쿠키에 id 값을 1000일간 저장
+	  setsave("adidasUserid", id, 1000);
+	 }else{
+	  // userid 쿠키 삭제
+	  setsave("adidasUserid", id, -1);
+	 }
+	}
+//////////////////////////체크박스 아이디끝//////////////////////////////////////
+	//회원가입, 고객센터
+	function memberJoinPage(url){
+		if(url == '/PF0601001') {
+			document.location.href = totalReturnSSLURL + url+'.action';			
+		} else {
+			document.location.href = totalReturnURL + url+'.action';
+		}
+		//document.location.href = '/PF0601001.action';
+	}
+	
+	//비회원 바로구매
+	function noLoginBuy(){
+		var pcommand = $("pcommand").value;
+		var prod_cd = $("PROD_CD").value;
+		var option_sel = $("OPTION_NO").value;
+		var qty_sel = $("PROD_QTY").value;
+		var v_spst_id = $("SPST_ID").value;
+		var v_srch_nm = $("SRCH_NM").value;
+		var parameter = "pcommand="+pcommand+"&PROD_CD="+prod_cd+"&OPTION_NO="+option_sel+"&PROD_QTY="+qty_sel+"&SPST_ID="+v_spst_id+"&SRCH_NM="+v_srch_nm;
+		document.location.href = totalReturnURL + '/PF030201.action?'+parameter;
+		//opener.focus();
+		//self.close();
+	}
+	//아이디 찾기
+	function findID(){
+		var checkbtn = $("checkbtn").value;
+		document.location.href = '/PF060901.action?checkbtn='+checkbtn+'&returnURL='+returnURL;
+	}
+	
+	//띄어쓰기 금지 엔터키적용
+	jQuery(document).ready(function(){
+		jQuery('#MEM_PW, #MEM_ID').keydown(function(event) {
+			var evCode = ( jQuery.browser.msie ) ?  event.keyCode : event.which ;
+			  if (evCode == 13) {
+				  if(jQuery("#MEM_PW").val() == ""){ 
+			        	return false;
+			        }else{
+			        	logIn();
+			        }
+			   }
+			  if(evCode == 32){ 
+					return false;
+			   }
+		});
+	});
+</script>
+<style type="text/css">
+	#popupContents .mygirl_pop{width:370px;}
+	#popupContents .mygirl_pop h2{margin-bottom:20px;font:20px 'Nanum Gothic';letter-spacing:-.5px;color:#222;}
+	#popupContents .mygirl_pop h2 strong{color:#222;}
+	.mg_userinfo{padding:19px;border:1px dotted #000;}
+	.mg_userinfo li{margin-bottom:7px;color:#000;}
+	strong.str{margin:15px 0 20px;text-align:left;display:block;color:#777;font-size:11px;letter-spacing:-.75px;font-weight:normal;}
+	strong.str span{margin-right:5px;color:#ff0000;}
+	.btn_area{text-align:center;}
+	.btn_area a{margin:0 5px;}
+</style>
+
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+
+</head>
+<body onload="init();">
+<div id="pop">
+	<div id="popupHeader2">
+		<h1>#mygirls campus 수강 신청 내역</h1>
+		<a href="javascript:self.close();"><img src="https://shop.adidas.co.kr:443/images/adidas/popup/btn_popup_close2.gif" alt="close" /></a>
+	</div>
+	<div id="popupContents" style="text-align:center;">
+		<div class="mygirl_pop">
+			<h2><strong>강기영님,</strong> 수강 신청 내역을 확인해주세요.</h2>
+			<div class="mg_userinfo" style="margin-bottom:20px;">
+				<ul>
+					<li>
+						<span>개강일:</span>
+						<strong>05월 49일(0) 01시 00분</strong>
+					</li>
+					<li>
+						<span>캠퍼스:</span>
+						<strong>서울대학교 군산캠퍼스 </strong>
+					</li>
+					<li>
+						<span>마이걸즈 스페셜 파우치 수령 매장:</span>
+						<strong>강남역 아디다스</strong>
+					</li>
+					<li style="margin-bottom:0;">
+						<span>안내 문자를 받을 휴대폰 번호:</span>
+						<strong>000-000-000</strong>
+					</li>
+				</ul>			
+			</div>
+			<div class="btn_area">
+				<a href="#"><img src="/images/adidas/popup/mygirl130311/btn_mg_pop_ok.gif" alt="확인"/></a>
+			</div>
+		</div>
+		<!-- //mygirl_pop -->
+	</div>
+</div>
+<!-- WebLog -->
+<script type="text/javascript" src="/js/weblog/1_INSIGHT_TRACKING_SCRIPT_FOR_SHOP.ADIDAS.CO.KR_V.5.1.4.js"></script>
+</body>
+</html>
