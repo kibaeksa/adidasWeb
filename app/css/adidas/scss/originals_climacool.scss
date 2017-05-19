@@ -1,0 +1,253 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin css3($prop,$value...){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation , $fillmode , $iteration) {
+
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:$iteration;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:$iteration;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:$iteration;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: $fillmode; /* this prevents the animation from restarting! */
+    animation-iteration-count:$iteration;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+#originals_climacool{
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+
+	.fixed_logo{
+		position: fixed;
+		top: 100px;
+		right: 100px;
+		padding-top: 30px;
+		// margin-right: -500px;
+
+		z-index: 15;
+
+		&.text{
+			top: auto;
+			right: auto;
+			bottom: 100px;
+			left: 100px;
+			padding: 0;
+			margin: 0;
+		}
+
+		&.line{
+			top: auto;
+			bottom: 100px;
+		}
+	}
+	.cta-button{
+		position: relative;
+		display: inline-block;
+		padding: 11px 55px 15px 20px;
+		font:16px/16px 'NotoSansKR','Nanum Gothic';
+		color: #fff;
+		border: 2px solid  #fff;
+		letter-spacing: -1px;
+
+		.ico{
+			position: absolute;
+			top: 50%;
+			right: 20px;
+			width: 16px;
+			height: 15px;
+			margin-top: -7px;
+			background:url('/images/adidas/event/originals_climacool/6901-btn-icon-a.png') 0 0 no-repeat;
+		}
+
+		&:hover{
+			background: #fff;
+			border-color: #fff;
+			color: #000;
+			.ico{
+				background:url('/images/adidas/event/originals_climacool/6901-btn-icon-b.png') 0 0 no-repeat;
+			}
+		}
+	}
+
+	.box{
+		width: 100%;
+		// padding-bottom: 52.0833333333333%;
+		height: 1000px;
+		position: relative;
+
+		.bg{
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			img{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				vertical-align: top;
+			}
+		}
+
+		.copy_container{
+			.copy_wrap{
+				width: 500px;
+				margin-left: -250px;
+				text-align: center;
+
+				@include css3(transform,translate3d(0,-50%,0));
+
+				>*{
+					text-align: center;
+				}
+			}
+		}
+
+		&#box1{
+			height: 938px;
+			.bg{
+				width: 1920px;
+				height: 938px;
+				margin-left: -960px;
+				img{
+					// width: 1800px;
+				}
+			}
+			.copy_container{
+				.copy_wrap{
+					width: auto;
+					left: 0;
+					margin: -128px 0 0 0;
+					text-align: left;
+
+					@include css3(transform,translate3d(0,0,0));
+
+					>*{
+						text-align: left;
+					}
+				}
+			}
+		}
+
+		&#box3,&#box4,&#box5{
+			height: 999px;
+			.bg{
+				height: 999px;
+			}
+			// padding-bottom: 52%;
+		}
+
+	}
+
+	.copy_container{
+		width: 950px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -475px;
+
+		.copy_wrap{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+			h3{
+				margin-bottom: 25px;
+				font:30px/30px 'adinenuPro-black';
+				color: #fff;
+				text-transform: uppercase;
+				letter-spacing: 20px;
+			}
+			.desc{
+				margin-bottom: 35px;
+				font:18px/30px 'NotoSansKRRegular','Nanum Gothic';
+				color: #fff;
+				letter-spacing: -1px;
+			}
+		}
+	}
+}
+
+#footer{
+	position: relative;
+	z-index: 22;
+	background: #fff;
+}
