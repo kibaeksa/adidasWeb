@@ -169,7 +169,8 @@
 	});
 	/* //150513 */
 </script>
-
+<!-- 20170529 runbase naver 지도 추가 서비스 실제 운영시 키값 : ErPahvwIWR-->
+<script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=cpw9RMOfkmb0qIa7Vz23"></script>
 </head>
 <body>
 
@@ -1414,31 +1415,31 @@
 						<div class="runbase_gnb">
 							<ul class="clfix">
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<strong>ABOUT</strong>
 										<span>런베이스 서울이란?</span>
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<strong>SCHEDULE</strong>
 										<span>프로그램 스케줄</span>
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<strong>COACH</strong>
 										<span>코치진</span>
 									</a>
 								</li>
 								<li>
-									<a href="#">
+									<a href="javascript:void(0)">
 										<strong>COURSE</strong>
 										<span>러닝 코스</span>
 									</a>
 								</li>
 								<li>
-									<a href="#" class="last">
+									<a href="javascript:void(0)" class="last">
 										<strong>LOCATION</strong>
 										<span>오시는길</span>
 									</a>
@@ -1503,6 +1504,7 @@
 									<div style="padding-top:40px;"><img src="/images/adidas/club/runbase/about_info.png" alt=""></div>
 								</div>
 							</div>
+							<!-- ! 오픈시  preOpen 클래스 삭제 -->
 							<div class="aboutbox about2 preOpen">
 								<div class="ct950" style="text-align:center;">
 									<div class="title">
@@ -1637,11 +1639,45 @@
 										<h3>05</h3>
 										<p>RUNBASE SEOUL LOCATION</p>
 									</div>
-									<div style="text-align:center;">
-										<img src="/images/adidas/club/runbase/about_map_info.png" alt="" usemap="#about_map">
+									<div id="nmap" style="width:764px; height:303px; margin:0 auto 30px;"></div>
+									<script type="text/javascript">
+
+
+										var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
+										var oMap = new nhn.api.map.Map('nmap', {
+											center : nPoint,
+											zoom : 100
+										});
+
+										// 마커로 사용할 이미지 정의
+										var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
+										var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
+										oMap.addOverlay(marker);
+
+
+
+
+										// var oPoint = new nhn.api.map.LatLng(37.541108, 126.994559);
+										// nhn.api.map.setDefaultPoint('LatLng');
+										// oMap = new nhn.api.map.LatLng('nmap',{
+										// 	point : oPoint,
+										// 	zoom : 10,
+										// 	enalbleWheelZoom : true
+										//
+										// });
+
+
+
+
+									</script>
+									<div style="text-align:center; margin-bottom:90px;">
+										<img src="/images/adidas/club/runbase/about_map_info.png" alt="" >
+									</div>
+									<div class="sns" style="text-align:center;">
+										<img src="/images/adidas/club/runbase/about_map_sns.png" alt="" usemap="#about_map">
 										<map name="about_map" id="about_map">
-											<area shape="rext" coords="253,173,326,230" href="#" alt="">
-											<area shape="rext" coords="419,173,490,230" href="#" alt="">
+											<area shape="rext" coords="88,0,154,46" href="https://www.instagram.com/runbaseseoul/" target="_blank" alt="insta">
+											<area shape="rext" coords="260,0,315,46" href="https://www.facebook.com/runbaseseoul/" target="_blank" alt="facebook">
 										</map>
 									</div>
 
@@ -1652,8 +1688,12 @@
 					</div>
 				</div>
 				<!-- runbase_container end-->
+
+
 				<script>
 					(function($){
+
+						// about img slider
 						var sliders = $('#sliders').Swipers({
 							width : 764,
 							height : 414,
@@ -1682,6 +1722,7 @@
 							}
 						});
 
+						// coach slider
 						var sliders_coach = $('#sliders_coach').Swipers({
 							width : 764,
 							height : 334,
@@ -1702,6 +1743,40 @@
 							$('.coach_slider .indicator a').bind('click',function(){
 							sliders_coach.move($(this).index());
 						});
+
+						// menu scroll evnet
+						$('#runbase_header .runbase_gnb ul li').click(function(){
+							var index = $(this).index();
+							var pos = $('.runbase_about .aboutbox').eq(index).position().top;
+							$('#runbase_header .runbase_gnb ul li').removeClass('active').eq(index).addClass('active');
+							$('html,body').animate({
+							  scrollTop : pos
+							},500);
+
+						})
+						$(window).scroll(function(){
+							var nowscroll = $(this).scrollTop();
+
+							if(nowscroll>=80){
+							  $('#runbase_header').addClass('fixed')
+							}else{
+							  $('#runbase_header').removeClass('fixed')
+							}
+
+							$('.aboutbox').each(function(index){
+
+							  var start = $(this).position().top;
+							  var end = start + $(this).height();
+
+							  if(nowscroll >= start){
+								$('#runbase_header .runbase_gnb ul li').removeClass('active').eq(index).addClass('active');
+							  }
+							});
+						})
+
+
+
+
 					})(jQuery);
 				</script>
 

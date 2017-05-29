@@ -1,8 +1,38 @@
 @charset "utf-8";
+@import url('//image.adidas.co.kr/css/adidas/order_r.css');
+@import url('//image.adidas.co.kr/css/adidas/popup_r.css');
+@import url('//image.adidas.co.kr/css/adidas/customer_r.css');
+@import url('//image.adidas.co.kr/css/adidas/mypage_r.css');
+@import url('//image.adidas.co.kr/css/adidas/cscenter_r.css');
+@import url('//image.adidas.co.kr/css/adidas/search_r.css');
+@import url('//image.adidas.co.kr/css/adidas/club_r.css');
+@import url('//image.adidas.co.kr/css/adidas/event_r.css');
+@import url('//image.adidas.co.kr/css/adidas/fonts.css');
+@import url('//fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 /* header */
 #runbase #runbase_header{
+    position: relative;
     background: #000;
+}
+
+#runbase #runbase_header.fixed{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index: 50;
+}
+
+#runbase #runbase_header_sub{
+    position: relative;
+    height: 172px;
+}
+
+#runbase #runbase_header_sub div{
+    position: absolute;
+    top:0;
+    left:50%;
+    margin-left: -990px;
 }
 
 #runbase #runbase_header .runbase_header_inner{
@@ -33,6 +63,10 @@
     padding-right: 0px;
 }
 
+#runbase #runbase_header .runbase_gnb>ul>li.active a span{
+    color: #fff;
+}
+
 #runbase #runbase_header .runbase_gnb>ul>li>a strong{
     display: block;
     font:15px 'adinenuPro-bold';
@@ -42,7 +76,7 @@
 
 #runbase #runbase_header .runbase_gnb>ul>li>a span{
     font: 12px 'NotosansKRLight';
-    color:#fff;
+    color:#ddd;
 }
 
 /* container */
@@ -233,7 +267,23 @@
     background: #008675;
 }
 
+#runbase #runbase_container .runbase_schedule .selectbox-ctm{
+    margin-bottom: 17px;
+    margin-right: 397px;
+    border:1px solid #008675;
+}
 
+#runbase #runbase_container .runbase_schedule .selectbox-ctm .arrow{
+    margin-top: -6px;
+    width:14px;
+    height:14px;
+    background: url("/images/adidas/club/runbase/ico_arrow_down_green.png");
+}
+
+#runbase #runbase_container .runbase_schedule .selectbox-ctm a{
+    background: none;
+    color:#008675;
+}
 
 #runbase #runbase_container .runbase_schedule .box{
     margin-bottom: 12px;
@@ -370,7 +420,7 @@
         sizingMethod='scale');
 }
 
-#runbase #runbase_container .runbase_inner.reserve.reserve_program{
+#runbase #runbase_container .runbase_inner.reserve_program{
     background-image:url("/images/adidas/club/runbase/res_program_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/res_program_bg.jpg',
@@ -380,14 +430,35 @@
 }
 
 #runbase #runbase_container .runbase_inner .title{
-    background: rgba(0,0,0,0.5);
+    /*background: rgba(0,0,0,0.5);
     border-top:1px solid #332d35;
-    border-bottom:1px solid #332d35;
+    border-bottom:1px solid #332d35;*/
 }
 
 #runbase #runbase_container .runbase_inner.reserve .title{
     background: rgba(0,0,0,0);
     border:0px;
+    text-align: center;
+}
+
+#runbase #runbase_container .runbase_inner .title p{
+    text-align: center;
+    font:16px/14px 'NotosansKRRegular';
+    color:#fff;
+}
+
+#runbase #runbase_container .runbase_inner .title span{
+    display: inline-block;
+    margin-top: 18px;
+    margin-bottom: 36px;
+    text-align: center;
+    width: 45px;
+    height: 1px;
+    background: #838081;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title h2{
+    padding: 33px 0 8px 0;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information{
@@ -399,13 +470,13 @@
 
 #runbase #runbase_container .runbase_inner .title h2{
     text-align: center;
-    padding: 33px 0;
+    padding: 33px 0 8px 0;
     font: 36px/36px 'adinenuPro-black';
     color:#fff;
 }
 
 #runbase #runbase_container .runbase_inner .course .k_course{
-    padding: 46px 0 25px;
+    padding: 0px 0 25px;
 }
 
 #runbase #runbase_container .runbase_inner .course .k_course ul{
@@ -515,8 +586,32 @@
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li{
     float: left;
     padding:0 30px;
-
     border-right: 0px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li{}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn{
+    padding: 11px 0;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div{
+
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div a{
+    width: 180px;
+    height: 32px;
+    background: #027dbf;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn.sports_join div a{
+    background: #000;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div a span{
+    color:#fff;
+    line-height: 32px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li span{
@@ -524,9 +619,13 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li p{
-    font:14px/26px 'NotosansKRLight';
+    font:16px/26px 'NotosansKRLight';
     color:#fff;
     text-align: center;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li p{
+    font: 13px/53px 'NotosansKRLight';
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li p.order{
@@ -553,7 +652,11 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li div{
-    padding-right: 14px;
+    padding-right: 11px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .user_information ul>li div.ie8{
+    padding-right: 0px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li.tit p{
@@ -575,13 +678,11 @@
     padding-right: 0;
 }
 
-#runbase #runbase_container .runbase_inner.reserve .date{
-
-}
-
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule{
-    margin-right: 385px;
-    padding: 40px 0 0 0;
+    /*margin-right: 385px;
+    padding: 40px 0 0 0;*/
+    float: left;
+    display: inline-block;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .runbase_desc{
@@ -744,9 +845,9 @@
 
 /* calendar */
 #runbase #runbase_container .calendar{
-    position: absolute;
-    top:40px;
-    right:0;
+    /*position: absolute;*/
+    position: relative;
+    float: right;
     width: 344px;
 }
 
@@ -759,13 +860,14 @@
 }
 
 #runbase #runbase_container .calendar .ym_wrap div{
-    display: inline;
+    display: inline-block;
     font: 17px 'adihaus';
     color:#fff;
+    text-align: center;
 }
 
 #runbase #runbase_container .calendar .ym_wrap div span{
-    font: 17px 'adihaus';
+    font: 19px 'adihaus';
     color:#fff;
 }
 
@@ -821,9 +923,45 @@
     background: #ee265c;
 }
 
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm span{
+    font-size: 13px;
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm.runbasemain{
+    background: #ee265c;
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm.armain{
+    background: #fff;
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm.armain span{
+    color:#000;
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm.armain .ico{
+    color:#000;
+    /*background: url("/images/adidas/club/runbase/ico_arrow_black.png") 0 0 no-repeat;*/
+    font-family: 'adiPictoRegular !important';
+    speak: none;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm.armain .ico:before{
+    /*content: '\E600';*/
+    content: "\E600";
+}
+
+#runbase #runbase_container .calendar .btn-wrapper .btn-ctm span .spt_bg{
+    right: -26px !important;
+}
+
 /* popup */
 
-#runbase .modal-popup-wrapper{}
+#runbase .modal-popup-wrapper .popup-contents{
+    padding: 30px;
+}
 
 #runbase .modal-popup-wrapper .runbase_desc{
     font: 16px 'NotosansKRRegular';
@@ -838,6 +976,7 @@
     text-align: center;
     color:#000;
     font:20px/25px 'NotosansKRBold';
+    letter-spacing: -0.7px;
 }
 
 #runbase .modal-popup-wrapper .reserve_information{
@@ -860,9 +999,13 @@
     border-bottom: 1px solid #fff;
 }
 
+#runbase .modal-popup-wrapper .reserve_information table tr.first td{
+    padding-top: 23px;
+}
+
 #runbase .modal-popup-wrapper .reserve_information table tr td{
     position: relative;
-    padding: 7px 17px;
+    padding: 10px 17px;
     font: 16px 'NotosansKRLight';
     color:#aeaeae;
 }
@@ -882,7 +1025,7 @@
 
 #runbase .modal-popup-wrapper .reserve_information table tr td .upload{
     position: absolute;
-    top:7px;
+    top:10px;
     right: 15px;
 }
 
@@ -900,15 +1043,47 @@
 }
 
 #runbase .modal-popup-wrapper .reserve_information table tr.last td{
-    /*padding: 0;*/
+    padding-bottom: 23px;
 }
 
 #runbase .modal-popup-wrapper .reserve_information table tr td.title{
-    /*padding-left: 0;*/
     color:#fff;
     vertical-align: middle;
 }
 
 #runbase .modal-popup-wrapper .reserve_information.coin td{
     text-align: center;
+}
+
+#runbase .modal-popup-wrapper .btn-ctm{
+    margin-top: 30px;
+    height: 70px;
+}
+
+#runbase .modal-popup-wrapper .btn-ctm span{
+    font: 20px/70px 'NotoSansKRRegular','Nanum Gothic';
+}
+
+#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .btn-ctm{
+    background: #ee265c;
+}
+
+#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .close{
+    top: -75px;
+    right: 16px;
+}
+
+#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .close span{
+    width: 30px;
+    height: 30px;
+    background: url("/images/adidas/club/runbase/close_white.png") 0 0 no-repeat;
+}
+
+#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .popup-header{
+    border:0px;
+    background: none;
+}
+
+#footer{
+    z-index: 19;
 }
