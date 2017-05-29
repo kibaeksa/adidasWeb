@@ -170,7 +170,7 @@
 	/* //150513 */
 </script>
 <!-- 20170529 runbase naver 지도 추가 서비스 실제 운영시 키값 : ErPahvwIWR-->
-<script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=cpw9RMOfkmb0qIa7Vz23"></script>
+<script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=1KG6a0e2Hj9na72OD3D6"></script>
 </head>
 <body>
 
@@ -1406,7 +1406,7 @@
 		<!-- 160324 end -->
 
 		<!-- 170425 -->
-		<div id="container_r" class="main">
+		<div id="container_r">
 			<!-- 170523 -->
 			<div id="runbase">
 				<div id="runbase_header">
@@ -1449,7 +1449,7 @@
 					</div>
 				</div>
 				<!-- runbase_header end-->
-				<div id="runbase_container">
+				<div id="runbase_container" class="main">
 					<div class="runbase_main">
 						<div class="main_visual"><div class="main_visual_bg"><img src="/images/adidas/club/runbase/main_visual.jpg" alt="런베이스서울"></div></div>
 						<div class="runbase_about">
@@ -1581,7 +1581,7 @@
 									<!-- 예약사이트오픈 전 -->
 									<div class="runbase_schedule">
 										<div class="box clfix">
-											<p style="">2017년 6월 16일, 예약 사이트 오픈 예정입니다.<br>6월 런베이스 서울 프로그램 일정은 런베이스 페이스북에서 확인해주세요.</p>
+											<p class="runbase_desc">2017년 6월 16일, 예약 사이트 오픈 예정입니다.<br>6월 런베이스 서울 프로그램 일정은 런베이스 페이스북에서 확인해주세요.</p>
 										</div>
 									</div>
 
@@ -1628,8 +1628,8 @@
 										<p>RUNBASE SEOUL running course</p>
 									</div>
 									<div style="text-align:center;"><img src="/images/adidas/club/runbase/about_running_course.png" alt=""></div>
-									<a href="#" class="btn-ctm arrow runbase-btn" style="display:inline-block;width:764px;">
-										<span>러닝 코스 자세히 보기<span class="spt_bg"></span></span>
+									<a href="javascript:void(0)" class="btn-ctm arrow runbase-btn" style="display:inline-block;width:764px;">
+										<span>자세한 코스 소개는 곧 업데이트 예정입니다</span>
 									</a>
 								</div>
 							</div>
@@ -1692,12 +1692,16 @@
 
 				<script>
 					(function($){
+						$.fn.Swipers=function(a){function m(){f.loop&&(c.prepend($(d[d.length-1]).clone()),c.append($(d[0]).clone()),d=c.children()),f.easing&&!$.easing[f.easing]&&(f.easing=!1),b.css({width:f.width,height:f.height,position:"relative",overflow:"hidden"}),c.css({width:f.loop?(d.length+2)*j:d.length*j,height:f.height,position:"absolute",overflow:"hidden",left:f.loop?-1*f.width:0}),d.css({width:f.width,height:f.height,float:"left"}),f.auto&&(k=setInterval(function(){o(g+1,!0)},f.autoTime)),f.init&&f.init.call(b.get(0),i)}function n(a){h=g,g=a}function o(a,b){var d=b?e.autoDuration||e.duration:e.duration,g={isAuto:b,duration:d||void 0};if(f.loop)a<0?(n(i-1),c.css({left:(i+1)*j*-1}),g.num=i):a>=i?(n(0),c.css({left:0}),g.num=1):(g.num=a+1,n(a));else{if(a<0||a>i-1)return;g.num=a,n(a)}p(g)}function p(a){var b=a.duration,e=a.num,i=a.isAuto?"easeOutSine":f.easing;f.autoTime&&!a.isAuto&&clearInterval(k),c.stop().animate({left:j*e*-1},b,i),f.callback&&f.callback.call($(d[g]),g,h),setTimeout(function(){l=!1,f.autoTime&&!a.isAuto&&(clearInterval(k),k=setInterval(function(){o(g+1,!0)},f.autoTime))},b)}var b=$(this),c=b.children(),d=c.children(),e={width:$(d[0]).get(0).clientWidth,height:$(d[0]).get(0).clientHeight,loop:!1,auto:!1,autoTime:!!a.auto&&3e3,dragable:!1,easing:!1,duration:800,autoDuration:800},f=$.extend(e,a);f.auto&&!f.loop&&(f.loop=!0);var k,g=0,h=-1,i=d.length,j=f.moveValue?f.moveValue:f.width,l=!1;return m(),{prev:function(){return o(g-1),!1},next:function(){return o(g+1),!1},move:function(a){return a!==g&&o(a),!1}}};
+
 
 						// about img slider
 						var sliders = $('#sliders').Swipers({
 							width : 764,
 							height : 414,
 							duration : 600,
+							auto  :true,
+							autoTime : 5000,
 							callback : function( index , prevIdx ){
 								$('.about_slider .indicator a').removeClass('on').eq(index).addClass('on');
 							}
@@ -1727,6 +1731,8 @@
 							width : 764,
 							height : 334,
 							duration : 600,
+							auto  :true,
+							autoTime : 5000,
 							callback : function( index , prevIdx ){
 								$('.coach_slider .indicator a').removeClass('on').eq(index).addClass('on');
 							}

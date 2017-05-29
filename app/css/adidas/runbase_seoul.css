@@ -12,8 +12,11 @@
 
 /* header */
 #runbase #runbase_header{
-    position: relative;
+    position: absolute;
+    top: 0px;
     background: #000;
+    width: 100%;
+    z-index: 1;
 }
 
 #runbase #runbase_header.fixed{
@@ -21,18 +24,6 @@
     top:0;
     width:100%;
     z-index: 50;
-}
-
-#runbase #runbase_header_sub{
-    position: relative;
-    height: 172px;
-}
-
-#runbase #runbase_header_sub div{
-    position: absolute;
-    top:0;
-    left:50%;
-    margin-left: -990px;
 }
 
 #runbase #runbase_header .runbase_header_inner{
@@ -81,6 +72,14 @@
 
 /* container */
 #runbase #runbase_container{}
+
+#runbase #runbase_container.main{
+    padding-top: 99px;
+}
+
+#runbase #runbase_container.map{
+    padding-top: 99px;
+}
 
 #runbase #runbase_container .runbase_main{
     background: #000;
@@ -335,7 +334,7 @@
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li.mt15{
-    padding: 15px 0 0 0;
+    /*padding: 15px 0 0 0;*/
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li:last-child{
@@ -347,27 +346,35 @@
     text-align: center;
     width: 76px;
     height: 28px;
-    border:2px solid #ee265c;
+    border:1px solid #ee265c;
     background:#7b394f;
     color:#fff;
     font:14px/28px 'NotosansKRRegular';
     text-transform: uppercase;
+    vertical-align: top;
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li span.off{
-    border:2px solid #008675;
+    border:1px solid #008675;
     background:#2b5150;
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li span.close{
-    border:2px solid #777;
+    border:1px solid #777;
     background:rgba(119,119,119,0.3);
     color:#777;
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li p{
-    display: inline;
+    display: inline-block;
     padding: 0 0 0 16px;
+    width: 386px;
+    text-align: left;
+
+}
+
+#runbase #runbase_container .runbase_schedule .box .course ul li:hover p{
+    background:rgba(0,129,113,0.25);
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about2{
@@ -378,7 +385,8 @@
     padding: 95px 0;
 }
 
-#runbase #runbase_container .aboutbox.about2.preOpen .runbase_schedule p{
+#runbase #runbase_container .aboutbox.about2.preOpen .runbase_schedule .runbase_desc{
+    padding: 3px;
     font:20px/37px 'NotosansKRRegular','Nanum Gothic';
     color:#fff;
     text-align: center;
@@ -435,7 +443,12 @@
     border-bottom:1px solid #332d35;*/
 }
 
+#runbase #runbase_container .runbase_inner.reserve.reserve_program .title{
+    border-bottom: 1px solid #3f3f3f;
+}
+
 #runbase #runbase_container .runbase_inner.reserve .title{
+    padding: 44px 0;
     background: rgba(0,0,0,0);
     border:0px;
     text-align: center;
@@ -447,18 +460,46 @@
     color:#fff;
 }
 
-#runbase #runbase_container .runbase_inner .title span{
-    display: inline-block;
-    margin-top: 18px;
-    margin-bottom: 36px;
-    text-align: center;
-    width: 45px;
-    height: 1px;
-    background: #838081;
-}
-
 #runbase #runbase_container .runbase_inner.reserve .title h2{
     padding: 33px 0 8px 0;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title .logo{
+    float:left;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title .logo h2{
+    position: relative;
+    padding: 14px 0 22px 96px;
+    text-align: left;
+    background: url("/images/adidas/club/runbase/adiclub_sports_logo.png") no-repeat;
+    background-position: left center;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title h2 p{
+    position: absolute;
+    left:96px;
+    bottom: 5px;
+    text-align: left;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title .adiclub_sports_menu{
+    padding-top: 14px;
+    float: right;
+}
+
+#runbase #runbase_container .selectbox-ctm .select-contents.option-list li a:hover{
+    border-bottom: 2px solid #000;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title .adiclub_sports_menu .selectbox-ctm{
+    width: 223px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .title .adiclub_sports_menu .selectbox-ctm>a{
+    background: none;
+    font:15px/48px 'adinenuPro-bold';
+    color:#c1c1c1;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information{
@@ -681,25 +722,42 @@
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule{
     /*margin-right: 385px;
     padding: 40px 0 0 0;*/
+    width:564px;
     float: left;
     display: inline-block;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .runbase_desc{
+    position: relative;
     font-size: 15px;
-    padding: 0 0 0 8px;
+    width: 360px;
+    padding: 8px 32px 8px 8px;
+    margin-left: 8px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .runbase_desc:after{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -8px;
+    content: '';
+    display: block;
+    width:16px;
+    height: 16px;
+    background:url("/images/adidas/club/runbase/ico_16.png") no-repeat;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .box{
-    padding: 18px;
+    padding: 18px 0 18px 18px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .box .course{
-    margin-left: 15px;
-    width: 460px;
+    margin-left: 10px;
+    /*width: 460px;*/
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .box .course ul li span{
+    margin-top: 8px;
     width: 65px;
     font-size: 13px;
     line-height: 18.5px;
@@ -718,6 +776,11 @@
 #runbase #runbase_container .runbase_inner.reserve_program h3{
     padding: 50px 0 15px;
     font:22px 'NotosansKRRegular';
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program_con{
+    width:798px;
+    padding-top: 30px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve_program .program{
@@ -799,6 +862,16 @@
 
 #runbase #runbase_container .runbase_inner.reserve_program .program .time_select li a.able:hover{
     background: #ee265c;
+    color:#fff;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .time_select li a.offline{
+    border:2px solid #01876f;
+    color:#01876f;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .time_select li a.offline:hover{
+    background: #01876f;
     color:#fff;
 }
 
@@ -959,39 +1032,159 @@
 
 /* popup */
 
-#runbase .modal-popup-wrapper .popup-contents{
+.modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .popup-header{
+    border:0px;
+    background: none;
+}
+
+.modal-popup-wrapper.runbase-popup .runbase_desc{
+    font:24px/24px 'NotosansKRRegular';
+    letter-spacing: -0.7px;
+    text-align: center;
+    color:#000;
+}
+
+.modal-popup-wrapper.runbase-popup .runbase_desc.join_alert{
+    padding: 74px 0 115px;
+}
+
+.modal-popup-wrapper.runbase-popup .login_form .form_wrap{
+    margin-bottom: 15px;
+}
+
+.modal-popup-wrapper.runbase-popup input{
+    width:100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
+
+.modal-popup-wrapper.runbase-popup .login_form input{
+    padding: 22px 26px;
+    height: 60px;
+    font:14px 'NotosansKRBold';
+    color:#aaa;
+}
+
+.modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    width:18px;
+    height: 18px;
+    font-size: 15px;
+}
+
+.modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box span{
+    top: 3px;
+    left: 2px;
+    width: 13px;
+    font-family: 'adiPictoRegular';
+}
+
+.modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box.check_icon span:after{
+    font-family: 'adiPictoRegular';
+    content: '\E612';
+}
+
+.modal-popup-wrapper.runbase-popup .id_checkbox{
+    padding: 15px 0 30px;
+}
+
+.modal-popup-wrapper.runbase-popup .id_checkbox .input-check-ctm label{
+    padding-left: 26px;
+    height: 18px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents .inner .runbase_desc{
+    font-size: 20px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents{
     padding: 30px;
 }
 
-#runbase .modal-popup-wrapper .runbase_desc{
+/*예약 신청 대기*/
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl{
+    border-top: 1px solid #ebebeb;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl.first{
+    margin-top: 24px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl.first dd .runbase_desc{
+    color:#027dbf;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl dt{
+    display: inline-block;
+    padding: 24px 0;
+    width: 85px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl dt .runbase_desc{
+    font-size: 16px;
+    font-family: 'NotosansKRBold';
+    text-align: left;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl dd{
+    display: inline-block;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm dl dd .runbase_desc{
+    font-size: 16px;
+    color:#555;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm .reserve_hold{
+    padding: 25px 0;
+    border-bottom: 2px solid #000;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm .reserve_hold ul li{
+    padding-bottom: 10px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_confirm .reserve_hold .runbase_desc{
+    display: inline-block;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: left;
+    font-family: 'NotosansKRLight';
+}
+/*예약 신청 대기 end*/
+
+.modal-popup-wrapper.runbase-popup-type2 .runbase_desc{
     font: 16px 'NotosansKRRegular';
 }
 
-#runbase .modal-popup-wrapper .popup-header{
+.modal-popup-wrapper.runbase-popup-type2 .popup-header{
     position: absolute;
     right:0;
 }
 
-#runbase .modal-popup-wrapper .popup-contents .inner h2{
+.modal-popup-wrapper.runbase-popup .popup-contents .inner h2{
     text-align: center;
     color:#000;
     font:20px/25px 'NotosansKRBold';
     letter-spacing: -0.7px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information{
-}
 
-#runbase .modal-popup-wrapper .reserve_information .table_wrap{
-    /*padding: 26px 16px 26px;*/
+.modal-popup-wrapper.runbase-popup .reserve_information .table_wrap{
     background: #333;
 }
 
-#runbase .modal-popup-wrapper .reserve_information .table_wrap table{
+.modal-popup-wrapper.runbase-popup .reserve_information .table_wrap table{
     width: 100%;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr th{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr th{
     text-align: center;
     color:#ee265c;
     font:18px/46px 'NotosansKRBold';
@@ -999,22 +1192,22 @@
     border-bottom: 1px solid #fff;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr.first td{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr.first td{
     padding-top: 23px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td{
     position: relative;
     padding: 10px 17px;
     font: 16px 'NotosansKRLight';
     color:#aeaeae;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td .inputbox{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td .inputbox{
     overflow: hidden;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td .inputbox input{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td .inputbox input{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -1023,13 +1216,13 @@
     padding: 10px 15px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td .upload{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td .upload{
     position: absolute;
     top:10px;
     right: 15px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td .upload a{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td .upload a{
     display: inline-block;
     width: 106px;
     background: #cecccc;
@@ -1042,47 +1235,69 @@
     -ms-border-radius: 5px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr.last td{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr.last td{
     padding-bottom: 23px;
 }
 
-#runbase .modal-popup-wrapper .reserve_information table tr td.title{
+.modal-popup-wrapper.runbase-popup .reserve_information table tr td.title{
     color:#fff;
     vertical-align: middle;
 }
 
-#runbase .modal-popup-wrapper .reserve_information.coin td{
+.modal-popup-wrapper.runbase-popup .reserve_information.coin td{
     text-align: center;
 }
 
-#runbase .modal-popup-wrapper .btn-ctm{
+.modal-popup-wrapper.runbase-popup .btn-ctm{
     margin-top: 30px;
     height: 70px;
 }
 
-#runbase .modal-popup-wrapper .btn-ctm span{
+.modal-popup-wrapper.runbase-popup .popup-contents.reserve_cancel .btn_wrapper .btn-ctm{
+    width: 100%;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents .btn_wrapper .btn-ctm span{
+    font-size: 16px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents .btn_wrapper .btn-ctm{
+    display: inline-block;
+    width: 258px;
+    margin-right: 20px;
+}
+
+.modal-popup-wrapper.runbase-popup .popup-contents .btn_wrapper .btn-ctm.last{
+    margin-right: 0px;
+}
+
+.modal-popup-wrapper.runbase-popup .h55.btn-ctm{
+    height:55px;
+}
+
+.modal-popup-wrapper.runbase-popup .h55.btn-ctm span{
+    line-height: 55px;
+}
+
+.modal-popup-wrapper.runbase-popup .btn-ctm span{
     font: 20px/70px 'NotoSansKRRegular','Nanum Gothic';
 }
 
-#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .btn-ctm{
+.modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .btn-ctm{
     background: #ee265c;
 }
 
-#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .close{
-    top: -75px;
+.modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .close{
+    top: -70px;
     right: 16px;
 }
 
-#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .close span{
+.modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .close span{
     width: 30px;
     height: 30px;
     background: url("/images/adidas/club/runbase/close_white.png") 0 0 no-repeat;
 }
 
-#runbase .modal-popup-wrapper .popup.runbase_pro_reserve .popup-header{
-    border:0px;
-    background: none;
-}
 
 #footer{
     z-index: 19;
