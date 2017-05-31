@@ -9,7 +9,15 @@
 @import url('//image.adidas.co.kr/css/adidas/event_r.css');
 @import url('//image.adidas.co.kr/css/adidas/fonts.css');
 @import url('//fonts.googleapis.com/earlyaccess/nanumgothic.css');
-
+/*btn arrow*/
+.arrow_icon{
+    display: inline-block;
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/ico_16.png") 0 0 no-repeat;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    background-size: 100% 100%;
+}
 /* header */
 #runbase #runbase_header{
     position: absolute;
@@ -166,47 +174,47 @@
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox{
     background-size: 1920px 100%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top center;
 
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about1{
-    background-image:url("/images/adidas/club/runbase/about_info_box1_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box1_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box1_bg.jpg',
         sizingMethod='scale');
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about2{
-    background-image:url("/images/adidas/club/runbase/about_info_box2_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box2_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box2_bg.jpg',
         sizingMethod='scale');
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about2.preOpen{
-    background-image:url("/images/adidas/club/runbase/about_info_box2_bg_prevOpen.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box2_bg_prevOpen.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box2_bg_prevOpen.jpg',
         sizingMethod='scale');
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about3{
-    background-image:url("/images/adidas/club/runbase/about_info_box3_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box3_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box3_bg.jpg',
         sizingMethod='scale');
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about4{
-    background-image:url("/images/adidas/club/runbase/about_info_box4_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box4_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box4_bg.jpg',
         sizingMethod='scale');
 }
 
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about5{
-    background-image:url("/images/adidas/club/runbase/about_info_box5_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/about_info_box5_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/about_info_box5_bg.jpg',
         sizingMethod='scale');
@@ -230,7 +238,7 @@
     display: inline-block;
     width:28px;
     height:53px;
-    background:url("/images/adidas/club/runbase/slide_arrow.png") no-repeat;
+    background:url("http://image.adidas.co.kr/images/adidas/club/runbase/slide_arrow.png") no-repeat;
     background-position: 0 0;
     text-indent: -99999px;
 }
@@ -284,13 +292,16 @@
     margin-bottom: 17px;
     margin-right: 397px;
     border:1px solid #008675;
+    width: 160px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 #runbase #runbase_container .runbase_schedule .selectbox-ctm .arrow{
     margin-top: -6px;
     width:14px;
     height:14px;
-    background: url("/images/adidas/club/runbase/ico_arrow_down_green.png");
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/ico_arrow_down_green.png");
 }
 
 #runbase #runbase_container .runbase_schedule .selectbox-ctm a{
@@ -302,7 +313,7 @@
     margin-bottom: 12px;
     padding: 17px 0 17px 46px;
     border:1px dotted #008675;
-    background: url("/images/adidas/club/runbase/about_schedule_box_bg.png");
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/about_schedule_box_bg.png");
     background:rgba(0,134,117,0.25);
 }
 
@@ -344,7 +355,19 @@
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li{
+    position: relative;
     margin-bottom: 22px;
+}
+
+#runbase #runbase_container .runbase_schedule .box .course ul li .link{
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
 }
 
 #runbase #runbase_container .runbase_schedule .box .course ul li.mt15{
@@ -391,8 +414,17 @@
     background:rgba(0,129,113,0.25);
 }
 
+#runbase #runbase_container .runbase_schedule .box .course ul li:hover p{
+    background:rgba(0,129,113,0.25);
+}
+
+#runbase #runbase_container .runbase_main .runbase_schedule .box .course ul li:hover p{
+    background:rgba(0,129,113,0);
+}
+
 #runbase #runbase_container .runbase_main .runbase_about .aboutbox.about2{
     padding-bottom: 60px;
+    background-size: 1920px auto;
 }
 
 #runbase #runbase_container .aboutbox.about2.preOpen .runbase_schedule .box{
@@ -428,7 +460,7 @@
 
 /* sub page */
 #runbase #runbase_container .runbase_inner{
-    background-image:url("/images/adidas/club/runbase/map_course_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/map_course_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/map_course_bg.jpg',
         sizingMethod='scale');
@@ -436,14 +468,15 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve{
-    background-image:url("/images/adidas/club/runbase/res_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/res_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/res_bg.jpg',
         sizingMethod='scale');
+    background-size:100% 100%;
 }
 
 #runbase #runbase_container .runbase_inner.reserve_program{
-    background-image:url("/images/adidas/club/runbase/res_program_bg.jpg");
+    background-image:url("http://image.adidas.co.kr/images/adidas/club/runbase/res_program_bg.jpg");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
         src='/images/adidas/club/runbase/res_program_bg.jpg',
         sizingMethod='scale');
@@ -486,7 +519,7 @@
     position: relative;
     padding: 14px 0 22px 96px;
     text-align: left;
-    background: url("/images/adidas/club/runbase/adiclub_sports_logo.png") no-repeat;
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/adiclub_sports_logo.png") no-repeat;
     background-position: left center;
 }
 
@@ -515,11 +548,13 @@
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm .select-contents{
     background: none;
     overflow: visible;
-    max-height: auto;
+    border:0px;
+    top: 42px;
+    left:-2px;
 }
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm>.select-contents ul{
-    border-top:1px solid #fff;
+    background: #000;
 }
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm>.select-contents li{
@@ -529,21 +564,21 @@
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm>.select-contents li a{
     height: 37px;
-    color: #fff;
-    background: rgba(0,0,0,0.8);
+    width: 223px;
     font: 15px/37px 'adinenuPro-bold','NotosansKR';
     border-bottom: 1px solid rgba(0,0,0,0);
+    color:#fff;
 }
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm>.select-contents li a span{
     font:15px 'NotosansKRRegular';
 }
 
-#runbase #runbase_container .adiclub_sports_menu .selectbox-ctm .arrow{
-    background: url("/images/adidas/club/runbase/ico_16.png") 0 0 no-repeat;
-    width: 16px;
-    height: 16px;
-    margin-top: -8px;
+#runbase #runbase_container .adiclub_sports_menu .selectbox-ctm .arrow_icon{
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 20px;
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
 }
@@ -551,12 +586,12 @@
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm .select-contents.option-list li a:hover{
     background: #fff;
     color: #000;
-    border-bottom: 1px solid rgba(0,0,0,1);
-    margin: 1px;
 }
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm{
     width: 223px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 #runbase #runbase_container .adiclub_sports_menu .selectbox-ctm>a{
@@ -569,7 +604,7 @@
     padding: 15px 0;
     border-top:1px solid rgba(66,66,66,0.3);
     border-bottom:1px solid rgba(66,66,66,0.3);
-    background: url("/images/adidas/club/runbase/res_title_bg.png");
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/res_title_bg.png");
 }
 
 #runbase #runbase_container .runbase_inner .title h2{
@@ -591,7 +626,7 @@
     position: relative;
     float:left;
     margin-right: 15px;
-    width:57px;
+    width:60px;
     height: 57px;
 }
 
@@ -693,29 +728,30 @@
     border-right: 0px;
 }
 
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li{}
-
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn{
+#runbase #runbase_container .user_information.prelogin ul>li.btn{
     padding: 11px 0;
 }
 
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div{
-
-}
-
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div a{
-    width: 180px;
+#runbase #runbase_container .user_information.prelogin ul>li.btn div a{
+    width: 138px;
     height: 32px;
     background: #027dbf;
 }
 
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn.sports_join div a{
+#runbase #runbase_container .user_information.prelogin ul>li.btn.sports_join div a{
     background: #000;
 }
 
-#runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li.btn div a span{
+#runbase #runbase_container .user_information.prelogin ul>li.btn div a span{
+    font-size: 13px;
     color:#fff;
     line-height: 32px;
+}
+
+#runbase #runbase_container .user_information.prelogin .arrow_icon{
+    margin-left: 6px;
+    position: relative;
+    top: 2px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li span{
@@ -729,7 +765,7 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information.prelogin ul>li p{
-    font: 13px/53px 'NotosansKRLight';
+    font: 14px/53px 'NotosansKRLight';
 }
 
 #runbase #runbase_container .runbase_inner.reserve .user_information ul>li p.order{
@@ -783,8 +819,6 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule{
-    /*margin-right: 385px;
-    padding: 40px 0 0 0;*/
     width:564px;
     float: left;
     display: inline-block;
@@ -807,7 +841,42 @@
     display: block;
     width:16px;
     height: 16px;
-    background:url("/images/adidas/club/runbase/ico_16.png") no-repeat;
+    background:url("http://image.adidas.co.kr/images/adidas/club/runbase/ico_16.png") no-repeat;
+}
+
+#runbase #runbase_container .runbase_schedule .select-contents{
+    background: none;
+    border:1px solid rgba(0,0,0,0);
+    overflow: visible;
+    top: 42px;
+    left: -2px;
+}
+
+#runbase #runbase_container .runbase_schedule .select-contents ul{
+    background: #000;
+}
+
+#runbase #runbase_container .runbase_schedule .select-contents li{
+    height: 38px;
+    width: 167px;
+}
+
+#runbase #runbase_container .runbase_schedule .select-contents li a{
+    width: 160px;
+    color:#fff;
+    height: 38px;
+    line-height: 38px;
+    border-bottom: 0px;
+
+
+}
+
+#runbase #runbase_container .runbase_schedule .select-contents li a:hover{
+    background: #008675;
+    border-bottom: 0px;
+
+
+
 }
 
 #runbase #runbase_container .runbase_inner.reserve .date .runbase_schedule .box{
@@ -876,7 +945,7 @@
 }
 
 #runbase #runbase_container .runbase_inner.reserve_program .program .time_select{
-    padding-bottom: 50px;
+    padding-bottom: 24px;
 }
 
 #runbase #runbase_container .runbase_inner.reserve_program .program .time_select .adihausdin{
@@ -905,6 +974,7 @@
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     margin-right: 26px;
+    margin-bottom: 26px;
     width:180px;
     text-align: center;
     height: 50px;
@@ -947,6 +1017,38 @@
     background: rgba(0,134,117,0.25);
 }
 
+#runbase #runbase_container .runbase_inner.reserve_program .program .goback{
+    text-align: right;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .goback .arrow_icon{
+    position: relative;
+    top: 1px;
+    width:12px;
+    height: 12px;
+    background-size:100%;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .goback .txt{
+    position: relative;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .goback .txt:after{
+    content: '';
+    display: inline-block;
+    width: 98%;
+    height: 1px;
+    background: #fff;
+    position: absolute;
+    left:0;
+    bottom:-1px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .goback a{
+    color:#fff;
+    font-size: 12px;
+}
+
 #runbase #runbase_container .runbase_inner.reserve_program .program .program_info p{
     padding-top: 28px;
     padding-bottom: 28px;
@@ -970,6 +1072,27 @@
     padding-bottom: 10px;
 }
 
+#runbase #runbase_container .runbase_inner.reserve_program .program .program_info table tr.etc td .runbase_desc.tle{
+    display: inline-block;
+    width: auto;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .program_info table tr.etc td{
+    padding-bottom:14px;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .program_info table tr.etc td .bar{
+    vertical-align: top;
+}
+
+#runbase #runbase_container .runbase_inner.reserve_program .program .program_info table tr.etc td .runbase_desc{
+    display: inline-block;
+    text-align: left;
+    width: 78%;
+    vertical-align: top;
+    margin-top: -6px;
+}
+
 #runbase #runbase_container .runbase_inner.reserve_program .program .program_info table tr.last td{
     padding-bottom: 26px;
 }
@@ -986,6 +1109,7 @@
     position: relative;
     float: right;
     width: 344px;
+    margin-top: 19px;
 }
 
 #runbase #runbase_container .calendar .ym_wrap{
@@ -1078,7 +1202,7 @@
 
 #runbase #runbase_container .calendar .btn-wrapper .btn-ctm.armain .ico{
     color:#000;
-    /*background: url("/images/adidas/club/runbase/ico_arrow_black.png") 0 0 no-repeat;*/
+    /*background: url("http://image.adidas.co.kr/images/adidas/club/runbase/ico_arrow_black.png") 0 0 no-repeat;*/
     font-family: 'adiPictoRegular !important';
     speak: none;
     font-style: normal;
@@ -1109,7 +1233,7 @@
 }
 
 .modal-popup-wrapper.runbase-popup .runbase_desc.join_alert{
-    padding: 74px 0 115px;
+    padding: 74px 0 80px;
 }
 
 .modal-popup-wrapper.runbase-popup .login_form .form_wrap{
@@ -1130,6 +1254,10 @@
     color:#aaa;
 }
 
+.modal-popup-wrapper.runbase-popup .login-main .input-check-ctm .ctm-box .spt_bg{
+    background: url('/images/adidas/club/runbase/ico_check_11.png') 0 0 no-repeat;
+}
+
 .modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -1140,15 +1268,15 @@
 }
 
 .modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box span{
-    top: 3px;
-    left: 2px;
-    width: 13px;
-    font-family: 'adiPictoRegular';
+    top: 4px;
+    left: 3px;
+    width: 11px;
+    /*font-family: 'adiPictoRegular';*/
 }
 
 .modal-popup-wrapper.runbase-popup .input-check-ctm .ctm-box.check_icon span:after{
-    font-family: 'adiPictoRegular';
-    content: '\E612';
+    /*font-family: 'adiPictoRegular';
+    content: '\E612';*/
 }
 
 .modal-popup-wrapper.runbase-popup .id_checkbox{
@@ -1318,7 +1446,7 @@
     height: 70px;
 }
 
-.modal-popup-wrapper.runbase-popup.runbase_login .btn-ctm span{
+.modal-popup-wrapper.runbase-popup .btn-ctm span{
     font-size: 16px;
 }
 
@@ -1331,6 +1459,11 @@
 .modal-popup-wrapper.runbase-popup .login-main{
     margin: 0;
     padding: 30px 30px 40px 30px;
+}
+
+.modal-popup-wrapper.runbase-popup .login-main .login_form .form_box .chk_area .btn_find a{
+    font-size: 15px;
+    color:#027dbf;
 }
 
 .modal-popup-wrapper.runbase-popup .login-main div{
@@ -1385,10 +1518,6 @@
     line-height: 55px;
 }
 
-.modal-popup-wrapper.runbase-popup .btn-ctm span{
-    font: 20px/70px 'NotoSansKRRegular','Nanum Gothic';
-}
-
 .modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .btn-ctm{
     background: #ee265c;
 }
@@ -1401,7 +1530,7 @@
 .modal-popup-wrapper.runbase-popup .popup.runbase_pro_reserve .close span{
     width: 30px;
     height: 30px;
-    background: url("/images/adidas/club/runbase/close_white.png") 0 0 no-repeat;
+    background: url("http://image.adidas.co.kr/images/adidas/club/runbase/close_white.png") 0 0 no-repeat;
 }
 
 
