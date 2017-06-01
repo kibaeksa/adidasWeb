@@ -150,25 +150,6 @@
 	function closeRcEndNotiLayer(){
 		jQuery('#popup_rc_end_noti').hide();
 	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
 </script>
 
 </head>
@@ -1654,7 +1635,7 @@
 											<div>SAT</div>
 											<div>SUN</div>
 										</div>
-										<div class="nums">
+										<div class="nums" id="calendar-container">
 											<div class="box clfix">
 												<div><span>1</span></div>
 												<div><span>2</span></div>
@@ -1746,7 +1727,7 @@
 				     data-modalpop-name="service-popup"
 				     data-modalpop-width="600"
 				     data-modalpop-height="416"
-					 data-modalpop-autoopen=""
+					data-modalpop-autoopen=""
 				>
 				    <div class="overlay"></div>
 				    <div class="popup">
@@ -1771,7 +1752,7 @@
 					 data-modalpop-name="login-popup"
 					 data-modalpop-width="600"
 					 data-modalpop-height="416"
-					 data-modalpop-autoopen=""
+					data-modalpop-autoopen=""
 				>
 					<div class="overlay"></div>
 					<div class="popup">
@@ -2028,61 +2009,315 @@
 
 		<script type="text/javascript">
 			(function($){
-				// item_sliders
-				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
-				$.fn.productsSlider('.related-products .products-list-wrapper'); 
 
-				//main_slider
-				var main_length = $('.master_slide_wrapper .master-slide-container ul li').length;
-				var master_wrapper = $('.master_slide_wrapper');
-				var master_container = master_wrapper.find('.master-slide-container');
-				var master_list = master_container.find('>ul');
+				function Calendar(options){
+					var todayDate = new Date();
+					var year = new Date().getFullYear();
+					var month = new Date().getMonth()+1;
+					var dateObj = [];
+					var dateForCalObj = [];
+					var selectedObj = options.selectedObj || {};
 
+					var monthArray = [
+						'Jan',
+						'Feb',
+						'Mar',
+						'Apr',
+						'May',
+						'Jun',
+						'Jul',
+						'Aug',
+						'Sep',
+						'Oct',
+						'Nov',
+						'Dec'
+					];
+					var daysArray = [
+		                'Mon',
+		                'Tue',
+		                'Wed',
+		                'Thu',
+		                'Fri',
+		                'Sat',
+		                'Sun'
+		            ];
 
-				var sliders = $('#main_slider').Swipers({
-					width : 1920,
-					height : 700,
-					duration : 800,
-					easing : 'ease-out',
-					auto : true,
-					autoTime : 5000,
-					loop : true,
-					autoDuration : 3000,
-					init : function(length){
+					function initDate(_year,_month){
+						if(year == _year && month == _month){
+							return;
+						}
 
-						$(this).parent('.master_slide_wrapper').append((function(){
-							var htmlString_ = '<div class="num">';
-							for(var i = 0; i < length; i++){
-								if(i == 0){
-									htmlString_ += '<a href="javascript:void(0)" class="on"><span></span></a>';
-								}else{
-									htmlString_ += '<a href="javascript:void(0)"><span></span></a>';
+						if(_year != undefined){
+							year = _year;
+						}
+
+						if(_month != undefined){
+							month = _month;
+						}
+						dateObj = getDaysInMonth(year , month);
+						dateForCalObj = getDaysInMonthForCalendar(dateObj);
+						updateDateData();
+						renderCalendar();
+					}
+
+					function updateDateData(){
+						var i = 0;
+						for(;i < dateObj.length; i++){
+							if(
+								(selectedObj.year == dateObj[i].year) &&
+								(selectedObj.month == dateObj[i].month) &&
+								(selectedObj.day == dateObj[i].day)
+							){
+								dateObj[i].selected = true;
+							}else{
+								dateObj[i].selected = false;
+							}
+						}
+
+						i = 0;
+
+						for(;i < dateForCalObj.length; i++){
+
+							if(
+								(selectedObj.year == dateForCalObj[i].year) &&
+								(selectedObj.month == dateForCalObj[i].month) &&
+								(selectedObj.day == dateForCalObj[i].day)
+							){
+								dateForCalObj[i].selected = true;
+							}else{
+								dateForCalObj[i].selected = false;
+							}
+						}
+					}
+
+					/* getDaysInMonth Func */
+					function getDaysInMonth(year , month){
+						var date = new Date(year , month-1 ,1);
+						var days = [];
+						var i = 0;
+						while(date.getMonth()+1 === month){
+							days.push(handleDaysData(new Date(date)));
+							date.setDate(date.getDate()+1);
+						}
+
+						return days;
+					}
+
+					function getDaysInMonthForCalendar(daysData){
+						var lastMonDaysData;
+						var nextMonDaysData;
+						var newDateArray = [];
+
+						if(daysData[0].month == 1){
+							lastMonDaysData = getDaysInMonth(daysData[0].year-1 , 12);
+							nextMonDaysData = getDaysInMonth(daysData[0].year , daysData[0].month*1+1);
+						}else if(daysData[0].month == 12){
+							lastMonDaysData = getDaysInMonth(daysData[0].year , daysData[0].month*1-1);
+							nextMonDaysData = getDaysInMonth(daysData[0].year+1 , 1);
+						}else{
+							lastMonDaysData = getDaysInMonth(daysData[0].year , daysData[0].month*1-1);
+							nextMonDaysData = getDaysInMonth(daysData[0].year , daysData[0].month*1+1);
+						}
+
+						var dayOfLastMonLength = (function(){
+							var i = 0;
+							var index;
+							for(; i < daysArray.length; i++){
+
+								if(daysArray[i] == daysData[0].dayOfWeek){
+									index = i;
 								}
 							}
-							return htmlString_;
-						})());
 
-						master_wrapper.find('.num').children('a').bind('click',function(){
-							sliders.move($(this).index());
+							return index;
+						})();
+
+						var dayOfNextMonLength = (function(){
+							var i = 0;
+							var index;
+							for(; i < daysArray.length; i++){
+
+								if(daysArray[i] == daysData[daysData.length-1].dayOfWeek){
+									index = i;
+								}
+							}
+
+							return (daysArray.length-1) - index;
+						})();
+
+
+						for(var indexLastMon = lastMonDaysData.length - dayOfLastMonLength; indexLastMon < lastMonDaysData.length; indexLastMon++){
+							lastMonDaysData[indexLastMon].notThisMon = true;
+							newDateArray.push(lastMonDaysData[indexLastMon]);
+						}
+
+						newDateArray = newDateArray.concat(daysData);
+
+						for(var indexNextMon = 0; indexNextMon < dayOfNextMonLength; indexNextMon++){
+							nextMonDaysData[indexNextMon].notThisMon = true;
+							newDateArray.push(nextMonDaysData[indexNextMon]);
+						}
+
+						return newDateArray;
+					}
+
+					function handleDaysData(daysData){
+						var i = 0;
+						var j = 0;
+						var newObj = {};
+						var count = 0;
+						var dateArray = daysData.toString().split(' ');
+						var dayIndex = daysData.getDay() - 1 < 0? 6 : daysData.getDay()-1;
+
+						newObj.year = daysData.getFullYear();
+						newObj.month = daysData.getMonth()+1;
+						newObj.day = daysData.getDate();
+						newObj.dayOfWeek = daysArray[dayIndex];
+
+						return newObj;
+					}
+
+					function renderCalendar(){
+						render(dateForCalObj);
+
+						if(options.callback && typeof options.callback == 'function'){
+							options.callback.call(window,{
+								year : year,
+								month : month,
+								data : dateObj
+							});
+						}
+					}
+
+					function render(data){
+						var i = 0;
+						var htmlString = '<div class="box clfix">';
+
+						for(; i < data.length; i++){
+							var attrClass = ' class="';
+							if(
+								todayDate.getFullYear() == data[i].year &&
+								todayDate.getMonth()+1 == data[i].month &&
+								todayDate.getDate() == data[i].day)
+							{
+								attrClass += ' today';
+							}
+
+							if(data[i].notThisMon){
+								attrClass += ' not_this_month';
+							}
+
+							if(data[i].selected){
+								attrClass += ' check';
+							}
+
+							attrClass += '"';
+							htmlString += '<div'+attrClass+' data-year="'+data[i].year+'" data-month="'+data[i].month+'" data-day="'+data[i].day+'" data-dayofweek="'+data[i].dayOfWeek+'"><span>'+data[i].day+'</span></div>';
+							if(i-1 < data.length && (i+1) % 7 == 0 && i > 1){
+								htmlString += '</div>';
+								htmlString += '<div class="box clfix">';
+							}else if(i-1 == data.length){
+								htmlString += '</div>';
+							}
+						}
+
+						document.getElementById(options.targetId).innerHTML = htmlString;
+
+						$('#'+options.targetId+'>div>div').bind('click',function(event){
+
+							if($(this).hasClass('check')){
+								return;
+							}
+
+							$(this).addClass('check');
+
+							var itemY = $(this).attr('data-year');
+							var itemM = $(this).attr('data-month');
+							var itemD = $(this).attr('data-day');
+							var itemDW = $(this).attr('data-dayofweek');
+
+							selectedObj = {
+								year : itemY,
+								month : itemM,
+								day : itemD,
+								dayOfWeek : itemDW
+							};
+
+							if(options.handleClick && typeof options.handleClick == 'function'){
+								options.handleClick(event , {
+									year : itemY,
+									month : itemM < 10 ? '0'+itemM : itemM,
+									day : itemD < 10 ? '0'+itemD : itemD,
+									dayOfWeek : itemDW,
+									fullDate : itemY+''+(itemM < 10 ? '0'+itemM : itemM)+''+(itemD < 10 ? '0'+itemD : itemD)
+								});
+							}
+
+
+							updateDateData();
+							render(dateForCalObj);
 						});
+					}
 
+					initDate();
 
+					return {
+						next : function(){
+							var y = year;
+							var m = month;
 
-		            },
-					callback : function(index){
-						$('.master_slide_wrapper .num a').removeClass('on').eq(index).addClass('on');
+							if(m == 12){
+								m = 1;
+								y += 1;
+							}else{
+								m += 1;
+							}
+
+							initDate(y,m);
+						},
+						prev : function(){
+							var y = year;
+							var m = month;
+
+							if(m == 1){
+								m = 12;
+								y -= 1;
+							}else{
+								m -= 1;
+							}
+
+							initDate(y,m);
+						},
+						getYear : function(){
+							return year;
+						},
+						getMonth : function(){
+							return month;
+						}
+					}
+				}
+
+				var calendar = new Calendar({
+					targetId : 'calendar-container',
+					selectedObj : {
+						year : new Date().getFullYear(),
+						month : new Date().getMonth()+1,
+						day : new Date().getDate()
+					},
+					callback : function(obj){
+						$('.ym_wrap>div').html('<span>'+obj.year+'</span>.<span>'+(obj.month >= 10 ? obj.month : '0'+obj.month)+'</span>');
+					},
+					handleClick : function(event , data){
+						console.log(data);
 					}
 				});
 
+				$('.calendar .cal-prev').bind('click',function(){
+					calendar.prev();
+				});
 
-				master_wrapper.find('.next>span').bind('click',function(){
-					sliders.next();
-				});
-				master_wrapper.find('.prev>span').bind('click',function(){
-					sliders.prev();
-				});
-				master_wrapper.find('.num').children('a').bind('click',function(){
-					sliders.move($(this).index());
+				$('.calendar .cal-next').bind('click',function(){
+					calendar.next();
 				});
 
 
