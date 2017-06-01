@@ -150,25 +150,6 @@
 	function closeRcEndNotiLayer(){
 		jQuery('#popup_rc_end_noti').hide();
 	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
 </script>
 
 </head>
@@ -2138,8 +2119,31 @@
 							nextMonDaysData = getDaysInMonth(daysData[0].year , daysData[0].month*1+1);
 						}
 
-						var dayOfLastMonLength = daysArray.indexOf(daysData[0].dayOfWeek);
-						var dayOfNextMonLength = (daysArray.length-1) - daysArray.indexOf(daysData[daysData.length-1].dayOfWeek);
+						var dayOfLastMonLength = (function(){
+							var i = 0;
+							var index;
+							for(; i < daysArray.length; i++){
+
+								if(daysArray[i] == daysData[0].dayOfWeek){
+									index = i;
+								}
+							}
+
+							return index;
+						})();
+
+						var dayOfNextMonLength = (function(){
+							var i = 0;
+							var index;
+							for(; i < daysArray.length; i++){
+
+								if(daysArray[i] == daysData[daysData.length-1].dayOfWeek){
+									index = i;
+								}
+							}
+
+							return (daysArray.length-1) - index;
+						})();
 
 
 						for(var indexLastMon = lastMonDaysData.length - dayOfLastMonLength; indexLastMon < lastMonDaysData.length; indexLastMon++){
@@ -2217,7 +2221,7 @@
 							}
 						}
 
-						document.querySelector('#'+options.targetId).innerHTML = htmlString;
+						document.getElementById(options.targetId).innerHTML = htmlString;
 
 						$('#'+options.targetId+'>div>div').bind('click',function(event){
 
