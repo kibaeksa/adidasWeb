@@ -1449,7 +1449,7 @@
 					</div>
 				</div>
 				<!-- runbase_header end-->
-				<div id="runbase_container">
+				<div id="runbase_container" class="main">
 					<div class="runbase_main">
 						<div class="main_visual"><div class="main_visual_bg"><img src="/images/adidas/club/runbase/main_visual.jpg" alt="런베이스서울"></div></div>
 						<div class="runbase_about">
@@ -1763,6 +1763,14 @@
 								$(this).children('li').addClass('mt15');
 							}
 						});
+
+						//ie line-height
+						// var ie8 = $('html').hasClass('ie8');
+						var ie = $('html').hasClass('ie');
+						if( ie == true ){
+							$('#runbase .user_information ul>li div').addClass('ie8');
+							$('#runbase #runbase_container .runbase_schedule .box .date>span').addClass('ie');
+						}
 
 						// coach slider
 						var sliders_coach = $('#sliders_coach').Swipers({
