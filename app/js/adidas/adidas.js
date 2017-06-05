@@ -1247,12 +1247,12 @@ function blurAction(obj,moveId,dir,obj2){
 					$(this).parent().removeClass('open');
 					contentElem.animate({
 						height : 0
-					});
+					},300);
 				}else{
 					$(this).parent().addClass('open');
 					contentElem.animate({
 						height : outerHeight
-					});
+					},300);
 				}
 
 			});
