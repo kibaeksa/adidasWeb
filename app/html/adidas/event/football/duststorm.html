@@ -1811,10 +1811,10 @@
 						<a href="" class="active"></a>
 						<a href=""></a>
 					</div>
-						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=228" class="button button1">
+						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=76" class="button button1">
 							<span>네메시스 17 구매하기</span>
 						</a>
-						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=228" class="button button2">
+						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=298" class="button button2">
 							<span>U-20 월드컵 이벤트 제품 보기</span>
 						</a>
 				</div>
@@ -1831,14 +1831,14 @@
 				<div class="cont1">
 					<div class="features">
 						<div class="box">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
+							<div class="fore_bg video-button" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded" data-video-id="B_I_M_-zod8">
 								<img src="http://image.adidas.co.kr/images/adidas/event/football/20170601/cont1_img.jpg" alt=""/>
-								<a href="javascript:void(0)" class="" data-video-id="3W-5qP3RrUM"></a>
+								<a href="javascript:void(0)" class="video-button" data-video-id="B_I_M_-zod8"></a>
 							</div>
 							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded">
 								<h3>HERE TO CREATE</h3>
-								<div class="desc" class="video-button" data-video-id="imV8j8OhViM">폭발적인 움직임, 무너지는 수비.<br />그라운드를 뒤흔드는 카오스의 시작.</div>
-								<a href="#" class="button video-button">
+								<div class="desc" class="" >폭발적인 움직임, 무너지는 수비.<br />그라운드를 뒤흔드는 카오스의 시작.</div>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=76" class="button ">
 									<span>NEMEZIZ 17 구매하기</span>
 								</a>
 							</div>
@@ -1854,15 +1854,15 @@
 					<div class="banner_area" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded">
 
 						<div class="banner01" >
-							<a href="#" class="button button3">
+							<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=74" class="button button3">
 								<span>ACE 17 구매하기</span>
 							</a>
-							<a href="#" class="button button4">
+							<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=75" class="button button4">
 								<span>X 17 구매하기</span>
 							</a>
 						</div>
 							<div class="banner02">
-								<a href="#" class="button button5">
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=192" class="button button5">
 									<span>COPA 17 구매하기</span>
 								</a>
 							</div>
@@ -1924,7 +1924,7 @@
 						</div>
 					</div>
 
-					<a href="#" class="button button6">
+					<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=302" class="button button6">
 						<span>축구 제품 전체 보기</span>
 					</a>
 
@@ -1987,93 +1987,6 @@
 			<script type="text/javascript">
 				(function($){
 
-					function productSlider(){
-						var width = 1000;
-						var minWindowWidth = 1000;
-						var index = 1;
-						var length = 3;
-
-						var moveVal = 1000;
-						var defaultVal = width - (($(window).width() - width)/2);
-
-						var elemWrapper = $('.product-highlight');
-						var elemSlider = elemWrapper.find('.slider_box');
-						var elemItems = elemSlider.find('.box');
-
-						function init(){
-							elemSlider.css({
-								left :  ((defaultVal * -1))
-							});
-						}
-
-						function resize(){
-							defaultVal = width - (($(window).width() - width)/2);
-							if(index == 0){
-								var val = (defaultVal - moveVal) * -1;
-							}else{
-								var val = (defaultVal + (moveVal * (index-1))) * -1;
-							}
-							elemSlider.css({
-								left : val
-							});
-						}
-
-						function anim(){
-							if(index == 0){
-								var val = (defaultVal - moveVal) * -1;
-							}else{
-								var val = (defaultVal + (moveVal * (index-1))) * -1;
-							}
-							elemSlider.animate({
-								left : val
-							});
-
-							setNum();
-							setDesc();
-						}
-
-						function setNum(){
-							$('.highlight .nav a').removeClass('on').eq(index).addClass('on');
-						}
-
-						function setDesc(){
-							$('.highlight .prod_desc .box').removeClass('loaded');
-							$('.highlight .prod_desc .box').eq(index).addClass('loaded');
-						}
-
-						elemWrapper.find('.prev').bind('click',function(){
-							if(index == 0){
-								return;
-							}
-
-							index -= 1;
-							anim();
-
-						});
-						elemWrapper.find('.next').bind('click',function(){
-							if(index == length-1){
-								return;
-							}
-
-							index += 1;
-							anim();
-						});
-
-						$('.highlight .nav a').bind('click',function(){
-							if($(this).hasClass('on')){
-								return;
-							}
-
-							index = $(this).index();
-							anim();
-						});
-
-						init();
-						$(window).bind('resize',resize);
-					}
-
-
-
 					$('.features .video-button').bind('click',function(){
 						$('#football .video-button').bind('click',function(){
 
@@ -2103,19 +2016,6 @@
 						return false;
 					}
 
-					productSlider();
-
-
-
-					function scrollProdHilight(){
-						var elemTop = $('.product-highlight').offset().top;
-						var windowSTop = $(window).scrollTop() + ($(window).height() * 0.8);
-						console.log(11);
-						if(windowSTop > elemTop){
-							$('.product-highlight').addClass('loaded');
-							$(window).unbind('scroll');
-						}
-					}
 
 					(function(){
 						var wrapElem = $('.boost_slider_wrap');
@@ -2219,7 +2119,7 @@
 						});
 					})();
 
-					$(window).bind('scroll',scrollProdHilight);
+
 
 				})(jQuery);
 			</script>
