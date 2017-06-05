@@ -1236,6 +1236,105 @@ function blurAction(obj,moveId,dir,obj2){
 				}
 			});
 		})();
+
+		$('.filter_wrapper .filter_box').each(function(){
+			var contentElem = $(this).find('.content');
+			var outerHeight = contentElem.outerHeight();
+
+			$(this).find('>.title').bind('click',function(){
+
+				if($(this).parent().hasClass('open')){
+					$(this).parent().removeClass('open');
+					contentElem.animate({
+						height : 0
+					});
+				}else{
+					$(this).parent().addClass('open');
+					contentElem.animate({
+						height : outerHeight
+					});
+				}
+
+			});
+
+		});
+
+
+
+		(function(){
+
+			$('.plp-wrapper .plp-contents .plp-products .plp-grid .item').each(function(){
+				var index = 0;
+				var length;
+				var itemDisplayed = 3;
+				var containerElem = $(this).find('.othercolor_slider');
+				var sliderElem = $(this).find('.othercolor_slider ul');
+				if($(this).find('.othercolor_slider').length > 0 && $(this).find('.othercolor_slider li').length > itemDisplayed){
+
+					$(this).attr('data-othercolor-init',true);
+					length = $(this).find('.othercolor_slider li').length;
+
+					$(this).find('.othercolor_slider').append('<a href="javascript:void(0)" class="prev plp_spt_bg disable"></a><a href="javascript:void(0)" class="next plp_spt_bg"></a>');
+
+					$(this).find('.othercolor_slider .prev').bind('click',function(){
+						if($(this).hasClass('disable')){
+							return;
+						}
+
+						containerElem.find('.next').removeClass('disable');
+
+						index--;
+
+						sliderElem.stop().animate({
+							left : index * -55
+						});
+
+						if(index == 0){
+							$(this).addClass('disable');
+						}
+
+						return false;
+					});
+
+					$(this).find('.othercolor_slider .next').bind('click',function(){
+						if($(this).hasClass('disable')){
+							return;
+						}
+
+						containerElem.find('.prev').removeClass('disable');
+
+						index++;
+
+						sliderElem.stop().animate({
+							left : index * -55
+						});
+
+						if(length == index + itemDisplayed){
+							console.log(11);
+							$(this).addClass('disable');
+						}
+
+						return false;
+					});
+
+				}
+			});
+
+			$('.plp-wrapper .plp-contents .plp-products .plp-grid .item').bind('mouseenter',function(){
+				var that = $(this);
+				itemTimer = setTimeout(function(){
+					that.addClass('hover');
+				},500);
+			});
+
+			$('.plp-wrapper .plp-contents .plp-products .plp-grid .item').bind('mouseleave',function(){
+				clearTimeout(itemTimer);
+				$(this).removeClass('hover');
+			});
+
+		})();
+
 	});
+	/* ready END */
 
 })(jQuery);
