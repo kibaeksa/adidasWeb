@@ -1188,11 +1188,15 @@
 				.cut_section .cut_contents .cut_slider {
 					position: relative;
 				    width: 950px;
+					height: 533px;
 				    overflow: hidden;
 				}
 
 				.cut_section .cut_contents .cut_slider ul {
 					width: 7000px;
+					position: absolute;
+					top: 0;
+					left: 0;
 				}
 
 				.cut_section .cut_contents .cut_slider li{
@@ -1246,13 +1250,10 @@
 				}
 
 				.usp_section .usp_slider ul li {
+					position:absolute;
+					top: 0;
+					left: 0;
 					display: none;
-					float:left;
-				}
-
-				.usp_section .usp_slider ul li.active{
-					display: block;
-					float:left;
 				}
 
 				.usp_section .num {
@@ -1423,11 +1424,6 @@
 					background: url(http://image.adidas.co.kr/images/adidas/event/tennis_polo/tennis_icon.png?v=3) 0px 0px no-repeat;
 				}
 
-
-
-
-
-
 			</style>
 					<div class="tennis">
 
@@ -1457,13 +1453,13 @@
 								<h3>ROLAND GARROS LOOKBOOK</h3>
 								<div class="cut_btn">
 									<ul>
-										<li><a href="" class="active"><span>도미닉 티엠</span><br />세계랭킹 7위</a></li>
-										<li><a href=""><span>알렉산더 즈베레프</span><br />세계랭킹 17위</a></li>
-										<li><a href=""><span>루카스 푸이</span><br />세계랭킹 16위</a></li>
-										<li><a href=""><span>조 윌프리드 송가</span><br />세계랭킹 12위</a></li>
-										<li class="women"><a href=""><span>안젤리크 커버</span><br />세계랭킹 1위</a></li>
-										<li class="women"><a href="" style="height:91px; padding-top:36px;"><span>크리스티나<br />믈라데노비치</span><br />세계랭킹 14위</a></li>
-										<li class="women"><a href=""><span>아나 이바노비치</span><br />아디다스 엠버서더</a></li>
+										<li><a href="javascript:void(0)" class="active"><span>도미닉 티엠</span><br />세계랭킹 7위</a></li>
+										<li><a href="javascript:void(0)"><span>알렉산더 즈베레프</span><br />세계랭킹 17위</a></li>
+										<li><a href="javascript:void(0)"><span>루카스 푸이</span><br />세계랭킹 16위</a></li>
+										<li><a href="javascript:void(0)"><span>조 윌프리드 송가</span><br />세계랭킹 12위</a></li>
+										<li class="women"><a href="javascript:void(0)"><span>안젤리크 커버</span><br />세계랭킹 1위</a></li>
+										<li class="women"><a href="javascript:void(0)" style="height:91px; padding-top:36px;"><span>크리스티나<br />믈라데노비치</span><br />세계랭킹 14위</a></li>
+										<li class="women"><a href="javascript:void(0)"><span>아나 이바노비치</span><br />아디다스 엠버서더</a></li>
 									</ul>
 								</div>
 								<div class="cut_contents">
@@ -1478,23 +1474,23 @@
 											<li><img src="http://image.adidas.co.kr/images/adidas/event/tennis_polo/slide_women03.jpg" alt=""></li>
 										</ul>
 									</div>
-									<a href="" class="prev"></a>
-									<a href="" class="next"></a>
+									<a href="javascript:void(0)" class="prev"></a>
+									<a href="javascript:void(0)" class="next"></a>
 								</div>
 							</div> <!-- cut_section 끝-->
 							<div class="usp_section">
 								<div class="usp_bg"><img src="http://image.adidas.co.kr/images/adidas/event/tennis_polo/usp_bg.jpg" alt=""></div>
 								<div class="usp_slider">
 									<ul>
-										<li class="active"><img src="http://image.adidas.co.kr/images/adidas/event/tennis_polo/prod01.jpg" alt=""></li>
+										<li style="display: block;"><img src="http://image.adidas.co.kr/images/adidas/event/tennis_polo/prod01.jpg" alt=""></li>
 										<li><img src="http://image.adidas.co.kr/images/adidas/event/tennis_polo/prod02.jpg" alt=""></li>
 									</ul>
 								</div>
 								<div class="num">
-									<a href="" class="active"></a>
-									<a href=""></a>
+									<a href="javascript:void(0)" class="active"></a>
+									<a href="javascript:void(0)"></a>
 								</div>
-								<a href="" class="btn">테니스 폴로 전체보기</a>
+								<a href="#" class="btn">테니스 폴로 전체보기</a>
 							</div>
 							<!-- usp_section 끝 -->
 							<div class="banner">
@@ -1531,62 +1527,169 @@
 					<script type="text/javascript">
 						;(function($){
 							var index = 0;
-					        var timer;
+							var timer;
 
-					        function intervalFade(){
-					            if (index == 0){
-					                index = 1;
-					                $('#fadebox1').fadeOut(1000);
-					                $('#fadebox2').fadeIn(1000);
-					                $('.main>.num a').removeClass('active').eq(1).addClass('active');
+							function intervalFade(){
+								if (index == 0){
+									index = 1;
+									$('#fadebox1').fadeOut(1000);
+									$('#fadebox2').fadeIn(1000);
+									$('.main>.num a').removeClass('active').eq(1).addClass('active');
 
 
-					            }else{
-					                index = 0;
-					                $('#fadebox2').fadeOut(1000);
-					                $('#fadebox1').fadeIn(1000);
-					                $('.main>.num a').removeClass('active').eq(0).addClass('active');
-					            }
-					        }
+								}else{
+									index = 0;
+									$('#fadebox2').fadeOut(1000);
+									$('#fadebox1').fadeIn(1000);
+									$('.main>.num a').removeClass('active').eq(0).addClass('active');
+								}
+							}
 
-							$(document).ready(function(){
+							timer = setInterval(intervalFade,4000);
+
+							$('.main>.num a').bind('click',function(){
+								if($(this).hasClass('active')){
+									return false;
+								}
+								clearInterval(timer);
+
+								intervalFade();
+
 								timer = setInterval(intervalFade,4000);
 
-								$('.main>.num a').bind('click',function(){
-									if($(this).hasClass('active')){
-										return false;
-									}
+								return false;
 
-function adwsasdafjap(){
-	alert('나를 써라');
-}
+							});
 
-adwsasdafjap()
-									clearInterval(timer);
+							$('.cut_section .cut_btn li a').bind('click',function(){
+								if($(this).hasClass('active')){
+									return;
+								}
 
-					                intervalFade();
+								$('.cut_section .cut_btn li a').removeClass('active');
+								$(this).addClass('active');
 
-									timer = setInterval(intervalFade,4000);
+								$('.cut_slider ul').stop().animate({
+									left : $(this).parent().index() * -950
+								});
 
-									return false;
+							});
 
+							$('.cut_contents .prev').bind('click',function(){
+								var index = (function(){
+									var _index;
+									$('.cut_section .cut_btn li').each(function(){
+
+										if($(this).find('a').hasClass('active')){
+											_index = $(this).index()
+											return;
+										}
+									});
+									return _index;
+
+								})();
+
+								if(index == 0){
+									return;
+								}
+
+								$('.cut_section .cut_btn li a').removeClass('active');
+								$('.cut_section .cut_btn li').eq(index-1).find('a').addClass('active');
+								$('.cut_slider ul').stop().animate({
+									left : (index-1) * -950
+								});
+
+							});
+
+							$('.cut_contents .next').bind('click',function(){
+								var index = (function(){
+									var _index;
+									$('.cut_section .cut_btn li').each(function(){
+
+										if($(this).find('a').hasClass('active')){
+											_index = $(this).index()
+											return;
+										}
+									});
+									return _index;
+
+								})();
+
+								if(index >= $('.cut_section .cut_btn li').length - 1){
+									return;
+								}
+
+								$('.cut_section .cut_btn li a').removeClass('active');
+								$('.cut_section .cut_btn li').eq(index+1).find('a').addClass('active');
+								$('.cut_slider ul').stop().animate({
+									left : (index+1) * -950
 								});
 							});
 
+
+							var uspTimer = setInterval(function(){
+								var index = $('.usp_section .num a.active').index();
+								if(index == 0){
+									index = 1;
+									$('.usp_slider li').eq(0).fadeOut();
+									$('.usp_slider li').eq(1).fadeIn();
+
+									$('.usp_section .num a').removeClass('active').eq(1).addClass('active');
+								}else{
+									index = 0;
+									$('.usp_slider li').eq(1).fadeOut();
+									$('.usp_slider li').eq(0).fadeIn();
+
+									$('.usp_section .num a').removeClass('active').eq(0).addClass('active');
+								}
+							},4000);
+
+							$('.usp_section .num a').bind('click',function(){
+								if($(this).hasClass('active')){
+									return;
+								}
+
+								clearInterval(uspTimer);
+
+								var index = $('.usp_section .num a.active').index();
+								if(index == 0){
+									index = 1;
+									$('.usp_slider li').eq(0).fadeOut();
+									$('.usp_slider li').eq(1).fadeIn();
+
+									$('.usp_section .num a').removeClass('active').eq(1).addClass('active');
+								}else{
+									index = 0;
+									$('.usp_slider li').eq(1).fadeOut();
+									$('.usp_slider li').eq(0).fadeIn();
+
+									$('.usp_section .num a').removeClass('active').eq(0).addClass('active');
+								}
+
+
+								uspTimer = setInterval(function(){
+									var index = $('.usp_section .num a.active').index();
+									if(index == 0){
+										index = 1;
+										$('.usp_slider li').eq(0).fadeOut();
+										$('.usp_slider li').eq(1).fadeIn();
+
+										$('.usp_section .num a').removeClass('active').eq(1).addClass('active');
+									}else{
+										index = 0;
+										$('.usp_slider li').eq(1).fadeOut();
+										$('.usp_slider li').eq(0).fadeIn();
+
+										$('.usp_section .num a').removeClass('active').eq(0).addClass('active');
+									}
+								},4000);
+
+							});
+
+
 						})(jQuery);
 
-						// function test(){
-						// 	alert(11);
-						// }();
-
 					</script>
-
-
-
-
-
-
-
 		</div>
 
 		<div id="footer_r">
