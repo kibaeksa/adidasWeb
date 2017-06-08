@@ -1031,10 +1031,11 @@
 							</h2>
 						</div>
 						<div class="video_wrap">
-							<div class="video video-button" data-video-id=""><img src="http://image.adidas.co.kr/images/adidas/event/on_the_move/video.png" alt=""></div>
+							<div class="video video-button" data-video-id="CnTkETOJFQI"><img src="http://image.adidas.co.kr/images/adidas/event/on_the_move/video.png" alt=""></div>
 						</div>
 					</div>
 				</div>
+
 
 				<div class="statement">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/on_the_move/statement_bg.jpg" alt=""></div>
@@ -1072,7 +1073,8 @@
 									<area shape="rect" coords="0,68,107,213" href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=BR0466" alt="홀터브라">
 									<area shape="rect" coords="217,68,318,213" href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=BA7972" alt="트레이닝엘리트">
 									<area shape="rect" coords="107,169,217,354" href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=CE7828" alt="와프니트슬림티">
-									<area shape="rect" coords="318,148,443,354" href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=BR1685" alt="와프니트타이츠">
+									<!-- <area shape="rect" coords="318,148,443,354" href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=BR1685" alt="와프니트타이츠"> -->
+									<area shape="rect" coords="318,148,443,354" href="javascript:alert('상품이 준비중입니다.')" alt="와프니트타이츠">
 									<area shape="rect" coords="0,366,443,420" href="http://shop.adidas.co.kr/PF070801.action?pageNo=304" alt="전체보기">
 
 								</map>
@@ -1126,7 +1128,8 @@
 							</li>
 							<li class="prd2">
 								<div class="button_area">
-									<a href="http://shop.adidas.co.kr/PF020401.action?PROD_CD=BR1685" class="btn-ctm arrow">
+									<!-- http://shop.adidas.co.kr/PF020401.action?PROD_CD=BR1685 -->
+									<a href="javascript:void(0)" class="btn-ctm arrow readyPrd">
 										<span>구매하기<span class="spt_bg"></span></span>
 									</a>
 								</div>
@@ -1171,15 +1174,18 @@
 					</div>
 				</div>
 
-
-
-
 			</div>
 			<!-- /-/on_the_move -->
 
 			<script type="text/javascript">
 
 				(function($){
+
+					//ready
+					$('.readyPrd').bind('click',function(){
+						alert('상품이 준비중입니다.');
+					});
+
 					// scrollevent
 					$(window).scroll(function(){
 						var scrollpos = $(this).scrollTop() + 700;
@@ -1221,26 +1227,30 @@
 					// video 공통
 					$('.video-button').bind('click',function(){
 						var videoId = $(this).attr('data-video-id');
+
 						viewVideo(videoId);
 						return false;
+
+						console.log(videoId)
+
 					});
 
 
 					function viewVideo(videoId){
 						var $this = $(this);
-						var videoLayerElem = $('<div class="video-viewer"><a class="spt_bg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+						var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
 						$('html').addClass('no_scroll');
 						$('body').append(videoLayerElem);
 						setTimeout(function(){
-							$('.video-viewer').addClass('loaded');
+							$('.video_layer').addClass('loaded');
 							setTimeout(function(){
-								$('.video-viewer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+								$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
 							},20);
 						},300);
 
-						$('.video-viewer .close').bind('click',function(){
+						$('.video_layer .close').bind('click',function(){
 							$('html').removeClass('no_scroll');
-							$('.video-viewer').remove();
+							$('.video_layer').remove();
 						});
 						return false;
 					}

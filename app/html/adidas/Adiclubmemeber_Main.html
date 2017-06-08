@@ -23,153 +23,7 @@
 <script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
-
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
-
-		});
-
-		jQuery('#new_prodlist li').hover(function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
-		},function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);
-		});
-
-		// 170511 푸터 SNS 레이어 수정 START
-		jQuery('.f_sns>div>a.btn').bind('click',function(){
-			var $this = jQuery(this);
-			if( $this.siblings('.layer').hasClass('layer') ){
-				if($this.hasClass('on')){
-					$this.removeClass('on');
-					$this.siblings('.layer').show();
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-				}else{
-					jQuery('.f_sns>div>a.btn').removeClass('on');
-					jQuery('.f_sns>div>.layer').removeClass('open');
-					jQuery('.f_sns>div>.layer').hide();
-					$this.addClass('on');
-					$this.siblings('.layer').show();
-
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-
-				}
-				return false;
-			}else{
-				return true;
-			}
-		});
-
-		jQuery('.f_sns>div>.layer>.close').bind('click',function(){
-			var $this = jQuery(this);
-			$this.parent().siblings('.btn').removeClass('on');
-			$this.parent().removeClass('open');
-			return false;
-		});
-		// 170511 푸터 SNS 레이어 수정 END
-
-
-		// 161208 start
-		if(jQuery('.market .no_data_layer').length >= 1){
-			jQuery('.market>a').hover(function(){
-				jQuery(this).siblings('.no_data_layer').show();
-			},function(){
-				jQuery(this).siblings('.no_data_layer').hide();
-			});
-		}
-		// 161208 end
-
-
-	});
-
-	/* fa funcion 함수 */
-	function strCut(obj,len) {
-		var str = obj;
-		var l = 0;
-		for (var i=0; i<str.length; i++) {
-			l += (str.charCodeAt(i) > 128) ? 2 : 1;
-			if (l > len) return str.substring(0,i) + "..";
-		}
-		return str;
-	}
-	/* //150513 */
-
-	//151116 러닝클럽 종료 안내 팝업 닫기
-	function closeRcEndNotiLayer(){
-		jQuery('#popup_rc_end_noti').hide();
-	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
-</script>
- </head>
+</head>
 
  <body>
 	<div class="layer_bg"></div>
@@ -1524,22 +1378,161 @@
                     </div>
                 </div>
                 <div class="adiclub_body">
-                    <div style="padding-top:50px;">
-						<!-- 170607 이미지수정 -->
-                        <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_info.jpg" alt="아디클럽 멤버십 등급별 구매혜택" usemap="#adiclub_benefit1">
-                        <map name="adiclub_benefit1" id="adiclub_benefit1">
-                            <area shape="rext" coords="230,1158,891,1228" href="#" alt="아디클럽 가입하기">
-                        </map>
-                    </div>
-                    <div style="padding-top:70px; padding-bottom:70px;">
-                        <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_sport_culture_info.jpg" alt="아디클럽 멤버십 스포츠 컬쳐 서비스 안내" usemap="#adiclub_benefit2">
-                        <map name="adiclub_benefit2" id="adiclub_benefit2">
-                            <area shape="rext" coords="230,740,558,810" href="#" alt="아디클럽 스포츠 신청하기">
-							<area shape="rext" coords="565,740,890,810" href="#" alt="아디클럽 컬쳐 신청하기">
-							<area shape="rext" coords="0,298,173,323" href="javascript:void(0)" class="ready_alert" alt="아디클럽 스포츠 상세혜택">
-                            <area shape="rext" coords="0,323,173,355" href="javascript:void(0)" class="ready_alert" alt="아디클럽 컬쳐 상세혜택">
-                        </map>
-                    </div>
+
+					<div id="divView1" style="display: block;">
+						<div style="padding-top:50px;">
+							<!-- 170607 이미지수정 -->
+	                        <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_info.jpg" alt="아디클럽 멤버십 등급별 구매혜택" usemap="#adiclub_benefit1">
+	                        <map name="adiclub_benefit1" id="adiclub_benefit1">
+	                            <area shape="rext" coords="230,1158,891,1228" href="#" alt="아디클럽 가입하기">
+	                        </map>
+	                    </div>
+	                    <div style="padding-top:70px; padding-bottom:70px;">
+	                        <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_sport_culture_info.jpg" alt="아디클럽 멤버십 스포츠 컬쳐 서비스 안내" usemap="#adiclub_benefit2">
+	                        <map name="adiclub_benefit2" id="adiclub_benefit2">
+	                            <area shape="rext" coords="230,740,558,810" href="#" alt="아디클럽 스포츠 신청하기">
+								<area shape="rext" coords="565,740,890,810" href="#" alt="아디클럽 컬쳐 신청하기">
+								<area shape="rext" coords="0,298,173,323" href="javascript:void(0)" class="ready_alert" alt="아디클럽 스포츠 상세혜택">
+	                            <area shape="rext" coords="0,323,173,355" href="javascript:void(0)" class="ready_alert" alt="아디클럽 컬쳐 상세혜택">
+	                        </map>
+	                    </div>
+					</div>
+					<!-- //divView1 -->
+
+
+					<div id="divView2" style="position: relative;display: none;padding:50px 0;">
+						<a class="join_adclub" style="position: absolute; right: 30px; top: 50px; display: block;" href="https://shop.adidas.co.kr/PF0601001.action"><img alt="아디클럽 가입하기" src="http://image.adidas.co.kr/images/adidas/club/btn_join_club.gif"></a>
+						<h3 style="margin-bottom: 10px;"><img src="http://image.adidas.co.kr/images/adidas/club/tit_howto_join.gif?v=160512" alt="회원가입방법"></h3>
+						<p class="desc" style="margin-bottom: 20px;"><img src="http://image.adidas.co.kr/images/adidas/club/txt_join_desc.gif?v=160512" alt="가까운 아디다스 스토어에서, 공식 온라인 스토어에서, 그리고 손쉽게 모바일을 통하여서도 아디클럽 회원이 될 수 있습니다."></p>
+						<div>
+							<img src="http://image.adidas.co.kr/images/adidas/club/bg_join_step.gif?v=160512" border="0" usemap="#join" alt="회원가입방법">
+							<map name="join" id="join">
+								<area shape="rect" coords="50,286,128,311" href="javascript:fn_join();" alt="회원가입"> <!-- 회원가입 -->
+							</map>
+
+							<!-- 접근성 회원가입방법 메뉴 -->
+							<div class="blind">
+								<dl>
+									<dt>
+										오프라인 스토어에서 가입
+									</dt>
+									<dd>
+										<ol>
+											<li>step1. 제품 구매 후 아디클럽 가입신청서를 작성하여 직원에게 전달</li>
+											<li>step2. 회원번호 및 등록을 위한 임시 비밀번호가 핸드폰으로 전송 재전송문의 : 1588-8241(고객센터)</li>
+											<li>step3. 아디다스 공식 온라인 스토어의 [로그인]페이지에서 회원번호 등록 후, 회원가입 완료</li>
+											<li>step4. 회원정보에 등록한 핸드폰번호로 모바일 멤버십 카드 발송</li>
+										</ol>
+									</dd>
+								</dl>
+								<dl>
+									<dt>
+										온라인 스토어에서 회원 가입
+										<a href="https://shop.adidas.co.kr:443/PF0601001.action">회원가입</a>
+									</dt>
+									<dd>
+										<ol>
+											<li>step1. 아디다스 공식 온라인 스토어에서 이용약관 동의 후 회원가입완료</li>
+											<li>step2. 회원정보에 등록한 핸드폰번호로 모바일 멤버십 카드 발송</li>
+										</ol>
+									</dd>
+								</dl>
+								<dl>
+									<dt>
+										온라인 스토어에서 회원 가입
+									</dt>
+									<dd>
+										<ol>
+											<li>step1. 아디다스 공식 모바일 스토어에서 이용약관 동의 후 회원가입 완료</li>
+											<li>step2. 회원정보에 등록한 핸드폰번호로 모바일 멤버십 카드 발송</li>
+											<li>step3. QR코드로 스캔후 바로 모바일 스토어 이용</li>
+										</ol>
+									</dd>
+								</dl>
+								<ul>
+									<li>회원번호 등록은 로그인 페이지에서 가능</li>
+									<li>[회원가입] 페이지에서 신규 회원으로 가입하는 경우, 오프라인 스토어의 첫 구매에 대한 포인트가 적립되지 않음</li>
+									<li>3개월 이내 등록하지 않는 경우, 회원번호 및 포인트 소멸</li>
+								</ul>
+							</div>
+							<!-- //접근성 회원가입방법 메뉴 -->
+						</div>
+					</div>
+					<!-- //divView2 -->
+
+
+					<div id="divView3" style="padding:50px 0;display: none;">
+						<div>
+							<img src="http://image.adidas.co.kr/images/adidas/club/bg_mobile_card.gif?v=160426" border="0" usemap="#mobile" alt="모바일 멤버십카드 발급방법">
+							<map name="mobile" id="mobile">
+								<area shape="rect" coords="0,128,346,172" href="/PF0601001.action" alt="아디클럽 가입"> <!-- 아디클럽 가입 -->
+								<area shape="rect" coords="287,770,389,793" href="javascript:fn_card();" alt="스마트폰 소지여부 확인"> <!-- 스마트폰 소지여부 확인하기 -->
+								<!-- <area shape="rect" coords="12,248,90,274" href="javascript:fn_card();" alt="재발급 신청" title="새창"/>  재발급 신청 -->
+							</map>
+
+							<!-- 접근성 모바일멤버십카드 메뉴 -->
+							<div class="blind">
+								<h4>모바일 멤버십 카드란?</h4>
+								<p>아디다스 오프라인 스토어에서 포인트 적립을 편리하게 할 수 있도록 모바일로 다운받아 사용할 수 있는 아디클럽 전용 멤버십 카드입니다.<br>2012년 7월부터 모바일 멤버십 카드를 소지해야만 오프라인 스토어에서 포인트 적립 및 사용이 가능합니다.</p>
+								<h4>모바일 멤버십 카드 방급방법</h4>
+								<table summary="모바일 멤버십 카드 방급방법">
+									<caption>모바일 멤버십 카드 방급방법</caption>
+									<tbody>
+									<tr>
+										<th scope="row" rowspan="2">신규회원 가입 시 (자동발급)</th>
+										<td>스마트폰 사용자</td>
+										<td>회원가입 시 자동으로 SMS로 모바일 멤버십 카드 링크 전송</td>
+									</tr>
+									<tr>
+										<td>스마트폰 미사용자</td>
+										<td>회원가입 시 자동으로 MMS로 모바일 멤버십 카드 이미지 전송</td>
+									</tr>
+									<tr>
+										<th scope="row" rowspan="2">재발급 (수동발급)<a href="javascript:fn_card();">재발급 신청</a></th>
+										<td>스마트폰 사용자</td>
+										<td>
+											<p>SMS로 모바일 멤버십 카드 링크 전송(재발급에 따른 포인트 차감없음)</p>
+											<ol>
+												<li>1. 온라인스토어 접속 후 마이페이지 이동후 재발급 신청</li>
+												<li>2. 1588-8241 고객센터 연결 후 재발급 신청</li>
+											</ol>
+
+										</td>
+									</tr>
+									<tr>
+										<td>스마트폰 미사용자</td>
+										<td>
+											<p>MMS로 모바일 멤버십 카드 이미지 전송(재발급 6회 이상 시, 포인트가 100포인트씩 차감)</p>
+											<ol>
+												<li>1. 온라인스토어 접속 후 마이페이지 이동후 재발급 신청</li>
+												<li>2. 1588-8241 고객센터 연결 후 재발급 신청</li>
+											</ol>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+								<ul>
+									<li>블랙베리 스마트폰 소지자는 MMS로 모바일 멤버십 카드 이미지가 전송됩니다.</li>
+									<li>회원정보에 입력 된 휴대본번호가 일치하지 않거나, 스마트폰 정보 변경이 필요 할 경우 변경해주세요.</li>
+									<li><a href="javascript:fn_myinfo();">스마트폰 소지 여부 확인하기</a></li>
+								</ul>
+								<dl>
+									<dt>확인하세요!</dt>
+									<dd>
+										<ul>
+											<li>오프라인 스토어에서 구매 후 포인트 적립 시, 반드시 모바일 멤버십 카드를 제시해야 합니다.</li>
+											<li>모바일 멤버십 카드 미 소지시 구매 영수증+모바일 멤버십 카드 지참 후 재방문시 적립 가능(구매 후 7일 이내 방문)</li>
+											<li>또는 아디다스 모바일 스토어 (m.adidas.co.kr 접속 후 마이페이지 이동 후 모바일 멤버십 카드 조회) 를 통해 모바일 멤버십 카들르 바로 제시하고 포인트 적립하세요.</li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<!-- //접근성 모바일멤버십카드 메뉴 -->
+						</div>
+					</div>
+					<!-- //divView3 -->
+
+
                 </div>
 
 				<script type="text/javascript">

@@ -1220,10 +1220,12 @@
 
 				#parley .cont2 .slider{
 					position: relative;
+					width:825px;
 				    height: 440px;
 				    left: 50%;
-				    margin-left: -1330px;
+				    margin-left: -416px;
 					top:80px;
+					overflow: hidden;
 					opacity:0;
 					-moz-transition:top 0.8s,opacity 0.8s;
 					-o-transition:top 0.8s,opacity 0.8s;
@@ -1247,7 +1249,7 @@
 				}
 
 				#parley .cont2 .slider li.box02 {
-					margin:0 90px;
+					margin:0 90px 0 0;
 				}
 
 				#parley .cont2 .slider li.box03 {
@@ -1259,7 +1261,7 @@
 					color:#fff;
 					position: absolute;
 				    left: 0;
-				    margin-left: 1115px;
+				    margin-left: 205px;
 					position: absolute;
 					top:50px;
 					z-index: 5;
@@ -1288,26 +1290,36 @@
 					border:none;
 				}
 
-				#parley .cont2 .slider a.btn_prev {
+				#parley .cont2 a.btn_prev {
 					position: absolute;
-					top: 44%;
-					left:0;
-					margin-left:850px;
+					top: 17%;
+					left:50%;
+					margin-left:-477px;
 					width:32px;
 					height:61px;
 					display: block;
 					background:url("http://image.adidas.co.kr/images/adidas/event/parley/btn_arrow.png") 0 0 no-repeat;
+					opacity:0;
+					-moz-transition:top 0.8s,opacity 0.8s;
+					-o-transition:top 0.8s,opacity 0.8s;
+					-webkit-transition:top 0.8s,opacity 0.8s;
+					transition:top 0.8s,opacity 0.8s
 				}
 
-				#parley .cont2 .slider a.btn_next {
+				#parley .cont2 a.btn_next {
 					position: absolute;
-					top: 44%;
-					left:0;
-					margin-left:1771px;
+					top: 17%;
+					left:50%;
+					margin-left:440px;
 					width:32px;
 					height:61px;
 					display: block;
 					background:url("http://image.adidas.co.kr/images/adidas/event/parley/btn_arrow.png") -32px 0 no-repeat;
+					opacity:0;
+					-moz-transition:top 0.8s,opacity 0.8s;
+					-o-transition:top 0.8s,opacity 0.8s;
+					-webkit-transition:top 0.8s,opacity 0.8s;
+					transition:top 0.8s,opacity 0.8s
 				}
 
 				#parley .cont2 .slide_title {
@@ -1328,7 +1340,7 @@
 				#parley .cont2 .slide_title ul{
 					left: 50%;
 					position: absolute;
-					margin-left: -385px;
+					margin-left: -288px;
 				}
 
 				#parley .cont2 .slide_title li{
@@ -1741,9 +1753,9 @@
 							<p>새로운 컬렉션의 화이트 컬러는 해양 생태계를 위협하는 산호 백화 현상의<br />심각성을 환기하는 아디다스의 메시지입니다.</p>
 						</div>
 						<ul>
-							<li class="box01">
+							<!-- <li class="box01">
 								<div class="img"><img src="http://image.adidas.co.kr/images/adidas/event/parley/slide03.jpg" alt=""></div>
-							</li>
+							</li> -->
 							<li class="box02">
 								<div class="img"><img src="http://image.adidas.co.kr/images/adidas/event/parley/slide01.jpg" alt=""></div>
 							</li>
@@ -1751,19 +1763,19 @@
 								<div class="img"><img src="http://image.adidas.co.kr/images/adidas/event/parley/slide02.jpg" alt=""></div>
 							</li>
 						</ul>
-						<a href="#" class="btn_prev"></a>
-						<a href="#" class="btn_next"></a>
 					</div>
+					<a href="#" class="btn_prev"></a>
+					<a href="#" class="btn_next"></a>
 					<div class="slide_title">
 						<ul>
-							<li><a href="#">ULTRABOOST X PARLEY</a></li>
+							<!-- <li><a href="#">ULTRABOOST X PARLEY</a></li> -->
 							<li><a href="#"  class="active">ULTRABOOST PARLEY</a></li>
 							<li><a href="#">ULTRABOOST UNCAGED PARLEY</a></li>
 						</ul>
 					</div>
 					<div class="slider_cont">
 						<ul>
-							<li class="box1" >
+							<!--<li class="box1" >
 								<div class="txt">
 									<h3>ULTRABOOST X<br />PARLEY</h3>
 									<div class="line"><hr></hr></div>
@@ -1776,7 +1788,7 @@
 									<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=286" class="button">제품 구매하기</a>
 								</div>
 								<div class="img"><img src="http://image.adidas.co.kr/images/adidas/event/parley/cont2_img2.png" alt=""></div>
-							</li>
+							</li>-->
 							<li class="box2 active">
 								<div class="txt">
 									<h3>ULTRABOOST<br />PARLEY</h3>
@@ -1876,12 +1888,12 @@
 
 
 					(function(){
-						var index = 1;
-						var length = 3;
+						var index = 0;
+						var length = 2;
 
 						function onlyAnim(value){
 							$('.slider ul').animate({
-								left : value * -915 +915
+								left : value * -915
 							});
 						}
 
@@ -1943,7 +1955,7 @@
 
 					})();
 							var cont2_1 = 900;
-							var cont2_2 = 1300;
+							var cont2_2 = 1200;
 							var col = 2000;
 							var email = 2800;
 
@@ -1957,11 +1969,21 @@
 									"top":"0"
 								});
 								setTimeout(function(){
+									$('.cont2 .btn_prev').css({
+										"opacity":"1"
+									});
+								},500)
+								setTimeout(function(){
+									$('.cont2 .btn_next').css({
+										"opacity":"1"
+									});
+								},500)
+								setTimeout(function(){
 									$('.cont2 .slide_title').css({
 										"opacity":"1",
 										"top":"0"
 									});
-								},500)
+								},700)
 							}
 
 							if( scrollPX  > cont2_2 ) {

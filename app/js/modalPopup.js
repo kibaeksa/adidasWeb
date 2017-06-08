@@ -75,6 +75,42 @@
         initElement();
     }
 
+    function getElementsByClassName(className){
+        // if( navigator.appVersion.indexOf('MSIE 7.0') > 0  ) {
+        //     if(!document.getElementsByClassName){
+        //         console.log(111);
+        //         var allElements = document.getElementsByTagName('*');
+        //         var i = 0;
+        //         var newArray = [];
+        //
+        //         for(; i < allElements.length; i++){
+        //             var classNameArray = allElements[i].className.split(' ');
+        //             var j = 0;
+        //             for(; j < classNameArray.length; j++){
+        //                 if(className == classNameArray[j]){
+        //                     newArray.push(allElements[i]);
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //         return newArray;
+        //     }else{
+        //         return document.getElementsByClassName(document,className);
+        //         //In case when defined already in Prototype.js
+        //     }
+        // }else{
+        //     return document.getElementsByClassName(className);
+        // }
+        // if($)
+        if(!$){
+            return document.getElementsByClassName(className);
+        }else{
+            return $('.'+className);
+        }
+
+
+    }
+
     /*
     Js 데이터를 받아서 init 해준다.
     (Html에는 존재하지 않은 상태)
@@ -100,7 +136,7 @@
     Html 태그의 data 태그에서 찾아내서 Modalpop 정의
     */
     function initModalpopByHtml(){
-        findModalElement(function(elem,attributes,index){
+        findModalElement('modal-popup-wrapper',function(elem,attributes,index){
             var isModalpop = getDataset(elem,'modalpop');
             isModalpop = isModalpop == null ? false : isModalpop;
 
@@ -131,13 +167,10 @@
     /*
     HTML 내 모든 엘리먼트의 속성을 하나하나 확인하여 callback 받은 함수대로 실행
     */
-    function findModalElement(callback , tagName){
-        var tn = tagName == undefined ? '*' : tagName;
-        var elements = document.getElementsByTagName('*');
+    function findModalElement(className , callback){
+        var elements = getElementsByClassName(className);
         var elemIndex = 0;
-
         var testCounter = 0;
-
 
         for(; elemIndex < elements.length; elemIndex++){
             testCounter++;
@@ -150,7 +183,6 @@
             testCounter++;
         }
     }
-
 
     /*
     Modal object 새로 생성
@@ -199,6 +231,7 @@
             modalPopupContainer[key].isSetDone = true;
 
             elem = $(modalPopupContainer[setPopupName(key)].element);
+
             elem.find('.popup').css({
                 width : modalPopupContainer[setPopupName(key)].width ? modalPopupContainer[setPopupName(key)].width+'px' : 'auto',
                 height : modalPopupContainer[setPopupName(key)].height ? modalPopupContainer[setPopupName(key)].height+'px' : 'auto',
@@ -268,7 +301,7 @@
     }
 
     function bindingOpenEvent(){
-        findModalElement(function(elem,attributes){
+        findModalElement('modal-popup-click',function(elem,attributes){
             if(getDataset(elem , 'modalpopClick')){
                 if( elem.getAttribute('data-modalpop-click') !== null ){
                     var popName = elem.getAttribute('data-modalpop-click');
@@ -298,7 +331,7 @@
     }
 
     function rerender(){
-        findModalElement(function(elem,attributes,index){
+        findModalElement('modal-popup-wrapper',function(elem,attributes,index){
             var isModalpop = getDataset(elem,'modalpop');
             isModalpop = isModalpop == null ? false : isModalpop;
 

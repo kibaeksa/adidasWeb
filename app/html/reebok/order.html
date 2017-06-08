@@ -18,15 +18,42 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function(){
-	// 161227 start
-	jQuery('.test-zippop').bind('click',function(){
-		jQuery('.layerpopup_findzip').openModalPopup();
+
+	// 170608 스크립트
+	jQuery('#choice_deliv_popup .overlay , #choice_deliv_popup .close').bind('click',function(){
+		jQuery('#choice_deliv_popup').hide();
 	});
+
 });
 
 </script>
 </head>
 <body>
+
+	<!-- 170608 배송선택 팝업 -->
+	<div id="choice_deliv_popup" class="modal-popup-wrapper" style="display: block;">
+	    <div class="overlay"></div>
+        <div class="popup" style="width: 550px;top: 50%;height: 334px;margin: -165px 0 0 -275px;">
+            <div class="popup-header">
+                <h2>배송 방법 선택</h2>
+                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+            </div>
+            <div class="popup-contents">
+                <p style="padding:20px 0 55px;font:19px/26px 'NotoSansKRRegular','Nanum Gothic';color:#000;text-align:center;">스피드 배송 가능 수량이 초과되어<br>일반배송으로 전환됩니다.</p>
+
+				<div style="overflow: hidden;">
+					<a href="#" class="btn-ctm btn-red arrow" style="width: 240px;float: left;margin-right: 10px;background: #ab2328;">
+		                <span style="font-size:15px;">수량 변경 후 스피드 배송할래요<span class="spt_bg"></span></span>
+		            </a>
+
+					<a href="#" class="btn-ctm arrow" style="width: 240px;float: left;">
+		                <span style="font-size:15px;">일반배송으로 진행 할래요<span class="spt_bg"></span></span>
+		            </a>
+				</div>
+            </div>
+        </div>
+	</div>
+
 <div id="wrap">
 	<div id="container">
 		<!-- header -->
