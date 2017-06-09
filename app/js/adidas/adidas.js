@@ -1239,10 +1239,14 @@ function blurAction(obj,moveId,dir,obj2){
 
 		$('.filter_wrapper .filter_box').each(function(){
 			var contentElem = $(this).find('.content');
-			var outerHeight = contentElem.outerHeight();
+			var outerHeight = contentElem.find('.content_inner').outerHeight();
 
 			$(this).find('>.title').bind('click',function(){
+				if($(this).parent().hasClass('not_toggle')){
+					return false;
+				}
 
+				var animHeight = outerHeight;
 				if($(this).parent().hasClass('open')){
 					$(this).parent().removeClass('open');
 					contentElem.animate({
@@ -1251,11 +1255,26 @@ function blurAction(obj,moveId,dir,obj2){
 				}else{
 					$(this).parent().addClass('open');
 					contentElem.animate({
-						height : outerHeight
+						height : $(this).siblings('.content').find('.content_inner').outerHeight()
+					},300);
+					setTimeout(function(){
+						contentElem.css({
+							height : 'auto'
+						});
 					},300);
 				}
 
 			});
+		});
+
+		$('.filter_box.product_category .content_inner>ul>li>a').bind('click',function(){
+			if($(this).parent().hasClass('open')){
+				$(this).parent().removeClass('open');
+				$(this).siblings('div').slideUp();
+			}else{
+				$(this).parent().addClass('open');
+				$(this).siblings('div').slideDown();
+			}
 
 		});
 
@@ -1292,8 +1311,6 @@ function blurAction(obj,moveId,dir,obj2){
 						if(index == 0){
 							$(this).addClass('disable');
 						}
-
-						return false;
 					});
 
 					$(this).find('.othercolor_slider .next').bind('click',function(){
@@ -1310,11 +1327,8 @@ function blurAction(obj,moveId,dir,obj2){
 						});
 
 						if(length == index + itemDisplayed){
-							console.log(11);
 							$(this).addClass('disable');
 						}
-
-						return false;
 					});
 
 				}
@@ -1331,6 +1345,52 @@ function blurAction(obj,moveId,dir,obj2){
 				clearTimeout(itemTimer);
 				$(this).removeClass('hover');
 			});
+
+			/*
+			PLP Color / Size Filter 부분
+			*/
+			$('.filter_box.color_filter .content_inner>.button_box>a , .filter_box.size_filter .content_inner>.button_box>a').bind('click',function(){
+				var filterContainer = $(this).parents('.filter_box');
+
+				if($(this).hasClass('on')){
+					filterContainer.find('.content_inner>.button_box>>a').removeClass('on');
+					filterContainer.find('.btn-ctm').removeClass('active');
+					setTimeout(function(){
+						filterContainer.find('.btn-ctm').css({
+							display: 'none'
+						});
+					},10);
+
+				}else{
+					filterContainer.find('.content_inner>.button_box>a').removeClass('on');
+					$(this).addClass('on');
+					filterContainer.find('.btn-ctm').css({
+						display: 'block'
+					});
+					setTimeout(function(){
+						filterContainer.find('.btn-ctm').addClass('active');
+					},10);
+				}
+
+			});
+
+			$('.filter_box.price_filter .input-radio-ctm').ctmInputSetCallback({
+				after : function(){
+					if($('.filter_box.price_filter .btn-ctm').hasClass('active')){
+						return false;
+					}
+
+					$('.filter_box.price_filter .btn-ctm').css({
+						display: 'block'
+					});
+					setTimeout(function(){
+						$('.filter_box.price_filter .btn-ctm').addClass('active');
+					},10);
+
+				}
+			})
+
+
 
 		})();
 
