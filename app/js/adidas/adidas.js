@@ -1352,16 +1352,7 @@ function blurAction(obj,moveId,dir,obj2){
 			$('.filter_box.color_filter .content_inner>.button_box>a , .filter_box.size_filter .content_inner>.button_box>a').bind('click',function(){
 				var filterContainer = $(this).parents('.filter_box');
 
-				if($(this).hasClass('on')){
-					filterContainer.find('.content_inner>.button_box>>a').removeClass('on');
-					filterContainer.find('.btn-ctm').removeClass('active');
-					setTimeout(function(){
-						filterContainer.find('.btn-ctm').css({
-							display: 'none'
-						});
-					},10);
-
-				}else{
+				if(!$(this).hasClass('on')){
 					filterContainer.find('.content_inner>.button_box>a').removeClass('on');
 					$(this).addClass('on');
 					filterContainer.find('.btn-ctm').css({

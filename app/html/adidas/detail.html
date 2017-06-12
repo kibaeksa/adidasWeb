@@ -521,6 +521,20 @@
                 $(this).find('.tooltip-layer').hide();
             })
 
+
+            // 170612
+            $('.product-main .buy_box .button_wrap .btn_cart').bind('click',function(){
+				if(jQuery("#qty_sel").html() == null || jQuery("#qty_sel").html() == "" || jQuery("#qty_sel").html() == "수량 선택"){
+					$('.product-main .product-infomation .buy_box .size_box .select_box .focused_box').fadeIn(120);
+					$('.product-main .size_alert').fadeIn();
+					setTimeout(function(){
+						$('.product-main .product-infomation .buy_box .size_box .select_box .focused_box').fadeOut();
+						$('.product-main .size_alert').fadeOut();
+					},3000);
+					return false;
+				}
+			});
+
   		});
 
   	})(jQuery);
@@ -531,9 +545,16 @@
  <body>
 
     <!-- 170529 이지부스트 팝업 -->
-    <div class="modal-popup-wrapper open">
+    <div
+        class="modal-popup-wrapper"
+        data-modalpop=""
+        data-modalpop-width="600"
+        data-modalpop-name="modalpop-notice1"
+        data-modalpop-autoopen=""
+        data-modalpop-fade=""
+    >
 	    <div class="overlay"></div>
-        <div class="popup" style="width: 550px;top: 50%;height: 334px;margin: -165px 0 0 -275px;">
+        <div class="popup">
             <div class="popup-header">
                 <h2>구매 안내</h2>
                 <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
@@ -3283,6 +3304,12 @@
 											<!-- //selectbox-ctm -->
 										</div>
 										<!-- //select_amount -->
+
+
+                                        <!-- 170612 사이즈 얼럿 -->
+                                        <div class="size_alert">
+											<span class="spt_bg"></span>사이즈와 수량을 선택해 주세요.
+										</div>
 
 
 									</div>

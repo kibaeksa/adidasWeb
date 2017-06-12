@@ -440,6 +440,19 @@
 				jQuery(this).find('.tooltip-layer').hide();
 			});
 
+            // 170612
+            jQuery('.product-main .buy_box .button_wrap>a').bind('click',function(){
+				if(jQuery("#qty_sel").html() == null || jQuery("#qty_sel").html() == "" || jQuery("#qty_sel").html() == "수량 선택"){
+					jQuery('.product-main .product-infomation .buy_box .size_box .select_box .focused_box').fadeIn(120);
+					jQuery('.product-main .size_alert').fadeIn();
+					setTimeout(function(){
+						jQuery('.product-main .product-infomation .buy_box .size_box .select_box .focused_box').fadeOut();
+						jQuery('.product-main .size_alert').fadeOut();
+					},3000);
+					return false;
+				}
+			});
+
 
 		});
 		/* //140814 */
@@ -2130,6 +2143,12 @@
 												</div>
 											</div>
 
+                                            <!-- 170612 START -->
+                                            <div class="size_alert">
+    											<span class="spt_bg"></span>사이즈와 수량을 선택해 주세요.
+    										</div>
+                                            <!-- 170612 END -->
+
 										</div>
 										<!-- //select_size -->
 
@@ -2160,6 +2179,49 @@
 								</div>
 								<!-- //size_box -->
 
+                                <!-- 170612 START -->
+                                <div class="oneday_deliv_info">
+                                    <div class="ico_car spt_bg"></div>
+                                    <div>
+                                        도착예정일 - 2월 27일 월요일
+                                        <!--170401 스피드배송 툴팁팝업   -->
+                                        <div class="spt_bg">
+                                            <div class="tooltip-layer">
+                                                <div class="tooltip-contents">
+                                                    <p class="tit">SPEEDY DELIVERY(스피드 배송)란? </p>
+                                                    <ul class="li-dot">
+                                                        <li>
+                                                            <div class="bul"></div>
+                                                            SPEEDY DELIVERY(스피드 배송)란?<br/>
+                                                            주문하신 다음날 주문 상품을 받아볼 수 있으며, <br/>
+                                                            배송지 주소 기준으로 서울 및 수도권 <br/>
+                                                            인근지역(일부 지역 제외) 에 한하여 <br/>
+                                                            배송 가능한 서비스 입니다.
+                                                        </li>
+                                                        <li>
+                                                            <div class="bul"></div>
+                                                            상품을 받으실 지역을 선택하여 <br/>
+                                                            SPEEDY DELIVERY(스피드 배송) 가능여부를  <br/>
+                                                            확인해 볼 수 있습니다.
+                                                        </li>
+                                                        <li>
+                                                            <div class="bul"></div>
+                                                            배송박스의 규격이 가로/세로/높이 80cm<br/>
+                                                            제한되어 있어, 각 주문 건당 신발 2개, <br/>
+                                                            의류 3개, 기타 용품 3개주문이 가능하며 <br/>
+                                                            총 주문 개는 3개를 초과할 수 없습니다.
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="desc">지금 주문 시, 서울 서초구 기준</div>
+                                    <a href="javascript:void(0)" class="btn_change_addr" onclick="window.open('/html/adidas/find_zip_oneday.html','','width=650px,height=290px,status=no,titlebar=no')">지역변경</a>
+                                </div>
+                                <!-- 170612 END -->
+
+
 								<div class="etc_info">
 									<dl class="clfix">
 										<dt>배송비</dt>
@@ -2170,9 +2232,19 @@
 									</dl>
 									<dl class="clfix">
 										<dt>카드무이자</dt>
-										<dd>
-											5만원 이상 구매시, 2~5개월
-											<span class="ico spt_bg view_card_benefit"></span>
+										<dd class="pay_info_detail">
+                                            <ul class="clfix">
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="/images/reebok/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn"> 오픈!
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    5만원 이상 구매시, 2~5개월
+        											<span class="ico spt_bg view_card_benefit"></span>
+                                                </li>
+                                            </ul>
+
 										</dd>
 									</dl>
 								</div>
