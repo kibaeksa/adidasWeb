@@ -683,8 +683,15 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 }
 
 .mypage-wrapper .mypage-contents .button_area{
+    display: block;
     display: inline-block;
-    zoom:1;*display:inline/*IE7 HACK*/;
+    height: 22px;
+    margin: 5px auto 0;
+
+}
+
+.ie7 .mypage-wrapper .mypage-contents .button_area{
+    /*display: inline;*/
 }
 
 .mypage-wrapper .mypage-contents .button_area .btn-ctm{
@@ -946,6 +953,10 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
     margin-top: 20px;
 }
 
+.ie7 .mypage-wrapper .mypage-contents .recent_order .box .button_area{
+    float: left;
+}
+
 .mypage-wrapper .mypage-contents .recent_order .box .button_area>a{
     width:110px;
     height: 36px;
@@ -993,6 +1004,7 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 .mypage-wrapper .mypage-contents .list ul li{
     font-family: 'NotosansKRLight';
     font-size: 14px;
+    letter-spacing: -0.5px;
 }
 
 /*table*/
@@ -1010,7 +1022,6 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr th{
     position: relative;
-    left:-8px;
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
     text-align: center;
@@ -1018,70 +1029,55 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
     color: #000;
 }
 
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list{
-    height: auto;
-    padding: 15px 0;
+.mypage-wrapper .mypage-contents .table-wrapper table tr{
+    border-bottom: 1px solid #ebebeb;
 }
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td{
     position: relative;
-    padding: 15px 0 18px;
-    border-bottom: 1px solid #ebebeb;
+    padding: 35px 0 35px;
     text-align: center;
+}
+
+.mypage-wrapper .mypage-contents .table-wrapper table tr.more{
+    border-bottom: 0px;
+}
+
+.mypage-wrapper .mypage-contents .table-wrapper table tr.last{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.mypage-wrapper .mypage-contents .table-wrapper table tr.more td{
+    padding: 10px 0;
 }
 
 
 .mypage-wrapper .mypage-contents .table-wrapper .button_area>a{
     width:64px;
+    margin: 0 auto;
 }
 
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box{
-    display: inline-block;
-    zoom:1;*display:inline/*IE7 HACK*/;
-    float: left;
-    width: 80px;
+.ie7 .mypage-wrapper .mypage-contents .table-wrapper .button_area>a{
+    width:64px;
+    margin: 10px auto 0;
+}
+
+.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .list_name{
+    padding-left: 48px;
+    width: 280px;
+}
+
+.mypage-wrapper .mypage-contents .table-wrapper table tr td p{
+    display: block;
     text-align: center;
-    font:13px/60px 'adihaus';
-    color:#000;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.list_number{
-    position: absolute;
-    top:50%;
-    left:0;
-    margin-top: -25px;
-    width: 180px;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.list_name{
-    padding-top: 5px;
-    padding-left: 180px;
-    width: 304px;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.list_btn{
-    width: 110px;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.list_btn p{
-    display: inline-block;
-    text-align: center;
-    font:13px/60px 'NotosansKRRegular';
-    color:#000;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.txt_btn2 p{
+    font: 12px/22px 'NotosansKRRegular';
+    color: #000;
     height: 22px;
-    line-height: 13px;
 }
 
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .box.txt_btn p{
-    padding-top: 10px;
-    line-height: 13px;
-}
-
-.mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list.single_btn .button_area{
-    padding-top: 18px;
+.ie7 .mypage-wrapper .mypage-contents .table-wrapper table tr td p{
+    margin: 0 auto;
 }
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .list_number p,
@@ -1093,7 +1089,7 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list .list_number p{
     display: block;
-    padding-bottom: 8px;
+    /*padding-bottom: 8px;*/
     font:13px/13px 'adihaus';
     letter-spacing: -0.7px;
     color:#000;
@@ -1109,7 +1105,7 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list ul li{
     position: relative;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list ul li:last-child{
@@ -1118,7 +1114,7 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list ul li .img{
     position: absolute;
-    top:0;
+    bottom:0;
     left:0;
 }
 
@@ -1127,7 +1123,8 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 }
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list ul li .info p{
-    margin-bottom: 6px;
+    /*margin-bottom: 6px;*/
+    text-align: left;
     font:14px/14px 'adinenuPro-light';
     text-transform: uppercase;
     color:#000;
@@ -1135,6 +1132,7 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 
 .mypage-wrapper .mypage-contents .table-wrapper table tr td .order_list ul li .info .ellipsis{
     font:13px/13px 'NotosansKRRegular';
+    text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1173,4 +1171,52 @@ div.refund_step{padding-top:45px;margin-top:32px;border-top:1px solid #e8e8e8;}
 .mypage-wrapper .mypage-contents .box.mypayment ul li p.content{
     font:14px/14px 'adihaus-bold','NotosansKRBold';
     float: right;
+}
+
+.mypage-wrapper .mypage-contents .tab{
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-bottom: 1px solid #e3e5e5;
+}
+
+.mypage-wrapper .mypage-contents .tab ul{
+
+}
+
+.mypage-wrapper .mypage-contents .tab ul li{
+    float: left;
+    margin-right: 40px;
+}
+
+.mypage-wrapper .mypage-contents .tab ul li span{
+    display: inline-block;
+    padding: 10px 0;
+    cursor: pointer;
+    font:15px/15px 'NotosansKRRegular';
+    color:#000;
+    letter-spacing: -0.5px;
+
+}
+
+.mypage-wrapper .mypage-contents .tab ul li.on span{
+    font:15px/15px 'NotosansKRBold';
+    border-bottom: 1px solid #000;
+}
+
+.mypage-wrapper .mypage-contents .table_content{
+    display: none;
+    opacity: 0;
+    -webkit-opacity: 0;
+    height: 0;
+    transition: opacity 1.5s;
+    -webkit-transition: opacity 1.5s;
+}
+
+.mypage-wrapper .mypage-contents .table_content.on{
+    display: block;
+    height: 100%;
+    opacity: 1;
+    -webkit-opacity: 1;
+
 }
