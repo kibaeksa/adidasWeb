@@ -550,7 +550,6 @@
         data-modalpop=""
         data-modalpop-width="600"
         data-modalpop-name="modalpop-notice1"
-        data-modalpop-autoopen=""
         data-modalpop-fade=""
     >
 	    <div class="overlay"></div>
@@ -3365,11 +3364,17 @@
 										<dd>5만원 이상 구매시 무료배송 (도서산간 지역은 추가 배송비 발생)</dd>
 									</dl>
 									<dl class="clfix">
-										<dt>결제 안내</dt>
-
+                                        <!--
+                                        170615
+                                        삭제
+                                        <dt>결제 안내</dt>
+                                         -->
 										<dd class="pay_info_detail">
                                             <ul class="clfix">
-                                                <li><a href="#"><img src="/images/adidas/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn"> 오픈!</a></li>
+                                                <li>
+                                                    <!-- 170615 문구 추가 및 클래스 추가 -->
+                                                    <a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="naverpay-eventpopup"><img src="/images/adidas/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn"> 오픈! 네이버페이로 첫 결제 시 무조건 2000원</a>
+                                                </li>
                                                 <li>카드 무이자 안내<span class="ico spt_bg view_card_benefit"></li>
                                             </ul>
                                         </dd>
@@ -4573,13 +4578,28 @@
 	</div>
 	<!-- //wrap -->
 
-	<script type="text/javascript">
-		// 2. This code loads the IFrame Player API code asynchronously.
-		var tag = document.createElement('script');
+    <!-- 170615 네이버페이 이벤트 팝업 -->
+	<div class="modal-popup-wrapper"
+	     data-modalpop=""
+	     data-modalpop-name="naverpay-eventpopup"
+	     data-modalpop-width="600"
+	     data-modalpop-height="675"
+	>
+	    <div class="overlay"></div>
+	    <div class="popup">
+	        <div class="popup-header">
+	            <h2>네이버페이 오픈 이벤트</h2>
+	            <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+	        </div>
+	        <div class="popup-contents">
+	            <img src="//image.adidas.co.kr/images/adidas/temp/popup_naverpay.jpg" alt="" usemap="#naverpay_event_map"/>
+				<map name="naverpay_event_map" id="naverpay_event_map">
+					<area alt="자세히 보기" shape="rect" coords="145,459,405,514" href="#"/>
+				</map>
+	        </div>
+	    </div>
+	</div>
 
-		tag.src = "https://www.youtube.com/iframe_api";
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-	</script>
+
  </body>
 </html>
