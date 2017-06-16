@@ -569,6 +569,28 @@
 	                  <div class="list_section">
 	                        <ul>
 
+                                <li class="vintage_pack">
+                                    <a class="full_link" href="http://shop.reebok.co.kr/brand/campaign/view.action?pn=vintage_pack"></a>
+                                    <div class="box">
+                                      <div class="img">
+                                        <img src="http://image.reebok.co.kr/images/reebok/event/about/campaign_list/vintage_pack.jpg" alt="">
+                                        <div class="link">
+                                          <p class="a_wrap">
+                                            <a href="http://shop.reebok.co.kr/brand/campaign/view.action?pn=vintage_pack">
+                                                <span class="txt">자세히 보기</span>
+                                                <em class="link_bg"></em>
+                                                <span class="overtxt">자세히 보기</span>
+                                            </a>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div class="title">
+                                        <p class="main">VINTAGE PACK</p>
+                                        <p class="desc">리복의 대표적인 코트 실루엣의 라이프 스타일 스니커즈 </p>
+                                      </div>
+                                    </div>
+                                </li>
+
                                 <li class="classic_leather">
                                     <a class="full_link" href="http://shop.reebok.co.kr/brand/campaign/view.action?pn=classic_leather"></a>
                                     <div class="box">
@@ -916,106 +938,34 @@
 
 				<script>
 
-				;(function($){
-			        // li hover -> view effect
-			        $('.campaign_list .list_wrap .list_section ul li').mouseenter(function(){
-			          var list_effect = $(this).children('.box').children('.img').children('.link').children('.a_wrap').children('a');
-			          // $(this).addClass('on');
-			          $(this).children('.box').children('.img').children('.link').addClass('on');
+			    	    ;(function($){
 
-			          list_effect.children('.link_bg').css({'left':'-100%'});
-			          list_effect.children('.link_bg').animate({'left':'0'},300);
-			          list_effect.children('.txt').addClass('on');
-			          list_effect.children('.overtxt').addClass('on');
+                            // campaign_list_height
+        					var list_len = $('.campaign_list .list_wrap .list_section ul>li').length;
+                            var campaign_margintop = 322;
+                            var campaign_marginbottom = 70;
+        					$('.campaign_list .list_wrap').css({
+        						'height' : list_len*290 + campaign_marginbottom + campaign_margintop +'px'
+        					})
 
-			          // list_effect_sibling.children('.link_bg').animate({'left':'100%'},250);
-			          // list_effect_sibling.children('.txt').removeClass('on');
-			          // list_effect_sibling.children('.overtxt').removeClass('on');
-			        })
-			        $('.campaign_list .list_wrap .list_section ul li').mouseleave(function(){
-			          var list_effect = $(this).children('.box').children('.img').children('.link').children('.a_wrap').children('a');
-			          // $(this).removeClass('on');
-			          $(this).children('.box').children('.img').children('.link').removeClass('on');
+        			        // li hover -> view effect
+        			        $('.campaign_list .list_wrap .list_section ul li').mouseenter(function(){
+        			          var list_effect = $(this).children('.box').children('.img').children('.link').children('.a_wrap').children('a');
+        			          $(this).children('.box').children('.img').children('.link').addClass('on');
+        			          list_effect.children('.link_bg').css({'left':'-100%'});
+        			          list_effect.children('.link_bg').animate({'left':'0'},300);
+        			          list_effect.children('.txt').addClass('on');
+        			          list_effect.children('.overtxt').addClass('on');
 
-			          list_effect.children('.link_bg').animate({'left':'100%'},250);
-			          list_effect.children('.txt').removeClass('on');
-			          list_effect.children('.overtxt').removeClass('on');
-			        })
+        			        })
+        			        $('.campaign_list .list_wrap .list_section ul li').mouseleave(function(){
+        			          var list_effect = $(this).children('.box').children('.img').children('.link').children('.a_wrap').children('a');
+        			          $(this).children('.box').children('.img').children('.link').removeClass('on');
+        			          list_effect.children('.link_bg').animate({'left':'100%'},250);
+        			          list_effect.children('.txt').removeClass('on');
+        			          list_effect.children('.overtxt').removeClass('on');
+        			        })
 
-
-
-
-
-
-
-								//video
-								$('.play-video').bind('click',function(){
-			            				var videoId = $(this).attr('data-video-id');
-										viewVideo(videoId);
-										return false;
-			            			});
-
-			        			function viewVideo(videoId){
-									var $this = $(this);
-									var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
-									$('html').addClass('no_scroll');
-									$('body').append(videoLayerElem);
-									setTimeout(function(){
-										$('.video_layer').addClass('loaded');
-										setTimeout(function(){
-											$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-										},20);
-									},300);
-
-									$('.video_layer .close').bind('click',function(){
-										$('html').removeClass('no_scroll');
-										$('.video_layer').remove();
-									});
-									return false;
-								}
-
-								function initVideo(targetId , videoSrc){
-									if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
-										$('.visual_video .video_bg').hide();
-										$('.visual_video .bg').animate({
-											opacity : 1
-										});
-									}
-
-									var elemVideo = document.createElement('video');
-									var elemSource = document.createElement('source');
-									var targetElem = document.getElementById(targetId);
-
-									// elemVideo.autoplay = true;
-									elemVideo.loop = true;
-									elemVideo.muted = true;
-
-									elemSource.src = videoSrc;
-									elemSource.type = 'video/mp4';
-									elemVideo.appendChild(elemSource);
-
-
-
-									elemVideo.onloadstart = function(){
-										targetElem.appendChild(elemVideo);
-										setTimeout(function(){
-											elemVideo.setAttribute('class','loaded');
-
-											setTimeout(function(){
-												elemVideo.play();
-											},100)
-										},500);
-									}
-
-									// elemVideo.onended = function(){
-									// 	this.parentNode.parentNode.removeChild(this.parentNode);
-									// 	setTimeout(function(){
-									// 		$('.visual_video .bg').addClass('active');
-									// 	},500);
-									// }
-								}
-
-								initVideo('video-background' , 'http://image.reebok.co.kr/images/reebok/event/about/about_reebok/170213.mp4?v=1');
 
 						})(jQuery);
 
