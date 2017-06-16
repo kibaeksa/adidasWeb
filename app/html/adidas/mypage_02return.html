@@ -1714,15 +1714,23 @@
 			<script type="text/javascript">
 				(function($){
 
-
-					// tab
-					function tabevent(){
-						var tab_index = $(this).index();
-						$('.tab li').removeClass('on').eq(tab_index).addClass('on');
-						$('.right-contents .table_content').removeClass('on').eq(tab_index).addClass('on');
+					var mytab = function(obj){
+						var tab_index = 0;
+						var Wrapper = $(obj);
+						var Tab = Wrapper.find('ul');
+						Wrapper.find('ul').children('li').click(function(){
+							if($(this).hasClass('on')){return}
+							tab_index = $(this).index();
+							Tab.children('li').removeClass('on').eq(tab_index).addClass('on');
+						})
 					}
 
-					$('.tab li').bind('click',tabevent);
+					$('.tab').each(function(){
+						mytab(this);
+					})
+
+
+
 
 
 
