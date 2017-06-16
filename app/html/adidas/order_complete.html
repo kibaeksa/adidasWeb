@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
 <script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/modalPopup.js"></script>
 <script type="text/javascript" src="/js/customForm.js"></script>
 <script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
@@ -23,240 +24,6 @@
 <script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
-<script type="text/javascript">
-
-	/*160929*/
-	(function($){
-		$(document).ready(function(){
-			setProdinfoPosition($(document));
-			$(document).bind('scroll',function(){
-				setProdinfoPosition($(this));
-			});
-
-			$('.payment-main .prods_info .deliv_tooltip .spt_bg').hover(function(){
-				$(this).siblings('.tooltip-layer').show();
-			},function(){
-				$(this).siblings('.tooltip-layer').hide();
-			});
-
-			function setProdinfoPosition(obj){
-				var endPos = $('#footer_r').offset().top - ($('.prods_info').outerHeight() + 120);
-				if( $('.payment-main .contents').offset().top + 58 < obj.scrollTop() && endPos > obj.scrollTop() ){
-					$('.payment-main .contents .prods_info').css({
-						top : 0
-					}).addClass('fixed');
-				}else if(endPos <= obj.scrollTop()){
-					if($('.payment-main .contents .prods_info').hasClass('fixed')){
-						$('.payment-main .contents .prods_info').removeClass('fixed').css({
-							top : ($('#footer_r').offset().top - $('.prods_info').outerHeight())-260
-						});
-					}
-				}else{
-					$('.payment-main .contents .prods_info').css({
-						top : 58
-					}).removeClass('fixed');
-				}
-			}
-
-			// 비회원 시, 로그인/비회원구매 선택 라디오버튼
-			$('.delivery_info .for_guest>.box>.box_form .input-ctm').ctmInputSetCallback({
-				before : function(){
-					if(this.hasClass('checked')){
-						return false;
-					}
-				},
-				after : function(){
-					if(this.find('input').attr('id') == 'guest_payment1'){
-						$('.delivery_info .for_guest>.deliv_form_wrap').hide()
-						$('.delivery_info .for_guest>.login_form').show();
-					}else{
-						$('.delivery_info .for_guest>.login_form').hide();
-						$('.delivery_info .for_guest>.deliv_form_wrap').show()
-
-					}
-				}
-			});
-
-			// 결제수단 선택하는 라디오버튼
-			$('.payment_info .payment_options .input-ctm').ctmInputSetCallback({
-				before: function(){
-					if(this.hasClass('checked')){
-						return false;
-					}
-				},
-				after : function(){
-					var elemId = this.find('input').attr('id');
-					$('.payment_contents>div').hide();
-					$('#'+elemId+'_payment').show();
-
-					setProdinfoPosition($(document));
-
-				}
-			});
-
-
-			// 무통장입금 신청하기/신청안함 라디오버튼
-			$('#vbank_payment #select_vbank_recpt_yn .input-ctm').ctmInputSetCallback({
-				after : function(){
-					var elemId = this.find('input').attr('id');
-					if(elemId == 'VBANK_CASH_RECPT_APPLY_Y'){
-						$('#vbank_payment #desc_vbank').show();
-						$('#vbank_payment #select_vbank_recpt_prpos').show();
-					}else{
-						$('#vbank_payment #desc_vbank').hide();
-						$('#vbank_payment #select_vbank_recpt_prpos').hide();
-					}
-				}
-			});
-
-			// 무통장입금 개인소득공제/사업자증빙 라디오버튼
-			$('#vbank_payment #select_vbank_recpt_prpos .input-ctm').ctmInputSetCallback({
-				after : function(){
-					var elemId = this.find('input').attr('id');
-					if(elemId == 'VBANK_CASH_RECPT_PUBL_PRPOS_01'){
-						$('#vbank_payment #vbank_escrw_business').hide();
-						$('#vbank_payment #vbank_escrw_personal').show();
-					}else{
-						$('#vbank_payment #vbank_escrw_personal').hide();
-						$('#vbank_payment #vbank_escrw_business').show();
-					}
-				}
-			});
-
-			// 실시간계좌이체 신청하기/신청안함 라디오버튼
-			$('#account_payment #select_account_recpt_yn .input-ctm').ctmInputSetCallback({
-				after : function(){
-					var elemId = this.find('input').attr('id');
-
-					if(elemId == 'CASH_RECPT_APPLY_Y'){
-						$('#account_payment #desc_account').show();
-						$('#account_payment #select_account_recpt_prpos').show();
-					}else{
-						$('#account_payment #desc_account').hide();
-						$('#account_payment #select_account_recpt_prpos').hide();
-					}
-				}
-			});
-
-			// 실시간계좌이체 개인소득공제/사업자증빙 라디오버튼
-			$('#account_payment #select_account_recpt_prpos .input-ctm').ctmInputSetCallback({
-				after : function(){
-					var elemId = this.find('input').attr('id');
-					if(elemId == 'CASH_RECPT_PUBL_PRPOS_01'){
-						$('#account_payment #account_escrw_business').hide();
-						$('#account_payment #account_escrw_personal').show();
-					}else{
-						$('#account_payment #account_escrw_personal').hide();
-						$('#account_payment #account_escrw_business').show();
-					}
-				}
-			});
-
-			$('.address_util .selectbox-ctm').ctmSelectSetCallback({
-				after : function(){
-					if(this.attr('data-option-value') == 'addr_option1'){
-						$('.delivery_info #address_infomation2').hide();
-						$('.delivery_info #address_infomation1').show();
-					}else{
-						$('.delivery_info #address_infomation1').hide();
-						$('.delivery_info #address_infomation2').show();
-					}
-				}
-			});
-
-			// 161116 SMS 스크립트
-			$('.sms .input-radio-ctm').ctmInputSetCallback({
-				after : function(){
-					if(this.find('input').val() == 'Y'){
-						$('.noti_sms').hide();
-					}else{
-						$('.noti_sms').show();
-					}
-				}
-			});
-
-
-			$('.view_card_benefit').bind('click',function(){
-				$('.card_benefit_layer').openModalPopup();
-			});
-
-
-			// 161213 약관동의 start
-			$('#input_inicis_agree_all').ctmSelectSetCallback({
-				after : function(){
-					var elemInputs = $('#agreebox_inicis .input-check-ctm');
-					var i = 0;
-					var isChecked = this.find('input[type="checkbox"]').attr('checked');
-
-					for(; i < elemInputs.length; i++){
-						if(isChecked){
-							if(!$(elemInputs[i]).hasClass('checked')){
-								$(elemInputs[i]).trigger('click');
-							}
-						}else{
-							if($(elemInputs[i]).hasClass('checked')){
-								$(elemInputs[i]).trigger('click');
-							}
-						}
-					}
-
-					// 161219 start
-					$('.sub_agreements').fadeIn();
-				}
-			});
-
-			$('#agreebox_inicis .input-check-ctm:not(#input_inicis_agree_all)').ctmSelectSetCallback({
-				after : function(){
-					var obj = $('#agreebox_inicis .input-check-ctm');
-					var isAllChecked = (function(){
-						var length = obj.length-1;
-						var count = 0;
-						obj.each(function(index){
-							if(index == 0){
-								return;
-							}
-
-							if($(this).find('input[type="checkbox"]').attr('checked')){
-								count += 1;
-							}
-						});
-
-						if(count == length){
-							return true;
-						}else{
-							return false;
-						}
-					})();
-
-					if(isAllChecked){
-						$('#input_inicis_agree_all').addClass('checked');
-						$('#input_inicis_agree_all').find('input[type="checkbox"]').attr('checked',true);
-					}else{
-						$('#input_inicis_agree_all').removeClass('checked');
-						$('#input_inicis_agree_all').find('input[type="checkbox"]').attr('checked',false);
-					}
-
-				}
-			});
-			// 161213 end
-
-
-
-
-
-			/* 170401 툴팁 */
-		   $('.oneday_deliv_noti>div>.box>.ico_noti').hover(function(){
-			   $(this).find('.tooltip-layer').show();
-		   },function(){
-			   $(this).find('.tooltip-layer').hide();
-		   })
-
-		});
-
-	})(jQuery);
-	/* //160929 */
-
-</script>
 
 </head>
 <body>
@@ -1551,12 +1318,29 @@
 									<th>배송지 주소</th>
 									<td>06620 서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층</td>
 								</tr>
+								<!-- 170616 스피드 배송 주문 시 도착 예정일 추가 -->
+								<tr>
+									<th>도착 예정일</th>
+									<td>
+										6월 16일 금요일
+										<span class="deliv_date spt_bg">
+											<span class="tooltip-layer" style="display: none;">
+												<span class="tooltip-contents">
+													<span>
+														주문 결제된 상품 중, 스피드 배송 대상 제품이<br>포함되어 있을 경우에는 도착예정일은<br>스피드 배송 기준 일자로 보여집니다.
+													</span>
+												</span>
+											</span>
+										</span>
+									</td>
+								</tr>
 								<tr>
 									<th class="bd_none">배송시 요청사항</th>
 									<td class="bd_none">배송 전 연락바랍니다.</td>
 								</tr>
 							</table>
-							<a href="#" class="button">교환/반품안내<span class="spt_bg"></span></a>
+							<!-- 170616 교환/반품안내 버튼 기능 추가 -->
+							<a href="javascript:void(0)" class="button modal-popup-click" data-modalpop-click="refund_popup">교환/반품안내<span class="spt_bg"></span></a>
 						</div>
 
 						<div class="button_area">
@@ -1569,7 +1353,20 @@
 						</div>
 
 					</div>
-					</div>
+				</div>
+
+				<script type="text/javascript">
+
+					// 170616 도착예정일 아이콘 오버시
+					jQuery('.deliv_date').hover(function(){
+						jQuery(this).find('.tooltip-layer').css({
+							display:'block'
+						});
+					},function(){
+						jQuery(this).find('.tooltip-layer').hide();
+					});
+
+				</script>
 		</div>
 	</div>
 
@@ -1919,6 +1716,105 @@
 		</div>
 	</div>
 
+
+	<!-- 170616 교환/반품안내 팝업 -->
+	<div class="modal-popup-wrapper"
+	     data-modalpop=""
+	     data-modalpop-name="refund_popup"
+	     data-modalpop-width="900"
+	     data-modalpop-height="600"
+	>
+	    <div class="overlay"></div>
+	    <div class="popup">
+	        <div class="popup-header">
+	            <h2>교환/반품 안내</h2>
+	            <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+	        </div>
+	        <div class="popup-contents" style="height: 500px;overflow: auto;">
+				<div class="notice_return" style="font:13px/18px 'NotoSansKR','Nanum Gothic';color: #000;">
+					<p style="margin-bottom:10px;font-size:13px;">교환안내</p>
+					<p style="font-weight: normal;line-height:17px;">아디다스 공식 온라인 스토어에서는 구매자가 선택한 배송지 주소에서 가까운 오프라인 매장에서 배송하므로,<br>교환은 배송완료 후 7일 이내에 해당상품을 반품하신 후 재주문 하여야 합니다.<br>교환의 경우 사이즈 교환 건만 해당되며, 배송한 매장에 동일한 상품 재고 보유 시 가능합니다.<br><br>교환 진행 시 교환 배송비는 고객님이 부담하셔야 합니다. (단, 상품하자는 제외됩니다.)<br>주문 상품 교환하실 경우 배송된 매장별로 사이즈 교환 시 배송비는 각각 왕복 배송비 부담하셔야 합니다.</p>
+					<div style="margin-bottom:25px;padding-bottom:25px;border-bottom:1px dotted #83868c;">
+						<p style="font-size:13px;margin:25px 0 5px;">피해유형에 따른 보상기준 (의류,신발,용품)
+						</p><table cellpadding="0" cellspacing="0" style="width:815px;">
+							<colgroup>
+								<col width="320">
+								<col width="130">
+								<col width="*">
+							</colgroup>
+							<tbody><tr>
+								<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">피해유형</th>
+								<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">보상기준</th>
+								<th style="height:25px;text-align:center;border:1px solid #d4d4d4;background:#f1f1f1;">비고</th>
+							</tr>
+							<tr>
+								<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;background:#fff;">
+									<p style="font-weight:normal;margin-bottom:6px;">-봉제불량</p>
+									<p style="font-weight:normal;margin-bottom:6px;">-B2원단불량 (제작불량, 세탁 후 변색, 탈색, 수축 등)</p>
+									<p style="font-weight:normal;margin-bottom:6px;">-부자재 불량(단추, 지퍼 등)</p>
+									<p style="font-weight:normal;margin-bottom:6px;">-치수(사이즈)의 부정확</p>
+									<p style="font-weight:normal;">-부당표시(미표시 및 부실 표시) 및 소재구성</p>
+									<p style="font-weight:normal;margin-bottom:6px;padding-left:8px;">부정합으로 인한 세탁사고)</p>
+									<p style="font-weight:normal;margin-bottom:6px;">-접착불량</p>
+									<p style="font-weight:normal;margin-bottom:6px;">-염색불량</p>
+								</td>
+								<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;text-align:center;background:#fff;">수리→교환→환급</td>
+								<td style="padding:15px;border:1px solid #d4d4d4;background:#fff;">
+									<dl style="margin:0;clear:none;">
+										<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+										<dd style="margin-bottom:10px;float:none;width:auto;">동일가격 , 동일제품교환을 원칙으로 함.</dd>
+										<dt style="margin-bottom:5px;float:none;width:auto;">보상순위</dt>
+										<dd style="margin-bottom:10px;float:none;width:auto;">보상은 무상수리, 유상수리, 교환, 환급의 순으로 함</dd>
+										<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+										<dd style="float:none;width:auto;">교환 또는 환급은 구입가격기준을 원칙으로 함.<br>단, 품질보증기간이내 제품은 구입가 환급, 품질보증기간 경과 제품은 감가함. (세탁업배상 비율표 적용)<br>표시가격 변동시의 구입 및 특수매장 구입여부를 불문하고, 구입처 교환을 원칙으로 함.</dd>
+									</dl>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;background:#fff;">
+									<p style="font-weight:normal;">-치수(사이즈)가 맞지 않거나 디자인, 색상에 불만</p>
+								</td>
+								<td style="text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#fff;">교환→환급</td>
+								<td style="padding:15px;border:1px solid #d4d4d4;background:#fff;">
+									<dl style="margin:0;clear:none;">
+										<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+										<dd style="float:none;width:auto;">구입 후 7일이내로서 제품에 손상이 없는 경우.<br>단, 맞는 치수(사이즈)가 없을 시 환급가능</dd>
+									</dl>
+								</td>
+							</tr>
+						</tbody></table>
+					</div>
+
+					<p style="margin-bottom:10px;font-size:13px;">반품안내</p>
+					<p style="margin-bottom:20px;">반품은 배송완료일로부터 7일 이내에 신청해 주십시오.<br>단, 다음과 같은 경우 반품신청이 불가능 할 수 있습니다.</p>
+					<ul class="li-dot">
+						<li><span class="bul"></span>반품요청기간이 지난 경우</li>
+						<li><span class="bul"></span>포장을 개봉하였거나 포장이 훼손되어(상품의 Tag분리/분실, 비닐포장 훼손, 신발박스 훼손 등) 상품가치가 현저히 감소한 경우 </li>
+						<li><span class="bul"></span>액세서리, 전자제품의 포장을 개봉 하였으나 단순 변심으로 교환,반품 원하는 경우 </li>
+						<li><span class="bul"></span>구매자의 책임있는 사유로 상품 등이 멸실 또는 훼손된 경우 </li>
+						<li><span class="bul"></span>구매자의 사용 또는 일부 소비에 의하여 상품가치가 현저히 감소한 경우 </li>
+						<li><span class="bul"></span>기간의 경과에 의하여 재판매가 곤란할 정도로 상품가치가 현저히 감소한 경우</li>
+						<li><span class="bul"></span>주문확인 후 상품제작에 들어가는 주문제작 상품인 경우 </li>
+						<li><span class="bul"></span>복제가 가능한 상품 등의 포장을 훼손한 경우 </li>
+						<li style="margin-bottom:15px;"><span class="bul"></span>단, 재화 등의 내용이 표시 (이미지 또는 기능을 포함) 및 광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급 받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약 철회 등을 할 수 있습니다.</li>
+					</ul>
+					<p style="margin-bottom:20px;">반품은 아래 방법으로 진행해 주셔야 빠른 환불처리가 가능합니다.</p>
+					<ul class="li-dot">
+						<li><span class="bul"></span><strong>[로그인 &gt; 마이페이지 &gt; 나의 쇼핑내역 &gt; 취소/반품 조회]</strong> 페이지에서 신청해 주셔야 합니다.</li>
+						<li><span class="bul"></span><strong>고객 단순변심</strong>에 의한 반품 시 <strong>왕복 배송비</strong>를 부담하셔야 합니다.</li>
+						<li><span class="bul"></span>상품불량/오배송 으로 인한 반품시 택배비는 <strong>아디다스</strong>에서 부담하며 반드시 한진 택배를 이용하셔야 합니다. </li>
+						<li><span class="bul"></span>반송하실 상품은 배송된 <strong>오프라인매장</strong>으로 반품해 주셔야 합니다. 오프라인매장주소는 배송박스를 참조해 주십시오. <br>
+						    반품 회수 택배사는 <strong>한진 택배</strong>이며, 다른 택배회사를 이용하여 반품하는 경우 환불이 지연될 수 있습니다. <br>
+						    다른 택배 회사를 통해 반품시 <strong>고객센터(1588-8241)</strong>로 통화 후에 택배비 고객 부담으로 진행해주셔야 합니다.</li>
+						<li><span class="bul"></span>기타 다른 방법으로 반품하시는 경우 환불처리가 지연될 수 있습니다.</li>
+						<li><span class="bul"></span>부분 반품을 하는 경우, 반품하지 않는 상품의 금액이 5만원 이상이면 반품 배송비만 부담하시면 됩니다. <br>
+						    상품 금액이 <strong>5만원 미만</strong>일 경우에는 <strong>왕복 배송비를 부담</strong>해주셔야 합니다.</li>
+						<li><span class="bul"></span>환불은 반품완료된 날로부터 3영업일 이내에 환불이 됩니다.</li>
+					</ul>
+				</div>
+	        </div>
+	    </div>
+	</div>
 
 
 </div>
