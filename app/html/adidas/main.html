@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
 <script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.7.2.custom.js"></script>
 <script src="/js/modalPopup.js"></script>
 <script type="text/javascript" src="/js/customForm.js"></script>
 <script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
@@ -24,63 +25,6 @@
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
-
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
-
-		});
-
-		jQuery('#new_prodlist li').hover(function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
-		},function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);
-		});
 
 		// 170511 푸터 SNS 레이어 수정 START
 		jQuery('.f_sns>div>a.btn').bind('click',function(){
@@ -497,23 +441,26 @@
 							<div class="ct950">
 								<div class="ctgr_box">
 									<div class="box col_18">
+										<!--
+										170616
+										* 남성 ==> FEATURES 메뉴로 변경
+										* 메뉴 내용 변경
+										-->
 										<dl>
-											<dt>남성</dt>
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><storng>온라인 단독상품</storng></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#" class="blue">온라인 단독</a></li>
+													<li><a href="#" class="blue" class="blue">런칭 캘린더</a></li>
+													<li><a href="#" class="blue">스탭 리뷰</a></li>
+													<li><a href="#" class="blue">VR 스토어</a></li>
+													<li class="line"><a href="#" class="blue">마이 아디다스</a></li>
+													<li><a href="#">러닝화 가이드</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -611,24 +558,26 @@
 							<div class="ct950">
 								<div class="ctgr_box">
 									<div class="box col_18">
+										<!--
+										170616
+										* 여성 ==> FEATURES 메뉴로 변경
+										* 메뉴 내용 변경
+										-->
 										<dl>
-											<dt>여성</dt>
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><strong>온라인 단독상품</strong></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">팬츠 가이드</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#" class="blue">온라인 단독</a></li>
+													<li><a href="#" class="blue" class="blue">런칭 캘린더</a></li>
+													<li><a href="#" class="blue">스탭 리뷰</a></li>
+													<li><a href="#" class="blue">VR 스토어</a></li>
+													<li class="line"><a href="#" class="blue">마이 아디다스</a></li>
+													<li><a href="#">스포츠브라 가이드</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -727,22 +676,23 @@
 								<div class="ctgr_box">
 									<div class="box col_18">
 										<dl>
-											<dt>키즈</dt>
+											<!--
+											170616 KIDS
+											* 키즈 ==> FEATURES 메뉴로 변경
+											* 메뉴 내용 변경
+											-->
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><strong>온라인 단독상품</strong></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#" class="blue">온라인 단독</a></li>
+													<li class="line"><a href="#" class="blue">스탭 리뷰</a></li>
+													<li><a href="#" class="blue" class="blue">슈퍼스타 360</a></li>
+													<li class="line"><a href="#" class="blue">스타워즈컬렉션</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -1375,8 +1325,8 @@
 						</div>
 						<!-- //depth2_contents -->
 					</li>
-					<!-- 170220 VR STORE 추가 -->
-					<li class="vrstore">
+					<!-- 170615 VR 메뉴 삭제 -->
+					<!-- <li class="vrstore line">
 						<a href="http://360pano.kr/adidaskorea/20170209/web/" target="_blank">VR STORE</a>
 						<div class="depth2_contents">
 							<div class="ct950">
@@ -1395,8 +1345,13 @@
 								</div>
 							</div>
 						</div>
+					</li> -->
+
+					<!-- 170615 스피드배송 추가 -->
+					<li class="kor">
+						<a href="#">스피드 배송</a>
 					</li>
-					<!-- 170220 VR STORE 끝 -->
+
 				</ul>
 			</div>
 			<!-- //gnb_menu -->
@@ -2039,7 +1994,7 @@
 			}
 		</style>
 		<!-- 170602 popup-->
-		<div class="modal-popup-wrapper promotion_popup"
+		<!-- <div class="modal-popup-wrapper promotion_popup"
 		     data-modalpop=""
 		     data-modalpop-name="fade-popup"
 		     data-modalpop-width="600"
@@ -2059,7 +2014,7 @@
 				   </div>
 		        </div>
 		    </div>
-		</div>
+		</div> -->
 		<!-- 170602 end-->
 
 		<div id="footer">
