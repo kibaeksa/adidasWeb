@@ -1052,33 +1052,6 @@
 		<!-- header HTML -->
 
 
-<style>
-.athletic .inner_wrap .box .inner_box .txt .buy em {
-	position: relative;
-	top: 2px;
-	display: inline-block;
-	width: 19px;
-	height: 17px;
-	margin-left: 34px;
-	background: url("http://image.adidas.co.kr/images/adidas/event/athletic/icons.png") -18px 0px no-repeat;
-}
-.athletic .inner_wrap .box .inner_box .txt .buy:hover em {
-    background-position: 0px 0;
-}
-.athletic .inner_wrap .banners .center .txt .buy em {
-    position: relative;
-    top: 2px;
-    display: inline-block;
-    width: 19px;
-    height: 17px;
-    margin-left: 34px;
-    background: url("http://image.adidas.co.kr/images/adidas/event/athletic/icons.png") -18px 0px no-repeat;
-}
-.athletic .inner_wrap .banners .center .txt .buy:hover em{
-		background-position: 0px 0;
-}
-</style>
-
 
 		<div id="container_r">
 
@@ -1097,29 +1070,40 @@
 					<div class="copy_wrap">
 						<h4>스포츠는 단순히 게임이 아니다.</h4>
 						<p class="desc">나를 나답게 하는 모든 것. 내가 존재하는 이유. 시계 위 초침처럼 빼곡하게 일상에 침투한다.<br/>내가 존재하는 모든 순간, 나는 스포츠로 숨을 쉰다.</p>
-						<a href="#" class="button">제품 구매하기</a>
+						<a href="#" class="button" style="width:186px;">제품 구매하기</a>
 					</div>
 				</div>
 
-				<div class="category_box">
+				<div class="category_box box_men">
 					<div class="bg">
-						<img src="/images/adidas/event/athletics/category_visual1.jpg " alt="">
+						<img src="/images/adidas/event/athletics/athletic-img-men-bg.jpg " alt="">
 					</div>
 					<div class="copy_wrap">
 						<h5>MEN'S ATHLETICS</h5>
-						<div class="desc">애슬레틱스 남성</div>
-						<a href="#" class="button">구매하기</a>
+						<div class="desc">애슬레틱 남성</div>
+						<a href="#" class="button">남성 제품 구매하기</a>
+					</div>
+					<div class="thumb_img">
+						<div class="ct950">
+							<img src="/images/adidas/event/athletics/athletic-img-men.jpg" class="thumnail">
+						</div>
 					</div>
 				</div>
 
-				<div class="category_box">
+				<div class="category_box box_women">
 					<div class="bg">
-						<img src="/images/adidas/event/athletics/category_visual2.jpg " alt="">
+						<img src="/images/adidas/event/athletics/athletic-img-women-bg.jpg " alt="">
 					</div>
 					<div class="copy_wrap align_r">
 						<h5>WOMEN'S ATHLETICS</h5>
-						<div class="desc">애슬레틱스 여성</div>
-						<a href="#" class="button">구매하기</a>
+						<div class="desc">애슬레틱 여성</div>
+						<a href="#" class="button">여성 제품 구매하기</a>
+					</div>
+					<div class="thumb_img women">
+						<div class="ct950" style="position:relative;">
+							<img src="/images/adidas/event/athletics/shadow.png" class="shadow">
+							<img src="/images/adidas/event/athletics/athletic-img-women.jpg" class="thumnail">
+						</div>
 					</div>
 				</div>
 
@@ -1129,7 +1113,8 @@
 					</div>
 					<div class="copy_wrap">
 						<h5>adidas <span>x</span><br/>reigning champ</h5>
-						<a href="#" class="button">구매하기</a>
+						<div class="desc">아디다스 x 레이닝 챔프 </div>
+						<a href="#" class="button" style="width:186px;">제품 구매하기</a>
 					</div>
 				</div>
 
@@ -1137,11 +1122,29 @@
 			</div>
 			<!-- //athletic -->
 
-
 			<!-- <script type="text/javascript" src="/js/adidas/event/customise/common.js"></script> -->
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
 				(function($){
+					$(window).scroll(function(){
+						var scrollpos = $(this).scrollTop() + $('.statement').height() + $('.masthead').height() + $('#header-20160315').height();
+						var men_section = $('.box_men').offset().top;
+						var women_section = $('.box_women').offset().top;
+						var banner_box = $('.banner_box').offset().top;
+
+						var array = [men_section, women_section,banner_box];
+
+						for(var index = 0; index<array.length; index++){
+
+							if(scrollpos>array[index]){
+								$('.category_box').eq(index).addClass('effect');
+								$('.banner_box').children('bg').addClass('effect');
+							}
+
+						}
+					})
+
+
 
 
 				})(jQuery);
