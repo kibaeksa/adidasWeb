@@ -1288,6 +1288,20 @@ function blurAction(obj,moveId,dir,obj2){
 				var itemDisplayed = 3;
 				var containerElem = $(this).find('.othercolor_slider');
 				var sliderElem = $(this).find('.othercolor_slider ul');
+				var imageElem = $(this).find('.img>a>img');
+
+				var mainOverImage = imageElem.attr('data-over');
+				var mainOutImage = imageElem.attr('data-out');
+
+				if(mainOverImage != undefined){
+					$(this).find('.img>a>img').hover(function(){
+						$(this).attr('src',mainOverImage);
+					},function(){
+						$(this).attr('src',mainOutImage);
+					});
+				}
+
+
 				if($(this).find('.othercolor_slider').length > 0 && $(this).find('.othercolor_slider li').length > itemDisplayed){
 
 					$(this).attr('data-othercolor-init',true);
@@ -1329,6 +1343,12 @@ function blurAction(obj,moveId,dir,obj2){
 						if(length == index + itemDisplayed){
 							$(this).addClass('disable');
 						}
+					});
+
+					$(this).find('.othercolor_slider .slider_wrapper li img').hover(function(){
+						imageElem.attr('src',$(this).attr('data-over'));
+					},function(){
+						imageElem.attr('src',mainOutImage);
 					});
 
 				}
