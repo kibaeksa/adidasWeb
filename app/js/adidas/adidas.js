@@ -1302,54 +1302,57 @@ function blurAction(obj,moveId,dir,obj2){
 				}
 
 
-				if($(this).find('.othercolor_slider').length > 0 && $(this).find('.othercolor_slider li').length > itemDisplayed){
+				if($(this).find('.othercolor_slider').length > 0 ){
 
 					$(this).attr('data-othercolor-init',true);
-					length = $(this).find('.othercolor_slider li').length;
-
-					$(this).find('.othercolor_slider').append('<a href="javascript:void(0)" class="prev plp_spt_bg disable"></a><a href="javascript:void(0)" class="next plp_spt_bg"></a>');
-
-					$(this).find('.othercolor_slider .prev').bind('click',function(){
-						if($(this).hasClass('disable')){
-							return;
-						}
-
-						containerElem.find('.next').removeClass('disable');
-
-						index--;
-
-						sliderElem.stop().animate({
-							left : index * -55
-						});
-
-						if(index == 0){
-							$(this).addClass('disable');
-						}
-					});
-
-					$(this).find('.othercolor_slider .next').bind('click',function(){
-						if($(this).hasClass('disable')){
-							return;
-						}
-
-						containerElem.find('.prev').removeClass('disable');
-
-						index++;
-
-						sliderElem.stop().animate({
-							left : index * -55
-						});
-
-						if(length == index + itemDisplayed){
-							$(this).addClass('disable');
-						}
-					});
 
 					$(this).find('.othercolor_slider .slider_wrapper li img').hover(function(){
 						imageElem.attr('src',$(this).attr('data-over'));
 					},function(){
 						imageElem.attr('src',mainOutImage);
 					});
+
+					if($(this).find('.othercolor_slider li').length > itemDisplayed){
+						length = $(this).find('.othercolor_slider li').length;
+
+						$(this).find('.othercolor_slider').append('<a href="javascript:void(0)" class="prev plp_spt_bg disable"></a><a href="javascript:void(0)" class="next plp_spt_bg"></a>');
+
+						$(this).find('.othercolor_slider .prev').bind('click',function(){
+							if($(this).hasClass('disable')){
+								return;
+							}
+
+							containerElem.find('.next').removeClass('disable');
+
+							index--;
+
+							sliderElem.stop().animate({
+								left : index * -55
+							});
+
+							if(index == 0){
+								$(this).addClass('disable');
+							}
+						});
+
+						$(this).find('.othercolor_slider .next').bind('click',function(){
+							if($(this).hasClass('disable')){
+								return;
+							}
+
+							containerElem.find('.prev').removeClass('disable');
+
+							index++;
+
+							sliderElem.stop().animate({
+								left : index * -55
+							});
+
+							if(length == index + itemDisplayed){
+								$(this).addClass('disable');
+							}
+						});
+					}
 
 				}
 			});
@@ -1367,9 +1370,9 @@ function blurAction(obj,moveId,dir,obj2){
 			});
 
 			/*
-			PLP Color / Size Filter 부분
+			PLP Size Filter 부분
 			*/
-			$('.filter_box.color_filter .content_inner>.button_box>a , .filter_box.size_filter .content_inner>.button_box>a').bind('click',function(){
+			$('.filter_box.size_filter .content_inner>.button_box>a').bind('click',function(){
 				var filterContainer = $(this).parents('.filter_box');
 
 				if(!$(this).hasClass('on')){
