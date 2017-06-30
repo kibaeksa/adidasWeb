@@ -119,13 +119,14 @@ $width600:600px;
 }
 /* video_layer end */
 
-
+#wrap{
+	min-width: 1280px;
+	overflow: hidden;
+}
 /* ultra_boost */
 .ultra_boost{
 	position: relative;
 	background: #fff;
-	min-width: 1460px;
-	overflow: hidden;
 
 	.button_area{
 		&:hover{
@@ -348,6 +349,7 @@ $width600:600px;
 		position: relative;
 		padding-top: 66px;
 		height: 748px;
+		overflow: hidden;
 		.bg{
 			img{
 				position: absolute;
@@ -401,6 +403,7 @@ $width600:600px;
 
 	.campaign-content{
 		position: relative;
+		overflow: visible;
 		@include transition(opacity,0.5s);
 
 		.image-grids{
@@ -417,9 +420,7 @@ $width600:600px;
 							top: 63%;
 							left: 32%;
 							transform: translate(-50%,-50%);
-							@media screen and (max-width:1780px) {
-								// width: 260px;
-							}
+
 						}
 					}
 				}
@@ -428,6 +429,9 @@ $width600:600px;
 	}
 
 	.banner_wrap{
+		position: relative;
+		// width: 1460px;
+		margin: 0 auto;
 		padding-bottom: 102px;
 		h3{
 			padding: 95px 0;
@@ -455,13 +459,16 @@ $width600:600px;
 					margin-right: 20px;
 					text-align: center;
 					width:345px;
-					height: 450px;
 					overflow: hidden;
 					perspective: 500px;
 					-webkit-perspective: 500px;
 					-moz-perspective: 500px;
 					-o-perspective: 500px;
 					-ms-perspective: 500px;
+					@media screen and (max-width:1780px) {
+						width:280px;
+						margin-right: 10px;
+					}
 					img{
 						width: 100%;
 						// @include transition(all,3s);
@@ -496,10 +503,15 @@ $width600:600px;
 					}
 					.button_area{
 						position: absolute;
-						top:362px;
+						bottom:35px;
 						left:50%;
 						margin-left: -140px;
 						width:280px;
+						@media screen and (max-width:1780px) {
+							bottom: 25px;
+						    width: 258px;
+						    margin-left: -128px;
+						}
 					}
 				}
 			}
