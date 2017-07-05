@@ -27,15 +27,28 @@ var openMiPopup;
 })();
 
 function openModalVideoViewer(ytbId , width , height){
-	var videoWidth = width == undefined ? 950 : width;
-	var videoHeight = height == undefined ? 500 : height;
-	var popupMarginProp = 'margin:-'+(videoHeight/2)+'px 0 0 -'+(videoWidth/2)+'px';
+	var videoWidth = width == undefined ? '100%' : width;
+	var videoHeight = width == undefined ? '100%' : height;
+	var popupStyle;
+
+	if(width == undefined){
+		popupStyle = 'width:100%;height:100%;top:0;left:0;margin:0;';
+	}else{
+		if(videoHeight == undefined){
+			videoHeight = width * 0.55;
+		}
+		popupStyle = 'width:'+videoWidth+'px;height:'+videoHeight+'px;margin:-'+(videoHeight/2)+'px 0 0 -'+(videoWidth/2)+'px;';
+	}
+
 
 	var htmlString = '<div id="video-modal-popup">';
 		htmlString += '	<div class="overlay"></div>';
-		htmlString += '	<div class="popup" style="'+popupMarginProp+'">';
-		htmlString += '		<a href="javascript:void(0)" class="close spt_bg"></a>';
-		htmlString += '		<iframe class="video" id="main_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="'+videoWidth+'" height="'+videoHeight+'" src="https://www.youtube.com/embed/'+ytbId+'?rel=0&autoplay=1"></iframe>'
+		htmlString += '	<div class="popup" style="'+popupStyle+'">';
+		if(width == undefined){
+			htmlString += '		<a href="javascript:void(0)" class="close spt_bg" style="top:0;"></a>';
+		}else{
+			htmlString += '		<a href="javascript:void(0)" class="close spt_bg"></a>';
+		}
 		htmlString += '	</div>';
 		htmlString += '</div">';
 
@@ -47,6 +60,14 @@ function openModalVideoViewer(ytbId , width , height){
 	jQuery('#video-modal-popup .close').click(function(){
 		jQuery('#video-modal-popup').remove();
 	});
+
+	setTimeout(function(){
+		jQuery('#video-modal-popup').addClass('loaded');
+		setTimeout(function(){
+				jQuery('#video-modal-popup .popup').append('<iframe class="video" id="main_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="'+videoWidth+'" height="'+videoHeight+'" src="https://www.youtube.com/embed/'+ytbId+'?rel=0&autoplay=1"></iframe>');
+		},100);
+
+	},200);
 
 }
 
