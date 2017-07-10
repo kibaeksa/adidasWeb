@@ -1177,10 +1177,6 @@ function blurAction(obj,moveId,dir,obj2){
 					var timer;
 					var sliderContainerElem = $(this).find('.othercolor-products-list');
 
-					sliderContainerElem.find('.slider_wrap li').bind('click',function(){
-						return false;
-					});
-
 					sliderContainerElem.find('.slider_wrap li').bind('mouseover',function(){
 						var img170 = $(this).find('a').attr('data-170');
 						$this.find('.img>a>img').attr('src',img170);
@@ -1330,7 +1326,7 @@ function blurAction(obj,moveId,dir,obj2){
 					$(this).find('.othercolor_slider .slider_wrapper li img').hover(function(){
 						imageElem.attr('src',$(this).attr('data-over'));
 					},function(){
-						imageElem.attr('src',mainOutImage);
+						// imageElem.attr('src',mainOutImage);
 					});
 
 					if($(this).find('.othercolor_slider li').length > itemDisplayed){
@@ -1388,6 +1384,8 @@ function blurAction(obj,moveId,dir,obj2){
 			$('.plp-wrapper .plp-contents .plp-products .plp-grid .item').bind('mouseleave',function(){
 				clearTimeout(itemTimer);
 				$(this).removeClass('hover');
+				$(this).find('.img>a>img').attr('src',$(this).find('.img>a>img').attr('data-out'));
+				imageElem.attr('src',mainOutImage);
 			});
 
 			/*
