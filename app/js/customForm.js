@@ -21,7 +21,7 @@
 				var optionValue = $(this).attr('data-option-value');
 
 				if($this.hasClass('selected')){
-					elemContainer.find('>a').text(optionText);
+					elemContainer.find('>a').html(optionText);
 					elemContainer.attr('data-value',optionValue);
 				}
 			});
@@ -58,7 +58,7 @@
 
 					elemOpions.removeClass('selected');
 					$this.addClass('selected');
-					elemContainer.find('>a').text(optionText);
+					elemContainer.find('>a').html(optionText);
 					elemContainer.attr('data-value',$this.attr('data-option-value'));
 
 					if(!!elemContainer.data('callback') && !!elemContainer.data('callback').after){
