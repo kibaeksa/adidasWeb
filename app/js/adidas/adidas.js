@@ -1388,25 +1388,6 @@ function blurAction(obj,moveId,dir,obj2){
 				imageElem.attr('src',mainOutImage);
 			});
 
-			/*
-			PLP Size Filter 부분
-			*/
-			$('.filter_box.size_filter .content_inner>.button_box>a').bind('click',function(){
-				var filterContainer = $(this).parents('.filter_box');
-
-				if(!$(this).hasClass('on')){
-					filterContainer.find('.content_inner>.button_box>a').removeClass('on');
-					$(this).addClass('on');
-					filterContainer.find('.btn-ctm').css({
-						display: 'block'
-					});
-					setTimeout(function(){
-						filterContainer.find('.btn-ctm').addClass('active');
-					},10);
-				}
-
-			});
-
 			$('.filter_box.price_filter .input-radio-ctm').ctmInputSetCallback({
 				after : function(){
 					if($('.filter_box.price_filter .btn-ctm').hasClass('active')){
