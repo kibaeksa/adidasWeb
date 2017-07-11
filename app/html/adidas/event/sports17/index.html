@@ -1244,7 +1244,7 @@
 							</li>
 							<!-- 배구 -->
 							<li slide_index="4">
-								<img src="http://image.adidas.co.kr/images/adidas/event/sports1720170712/volleyball_visual.png" alt="">
+								<img src="http://image.adidas.co.kr/images/adidas/event/sports17/20170712/volleyball_visual.png" alt="">
 							</li>
 							<!-- 트레이닝 -->
 							<li slide_index="5">
@@ -1261,8 +1261,8 @@
 					<div class="num_wrap">
 						<div class="num">
 							<a href="#" data-index="-1" gal-index="0"><span>축구</span></a>
-							<a href="#" data-index="0" gal-index="1" class="on"><span>야구</span></a><!-- 처음보이는 화면 -->
-							<a href="#" data-index="1" gal-index="2"><span>미식축구</span></a>
+							<a href="#" data-index="0" gal-index="1" class="on"><span>야구</span></a>
+							<a href="#" data-index="1" gal-index="2"><span>미식축구</span></a><!-- 처음보이는 화면 -->
 							<a href="#" data-index="2" gal-index="3"><span>농구</span></a>
 							<a href="#" data-index="3" gal-index="4"><span>배구</span></a>
 							<a href="#" data-index="4" gal-index="5"><span>트레이닝</span></a>
@@ -1455,7 +1455,7 @@
 						<span>상상력은 모든 걸 바꾼다.</span></p>
 					</div>
 					<div class="img">
-						<a href="javascript:void(0)" class="video-button" data-video-id="LG7Rr_vlB8I"><img src="http://image.adidas.co.kr/images/adidas/event/sports17/20170712/video.png" alt="" /></a>
+						<a href="javascript:void(0)" class="video-button" onclick="openModalVideoViewer('LG7Rr_vlB8I')"><img src="http://image.adidas.co.kr/images/adidas/event/sports17/20170712/video.png" alt="" /></a>
 					</div>
 				</div>
 				</div>
@@ -1609,35 +1609,6 @@
 						num_init_left = window_width/2 - 475;
 						numSlider.css({ 'left' : -numSlider_width*incre + num_init_left });
 					});
-
-					// video
-					$('.video-button').bind('click',function(){
-						console.log(11);
-						var videoId = $(this).attr('data-video-id');
-						viewVideo(videoId);
-						return false;
-					});
-
-
-					function viewVideo(videoId){
-						var $this = $(this);
-						var videoLayerElem = $('<div class="video-viewer"><a class="spt_bg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
-						$('html').addClass('no_scroll');
-						$('body').append(videoLayerElem);
-						setTimeout(function(){
-							$('.video-viewer').addClass('loaded');
-							setTimeout(function(){
-								$('.video-viewer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-							},20);
-						},300);
-
-						$('.video-viewer .close').bind('click',function(){
-							$('html').removeClass('no_scroll');
-							$('.video-viewer').remove();
-						});
-						return false;
-					}
-
 
 				})(jQuery);
 
