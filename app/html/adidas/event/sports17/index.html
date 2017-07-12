@@ -1354,18 +1354,28 @@
 						if(index == 0){
 							return;
 						}
+						$('#sports17 .wrap .btn .next').show();
 
 						index -= 1;
 						animate();
+
+						if(index == 0){
+							$(this).hide()
+						}
 					});
 
 					$('#sports17 .wrap .btn .next').bind('click',function(){
 						if(index == length-1){
 							return;
 						}
+						$('#sports17 .wrap .btn .prev').show();
 
 						index += 1;
 						animate();
+
+						if(index == length-1){
+							$(this).hide()
+						}
 					});
 
 					numSliderElem.find('a').bind('click',function(){
@@ -1375,6 +1385,17 @@
 
 						index = $(this).index();
 						animate();
+
+						if(index == 0){
+							$('#sports17 .wrap .btn .next').show();
+							$('#sports17 .wrap .btn .prev').hide();
+						}else if(index == length-1){
+							$('#sports17 .wrap .btn .next').hide();
+							$('#sports17 .wrap .btn .prev').show();
+						}else{
+							$('#sports17 .wrap .btn .next').show();
+							$('#sports17 .wrap .btn .prev').show();
+						}
 					});
 
 
