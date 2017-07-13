@@ -92,7 +92,8 @@
 									<li><span class="bul"></span>주문 상태가 배송준비중인 경우부터, 주문 취소 불가하오니 상품 수령 후 반품 신청해주시기 바랍니다.</li>
 									<li><span class="bul"></span>무통장입금의 환불은 주말, 공휴일을 제외한 영업일기준, 익일 16시에 처리됩니다. ( 배송시작전 : 주문취소 후 익일 16시, 배송시작후 : 반품절차 완료 후 익일 16시 )</li>
 								</ul>
-								<p class="link"><a href="#">반품신청 절차</a></p>
+								<!-- 170713 반품신청절차 팝업 클릭버튼 수정-->
+								<p class="link"><a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="return_process" >반품신청 절차</a></p>
 							</div>
 							<!-- 170615 -->
 							<div class="tab">
@@ -427,6 +428,7 @@
 			<script type="text/javascript">
 				(function($){
 
+					//tab
 					var mytab = function(obj){
 						var tab_index = 0;
 						var Wrapper = $(obj);
@@ -438,10 +440,10 @@
 							$('.table_content').removeClass('on').eq(tab_index).addClass('on');
 						})
 					}
-
 					$('.tab').each(function(){
 						mytab(this);
 					})
+
 
 				})(jQuery);
 			</script>
@@ -699,6 +701,69 @@
 			</div>
 		</div>
 		<!-- 170619 반품상세 팝업 end -->
+
+		<!-- 170713 반품 신청절차 팝업 -->
+		<div class="modal-popup-wrapper mypage-wrapper"
+			 data-modalpop=""
+			 data-modalpop-name="return_process"
+			 data-modalpop-width="650"
+			 data-modalpop-height="600"
+		>
+			<div class="overlay"></div>
+			<div class="popup mypage-popup-wrapper">
+
+				<div class="popup-header">
+					<h2>반품신청절차</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents mypage-popup-content">
+					<div class="inner">
+						<div class="process_box" style="padding-top:0;">
+							<h3>STEP 01 <span>반품신청</span></h3>
+							<div class="list">
+								<ul class="li-dot">
+									<li><span class="bul"></span>반품은 <span class="red">[마이페이지 > 나의쇼핑내역 > 주문/배송조회 또는 취소/반품조회]</span> 에서 신청하실 수 있습니다.</li>
+									<li><span class="bul"></span>반품은 상품 수령하고 주문상태가 배송완료가 된 후, 반품신청을 통해 가능 합니다.</li>
+									<li><span class="bul"></span>상품의 택을 제거하였거나 신발 박스가 훼손 되었을 경우 반품이 불가능합니다.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="process_box">
+							<h3>STEP 02 <span>반품배송</span></h3>
+							<div class="list">
+								<ul class="li-dot">
+									<li><span class="bul"></span>반품신청 후 3~5일 내에 입력한 주소로 택배 기사가 방문하여 상품을 회수 합니다.</li>
+									<li><span class="bul"></span>배송 위탁 계약사인 한진택배 외 다른 택배회사를 이용하여 반품하는 경우 반품이 지연될 수 있으며,<br>분실 시 보상이 불가능합니다.</li>
+									<li><span class="bul"></span>부득이 하게 다른 택배 회사를 이용하였을 경우 반드시 고객센터로 연락을 주셔야 원활한 반품이 진행됩니다.</li>
+									<li><span class="bul"></span><span class="red">주문 제품이 출고된 매장이 아닌 아디다스 본사로 교환/반품 택배 발송 시에는 다시 출고된 매장으로<br>반송처리 되어지므로, 교환/반품 처리 기간이 지연됩니다.</span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="process_box">
+							<h3>STEP 03 <span>상품 상태 확인</span></h3>
+							<div class="list">
+								<ul class="li-dot">
+									<li><span class="bul"></span>회수되어 매장에 도착한 상품은 상태 확인 후 이상이 없을 시 반품완료 처리 됩니다.</li>
+									<li><span class="bul"></span>상품 훼손이나 반품 시 선택한 사유와 상이하여 이상이 있을 경우 콜센터에서 연락을 드리며,<br>환불이 지연되거나 불가능할 수 있습니다.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="process_box last">
+							<h3>STEP 04 <span>반품 환불</span></h3>
+							<div class="list">
+								<ul class="li-dot">
+									<li><span class="bul"></span>반품 금액은 사유에 따라 배송비를 차감한 금액만큼 환불 됩니다.</li>
+									<li><span class="bul"></span>신용카드 및 체크카드 : 영업일 기준 약 2~3일 후 카드승인 취소</li>
+									<li><span class="bul"></span>실시간 계좌 이체 : 영업일 기준 약2~3일 후 이체 진행 계좌로 환불</li>
+									<li><span class="bul"></span>무통장입금 : 영업일 기준 약1~2일 후 반품 시 입력한 계좌로 환불</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 170713 반품 신청절차 팝업 end-->
 
 	</div>
 
