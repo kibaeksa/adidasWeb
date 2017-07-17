@@ -162,7 +162,8 @@
 								<textarea name="name" rows="8" cols="80" ></textarea>
 							</div>
 							<div class="form_button_wrap clfix" style="margin-top:30px;">
-								<div class="button"><a href="#" class="btn-ctm btn-blue"><span>회원탈퇴<span class="spt_bg"></span></span></a></div>
+								<!-- 170717 임시 클릭 이벤트 -->
+								<div class="button"><a href="#" class="btn-ctm btn-blue" onclick="ModalPopup.openPopup('deregister-confirm')"><span>회원탈퇴<span class="spt_bg"></span></span></a></div>
 								<div class="button last"><a href="#" class="btn-ctm btn-lgray"><span>취소<span class="spt_bg"></span></span></a></div>
 							</div>
 						</div>
@@ -175,15 +176,82 @@
 
 			</div>
 			<!-- //mypage-wrapper -->
-			<script type="text/javascript">
-				(function($){
 
-				})(jQuery);
-
-			</script>
 
 		</div>
 		<!-- container_r end -->
+
+		<!-- 170717 회원가입 탈퇴 확인 팝업 -->
+		<div class="modal-popup-wrapper modalpop_deregister modalpop_deregister_confirm"
+		     data-modalpop=""
+		     data-modalpop-name="deregister-confirm"
+		     data-modalpop-width="520"
+		     data-modalpop-height="350"
+		>
+		    <div class="overlay"></div>
+		    <div class="popup">
+		        <div class="popup-header">
+		            <h2>회원 탈퇴</h2>
+		            <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+		        </div>
+		        <div class="popup-contents">
+		            <p class="desc">회원 탈퇴 시, 재가입은 탈퇴일로부터 7일 이후 가능합니다.<br/>
+					현재 보유하고 있는 포인트 / 쿠폰은 모두 소멸되며,<br/>
+					회원님의 모든 정보가 삭제 되므로 회원대상 서비스를 받을 수 없습니다.<br/>
+					<strong>탈퇴하시겠습니까?</strong></p>
+					<div class="button clfix">
+						<a href="javascript:void()" id="deregister_submit" class="btn-ctm" style="float:left;margin:0 10px 0 45px;"><span>확인</span></a>
+						<a href="javascript:void()" id="deregister_close" class="btn-ctm btn-lgray" style="float:left;"><span>취소</span></a>
+					</div>
+
+		        </div>
+		    </div>
+		</div>
+
+		<!-- 170717 회원가입 탈퇴완료 팝업 -->
+		<div class="modal-popup-wrapper modalpop_deregister modalpop_deregister_done"
+		     data-modalpop=""
+		     data-modalpop-name="deregister-done"
+		     data-modalpop-width="550"
+		     data-modalpop-height="400"
+		>
+		    <div class="overlay"></div>
+		    <div class="popup">
+		        <div class="popup-header">
+		            <h2>회원 탈퇴 완료</h2>
+		            <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+		        </div>
+		        <div class="popup-contents">
+					<h3><strong>회원탈퇴</strong> 처리가 완료되었습니다.</h3>
+		            <p class="desc">그동안 아디다스 공식 온라인 스토어를 이용해 주셔서 감사합니다.<br/>재가입은 탈퇴일로부터 <strong>7일 경과 후</strong> 신규회원으로 가입하실 수 있습니다.</p>
+					<div class="button">
+						<a href="javascript:void()" class="btn-ctm"><span>확인</span></a>
+					</div>
+
+		        </div>
+		    </div>
+		</div>
+		<script type="text/javascript">
+			(function($){
+				/* 170717 회원탈퇴 클릭  */
+				$('#deregister_submit').bind('click',function(){
+					$('.modalpop_deregister_confirm .close').trigger('click');
+					ModalPopup.openPopup('deregister-done');
+				});
+
+				$('#deregister_close').bind('click',function(){
+					$('.modalpop_deregister_confirm .close').trigger('click');
+				})
+
+				$('.modalpop_deregister_done .btn-ctm').bind('click',function(){
+					$('.modalpop_deregister_done .close').trigger('click');
+				});
+
+
+
+			})(jQuery);
+
+		</script>
 
 
 	</div>
