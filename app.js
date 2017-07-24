@@ -3,7 +3,8 @@ var fs = Promise.promisifyAll(require('fs'));
 var path = require('path');
 var bodyParser = require('body-parser');
 var express = require('express');
-var htmlListJson = require('./app/data/codingListInfo.json');
+var adidasHtmlListJson = require('./app/data/codingList/adidas/codingListInfo.json');
+var reebokHtmlListJson = require('./app/data/codingList/reebok/codingListInfo.json');
 var objFromJson;
 
 var app = express();
@@ -18,6 +19,10 @@ function parseJsonData(target , source){
 
     /* Indexing in particular object */
     for(key in target){
+        if(!!source[key].desc){
+            target[key].desc = source[key].desc;
+        }
+
         if(source[key] && (source[key].path == target[key].path)){
             /* Matching name property one by one which included  array in loop */
             for(; i < target[key].htmlData.length; i++){
@@ -42,12 +47,9 @@ function parseJsonData(target , source){
 
 }
 
-function writeFile(data , cb){
-    fs.writeFile('./app/data/codingListInfo.json',data,function(err){
+function writeFile(data , targetPath){
+    fs.writeFile(path.join(__dirname , targetPath+'codingListInfo.json'),data,function(err){
         if(err) return console.log(err);
-        if(cb && typeof cb == 'function'){
-            cb();
-        }
     });
 }
 
@@ -126,33 +128,65 @@ function getFilesFromDir(fileInfo , targetObj){
 /* getFilesFromDir Function END */
 
 
-function init(){
-    var newData = getFilesFromDir(['./app/html/adidas/']);
-    htmlList = parseJsonData(newData , htmlListJson);
-    writeFile(JSON.stringify(htmlList , null , 4));
+function init(dirPath){
+    console.log(dirPath);
+
+    var newData = getFilesFromDir([dirPath]);
+    var targetPath = dirPath == './app/html/reebok/' ? './app/data/codingList/reebok/' : './app/data/codingList/adidas/' ;
+
+    if(targetPath == './app/data/codingList/reebok/'){
+        htmlList = parseJsonData(newData , reebokHtmlListJson);
+    }else{
+        htmlList = parseJsonData(newData , adidasHtmlListJson);
+    }
+
+    writeFile(JSON.stringify(htmlList , null , 4) , targetPath);
 }
 
-init();
+// init();
 
 
-
+app.set('views', './views');
+app.set('view engine', 'jade');
 app.use('/',express.static(path.resolve(__dirname,'./app')));
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.get('/html/adidas',function(req , res){
     init();
-    res.sendFile(__dirname+'/public/html/index.html');
+    res.sendFile(__dirname+'/index.html');
+});
+
+app.get('/adidasCodingList',function(req , res){
+    init('./app/html/adidas/');
+    // res.sendFile(__dirname+'/index.html');
+    res.render('index', {
+        brand : 'adidas'
+    });
+});
+
+app.get('/reebokCodingList',function(req , res){
+    init('./app/html/reebok/');
+    // res.sendFile(__dirname+'/index.html');
+    res.render('index', {
+        brand : 'reebok'
+    });
 });
 
 app.post('/modifyHtmlJson',function(req , res){
     var data = {
         objFromJson : objFromJson
     };
-    htmlListJson = req.body.htmlList;
-    writeFile(JSON.stringify(req.body.htmlList , null , 4) , function(){
-        res.send(data);
-    });
+
+    if(req.body.brand == 'reebok'){
+        reebokHtmlListJson = req.body.htmlList;
+    }else{
+        adidasHtmlListJson = req.body.htmlList;
+    }
+
+    writeFile(JSON.stringify(req.body.htmlList , null , 4) , req.body.targetPath);
+    res.sendStatus(200);
+
 });
 
 app.listen(PORT , function(){
