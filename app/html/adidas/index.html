@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Coding list Test</title>
+
+        <script type="text/javascript" src="http://image.reebok.co.kr/js/jquery/jquery-1.4.2.js"></script>
+
+        <link rel="stylesheet" href="http://image.adidas.co.kr/css/adidas/adidas_r.css">
+        <style media="screen">
+            @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+            html , body{
+                width: 100%;
+                height: 100%;
+            }
+
+            .wrapper{
+                width: 100%;
+            }
+
+            .utilbox{
+                width: 100%;
+                height: 125px;
+                text-align: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background:rgba(255,255,255,0.9);
+            }
+
+            .utilbox.fixed{
+                box-shadow: 0 0 15px rgba(0,0,0,0.56)
+            }
+
+            .utilbox .button_area{
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .button_area .btn-ctm{
+                width: 80px;
+                height: 40px;
+                margin: 0 5px;
+                display: inline-block;
+            }
+            .button_area .btn-ctm span{
+                height: 40px;
+                line-height: 40px;
+            }
+
+            .button_area .btn-ctm span{
+                font-size: 12px;
+            }
+
+            .btn-ctm.disable{
+                background: #ddd;
+                cursor: default;
+            }
+
+            .search_area{
+                padding: 15px;
+            }
+
+            .search_area input{
+                width: 100%;
+                height: 35px;
+                padding-left: 10px;
+                font: 500 13px/35px 'NotoSansKR';
+                color: #000;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            .wrapper .title{
+                padding: 15px 0;
+                text-align: center;
+                background: #ccc;
+                font:700 13px 'Noto Sans KR';
+            }
+
+            .wrapper .col_box{
+                padding:10px;
+                border-bottom: 1px dashed  #ddd;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            .wrapper .col_box.dir_col{
+                padding: 5px 10px;
+                border-bottom:1px solid #ddd;
+                background: #fff;
+            }
+
+            .wrapper .col_box:last-child{
+                border-bottom-width: 0;
+            }
+
+            .wrapper .col_box ul{
+                /*display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;*/
+                /*padding: 10px;*/
+
+            }
+
+            .wrapper .col_box ul li{
+                /*padding: 10px 0;*/
+            }
+
+            .wrapper .col_box ul li.name{
+                min-height: 25px;
+                background:url('/data/ico-html.gif') 0 3px no-repeat;
+                -webkit-background-size: 10px auto;
+                background-size: 10px auto;
+                padding: 0 0 0 19px;
+                font:500 12px 'Noto Sans KR';
+            }
+
+            .wrapper .col_box ul li.name.dir{
+                background:url('/data/ico-folder.png') 0 5px no-repeat;
+                -webkit-background-size: 14px auto;
+                background-size: 14px auto;
+            }
+
+            .wrapper .col_box ul li.name a{
+                color: #1313af;
+            }
+
+            .wrapper .col_box ul li.name a:hover{
+                text-decoration: underline;
+            }
+
+            .wrapper .col_box ul li.desc{
+                width: 100%;
+                font:700 12px/17px 'Noto Sans KR';
+                color: #222;
+            }
+
+            .wrapper .col_box ul li.modify{
+                height: 0;
+                margin-top: 10px;
+                overflow: hidden;
+                transition: height 0.2s;
+                -webkit-transition: height 0.2s;
+            }
+
+            .edit-mode .wrapper .col_box ul li.modify{
+                height: 35px;
+            }
+
+            .wrapper .col_box ul li.modify input{
+                width: 100%;
+                height: 35px;
+                padding-left: 10px;
+                font:500 13px 'NotoSansKR';
+                color: #000;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #wrapper{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+            }
+
+            #wrapper #left-area{
+                width: 280px;
+                height: 100%;
+                padding-top: 125px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 100;
+                overflow: auto;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #wrapper #right-area{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                padding-left: 280px;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #wrapper #right-area .inner{
+                width: 100%;
+                height: 100%;
+                position: relative;
+                border-left: 1px solid  #ddd;
+            }
+
+            #wrapper #right-area .inner iframe{
+                width: 100%;
+                height: 100%;
+                border-width: 0;
+            }
+
+            #dragHandle{
+                width: 10px;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1000;
+                cursor: w-resize;
+            }
+
+            #dragHandleCover{
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 999;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div id="wrapper">
+            <div id="left-area">
+
+            </div>
+            <div id="right-area">
+                <div class="inner">
+                    <div id="dragHandle"></div>
+                    <iframe id="content-iframe" width="" height=""></iframe>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            let depth = 1;
+            const absPath = '/html/adidas/';
+            let htmlData = {};
+
+            const getDataForRender = key => {
+                let newData = getObjChildDirectory(key);
+                newData.push(htmlData[key]);
+                return newData;
+            }
+
+            const getObjChildDirectory = path => {
+                var key,
+                    newObj = [],
+                    i = 0,
+                    count = 0;
+
+                for(key in htmlData){
+                    const objPath = key.split('___');
+                    const targetPath = typeof path === 'string' ? path.split('___') : path;
+
+                    if(key === targetPath.join('___')){
+                        continue;
+                    }
+
+                    /* 바로 밑에 폴더만 찾는다. */
+                    if(htmlData[key].depth - 1 ==  targetPath.length){
+                        /* Reassign i as 0 */
+                        i = 0;
+
+                        for(; i < targetPath.length; i++){
+                            if(objPath[i] == targetPath[i]){
+                                count++;
+                            }else{
+                                count = 0;
+                                continue;
+                            }
+
+                            if(count == targetPath.length){
+
+                                newObj.push(key);
+                                count = 0 ;
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+                return newObj;
+
+            };
+
+            const changeContets = htmlPath => {
+                document.getElementById('content-iframe').setAttribute('src',htmlPath);
+            }
+
+            const handleData = obj => {
+                for(let key in obj){
+                    const splitKey = key.replace(/root/,'/').split('___');
+                    obj[key].depth = splitKey.length;
+                    splitKey.splice(splitKey.length-1);
+                    obj[key].parentDir = splitKey;
+                }
+
+                return obj;
+            };
+
+            const submitInfo = () => {
+                var data = {
+                    htmlList : htmlData
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/modifyHtmlJson',
+                    data: data,
+                    beforeSend : function(){
+                        $('body').append('<div id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
+                    },
+                    success:function(result){
+                        $('#loading').remove();
+                    },
+                    error:function(e){
+                        $('#loading').remove();
+                        console.log(e.responseText);
+                    },
+                    dataType : 'json',
+                });
+
+                return false;
+            };
+
+            const bindEvent = () => {
+                var inputArray = [...document.querySelectorAll('input[type="text"]')];
+                var dirArray = [...document.querySelectorAll('.name.dir>a')];
+
+                inputArray.map(value => {
+                    value.addEventListener('keyup',event =>{
+                        var elem = event.currentTarget;
+                        var key = elem.dataset.key;
+                        var index = elem.dataset.index;
+
+                        htmlData[key]['htmlData'][index].desc = event.target.value.replace(/"/,'\"');
+                    });
+                });
+
+                dirArray.map(value => {
+                    value.addEventListener('click',event =>{
+                        renderHTML(getDataForRender(event.currentTarget.dataset.dir));
+                    });
+                });
+
+                $('#toggle-mode').bind('click',function(){
+                    if($(this).hasClass('edit')){
+                        $(this).removeClass('edit');
+                        $('#submit-data').addClass('disable');
+                        $('#wrapper').removeClass('edit-mode');
+                        $(this).find('span').text('EDIT MODE');
+                    }else{
+                        $(this).addClass('edit');
+                        $('#submit-data').removeClass('disable');
+                        $('#wrapper').addClass('edit-mode');
+                        $(this).find('span').text('VIEW MODE');
+                    }
+                });
+
+                $('#submit-data').bind('click',function(){
+                    if($(this).hasClass('disable')){
+                        return;
+                    }
+                    submitInfo();
+                });
+
+
+            }
+
+            const renderHTML = data => {
+                // console.log(data);
+                let htmlString = `<div class="wrapper">
+                    <div class="utilbox">
+                        <div class="search_area">
+                            <input type="text" id="search-html"/>
+                        </div>
+                        <div class="button_area">
+                            <a id="toggle-mode" class="btn-ctm" href="javascript:void(0)"><span>EDIT MODE</span></a>
+                            <a id="submit-data" class="btn-ctm disable" href="javascript:void(0)"><span>저장하기</span></a>
+                        </div>
+                    </div>
+                `;
+                htmlString += `<div class="title">${data[data.length-1].path}</div>`;
+
+                if(data[data.length-1].depth > 1){
+                    const parentPath = (() =>{
+                        let path = '';
+                        data[data.length-1].parentDir.map((data , index) => {
+                            if(index == 0){
+                                path += 'root';
+                            }else{
+                                path += '___'+data;
+                            }
+                        });
+
+                        return path;
+                    })();
+
+                    // console.log(parentPath);
+
+                    htmlString += `
+                        <div class="col_box dir_col">
+                            <ul>
+                                <li class="name dir"><a href="javascript:void(0)" data-dir="${parentPath}" title="">...</a></li>
+                            </ul>
+                        </div>
+                    `;
+                }
+
+                data.map( renderData => {
+
+                    const keyName = typeof renderData === 'string' ? renderData.replace(/^root___/,'/').replace(/___/g,'/') : renderData.path;
+
+                    if(typeof renderData === 'string'){
+                        htmlString += `
+                            <div class="col_box dir_col">
+                                <ul>
+                                    <li class="name dir"><a href="javascript:void(0)" data-dir="${renderData}" title="${keyName}">${keyName}</a></li>
+                                </ul>
+                            </div>
+                        `;
+                    }else{
+                        renderData['htmlData'].map((value , index) => {
+                            const key = renderData.path.replace(/^\/$/,'root').replace(/^\//,'root___').replace(/\//,'___');
+                            htmlString += `
+                                <div class="col_box">
+                                    <ul>
+                                        <li class="name"><a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }')">${value.name}</a></li>
+                                        <li class="desc">${value.desc ? value.desc : ''}</li>
+                                        <li class="modify"><input type="text" id="${key+'___'+value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key}" data-index="${index}"></li>
+                                    </ul>
+                                </div>
+                            `
+                        });
+                    }
+
+
+                })
+
+                htmlString += `</div>`;
+                document.getElementById('left-area').innerHTML = htmlString;
+                bindEvent();
+            };
+
+            const startDragGrid = event => {
+                event.preventDefault();
+                const dummyDiv = document.createElement('div');
+                dummyDiv.setAttribute('id','dragHandleCover');
+                window.addEventListener('mousemove',moveDragGrid);
+                window.addEventListener('mouseup',endDragGrid);
+                document.querySelector('body').appendChild(dummyDiv);
+            };
+
+            const moveDragGrid = event => {
+                event.preventDefault();
+
+                const minX = 200;
+                const maxX = 800;
+                const x = event.pageX;
+
+                if(x > minX && x < maxX){
+                    document.getElementById('left-area').style.width = x+'px';
+                    document.getElementById('right-area').style.paddingLeft = x+'px';
+                }
+            };
+
+            const endDragGrid = event => {
+                event.preventDefault();
+                const dummyDiv = document.getElementById('dragHandleCover');
+                document.querySelector('body').removeChild(dummyDiv);
+
+                window.removeEventListener('mousemove',moveDragGrid);
+                window.removeEventListener('mouseup',endDragGrid);
+            };
+
+            document.getElementById('dragHandle').addEventListener('mousedown',startDragGrid);
+
+            $.ajax({
+               url: '/data/codingListInfo.json',
+               dataType : 'json',
+               beforeSend : function(){
+                   $('body').append('<div id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
+               },
+               success:function(result){
+                    $('#loading').remove();
+                    htmlData = handleData(result);
+                    renderHTML(getDataForRender('root'));
+               },
+               error:function(e){
+                   $('#wrap').html('<div class="nodata">데이터를 로드 할 수 없습니다.</div>');
+                   $('#loading').remove();
+               }
+           });
+
+
+           $('#left-area').bind('scroll',function(event){
+               var triggerPoint = $(this).find('.wrapper .title').offset().top;
+               var defaultVal = 125;
+
+               if($(this).scrollTop() > 125){
+                   $(this).find('.utilbox').addClass('fixed').css({
+                       top : $(this).scrollTop()
+                   })
+               }else{
+                   $(this).find('.utilbox').removeClass('fixed').css({
+                       top : 0
+                   })
+               }
+           })
+
+
+
+
+
+        </script>
+    </body>
+</html>
