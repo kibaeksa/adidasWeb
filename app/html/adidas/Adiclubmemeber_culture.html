@@ -24,150 +24,7 @@
 <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
 
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
-
-		});
-
-		jQuery('#new_prodlist li').hover(function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
-		},function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);
-		});
-
-		// 170511 푸터 SNS 레이어 수정 START
-		jQuery('.f_sns>div>a.btn').bind('click',function(){
-			var $this = jQuery(this);
-			if( $this.siblings('.layer').hasClass('layer') ){
-				if($this.hasClass('on')){
-					$this.removeClass('on');
-					$this.siblings('.layer').show();
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-				}else{
-					jQuery('.f_sns>div>a.btn').removeClass('on');
-					jQuery('.f_sns>div>.layer').removeClass('open');
-					jQuery('.f_sns>div>.layer').hide();
-					$this.addClass('on');
-					$this.siblings('.layer').show();
-
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-
-				}
-				return false;
-			}else{
-				return true;
-			}
-		});
-
-		jQuery('.f_sns>div>.layer>.close').bind('click',function(){
-			var $this = jQuery(this);
-			$this.parent().siblings('.btn').removeClass('on');
-			$this.parent().removeClass('open');
-			return false;
-		});
-		// 170511 푸터 SNS 레이어 수정 END
-
-
-		// 161208 start
-		if(jQuery('.market .no_data_layer').length >= 1){
-			jQuery('.market>a').hover(function(){
-				jQuery(this).siblings('.no_data_layer').show();
-			},function(){
-				jQuery(this).siblings('.no_data_layer').hide();
-			});
-		}
-		// 161208 end
-
-
-	});
-
-	/* fa funcion 함수 */
-	function strCut(obj,len) {
-		var str = obj;
-		var l = 0;
-		for (var i=0; i<str.length; i++) {
-			l += (str.charCodeAt(i) > 128) ? 2 : 1;
-			if (l > len) return str.substring(0,i) + "..";
-		}
-		return str;
-	}
-	/* //150513 */
-
-	//151116 러닝클럽 종료 안내 팝업 닫기
-	function closeRcEndNotiLayer(){
-		jQuery('#popup_rc_end_noti').hide();
-	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
 </script>
  </head>
 
@@ -1635,8 +1492,8 @@
 		<script type="text/javascript">
 			(function($){
 				// 170724 개발리스트 상세 더보기 버튼 클릭이벤트
-				$('.adiclub_renewal .station_list_wrap>ul>li').bind('click', function(){
-					$(this).toggleClass('view');
+				$('.adiclub_renewal .station_list_wrap>ul>li .list_box').bind('click', function(){
+					$(this).parents('li').toggleClass('view');
 				});
 				// 170724 스테이션리스트 마지막 클래스 추가
 				$('.adiclub_renewal .station_list_wrap>ul>li').eq(-1).addClass('last');
