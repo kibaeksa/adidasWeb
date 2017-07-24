@@ -24,150 +24,7 @@
 <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
 
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
-
-		});
-
-		jQuery('#new_prodlist li').hover(function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
-		},function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);
-		});
-
-		// 170511 푸터 SNS 레이어 수정 START
-		jQuery('.f_sns>div>a.btn').bind('click',function(){
-			var $this = jQuery(this);
-			if( $this.siblings('.layer').hasClass('layer') ){
-				if($this.hasClass('on')){
-					$this.removeClass('on');
-					$this.siblings('.layer').show();
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-				}else{
-					jQuery('.f_sns>div>a.btn').removeClass('on');
-					jQuery('.f_sns>div>.layer').removeClass('open');
-					jQuery('.f_sns>div>.layer').hide();
-					$this.addClass('on');
-					$this.siblings('.layer').show();
-
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-
-				}
-				return false;
-			}else{
-				return true;
-			}
-		});
-
-		jQuery('.f_sns>div>.layer>.close').bind('click',function(){
-			var $this = jQuery(this);
-			$this.parent().siblings('.btn').removeClass('on');
-			$this.parent().removeClass('open');
-			return false;
-		});
-		// 170511 푸터 SNS 레이어 수정 END
-
-
-		// 161208 start
-		if(jQuery('.market .no_data_layer').length >= 1){
-			jQuery('.market>a').hover(function(){
-				jQuery(this).siblings('.no_data_layer').show();
-			},function(){
-				jQuery(this).siblings('.no_data_layer').hide();
-			});
-		}
-		// 161208 end
-
-
-	});
-
-	/* fa funcion 함수 */
-	function strCut(obj,len) {
-		var str = obj;
-		var l = 0;
-		for (var i=0; i<str.length; i++) {
-			l += (str.charCodeAt(i) > 128) ? 2 : 1;
-			if (l > len) return str.substring(0,i) + "..";
-		}
-		return str;
-	}
-	/* //150513 */
-
-	//151116 러닝클럽 종료 안내 팝업 닫기
-	function closeRcEndNotiLayer(){
-		jQuery('#popup_rc_end_noti').hide();
-	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
 </script>
  </head>
 
@@ -1520,11 +1377,6 @@
 				</div>
 				<!-- 170711 END -->
 
-                <!-- <div class="club_link">
-                    <a href="#" class="btn"></a>
-                    <a href="#" class="join"></a>
-                </div> -->
-
                 <div class="adiclub_body">
                     <div style="padding-top:50px;">
                         <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_sports_info.jpg" alt="아디클럽 스포츠 서비스 혜택" usemap="#adiclub_benefit1">
@@ -1534,24 +1386,55 @@
                             <area shape="rext" coords="226,471,666,541" href="#" alt="내 아디코인 확인하기">
                         </map>
                     </div>
+					<!-- 170724 수정 -->
                     <div class="station">
                         <h2><img src="/images/adidas/club/adiclub_renewal_170518/adiclub_sports_station_title.jpg" alt="아디클럽 스포츠 스테이션 안내"></h2>
 						<div class="station_list_wrap">
+							<div class="station_list_title clfix">
+								<p>해당 지역 및 스테이션 유형 선택</p>
+								<div class="select_wrap clfix">
+									<div class="selectbox-ctm">
+									    <a href="javascript:void(0)">지역</a>
+									    <div class="arrow spt_bg"></div>
+									    <div class="select-contents option-list">
+									        <ul>
+									            <li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
+									            <li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
+									            <li data-option-value="value3"><a href="javascript:void(0)">옵션3</a></li>
+									            <li data-option-value="value4"><a href="javascript:void(0)">옵션4</a></li>
+									        </ul>
+									    </div>
+									</div>
+									<div class="selectbox-ctm">
+									    <a href="javascript:void(0)">스테이션</a>
+									    <div class="arrow spt_bg"></div>
+									    <div class="select-contents option-list">
+									        <ul>
+									            <li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
+									            <li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
+									            <li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
+									            <li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+									        </ul>
+									    </div>
+									</div>
+								</div>
+							</div>
 							<ul>
-								<li>
+								<li class="first">
 									<div class="list_box clfix">
 										<div class="thumb"><img src="/images/adidas/club/adiclub_renewal_170518/thumb_test.jpg" alt=""></div>
 										<p class="title">런베이스 서울</p>
 										<p>체크인 + 1,000 adicoin</p>
-										<p>이용료 - 1,000 adicoin</p>
-										<a href="#" class="runbase_url"><img src="/images/adidas/club/adiclub_renewal_170518/runbase_btn.jpg" alt=""></a>
+										<p>이용료 - 3,000 adicoin</p>
+										<a href="javascript:void(0)" class="list_view_btn"></a>
 									</div>
 									<div class="list_detail">
 										<dl class="clfix">
 											<dt>소개</dt>
 											<dd>러닝을 위한 복합 문화공간 런베이스 서울은 남산과 경리단길 사이에 위치하고 있으며 <br>
 												락커룸과 샤워시설 완비, 러닝화 및 러닝 의류 렌탈 서비스, 평일 저녁과 주말 전문 선수들의<br>
-												러닝 프로그램, 코어운동, 리커버리 클래스 등 상시 운영
+												러닝 프로그램, 코어운동, 리커버리 클래스 등 상시 운영 <br>
+												<a href="http://shop.adidas.co.kr/PF080801.action" class="link">런베이스 바로가기</a>
 											</dd>
 										</dl>
 										<dl class="clfix">
@@ -1564,21 +1447,28 @@
 												070-7797-1207
 											</dd>
 										</dl>
-
 									</div>
 								</li>
 							</ul>
+							<div class="paging">
+								<ul class="clfix">
+									<li class="on"><span>1</span></li>
+									<li><span>2</span></li>
+									<li><span>3</span></li>
+									<li><span>4</span></li>
+									<li><span>5</span></li>
+								</ul>
+							</div>
 						</div>
 
                     </div>
+					<!-- 170724 수정 end -->
 
                 </div>
-				<!-- 170619 스포츠 배너삭제 및 줄 추가 -->
+
                 <div class="adi_banner"><img src="/images/adidas/club/adiclub_renewal_170518/dotted-line.jpg" alt=""></div>
-				<!-- 170619 스포츠 배너삭제 및 줄 추가 end-->
 
                 <div class="adiclub_body">
-					<!-- 170621 수정  -->
 					<div class="olapic-wrapper" style="margin:0 auto; padding:30px 0;">
 						<h2 class="olapic-title">ADICLUB SPORTS 스테이션에서의 하루</h2>
 						<p class="olapic-desc">인스타그램에 #adiclubsports 해시태그하고 아디클럽 스포츠 스테이션에서의 추억을 공유해주세요!</p>
@@ -1589,7 +1479,6 @@
 							</a>
 						</div>
 					</div>
-					<!-- 170621 수정 end-->
                 </div>
 			</div>
 			<!-- //contents -->
@@ -1623,6 +1512,23 @@
 		<!-- 170613 올라픽추가 -->
 		<script type="text/javascript" src="https://photorankstatics-a.akamaihd.net/81b03e40475846d5883661ff57b34ece/static/frontend/latest/build.min.js"  data-olapic="olapic_specific_widget" data-instance="967abbe7a16a8a4358cb824976cd9b07" data-lang="KO_KO"  data-apikey="9e9c4f3a8aa4a5cd0abbc84d02e10fbfc1689b7cd22b3bf2b6043a41121db91b" async="async"></script>
 		<!-- 170613 올라픽추가 end-->
+
+		<script type="text/javascript">
+			(function($){
+				// 170724 개발리스트 상세 더보기 버튼 클릭이벤트
+				$('.adiclub_renewal .station_list_wrap>ul>li').bind('click', function(){
+					$(this).toggleClass('view');
+				});
+				// 170724 스테이션리스트 마지막 클래스 추가
+				$('.adiclub_renewal .station_list_wrap>ul>li').eq(-1).addClass('last');
+				// 170724 스테이션 페이징 on 이벤트
+				$('.adiclub_renewal .station_list_wrap .paging ul li').bind('click', function(){
+					$('.adiclub_renewal .station_list_wrap .paging ul li').removeClass('on');
+					$(this).addClass('on');
+				});
+
+			})(jQuery);
+		</script>
         <div id="footer">
 
 			<div class="f_menu">
