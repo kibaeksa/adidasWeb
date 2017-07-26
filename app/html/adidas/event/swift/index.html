@@ -1033,7 +1033,7 @@
 				<div class="statement">
 					<h3>ALWAYS ON.<br />NEVER OFF.</h3>
 					<p>스타일과 편안함을 모두 잡다.<br />Swift는 바쁜 일상에도 스타일은 절대 타협하지 않는 이들을 위한 완벽한 러닝화입니다.</p>
-					<a href="javascript:void(0)" class="btn-ctm arrow"><span>스위프트 제품 전체보기<span class="spt_bg"></span></span></a>
+					<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=320" class="btn-ctm arrow"><span>스위프트 제품 전체보기<span class="spt_bg"></span></span></a>
 				</div>
 
 				<div class="wrap">
@@ -1045,7 +1045,7 @@
 								<img src="http://image.adidas.co.kr/images/adidas/event/swift/slide01.jpg" alt="">
 							</li>
 
-							<li>
+							<li class="on">
 								<img src="http://image.adidas.co.kr/images/adidas/event/swift/slide02.jpg" alt="">
 							</li>
 
@@ -1067,11 +1067,11 @@
 				</div>
 				<!-- //slider -->
 				<div class="cont">
-						<div class="cont_wrap" style="display: block;">
+						<div class="cont_wrap">
 							<div class="txt_wrap">
 								<h4>24/7 COMFORT</h4>
 								<p>프라임니트가 적용된 새로운 러닝화 스위프트와 함께<br />일상의 스타일을 변화시켜보세요.</p>
-								<a href="javascript:void(0)" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=320" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
 							</div>
 							<div class="slider" id="slider1">
 								<ul>
@@ -1086,11 +1086,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="cont_wrap">
+						<div class="cont_wrap"  style="display: block;">
 							<div class="txt_wrap">
 								<h4>24/7 COMFORT</h4>
 								<p>스타일과 편안함의 완벽한 균형감,<br />어둡고 밝은 투 톤의 컬러웨이가 자연스럽게 혼합됩니다.</p>
-								<a href="javascript:void(0)" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=320" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
 							</div>
 							<div class="slider" id="slider2">
 								<ul>
@@ -1109,7 +1109,7 @@
 							<div class="txt_wrap">
 								<h4>24/7 COMFORT</h4>
 								<p>스타일 만으로 시선을 사로잡다.<br />다양한 색상은 언제 어디서나 어울리는 룩을 완성시킵니다.</p>
-								<a href="javascript:void(0)" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=320" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
 							</div>
 							<div class="slider" id="slider3">
 								<ul>
@@ -1128,7 +1128,7 @@
 							<div class="txt_wrap">
 								<h4>24/7 COMFORT</h4>
 								<p>프레쉬하고 깔끔하게. 스타일과 심플함을 모두 갖춘 프라임니트 Swift는<br />언제나 최상의 편안함을 제공합니다. </p>
-								<a href="javascript:void(0)" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=320" class="btn-ctm arrow"><span>구매하기<span class="spt_bg"></span></span></a>
 							</div>
 							<div class="slider" id="slider4">
 								<ul>
@@ -1149,7 +1149,7 @@
 					<div class="gal">
 						<ul>
 
-							<li class="on">
+							<li>
 								<div class="collections">
 									<div class="colfix"><img src="http://image.adidas.co.kr/images/adidas/event/swift/gallery02_1.jpg" alt="" class="ord2" ></div>
 									<div class="imgs">
@@ -1169,7 +1169,7 @@
 								</div>
 							</li>
 
-							<li>
+							<li class="on">
 								<div class="collections">
 									<div class="colfix"><img src="http://image.adidas.co.kr/images/adidas/event/swift/gallery01_1.jpg" alt="" class="ord2" ></div>
 									<div class="imgs">
@@ -1247,7 +1247,7 @@
 
 				(function($){
 					var sliderElem = $('.slider_wrap .slider');
-					var numSliderElem = $('.num_wrap .num');
+					var sliderItemsElem = sliderElem.find('li');
 
 					var itemWidth = 1202;
 					var windowWidth = $(window).width();
@@ -1267,7 +1267,7 @@
 
 						var curIndex = (function(){
 							var index;
-							numSliderElem.find('a').each(function(){
+							sliderItemsElem.each(function(){
 								if($(this).hasClass('on')){
 									index =  $(this).index();
 								}
@@ -1277,7 +1277,6 @@
 
 						if(curIndex != undefined && curIndex != index){
 							index = curIndex;
-							numSliderElem.find('a').removeClass('on').eq(index).addClass('on');
 							$('.cont .cont_wrap').hide().eq(index).show();
 							$('.gal_wrap li').hide().eq(index).show();
 						}
@@ -1296,25 +1295,16 @@
 						sliderElem.css({
 							left : defaultSlideMargin - (index * itemWidth)
 						});
-
-						numSliderElem.css({
-							left : defaultNumMargin - (index * numWidth)
-						})
 					}
 
 					function animate(){
 						sliderElem.stop().animate({
 							left : defaultSlideMargin - (index * itemWidth)
 						});
-
-						numSliderElem.stop().animate({
-							left : defaultNumMargin - (index * numWidth)
-						});
 						afterAnimate();
 					}
 
 					function afterAnimate(){
-						numSliderElem.find('a').removeClass('on').eq(index).addClass('on');
 						$('.cont .cont_wrap').fadeOut().eq(index).fadeIn();
 						$('.gal_wrap li').fadeOut().eq(index).fadeIn();
 					}
@@ -1348,26 +1338,6 @@
 
 						if(index == length-1){
 							$(this).hide()
-						}
-					});
-
-					numSliderElem.find('a').bind('click',function(){
-						if($(this).index == index){
-							return;
-						}
-
-						index = $(this).index();
-						animate();
-
-						if(index == 0){
-							$('#swift .wrap .btn .next').show();
-							$('#swift .wrap .btn .prev').hide();
-						}else if(index == length-1){
-							$('#swift .wrap .btn .next').hide();
-							$('#swift .wrap .btn .prev').show();
-						}else{
-							$('#swift .wrap .btn .next').show();
-							$('#swift .wrap .btn .prev').show();
 						}
 					});
 
