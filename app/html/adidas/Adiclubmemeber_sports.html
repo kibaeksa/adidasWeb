@@ -23,9 +23,6 @@
 <script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="/js/adidas/adidas.js"></script>
-<script type="text/javascript">
-
-</script>
  </head>
 
  <body>
@@ -1419,37 +1416,11 @@
 									</div>
 								</div>
 							</div>
-							<ul>
-								<li class="first">
-									<div class="list_box clfix">
-										<div class="thumb"><img src="/images/adidas/club/adiclub_renewal_170518/thumb_test.jpg" alt=""></div>
-										<p class="title">런베이스 서울</p>
-										<p>체크인 + 1,000 adicoin</p>
-										<p>이용료 - 3,000 adicoin</p>
-										<a href="javascript:void(0)" class="list_view_btn"></a>
-									</div>
-									<div class="list_detail">
-										<dl class="clfix">
-											<dt>소개</dt>
-											<dd>러닝을 위한 복합 문화공간 런베이스 서울은 남산과 경리단길 사이에 위치하고 있으며 <br>
-												락커룸과 샤워시설 완비, 러닝화 및 러닝 의류 렌탈 서비스, 평일 저녁과 주말 전문 선수들의<br>
-												러닝 프로그램, 코어운동, 리커버리 클래스 등 상시 운영 <br>
-												<a href="http://shop.adidas.co.kr/PF080801.action" class="link">런베이스 바로가기</a>
-											</dd>
-										</dl>
-										<dl class="clfix">
-											<dt>혜택</dt>
-											<dd>+ 1,000 adicoin</dd>
-										</dl>
-										<dl class="clfix last">
-											<dt>주소/연락처</dt>
-											<dd>서울시 용산구 회나무로 73-1(주차 불가)<br>
-												070-7797-1207
-											</dd>
-										</dl>
-									</div>
-								</li>
-							</ul>
+                            <!-- 170726 station_contents 추가 -->
+                            <div id="station_contents">
+
+                            </div>
+
 							<div class="paging">
 								<ul class="clfix">
 									<li class="on"><span>1</span></li>
@@ -1532,21 +1503,6 @@
 		<script type="text/javascript" src="https://photorankstatics-a.akamaihd.net/81b03e40475846d5883661ff57b34ece/static/frontend/latest/build.min.js"  data-olapic="olapic_specific_widget" data-instance="967abbe7a16a8a4358cb824976cd9b07" data-lang="KO_KO"  data-apikey="9e9c4f3a8aa4a5cd0abbc84d02e10fbfc1689b7cd22b3bf2b6043a41121db91b" async="async"></script>
 		<!-- 170613 올라픽추가 end-->
 
-		<script type="text/javascript">
-			(function($){
-				// 170724 개발리스트 상세 더보기 버튼 클릭이벤트
-				$('.adiclub_renewal .station_list_wrap>ul>li .list_box').bind('click', function(){
-					$(this).parents('li').toggleClass('view');
-				});
-				// 170724 스테이션리스트 마지막 클래스 추가
-				$('.adiclub_renewal .station_list_wrap>ul>li').eq(-1).addClass('last');
-				// 170724 스테이션 페이징 on 이벤트
-				$('.adiclub_renewal .station_list_wrap .paging ul li').bind('click', function(){
-					$('.adiclub_renewal .station_list_wrap .paging ul li').removeClass('on');
-					$(this).addClass('on');
-				});
-			})(jQuery);
-		</script>
         <div id="footer">
 
 			<div class="f_menu">
@@ -1757,5 +1713,110 @@
 		<!-- footer end -->
 	</div>
 	<!-- //wrap -->
+
+    <script type="text/javascript">
+
+
+        /* 170726 START */
+        function renderStationContents(data){
+            var imgAbsolutePath = '//image.adidas.co.kr/images/adidas/club/adiclub_renewal_170518/';
+
+            /* Data handle  */
+            for(key in data){
+                data[key].CS_BENEFIT = data[key].CS_BENEFIT.replace(/\n/,'<br/>');
+                data[key].CS_ADDR_TEL = data[key].CS_ADDR_TEL.replace(/\n/,'<br/>');
+                if(data[key].CS_DESC.match(/\n/)){
+                    data[key].CS_DESC = data[key].CS_DESC.split('\n');
+                }
+            }
+
+            var key;
+            var count = 0;
+            var htmlString = '<ul>';
+
+            for(key in data){
+                htmlString += '<li'+(count == 0 ? ' class="first"' : '')+'>';
+                htmlString += '    <div class="list_box clfix">'
+                htmlString += '        <div class="thumb">'+(data[key].CS_IMG_NM ? '<img src="'+(imgAbsolutePath+data[key].CS_IMG_NM)+'" alt="">' : '')+'</div>';
+                htmlString += '        <p class="title">'+data[key].CS_NM+'</p>';
+                if(typeof data[key].CS_DESC != 'string'){
+                    for(var descIndex = 0;descIndex < data[key].CS_DESC.length; descIndex++){
+                        htmlString += '<p>'+data[key].CS_DESC[descIndex]+'</p>';
+                    }
+                }else{
+                    htmlString += '<p>'+data[key].CS_DESC+'</p>';
+                }
+                htmlString += '        <a href="javascript:void(0)" class="list_view_btn"></a>';
+                htmlString += '    </div>';
+                htmlString += '    <div class="list_detail">';
+                htmlString += '        <dl class="clfix">';
+                htmlString += '            <dt>소개</dt>';
+                htmlString += '            <dd>'+data[key].CS_INTRO+'</dd>'
+                htmlString += '        </dl>';
+                htmlString += '        <dl class="clfix">';
+                htmlString += '            <dt>혜택</dt>';
+                htmlString += '            <dd>'+data[key].CS_BENEFIT+'</dd>'
+                htmlString += '        </dl>';
+                htmlString += '        <dl class="clfix">';
+                htmlString += '            <dt>주소/연락처</dt>';
+                htmlString += '            <dd>'+data[key].CS_ADDR_TEL+'</dd>'
+                htmlString += '        </dl>';
+                htmlString += '    </div>'
+                htmlString += '</li>';
+                count++;
+            }
+            htmlString += '</ul>';
+
+            $('#station_contents').html(htmlString);
+            bindStationEvent();
+        }
+
+        function bindStationEvent(){
+            $('.adiclub_renewal .station_list_wrap #station_contents>ul>li .list_box').bind('click', function(){
+                $(this).parents('li').toggleClass('view');
+            });
+
+            $('.adiclub_renewal .station_list_wrap #station_contents>ul>li').eq(-1).addClass('last');
+            $('.adiclub_renewal .station_list_wrap .paging ul li').bind('click', function(){
+                $('.adiclub_renewal .station_list_wrap .paging ul li').removeClass('on');
+                $(this).addClass('on');
+            });
+        }
+        /* 170726 END */
+
+        /* 170726 임시 데이터 */
+        var tempData =  [
+            {
+                "CS_NO": "26",
+                "CS_NM": "스테이션 명 테스트1",
+                "CS_LOCA": "01",
+                "CS_LOCA_NM": "서울",
+                "CS_TYPE": "01",
+                "CS_TYPE_NM": "쇼핑/유통",
+                "CS_IMG_NM": "thumb_test.jpg",
+                "CS_DESC": "스테이션 설명 테스트1\n줄바꿈1",
+                "CS_INTRO":"스테이션 설명 테스트1<br />줄바꿈1<br /><a href=\"http://naver.com\" class=\"link\">자세히보기</a>",
+                "CS_BENEFIT": "스테이션 혜택 테스트1\n줄바꿈1",
+                "CS_ADDR_TEL": "서울시 서초구 방배동 1-2\n02-1234-5678"
+            },
+            {
+                "CS_NO": "27",
+                "CS_NM": "스테이션 명 테스트 2",
+                "CS_LOCA": "01",
+                "CS_LOCA_NM": "경기",
+                "CS_TYPE": "01",
+                "CS_TYPE_NM": "쇼핑/유통",
+                "CS_IMG_NM": "",
+                "CS_DESC": "스테이션 설명 테스트2\n줄바꿈1",
+                "CS_INTRO":"스테이션 설명 테스트2<br />줄바꿈1<br /><a href=\"http://naver.com\" class=\"link\">자세히보기</a>",
+                "CS_BENEFIT": "스테이션 혜택 테스트2\n줄바꿈1",
+                "CS_ADDR_TEL": "서울시 서초구 방배동 1-2\n02-1234-5678"
+            }
+        ];
+
+
+        renderStationContents(tempData);
+    </script>
+
  </body>
 </html>
