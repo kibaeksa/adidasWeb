@@ -715,6 +715,26 @@ function blurAction(obj,moveId,dir,obj2){
 			});
 		});
 
+		$('.techlist_list').bind('click',function(){
+
+			if($(this).hasClass('open')){
+				$('.techlist_list').removeClass('open');
+				$('.techlist_cont').slideUp();
+			}else{
+				$('.techlist_list').removeClass('open');
+				$('.techlist_cont').slideUp();
+				$(this).addClass('open');
+				$(this).siblings('.techlist_cont').slideDown();
+			}
+			return false;
+		});
+
+		$('.techlist_cont .close').bind('click',function(){
+			$(this).parent().siblings('.techlist_list').removeClass('open');
+			$(this).parent().slideUp();
+			return false;
+		});
+
 		$.fn.openModalPopup = function(){
 			$('body').css({
 				overflow:'hidden',
