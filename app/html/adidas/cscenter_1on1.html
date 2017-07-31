@@ -84,7 +84,10 @@
 								<li>
 									<div class="clfix">
 										<p class="title">주문번호</p>
-										<p class="content">20170515</p>
+										<p class="content">
+											<span>20170515</span>
+											<a href="javascript:fn_pop()" title="새창" class="find_order">찾아보기</a>
+										</p>
 									</div>
 								</li>
 							</ul>
@@ -97,32 +100,32 @@
 								<li>
 									<div class="clfix col2">
 										<div class="item">
-											<div class="selectbox-ctm blue">
+											<div class="selectbox-ctm blue" id="CNSLT_CL">
 												<a href="javascript:void(0)" class="">문의종류 대분류</a>
 												<div class="arrow spt_bg"></div>
 												<div class="select-contents option-list">
 													<ul>
-														<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
-														<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
-														<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
-														<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+														<li data-option-value=""><a href="javascript:void(0)">문의종류 대분류</a></li>
+														<li data-option-value="01"><a href="javascript:void(0)">상품</a></li>
+														<li data-option-value="02"><a href="javascript:void(0)">주문/결제</a></li>
+														<li data-option-value="03"><a href="javascript:void(0)">배송</a></li>
+														<li data-option-value="04"><a href="javascript:void(0)">주문취소</a></li>
+														<li data-option-value="05"><a href="javascript:void(0)">교환</a></li>
+														<li data-option-value="06"><a href="javascript:void(0)">반품</a></li>
+														<li data-option-value="07"><a href="javascript:void(0)">회원/이벤트</a></li>
+														<li data-option-value="08"><a href="javascript:void(0)">수선 및 심의</a></li>
+														<li data-option-value="09"><a href="javascript:void(0)">매장</a></li>
+														<li data-option-value="10"><a href="javascript:void(0)">본사</a></li>
+														<li data-option-value="99"><a href="javascript:void(0)">기타</a></li>
 													</ul>
 												</div>
 											</div>
 										</div>
 
 										<div class="item last">
-											<div class="selectbox-ctm blue">
+											<div class="selectbox-ctm blue disabled" id="CNSLT_CL_DTL">
 												<a href="javascript:void(0)" class="">문의종류 중분류</a>
 												<div class="arrow spt_bg"></div>
-												<div class="select-contents option-list">
-													<ul>
-														<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
-														<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
-														<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
-														<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
-													</ul>
-												</div>
 											</div>
 										</div>
 
@@ -130,12 +133,12 @@
 								</li>
 								<li>
 									<div class="clfix">
-										<input type="text" placeholder="제목" title="제목">
+										<input type="text" name="TITLE" id="TITLE" onkeyup="javascript:fn_checkSpclCh(this);" maxlength="40" placeholder="제목" title="제목">
 									</div>
 								</li>
 								<li>
 									<div class="clfix">
-										<textarea name="" id="" cols="30" rows="10" placeholder="상품관련 문의 시, 상품 모델명(컬러포함) 또는 상품 코드로 문의하시면&#10;정확하고 빠른 답변을 드릴 수 있습니다."></textarea>
+										<textarea name="CONTENT" id="CONTENT" rows="" cols="" onkeyup="javascript:viewMemoCnt();fn_checkSpclCh(this);" placeholder="상품관련 문의 시, 상품 모델명(컬러포함) 또는 상품 코드로 문의하시면&#10;정확하고 빠른 답변을 드릴 수 있습니다."></textarea>
 									</div>
 									<div class="counter">(0/500자)</div>
 								</li>
@@ -151,17 +154,59 @@
 				</div>
 			</div>
 			<!-- //170731 -->
-			
+
 		</div>
 		<!-- container_r end -->
 
-
-
 	</div>
 
+	<script type="text/javascript">
+		$('#CNSLT_CL').ctmSelectSetCallback({
+			before : function(){
+
+			},
+			after : function(){
+				console.log(111);
+				var tempData = [
+					{
+						altTit : '상품정보 문의',
+						MIDDLE_CD : '0101'
+					},
+					{
+						altTit : '구매가능 유무',
+						MIDDLE_CD : '0102'
+					},
+					{
+						altTit : '클레임 및 불만',
+						MIDDLE_CD : '0103'
+					},
+					{
+						altTit : '기타',
+						MIDDLE_CD : '0199'
+					}
+				];
 
 
 
+				var htmlString = '<a href="javascript:void(0)" class="">'+tempData[0].altTit+'</a><div class="arrow spt_bg"></div><div class="select-contents option-list"><ul>';
+				for(var i = 0; i < tempData.length;i++){
+					if(i == 0){
+						htmlString += '<li data-option-value="'+tempData[i].MIDDLE_CD+'" class="selected"><a href="javascript:void(0)">'+tempData[i].altTit+'</a></li>'
+					}else{
+						htmlString += '<li data-option-value="'+tempData[i].MIDDLE_CD+'"><a href="javascript:void(0)">'+tempData[i].altTit+'</a></li>'
+					}
+
+				}
+				htmlString += '</ul></div>';
+
+				console.log(htmlString);
+				$('#CNSLT_CL_DTL').html(htmlString).removeClass('disabled');
+				$('#CNSLT_CL_DTL').cmtSelectInit();
+			}
+		})
+
+
+	</script>
 
 </body>
 </html>
