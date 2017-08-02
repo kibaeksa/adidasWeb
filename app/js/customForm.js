@@ -70,6 +70,10 @@
 
 			function toggleSelecbox(event){
 				event.stopPropagation();
+				if($(this).hasClass('disabled')){
+					return;
+				}
+
 				if($(this).hasClass('open')){
 					$('.selectbox-ctm').removeClass('open');
 					$(this).removeClass('open');
@@ -112,6 +116,10 @@
 
 				event.preventDefault();
 				event.stopPropagation();
+
+				if($(this).hasClass('disabled')){
+					return;
+				}
 
 				var inputElem = $(this).find('input');
 
