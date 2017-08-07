@@ -109,6 +109,10 @@ html(lang='en')
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
             }
+            
+            .wrapper .col_box.on{
+                background:#ccc;
+            }
 
             .wrapper .col_box.dir_col{
                 padding: 5px 10px;
@@ -376,8 +380,11 @@ html(lang='en')
                 
                 window.addEventListener('hashchange',setHash);
                 
-                const changeContets = htmlPath => {
+                const changeContets = (htmlPath , obj) => {
                     document.getElementById('content-iframe').setAttribute('src',htmlPath);
+                    $('#left-area').find('.col_box').removeClass('on');
+                    console.log($(obj).parents('.col_box').length);
+                    $(obj).parent().parent().parent().addClass('on');
                 };
                 
                 const handleData = obj => {
@@ -532,7 +539,7 @@ html(lang='en')
                                 htmlString += `
                                     <div class="col_box">
                                         <ul>
-                                            <li class="name"><a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }')">${value.name}</a></li>
+                                            <li class="name"><a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }' , this)">${value.name}</a> <a href="${'http://localhost:2000'+absPath + keyName.replace(/root_/,'/') +'/'+ value.name }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a></li>
                                             <li class="desc">${value.desc ? value.desc : ''}</li>
                                             <li class="modify"><input type="text" id="${key+'___'+value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}"></li>
                                         </ul>
@@ -570,7 +577,8 @@ html(lang='en')
                             <div class="col_box">
                                 <ul>
                                     <li class="name">
-                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }')">${htmlObj.name}</a>
+                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }' , this);">${htmlObj.name}</a>
+                                        <a href="${'http://localhost:2000'+absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
                                     </li>
                                     <li class="desc">${htmlObj.desc ? htmlObj.desc : ''}</li>
                                     <li class="modify">
@@ -794,7 +802,6 @@ html(lang='en')
                     },
                     timer : '',
                     bindEvent(event){
-                        console.log(this);
                         var init = this.init;
                         var keyword = $(event.currentTarget).val();
                         this.keyword = $(event.currentTarget).val();
