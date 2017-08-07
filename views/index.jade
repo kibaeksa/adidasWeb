@@ -17,7 +17,6 @@ html(lang='en')
 
             .utilbox{
                 width: 100%;
-                height: 125px;
                 text-align: center;
                 position: absolute;
                 top: 0;
@@ -30,23 +29,40 @@ html(lang='en')
             }
 
             .utilbox .button_area{
-                padding: 10px 0;
+                padding: 0 10px 10px;
                 text-align: center;
+            }
+            
+            .utilbox.fixed .button_area{
             }
 
             .button_area .btn-ctm{
-                width: 80px;
-                height: 40px;
+                height:auto;
+                padding:13px 15px;
                 margin: 0 5px;
                 display: inline-block;
             }
-            .button_area .btn-ctm span{
-                height: 40px;
-                line-height: 40px;
+            
+            .utilbox.fixed .search_area{
+                padding:10px;
+            }
+            
+            .utilbox.fixed .search_area::before{
+                top: 11px;
+                left: 13px;
+            }
+            
+            .utilbox.fixed .button_area{
+                text-align:right;
+            }
+            
+            .utilbox.fixed .button_area .btn-ctm{
+                padding:8px 10px;
             }
 
             .button_area .btn-ctm span{
                 font-size: 12px;
+                line-height:12px;
             }
 
             .btn-ctm.disable{
@@ -55,13 +71,25 @@ html(lang='en')
             }
 
             .search_area{
+                position:relative;
                 padding: 15px;
+            }
+            
+            .search_area::before{
+                content:'';
+                display:block;
+                width: 28px;
+                height: 32px;
+                position: absolute;
+                top: 16px;
+                left: 20px;
+                background:url('/images/adidas/common/adidas_spirite.png') -110px -1250px;
             }
 
             .search_area input{
                 width: 100%;
                 height: 35px;
-                padding-left: 10px;
+                padding-left: 35px;
                 font: 500 13px/35px 'NotoSansKR';
                 color: #000;
                 box-sizing: border-box;
@@ -85,7 +113,7 @@ html(lang='en')
             .wrapper .col_box.dir_col{
                 padding: 5px 10px;
                 border-bottom:1px solid #ddd;
-                background: #fff;
+                background: #eee;
             }
 
             .wrapper .col_box:last-child{
@@ -163,7 +191,7 @@ html(lang='en')
             }
 
             #wrapper #left-area{
-                width: 280px;
+                width: 360px;
                 height: 100%;
                 padding-top: 125px;
                 position: absolute;
@@ -179,7 +207,7 @@ html(lang='en')
                 width: 100%;
                 height: 100%;
                 position: relative;
-                padding-left: 280px;
+                padding-left: 360px;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
             }
@@ -215,6 +243,24 @@ html(lang='en')
                 left: 0;
                 z-index: 999;
             }
+            
+            .wrapper .search_result .col_box{
+            
+            }
+            
+            .wrapper .search_result .search_title{
+                color: #333;
+                font: 16px 'NotoSansKR';
+                text-align: center;
+                padding: 10px 0;
+            }
+            
+            .wrapper .search_result .col_box .keyword{
+                background:yellow;
+                font-weight:bold;
+            }
+            
+            
 
         script(type='text/javascript' src='http://image.reebok.co.kr/js/jquery/jquery-1.4.2.js')
 
@@ -223,6 +269,18 @@ html(lang='en')
         input#brand(type='hidden' value='#{brand}')
         div#wrapper
             div#left-area
+                div.wrapper
+                    div.utilbox
+                        div.search_area
+                            input#search-html(type='text' placeholder="검색은 파일명,파일설명만 찾아냅니다. 양해바람.")
+                        div.button_area
+                            a#toggle-mode.btn-ctm(href='javascript:void(0)')
+                                span EDIT MODE
+                            a#submit-data.btn-ctm.disable(href='javascript:void(0)')
+                                span 저장하기
+                    div#coding-list
+                    
+                    
             div#right-area
                 div.inner
                     div#dragHandle
@@ -240,7 +298,6 @@ html(lang='en')
                 const getDataForRender = key => {
                     let newData = getObjChildDirectory(key);
                     newData.push(htmlData[key]);
-                    console.log(newData);
                     return newData;
                 }
                 
@@ -286,6 +343,39 @@ html(lang='en')
                 
                 };
                 
+                const setHash = event =>{
+                    let hash = location.hash.replace(/#/,'');
+                    
+                    console.log(hash);
+                    
+                    if(hash == ''){
+                        hash = 'root';
+                    }
+                    
+                    const hasObj = getBooleanByKey(hash);
+                    console.log(hasObj)
+                    //- console.log(hasObj);
+                    
+                    if(hasObj){
+                        renderHTML(getDataForRender(hash));
+                    }else{
+                        renderHTML(false);
+                    }
+                };
+                
+                
+                const getBooleanByKey = key =>{
+                    for(obj in htmlData){
+                        if(key == obj){
+                            return true;
+                        }
+                    }
+                    
+                    return false;
+                };
+                
+                window.addEventListener('hashchange',setHash);
+                
                 const changeContets = htmlPath => {
                     document.getElementById('content-iframe').setAttribute('src',htmlPath);
                 };
@@ -308,7 +398,7 @@ html(lang='en')
                         brand : brandName
                     };
                     
-                    console.log(htmlData)
+                    //- console.log(htmlData)
                 
                     $.ajax({
                         type: 'POST',
@@ -324,7 +414,8 @@ html(lang='en')
                         error:function(e){
                             $('#loading').remove();
                             $('#wrapper').removeClass('edit-mode');
-                            renderHTML(getDataForRender(curCategory));
+                            //- renderHTML(getDataForRender(curCategory));
+                            setHash();
                             console.log(e.responseText);
                         },
                         dataType : 'json',
@@ -334,7 +425,7 @@ html(lang='en')
                 };
                 
                 const bindEvent = () => {
-                    var inputArray = [...document.querySelectorAll('input[type="text"]')];
+                    var inputArray = [...document.querySelectorAll('.col_box input[type="text"]')];
                     var dirArray = [...document.querySelectorAll('.name.dir>a')];
                 
                     inputArray.map(value => {
@@ -355,7 +446,7 @@ html(lang='en')
                     dirArray.map(value => {
                         value.addEventListener('click',event =>{
                             curCategory = event.currentTarget.dataset.dir;
-                            renderHTML(getDataForRender(event.currentTarget.dataset.dir));
+                            location.hash = event.currentTarget.dataset.dir;                            
                         });
                     });
                 
@@ -384,19 +475,15 @@ html(lang='en')
                 }
                 
                 const renderHTML = data => {
-                    // console.log(data);
-                    let htmlString = `<div class="wrapper">
-                        <div class="utilbox">
-                            <div class="search_area">
-                                <input type="text" id="search-html"/>
-                            </div>
-                            <div class="button_area">
-                                <a id="toggle-mode" class="btn-ctm" href="javascript:void(0)"><span>EDIT MODE</span></a>
-                                <a id="submit-data" class="btn-ctm disable" href="javascript:void(0)"><span>저장하기</span></a>
-                            </div>
-                        </div>
-                    `;
-                    htmlString += `<div class="title">${data[data.length-1].path}</div>`;
+                    if(!data){
+                        document.getElementById('coding-list').innerHTML = `
+                            <div class="nodata" style="text-align: center;font: 700 16px 'NotoSansKR';color: #000;">데이터가 없습니다.</div>
+                        `;
+                        $('.utilbox').addClass('fixed');
+                        return false;
+                    }
+                    
+                    let htmlString = `<div class="title">${data[data.length-1].path}</div>`;
                 
                     if(data[data.length-1].depth > 1){
                         const parentPath = (() =>{
@@ -428,8 +515,8 @@ html(lang='en')
                         const keyName = typeof renderData === 'string' ? renderData.replace(/^root___/,'/').replace(/___/g,'/') : renderData.path;
                 
                         if(typeof renderData === 'string'){
-                            console.log(htmlData[renderData]);
-                            console.log(htmlData);
+                            //- console.log(htmlData[renderData]);
+                            //- console.log(htmlData);
                             htmlString += `
                                 <div class="col_box dir_col">
                                     <ul>
@@ -458,9 +545,47 @@ html(lang='en')
                     })
                 
                     htmlString += `</div>`;
-                    document.getElementById('left-area').innerHTML = htmlString;
+                    document.getElementById('coding-list').innerHTML = htmlString;
                     bindEvent();
                 };
+                
+                
+                const renderSearch = data => {                    
+                    let key;
+                    let htmlString = `
+                        <div class="search_result">
+                            <div class="search_title">검색결과 입니다.</div>
+                    `;
+                    const absPath = '/html/'+brandName+'/';
+                    
+                    for(key in data){
+                        if(key == 'length'){
+                            continue;
+                        }
+                        
+                        //- htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') }</div>`;
+                        htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') }</div>`;
+                        data[key].htmlData.map((htmlObj , index) => {
+                        htmlString += `
+                            <div class="col_box">
+                                <ul>
+                                    <li class="name">
+                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }')">${htmlObj.name}</a>
+                                    </li>
+                                    <li class="desc">${htmlObj.desc ? htmlObj.desc : ''}</li>
+                                    <li class="modify">
+                                        <input type="text" id="${key+'___'+htmlObj.originName.replace(/\.html/,'')}" value="${htmlObj.desc ? htmlObj.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}">
+                                    </li>
+                                </ul>
+                            </div>
+                        `
+                        });                        
+                    }
+                    htmlString += '</div>';
+            
+                    document.getElementById('coding-list').innerHTML = htmlString;
+                    $('.utilbox').addClass('fixed');
+                }
                 
                 const startDragGrid = event => {
                     event.preventDefault();
@@ -499,20 +624,19 @@ html(lang='en')
                    url: '/data/codingList/'+brandName+'/codingListInfo.json',
                    dataType : 'json',
                    beforeSend : function(){
-                       $('body').append('<div id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
+                       $('body').append('<di v id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
                    },
                    success:function(result){
                         $('#loading').remove();
                         htmlData = handleData(result);
-                        renderHTML(getDataForRender(curCategory));
+                        console.log(htmlData);
+                        setHash();
                    },
                    error:function(e){
                        $('#wrap').html('<div class="nodata">데이터를 로드 할 수 없습니다.</div>');
                        $('#loading').remove();
                    }
                 });
-               
-    
     
                 $('#left-area').bind('scroll',function(event){
                     var triggerPoint = $(this).find('.wrapper .title').offset().top;
@@ -528,3 +652,160 @@ html(lang='en')
                         })
                     }
                 });
+                
+                const searchModule = {
+                    init (keyword){
+                        var allData = htmlData;
+                        var resultArray = [];
+
+                        const searchInit = keyword => {
+                            var findCtgrLength = 2;
+                            var newArray = [];
+                            var i = 0;
+                            var count = 0;
+                            var path;
+
+                            if(keyword == ''){
+                                
+                                setTimeout(() => {
+                                    setHash();
+                                },200)
+                            
+                            }else{
+                                for(key in htmlData){
+                                    path = htmlData[key].path;
+                                    
+                                    //- var newKey = key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/');
+                                    //- var pkgNameKeyword = searchKeyword(newKey,keyword);
+                                    //- 
+                                    //- if(pkgNameKeyword){
+                                    //-     newArray.push({
+                                    //-         type : 'package',
+                                    //-         originName : key,
+                                    //-         name :pkgNameKeyword,
+                                    //-         path : path,
+                                    //-         desc : htmlData[key].desc == undefined ? '' : htmlData[key].desc
+                                    //-         
+                                    //-     });
+                                    //- }
+                                    
+                                    for(var i = 0; i < htmlData[key].htmlData.length; i++){
+                                        var nameKeyword = searchKeyword(htmlData[key].htmlData[i].name,keyword);
+                                        var descKeyword = htmlData[key].htmlData[i].desc == undefined ? false : searchKeyword(htmlData[key].htmlData[i].desc,keyword);
+                                        console.log(descKeyword);
+                                        
+                                        if(nameKeyword || descKeyword){
+                                            console.log(descKeyword);
+                                            newArray.push({
+                                                originName : htmlData[key].htmlData[i].name,
+                                                name :!nameKeyword ? htmlData[key].htmlData[i].name : nameKeyword,
+                                                path : path,
+                                                desc : !!descKeyword ? descKeyword : htmlData[key].htmlData[i].desc
+                                                
+                                            });
+                                            
+                                            console.log('in Array : ',newArray[newArray.length-1].desc);
+
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            
+                            return refactoringDataForSearch(newArray);
+                        }
+                        /* searchInit function END */
+
+                        const searchKeyword = (targetStr , keywordStr) => {
+                            var keywordArray = keywordStr.split('');
+                            var targetArray = targetStr.split('');
+                            var index = 0;
+                            var length = keywordArray.length;
+                            var counter = 0;
+                            var resultIndexArray = [];
+
+                            for(; index < targetArray.length; index++){
+                                if(targetArray[index].toLowerCase() == keywordArray[counter].toLowerCase()){
+                                    counter += 1;
+                                    resultIndexArray.push(index);
+
+                                    if(counter == length){
+                                        if(keywordStr.length > 1){
+                                            targetArray[resultIndexArray[0]] = '<span class="keyword">'+targetArray[resultIndexArray[0]];
+                                            targetArray[resultIndexArray[resultIndexArray.length-1]] = targetArray[resultIndexArray[resultIndexArray.length-1]]+'</span>';
+                                        }else{
+                                            targetArray[resultIndexArray[0]] = '<span class="keyword">'+targetArray[resultIndexArray[0]]+'</span>';
+                                        }
+
+                                        return targetArray.join('');
+                                    }
+                                }else{
+                                    counter = 0;
+                                    resultIndexArray = [];
+                                }
+                            }
+
+                            return false;
+                        }
+                        /* searchKeyword function END */
+                        
+                        
+                        const refactoringDataForSearch = arr =>{
+                            if(arr.length == 0){
+                                return [];
+                            }
+                        
+                            var i = 0;
+                            var newObj = {
+                                length : arr.length
+                            };
+                            
+                            for(i; i < arr.length; i++){
+                            
+                                var ctgrKey = arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                                
+                                                          
+                                if(!newObj[ctgrKey]){
+                                    newObj[ctgrKey] = {
+                                        path : ctgrKey.replace(/^root___/g,'/').replace(/___/g,'/')+'/',
+                                        htmlData : []
+                                    };                                    
+                                }
+                                
+                                newObj[ctgrKey].htmlData.push(arr[i]);
+                                
+                            }
+                            
+                            console.log(newObj);
+                            
+                            return newObj;
+                        }
+                        /* refactoringDataForSearch function END */
+
+                        var newArr = searchInit(keyword);
+
+                        if(newArr.length > 0){
+                            renderSearch(newArr);
+                        }else{
+                            $('.utilbox').addClass('fixed');
+                            document.getElementById('coding-list').innerHTML = `
+                                <div class="nodata" style="text-align: center;font: 700 16px 'NotoSansKR';color: #000;">검색 결과가 없습니다.</div>
+                            `;
+                        }
+                    },
+                    timer : '',
+                    bindEvent(event){
+                        console.log(this);
+                        var init = this.init;
+                        var keyword = $(event.currentTarget).val();
+                        this.keyword = $(event.currentTarget).val();
+                        clearTimeout(this.timer);
+                        this.timer = setTimeout(function(){
+                            init(keyword);
+                        },200);
+                    }
+                };
+                            
+            
+                document.getElementById('search-html').addEventListener('keyup' , event =>{
+                    searchModule.bindEvent(event)
+                })
