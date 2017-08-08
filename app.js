@@ -19,7 +19,7 @@ function parseJsonData(target , source){
 
     /* Indexing in particular object */
     for(key in target){
-        if(!!source[key].desc){
+        if(source[key] && !!source[key].desc){
             target[key].desc = source[key].desc;
         }
 
