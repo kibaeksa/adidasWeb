@@ -29,6 +29,7 @@ html(lang='en')
             }
 
             .utilbox .button_area{
+                display:none;
                 padding: 0 10px 10px;
                 text-align: center;
             }
@@ -458,24 +459,28 @@ html(lang='en')
                     });
                 
                     $('#toggle-mode').bind('click',function(){
-                        if($(this).hasClass('edit')){
-                            $(this).removeClass('edit');
-                            $('#submit-data').addClass('disable');
-                            $('#wrapper').removeClass('edit-mode');
-                            $(this).find('span').text('EDIT MODE');
-                        }else{
-                            $(this).addClass('edit');
-                            $('#submit-data').removeClass('disable');
-                            $('#wrapper').addClass('edit-mode');
-                            $(this).find('span').text('VIEW MODE');
+                        if(window.location.hostname == 'localhost'){
+                            if($(this).hasClass('edit')){
+                                $(this).removeClass('edit');
+                                $('#submit-data').addClass('disable');
+                                $('#wrapper').removeClass('edit-mode');
+                                $(this).find('span').text('EDIT MODE');
+                            }else{
+                                $(this).addClass('edit');
+                                $('#submit-data').removeClass('disable');
+                                $('#wrapper').addClass('edit-mode');
+                                $(this).find('span').text('VIEW MODE');
+                            }
                         }
                     });
                 
                     $('#submit-data').bind('click',function(){
-                        if($(this).hasClass('disable')){
-                            return;
+                        if(window.location.hostname == 'localhost'){
+                            if($(this).hasClass('disable')){
+                                return;
+                            }
+                            submitInfo();
                         }
-                        submitInfo();
                     });
                 
                 
@@ -539,7 +544,10 @@ html(lang='en')
                                 htmlString += `
                                     <div class="col_box">
                                         <ul>
-                                            <li class="name"><a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }' , this)">${value.name}</a> <a href="${'http://localhost:2000'+absPath + keyName.replace(/root_/,'/') +'/'+ value.name }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a></li>
+                                            <li class="name">
+                                                <a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }' , this)">${value.name}</a>
+                                                <a href="${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
+                                            </li>
                                             <li class="desc">${value.desc ? value.desc : ''}</li>
                                             <li class="modify"><input type="text" id="${key+'___'+value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}"></li>
                                         </ul>
@@ -577,8 +585,8 @@ html(lang='en')
                             <div class="col_box">
                                 <ul>
                                     <li class="name">
-                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }' , this);">${htmlObj.name}</a>
-                                        <a href="${'http://localhost:2000'+absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + htmlObj.originName }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
+                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/')+'/' + htmlObj.originName }' , this);">${htmlObj.name}</a>
+                                        <a href="${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + '/' + htmlObj.originName }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
                                     </li>
                                     <li class="desc">${htmlObj.desc ? htmlObj.desc : ''}</li>
                                     <li class="modify">
@@ -816,3 +824,9 @@ html(lang='en')
                 document.getElementById('search-html').addEventListener('keyup' , event =>{
                     searchModule.bindEvent(event)
                 })
+                
+                if(window.location.hostname == 'localhost'){
+                    $('.button_area').show();
+                }else{
+                    $('.button_area').remove();
+                }
