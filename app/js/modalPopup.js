@@ -76,39 +76,11 @@
     }
 
     function getElementsByClassName(className){
-        // if( navigator.appVersion.indexOf('MSIE 7.0') > 0  ) {
-        //     if(!document.getElementsByClassName){
-        //         console.log(111);
-        //         var allElements = document.getElementsByTagName('*');
-        //         var i = 0;
-        //         var newArray = [];
-        //
-        //         for(; i < allElements.length; i++){
-        //             var classNameArray = allElements[i].className.split(' ');
-        //             var j = 0;
-        //             for(; j < classNameArray.length; j++){
-        //                 if(className == classNameArray[j]){
-        //                     newArray.push(allElements[i]);
-        //                     break;
-        //                 }
-        //             }
-        //         }
-        //         return newArray;
-        //     }else{
-        //         return document.getElementsByClassName(document,className);
-        //         //In case when defined already in Prototype.js
-        //     }
-        // }else{
-        //     return document.getElementsByClassName(className);
-        // }
-        // if($)
         if(!$){
             return document.getElementsByClassName(className);
         }else{
             return $('.'+className);
         }
-
-
     }
 
     /*
@@ -116,20 +88,25 @@
     (Html에는 존재하지 않은 상태)
     */
     function initModalpopByJs(obj){
-        var nowDate = Date.now();
-        obj.key = nowDate;
-        obj.element = $(obj.element);
-        obj.name = obj.name || 'modalpop_'+nowDate;
-        obj.width = obj.width || 'auto';
-        obj.height = obj.height || 'auto';
-        obj.onload = obj.onload || false;
-        obj.callback = obj.callback || false;
-        obj.htmlString = obj.htmlString || {
-            title : obj.htmlString.header || '',
+        var newObj = {};
+        newObj.name = obj.name;
+        newObj.width = obj.width || 'auto';
+        newObj.height = obj.height || 'auto';
+        newObj.align = obj.align || 'center';
+        newObj.valign = obj.valign || 'center';
+        newObj.autoOpen = obj.autoOpen || false;
+        newObj.disableClose = obj.disableClose || false;
+        newObj.onload = obj.onload || false;
+        newObj.onopen = obj.onopen || false;
+        newObj.onclose = obj.onclose || false;
+        newObj.buttons = obj.buttons || false;
+        newObj.htmlString = obj.htmlString || {
+            title : obj.htmlString.title || '',
             contents : obj.htmlString.contents || false
         };
 
-        modalPopupContainer[setPopupName(obj.name)] = emptyObj;
+        createModalObject(newObj);
+        generateHTML(newObj);
     }
 
     /*
@@ -144,24 +121,42 @@
                 /* modalpop을 처음 로드 했을때 */
                 if(!getDataset(elem , 'modalpopInit')){
 
-                    var modalpopObj = createModalObject(elem);
+                    var modalpopObj = createModalObject(elementToJson(elem));
                     setDataset(elem , {
                         modalpopInit : true,
                         modalpopKey : modalpopObj.key
                     });
+
+                    if(modalpopObj.onload){
+                        modalpopObj.onload.call(window , modalpopObj);
+                    }
+
+
                 }
             }
         });
     }
 
     function bindDefaultEvent(popupKey){
-        $(modalPopupContainer[setPopupName(popupKey)].element).find('.popup-header .close').bind('click',function(){
-            closePopup(popupKey);
-        });
 
-        $(modalPopupContainer[setPopupName(popupKey)].element).find('.overlay').bind('click',function(){
-            closePopup(popupKey);
-        });
+        if(!modalPopupContainer[setPopupName(popupKey)].disableClose){
+            $(modalPopupContainer[setPopupName(popupKey)].element).find('.popup-header .close').bind('click',function(){
+                closePopup(popupKey);
+
+                if(!!modalPopupContainer[setPopupName(popupKey)].onclose){
+                    modalPopupContainer[setPopupName(popupKey)].onclose.call(window , modalPopupContainer[setPopupName(popupKey)]);
+                }
+            });
+
+            $(modalPopupContainer[setPopupName(popupKey)].element).find('.overlay').bind('click',function(){
+                closePopup(popupKey);
+
+                if(!!modalPopupContainer[setPopupName(popupKey)].onclose){
+                    modalPopupContainer[setPopupName(popupKey)].onclose.call(window , modalPopupContainer[setPopupName(popupKey)]);
+                }
+            });
+        }
+
     }
 
     /*
@@ -187,26 +182,22 @@
     /*
     Modal object 새로 생성
     */
-    function createModalObject(elem){
+    function createModalObject(obj){
         var nowDate = Date.now();
-        var emptyObj = {
-            key : nowDate,
-            name : getDataset(elem,'modalpopName') || 'modalpop_'+nowDate,
-            element : elem,
-            width : getDataset(elem,'modalpopWidth') || 'auto',
-            height : getDataset(elem,'modalpopHeight') || 'auto',
-            align : getDataset(elem,'modalpopAlign') || 'center',
-            valign : getDataset(elem,'modalpopValign') || (!getDataset(elem,'modalpopHeight') ? 'top' : 'center'),
-            autoOpen : getDataset(elem,'modalpopAutoopen') === '' ? true : false,
-            fade : getDataset(elem,'modalpopFade') === '' ? true : false,
-            handleClick : function(){
+        var newObj = {};
 
-            }
-        };
 
-        modalPopupContainer[setPopupName(emptyObj.name)] = emptyObj;
+        /* 팝업객체가 이미 존재 시, */
+        if(!!modalPopupContainer[setPopupName(obj.name)]){
+            $.extend(modalPopupContainer[setPopupName(obj.name)] , obj);
+            newObj = modalPopupContainer[setPopupName(obj.name)];
+        }else{
+            newObj = obj;
+            newObj.key = nowDate;
+            modalPopupContainer[setPopupName(newObj.name)] = newObj;
+        }
 
-        return emptyObj;
+        return newObj;
     }
 
     function getObjectByKey(key){
@@ -255,22 +246,46 @@
 
             if(!!modalPopupContainer[setPopupName(key)].autoOpen){
                 openPopup(key);
+
+                if(!!modalPopupContainer[setPopupName(key)].onopen){
+                    modalPopupContainer[setPopupName(key)].onopen.call(window , modalPopupContainer[setPopupName(key)]);
+                }
+
             }
         }
     }
 
-    function drawElement(obj){
-        var className = obj.split('.').join(' ');
-        var htmlString = '<div class="modal-popup-wrapper'+obj.className+'" data-modalpop="" data-modalpop-init="true"' + (obj.width != 'auto' ? ' data-modalpop-width="'+obj.width+'"' : '' ) + '' + (obj.height != 'auto' ? ' data-modalpop-height="'+obj.height+'"' : '' )+'>';
-        htmlString += '     <div class="overlay"></div>';
-        htmlString += '     <div class="popup">';
-        htmlString += '         <div class="popup-header"><h2>'+obj.htmlString.title+'</h2><a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a></div>';
-        htmlString += '         <div class="popup-contents">'+obj.htmlString.content+'</div>';
-        htmlString += '     </div>'
-        htmlString += '</div>'
-    }
-
     function openPopup(key){
+        /* 수직 중앙정렬 재설정 */
+
+        if(modalPopupContainer[setPopupName(key)].height == 'auto' && modalPopupContainer[setPopupName(key)].valign == 'center'){
+            var testElem = $(modalPopupContainer[setPopupName(key)].element).clone();
+            testElem.css({
+                opacity : 0
+            }).addClass('open');
+
+            $('body').append(testElem);
+
+            var popupHeight = testElem.find('.popup').height();
+            testElem.remove();
+
+            if(popupHeight > $(window).height()){
+                $(modalPopupContainer[setPopupName(key)].element).find('.popup').css({
+                    top : 0,
+                    marginTop : 0
+                });
+            }else{
+                $(modalPopupContainer[setPopupName(key)].element).find('.popup').css({
+                    top : '50%',
+                    marginTop : popupHeight / 2 * -1
+                });
+            }
+
+
+        }
+
+
+
         $(modalPopupContainer[setPopupName(key)].element).addClass('open');
         if(!!modalPopupContainer[setPopupName(key)].fade){
             setTimeout(function(){
@@ -305,14 +320,16 @@
             if(getDataset(elem , 'modalpopClick')){
                 if( elem.getAttribute('data-modalpop-click') !== null ){
                     var popName = elem.getAttribute('data-modalpop-click');
+
                     if(modalPopupContainer[setPopupName(popName)] != undefined){
                         $(elem).bind('click',function(){
-                            openPopup(popName);
-                        });
 
-                        if(modalPopupContainer[setPopupName(popName)].handleClick){
-                            $(elem).bind('click',modalPopupContainer[setPopupName(popName)].handleClick);
-                        }
+                            openPopup(popName);
+
+                            if(!!modalPopupContainer[setPopupName(popName)].onopen){
+                                modalPopupContainer[setPopupName(popName)].onopen.call(window , modalPopupContainer[setPopupName(popName)]);
+                            }
+                        });
                     }
                 }
             }
@@ -339,7 +356,7 @@
 
                 if(!getDataset(elem , 'modalpopInit')){
                     if(!checkModalPopup(getDataset(elem , 'modalpopName'))){
-                        var modalpopObj = createModalObject(elem);
+                        var modalpopObj = createModalObject(elementToJson(elem));
                         setDataset(elem , {
                             modalpopInit : true,
                             modalpopKey : modalpopObj.key
@@ -348,6 +365,88 @@
                 }
             }
         });
+    }
+
+    function generateHTML(obj){
+        var htmlString = '<div data-modalpop=""';
+        htmlString += ' class="modal-popup-wrapper cn_'+obj.name+'"';
+        htmlString += ' data-modalpop-name="'+obj.name+'"'
+        htmlString += ' data-modalpop-height="'+obj.height+'"'
+        htmlString += ' data-modalpop-width="'+obj.width+'"'
+        if(obj.autoOpen){
+            htmlString += ' data-modalpop-autoopen=""'
+        }
+        htmlString += '   >'
+        htmlString += '     <div class="overlay"></div>';
+        htmlString += '     <div class="popup">';
+        if(!obj.disableClose){
+            if(obj.htmlString.title){
+                htmlString += '         <div class="popup-header"><h2>'+obj.htmlString.title+'</h2><a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a></div>';
+            }else{
+                htmlString += '         <div class="popup-header"><a href="javascript:void(0)" class="close" style="top:1px;right:1px;"><span class="spt_bg"></span></a></div>';
+            }
+        }
+
+        htmlString += '         <div class="popup-contents">';
+        htmlString += obj.htmlString.contents;
+        if(obj.buttons){
+            htmlString += '<div class="confirm_button_area col'+obj.buttons.length+'">';
+            for(var i = 0;i < obj.buttons.length; i++){
+                htmlString += '<div class="button_box dialog_button'+(i+1)+'">';
+                htmlString += '     <a'
+                htmlString += '         class="'+obj.buttons[i].className.replace(/(^\s|\s$)/,'')+'"';
+                htmlString += '         href="'+(obj.buttons[i].link ? obj.buttons[i].link : 'javascript:void(0)')+'"';
+                if(obj.buttons[i].attrs){
+                    for(var attrName in obj.buttons[i].attrs){
+                        var attrNameForHtml = attrName.replace(/[A-Z]/g,function(x){
+                            return '-'+x.toLowerCase();
+                        });
+                        htmlString += '         '+attrNameForHtml+'="'+obj.buttons[i].attrs[attrName]+'"';
+                    }
+                }
+                htmlString += '     >';
+                htmlString += '         <span>'+obj.buttons[i].text+'</span>';
+                htmlString += '     </a>';
+                htmlString += '</div>';
+            }
+            htmlString += '</div>';
+        }
+        htmlString += '</div>';
+        htmlString += '     </div>'
+        htmlString += '</div>'
+
+        var dummy = document.createElement('div');
+        dummy.innerHTML = htmlString;
+
+        document.getElementsByTagName('body')[0].appendChild(dummy.children[0]);
+
+        if(obj.buttons){
+            for(var i = 0;i < obj.buttons.length; i++){
+                if(obj.buttons[i].callback){
+
+                    (function(fn , obj){
+                        $('.cn_'+obj.name+' .dialog_button'+(i+1)).bind('click',function(event){
+                            fn.call(window , event , obj);
+                        });
+                    })(obj.buttons[i].callback , obj);
+                }
+            }
+        }
+    }
+
+    function elementToJson(elem){
+        var newObj = {
+            name : getDataset(elem,'modalpopName'),
+            element : elem,
+            width : getDataset(elem,'modalpopWidth') || 'auto',
+            height : getDataset(elem,'modalpopHeight') || 'auto',
+            align : getDataset(elem,'modalpopAlign') || 'center',
+            valign : getDataset(elem,'modalpopValign') || 'center',
+            autoOpen : getDataset(elem,'modalpopAutoopen') === '' ? true : false,
+            fade : getDataset(elem,'modalpopFade') === '' ? true : false
+        };
+
+        return newObj;
     }
 
 
@@ -380,6 +479,9 @@
     */
 
     window.ModalPopup = {
+        init : function(popupData){
+            initModalpopByJs(popupData);
+        },
         getPopupData : function(popName){
             if(popName == undefined){
                 return modalPopupContainer;
@@ -390,10 +492,23 @@
         openPopup : function(popName){
             openPopup(popName);
         },
+        closePopup : function(popName){
+            closePopup(popName);
+        },
         rerender : function(){
             rerender();
+        },
+        bind : function(key , eventObj){
+            if(!modalPopupContainer[setPopupName(key)]){
+                modalPopupContainer[setPopupName(key)] = {};
+            }
+
+            var eventName;
+            for(eventName in eventObj){
+                modalPopupContainer[setPopupName(key)][eventName] = eventObj[eventName];
+            }
         }
-    }
+    };
 
 
     $(document).ready(function(){
