@@ -1,19 +1,9 @@
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>¸®º¹ °ø½Ä ¿Â¶óÀÎ ½ºÅä¾î Ãë¼Ò/¹İÇ°Á¶È¸</title>
+<title>ë¦¬ë³µ ê³µì‹ ì˜¨ë¼ì¸ ìŠ¤í† ì–´ ì·¨ì†Œ/ë°˜í’ˆì¡°íšŒ</title>
 
 <link rel="shortcut icon" href="/images/reebok/favicon.ico"/>
 <link rel="apple-touch-icon-precomposed" href="/images/reebok/icon_114.png" />
@@ -30,653 +20,14 @@
 <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/datepicker_jquery.css"/>
 <script type="text/javascript" src="/js/jquery/datepicker_jquery.js"></script>
-<script type="text/javascript">
-	_TRK_CP="^HOME^¸¶ÀÌÆäÀÌÁö^³ªÀÇ¼îÇÎ³»¿ª^Ãë¼Ò/¹İÇ°Á¶È¸";
-</script>	
-<script type="text/javascript">	
-/* <![CDATA[ */
-	var command = "";
-	
-	jQuery(document).ready( function(){
-		if(command == "VIEW") {
-			jQuery("#tab1").hide();
-			jQuery("#tab2").show();
-			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_off.gif';
-			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_on.gif';
-		} else {
-			jQuery("#tab1").show();
-			jQuery("#tab2").hide();
-			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_on.gif';
-			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_off.gif';
-		}
-		
-		jQuery("#FROM_ORDER_DY").val("2014-05-06");
-		jQuery("#TO_ORDER_DY").val("2014-08-04");
-		jQuery("#FROM_USE_BEGIN_DT").val("2014-05-06");
-		jQuery("#TO_USE_END_DT").val("2014-08-04");
-		
-		fn_search();
-		fn_searchView();
-	});	
 
-	var prodSize = new Array;	
-	var listHTML = "";
-	var pagingHTML = "";
-	
-	//¸ñ·Ï Á¶È¸ (Tab1)
-	function fn_search(page){
-		var validator = new Validator("frmSrch");
-		validator.addItem("FROM_ORDER_DY", "Y:MaxByteLength=10:Y:°Ë»ö½ÃÀÛÀÏ:");
-		validator.addItem("TO_ORDER_DY", "Y:MaxByteLength=10:Y:°Ë»öÁ¾·áÀÏ:");
-		validator.addItem("FROM_ORDER_DY", "N:period=FROM_ORDER_DY=TO_ORDER_DY:Y:°Ë»ö½ÃÀÛ ÀÏÀÚ:"); // ¾Õ ³¯Â¥°¡ ´õ ºü¸¥Áö Ã¼Å©
-		validator.addItem("TO_ORDER_DY", "N:period=FROM_ORDER_DY=TO_ORDER_DY:Y:°Ë»öÁ¾·á ÀÏÀÚ:"); // ¾Õ ³¯Â¥°¡ ´õ ºü¸¥Áö Ã¼Å©
-		
-		if(!validator.validateForm("frmSrch")){
-			return false;
-		}
-	    if(cfn_isUndefined(page)) {
-	   		$("S_PAGE").value = 1;
-	  	} else {
-	  	 	$("S_PAGE").value = page;
-	  	}
-	  
-		$("S_COMMAND").value = 'LIST';
-		var url = "/RPF060103.action";
-		var param = Object.toQueryString($("frmSrch").serialize(true));
-
-		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
-		
-		var onSuccess = function(req){
-			var json = req.responseJSON;
-			JsonUtil.alert(json);
-			
-			jQuery("#makeList").html("");
-			//jQuery("#makeList *").remove();
-			
-			if(JsonUtil.isError(json)){
-				var arr = json.list.list;
-				
-				//ºñÈ¸¿ø°æ¿ì ÁÖ¹® ¼ö·® Ãß°¡
-				var ss_mem_type = 'R';
-				if(ss_mem_type == 'P'){
-					document.getElementById("noMemberOrderIng").innerHTML = json.noMemberOrderIng;
-					document.getElementById("noMemberOrder").innerHTML = json.noMemberOrder;
-				}
-				
-				listHTML =  "<div class='my_list'>";
-				listHTML += "<table summary='Ãë¼Ò/¹İÇ° ¿äÃ»'>";
-				listHTML += "	<caption>Ãë¼Ò/¹İÇ° ¿äÃ»</caption>";
-				listHTML += "	<colgroup>";
-				listHTML += "		<col width='120px'>";
-				listHTML += "		<col width='65px'>";
-				listHTML += "		<col>";
-				listHTML += "		<col width='112px'>";
-				listHTML += "		<col width='75px'>";
-				listHTML += "		<col width='75px'>";
-				listHTML += "		<col width='80px'>";
-				listHTML += "	</colgroup>";
-				listHTML += "	<thead>";
-				listHTML += "	<tr>";
-				listHTML += "		<th scope='col'>ÁÖ¹®¹øÈ£ / ÀÏÀÚ</th>";
-				listHTML += "		<th scope='col' colspan='2'>»óÇ°¸í</th>";
-				listHTML += "		<th scope='col'>°áÁ¦±İ¾×</th>";
-				listHTML += "		<th scope='col'>»çÀÌÁî / ¼ö·®</th>";
-				listHTML += "		<th scope='col'>»óÅÂ</th>";
-				listHTML += "		<th scope='col' class='last'>Ãë¼Ò/¹İÇ°</th>";
-				listHTML += "	</tr>";
-				listHTML += "	</thead>";
-				listHTML += "	<tbody>";
-				
-				// µ¿ÀÏÇÑ ORDER_NO°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í Ä«¿îÆ®¸¦ ±¸ÇÑ´Ù!
-				for(var i=0; i<arr.size(); i++){
-					var prodCnt = 0;
-					
-					for(var j=0; j<arr.size(); j++){
-						if(i != j) {
-							if(arr[i].ORDER_NO == arr[j].ORDER_NO) {
-								prodCnt += 1;
-							}
-						}
-					}
-					if(prodCnt != 0) {
-						prodSize[i] = prodCnt+1;
-					} else {
-						prodSize[i] = 0;
-					}
-				}
-				
-				var mOrderNo = "";
-
-				for(var i=0; i<arr.size(); i++){
-					if(prodSize[i] == 0) {
-						listHTML += "		<tr class='online'>";
-						
-						if(arr[i].BUY_TYPE == 'online' && arr[i].ORDER_TYPE == '02') {
-							listHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"<br />(¿¹¾à ÁÖ¹®)</td>";						
-						} else {
-							listHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";
-						}
-						listHTML += "			<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt='"+arr[i].PROD_NM+"'/></td>";
-						listHTML += "			<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-						listHTML += "			<td class='price'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-						listHTML += "			<td>"+arr[i].ORDER_STYLE+"</td>";
-						
-						// ¹è¼ÛÁß, ¹è¼Û¿Ï·á »óÅÂ¸é '¹è¼ÛÃßÀû' ¹öÆ° º¸¿©ÁØ´Ù!
-						if(arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') {
-							listHTML += "			<td>"+arr[i].ORDER_ST_NM+"<br />";
-							listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_cargo.gif' alt='¹è¼ÛÃßÀû'/></a>";
-							listHTML += "				</td>";
-						} else {
-							listHTML += "			<td>"+arr[i].ORDER_ST_NM+"</td>";
-						}
-						listHTML += "			<td class='btn'>";
-						
-						// °áÁ¦¿Ï·á »óÅÂ¸é 'ÁÖ¹®Ãë¼Ò' ¹öÆ° º¸¿©ÁØ´Ù!
-						if( (arr[i].ORDER_ST == '11' || arr[i].ORDER_ST == '01' || arr[i].ORDER_ST == '02') && ( arr[i].CNT_01 == arr[i].CNT_02 ) ) {
-							listHTML += "				<a href='javascript:fn_orderCancleAll("+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_cancel02.gif' alt='ÁÖ¹®Ãë¼Ò' /></a>";
-							
-						} else if( (arr[i].ORDER_ST == '11' || arr[i].ORDER_ST == '01' || arr[i].ORDER_ST == '02') && ( arr[i].CNT_01 != arr[i].CNT_02 ) ) {
-							listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='Ãë¼Ò½ÅÃ»' /></a><br />";
-							
-						} else if(arr[i].ORDER_ST == '03') {
-							
-							if(arr[i].ORDER_ST_NM == '¹è¼Û¿äÃ»') {
-								listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='Ãë¼Ò½ÅÃ»' /></a><br />";
-							} else {
-								listHTML += "				<a href='javascript:fn_dlvIngMsg();'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='Ãë¼Ò½ÅÃ»' /></a><br />";
-							}
-							
-						} else if(arr[i].ORDER_ST == '04') {
-							listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_return.gif' alt='¹İÇ°½ÅÃ»' /></a><br />";
-							
-						} else if(arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '±¸¸Å¿Ï·á') {
-							listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_return.gif' alt='¹İÇ°½ÅÃ»' /></a>";
-							//listHTML += "				<a href='javascript:fn_total(\"exchange\", "+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_change.gif' alt='±³È¯½ÅÃ»' /></a><br />";
-						}
-						listHTML += "			</td>";
-						listHTML += "		</tr>";
-						
-						mOrderNo = arr[i].ORDER_NO;
-						
-					} else {
-						if(arr[i].ORDER_NO != mOrderNo) {
-							var startIdx = i;
-							var endIdx = i + (prodSize[i] -1);
-														
-							var completeCnt = 0;	// °áÁ¦ ¿Ï·á Ä«¿îÆ®
-							var buyCnt = 0;			// ±¸¸Å ¿Ï·á Ä«¿îÆ®
-							
-							for(var k=startIdx; k<=endIdx; k++) {
-								if(arr[k].ORDER_ST == '11' || arr[k].ORDER_ST == '01' || arr[k].ORDER_ST == '02'){
-									completeCnt += 1;
-								} else if(arr[k].ORDER_ST == '05' && arr[k].ORDER_ST_NM == '±¸¸Å¿Ï·á') {
-									buyCnt += 1;
-								}
-							}
-							listHTML += "		<tr class='online'>";
-							
-							if(arr[i].BUY_TYPE == 'online' && buyCnt != prodSize[i]) {
-								if(arr[i].ORDER_TYPE == '02') {
-									listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"<br />(¿¹¾à ÁÖ¹®)</td>";	
-								} else {
-									listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";
-								}
-							} else {
-								listHTML += "			<td rowspan='"+prodSize[i]+"' class='order_num'>"+arr[i].ORDER_NO+"<br />"+arr[i].ORDER_DY+"</td>";
-							}
-							listHTML += "			<td class='no_underline'><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
-							listHTML += "			<td class='left no_underline'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-							listHTML += "			<td class='price no_underline'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-							listHTML += "			<td class='no_underline'>"+arr[i].ORDER_STYLE+"</td>";
-							listHTML += "			<td class='no_underline'>"+arr[i].ORDER_ST_NM+"<br />";
-							
-							// ¹è¼ÛÁß, ¹è¼Û¿Ï·á »óÅÂ¸é '¹è¼ÛÃßÀû' ¹öÆ° º¸¿©ÁØ´Ù!
-							if((arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') || (arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '±¸¸Å¿Ï·á' && arr[i].DLVRSVC_INVC_NO != '')) {
-								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_cargo.gif' alt='¹è¼ÛÃßÀû'/></a>";
-							}
-							listHTML += "			</td>";
-							listHTML += "			<td rowspan='"+prodSize[i]+"' class='btn'>";
-																			
-							// ´Ù °áÁ¦ ¿Ï·á »óÅÂ¸é 'ÁÖ¹®Ãë¼Ò'
-							if( (completeCnt == prodSize[i]) && ( arr[i].CNT_01 == arr[i].CNT_02 )) {
-								listHTML += "				<a href='javascript:fn_orderCancleAll("+arr[i].ORDER_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_cancel02.gif' alt='ÁÖ¹®Ãë¼Ò' /></a>";
-							}
-							
-							var dlivyReady = true;	// ¹è¼ÛÁØºñÁß
-							var dlivyIng = true;	// ¹è¼ÛÁß
-							var dlivyEnd = true;	// ¹è¼Û¿Ï·á
-							
-							for(var p=startIdx; p<=endIdx; p++) {
-								if(dlivyReady && dlivyIng) {
-									if(arr[p].ORDER_ST == '03') {
-										listHTML += "				<a href='javascript:fn_total(\"cancel\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_cancel.gif' alt='Ãë¼Ò½ÅÃ»' /></a><br />";
-										dlivyReady = false;
-										
-									} else if(arr[p].ORDER_ST == '04') {
-										listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_return.gif' alt='¹İÇ°½ÅÃ»' /></a><br />";
-										dlivyIng = false;
-									}
-								}
-								if(dlivyEnd) {
-									if(arr[p].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '±¸¸Å¿Ï·á') {
-										listHTML += "				<a href='javascript:fn_total(\"return\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_return.gif' alt='¹İÇ°½ÅÃ»' /></a>";
-										//listHTML += "				<a href='javascript:fn_total(\"exchange\", "+arr[i].ORDER_NO+")'><img src='/images/reebok/mypage/btn_order_change.gif' alt='±³È¯½ÅÃ»' /></a><br />";
-										dlivyEnd = false;
-									}
-								}
-							}
-							listHTML += "			</td>";
-							listHTML += "		</tr>";
-							mOrderNo = arr[i].ORDER_NO;
-							
-						} else {
-							listHTML += "		<tr class='online'>";
-															
-							if( (i+1) == arr.length ) {
-								listHTML += "		<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
-								listHTML += "		<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-								listHTML += "		<td class='price'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-								listHTML += "		<td>"+arr[i].ORDER_STYLE+"</td>";
-								listHTML += "		<td>"+arr[i].ORDER_ST_NM+"<br />";
-								
-							} else if( (i+1) != arr.length && (i+1) <= arr.length ) {
-								
-								if(arr[i].ORDER_NO == arr[i+1].ORDER_NO){
-									listHTML += "		<td class='no_underline'><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
-									listHTML += "		<td class='left no_underline'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-									listHTML += "		<td class='price no_underline'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-									listHTML += "		<td class='no_underline'>"+arr[i].ORDER_STYLE+"</td>";
-									listHTML += "		<td class='no_underline'>"+arr[i].ORDER_ST_NM+"<br />";
-								} else {
-									listHTML += "		<td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
-									listHTML += "		<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-									listHTML += "		<td class='price'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-									listHTML += "		<td>"+arr[i].ORDER_STYLE+"</td>";
-									listHTML += "		<td>"+arr[i].ORDER_ST_NM+"<br />";
-								}
-							}
-							
-							if(arr[i].ORDER_ST == '04' && arr[i].DLVRSVC_INVC_NO != '') {
-								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_cargo.gif' alt='¹è¼ÛÃßÀû'/></a>";
-							} else if(arr[i].ORDER_ST == '05' && arr[i].ORDER_ST_NM != '±¸¸Å¿Ï·á' && arr[i].DLVRSVC_INVC_NO != ''){
-								listHTML += "				<a href='javascript:fn_delive_trace("+arr[i].DLVRSVC_INVC_NO+", \""+arr[i].TRACE_PATH+"\");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_cargo.gif' alt='¹è¼ÛÃßÀû'/></a>";
-							}
-							listHTML += "			</td>";
-							listHTML += "		</tr>";
-							mOrderNo = arr[i].ORDER_NO;
-						}
-					}
-				}
-				listHTML += "	</tbody>";
-				
-				if(arr.size() == 0){
-					listHTML += "	<tfoot>";
-					listHTML += "		<tr>";
-					listHTML += "			<td colspan='8'>";
-					listHTML += "				Ãë¼Ò/¹İÇ° ¿äÃ»°¡´É ÁÖ¹®ÀÌ ¾ø½À´Ï´Ù.";
-					listHTML += "			</td>";
-					listHTML += "		</tr>";
-					listHTML += "	</tfoot>";
-				}
-				listHTML += "	</table>";
-				listHTML += "	</div>";
-				
-				jQuery("#makeList").append(listHTML);
-				
-				// ÆäÀÌÂ¡
-				pagingHTML = "";
-				jQuery("#makePaging *").remove();
-				
-				var paging = json.list.paging;
-				var tpage = json.list.tpage;
-				
-				if(tpage != 0) {
-					pagingHTML =  " <div class='paging'>";
-					
-					if(tpage == 1) {
-						pagingHTML += "		<a href='#' onclick='return false;'>1</a>";
-					} else {
-						pagingHTML += paging;
-					}
-					pagingHTML += " </div>";
-									
-					jQuery("#makePaging").append(pagingHTML);
-				}
-			}
-		};
-	    var onFailure = function(){
-	    	alert("error");
-	    };
-		cfn_ajaxRequest(url, param, onSuccess, onFailure);
-	}
-	
-	// ¸ñ·Ï Á¶È¸ (Tab2)
-	var viewHTML = "";
-	var pagingViewHTML = "";
-		
-	function fn_searchView(page){
-		var validator = new Validator("frmDetail");
-		validator.addItem("FROM_USE_BEGIN_DT", "Y:MaxByteLength=10:Y:°Ë»ö½ÃÀÛÀÏ:");
-		validator.addItem("TO_USE_END_DT", "Y:MaxByteLength=10:Y:°Ë»öÁ¾·áÀÏ:");
-		validator.addItem("FROM_USE_BEGIN_DT", "N:period=FROM_USE_BEGIN_DT=TO_USE_END_DT:Y:°Ë»ö½ÃÀÛ ÀÏÀÚ:"); // ¾Õ ³¯Â¥°¡ ´õ ºü¸¥Áö Ã¼Å©
-		validator.addItem("TO_USE_END_DT", "N:period=FROM_USE_BEGIN_DT=TO_USE_END_DT:Y:°Ë»öÁ¾·á ÀÏÀÚ:"); // ¾Õ ³¯Â¥°¡ ´õ ºü¸¥Áö Ã¼Å©
-		if(!validator.validateForm("frmDetail")){
-			return false;
-		}
-		if(cfn_isUndefined(page)) {
-	   		$("D_PAGE").value = 1;
-	  	} else {
-	  	 	$("D_PAGE").value = page;
-	  	}
-		$("D_COMMAND").value ='VIEW';
-		var url = "/RPF060103.action";
-		var param = Object.toQueryString($("frmDetail").serialize(true));
-		
-		var onSuccess = function(req){
-			var json = req.responseJSON;
-			JsonUtil.alert(json);
-			
-			jQuery("#makeViewList").html("");
-			
-			if(JsonUtil.isError(json)){
-				var arr = json.view.list;
-				
-				viewHTML =  "<div class='my_list'>";
-				viewHTML += "<table summary='Ãë¼Ò/¹İÇ° ³»¿ª'>";
-				viewHTML += "	<caption>Ãë¼Ò/¹İÇ° ³»¿ª</caption>";
-				viewHTML += "	<colgroup>";
-				viewHTML += "		<col width='100px' />";
-				viewHTML += "		<col width='115px' />";
-				viewHTML += "		<col />";
-				viewHTML += "		<col width='112px' />";
-				viewHTML += "		<col width='75px' />";
-				viewHTML += "		<col width='75px' />";
-				viewHTML += "		<col width='80px' />";
-				viewHTML += "	</colgroup>";
-				viewHTML += "	<thead>";
-				viewHTML += "	<tr>";
-				viewHTML += "		<th scope='col'>¸ÅÀå¸í</th>";
-				viewHTML += "		<th scope='col'>ÁÖ¹®¹øÈ£ / ÀÏÀÚ</th>";
-				viewHTML += "		<th scope='col'>»óÇ°¸í</th>";
-				viewHTML += "		<th scope='col'>°áÁ¦±İ¾×</th>";
-				viewHTML += "		<th scope='col'>»çÀÌÁî / ¼ö·®</th>";
-				viewHTML += "		<th scope='col'>Á¢¼öÀ¯Çü</th>";
-				viewHTML += "		<th scope='col' class='last'>Ãë¼Ò/¹İÇ°</th>";
-				viewHTML += "	</tr>";
-				viewHTML += "	</thead>";
-				viewHTML += "	<tbody>";	
-				
-				for(var i=0; i<arr.size(); i++){
-					viewHTML += "		<tr class='online'>";
-									
-					if(arr[i].BUY_TYPE == 'online') {
-						if(arr[i].ORDER_TYPE == '02') {
-							viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"<br />(¿¹¾à ÁÖ¹®)</td>";
-						} else {
-							viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"</td>";
-						}
-					} else {
-						viewHTML += "			<td>"+arr[i].SITE_TYPE_NM+"</td>";
-					}
-					
-					if(arr[i].BUY_TYPE == 'online') {
-						viewHTML += "			<td class='order_num'><strong><a href='/RPF0601011.action?command=VIEW&ORDER_NO="+arr[i].ORDER_NO+"'>"+arr[i].ORDER_NO+"</a></strong><br />"+arr[i].ORDER_DY+"</td>";	
-					} else {
-						viewHTML += "			<td class='order_num'><strong>"+arr[i].ORDER_NO+"</strong><br />"+arr[i].ORDER_DY+"</td>";
-					}
-					//listHTML += "		    <td><img src='"+PATH_IMG_60+arr[i].PROD_CD+"-1_60X60.jpg' alt=''/></td>";
-					viewHTML += "			<td class='left'><a href='javascript:fn_linkProd(\""+arr[i].PROD_CD+"\", \""+arr[i].DISPLAY+"\");'>"+arr[i].PROD_NM+"</a></td>";
-					viewHTML += "			<td class='price'>"+arr[i].CASH_PAYMT_AMT+" ¿ø</td>";
-					viewHTML += "			<td>"+arr[i].ORDER_STYLE+"</td>";
-					
-					if(arr[i].BUY_TYPE == 'online') {
-						if(arr[i].PRE_ORDER_ST == '11' || arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03') {
-							viewHTML += "			<td>Ãë¼Ò</td>";			
-						} else if( (arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
-							viewHTML += "			<td>¹İÇ°</td>";
-						} else if(arr[i].RCPT_TYPE == '02') {
-							viewHTML += "			<td>±³È¯</td>";
-						}
-					} else {
-						viewHTML += "			<td>Ãë¼Ò</td>";
-					}
-					
-					//if(arr[i].RCPT_ST == '04') {
-					//	viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"<br />";
-					//	
-					//	// ÀÌÀüÁÖ¹® »óÅÂ : 01, 02, 03, 04 ÀÌ¸é  Ãë¼Ò¿Ï·á!
-					//	if(arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03' || arr[i].PRE_ORDER_ST == '04') {
-					//		viewHTML += "			<a href='javascript:fn_cancle("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-					//	
-					//	} else if(arr[i].PRE_ORDER_ST == '05' && arr[i].FLAG == 'cancle') {
-					//		viewHTML += "			<a href='javascript:fn_return("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-					//			
-					//	} else if(arr[i].PRE_ORDER_ST == '05' && arr[i].FLAG == 'exchg') {
-					//		viewHTML += "			<a href='javascript:fn_exchange("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");'  title='»õÃ¢'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-					//	}
-					//	
-					//	viewHTML += "			</td>";
-					//	
-					//} else {
-					//	viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"</td>";
-					//}
-					
-					if(arr[i].BUY_TYPE == 'online') {
-						viewHTML += "			<td>"+arr[i].RCPT_ST_NM+"<br />";
-					} else {
-						viewHTML += "			<td>";
-					}
-					
-					if(arr[i].PRE_ORDER_ST == '11' || arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '02' || arr[i].PRE_ORDER_ST == '03') {
-						viewHTML += "			<a href='javascript:fn_cancle("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-					
-					} else if( (arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
-						viewHTML += "			<a href='javascript:fn_return("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-							
-					} else if(arr[i].RCPT_TYPE == '02') {
-						//viewHTML += "			<a href='javascript:fn_exchange("+arr[i].CLAIM_NO+", "+arr[i].ORDER_NO+", "+arr[i].ORDER_DTL_NO+");' title='»õÃ¢'><img src='/images/reebok/mypage/btn_detail.gif' alt='»ó¼¼³»¿ª' /></a>";
-					}
-					
-					//¹İÇ° Ãë¼Ò ¹öÆ° ³ëÃâ
-					if((arr[i].PRE_ORDER_ST == '01' || arr[i].PRE_ORDER_ST == '04' || arr[i].PRE_ORDER_ST == '05') && arr[i].RCPT_TYPE == '01') {
-						if(arr[i].RC_CLAIM_NO != ""&&arr[i].RC_ORDER_NO != ""&&arr[i].RC_ORDER_DTL_NO != "") {
-							viewHTML += "				<a href='javascript:fn_return_cancel("+arr[i].RC_CLAIM_NO+", "+arr[i].RC_ORDER_NO+", "+arr[i].RC_ORDER_DTL_NO+")' title='»õÃ¢'><img src='/images/reebok/mypage/btn_order_return_cancle.gif' alt='¹İÇ°Ãë¼Ò' /></a><br />";
-						}
-					}
-						
-					viewHTML += "			</td>";
-					viewHTML += "		</tr>";
-				}
-				viewHTML += "	</tbody>";
-				
-				if(arr.size() == 0){
-					viewHTML += "	<tfoot>";
-					viewHTML += "		<tr>";
-					viewHTML += "			<td colspan='7'>";
-					viewHTML += "				Ãë¼Ò/¹İÇ° ³»¿ªÀÌ ¾ø½À´Ï´Ù.";
-					viewHTML += "			</td>";
-					viewHTML += "		</tr>";
-					viewHTML += "	</tfoot>";
-				}
-				viewHTML += "	</table>";
-				viewHTML += "	</div>";
-				
-				jQuery("#makeViewList").append(viewHTML);
-								
-				// ÆäÀÌÂ¡
-				pagingViewHTML = "";
-				jQuery("#makeViewPaging *").remove();
-				
-				var pagingView = json.view.paging;
-				var tpageView = json.view.tpage;
-				var pagingValue = pagingView.split("fn_search").join("fn_searchView");
-				
-				if(tpageView != 0) {
-					pagingViewHTML =  " <div class='paging'>";
-					
-					if(tpageView == 1) {
-						pagingViewHTML += "		<a href='#' onclick='return false;'>1</a>";
-					} else {
-						pagingViewHTML += pagingValue;
-					}
-					pagingViewHTML += " </div>";
-						
-					jQuery("#makeViewPaging").append(pagingViewHTML);
-				}
-			}
-		};
-	    var onFailure = function(){
-	    	alert("error");
-	    };
-		cfn_ajaxRequest(url, param, onSuccess, onFailure);
-	}
-	
-	
-	//tab change
-	function fn_changTab(val){
-		if(val == 1) {
-			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_on.gif';
-			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_off.gif';
-			document.getElementById('tab1').style.display='block';
-			document.getElementById('tab2').style.display='none';
-		} else {
-			document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_mypage01_off.gif';
-			document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_mypage02_on.gif';
-			document.getElementById('tab1').style.display='none';
-			document.getElementById('tab2').style.display='block';
-		}
-	}
-	
-	// Á¶È¸³¯Â¥ ¼ÂÆÃ (3°³¿ù, 6°³¿ù, 2³â)
-	function fn_period(val) {
-		if(val == 1) {
-			$("FROM_ORDER_DY").value = "2014-05-06";
-			$("TO_ORDER_DY").value     = "2014-08-04";
-		} else if(val == 2) {
-			$("FROM_ORDER_DY").value = "2014-02-05";
-			$("TO_ORDER_DY").value 	 = "2014-08-04";
-		} else if(val == 3) {
-			$("FROM_ORDER_DY").value = "2012-08-04";
-			$("TO_ORDER_DY").value 	 = "2014-08-04";
-		} else if(val == 4) {
-			$("FROM_USE_BEGIN_DT").value = "2014-05-06";
-			$("TO_USE_END_DT").value 	 = "2014-08-04";
-		} else if(val == 5) {
-			$("FROM_USE_BEGIN_DT").value = "2014-02-05";
-			$("TO_USE_END_DT").value 	 = "2014-08-04";
-		} else if(val == 6) {
-			$("FROM_USE_BEGIN_DT").value = "2012-08-04";
-			$("TO_USE_END_DT").value 	 = "2014-08-04";
-		}
-	}
-	
-	// ¹è¼ÛÃßÀû
-	function fn_delive_trace(InvcNo, TracePath) {
-		var url = TracePath.replace('$INVC_NO$', InvcNo);
-		var width = "700";
-		var height = "663";
-		var asppop = cfn_openPop(url, "tracePopUp", width, height);
-		asppop.focus();
-	}
-	
-	function fn_orderCancleAll(orderNo) {
-		// ÁÖ¹®Ãë¼Ò
-		var asppop = cfn_openPop('/RPF0601013.action?command=VIEW&ORDER_NO='+orderNo, "ordCancelPop", 487, 550);
-		asppop.focus();
-	}
-	
-	function fn_total(gubun, orderNo) {
-		if(gubun == 'cancel' || gubun == 'return' ) {
-			// Ãë¼ÒÁ¢¼ö ¶Ç´Â ¹İÇ°½ÅÃ»(¹è¼Û¿Ï·á°Ç Ãë¼Ò½ÅÃ» - Ãë¼ÒÁ¢¼ö ÀÇ¹Ì)
-			var asppop = cfn_openPop('/RPF0601014.action?command=VIEW&GUBUN='+gubun+'&ORDER_NO='+orderNo, "ordReturnPop", 617, 650);
-			asppop.focus();
-			
-		} else if(gubun == 'exchange') {
-			// ±³È¯½ÅÃ»
-			var asppop = cfn_openPop('/RPF0601015.action?command=VIEW&GUBUN='+gubun+'&ORDER_NO='+orderNo, "ordExchangePop", 617, 650);
-			asppop.focus();
-		}
-	}
-	
-	// »ó¼¼³»¿ª
-	function fn_cancle(claimNo, orderNo, orderDtlNo){
-		var asppop = cfn_openPop('/RPF0601031.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 500);
-		asppop.focus();
-	
-	}
-	function fn_return(claimNo, orderNo, orderDtlNo){
-		var asppop = cfn_openPop('/RPF0601032.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 550);
-		asppop.focus();
-	}
-	function fn_exchange(claimNo, orderNo, orderDtlNo){
-		var asppop = cfn_openPop('/RPF0601033.action?command=VIEW&CLAIM_NO='+claimNo+'&ORDER_NO='+orderNo+'&ORDER_DTL_NO='+orderDtlNo, "cancelDetailPop", 470, 500);
-		asppop.focus();
-	}
-	
-	// »óÇ°¸í Å¬¸¯½Ã »óÇ°»ó¼¼·Î ÀÌµ¿
-	function fn_linkProd(prodCd, display) {
-		if(display == "Y") {
-			var url = "/RPF020401.action?PROD_CD="+prodCd;
-			location.href=url;
-		}else {
-			alert("ÆÇ¸ÅÁ¾·áµÈ »óÇ°ÀÔ´Ï´Ù!");
-		}
-	}
-	
-	function fn_rbReturnPop() {
-		var url = "/jsp/reebok/rbReturnPop.jsp";
-		var winName = "rbReturnPop";
-
-		var width = 700;
-		var height = 700;
-	 	var wid = (screen.width)/2 - width/2 ;
-	 	var hei = (screen.height)/2 - height/2;
-	 	var win = window.open(url, winName, "menubar=no, scrollbars=yes, resizable=no, width=" + width + ", height=" + height+ ",top=" + hei + ",left=" + wid + "");
-	 	if(win != null)
-	 		win.focus();
-		target = winName;
-	}
-	
-	function fn_return_cancel(claim_no,order_no,order_dtl_no) {
-		
-		if(confirm('¹İÇ°Ãë¼Ò ÇÏ½Ã°Ú½À´Ï±î?')){
-			var onSuccess = function(req){
-				var json = req.responseJSON;					
-				JsonUtil.alert(json);
-
-				if(JsonUtil.isError(json)){
-					fn_searchView();
-					fn_search();
-				}else{
-					
-				}
-			};
-
-		    var onFailure = function(){
-			    alert('µî·Ï Áß ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.');
-		    };
-
-		    cfn_ajaxRequest("/RPF060103.action", 
-		    				"command=CLAIM_RETURN_CANCEL&CLAIM_NO="+claim_no+"&ORDER_NO="+order_no+"&ORDER_DTL_NO="+order_dtl_no, 
-		    				onSuccess, 
-		    				onFailure);
-	    }
-
-	}
-	
-  	
-  	function fn_dlvIngMsg() {
-  		alert("¹è¼ÛÁØºñÁß »óÅÂ¿¡¼­´Â Ãë¼ÒÁ¢¼ö ÇÒ ¼ö ¾ø½À´Ï´Ù.\n°í°´¼¾ÅÍ·Î ¹®ÀÇÇØ ÁÖ¼¼¿ä.\n\n°í°´ ´Ü¼øº¯½ÉÀÏ °æ¿ì ±³È¯ ¹× ¹İÇ° ½Ã ¿Õº¹¹è¼Ûºñ¸¦ ºÎ´ãÇÏ¼Å¾ß ÇÕ´Ï´Ù.\n(¹è¼ÛÁö¿¡ µû¶ó ¹è¼Ûºñ´Â »óÀÌÇÕ´Ï´Ù.)");
-  	}	
-/* ]]> */
-</script>
 </head>
-<body onload="fn_classChg(2)">
+<body>
 
 <div id="wrap">
 	<div id="container">
 		<!-- header -->
-		
+
 
 
 
@@ -695,326 +46,574 @@
 <script type="text/javascript" src="/js/reebok/common.js"></script>
 
 
-	
 
-<script type="text/javascript">
-/* <![CDATA[ */
 
-	
-	var EchoID = "iprospect1";
-	var EchoGoodNm = "";
-	var EchoAmount = "";
-	var EchoUIP = "";
-	var EchoTarget = "";
-	var EchoLogSend = "Y";
-	var EchoCV = "";
-	var EchoPN = "";
-		
-	jQuery(document).ready(function(){
-		
-		jQuery('body').prepend('<div class="layer_bg" style="z-index:90000;"></div>');	
-		
-	
-		
-		
-	
-		
-		
-		
-		
-	});
 
-	
-	
-	function fn_trkClickTrace(val){
-		if(""!=""){
-			var navi="^"+""+val;
-			trk_clickTrace("EVT",navi);
-		}
-	}
-	
 
-	function fn_logIn(parame){
-		var goLoginPage = 'https://shop.reebok.co.kr:444/RPF060801.action?';
-		
-		if(false){
-			$("linkGb").value = parame;
-			
-			var param = $("ssoSrch").serialize(true);
-			var url = "/RPF060806.action";
-			var onSuccess = function(req){
-				var json = req.responseJSON;
-				JsonUtil.alert(json);
-				var rturl = json.URL_PARAM;
-				if(parame == '1'){
-					var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-					popup.focus();
-				}else if(parame == '2'||parame == '5'||parame == '7'||parame == '0'){
-					document.location.href = "http://m.reebok.co.kr"+"/MO/Main/mainIF.action?"+rturl;
-				}else if(parame == '4'){
-					var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF080304.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-					popup.focus();
-				}else if(parame == '6'){
-					document.location.href = 'http://shop.reebok.co.kr/RPF060100.action';
-				}else if(parame == '8'){
-					document.location.href = 'http://shop.reebok.co.kr/RPF060101.action';
-				}
-			};
-			var onFailure = function(){
-				alert('¼öÁ¤ Áß ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.');
-			};
-			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+<div id="header_wrap_150930">
+   <!-- header -->
 
-		}else{
-			if(parame == '1'){
-				var popup = window.open(goLoginPage+'checkbtn=myPage','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();
-			}else if(parame == '2'){
-				var popup = window.open(goLoginPage+'checkbtn=myBasket','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();
-			}else if(parame == '3'){
-				var popup = window.open(goLoginPage+'checkbtn=buyLogIn&returnURL=http://shop.reebok.co.kr/RPF060103.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();
-			}else if(parame == '4'){
-				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF080304.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();
-			}else if(parame == '5'){
-				document.location.href = 'https://shop.reebok.co.kr:444/RPF0601001.action';
-			}else if(parame == '6'){
-				document.location.href = 'http://shop.reebok.co.kr/RPF060100.action';
-			}else if(parame == '7'){
-				document.location.href = 'http://shop.reebok.co.kr/RPF030101.action';
-			}else if(parame == '8'){
-				document.location.href = 'http://shop.reebok.co.kr/RPF060101.action';
-			} else if (parame == '9') {
-				var optionSel = jQuery("#option_sel").val();
-				var qtySel    = jQuery("#qty_sel").html();
-				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF060103.action&preCal=Y&optionSel=' + optionSel + '&qtySel=' + qtySel,'logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();				
-			}else{
-				var popup = window.open(goLoginPage+'checkbtn=fromTop&returnURL=http://shop.reebok.co.kr/RPF060103.action','logInpopup','width=480,height=375,toolbar=no,location=no,status=yes,menubar=no,scrollbars=no,resizable=no,left=150,top=100');
-				popup.focus();
-			}			
-		}		
-	}
-	
-	//LogOut
-	function fn_logOut(){
-		if(confirm('·Î±×¾Æ¿ô ÇÏ½Ã°Ú½À´Ï±î?')){
-			document.location.href = "/RPF060801.action?command=logOut&redirectMan=http://shop.reebok.co.kr/reeMain.action";
-		}
-	}
+   <div id="header_150930">
+	  <!-- header_top -->
+	  <div class="header_top">
+		 <h1>
+			<a class="spt_bg" href="/reeMain.action" onMouseDown="javascript:fn_trkClickTrace('^ìµœìƒë‹¨^Reebok(ë¡œê³ )');">ë¦¬ë³µ ì˜¨ë¼ì¸ ìŠ¤í† ì–´</a>
+		 </h1>
+		 <div class="search_area_r spt_bg">
+			<form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" autocomplete="off">
+			   <fieldset>
+				  <legend>SEARCH</legend>
+				  <label class="blind" for="S_PROD_NM_TOP">ê²€ìƒ‰</label>
 
-	function getCookie(id, name){
-		var param = "S_POPUP_ID="+id;
-		var url = "/makePopUp.action?"+param;
-		
-		//name = $("POPUP_NM").value;
-		var nameOfCookie = name + "=";
-		var x = 0;
-		while ( x <= document.cookie.length ){
-				var y = (x+nameOfCookie.length);
-				if ( document.cookie.substring( x, y ) == nameOfCookie ) {
-						if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
-								endOfCookie = document.cookie.length;
-						return unescape( document.cookie.substring( y, endOfCookie ) );
-				}
-				x = document.cookie.indexOf( " ", x ) + 1;
-				if ( x == 0 )
-						break;
-		}
-		return "";	
-	}
+				  <input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="search_box" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onblur="fn_inputBlur()" onmousedown="dqtop_setTextbox('1',event);" onKeyPress="keyDownTop('1',event);" onkeydown="javascript:if(event.keyCode==13) fn_search_top();fn_trkClickTrace('^ìµœìƒë‹¨^ê²€ìƒ‰');" />
+				  <input type="submit" class="submit spt_bg" onclick="fn_search_top();fn_trkClickTrace('^ìµœìƒë‹¨^ê²€ìƒ‰');">
+				  <script language="JavaScript" src="/js/search/dqAutoCompleteTopR.js"></script>
 
-	function fnSetSearchWords() {
-		var var_arrLen = search_words.length;
-		var var_randVal;
-		
-		do {
-			var_randVal = (Math.floor(Math.random() * 100)) % var_arrLen;	// ·£´ıÇÏ°Ô °¡Á®¿À±â
-		} while(search_disp_yn[var_randVal] == 'N'); // °Ë»ö¾îÀü½Ã¿©ºÎ°¡ YÀÎ °æ¿ì¿¡¸¸ °Ë»öÃ¢¿¡ ¼¼ÆÃ
-		
-		var f = document.frmSrchTop;
-		f.S_PROD_NM_TOP.value = search_words[var_randVal];
-		f.S_SEARCH_WORDS_URL.value = search_words_url[var_randVal];
-	}
-	
-	function fn_myCpnPopup(){		
-		var arr_list;
-		var url = "/RPF060808.action?command=LIST_1";
-		var onSuccess = function(req){
-			var json = req.responseJSON;
-			JsonUtil.alert(json);
-			
-			arr_list = json.list.list;
+			   </fieldset>
+			</form>
 
-			if(arr_list.size() > 0) {
-				var cpn_cnt = arr_list.size() > 2 ? 2 : arr_list.size();
-				for(var i=0; i<cpn_cnt; i++){
-					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(0)").html(arr_list[i].CPON_NM);
-					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(2)").html(arr_list[i].USE_BEGIN_DT + " ~ " + arr_list[i].USE_END_DT);					
-				}
-				if (cpn_cnt == 1) jQuery("#popup_mycpn_contents tbody tr:eq(1)").remove();
-				openLayer('popup_mycpn',611,470);
-			}
-		};		
-	    var onFailure = function(){
-	    	alert("error");
-	    };	    
-		cfn_ajaxRequest(url, null, onSuccess, onFailure);
-	}
 
-	//ÄíÆù ·¹ÀÌ¾î ¿­±â
-	function openMyCpnLayer(){		
-		var arr_list;
-		var url = "/RPF060808.action?command=LIST_1";
-		var onSuccess = function(req){
-			var json = req.responseJSON;
-			JsonUtil.alert(json);
-			
-			arr_list = json.list.list;
+			<!-- 161109 ê²€ìƒ‰ì œì•ˆ -->
+			<div class="search-suggest" style="display:none;">
+				<div class="category_lits">
+					<h2>ì¶”ì²œ ì¹´í…Œê³ ë¦¬</h2>
+					<ul>
+						<li><a href="#">í”¼íŠ¸ë‹ˆìŠ¤<span>&gt;</span>ë‚¨ì„±</a></li>
+						<li><a href="#">í”¼íŠ¸ë‹ˆìŠ¤<span>&gt;</span>ì—¬ì„±</a></li>
+						<li><a href="#">í”¼íŠ¸ë‹ˆìŠ¤<span>&gt;</span>í‚¤ì¦ˆ</a></li>
+						<li><a href="#">ì»´ë±ƒ<span>&gt;</span>ìŠ¤í¬ì¸ </a></li>
+						<li><a href="#">ì»´ë±ƒ<span>&gt;</span>ì˜¤ë¦¬ì§€ë„</a></li>
+						<li><a href="#">ìš”ê°€<span>&gt;</span>ì»¬ë™ì…˜</a></li>
+					</ul>
+				</div>
 
-			if(arr_list.size() > 0) {
-				var cpn_cnt = arr_list.size() > 2 ? 2 : arr_list.size();
-				for(var i=0; i<cpn_cnt; i++){										
-					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(0)").html(arr_list[i].CPON_NM);
-					jQuery("#popup_mycpn_contents tbody tr:eq("+i+") td:eq(2)").html(arr_list[i].USE_BEGIN_DT + " ~ " + arr_list[i].USE_END_DT);					
-				}
-				if (cpn_cnt == 1) jQuery("#popup_mycpn_contents tbody tr:eq(1)").remove();				
-				jQuery("#popup_mycpn").show();				
-			}
-		};		
-	    var onFailure = function(){
-	    	alert("error");
-	    };	    
-		cfn_ajaxRequest(url, null, onSuccess, onFailure);
-	}
-	
-	//ÄíÆù ·¹ÀÌ¾î ´İ±â
-	function closeMyCpnLayer(){
-		jQuery('#popup_mycpn').hide();
-	}
-	
-	function fn_closeBanner(){
-		fn_setCookie('rtop_bnn','close',1);
-		jQuery('#div_top_banner').animate({height:'0'});
-	}	
-/* ]]> */
-</script>
-		
-<!-- Å¾¹è³Ê -->
-<div class="top_bnn" id="div_top_banner" style="display:none;height:0;"></div>
-		<!-- header_wrap -->
-		<div id="header_wrap">
-			<div class="skip_nav">
-				<h2 class="blind">skip navigation</h2>
-				<a href="#gnb_r" onclick="document.getElementById('gnb_r').tabIndex = -1;document.getElementById('gnb_r').focus();return false;">»ó´Ü¸Ş´º ¹Ù·Î°¡±â</a>
-				<a href="#contents_wrap"onclick="document.getElementById('contents_wrap').tabIndex = -1;document.getElementById('contents_wrap').focus();return false;">º»¹® ¹Ù·Î°¡±â</a>
-				<a href="#footer_wrap" onclick="document.getElementById('footer_wrap').tabIndex = -1;document.getElementById('footer_wrap').focus();return false;">ÇÏ´Ü ¹Ù·Î°¡±â</a>
-		   	</div>
+				<div class="products_list">
+					<h2>ì¶”ì²œ ìƒí’ˆ</h2>
+					<div class="box">
+						<a href="#">
+							<div class="img">
+								<img src="http://image.adidas.co.kr/upload/prod/basic/80/S31510-1_80X80.jpg" alt="" />
+							</div>
+							<div class="info">
+								<div class="ctgr">MEN'S TRANING</div>
+								<div class="tit">íŠœë¸”ë¼ ë ˆë””ì–¼</div>
+								<div class="price">
+									<div class="price-container">
+										<!-- 170104 ì› / ì„¸ì¼ê°€ ì¶”ê°€ -->
+										<span class="prc line">109,000 <span class="won">ì›</span></span>
+										<span class="prc sale">87,200 <span class="won">ì›</span></span>
+									</div>
+								</div>
+								<div class="rating">
+									<div class="rating-star">
+										<div class="star-container">
+											<!-- <div class="star-point" style="width:98%;">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating.png" alt="">
+											</div>
+											<div class="star-bg">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating_empty.png" alt="">
+											</div> -->
+										</div>
+									</div>
+								</div>
+								<!-- //rating -->
+							</div>
+							<!-- //info -->
+						</a>
+					</div>
+					<!-- //box -->
 
-			<!-- header -->
+					<div class="box">
+						<a href="#">
+							<div class="img">
+								<img src="http://image.adidas.co.kr/upload/prod/basic/80/AA2290-1_80X80.jpg" alt="" />
+							</div>
+							<div class="info">
+								<div class="ctgr">ACCESSORIES</div>
+								<div class="tit">[ì˜¨ë¼ì¸ë‹¨ë…] 3S PER ì•µí´ ì–‘ë§ 6P</div>
+								<div class="price">
+									<div class="price-container">
+										<!-- 170104 ì› ì¶”ê°€ -->
+										<span class="prc">109,000 <span class="won">ì›</span></span>
+									</div>
+								</div>
+								<div class="rating">
+									<div class="rating-star">
+										<div class="star-container">
+											<!-- <div class="star-point" style="width:98%;">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating.png" alt="">
+											</div>
+											<div class="star-bg">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating_empty.png" alt="">
+											</div> -->
+										</div>
+									</div>
+								</div>
+								<!-- //rating -->
+							</div>
+							<!-- //info -->
+						</a>
+					</div>
+					<!-- //box -->
 
-			<div id="header">
-				<!-- header_top -->
-				<div class="header_top">
-					<div class="utilbox">
+					<div class="box">
+						<a href="#">
+							<div class="img">
+								<img src="http://image.adidas.co.kr/upload/prod/basic/80/S74986-1_80X80.jpg" alt="" />
+							</div>
+							<div class="info">
+								<div class="ctgr">UNISEX RUNNING</div>
+								<div class="tit">[ëª¨ë¸ì°©ì¥] ìŠˆí¼ìŠ¤íƒ€ ìŠ¬ë¦½ì˜¨</div>
+								<div class="price">
+									<div class="price-container">
+										<span class="prc">109,000</span>
+									</div>
+								</div>
+								<div class="rating">
+									<div class="rating-star">
+										<div class="star-container">
+											<!-- <div class="star-point" style="width:98%;">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating.png" alt="">
+											</div>
+											<div class="star-bg">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating_empty.png" alt="">
+											</div> -->
+										</div>
+									</div>
+								</div>
+								<!-- //rating -->
+							</div>
+							<!-- //info -->
+						</a>
+					</div>
+					<!-- //box -->
+
+					<div class="box">
+						<a href="#">
+							<div class="img">
+								<img src="http://image.adidas.co.kr/upload/prod/basic/80/S79208-1_80X80.jpg" alt="" />
+							</div>
+							<div class="info">
+								<div class="ctgr">UNISEX ORIGINALS</div>
+								<div class="tit">ìŠˆí¼ìŠ¤íƒ€ íŒŒìš´ë°ì´ì…˜</div>
+								<div class="price">
+									<div class="price-container">
+										<span class="prc">109,000</span>
+									</div>
+								</div>
+								<div class="rating">
+									<div class="rating-star">
+										<div class="star-container">
+											<!-- <div class="star-point" style="width:98%;">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating.png" alt="">
+											</div>
+											<div class="star-bg">
+												<img src="http://image.adidas.co.kr/images/adidas/common/ico_rating_empty.png" alt="">
+											</div> -->
+										</div>
+									</div>
+								</div>
+								<!-- //rating -->
+							</div>
+							<!-- //info -->
+						</a>
+					</div>
+					<!-- //box -->
+				</div>
+			</div>
+			<!-- //search-suggest -->
+			<!-- 161109 ê²€ìƒ‰ì œì•ˆ ë -->
+
+			<!-- 161109 ë‚˜ì˜ ìµœê·¼ ê²€ìƒ‰ì–´ -->
+			<div class="suggest-keyword">
+				<h2>ë‚˜ì˜ ìµœê·¼ ê²€ìƒ‰ì–´</h2>
+				<ul>
+					<li><a href="#">ìŠˆí¼ìŠ¤íƒ€</a></li>
+					<li><a href="#">ìŠ¤íƒ  ìŠ¤ë¯¸ìŠ¤</a></li>
+					<li><a href="#">í›„ë“œí‹°</a></li>
+					<li><a href="#">í•˜ì´ì¼€</a></li>
+				</ul>
+			</div>
+			<!-- //161109 -->
+
+		 </div>
+		 <!-- //search_area_r -->
+		 <ul class="utilmenu">
+			<li><a href="#">ë¡œê·¸ì¸</a></li>
+			<li><a href="#">íšŒì›ê°€ì…</a></li>
+			<li><a href="#">ë§ˆì´í˜ì´ì§€</a></li>
+			<li class="mkt"><a href="#">ì¥ë°”êµ¬ë‹ˆ <span>( <strong>13</strong> item)</span></a></li>
+		 </ul>
+	  </div>
+
+		<div id="gnb_150930">
+			<h2 class="blind">ì£¼ë©”ë‰´</h2>
+			<ul class="gnb_menu1">
+				<li id="men">
+					<a href="#" class="depth1_btn dep2btn">Men</a>
+					<div class="depth2_menu">
+						<div class="leftarea">
+							<div class="menubox">
+								<dl>
+									<dt>Category</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ì‹ ë°œ</a></li>
+											<li><a href="#">ì˜ë¥˜</a></li>
+											<li><a href="#">ìš©í’ˆ</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>Sports</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ëŸ¬ë‹</a></li>
+											<li><a href="#">íŠ¸ë ˆì´ë‹</a></li>
+											<li><a href="#">ìºì£¼ì–¼</a></li>
+											<li><a href="#">ê¸°íƒ€</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<div class="menubox">
+								<dl>
+									<dt>Brand</dt>
+									<dd>
+										<ul>
+											<li><a href="#">Sports</a></li>
+											<li><a href="#">Classic</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>More Choices</dt>
+									<dd>
+										<ul>
+											<!--
+											170627 í• ì¸ìƒí’ˆ ìƒ‰ê¹”ë³€ê²½ #ab2328 ==> #000
+											-->
+											<li><a href="#">ì‹ ìƒí’ˆ</a></li>
+											<li><a href="#">ì¸ê¸°ìƒí’ˆ</a></li>
+											<li><a href="#" style="color:#000;">í• ì¸ìƒí’ˆ</a></li>
+											<li><a href="#" style="color:#f00000;">ìŠ¤í”¼ë“œ ë°°ì†¡</a></li>
+											<li><a href="#">VR ìŠ¤í† ì–´</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+						</div>
+						<!-- //leftarea -->
+						<div class="rightarea">
+							<a href="#"><img src="/images/reebok/temp/gnb_men_banner.jpg" alt="ONE SERIES ëŸ¬ë‹ì— ìµœì í™”ëœ ì„¸ê°€ì§€ ê¸°ëŠ¥! ìì„¸íˆë³´ê¸°"/></a>
+						</div>
+						<!-- //righttarea -->
+					</div>
+					<!-- men depth2 menu end -->
+				</li>
+				<!-- //men -->
+
+				<li id="women">
+					<a href="#" class="depth1_btn dep2btn">Women</a>
+					<div class="depth2_menu">
+						<div class="leftarea">
+							<div class="menubox">
+								<dl>
+									<dt>Category</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ì‹ ë°œ</a></li>
+											<li><a href="#">ì˜ë¥˜</a></li>
+											<li><a href="#">ìš©í’ˆ</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>Sports</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ëŸ¬ë‹</a></li>
+											<li><a href="#">íŠ¸ë ˆì´ë‹</a></li>
+											<li><a href="#">ìºì£¼ì–¼</a></li>
+											<li><a href="#">ê¸°íƒ€</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<div class="menubox">
+								<dl>
+									<dt>Brand</dt>
+									<dd>
+										<ul>
+											<li><a href="#">Sports</a></li>
+											<li><a href="#">Classic</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>More Choices</dt>
+									<dd>
+										<ul>
+											<!--
+											170627 í• ì¸ìƒí’ˆ ìƒ‰ê¹”ë³€ê²½ #ab2328 ==> #000
+											-->
+											<li><a href="#">ì‹ ìƒí’ˆ</a></li>
+											<li><a href="#">ì¸ê¸°ìƒí’ˆ</a></li>
+											<li><a href="#" style="color:#000;">í• ì¸ìƒí’ˆ</a></li>
+											<li><a href="#" style="color:#f00000;">ìŠ¤í”¼ë“œ ë°°ì†¡</a></li>
+											<li><a href="#">VR ìŠ¤í† ì–´</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+						</div>
+						<!-- //leftarea -->
+						<div class="rightarea">
+							<a href="#"><img src="/images/reebok/temp/gnb_women_banner.jpg" alt="SUB LITE ê°€ë²¼ì›€ê³¼ ì¿ ì…”ë‹ì˜ ì™„ë²½í•œ ì¡°í™”"/></a>
+						</div>
+						<!-- //righttarea -->
+					</div>
+					<!-- women depth2 menu end -->
+				</li>
+				<!-- //women -->
+
+				<!-- kids -->
+				<li id="kids">
+					<a href="#" class="depth1_btn">Kids</a>
+				</li>
+				<!-- //kids -->
+			</ul>
+			<!-- 130807 menu1 -->
+
+
+			<ul class="gnb_menu2">
+				<!-- sports -->
+				<li id="fitness">
+					<a href="#" class="depth1_btn dep2btn">Fitness</a>
+					<div class="depth2_menu">
 						<ul>
-							<li>¸®º¹ °ø½Ä¿Â¶óÀÎ½ºÅä¾î</li>
-							<li class="last"><a href="http://shop.reebok.co.kr/RPF080301.action" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^°í°´¼¾ÅÍ');">°í°´¼¾ÅÍ</a>&nbsp;<strong>1588-7324</strong></li>
+							<li class="m1"><a href="#" class="spt_bg">íŠ¸ë ˆì´ë‹ ë°”ë¡œê°€ê¸°</a></li>
+							<li class="m2"><a href="#" class="spt_bg">ëŸ¬ë‹ ë°”ë¡œê°€ê¸°</a></li>
+							<li class="m3"><a href="#" class="spt_bg">í¬ë¡œìŠ¤í• ë°”ë¡œê°€ê¸°</a></li>
+							<li class="m4"><a href="#" class="spt_bg">ìš”ê°€ ë°”ë¡œê°€ê¸°</a></li>
+							<!-- 151230 ì¶”ê°€ -->
+							<li class="m5 last"><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006012" class="spt_bg">ì»´ë±ƒ ë°”ë¡œê°€ê¸°</a></li>
 						</ul>
 					</div>
-					<h1><a href="/reeMain.action" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^Reebok(·Î°í)');"><img src="/images/reebok/common/logo_reebok.gif" alt="Reebok" /></a></h1>					
-					<div id="div_top_evt" style="position:absolute;top:0;left:0;width:100%;text-align: center;"></div>
-					<script type="text/javascript">
-					/* <![CDATA[ */
-						document.write("<ul class='topmenu'>");
-						if("00200208507" != "null") {//·Î±×ÀÎ»óÅÂÀÎ °æ¿ì
-							document.write("<li><a href='javascript:fn_logOut();' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^·Î±×¾Æ¿ô\");'>·Î±×¾Æ¿ô</a></li>");							 			
-							if("R" == "R" ) { //È¸¿øÀÎ °æ¿ì
-								document.write("<li><a href='javascript:fn_logIn(6);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^¸¶ÀÌÆäÀÌÁö\");'>¸¶ÀÌÆäÀÌÁö</a></li>");
-								document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^Àå¹Ù±¸´Ï\");'>Àå¹Ù±¸´Ï<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
-							} else {
-								document.write("<li><a href='javascript:fn_logIn(8);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^¸¶ÀÌÆäÀÌÁö\");'>¸¶ÀÌÆäÀÌÁö</a></li>");			
-							}							
-						} else {//·Î±×¾Æ¿ô »óÅÂÀÎ °æ¿ì							
-							document.write("<li><a href='javascript:fn_logIn(0);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^·Î±×ÀÎ\");' title='»õÃ¢ ·Î±×ÀÎ'>·Î±×ÀÎ</a></li>");
-							document.write("<li><a href='javascript:fn_logIn(5);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^È¸¿ø°¡ÀÔ\");'>È¸¿ø°¡ÀÔ</a></li>");
-							document.write("<li><a href='javascript:fn_logIn(1);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^¸¶ÀÌÆäÀÌÁö\");' title='»õÃ¢ ·Î±×ÀÎ'>¸¶ÀÌÆäÀÌÁö</a></li>");
-							//document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^Àå¹Ù±¸´Ï\");' title='»õÃ¢ ·Î±×ÀÎ'>Àå¹Ù±¸´Ï<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
-							//20130924 ºñÈ¸¿ø Àå¹Ù±¸´Ï °ü·Ã ¼öÁ¤ 
-							document.write("<li><a href='javascript:fn_logIn(7);' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^Àå¹Ù±¸´Ï\");'>Àå¹Ù±¸´Ï<strong><span id='span_cart_cnt'>(0)</span></strong></a></li>");
-						}				        
-				        
-						document.write("<li><a href='http://shop.reebok.co.kr/RPF110101.action?brand_nm=reebok' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^¸ÅÀå¾È³»\");'>¸ÅÀå¾È³»</a></li>");
-						document.write("<li class='last'><a href='http://shop.reebok.co.kr/RPF080201.action' onmousedown='javascript:fn_trkClickTrace(\"^ÃÖ»ó´Ü^°øÁö»çÇ×\");'>°øÁö»çÇ×</a></li>");
-					
-						document.write("</ul>");
-					/* ]]> */
-					</script>
-						
-					
-					<ul class="submenu">
-						<li><a href="http://shop.reebok.co.kr/RPF010102.action"><img src="/images/reebok/common/submenu_01.gif" alt="½Å»óÇ°" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^½Å»óÇ°');trk_flashEnvView('_TRK_PI=NEWARR');" /></a></li>
-						<li><a href="http://shop.reebok.co.kr/RPF010103.action"><img src="/images/reebok/common/submenu_02.gif" alt="º£½ºÆ®»óÇ°" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^º£½ºÆ®»óÇ°');trk_flashEnvView('_TRK_PI=BEST');"/></a></li>
-						<li><a href="http://shop.reebok.co.kr/RPF070101.action"><img src="/images/reebok/common/submenu_03.gif" alt="±âÈ¹Àü" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^±âÈ¹Àü');trk_flashEnvView('_TRK_PI=PROMO');"/></a></li>
-						<li><a href="http://shop.reebok.co.kr/RPF010104.action"><img src="/images/reebok/common/submenu_04.gif" alt="SALE" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^SALE');trk_flashEnvView('_TRK_PI=SALE');"/></a></li>
-						<li class="last"><a href="http://shop.reebok.co.kr/RPF080101.action?GUBN=1"><img src="/images/reebok/common/submenu_05.gif" alt="ReeClub" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^ReeClub');trk_flashEnvView('_TRK_PI=RCLUB');"/></a></li>
-						<!-- <li class="last btm_space"><a href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=J90922" onmousedown="javascript:fn_trkClickTrace('^ÃÖ»ó´Ü^¿Â¶óÀÎ´Üµ¶»óÇ°');trk_flashEnvView('_TRK_PI=EXCLU');"><img src="/images/reebok/common/submenu_excl.gif" alt="EXCLUSIVE" /></a></li> -->
-					</ul>
-                    <div class="search_area_r">
-                        <form id="frmSrchTop" name="frmSrchTop" method="post" onsubmit="return false;" action="">
-							<fieldset>
-								<legend>SEARCH</legend>								
-								<label class="blind" for="S_PROD_NM_TOP">°Ë»ö</label> 
-								<input type="text" name="S_PROD_NM_TOP" id="S_PROD_NM_TOP" class="search_box" onfocus="this.value='';document.getElementById('S_SEARCH_WORDS_URL').value='';" onblur="fn_inputBlur()" onmousedown="dqtop_setTextbox('1',event);" onkeypress="keyDownTop('1',event);" onkeydown="javascript:if(event.keyCode==13) fn_search_top();fn_trkClickTrace('^ÃÖ»ó´Ü^°Ë»ö');" />
-								<input type="hidden" name="S_SEARCH_WORDS_URL" id="S_SEARCH_WORDS_URL"/>
-								<input type="submit" class="submit" onclick="fn_search_top();fn_trkClickTrace('^ÃÖ»ó´Ü^°Ë»ö');"/>
-				 				<input type="hidden" id="topSiteCD" name="topSiteCD" value="2"/>
-								
-<script type="text/javascript" src="/js/search/dqAutoCompleteTopR.js"></script>
-<div class="search_box" id="dqAutoTop" style="display:none;z-index:1000;" onmouseover="dqtop_setMouseon();" onmouseout="dqtop_setMouseoff();">
-</div>
+					<!-- sports depth2 menu end -->
+				</li>
+				<!-- //sports -->
 
-							</fieldset>
-                        </form>
-                    </div>
-                    <a href="#" class="fast_shopping spt_bg" onclick="fastShopping_r();" onfocus="fastShopping_r();">ºü¸¥¼îÇÎ</a>
-				</div>
-				<form id="ssoSrch" name="ssoSrch" method="post" onsubmit="return false;" action="">
-					<input type = "hidden" id="ssoSiteCD" name="ssoSiteCD" value="2"/>
-					<input type = "hidden" id="ssoMemNo"  name="ssoMemNo"  value="00200208507"/>
-					<input type = "hidden" id="linkGb"    name="linkGb"    value=""/>
-				</form>
-				<!-- //header_top -->
-				
-				<!-- header HTML -->
-				
-						
-<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script><script type="text/javascript">/* <![CDATA[ */var search_words = new Array(12);var search_words_url = new Array(12);var search_disp_yn   = new Array(12);search_words[0]= "GL6000";search_words_url[0]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[0]= "N";search_words[1]= "Áö¿¤6000";search_words_url[1]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[1]= "N";search_words[2]= "ÆßÇÁÇ»¸®";search_words_url[2]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[2]= "N";search_words[3]= "¼Ø»çÅÁ Ç»¸® ÀÔ°í";search_words_url[3]= "http://shop.reebok.co.kr/RPF020401.action?PROD_CD=M44764";search_disp_yn[3]= "Y";search_words[4]= "¸®º¹ ¿ä°¡ Á¦Ç° ·±Äª";search_words_url[4]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EC%9A%94%EA%B0%80";search_disp_yn[4]= "Y";search_words[5]= "Ä¿ÇÃ ¿îµ¿È­ ÆßÇÁ ±×·¡ÇÁ¶óÀÌÆ®";search_words_url[5]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EA%B7%B8%EB%9E%98%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8";search_disp_yn[5]= "Y";search_words[6]= "±â´Ù¸®´ø ·¹ÄÚµåÇÇ´Ï½¬ ÀçÀÔ°í";search_words_url[6]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EB%A0%88%EC%BD%94%EB%93%9C%20%ED%94%BC%EB%8B%88%EC%89%AC";search_disp_yn[6]= "Y";search_words[7]= "FURY";search_words_url[7]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[7]= "N";search_words[8]= "Å©·Î½ºÇÍ °ÔÀÓ½º ÀÇ·ù";search_words_url[8]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=GAMES";search_disp_yn[8]= "Y";search_words[9]= "GL 6000 FW ½Å»ó ÀÔ°í";search_words_url[9]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1416";search_disp_yn[9]= "Y";search_words[10]= "Ç»¸®";search_words_url[10]= "http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354";search_disp_yn[10]= "N";search_words[11]= "SUMMER ´À³¦ÀÇ ½ºÄ«ÀÌ½ºÄÉÀÌÇÁ";search_words_url[11]= "http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84";search_disp_yn[11]= "Y";/* ]]> */</script>                <div id="gnb_r2">                    <h2 class="blind">ÁÖ¸Ş´º</h2><ul class="gnb_menu1"><li id="men"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=MEN&amp;LEVEL=1" class="depth1_btn">MEN</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt class="arial">Category</dt><dd><ul>                    <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001001' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^Category^½Å¹ß');">½Å¹ß</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001002' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^Category^ÀÇ·ù');">ÀÇ·ù</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001003' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^Category^¿ëÇ°');">¿ëÇ°</a></li>           </ul></dd></dl><dl class="last"><dt>Sports</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^SPORTS^·¯´×');">·¯´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^SPORTS^Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^SPORTS^±âÅ¸');">±âÅ¸</a></li>    </ul></dd></dl></div><div class="menubox"><dl><dt>Brand</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^Brand^Sports');">Sports</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^Brand^Classic');">Classic</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^More Choices^½Å»óÇ°');">½Å»óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^More Choices^º£½ºÆ®»óÇ°');">º£½ºÆ® »óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&amp;S_CTGR_CD=02001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^MEN^More Choices^¼¼ÀÏ');" style="color:#f00000;">¼¼ÀÏ</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF050101.action?S_PROD_NM=baremove"><img src="/upload/banner/710ec5baca184e3a89be33dfc6786097_0205173915.jpg" alt="ÇÇÆ®´Ï½º"/></a></div><!-- //righttarea -->                  </div><!-- //men depth2 menu --></li><!-- //men --><li id="women"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=WOMEN&amp;LEVEL=1" class="depth1_btn">WOMEN</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Category</dt><dd><ul>                    <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002001' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^Category^½Å¹ß');">½Å¹ß</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002002' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^Category^ÀÇ·ù');">ÀÇ·ù</a></li>                           <li><a href='http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002003' onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^Category^¿ëÇ°');">¿ëÇ°</a></li>           </ul></dd></dl><dl class="last"><dt>Sports</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^SPORTS^·¯´×');">·¯´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^SPORTS^Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^SPORTS^±âÅ¸');">±âÅ¸</a></li>    </ul></dd></dl></div><div class="menubox"><dl><dt>Brand</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^Brand^Sports');">Sports</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^Brand^Classic');">Classic</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^More Choices^½Å»óÇ°');">½Å»óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^More Choices^º£½ºÆ®»óÇ°');">º£½ºÆ® »óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=4&amp;S_CTGR_CD=02002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^WOMEN^More Choices^¼¼ÀÏ');" style="color:#f00000;">¼¼ÀÏ</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF070102.action?mainId=954&amp;subId=1416"><img src="/upload/banner/35cbd18b4cb14caea67939d045b48aa2_0623110044.jpg" alt="gl6000"/></a></div><!-- //righttarea --></div><!-- //women depth2 menu --></li><!-- //women --><!-- kids --><li id="kids"><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02003001" class="depth1_btn_nodep" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^KIDS');">KIDS</a></li><!-- //kids --></ul><!-- gnb_menu1 --><ul class="gnb_menu2"><!-- sports --><li id="sports"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=SPORTS&amp;LEVEL=1" class="depth1_btn">SPORTS</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Men</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^MEN^·¯´×');">·¯´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^MEN^Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^MEN^±âÅ¸');">±âÅ¸</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORT^More Choices^½Å»óÇ°');">½Å»óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORT^More Choices^º£½ºÆ®»óÇ°');">º£½ºÆ® »óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=6&amp;S_CTGR_CD=02004" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORT^More Choices^¼¼ÀÏ');" style="color:#f00000;">¼¼ÀÏ</a></li></ul></dd></dl></div><div class="menubox"><dl><dt>Women</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^WOMEN^·¯´×');">·¯´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^WOMEN^Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^WOMEN^±âÅ¸');">±âÅ¸</a></li></ul></dd></dl><dl class="last"><dt>Collection</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^Å©·Î½ºÇÍ (CROSSFIT)');">Å©·Î½ºÇÍ (CROSSFIT)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006005" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^¸®¾óÇÃ·º½º (REALFLEX)');">¸®¾óÇÃ·º½º (REALFLEX)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^¼­ºê¶óÀÌÆ®(SUBLITE)');">¼­ºê¶óÀÌÆ®(SUBLITE)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^¿ø ½Ã¸®Áî(ONE Series)');">¿ø ½Ã¸®Áî(ONE Series)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006010" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^¸®º¹ ÇÇÆ®´Ï½º ÄÃ·º¼Ç');">¸®º¹ ÇÇÆ®´Ï½º ÄÃ·º¼Ç</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^SPORTS^Collection^¸®º¹ ¿ä°¡ ÄÃ·º¼Ç(YOGA)');">¸®º¹ ¿ä°¡ ÄÃ·º¼Ç(YOGA)</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF020201.action?ALL=ALL&amp;S_CTGR_CD=02006003&amp;S_HIGH_CTGR_CD=02006&amp;S_LEVEL=2&amp;GUBUN=KEYCONCEPT&amp;S_LABEL=Å©·Î½ºÇÍ (CROSS FIT)"><img src="/upload/banner/36d4ef220c59448f94660b3335123948_0630181752.jpg" alt="Å©·Î½ºÇÍ"/></a></div><!-- //righttarea --></div><!-- //sports depth2 menu --></li><!-- //sports --><li id="classic"><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=CLASSICS&amp;LEVEL=1" class="depth1_btn">CLASSIC</a><div class="depth2_menu">             <div class="leftarea"><div class="menubox"><dl><dt>Men</dt><dd><ul><li><a class="ss" href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^MEN');">ÀüÃ¼º¸±â</a></li></ul></dd></dl><dl class="last"><dt>More Choices</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^More Choices^½Å»óÇ°');">½Å»óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^More Choices^º£½ºÆ®»óÇ°');">º£½ºÆ® »óÇ°</a></li><li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=7&amp;S_CTGR_CD=02005" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^More Choices^¼¼ÀÏ');" style="color:#f00000;">¼¼ÀÏ</a></li></ul></dd></dl></div><div class="menubox"><dl><dt>Women</dt><dd><ul><li><a class="ss" href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^WOMEN');">ÀüÃ¼º¸±â</a></li></ul></dd></dl><dl class="last"><dt>Collection</dt><dd><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^Collection^PUMP FURY');">PUMP FURY</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006008" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^CLASSIC^Collection^GL 6000');">GL 6000</a></li></ul></dd></dl></div></div><!-- //leftarea --><div class="rightarea"><a href="/RPF070102.action?mainId=954&amp;subId=1354"><img src="/upload/banner/8149bcb3d4cb4ebc9076da10d4f3c353_0529110737.jpg" alt="Ç»¸®"/></a></div><!-- //righttarea --></div><!-- //sports depth2 menu --></li><!-- //classic --><li id="collection"><a href="#" class="depth1_btn">COLLECTION</a><div class="depth2_menu"><ul><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^Å©·Î½ºÇÍ (CROSSFIT)');">Å©·Î½ºÇÍ (CROSSFIT)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006005" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^¸®¾óÇÃ·º½º (REALFLEX)');">¸®¾óÇÃ·º½º (REALFLEX)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006006" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^¼­ºê¶óÀÌÆ®(SUBLITE)');">¼­ºê¶óÀÌÆ®(SUBLITE)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006007" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^¿ø ½Ã¸®Áî(ONE Series)');">¿ø ½Ã¸®Áî(ONE Series)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006010" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^¸®º¹ ÇÇÆ®´Ï½º ÄÃ·º¼Ç');">¸®º¹ ÇÇÆ®´Ï½º ÄÃ·º¼Ç</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^¸®º¹ ¿ä°¡ ÄÃ·º¼Ç(YOGA)');">¸®º¹ ¿ä°¡ ÄÃ·º¼Ç(YOGA)</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^PUMP FURY');">PUMP FURY</a></li><li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006008" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^COLLECTION^GL 6000');">GL 6000</a></li></ul></div><!-- //collection depth2 menu --></li><!-- //collection --></ul><!-- menu2 --><ul class="gnb_menu3"><li id="toprank"><a href="#" onclick="topRank();" class="depth1_btn" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^TOP ÀÎ±â °Ë»ö¾î');"><em>TOP</em>&nbsp;&nbsp;ÀÎ±â&nbsp;°Ë»ö¾î</a><form id="frmShoppingLiveSrch" name="frmShoppingLiveSrch" method="post" action=""><input type="hidden" id="shoppingLiveSrchCmd" name="shoppingLiveSrchCmd" value=""/><input type="hidden" id="shoppingLiveSiteCd" name="shoppingLiveSiteCd" value="2"/></form><div id="top_rank" style="display:none;"><div class="rank_leftarea"><div class="top"><h2 class="spt_bg">TOP ÀÎ±â°Ë»ö¾î</h2><span id="rank_leftarea_date"></span></div><!-- //top --><div class="body" id="rank_leftarea_body"></div><!-- //body --></div><!-- //rank_leftarea --><div class="rank_rightarea"><div class="top"><h2 class="spt_bg">Best Selling Items</h2><a href="#" onclick="topRankOff();" class="spt_bg close">´İ±â</a></div><!-- //top --><div class="body"><div class="rank_prod_wrap"><a href="#" class="spt_bg rankprod_prev">ÀÌÀü</a><a href="#" class="spt_bg rankprod_next">´ÙÀ½</a><div class="rankprod_slider_wrap"><ul class="rankprod_slider" id="rankprod_slider0" ><li></li></ul><ul class="rankprod_slider" id="rankprod_slider1" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider2" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider3" style="display:none;"><li></li></ul><ul class="rankprod_slider" id="rankprod_slider4" style="display:none;"><li></li></ul></div></div><div class="rankprod_paging"></div></div><!-- //body --></div><!-- //rank_rightarea --></div></li><!-- //toprank  --><li id="live"><a href="http://shop.reebok.co.kr/RPF070102.action?mainId=954&subId=1354" class="depth1_btn" onmousedown="javascript:fn_trkClickTrace('^»ó´Ü³»ºñ^PUMP FURY');" style="padding-left:3px;padding-right:3px;"><em>PUMP</em>&nbsp;FURY</a></li><li id="rbk_sns"><a href="#" class="depth1_btn">¸®º¹ SNS</a><div class="depth2_menu"><h3 class="fit_tit" style="margin-top:2px"><span class="spt_bg">Reebok Fitness</span></h3><ul class="fit"><li class="fb"><a href="https://www.facebook.com/Reebokkr" class="spt_bg" title="»õÃ¢" target="_blank">¸®º¹ fitness ÆäÀÌ½ººÏ ¹Ù·Î°¡±â</a></li><li class="cf last"><a href="http://cafe.naver.com/zigtech" class="spt_bg" title="»õÃ¢" target="_blank">¸®º¹ fitness ³×ÀÌ¹öÄ«Æä ¹Ù·Î°¡±â</a></li></ul><h3 class="classic_tit"><span class="spt_bg">Reebok Classic</span></h3><ul class="classic"><li class="fb"><a href="https://www.facebook.com/rbk.classic" class="spt_bg" title="»õÃ¢" target="_blank">¸®º¹ classic ÆäÀÌ½ººÏ ¹Ù·Î°¡±â</a></li><li class="blog last"><a href="http://blog.naver.com/rbk_classic" class="spt_bg" title="»õÃ¢" target="_blank">¸®º¹ classic ³×ÀÌ¹öºí·Î±× ¹Ù·Î°¡±â</a></li></ul></div></li></ul><!-- gnb_menu3 --><!-- fast_shopping_r --> <form id="fastSrch" name="fastSrch" method="post" onsubmit="return false;" action=""> <input type = "hidden" id="topSiteCD_F" name="topSiteCD" value="2"/> <input type = "hidden" id="searchParam" name="searchParam" value="N"/> <input type = "hidden" id="HIRANK_CTGR_CD1" name="HIRANK_CTGR_CD1" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD2" name="HIRANK_CTGR_CD2" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD3" name="HIRANK_CTGR_CD3" value=""/> <input type = "hidden" id="HIRANK_CTGR_CD4" name="HIRANK_CTGR_CD4" value=""/> <input type = "hidden" id="CTGR_NM1" name="CTGR_NM1" value=""/> <input type = "hidden" id="CTGR_NM2" name="CTGR_NM2" value=""/> <input type = "hidden" id="CTGR_NM3" name="CTGR_NM3" value=""/> <input type = "hidden" id="CTGR_NM4" name="CTGR_NM4" value=""/> <input type = "hidden" id="searchColor" name="searchColor" value=""/> <input type = "hidden" id="searchPrice" name="searchPrice" value=""/> <input type = "hidden" id="searchPriceCheck" name="searchPriceCheck" value=""/> <input type = "hidden" id="FASTSHOPPING_S_PAGE" name="FASTSHOPPING_S_PAGE" value="1"/> <input type = "hidden" id="topSearchCheck" name="topSearchCheck" value="0"/> <input type = "hidden" id="fastSearchCheck" name="fastSearchCheck" value="0"/><div id="fast_shopping_r" style="display:none;"><div class="shlinebox_r"><div class="shoppingHeader_r"><h1><img src="/images/reebok/common/tit_fast_shopping.gif" alt="ºü¸¥¼îÇÎ" /></h1><span>¿øÇÏ´Â Á¦Ç°À» ºü¸£°Ô °Ë»öÇÏ¿© º¼ ¼ö ÀÖ½À´Ï´Ù.</span><a href="#" onclick="jQuery('#fast_shopping_r').hide();return false"><img src="/images/reebok/common/btn_close_st.gif" alt="ºü¸¥¼îÇÎ ¸Ş´º ´İ±â" /></a></div><div class="border1"><div class="border2" id="fastSearchID"><div class="shline01_r" ><ul class="shline_01"><li class="title">Ä«Å×°í¸® ¼±ÅÃ</li><li id="topCategoryLarge"><ul><li class="line">&nbsp;</li><li><div onmouseover="javascript:ViewLayerLarge()" onmouseout="javascript:HideLayerLarge()" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerLarge();">selectbox button</a> <span onclick="javascript:ViewLayerLarge();" class="tit"><a id="selectLarge">´ëºĞ·ù¼±ÅÃ</a></span><ul id="view21" style="width:128px;display:none;"><li style="display:none;"></li><li><a href="#" onclick="javascript:setCatg1('02001','MEN');">MEN</a></li><li><a href="#" onclick="javascript:setCatg1('02002','WOMEN');">WOMEN</a></li><li><a href="#" onclick="javascript:setCatg1('02003','KIDS');">KIDS</a></li><li><a href="#" onclick="javascript:setCatg1('02004','SPORT');">SPORT</a></li><li><a href="#" onclick="javascript:setCatg1('02005','CLASSICS');">CLASSICS</a></li></ul></div><!--//select layer --></li></ul></li><li id="topCategoryMid"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerMid()" onmouseout="javascript:HideLayerMid()" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerMid();">selectbox button</a> <span onclick="javascript:ViewLayerMid();" class="tit"><a id="selectMid">ÁßºĞ·ù¼±ÅÃ</a></span><ul id="view2202001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020011"><a href="#" onclick="javascript:setCatg2('02001001','½Å¹ß');">½Å¹ß</a></li><li id="CatgCheckMid020012"><a href="#" onclick="javascript:setCatg2('02001002','ÀÇ·ù');">ÀÇ·ù</a></li><li id="CatgCheckMid020013"><a href="#" onclick="javascript:setCatg2('02001003','¿ëÇ°');">¿ëÇ°</a></li></ul><ul id="view2202002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020021"><a href="#" onclick="javascript:setCatg2('02002001','½Å¹ß');">½Å¹ß</a></li><li id="CatgCheckMid020022"><a href="#" onclick="javascript:setCatg2('02002002','ÀÇ·ù');">ÀÇ·ù</a></li><li id="CatgCheckMid020023"><a href="#" onclick="javascript:setCatg2('02002003','¿ëÇ°');">¿ëÇ°</a></li></ul><ul id="view2202003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020031"><a href="#" onclick="javascript:setCatg2('02003001','ÀüÃ¼º¸±â');">ÀüÃ¼º¸±â</a></li></ul><ul id="view2202004" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020041"><a href="#" onclick="javascript:setCatg2('02004001','MEN');">MEN</a></li><li id="CatgCheckMid020042"><a href="#" onclick="javascript:setCatg2('02004002','WOMEN');">WOMEN</a></li></ul><ul id="view2202005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckMid020051"><a href="#" onclick="javascript:setCatg2('02005001','MEN');">MEN</a></li><li id="CatgCheckMid020052"><a href="#" onclick="javascript:setCatg2('02005002','WOMEN');">WOMEN</a></li></ul></div><!--//select layer --></li></ul></li><li id="topCategorySmall"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerSmall();" onmouseout="javascript:HideLayerSmall();" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerSmall();">selectbox button</a> <span onclick="javascript:ViewLayerSmall();" class="tit"><a id="selectSmall">¼ÒºĞ·ù¼±ÅÃ</a></span><ul id="view2302001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010011"><a href="#" onclick="javascript:setCatg3('02001001001','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020010012"><a href="#" onclick="javascript:setCatg3('02001001002','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010021"><a href="#" onclick="javascript:setCatg3('02001002001','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020010022"><a href="#" onclick="javascript:setCatg3('02001002002','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302001003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020010031"><a href="#" onclick="javascript:setCatg3('02001003005','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020010032"><a href="#" onclick="javascript:setCatg3('02001003006','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020011"><a href="#" onclick="javascript:setCatg3('02002001001','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020020012"><a href="#" onclick="javascript:setCatg3('02002001002','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020021"><a href="#" onclick="javascript:setCatg3('02002002001','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020020022"><a href="#" onclick="javascript:setCatg3('02002002002','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302002003" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020020031"><a href="#" onclick="javascript:setCatg3('02002003005','½ºÆ÷Ã÷º°');">½ºÆ÷Ã÷º°</a></li><li id="CatgCheckSmall020020032"><a href="#" onclick="javascript:setCatg3('02002003006','»óÇ°º°');">»óÇ°º°</a></li></ul><ul id="view2302003001" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2302004001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020040011"><a href="#" onclick="javascript:setCatg3('02004001003','·¯´×');">·¯´×</a></li><li id="CatgCheckSmall020040012"><a href="#" onclick="javascript:setCatg3('02004001006','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckSmall020040013"><a href="#" onclick="javascript:setCatg3('02004001007','±âÅ¸');">±âÅ¸</a></li></ul><ul id="view2302004002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckSmall020040021"><a href="#" onclick="javascript:setCatg3('02004002003','·¯´×');">·¯´×</a></li><li id="CatgCheckSmall020040022"><a href="#" onclick="javascript:setCatg3('02004002006','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckSmall020040023"><a href="#" onclick="javascript:setCatg3('02004002007','±âÅ¸');">±âÅ¸</a></li></ul><ul id="view2302005001" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2302005002" style="width:128px;display:none;"><li style="display:none;"></li></ul></div><!--//select layer --></li></ul></li><li id="topCategoryTiny"><ul><li class="blt">&gt;</li><li><!-- select layer --><div onmouseover="javascript:ViewLayerTiny();" onmouseout="javascript:HideLayerTiny();" class="combo_13" style="width:130px;"><a class="btn" href="javascript:ViewLayerTiny();">selectbox button</a> <span onclick="javascript:ViewLayerTiny();" class="tit"><a id="selectTiny">¼¼ºĞ·ù¼±ÅÃ</a></span><ul id="view2402001001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010010011"><a href="#" onclick="javascript:setCatg4('02001001001002','³ó±¸');">³ó±¸</a></li><li id="CatgCheckTiny020010010012"><a href="#" onclick="javascript:setCatg4('02001001001003','·¯´×');">·¯´×</a></li><li id="CatgCheckTiny020010010013"><a href="#" onclick="javascript:setCatg4('02001001001006','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckTiny020010010014"><a href="#" onclick="javascript:setCatg4('02001001001007','Ä³ÁÖ¾ó');">Ä³ÁÖ¾ó</a></li><li id="CatgCheckTiny020010010015"><a href="#" onclick="javascript:setCatg4('02001001001008','±âÅ¸');">±âÅ¸</a></li></ul><ul id="view2402001001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010010021"><a href="#" onclick="javascript:setCatg4('02001001002001','ÇÏÀÌÄÆ/¹ÌµåÄÆ');">ÇÏÀÌÄÆ/¹ÌµåÄÆ</a></li><li id="CatgCheckTiny020010010022"><a href="#" onclick="javascript:setCatg4('02001001002002','·Î¿ìÄÆ');">·Î¿ìÄÆ</a></li><li id="CatgCheckTiny020010010023"><a href="#" onclick="javascript:setCatg4('02001001002003','»÷µé/½½¸®ÆÛ');">»÷µé/½½¸®ÆÛ</a></li></ul><ul id="view2402001002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010020011"><a href="#" onclick="javascript:setCatg4('02001002001003','·¯´×');">·¯´×</a></li><li id="CatgCheckTiny020010020012"><a href="#" onclick="javascript:setCatg4('02001002001006','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckTiny020010020013"><a href="#" onclick="javascript:setCatg4('02001002001007','Ä³ÁÖ¾ó');">Ä³ÁÖ¾ó</a></li><li id="CatgCheckTiny020010020014"><a href="#" onclick="javascript:setCatg4('02001002001008','±âÅ¸');">±âÅ¸</a></li></ul><ul id="view2402001002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010020021"><a href="#" onclick="javascript:setCatg4('02001002002001','ÀÚÄÏ');">ÀÚÄÏ</a></li><li id="CatgCheckTiny020010020022"><a href="#" onclick="javascript:setCatg4('02001002002002','Æ¼¼ÅÃ÷');">Æ¼¼ÅÃ÷</a></li><li id="CatgCheckTiny020010020023"><a href="#" onclick="javascript:setCatg4('02001002002003','ÆÒÃ÷');">ÆÒÃ÷</a></li><li id="CatgCheckTiny020010020024"><a href="#" onclick="javascript:setCatg4('02001002002007','½½¸®ºê¸®½º');">½½¸®ºê¸®½º</a></li></ul><ul id="view2402001003005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010030051"><a href="#" onclick="javascript:setCatg4('02001003005008','ÀüÃ¼º¸±â');">ÀüÃ¼º¸±â</a></li></ul><ul id="view2402001003006" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020010030061"><a href="#" onclick="javascript:setCatg4('02001003006005','ÀüÃ¼º¸±â');">ÀüÃ¼º¸±â</a></li></ul><ul id="view2402002001001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020010011"><a href="#" onclick="javascript:setCatg4('02002001001003','·¯´×');">·¯´×</a></li><li id="CatgCheckTiny020020010012"><a href="#" onclick="javascript:setCatg4('02002001001006','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckTiny020020010013"><a href="#" onclick="javascript:setCatg4('02002001001007','Ä³ÁÖ¾ó');">Ä³ÁÖ¾ó</a></li><li id="CatgCheckTiny020020010014"><a href="#" onclick="javascript:setCatg4('02002001001008','±âÅ¸');">±âÅ¸</a></li></ul><ul id="view2402002001002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020010021"><a href="#" onclick="javascript:setCatg4('02002001002001','ÇÏÀÌÄÆ/¹ÌµåÄÆ');">ÇÏÀÌÄÆ/¹ÌµåÄÆ</a></li><li id="CatgCheckTiny020020010022"><a href="#" onclick="javascript:setCatg4('02002001002002','·Î¿ìÄÆ');">·Î¿ìÄÆ</a></li><li id="CatgCheckTiny020020010023"><a href="#" onclick="javascript:setCatg4('02002001002003','»÷µé/½½¸®ÆÛ');">»÷µé/½½¸®ÆÛ</a></li></ul><ul id="view2402002002001" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020020011"><a href="#" onclick="javascript:setCatg4('02002002001001','·¯´×');">·¯´×</a></li><li id="CatgCheckTiny020020020012"><a href="#" onclick="javascript:setCatg4('02002002001002','Æ®·¹ÀÌ´×');">Æ®·¹ÀÌ´×</a></li><li id="CatgCheckTiny020020020013"><a href="#" onclick="javascript:setCatg4('02002002001003','Ä³ÁÖ¾ó');">Ä³ÁÖ¾ó</a></li></ul><ul id="view2402002002002" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020020021"><a href="#" onclick="javascript:setCatg4('02002002002001','ÀÚÄÏ');">ÀÚÄÏ</a></li><li id="CatgCheckTiny020020020022"><a href="#" onclick="javascript:setCatg4('02002002002002','Æ¼¼ÅÃ÷');">Æ¼¼ÅÃ÷</a></li><li id="CatgCheckTiny020020020023"><a href="#" onclick="javascript:setCatg4('02002002002003','ÆÒÃ÷');">ÆÒÃ÷</a></li><li id="CatgCheckTiny020020020024"><a href="#" onclick="javascript:setCatg4('02002002002004','±âÅ¸');">±âÅ¸</a></li><li id="CatgCheckTiny020020020025"><a href="#" onclick="javascript:setCatg4('02002002002005','Æ®·¢Å¾ / Á®ÁöÅ¾');">Æ®·¢Å¾ / Á®ÁöÅ¾</a></li><li id="CatgCheckTiny020020020026"><a href="#" onclick="javascript:setCatg4('02002002002006','ºê¶óÅ¾/¾ğ´õ¿ş¾î');">ºê¶óÅ¾/¾ğ´õ¿ş¾î</a></li></ul><ul id="view2402002003005" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020030051"><a href="#" onclick="javascript:setCatg4('02002003005007','ÀüÃ¼º¸±â');">ÀüÃ¼º¸±â</a></li></ul><ul id="view2402002003006" style="width:128px;display:none;"><li style="display:none;"></li><li id="CatgCheckTiny020020030061"><a href="#" onclick="javascript:setCatg4('02002003006005','ÀüÃ¼º¸±â');">ÀüÃ¼º¸±â</a></li></ul><ul id="view2402004001003" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004001006" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004001007" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002003" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002006" style="width:128px;display:none;"><li style="display:none;"></li></ul><ul id="view2402004002007" style="width:128px;display:none;"><li style="display:none;"></li></ul></div><!--//select layer --></li></ul></li></ul></div><div class="shline02_r"><ul class="shline_01"><li class="title">ÄÃ·¯ ¼±ÅÃ</li><li class="line2">&nbsp;</li><li><ul class="select_color"><li><a href="#" onclick="javascript:setColor('BLACK');"><img src="/images/reebok/search/btn_sort_color_black.gif" id="BLACK" alt="BLACK" onclick="changeColorImage('BLACK');"/></a></li><li><a href="#" onclick="javascript:setColor('GREY');"><img src="/images/reebok/search/btn_sort_color_grey.gif" id="GREY" alt="GREY" onclick="changeColorImage('GREY');"/></a></li><li><a href="#" onclick="javascript:setColor('SILVER');"><img src="/images/reebok/search/btn_sort_color_silver.gif" id="SILVER" alt="SILVER" onclick="changeColorImage('SILVER');"/></a></li><li><a href="#" onclick="javascript:setColor('WHITE');"><img src="/images/reebok/search/btn_sort_color_white.gif" id="WHITE" alt="WHITE" onclick="changeColorImage('WHITE');"/></a></li><li><a href="#" onclick="javascript:setColor('NAVY');"><img src="/images/reebok/search/btn_sort_color_navy.gif" id="NAVY" alt="NAVY" onclick="changeColorImage('NAVY');"/></a></li><li><a href="#" onclick="javascript:setColor('BLUE');"><img src="/images/reebok/search/btn_sort_color_blue.gif" id="BLUE" alt="BLUE" onclick="changeColorImage('BLUE');"/></a></li><li><a href="#" onclick="javascript:setColor('BROWN');"><img src="/images/reebok/search/btn_sort_color_brown.gif" id="BROWN" alt="BROWN" onclick="changeColorImage('BROWN');"/></a></li><li><a href="#" onclick="javascript:setColor('GOLD');"><img src="/images/reebok/search/btn_sort_color_gold.gif" id="GOLD" alt="GOLD" onclick="changeColorImage('GOLD');"/></a></li><li><a href="#" onclick="javascript:setColor('PURPLE');"><img src="/images/reebok/search/btn_sort_color_purple.gif" id="PURPLE" alt="PURPLE" onclick="changeColorImage('PURPLE');"/></a></li><li><a href="#" onclick="javascript:setColor('RED');"><img src="/images/reebok/search/btn_sort_color_red.gif" id="RED" alt="RED" onclick="changeColorImage('RED');"/></a></li><li><a href="#" onclick="javascript:setColor('ORANGE');"><img src="/images/reebok/search/btn_sort_color_orange.gif" id="ORANGE" alt="ORANGE" onclick="changeColorImage('ORANGE');"/></a></li><li><a href="#" onclick="javascript:setColor('YELLOW');"><img src="/images/reebok/search/btn_sort_color_yellow.gif" id="YELLOW" alt="YELLOW" onclick="changeColorImage('YELLOW');"/></a></li><li><a href="#" onclick="javascript:setColor('GREEN');"><img src="/images/reebok/search/btn_sort_color_green.gif" id="GREEN" alt="GREEN" onclick="changeColorImage('GREEN');"/></a></li><li><a href="#" onclick="javascript:setColor('KHAKI');"><img src="/images/reebok/search/btn_sort_color_khaki.gif" id="KHAKI" alt="KHAKI" onclick="changeColorImage('KHAKI');"/></a></li><li><a href="#" onclick="javascript:setColor('CHAMPAGNE');"><img src="/images/reebok/search/btn_sort_color_champagne.gif" id="CHAMPAGNE" alt="CHAMPAGNE" onclick="changeColorImage('CHAMPAGNE');"/></a></li><li><a href="#" onclick="javascript:setColor('BEIGE');"><img src="/images/reebok/search/btn_sort_color_beige.gif" id="BEIGE" alt="BEIGE" onclick="changeColorImage('BEIGE');"/></a></li><li><a href="#" onclick="javascript:setColor('IVORY');"><img src="/images/reebok/search/btn_sort_color_ivory.gif" id="IVORY" alt="IVORY" onclick="changeColorImage('IVORY');"/></a></li><li><a href="#" onclick="javascript:setColor('PINK');"><img src="/images/reebok/search/btn_sort_color_pink.gif" id="PINK" alt="PINK" onclick="changeColorImage('PINK');"/></a></li></ul></li></ul></div><div class="shline03_r"><ul class="shline_01"><li class="title">°¡°İ´ë ¼±ÅÃ</li><li class="line">&nbsp;</li><li class="radios"><div class="topmm"><input name="memAgre1" id="memAgre1" type="radio" value="" class="radios" onclick="javascript:setPrice('0','50000','1');"/><label for="memAgre1">50,000¿ø ÀÌÇÏ</label><input name="memAgre1" id="memAgre2" type="radio" value="" class="radios" onclick="javascript:setPrice('50000','100000','2');"/><label for="memAgre2">50,000¿ø~100,000¿ø</label><input name="memAgre1" id="memAgre3" type="radio" value="" class="radios" onclick="javascript:setPrice('100000','200000','3');"/><label for="memAgre3">100,000¿ø~200,000¿ø</label><input name="memAgre1" id="memAgre4" type="radio" value="" class="radios" onclick="javascript:setPrice('200000','999999999','4');"/><label for="memAgre4">200,000¿ø ÀÌ»ó</label><input name="memAgre1" id="memAgre5" type="radio" value="" class="radios" onclick="javascript:setPrice('','','5');"/><label for="memAgre5">¸ğµç °¡°İ´ë</label></div></li></ul></div><div class="shline04_r"><span id="fastShoppingSearchResult"></span></div></div></div></div><iframe class="ie6_fast_shopping" title="³»¿ë ¾ø´Â ÇÁ·¹ÀÓ"></iframe></div></form><!-- //fast_shopping --></div><!-- //gnb_r -->
+				<li id="classic">
+					<a href="#" class="depth1_btn dep2btn">Classic</a>
+					<div class="depth2_menu">
+						<div class="leftarea">
+							<div class="menubox">
+								<dl>
+									<dt>Men</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ì „ì²´ë³´ê¸°</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>More Choices</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ì‹ ìƒí’ˆ</a></li>
+											<li><a href="#">ë² ìŠ¤íŠ¸ìƒí’ˆ</a></li>
+											<li><a href="#" style="color:#f00000;">SALE</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+							<div class="menubox">
+								<dl>
+									<dt>Women</dt>
+									<dd>
+										<ul>
+											<li><a href="#">ì „ì²´ë³´ê¸°</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<dl class="last">
+									<dt>Collection</dt>
+									<dd>
+										<ul>
+											<li><a href="#">PUMP FURY</a></li>
+											<li><a href="#">GL6000</a></li>
+										</ul>
+									</dd>
+								</dl>
+							</div>
+						</div>
+						<!-- //leftarea -->
+						<div class="rightarea">
+							<a href="#"><img src="/images/reebok/temp/gnb_classic_banner.jpg" alt="SUB LITE ê°€ë²¼ì›€ê³¼ ì¿ ì…”ë‹ì˜ ì™„ë²½í•œ ì¡°í™”"/></a>
+						</div>
+						<!-- //righttarea -->
+					</div>
+					<!-- sports depth2 menu end -->
+				</li>
+				<!-- //classic -->
 
-				
-				<!-- //header HTML -->
-				<!-- //gnb -->
-			</div>
-			<!-- //header -->
+				<!--
+				170616 collection ì‚­ì œ
+				<li id="collection">
+					<a href="#" class="depth1_btn dep2btn">Collection</a>
+					<div class="depth2_menu">
+						<ul>
+							<li><a href="#">í¬ë¡œìŠ¤í•(CrossFit) </a></li>
+							<li><a href="#">ë¦¬ì–¼í”Œë ‰ìŠ¤(RealFlex)</a></li>
+							<li><a href="#">ì§í…(ZigTech)</a></li>
+							<li><a href="#">ì„œë¸Œë¼ì´íŠ¸(SubLite)</a></li>
+							<li><a href="#">ë¦¬ë³µ í”¼íŠ¸ë‹ˆìŠ¤ ì»¬ë ‰ì…˜</a></li>
+							<li><a href="#">ë¦¬ë³µ ìš”ê°€ ì»¬ë ‰ì…˜</a></li>
+							<li><a href="#">PUMP FURY</a></li>
+							<li><a href="#">GL6000</a></li>
+						</ul>
+					</div>
+				</li>
+				 //collection -->
+			</ul>
+			<!-- 130807 menu2 -->
+
+			<ul class="gnb_menu3">
+				<!--
+				** 161121 GNB-> ê¸°íšì „ ì‚­ì œ
+
+				<li class="promo">
+					<a href="#" class="depth1_btn">ê¸°íšì „</a>
+				</li>
+				-->
+				<li>
+					<a href="#" class="depth1_btn">New</a>
+				</li>
+				<li>
+					<a href="#" class="depth1_btn">Best</a>
+				</li>
+				<li class="sale">
+					<a href="#" class="depth1_btn dep2btn">Sale</a>
+					<div class="depth2_menu">
+						<ul>
+							<li><a href="#">Men</a></li>
+							<li><a href="#">Women</a></li>
+							<li><a href="#">Kids</a></li>
+							<li><a href="#" style="color:#d3000f">OUTLET</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<!-- 161227 start -->
+
+				<!-- 170616 ìŠ¤í”¼ë“œë°°ì†¡ ë©”ë‰´ ì¶”ê°€ -->
+				<li class="kor speedy">
+					<a href="#">ìŠ¤í”¼ë“œ ë°°ì†¡</a>
+				</li>
+
+				<li class="club">
+					<a href="#" class="depth1_btn dep2btn">Reeclub</a>
+					<div class="depth2_menu">
+						<dl>
+							<dt>Reeclub</dt>
+							<dd>
+								<ul>
+									<li><a href="http://shop.reebok.co.kr/RPF080101.action">- ë¦¬í´ëŸ½ì´ë€?</a></li>
+									<li><a href="http://shop.reebok.co.kr/RPF080101.action#benefit">- ë¦¬í´ëŸ½ íšŒì›í˜œíƒ</a></li>
+									<li><a href="http://shop.reebok.co.kr/RPF080101.action#howto">- ë¦¬í´ëŸ½ íšŒì›ê°€ì…ë°©ë²•</a></li>
+								</ul>
+							</dd>
+						</dl>
+
+						<dl style="margin-right: 0;">
+							<dt>Camapign</dt>
+							<dd>
+								<ul>
+									<li><a href="http://shop.reebok.co.kr/RPF070201.action?PAGE_GB=1">- ìº í˜ì¸</a></li>
+									<li><a href="http://shop.reebok.co.kr/RPF080201.action">- ê³µì§€ì‚¬í•­</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+				</li>
+				<!-- 161227 end -->
+
+				<li class="aboutus last">
+					<a href="#" class="depth1_btn dep2btn">About Us</a>
+					<div class="depth2_menu">
+						<div class="bg_paint"></div>
+						<div class="inner">
+							<div class="area1">
+								<div class="banner_list">
+									<div class="box">
+										<a href="">
+											<div class="img"><img src="/images/reebok/temp/about_gnb_bnn1.jpg" alt=""></div>
+											<div class="tit">Reebok x NaDa</div>
+											<div class="desc">ì™„ë²½ì— ë§ì„œëŠ” ë‚˜ë‹¤ (NADA)</div>
+										</a>
+									</div>
+									<!-- //box -->
+
+									<div class="box">
+										<a href="#">
+											<div class="img"><img src="/images/reebok/temp/about_gnb_bnn2.jpg" alt=""></div>
+											<div class="tit">Reebok x GIGIHADID</div>
+											<div class="desc">ì§€ì§€ í•˜ë””ë“œì™€ í•¨ê»˜ í•˜ëŠ” ìš°ë¨¼ìŠ¤ ìº í˜ì¸</div>
+										</a>
+									</div>
+
+									<div class="box last">
+										<a href="#">
+											<div class="img"><img src="/images/reebok/temp/about_gnb_bnn3.jpg" alt=""></div>
+											<div class="tit">Train Like a FIGHTER</div>
+											<div class="desc">UFC íƒ‘ ì„ ìˆ˜ë“¤ì˜ ë¹„í•˜ì¸ë“œ ìŠ¤í† ë¦¬</div>
+										</a>
+									</div>
+								</div>
+
+								<div class="linkbox">
+									<a href="#">All Campaign<span class="spt_bg"></span></a>
+								</div>
+							</div>
+							<!-- //area1 -->
+
+							<div class="area2">
+								<div class="tit">About Reebok</div>
+								<a href="#" class="delta spt_bg">Be More Human</a>
+
+								<div class="linkbox">
+									<a href="#">Our Story <span class="spt_bg"></span></a>
+								</div>
+							</div>
+							<!-- //area2 -->
+						</div>
+						<!-- //inner -->
+					</div>
+				</li>
+				<!-- 161121 end -->
+			</ul>
+
 		</div>
-		<!-- //header_wrap -->
+		<!-- //gnb_150930 -->
+   </div>
+   <!-- //header_150930 -->
+</div>
 
 		<div class="top_down">
 			<a href="#" class="top" onclick="jQuery('html, body').animate({scrollTop:0},1000,'easeOutCubic');return false;">top</a>
 			<a href="#" class="down" onclick="jQuery('html, body').animate({scrollTop:jQuery(document).height()},1000,'easeOutCubic');return false;">down</a>
 		</div>
-		
+
 
 <div class="layer_popup" id="popup_mycpn" style="padding:4px;position:absolute;left:0px;top:0px;z-index:10000;display:none;background:#4b4b4b;border:1px solid #fff;">
 	<div style="width:430px;height:305px;background:#fff;">
-		<a href="#" onclick="closeMyCpnLayer();" style="position:absolute;top:3px;right:3px;"><img src="/images/adidas/popup/btn_popup_close_140325.gif" alt="´İ±â"/></a>
-		<h1 style="padding:24px 0 20px;"><img src="/images/adidas/popup/tit_pop_coupon_140325.gif" alt="ÄíÆùÀÌ ¹ß±ŞµÇ¾ú½À´Ï´Ù."/></h1>
+		<a href="#" onclick="closeMyCpnLayer();" style="position:absolute;top:3px;right:3px;"><img src="/images/adidas/popup/btn_popup_close_140325.gif" alt="ë‹«ê¸°"/></a>
+		<h1 style="padding:24px 0 20px;"><img src="/images/adidas/popup/tit_pop_coupon_140325.gif" alt="ì¿ í°ì´ ë°œê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤."/></h1>
 		<div id="popup_mycpn_contents" style="padding:0 25px;">
-			<p style="margin-bottom:10px;color:#383838;">Áö±İ ÄíÆùÀ» È®ÀÎÇÏ¼¼¿ä!</p>
-			<table summary="³» ÄíÆù ÇöÈ²" cellpadding="0" cellspacing="0" width="381" style="border:1px solid #b1b1b1;margin-bottom:12px;">
-				<caption>³» ÄíÆù ÇöÈ²</caption>
+			<p style="margin-bottom:10px;color:#383838;">ì§€ê¸ˆ ì¿ í°ì„ í™•ì¸í•˜ì„¸ìš”!</p>
+			<table summary="ë‚´ ì¿ í° í˜„í™©" cellpadding="0" cellspacing="0" width="381" style="border:1px solid #b1b1b1;margin-bottom:12px;">
+				<caption>ë‚´ ì¿ í° í˜„í™©</caption>
 				<colgroup>
 					<col width="50%"/>
 					<col width="10%"/>
@@ -1022,9 +621,9 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">ÄíÆù¸í</th>
-						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">¸Å¼ö</th>
-						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;">À¯È¿±â°£</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">ì¿ í°ëª…</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;border-right:1px solid #d1d1d1;">ë§¤ìˆ˜</th>
+						<th style="height:32px;color:#383838;background:#ededed;text-align:center;font:bold 12px 'Gulim',gulim;border-bottom:1px solid #d1d1d1;">ìœ íš¨ê¸°ê°„</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -1040,29 +639,28 @@
 					</tr>
 				</tbody>
 			</table>
-			<p style="color:#383838;margin-bottom:15px;"><strong>±è±â¹é</strong>´ÔÀÌ ÇöÀç »ç¿ë °¡´ÉÇÑ ÄíÆùÀÌ <strong>0¸Å</strong> ÀÖ½À´Ï´Ù</p>
-			<p style="color:#383838;margin-bottom:25px;"><a href="http://shop.reebok.co.kr/RPF060201.action"><img src="/images/adidas/popup/btn_view_coupon_140325.gif" alt="ÄíÆù È®ÀÎÇÏ±â"/></a></p>
-		</div>		
+			<p style="color:#383838;margin-bottom:15px;"><strong>ê¹€ê¸°ë°±</strong>ë‹˜ì´ í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ ì¿ í°ì´ <strong>0ë§¤</strong> ìˆìŠµë‹ˆë‹¤</p>
+			<p style="color:#383838;margin-bottom:25px;"><a href="http://shop.reebok.co.kr/RPF060201.action"><img src="/images/adidas/popup/btn_view_coupon_140325.gif" alt="ì¿ í° í™•ì¸í•˜ê¸°"/></a></p>
+		</div>
 	</div>
 	<p style="padding:10px 0 6px 2px;">
 		<input type="checkbox" id="today_close_mycpn" style="margin-right:3px;"/>
-		<label for="today_close_mycpn" style="font:12px 'Dotum',gulim;color:#fff;">¿À´Ã ÇÏ·ç º¸Áö¾Ê±â</label>
+		<label for="today_close_mycpn" style="font:12px 'Dotum',gulim;color:#fff;">ì˜¤ëŠ˜ í•˜ë£¨ ë³´ì§€ì•Šê¸°</label>
 	</p>
 </div>
-	
 
-	
 
-	
+
+
+
 		<!-- //header -->
-		
+
 		<!-- contents -->
 		<div id="contents">
 			<!-- snb -->
 			<div id="snb">
-				<h2 class="mypage"><a href="/RPF060100.action"><img src="/images/reebok/mypage/tit_mypage.gif" alt="¸¶ÀÌÆäÀÌÁö" /></a></h2>
-				<!-- leftmenu -->				
-				
+				<h2 class="mypage"><a href="/RPF060100.action"><img src="/images/reebok/mypage/tit_mypage.gif" alt="ë§ˆì´í˜ì´ì§€" /></a></h2>
+				<!-- leftmenu -->
 
 
 
@@ -1070,11 +668,12 @@
 
 
 
-	
 
 
 
-<script type="text/javascript">	
+
+
+<script type="text/javascript">
 /* <![CDATA[ */
 function fn_classChg(arg){
 
@@ -1084,75 +683,75 @@ function fn_classChg(arg){
 			document.getElementById(str).className="on";
 		}
 	}
-	
+
 }
 /* ]]> */
 </script>
 <!-- leftmenu -->
 				<dl class="mypage">
-			
-					<dt>³ªÀÇ ¼îÇÎ³»¿ª</dt>
+
+					<dt>ë‚˜ì˜ ì‡¼í•‘ë‚´ì—­</dt>
 					<dd>
 						<ul>
-							<li id="li1"><a href="http://shop.reebok.co.kr/RPF060101.action">ÁÖ¹®/¹è¼ÛÁ¶È¸</a></li>
-							<li id="li2"><a href="http://shop.reebok.co.kr/RPF060103.action">Ãë¼Ò/¹İÇ°Á¶È¸</a></li>
-							
-							<li id="li3"><a href="http://shop.reebok.co.kr/RPF060106.action">Ãë¼Ò/¹İÇ° °áÁ¦´ë±â</a></li>
-							<li id="li4" class="last"><a href="http://shop.reebok.co.kr/RPF060105.action">Áõºù¼­·ù¹ß±Ş</a></li>
-									
+							<li id="li1"><a href="http://shop.reebok.co.kr/RPF060101.action">ì£¼ë¬¸/ë°°ì†¡ì¡°íšŒ</a></li>
+							<li id="li2"><a href="http://shop.reebok.co.kr/RPF060103.action">ì·¨ì†Œ/ë°˜í’ˆì¡°íšŒ</a></li>
+
+							<li id="li3"><a href="http://shop.reebok.co.kr/RPF060106.action">ì·¨ì†Œ/ë°˜í’ˆ ê²°ì œëŒ€ê¸°</a></li>
+							<li id="li4" class="last"><a href="http://shop.reebok.co.kr/RPF060105.action">ì¦ë¹™ì„œë¥˜ë°œê¸‰</a></li>
+
 						</ul>
 					</dd>
-					
-					<dt>³ªÀÇ ÇıÅÃ°ü¸®</dt>                                                        
-					<dd>	                                                                         
-						<ul>	                                                                         
-							<li id="li5"><a href="http://shop.reebok.co.kr/RPF060201.action">ÄíÆù ÇöÈ²</a></li>	                   
-							<li id="li6"><a href="http://shop.reebok.co.kr/RPF060202.action">Æ÷ÀÎÆ® ÇöÈ²</a></li>	                 
-						</ul>	                                                                       
-					</dd>	                                                                       
-					<dt>³ªÀÇ °ü½É¸ñ·Ï</dt>                                                        
-					<dd>                                                                          
-						<ul>  
-							<li  id="li9"  class="last"><a href="http://shop.reebok.co.kr/RPF060302.action">°ü½É »óÇ°</a></li>
-					
-							<li  id="li8"><a href="http://shop.reebok.co.kr/RPF060301.action">¿À´Ã º» »óÇ°</a></li>
-					
-						</ul>                                                                         
-					</dd>
-						
-					<dt>³ªÀÇ È¸¿øÁ¤º¸</dt>                                                        
-					<dd>                                                                          
-						<ul>                                                                          
-							<li id="li10"><a href="https://shop.reebok.co.kr:444/RPF060401.action">È¸¿øÁ¤º¸ ¼öÁ¤</a></li>               
-							<li id="li11"> <a href="http://shop.reebok.co.kr/RPF060403.action">¹è¼ÛÁö °ü¸®</a></li>                
-							<li id="li12" class="last"><a href="http://shop.reebok.co.kr/RPF060405.action">È¸¿øÅ»Åğ</a></li>                    
-						</ul>                                                                         
-					</dd>  
-					
-					<dt>³ªÀÇ ¹®ÀÇ³»¿ª</dt>                                                        
-					<dd>                                                                          
+
+					<dt>ë‚˜ì˜ í˜œíƒê´€ë¦¬</dt>
+					<dd>
 						<ul>
-						
-							<li  id="li13"><a href="http://shop.reebok.co.kr/RPF060604.action">»óÇ° ¹®ÀÇ³»¿ª</a></li>
-					
-							<li id="li14" class="last"><a href="http://shop.reebok.co.kr/RPF060603.action">1:1 ¹®ÀÇ³»¿ª</a></li>                
-						</ul>                                                                         
+							<li id="li5"><a href="http://shop.reebok.co.kr/RPF060201.action">ì¿ í° í˜„í™©</a></li>
+							<li id="li6"><a href="http://shop.reebok.co.kr/RPF060202.action">í¬ì¸íŠ¸ í˜„í™©</a></li>
+						</ul>
 					</dd>
-					
-					<dt>³ªÀÇ ÄÁÅÙÃ÷</dt>                                                          
-					<dd class="last">                                                             
-						<ul>                                                                          
-							<li id="li15"><a href="http://shop.reebok.co.kr/RPF060701.action">³ªÀÇ ÀÌº¥Æ® ÇöÈ²</a></li>            
-							<li id="li16"  class="last"><a href="http://shop.reebok.co.kr/RPF060702.action">³»°¡ ÀÛ¼ºÇÑ »óÇ°Æò</a></li>          
-						</ul>                                                                         
+					<dt>ë‚˜ì˜ ê´€ì‹¬ëª©ë¡</dt>
+					<dd>
+						<ul>
+							<li  id="li9"  class="last"><a href="http://shop.reebok.co.kr/RPF060302.action">ê´€ì‹¬ ìƒí’ˆ</a></li>
+
+							<li  id="li8"><a href="http://shop.reebok.co.kr/RPF060301.action">ì˜¤ëŠ˜ ë³¸ ìƒí’ˆ</a></li>
+
+						</ul>
 					</dd>
-					
-				
-			
+
+					<dt>ë‚˜ì˜ íšŒì›ì •ë³´</dt>
+					<dd>
+						<ul>
+							<li id="li10"><a href="https://shop.reebok.co.kr:444/RPF060401.action">íšŒì›ì •ë³´ ìˆ˜ì •</a></li>
+							<li id="li11"> <a href="http://shop.reebok.co.kr/RPF060403.action">ë°°ì†¡ì§€ ê´€ë¦¬</a></li>
+							<li id="li12" class="last"><a href="http://shop.reebok.co.kr/RPF060405.action">íšŒì›íƒˆí‡´</a></li>
+						</ul>
+					</dd>
+
+					<dt>ë‚˜ì˜ ë¬¸ì˜ë‚´ì—­</dt>
+					<dd>
+						<ul>
+
+							<li  id="li13"><a href="http://shop.reebok.co.kr/RPF060604.action">ìƒí’ˆ ë¬¸ì˜ë‚´ì—­</a></li>
+
+							<li id="li14" class="last"><a href="http://shop.reebok.co.kr/RPF060603.action">1:1 ë¬¸ì˜ë‚´ì—­</a></li>
+						</ul>
+					</dd>
+
+					<dt>ë‚˜ì˜ ì»¨í…ì¸ </dt>
+					<dd class="last">
+						<ul>
+							<li id="li15"><a href="http://shop.reebok.co.kr/RPF060701.action">ë‚˜ì˜ ì´ë²¤íŠ¸ í˜„í™©</a></li>
+							<li id="li16"  class="last"><a href="http://shop.reebok.co.kr/RPF060702.action">ë‚´ê°€ ì‘ì„±í•œ ìƒí’ˆí‰</a></li>
+						</ul>
+					</dd>
+
+
+
 
 				</dl>
 				<!-- //leftmenu -->
-				
+
 				<!-- //leftmenu -->
 			</div>
 			<!-- //snb -->
@@ -1161,10 +760,10 @@ function fn_classChg(arg){
 			<div id="mypage">
 				<div class="cont705">
 					<div class="loc">
-						<p>HOME &gt; ¸¶ÀÌÆäÀÌÁö &gt; ³ªÀÇ ¼îÇÎ³»¿ª &gt; Ãë¼Ò/¹İÇ°</p>
+						<p>HOME &gt; ë§ˆì´í˜ì´ì§€ &gt; ë‚˜ì˜ ì‡¼í•‘ë‚´ì—­ &gt; ì·¨ì†Œ/ë°˜í’ˆ</p>
 					</div>
-					
-					
+
+
 
 
 
@@ -1174,39 +773,39 @@ function fn_classChg(arg){
 
 
 <div class="level">
-	<!-- È¸¿øÀÏ°æ¿ì -->
-	
-		
-		
-			
+	<!-- íšŒì›ì¼ê²½ìš° -->
+
+
+
+
 					<div class="border1"><div class="border2">
-					
-						
-						<p class="name"><strong>±è±â¹é</strong>
-						
+
+
+						<p class="name"><strong>ê¹€ê¸°ë°±</strong>
+
 					(kkbdream)
-						
+
 					<a href="https://shop.reebok.co.kr:444/RPF060401.action">
-						<img src="/images/reebok/mypage/btn_membership_modify.gif" alt="È¸¿øÁ¤º¸ ¼öÁ¤" />
+						<img src="/images/reebok/mypage/btn_membership_modify.gif" alt="íšŒì›ì •ë³´ ìˆ˜ì •" />
 					</a>
-						
+
 				</p>
 				<div class="info">
 					<div class="border1">
 						<dl>
-							<!-- dt><img src="/images/reebok/mypage/tit_mylevel.gif" alt="³ªÀÇµî±Ş" /></dt>
+							<!-- dt><img src="/images/reebok/mypage/tit_mylevel.gif" alt="ë‚˜ì˜ë“±ê¸‰" /></dt>
 							<dd>
 								<span class="bronze">
 									Bronze
 								</span>
 							</dd -->
-							<dt><img src="/images/reebok/mypage/tit_mycoupon.gif" alt="³ªÀÇÄíÆù" /></dt>
+							<dt><img src="/images/reebok/mypage/tit_mycoupon.gif" alt="ë‚˜ì˜ì¿ í°" /></dt>
 							<dd>
 								<strong>
 									0
-								</strong> Àå
+								</strong> ì¥
 							</dd>
-							<dt class="point"><img src="/images/reebok/mypage/tit_mypoint.gif" alt="³ªÀÇÆ÷ÀÎÆ®" /></dt>
+							<dt class="point"><img src="/images/reebok/mypage/tit_mypoint.gif" alt="ë‚˜ì˜í¬ì¸íŠ¸" /></dt>
 							<dd class="point">
 								<strong>0</strong>
 								<img src="/images/reebok/mypage/ico_p.gif" alt="p" />
@@ -1215,181 +814,181 @@ function fn_classChg(arg){
 					</div>
 				</div>
 			</div></div>
-			
-		
-		
-	
-	<!-- È¸¿øÀÏ°æ¿ì ³¡ -->
-	<!-- ºñÈ¸¿øÀÏ°æ¿ì ³¡ -->
-	
-	<!-- ºñÈ¸¿øÀÏ°æ¿ì ³¡ -->
-</div>								 
-				 
-					<h3><img src="/images/reebok/mypage/tit_cancel_return_change.gif" alt="Ãë¼Ò/¹İÇ°" /></h3>
+
+
+
+
+	<!-- íšŒì›ì¼ê²½ìš° ë -->
+	<!-- ë¹„íšŒì›ì¼ê²½ìš° ë -->
+
+	<!-- ë¹„íšŒì›ì¼ê²½ìš° ë -->
+</div>
+
+					<h3><img src="/images/reebok/mypage/tit_cancel_return_change.gif" alt="ì·¨ì†Œ/ë°˜í’ˆ" /></h3>
 
 					<ul class="page_tab">
-						<li><a href="#" onclick="fn_changTab(1);return false"><img id='tabImg1' src="/images/reebok/mypage/tab_mypage01_on.gif" alt="Ãë¼Ò/¹İÇ° ¿äÃ»"/></a></li>
-						<li><a href="#" onclick="fn_changTab(2);return false"><img id='tabImg2' src="/images/reebok/mypage/tab_mypage02_off.gif" alt="Ãë¼Ò/¹İÇ° ³»¿ª"/></a></li>
-						<li class="return"><a href="#" onclick="javascript:fn_rbReturnPop();" title="»õÃ¢"><img src="/images/adidas/mypage/btn_return_step.gif" alt="¹İÇ°½ÅÃ»ÀıÂ÷"/></a></li>
+						<li><a href="#" onclick="fn_changTab(1);return false"><img id='tabImg1' src="/images/reebok/mypage/tab_mypage01_on.gif" alt="ì·¨ì†Œ/ë°˜í’ˆ ìš”ì²­"/></a></li>
+						<li><a href="#" onclick="fn_changTab(2);return false"><img id='tabImg2' src="/images/reebok/mypage/tab_mypage02_off.gif" alt="ì·¨ì†Œ/ë°˜í’ˆ ë‚´ì—­"/></a></li>
+						<li class="return"><a href="#" onclick="javascript:fn_rbReturnPop();" title="ìƒˆì°½"><img src="/images/adidas/mypage/btn_return_step.gif" alt="ë°˜í’ˆì‹ ì²­ì ˆì°¨"/></a></li>
 					</ul>
 
 					<ul class="advice">
-						<li>¿ÀÇÁ¶óÀÎ ¸ÅÀå¿¡¼­ ±¸¸ÅÇÏ½Å »óÇ°¿¡ ´ëÇÑ Ãë¼Ò³»¿ªµµ È®ÀÎÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
-						<li>¹è¼ÛÀÛ¾÷ÀÌ ÀÌ¹Ì ½ÃÀÛµÈ °æ¿ì¿¡´Â Ãë¼Ò½ÅÃ»ÀÌ ºÒ°¡´ÉÇÏ¸ç ¹İÇ°À¸·Î °£ÁÖµË´Ï´Ù. ÀÌ °æ¿ì »óÇ°À» ¼ö·ÉÇÏ½Å ÈÄ ¹İÇ°ÀıÂ÷¸¦ ÁøÇàÇÏ¼Å¾ß ÇÕ´Ï´Ù.</li>
-						<li>¹«ÅëÀåÀÔ±İÀÇ È¯ºÒÀº ÁÖ¸», °øÈŞÀÏÀ» Á¦¿ÜÇÑ ¿µ¾÷ÀÏ±âÁØ, ÀÍÀÏ 16½Ã¿¡ Ã³¸®µË´Ï´Ù.<br/>
-							(¹è¼Û½ÃÀÛÀü : ÁÖ¹®Ãë¼Ò ÈÄ ÀÍÀÏ 16½Ã, ¹è¼Û½ÃÀÛÈÄ : ¹İÇ°ÀıÂ÷ ¿Ï·á ÈÄ ÀÍÀÏ 16½Ã)
+						<li>ì˜¤í”„ë¼ì¸ ë§¤ì¥ì—ì„œ êµ¬ë§¤í•˜ì‹  ìƒí’ˆì— ëŒ€í•œ ì·¨ì†Œë‚´ì—­ë„ í™•ì¸í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+						<li>ë°°ì†¡ì‘ì—…ì´ ì´ë¯¸ ì‹œì‘ëœ ê²½ìš°ì—ëŠ” ì·¨ì†Œì‹ ì²­ì´ ë¶ˆê°€ëŠ¥í•˜ë©° ë°˜í’ˆìœ¼ë¡œ ê°„ì£¼ë©ë‹ˆë‹¤. ì´ ê²½ìš° ìƒí’ˆì„ ìˆ˜ë ¹í•˜ì‹  í›„ ë°˜í’ˆì ˆì°¨ë¥¼ ì§„í–‰í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.</li>
+						<li>ë¬´í†µì¥ì…ê¸ˆì˜ í™˜ë¶ˆì€ ì£¼ë§, ê³µíœ´ì¼ì„ ì œì™¸í•œ ì˜ì—…ì¼ê¸°ì¤€, ìµì¼ 16ì‹œì— ì²˜ë¦¬ë©ë‹ˆë‹¤.<br/>
+							(ë°°ì†¡ì‹œì‘ì „ : ì£¼ë¬¸ì·¨ì†Œ í›„ ìµì¼ 16ì‹œ, ë°°ì†¡ì‹œì‘í›„ : ë°˜í’ˆì ˆì°¨ ì™„ë£Œ í›„ ìµì¼ 16ì‹œ)
 						</li>
 					</ul>
-					
+
 					<div id="tab1">
 						<form id="frmSrch" name="frmSrch" action="">
 						<input type="hidden" id="S_COMMAND" name="command" value=""/>
 						<input type="hidden" id="S_PAGE" name="PAGE_CUR" value="1" />
-						
+
 						<div class="sorting">
-							<p>±â°£Á¶È¸</p>
+							<p>ê¸°ê°„ì¡°íšŒ</p>
 							<ul>
-								<li><a href="#" onclick="fn_period(1);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3°³¿ù"/></a></li>
-								<li><a href="#" onclick="fn_period(2);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6°³¿ù"/></a></li>
-								<li><a href="#" onclick="fn_period(3);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2³â"/></a></li>
+								<li><a href="#" onclick="fn_period(1);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3ê°œì›”"/></a></li>
+								<li><a href="#" onclick="fn_period(2);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6ê°œì›”"/></a></li>
+								<li><a href="#" onclick="fn_period(3);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2ë…„"/></a></li>
 							</ul>
-	
+
 							<div class="date">
-								<input onkeydown="cfn_setDateFld(FROM_ORDER_DY)" type="text" name="FROM_ORDER_DY" id="FROM_ORDER_DY" title="½ÃÀÛÀÏ" />
+								<input onkeydown="cfn_setDateFld(FROM_ORDER_DY)" type="text" name="FROM_ORDER_DY" id="FROM_ORDER_DY" title="ì‹œì‘ì¼" />
 								~
-								<input onkeydown="cfn_setDateFld(TO_ORDER_DY)" type="text" name="TO_ORDER_DY" id="TO_ORDER_DY" title="Á¾·áÀÏ" />
-								<a href="#" onclick="fn_search();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="Á¶È¸"/></a>
+								<input onkeydown="cfn_setDateFld(TO_ORDER_DY)" type="text" name="TO_ORDER_DY" id="TO_ORDER_DY" title="ì¢…ë£Œì¼" />
+								<a href="#" onclick="fn_search();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="ì¡°íšŒ"/></a>
 							</div>
 						</div>
-						
+
 						<div id="makeList"></div>
-						
+
 						<!-- paging -->
 						<div id="makePaging"></div>
 						<!-- //paging -->
-						
+
 						</form>
 					</div>
-					
+
 					<div id="tab2">
 						<form id ="frmDetail" name="frmDetail" action="">
 						<input type="hidden" id="D_COMMAND" name="command" value=""/>
 						<input type="hidden" id="D_PAGE" name="PAGE_CUR" value="1" />
-							
+
 		                    <div class="sorting">
-								<p>±â°£Á¶È¸</p>
+								<p>ê¸°ê°„ì¡°íšŒ</p>
 									<ul>
-									<li><a href="#" onclick="fn_period(4);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3°³¿ù"/></a></li>
-									<li><a href="#" onclick="fn_period(5);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6°³¿ù"/></a></li>
-									<li><a href="#" onclick="fn_period(6);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2³â"/></a></li>
+									<li><a href="#" onclick="fn_period(4);return false"><img src="/images/reebok/mypage/btn_3month.gif" alt="3ê°œì›”"/></a></li>
+									<li><a href="#" onclick="fn_period(5);return false"><img src="/images/reebok/mypage/btn_6month.gif" alt="6ê°œì›”"/></a></li>
+									<li><a href="#" onclick="fn_period(6);return false"><img src="/images/reebok/mypage/btn_2years.gif" alt="2ë…„"/></a></li>
 								</ul>
-								
+
 								<div class="date">
-									<input onkeydown="cfn_setDateFld(FROM_USE_BEGIN_DT)" type="text" name="FROM_USE_BEGIN_DT" id="FROM_USE_BEGIN_DT" title="½ÃÀÛÀÏ" />
+									<input onkeydown="cfn_setDateFld(FROM_USE_BEGIN_DT)" type="text" name="FROM_USE_BEGIN_DT" id="FROM_USE_BEGIN_DT" title="ì‹œì‘ì¼" />
 									~
-									<input onkeydown="cfn_setDateFld(TO_USE_END_DT)" type="text" name="TO_USE_END_DT" id="TO_USE_END_DT" title="Á¾·áÀÏ" />
-									<a href="#" onclick="fn_searchView();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="Á¶È¸"/></a>
+									<input onkeydown="cfn_setDateFld(TO_USE_END_DT)" type="text" name="TO_USE_END_DT" id="TO_USE_END_DT" title="ì¢…ë£Œì¼" />
+									<a href="#" onclick="fn_searchView();return false"><img src="/images/reebok/mypage/btn_search.gif" class="btn" alt="ì¡°íšŒ"/></a>
 								</div>
 							</div>
-												
+
 							<!-- my_list -->
 							<div id="makeViewList"></div>
-							
+
 		                    <!-- paging -->
 							<div id="makeViewPaging"></div>
-							
+
 						</form>
 					</div>
 
 					<!-- refund_step 140804 -->
 					<div class="refund_step" style="overflow:hidden;border:1px solid #b6b6b6;margin-top:40px;padding-top:0;margin-top:40px;">
-						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">¹İÇ°½ÅÃ»</div>
+						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">ë°˜í’ˆì‹ ì²­</div>
 						<div style="background:#fff;padding:0 25px;">
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1´Ü°è : ¹İÇ°½ÅÃ»</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1ë‹¨ê³„ : ë°˜í’ˆì‹ ì²­</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">¹İÇ°Àº <strong style="color:#595959;">[¸¶ÀÌÆäÀÌÁö > ³ªÀÇ¼îÇÎ³»¿ª > ÁÖ¹®/¹è¼ÛÁ¶È¸  ¶Ç´Â Ãë¼Ò/¹İÇ°Á¶È¸]</strong> ¿¡¼­ ½ÅÃ»ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">¹İÇ°Àº »óÇ° ¼ö·ÉÇÏ°í ÁÖ¹®»óÅÂ°¡ ¹è¼Û¿Ï·á°¡ µÈ ÈÄ, ¹İÇ°½ÅÃ»À» ÅëÇØ °¡´É ÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">»óÇ°ÀÇ ÅÃÀ» Á¦°ÅÇÏ¿´°Å³ª ½Å¹ß ¹Ú½º°¡ ÈÑ¼Õ µÇ¾úÀ» °æ¿ì ¹İÇ°ÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">ë°˜í’ˆì€ <strong style="color:#595959;">[ë§ˆì´í˜ì´ì§€ > ë‚˜ì˜ì‡¼í•‘ë‚´ì—­ > ì£¼ë¬¸/ë°°ì†¡ì¡°íšŒ  ë˜ëŠ” ì·¨ì†Œ/ë°˜í’ˆì¡°íšŒ]</strong> ì—ì„œ ì‹ ì²­í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë°˜í’ˆì€ ìƒí’ˆ ìˆ˜ë ¹í•˜ê³  ì£¼ë¬¸ìƒíƒœê°€ ë°°ì†¡ì™„ë£Œê°€ ëœ í›„, ë°˜í’ˆì‹ ì²­ì„ í†µí•´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ìƒí’ˆì˜ íƒì„ ì œê±°í•˜ì˜€ê±°ë‚˜ ì‹ ë°œ ë°•ìŠ¤ê°€ í›¼ì† ë˜ì—ˆì„ ê²½ìš° ë°˜í’ˆì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2´Ü°è : ¹İÇ°¹è¼Û</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2ë‹¨ê³„ : ë°˜í’ˆë°°ì†¡</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">¹İÇ°½ÅÃ» ÈÄ 3~5ÀÏ ³»¿¡ ÀÔ·ÂÇÑ ÁÖ¼Ò·Î ÅÃ¹è ±â»ç°¡ ¹æ¹®ÇÏ¿© »óÇ°À» È¸¼ö ÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">¹è¼Û À§Å¹ °è¾à»çÀÎ ÇÑÁøÅÃ¹è ¿Ü ´Ù¸¥ ÅÃ¹èÈ¸»ç¸¦ ÀÌ¿ëÇÏ¿© ¹İÇ°ÇÏ´Â °æ¿ì ¹İÇ°ÀÌ Áö¿¬µÉ ¼ö ÀÖÀ¸¸ç, ºĞ½Ç ½Ã º¸»óÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">ºÎµæÀÌ ÇÏ°Ô ´Ù¸¥ ÅÃ¹è È¸»ç¸¦ ÀÌ¿ëÇÏ¿´À» °æ¿ì ¹İµå½Ã °í°´¼¾ÅÍ·Î ¿¬¶ôÀ» ÁÖ¼Å¾ß ¿øÈ°ÇÑ ¹İÇ°ÀÌ ÁøÇàµË´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">ë°˜í’ˆì‹ ì²­ í›„ 3~5ì¼ ë‚´ì— ì…ë ¥í•œ ì£¼ì†Œë¡œ íƒë°° ê¸°ì‚¬ê°€ ë°©ë¬¸í•˜ì—¬ ìƒí’ˆì„ íšŒìˆ˜ í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë°°ì†¡ ìœ„íƒ ê³„ì•½ì‚¬ì¸ í•œì§„íƒë°° ì™¸ ë‹¤ë¥¸ íƒë°°íšŒì‚¬ë¥¼ ì´ìš©í•˜ì—¬ ë°˜í’ˆí•˜ëŠ” ê²½ìš° ë°˜í’ˆì´ ì§€ì—°ë  ìˆ˜ ìˆìœ¼ë©°, ë¶„ì‹¤ ì‹œ ë³´ìƒì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë¶€ë“ì´ í•˜ê²Œ ë‹¤ë¥¸ íƒë°° íšŒì‚¬ë¥¼ ì´ìš©í•˜ì˜€ì„ ê²½ìš° ë°˜ë“œì‹œ ê³ ê°ì„¼í„°ë¡œ ì—°ë½ì„ ì£¼ì…”ì•¼ ì›í™œí•œ ë°˜í’ˆì´ ì§„í–‰ë©ë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3´Ü°è : »óÇ° »óÅÂ È®ÀÎ</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3ë‹¨ê³„ : ìƒí’ˆ ìƒíƒœ í™•ì¸</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">È¸¼öµÇ¾î ¸ÅÀå¿¡ µµÂøÇÑ »óÇ°Àº »óÅÂ È®ÀÎ ÈÄ ÀÌ»óÀÌ ¾øÀ» ½Ã ¹İÇ°¿Ï·á Ã³¸® µË´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">»óÇ° ÈÑ¼ÕÀÌ³ª ¹İÇ° ½Ã ¼±ÅÃÇÑ »çÀ¯¿Í »óÀÌÇÏ¿© ÀÌ»óÀÌ ÀÖÀ» °æ¿ì Äİ¼¾ÅÍ¿¡¼­ ¿¬¶ôÀ» µå¸®¸ç, È¯ºÒÀÌ Áö¿¬µÇ°Å³ª ºÒ°¡´ÉÇÒ ¼ö ÀÖ½À´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">íšŒìˆ˜ë˜ì–´ ë§¤ì¥ì— ë„ì°©í•œ ìƒí’ˆì€ ìƒíƒœ í™•ì¸ í›„ ì´ìƒì´ ì—†ì„ ì‹œ ë°˜í’ˆì™„ë£Œ ì²˜ë¦¬ ë©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ìƒí’ˆ í›¼ì†ì´ë‚˜ ë°˜í’ˆ ì‹œ ì„ íƒí•œ ì‚¬ìœ ì™€ ìƒì´í•˜ì—¬ ì´ìƒì´ ìˆì„ ê²½ìš° ì½œì„¼í„°ì—ì„œ ì—°ë½ì„ ë“œë¦¬ë©°, í™˜ë¶ˆì´ ì§€ì—°ë˜ê±°ë‚˜ ë¶ˆê°€ëŠ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:0px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4´Ü°è : ¹İÇ° È¯ºÒ</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4ë‹¨ê³„ : ë°˜í’ˆ í™˜ë¶ˆ</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">¹İÇ° ±İ¾×Àº »çÀ¯¿¡ µû¶ó ¹è¼Ûºñ¸¦ Â÷°¨ÇÑ ±İ¾×¸¸Å­ È¯ºÒ µË´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">½Å¿ëÄ«µå ¹× Ã¼Å©Ä«µå :  ¿µ¾÷ÀÏ ±âÁØ ¾à 2~3ÀÏ ÈÄ Ä«µå½ÂÀÎ Ãë¼Ò</li>
-									<li style="color:#828282;font-size:11px;">½Ç½Ã°£ °èÁÂ ÀÌÃ¼ : ¿µ¾÷ÀÏ ±âÁØ ¾à2~3ÀÏ ÈÄ ÀÌÃ¼ ÁøÇà °èÁÂ·Î È¯ºÒ</li>
-									<li style="color:#828282;font-size:11px;">¹«ÅëÀåÀÔ±İ : ¿µ¾÷ÀÏ ±âÁØ ¾à1~2ÀÏ ÈÄ ¹İÇ° ½Ã ÀÔ·ÂÇÑ °èÁÂ·Î È¯ºÒ</li>
+									<li style="color:#828282;font-size:11px;">ë°˜í’ˆ ê¸ˆì•¡ì€ ì‚¬ìœ ì— ë”°ë¼ ë°°ì†¡ë¹„ë¥¼ ì°¨ê°í•œ ê¸ˆì•¡ë§Œí¼ í™˜ë¶ˆ ë©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ì‹ ìš©ì¹´ë“œ ë° ì²´í¬ì¹´ë“œ :  ì˜ì—…ì¼ ê¸°ì¤€ ì•½ 2~3ì¼ í›„ ì¹´ë“œìŠ¹ì¸ ì·¨ì†Œ</li>
+									<li style="color:#828282;font-size:11px;">ì‹¤ì‹œê°„ ê³„ì¢Œ ì´ì²´ : ì˜ì—…ì¼ ê¸°ì¤€ ì•½2~3ì¼ í›„ ì´ì²´ ì§„í–‰ ê³„ì¢Œë¡œ í™˜ë¶ˆ</li>
+									<li style="color:#828282;font-size:11px;">ë¬´í†µì¥ì…ê¸ˆ : ì˜ì—…ì¼ ê¸°ì¤€ ì•½1~2ì¼ í›„ ë°˜í’ˆ ì‹œ ì…ë ¥í•œ ê³„ì¢Œë¡œ í™˜ë¶ˆ</li>
 								</ul>
 							</div>
-							
+
 						</div>
 					</div>
 					<!-- //refund_step 140804 -->
 
 					<!-- exhange_step 140804 -->
 					<div class="refund_step" style="overflow:hidden;border:1px solid #b6b6b6;margin-top:40px;padding-top:0;margin-top:40px;">
-						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">±³È¯½ÅÃ»</div>
+						<div style="padding:12px 0 9px 17px;background:#d5d5d5;color:#525252;font-size:13px;font-weight:bold;border-bottom:1px solid #b6b6b6;font-family:'Dotum';letter-spacing:-1px;">êµí™˜ì‹ ì²­</div>
 						<div style="background:#fff;padding:0 25px;">
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1´Ü°è : ±³È¯½ÅÃ»</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1ë‹¨ê³„ : êµí™˜ì‹ ì²­</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">±³È¯Àº <strong style="color:#595959;">[¸¶ÀÌÆäÀÌÁö > ³ªÀÇ¼îÇÎ³»¿ª > ÁÖ¹®/¹è¼ÛÁ¶È¸]</strong> ¿¡¼­ ÁÖ¹®»óÅÂ°¡ ¹è¼Û¿Ï·á°¡ µÈ ÈÄ, ±³È¯½ÅÃ»À» ÅëÇØ °¡´É ÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">±³È¯Àº µ¿ÀÏÇÑ Á¦Ç°ÀÇ »çÀÌÁî º¯°æ¸¸ °¡´ÉÇÏ¸ç, ´Ù¸¥ Á¦Ç°À¸·Î ±³È¯ÇÏ½Ç °æ¿ì ¹İÇ° ÈÄ ÀçÁÖ¹® ÇØÁÖ¼Å¾ß ÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">±³È¯Àº »óÇ°ÀÇ ÅÃÀ» Á¦°ÅÇÏ¿´°Å³ª ½Å¹ß ¹Ú½º°¡ ÈÑ¼Õ µÇ¾úÀ» °æ¿ì ±³È¯ÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ì€ <strong style="color:#595959;">[ë§ˆì´í˜ì´ì§€ > ë‚˜ì˜ì‡¼í•‘ë‚´ì—­ > ì£¼ë¬¸/ë°°ì†¡ì¡°íšŒ]</strong> ì—ì„œ ì£¼ë¬¸ìƒíƒœê°€ ë°°ì†¡ì™„ë£Œê°€ ëœ í›„, êµí™˜ì‹ ì²­ì„ í†µí•´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ì€ ë™ì¼í•œ ì œí’ˆì˜ ì‚¬ì´ì¦ˆ ë³€ê²½ë§Œ ê°€ëŠ¥í•˜ë©°, ë‹¤ë¥¸ ì œí’ˆìœ¼ë¡œ êµí™˜í•˜ì‹¤ ê²½ìš° ë°˜í’ˆ í›„ ì¬ì£¼ë¬¸ í•´ì£¼ì…”ì•¼ í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ì€ ìƒí’ˆì˜ íƒì„ ì œê±°í•˜ì˜€ê±°ë‚˜ ì‹ ë°œ ë°•ìŠ¤ê°€ í›¼ì† ë˜ì—ˆì„ ê²½ìš° êµí™˜ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2´Ü°è : ±³È¯¹è¼Û</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2ë‹¨ê³„ : êµí™˜ë°°ì†¡</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">±³È¯½ÅÃ» ÈÄ 3~5ÀÏ ³»¿¡ ÀÔ·ÂÇÑ ÁÖ¼Ò·Î ÅÃ¹è ±â»ç°¡ ¹æ¹®ÇÏ¿© »óÇ°À» È¸¼ö ÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">¹è¼Û À§Å¹ °è¾à»çÀÎ ÇÑÁøÅÃ¹è ¿Ü ´Ù¸¥ ÅÃ¹èÈ¸»ç¸¦ ÀÌ¿ëÇÏ¿© ±³È¯ÇÏ´Â °æ¿ì ±³È¯ÀÌ Áö¿¬µÉ ¼ö ÀÖÀ¸¸ç, ºĞ½Ç ½Ã º¸»óÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">ºÎµæÀÌ ÇÏ°Ô ´Ù¸¥ ÅÃ¹è È¸»ç¸¦ ÀÌ¿ëÇÏ¿´À» °æ¿ì ¹İµå½Ã °í°´¼¾ÅÍ·Î ¿¬¶ôÀ» ÁÖ¼Å¾ß ¿øÈ°ÇÑ ±³È¯ÀÌ ÁøÇàµË´Ï´Ù. </li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ì‹ ì²­ í›„ 3~5ì¼ ë‚´ì— ì…ë ¥í•œ ì£¼ì†Œë¡œ íƒë°° ê¸°ì‚¬ê°€ ë°©ë¬¸í•˜ì—¬ ìƒí’ˆì„ íšŒìˆ˜ í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë°°ì†¡ ìœ„íƒ ê³„ì•½ì‚¬ì¸ í•œì§„íƒë°° ì™¸ ë‹¤ë¥¸ íƒë°°íšŒì‚¬ë¥¼ ì´ìš©í•˜ì—¬ êµí™˜í•˜ëŠ” ê²½ìš° êµí™˜ì´ ì§€ì—°ë  ìˆ˜ ìˆìœ¼ë©°, ë¶„ì‹¤ ì‹œ ë³´ìƒì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë¶€ë“ì´ í•˜ê²Œ ë‹¤ë¥¸ íƒë°° íšŒì‚¬ë¥¼ ì´ìš©í•˜ì˜€ì„ ê²½ìš° ë°˜ë“œì‹œ ê³ ê°ì„¼í„°ë¡œ ì—°ë½ì„ ì£¼ì…”ì•¼ ì›í™œí•œ êµí™˜ì´ ì§„í–‰ë©ë‹ˆë‹¤. </li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3´Ü°è : »óÇ° »óÅÂ È®ÀÎ</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3ë‹¨ê³„ : ìƒí’ˆ ìƒíƒœ í™•ì¸</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">È¸¼öµÇ¾î ¸ÅÀå¿¡ µµÂøÇÑ »óÇ°Àº »óÅÂ È®ÀÎ ÈÄ ÀÌ»óÀÌ ¾øÀ» ½Ã »óÇ°»óÅÂ È®ÀÎÀÌ ¿Ï·áµÇ¸ç, ±³È¯ ¹è¼Ûºñ °áÁ¦ ¾È³» SMS°¡ ¹ß¼Û µË´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">»óÇ° ÈÑ¼ÕÀÌ³ª ±³È¯ ½Ã ¼±ÅÃÇÑ »çÀ¯¿Í »óÀÌÇÏ¿© ÀÌ»óÀÌ ÀÖÀ» °æ¿ì Äİ¼¾ÅÍ¿¡¼­ ¿¬¶ôÀ» µå¸®¸ç, ±³È¯ÀÌ Áö¿¬µÇ°Å³ª ºÒ°¡´ÉÇÒ ¼ö ÀÖ½À´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">íšŒìˆ˜ë˜ì–´ ë§¤ì¥ì— ë„ì°©í•œ ìƒí’ˆì€ ìƒíƒœ í™•ì¸ í›„ ì´ìƒì´ ì—†ì„ ì‹œ ìƒí’ˆìƒíƒœ í™•ì¸ì´ ì™„ë£Œë˜ë©°, êµí™˜ ë°°ì†¡ë¹„ ê²°ì œ ì•ˆë‚´ SMSê°€ ë°œì†¡ ë©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ìƒí’ˆ í›¼ì†ì´ë‚˜ êµí™˜ ì‹œ ì„ íƒí•œ ì‚¬ìœ ì™€ ìƒì´í•˜ì—¬ ì´ìƒì´ ìˆì„ ê²½ìš° ì½œì„¼í„°ì—ì„œ ì—°ë½ì„ ë“œë¦¬ë©°, êµí™˜ì´ ì§€ì—°ë˜ê±°ë‚˜ ë¶ˆê°€ëŠ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 
 							<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4´Ü°è : ±³È¯ ¹è¼Ûºñ °áÁ¦</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4ë‹¨ê³„ : êµí™˜ ë°°ì†¡ë¹„ ê²°ì œ</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">±³È¯ ¹è¼Ûºñ´Â ·Î±×ÀÎ ½Ã¿¡ »ı¼ºµÇ´Â ÆäÀÌÁö È¤Àº [¸¶ÀÌÆäÀÌÁö > ³ªÀÇ¼îÇÎ³»¿ª > ±³È¯°áÁ¦´ë±â] ¿¡¼­ °áÁ¦°¡ °¡´ÉÇÕ´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">¹è¼Ûºñ´Â ±³È¯ »çÀ¯¿¡ µû¶ó Ã¥Á¤µÇ¸ç, Á¦ÁÖµµ ¹× µµ¼­»ê°£ Áö¿ªÀº ¹è¼Ûºñ°¡ Ãß°¡µÉ ¼ö ÀÖ½À´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ ë°°ì†¡ë¹„ëŠ” ë¡œê·¸ì¸ ì‹œì— ìƒì„±ë˜ëŠ” í˜ì´ì§€ í˜¹ì€ [ë§ˆì´í˜ì´ì§€ > ë‚˜ì˜ì‡¼í•‘ë‚´ì—­ > êµí™˜ê²°ì œëŒ€ê¸°] ì—ì„œ ê²°ì œê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë°°ì†¡ë¹„ëŠ” êµí™˜ ì‚¬ìœ ì— ë”°ë¼ ì±…ì •ë˜ë©°, ì œì£¼ë„ ë° ë„ì„œì‚°ê°„ ì§€ì—­ì€ ë°°ì†¡ë¹„ê°€ ì¶”ê°€ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
 								</ul>
 							</div>
-							
+
 							<div style="padding:22px 0;">
-								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">5´Ü°è : ±³È¯ »óÇ° ¹ß¼Û</p>
+								<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">5ë‹¨ê³„ : êµí™˜ ìƒí’ˆ ë°œì†¡</p>
 								<ul>
-									<li style="color:#828282;font-size:11px;">±³È¯ ¹è¼Ûºñ °áÁ¦°¡ ¿Ï·áµÇ¸é ±³È¯ ¿äÃ»ÇÑ »óÇ°ÀÌ ¹ß¼Û µÇ¸ç, ¹ß¼Û Àü 1~2ÀÏ Á¤µµÀÇ ±â°£ÀÌ ¼Ò¿äµÉ ¼ö ÀÖ½À´Ï´Ù.</li>
-									<li style="color:#828282;font-size:11px;">¸ÅÀå Àç°í »óÈ²¿¡ µû¶ó ÃÖÃÊ ¹è¼Û ¸ÅÀåÀÌ ¾Æ´Ñ Å¸¸ÅÀå¿¡¼­ ¹ß¼Û µÉ ¼öµµ ÀÖ½À´Ï´Ù.</li>
+									<li style="color:#828282;font-size:11px;">êµí™˜ ë°°ì†¡ë¹„ ê²°ì œê°€ ì™„ë£Œë˜ë©´ êµí™˜ ìš”ì²­í•œ ìƒí’ˆì´ ë°œì†¡ ë˜ë©°, ë°œì†¡ ì „ 1~2ì¼ ì •ë„ì˜ ê¸°ê°„ì´ ì†Œìš”ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+									<li style="color:#828282;font-size:11px;">ë§¤ì¥ ì¬ê³  ìƒí™©ì— ë”°ë¼ ìµœì´ˆ ë°°ì†¡ ë§¤ì¥ì´ ì•„ë‹Œ íƒ€ë§¤ì¥ì—ì„œ ë°œì†¡ ë  ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.</li>
 								</ul>
 							</div>
 						</div>
@@ -1399,508 +998,82 @@ function fn_classChg(arg){
 			</div>
 			<!-- //mypage -->
 
-			<!-- quick -->
-			
-
-
-
-
-	
-
-<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
-<script type="text/javascript">
-/* <![CDATA[ */
-	var login_yn = "N";
-	if("00200208507" != "null" && "00200208507" != "") { login_yn = "Y"; }
-	var mem_type = "R";
-	
-	jQuery(document).ready(function(){
-		if(login_yn=="Y") {
-			if(mem_type=="R") { //È¸¿øÀÎ °æ¿ì
-				
-						
-						
-							jQuery("#quick_cart_cnt").html("<a href='http://shop.reebok.co.kr/RPF030101.action'>0</a>");
-						
-						
-						
-				
-						
-						
-												
-							jQuery("#quick_wish_cnt").html("<a href='http://shop.reebok.co.kr/RPF060302.action'>0</a>");
-						
-						
-				
-					
-				jQuery("#CPON_CNT").val("R");
-		 
-				var param = "";
-				var url = "/RQuick.action?CPON_CNT=R";
-				
-				var onSuccess = function(req){						
-					var json = req.responseJSON;				
-					var cpon = json.cponList;				
-					if(JsonUtil.isError(json)){		
-						fn_cpon(cpon);
-					}						
-				};
-				var onFailure = function(){
-				};
-				cfn_ajaxRequest(url, param, onSuccess, onFailure);
-			 }
-		}else{  //20130924 ºñÈ¸¿ø Àå¹Ù±¸´Ï °ü·Ã ¼öÁ¤
-			
-				
-				
-					jQuery("#quick_cart_cnt").html("<a href='http://shop.reebok.co.kr/RPF030101.action'>0</a>");
-				
-				
-			
-				
-				
-				
-			
-		}
-		
-		loadCookie();
-	});
-
-	function fn_cpon(obj) {							 
-		if ( obj == null || obj.length == 0 ) return;
-		var htmlString = '';			
-		for ( var i = 0; i < obj.length ; i++ ) {
-			if(obj[i].ST == "ÄíÆù") {
-				htmlString = htmlString + "<a href='http://shop.reebok.co.kr/RPF060201.action'>"+obj[i].CPON_CNT+"</a>";	
-			}											
-		}			
-		jQuery("#quick_cpon").html(htmlString);
-	}
-	
-	var arr_prodImg;
-	var start_prodImg = 0;				
-	
-	// ÄíÅ° ÀĞ±â
-	function loadCookie()
-	{
-		var cookies = window.document.cookie;
-		var prodCd = new Array;
-		var prodCdOrder = new Array;
-		prodCd.length = 0;
-		prodCdOrder.length = 0;
-		
-		var startIndex = "";
-		var endIndex = "";
-
-		for(var n=1;n<=20;n++) {
-			startIndex = cookies.indexOf("rb_prod_"+n);
-			if(startIndex != -1) {
-				endIndex = cookies.indexOf(";",startIndex);
-				if(endIndex == -1) {
-					endIndex = cookies.length;
-				}
-				if(n<10){
-					prodCd[prodCd.length] = "'"+unescape(cookies.substring(startIndex + 10,endIndex))+"'";
-					prodCdOrder[prodCdOrder.length] = unescape(cookies.substring(startIndex + 10,endIndex));	
-				}else{
-					prodCd[prodCd.length] = "'"+unescape(cookies.substring(startIndex + 11,endIndex))+"'";
-					prodCdOrder[prodCdOrder.length] = unescape(cookies.substring(startIndex + 11,endIndex));
-				}
-			}	
-		}
-								
-		if(prodCd.length > 0) {
-			jQuery("#QUICK_PROD_CD").val(prodCd);
-			
-			var param = "";
-			var url = "/RQuick.action?QUICK_PROD_CD="+prodCd;
-			
-	 		var onSuccess = function(req){
-				var json = req.responseJSON;
-				JsonUtil.alert(json);
-				arr_prodImg = json.prodImgList;	
-				
-				if(JsonUtil.isError(json)){	
-					fn_prodImg_view(prodCdOrder,arr_prodImg,arr_prodImg.length);
-				}			
-			};
-			var onFailure = function(){
-			};
-				
-			cfn_ajaxRequest(url, param, onSuccess, onFailure);
-		}else {
-			fn_prodImg_view2(0,0);
-		}
-		
-	}
-		
-	//¿À´Ã º» »óÇ° ÀÌ¹ÌÁö(ÄíÅ° °ª ¾øÀ»¶§)
-	function fn_prodImg_view2(obj,cnt) {							
-		var link = "";			
-		if(login_yn=="Y") {		 
-			 if(mem_type=="R") { //È¸¿øÀÎ °æ¿ì
-				 link = "/RPF060301.action";								 
-			 }else {
-				 link = "#";
-			 }
-		}else {
-			link="javascript:fn_logIn();";
-		}
-		
-		var htmlStringCnt = '';								
-		htmlStringCnt = htmlStringCnt + "<a href='"+link+"'>"+cnt+"</a>";
-		
-		jQuery('#cookiewCnt').html(htmlStringCnt);
-		jQuery('#todayProd1').attr("style", "display:none");
-	}
-		
-	//¿À´Ã º» »óÇ° ÀÌ¹ÌÁö 
-	function fn_prodImg_view(prodCdOrder,obj,cnt) {							
-		var link = "";
-		
-		if(login_yn=="Y") {//·Î±×ÀÎ»óÅÂÀÎ °æ¿ì						 
-			 if(mem_type=="R") { //È¸¿øÀÎ °æ¿ì
-				 link = "/RPF060301.action";								 
-			 }else {
-				 link = "#";
-			 }
-		}else {
-			link="javascript:fn_logIn();";
-		}
-
-		var htmlString = '';
-		htmlString = htmlString + "<ul>";
-		var htmlStringCnt = '';
-		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
-		var num = 0;
-
-		for(var j=0;j<prodCdOrder.length; j++){	
-				
-			for(var i=0;i<obj.length; i++){	
-				
-				if(obj[i].PROD_CD == prodCdOrder[j]) { 
-					
-					if(num < 2) {
-						htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+obj[i].PROD_CD+"'>";
-						htmlString = htmlString + "<img src='"+PATH_IMG_60+obj[i].IMG_NM_60+"' width='60' height='60' name='img' alt=\""+obj[i].PROD_NM_KOR+"\" /></a></li>";
-						num = num + 1;
-					}
-				}
-			}
-		}
-								
-		htmlString = htmlString + "</ul>";					
-		htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
-		htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
-		htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
-		htmlStringCnt = htmlStringCnt + "</div>";
-		htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
-		htmlStringCnt = htmlStringCnt + htmlString;					
-		htmlStringCnt = htmlStringCnt + "</div>";
-		
-		jQuery('#cookiewCnt').html("<a href='"+link+"'>"+obj.length+"</a>");							
-		jQuery('#todayProd1').html(htmlStringCnt);
-		jQuery('#todayProd1').attr("style", "display:block");
-	
-	}
-		
- 	// ¿À´Ãº»»óÇ° ½ºÅ©·Ñ
-	function fn_img_up_src(){				 		
-		var link = "";			
-			if(login_yn=="Y") {//·Î±×ÀÎ»óÅÂÀÎ °æ¿ì						 
-				 if(mem_type=="R") { //È¸¿øÀÎ °æ¿ì
-					 link = "/RPF060301.action";								 
-				 }else {
-					 link = "#";
-				 }
-			}else {
-				link="javascript:fn_logIn();";
-			}	
- 										 	
-		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
-		
-		var temp = $("QUICK_PROD_CD").value;
-		var arrLastCookie = "";
-		var prodCd = "";
-		
-		prodCd = temp.replaceAll("\'","");
-		arrLastCookie = prodCd.split(",");
-		var arrTemp = new Array;
-		var arrTemp1 = new Array;
-		
-		for(var i=0;i<arrLastCookie.length;i++) {							
-			
-			for(var j=0;j<arr_prodImg.length;j++) {						
-				
-				if(arrLastCookie[i] == arr_prodImg[j].PROD_CD) {								
-					arrTemp[i] = arr_prodImg[j].IMG_NM_60;
-					arrTemp1[i] = arr_prodImg[j].PROD_NM_KOR;
-				}
-			}
-		}
-		
-		if(arrTemp.size() > 2 && start_prodImg > 0) {					
-			start_prodImg = start_prodImg - 1;
-			
-			var htmlString = '';
-			htmlString = htmlString + "<ul>";
-			var htmlStringCnt = '';								
-			var num = 0;
-			
-			for(var i=start_prodImg;i<arrTemp.length; i++){
-				if(num < 2) {
-					htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+arrLastCookie[i]+"'>";
-					htmlString = htmlString + "<img src='"+PATH_IMG_60+arrTemp[i]+"' width='60' height='60' name='img' alt='"+arrTemp1[i]+"' /></a></li>";
-					num = num + 1;
-				}		
-			}
-
-			htmlString = htmlString + "</ul>";					
-			htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
-			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
-			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
-			htmlStringCnt = htmlStringCnt + "</div>";
-			htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
-			htmlStringCnt = htmlStringCnt + htmlString;					
-			htmlStringCnt = htmlStringCnt + "</div>";
-			
-			jQuery('#cookiewCnt').html("<a href='"+link+"'>"+arrTemp.length+"</a>");							
-			jQuery('#todayProd1').html(htmlStringCnt);
-			jQuery('#todayProd1').attr("style", "display:block");
-		}
-	}
- 	
-	function fn_img_down_src(){						
-		var link = "";			
-		if(login_yn=="Y") {//·Î±×ÀÎ»óÅÂÀÎ °æ¿ì						 
-			 if(mem_type=="R") { //È¸¿øÀÎ °æ¿ì
-				 link = "/RPF060301.action";								 
-			 }else {
-				 link = "#";
-			 }
-		}else {
-			link="javascript:fn_logIn();";
-		}	
-												
-		var PATH_IMG_60 = "/upload"+"/prod/basic/60/";
-		var temp = $("QUICK_PROD_CD").value;
-		var arrLastCookie = "";
-		var prodCd = "";
-		
-		prodCd = temp.replaceAll("\'","");
-		arrLastCookie = prodCd.split(",");
-		var arrTemp = new Array;
-		var arrTemp1 = new Array;
-		
-		for(var i=0;i<arrLastCookie.length;i++) {							
-			
-			for(var j=0;j<arr_prodImg.length;j++) {						
-				
-				if(arrLastCookie[i] == arr_prodImg[j].PROD_CD) {								
-					arrTemp[i] = arr_prodImg[j].IMG_NM_60;
-					arrTemp1[i] = arr_prodImg[j].PROD_NM_KOR;
-				}
-			}
-		}						
-		
-		if(arrTemp.size() > 2 && arrTemp[start_prodImg+2] != null) {
-			start_prodImg = start_prodImg + 1;
-			
-			var htmlString = '';
-			htmlString = htmlString + "<ul>";
-			var htmlStringCnt = '';								
-			var num = 0;
-			
-			for(var i=start_prodImg;i<arrTemp.length; i++){								
-				if(num < 2) {
-					htmlString = htmlString + "<li id='img_prodImg_"+i+"' ><a href='http://shop.reebok.co.kr/RPF020401.action?PROD_CD="+arrLastCookie[i]+"'>";
-					htmlString = htmlString + "<img src='"+PATH_IMG_60+arrTemp[i]+"' width='60' height='60' name='img' alt='"+arrTemp1[i]+"' /></a></li>";
-					num = num + 1;
-				}		
-			}
-
-			htmlString = htmlString + "</ul>";					
-			htmlStringCnt = htmlStringCnt + "<div class='quick_arrow'>";
-			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_down_src();' class='down'>DOWN</a>";
-			htmlStringCnt = htmlStringCnt + "<a href='javascript:fn_img_up_src();' class='up'>UP</a>";
-			htmlStringCnt = htmlStringCnt + "</div>";
-			htmlStringCnt = htmlStringCnt + "<div class='quick_prod'>";
-			htmlStringCnt = htmlStringCnt + htmlString;					
-			htmlStringCnt = htmlStringCnt + "</div>";
-			
-			jQuery('#cookiewCnt').html("<a href='"+link+"'>"+arrTemp.length+"</a>");							
-			jQuery('#todayProd1').html(htmlStringCnt);					
-			jQuery('#todayProd1').attr("style", "display:block");
-		}							
-	}
-/* ]]> */
-</script>
-		<!-- quick -->
-		<div id="quick" >		
-			<form name="frmQuick" id="frmQuick" method="post" action="">
-				<input type="hidden" name="QUICK_PROD_CD" id="QUICK_PROD_CD" />								
-				<input type="hidden" name="CPON_CNT" id="CPON_CNT" value=""/>
-			</form>
-			
-			<div class="area">
-				<dl>
-					<dt class="first"><img src="/images/reebok/common/tit_cart.gif" alt="Àå¹Ù±¸´Ï" /></dt> 
-					<dd class="first"><span id="quick_cart_cnt"><a href="javascript:fn_logIn();">0</a></span></dd>
-					<dt><img src="/images/reebok/common/tit_wish.gif" alt="°ü½É»óÇ°" /></dt>
-					<dd><span id="quick_wish_cnt"><a href="javascript:fn_logIn();">0</a></span></dd>	
-					<dt><img src="/images/reebok/common/tit_coupon.gif" alt="ÄíÆù" /></dt>
-					<dd><span id="quick_cpon"><a href='javascript:fn_logIn();'>0</a></span></dd>		
-					<dt class="last"><img src="/images/reebok/common/tit_today_prd.gif" alt="¿À´Ã º» »óÇ°" /></dt>				
-					<dd class="last" id="cookiewCnt"></dd>
-				</dl>
-					
-				<div class="today_prod" id="todayProd1"></div>
-				
-				<!-- Áñ°ÜÃ£±â -->
-				<div class="favorite">
-					<a href="javascript:addFavorite()" ><img src="/images/reebok/common/btn_favority.gif" alt="Áñ°ÜÃ£±â" /></a>
-				</div>	
-			</div>
-			<!-- //area -->
-			
-			<!-- È¸¿ø°¡ÀÔÄíÆù -->
-			<!-- <p class="q_category"><a href="https://shop.reebok.co.kr:444/RPF0601001.action" onmousedown="javascript:fn_trkClickTrace('^¿ìÃø ¼ôÄÆ^È¸¿ø°¡ÀÔ½Ã 1¸¸¿ø ÄíÆù');"><img src="/images/reebok/common/bg_quick_sub02.gif" alt="È¸¿ø°¡ÀÔ½Ã 1¸¸¿ø ÄíÆù" /></a></p> -->
-			
-			<!-- SNS ¸µÅ© -->
-			<p class="q_category">
-	           <img src="/images/reebok/common/bg_quick_sns2.jpg" alt="SNS" usemap="#quick_sns2"/>
-	           <map name="quick_sns2" id="quick_sns2">
-                  <area shape="rect" coords="14,66,39,90" href="https://www.facebook.com/reebokkr" target="_blank" onmousedown="javascript:fn_trkClickTrace('^¿ìÃø ¼ôÄÆ^reebok korea Facebook ¹Ù·Î°¡±â');" alt="reebok korea Facebook ¹Ù·Î°¡±â"/>    
-                  <area shape="rect" coords="43,66,68,90" href="http://cafe.naver.com/zigtech" target="_blank" onmousedown="javascript:fn_trkClickTrace('^¿ìÃø ¼ôÄÆ^fitness Blog ¹Ù·Î°¡±â');" alt="fitness Blog ¹Ù·Î°¡±â"/>
-	           </map>
-			</p>
-
-			<!-- SNS ¸µÅ© -->
-			<p class="q_category">
-	           <img src="/images/reebok/common/bg_quick_sns.jpg" alt="SNS" usemap="#quick_sns"/>
-	           <map name="quick_sns" id="quick_sns">
-                  <area shape="rect" coords="14,66,39,90" href="https://www.facebook.com/rbk.classic" target="_blank" onmousedown="javascript:fn_trkClickTrace('^¿ìÃø ¼ôÄÆ^classic Facebook ¹Ù·Î°¡±â');" alt="classic Facebook ¹Ù·Î°¡±â"/>    
-                  <area shape="rect" coords="43,66,68,90" href="http://blog.naver.com/rbk_classic" target="_blank" onmousedown="javascript:fn_trkClickTrace('^¿ìÃø ¼ôÄÆ^classic Blog ¹Ù·Î°¡±â');" alt="classic Blog ¹Ù·Î°¡±â"/>
-	           </map>
-			</p>
-			
-		</div>	
-		<!-- //quick -->
-
-		<script type="text/javascript">		
-		/* <![CDATA[ */
-			var url = "http://shop.reebok.co.kr";
-			var title = "¸®º¹ °ø½Ä ¿Â¶óÀÎ ½ºÅä¾î";
-			
-			//Áñ°ÜÃ£±â ¸¸µé±â
-			function addFavorite(){
-				if ( navigator.appName != 'Microsoft Internet Explorer' ) {
-					window.sidebar.addPanel(title,url,""); 
-				} else { 
-					window.external.AddFavorite(url,title);
-				} 
-			}
-					
-			var stmnLEFT = 900; //Ã¹·Îµå yÃà forcus
-			var stmnGAP1 = 79; //Ã¹·Îµå xÃà forcus
-			var stmnGAP2 = 79; //Ã¹·Îµå xÃà defult
-			var stmnBASE = 155;
-			var stmnActivateSpeed = 200;
-			var stmnScrollSpeed = 10;
-			
-			var stmnTimer;
-			var clickCnt;
-			var cnt;
-		
-			 // ½ºÅ©·Ñ ¸Ş´ºÀÇ À§Ä¡ °»½Å
-			 function RefreshStaticMenu()
-			 {
-				 var stmnStartPoint, stmnEndPoint, stmnRefreshTimer;			 
-				
-				 stmnStartPoint = parseInt(document.getElementById('quick').style.top, 10);
-				 stmnEndPoint = document.documentElement.scrollTop + stmnGAP2;
-				
-				 if (stmnEndPoint < stmnGAP1) stmnEndPoint = stmnGAP1;
-				 stmnRefreshTimer = stmnActivateSpeed;
-				 if ( stmnStartPoint != stmnEndPoint ) {
-					stmnScrollAmount = Math.ceil( Math.abs( stmnEndPoint - stmnStartPoint ) / 15 );
-					document.getElementById('quick').style.top = parseInt(document.getElementById('quick').style.top, 10) + ( ( stmnEndPoint <stmnStartPoint ) ? -stmnScrollAmount : stmnScrollAmount );
-					stmnRefreshTimer = stmnScrollSpeed;
-				 }
-				 stmnTimer = setTimeout ("RefreshStaticMenu();", stmnRefreshTimer);
-			 }	
-			
-			 // ¸Ş´º ÃÊ±âÈ­
-			 function InitializeStaticMenu() {					 
-				document.getElementById('quick').style.top = document.documentElement.scrollTop+ stmnBASE; // ±âº»À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
-				RefreshStaticMenu(); // ½ºÅ©¸³Æ® °¡µ¿		
-				document.getElementById('quick').style.left = eval('stmnLEFT'); // ¸Ş´º ¿ŞÂÊ À§Ä¡ ÃÊ±âÈ­. ÇÊ¿ä¾øÀ» °æ¿ì »èÁ¦
-			 }	 
-			 
-			 //È­¸é »ó´ÜÀ¸·Î ÀÌµ¿
-			 function MoveTop(){
-			 	document.documentElement.scrollTop = 0;
-			 	document.getElementById('quick').style.top = document.documentElement.scrollTop+ stmnBASE; 
-			 }
-		/* ]]> */
-		</script>
-		<!-- //quick -->
-		
-
-			<!-- //quick -->		
 		</div>
-		<!-- //contents -->	
-			
-		<!-- footer -->
-		
+		<!-- //contents -->
 
-		<!-- footer_wrap -->
-		<div id="footer_wrap">
-			<!-- footer -->
-			<div id="footer">
-				<div class="f_top">
-					<h1><img src="../images/reebok/common/logo_reebok_f.gif" alt="REEBOK KOREA"/></h1>
-					<div class="fmenu">
-						<ul>
-							<li class="first"><a target="_blank" href="http://www.reebok.com" class="menu01" onmousedown="javascript:fn_trkClickTrace('^Ç²ÅÍ^About Reebok');"><img src="../images/reebok/common/btn_f_menu01.gif" alt="about Reebok"/></a></li>
-							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=2" class="menu02" onmousedown="javascript:fn_trkClickTrace('^Ç²ÅÍ^°³ÀÎÁ¤º¸Ãë±Ş¹æÄ§');"><img src="../images/reebok/common/btn_f_menu02.gif" alt="°³ÀÎÁ¤º¸º¸È£Á¤Ã¥"/></a></li>
-							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=1" class="menu03" onmousedown="javascript:fn_trkClickTrace('^Ç²ÅÍ^±¸¸Å ÀÌ¿ë¾à°ü');"><img src="../images/reebok/common/btn_f_menu03.gif" alt="±¸¸Å ÀÌ¿ë¾à°ü"/></a></li>
-							<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=3" class="menu04" onmousedown="javascript:fn_trkClickTrace('^Ç²ÅÍ^¸®Å¬·´ ÀÌ¿ë¾à°ü');"><img src="../images/reebok/common/btn_f_menu04.gif" alt="¸®Å¬·´ ÀÌ¿ë¾à°ü"/></a></li>
-							<li><a href="http://shop.reebok.co.kr/RPF010106.action" class="menu05" onmousedown="javascript:fn_trkClickTrace('^Ç²ÅÍ^»çÀÌÆ®¸Ê');"><img src="../images/reebok/common/btn_f_menu05.gif" alt="»çÀÌÆ®¸Ê"/></a></li>
-						</ul>
-					</div>
-					<div class="language">
-							
+		<div id="footer_wrap_160704">
+			<div class="top">
+				<div class="ct890">
+					<ul class="f_menu clfix">
+						<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=2" onmousedown="javascript:fn_trkClickTrace('^í’‹í„°^ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨');"><strong>ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨</strong></a></li>
+						<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=1" onmousedown="javascript:fn_trkClickTrace('^í’‹í„°^êµ¬ë§¤ ì´ìš©ì•½ê´€');"><strong>êµ¬ë§¤ ì´ìš©ì•½ê´€</strong></a></li>
+						<li><a href="http://shop.reebok.co.kr/RPF010107.action?gubn=3" onmousedown="javascript:fn_trkClickTrace('^í’‹í„°^ë¦¬í´ëŸ½ ì´ìš©ì•½ê´€');"><strong>ë¦¬í´ëŸ½ ì´ìš©ì•½ê´€</strong></a></li>
+						<li><a href="#" onclick="window.open('http://shop.reebok.co.kr/html/reebok/popup_justice_bns.html','','width=680,height=500');return false;" onmousedown="javascript:fn_trkClickTrace('^í’‹í„°^ê³µì •ê±°ë˜ ììœ¨ì¤€ìˆ˜');">ê³µì •ê±°ë˜ ììœ¨ì¤€ìˆ˜</a></li>
+						<li><a href="/RPF080301.action" onmousedown="javascript:fn_trkClickTrace('^í’‹í„°^ê³ ê°ì„¼í„°');">ê³ ê°ì„¼í„°</a></li>
+					</ul>
+					<div class="sns">
+						<div class="sns_box fb">
+							<a href="javascript:void(0)" class="spt_bg"></a>
+							<div class="layer">
+								<dl>
+									<dt>FACEBOOK</dt>
+									<dd>
+										<ul>
+											<li><a href="https://www.facebook.com/Reebokkr/" target="_blank">FITNESS</a></li>
+											<li class="last"><a href="https://www.facebook.com/rbk.classic/" target="_blank">CLASSIC</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<div class="spt_bg arw"></div>
+							</div>
+						</div>
+						<div class="sns_box insta">
+							<a href="javascript:void(0)" class="spt_bg"></a>
+							<div class="layer">
+								<dl>
+									<dt>INSTAGRAM</dt>
+									<dd>
+										<ul>
+											<li><a href="https://www.instagram.com/reebokkorea/" target="_blank">FITNESS</a></li>
+											<li class="last"><a href="https://www.instagram.com/reebokclassickorea/" target="_blank">CLASSIC</a></li>
+										</ul>
+									</dd>
+								</dl>
+								<div class="spt_bg arw"></div>
+							</div>
+						</div>
+						<div class="sns_box blog">
+							<a href="http://blog.naver.com/reebokkr" class="spt_bg" target="_blank"></a>
+						</div>
+						<div class="sns_box ytb">
+							<a href="https://www.youtube.com/channel/UCFrW9Ojay5Pk7s-4-KD0M6w" class="spt_bg" target="_blank"></a>
+						</div>
+						<div class="sns_box kakao last">
+							<a href="http://plus.kakao.com/home/@ë¦¬ë³µ" class="spt_bg" target="_blank"></a>
+						</div>
 					</div>
 				</div>
-				<!--//f_top-->
-		
-				<div class="f_bottom"> 
-					<div class="address">
-						<p><img src="/images/reebok/common/bg_address.gif" alt="137-955 ¼­¿ïÆ¯º°½Ã ¼­ÃÊ±¸ ¼­ÃÊ2µ¿ 1321-15 »ï¼º»ı¸í ¼­ÃÊÅ¸¿ö 7Ãş , ´ëÇ¥ÀÌ»ç:Àö ¹Ì½© ±×¶ó´Ï¿¡, ±³È¯ ¹× ¹İÇ° ¹®ÀÇ(º»»ç·Î ¹İÇ°ºÒ°¡) ¿Â¶óÀÎ ½ºÅä¾î °í°´¼¾ÅÍ: 1588-7324 (ÆòÀÏ 09:00 ~ 18:00, Á¡½É½Ã°£ 12:00 ~ 13:00), Á¦Ç° ¼ö¼±¹®ÀÇ: ¸®º¹ °í°´¸¸Á·¼¾ÅÍ 080-344-3732 (ÆòÀÏ 09:00 ~ 18:00), »ç¾÷ÀÚ µî·Ï¹øÈ£ : 214-81-07412, Åë½ÅÆÇ¸Å¾÷½Å°í: 2007-¼­¿ï¼­ÃÊ-10391, °³ÀÎÁ¤º¸ º¸È£ Ã¥ÀÓÀÚ: È²¼±¿µ "/></p>
-					</div>
-					<div class="footer_right">
-						<img src="../images/reebok/common/footer_info2.gif" alt="´ç»ç´Â °í°´´ÔÀÌ Çö±İÀ¸·Î °áÁ¦ÇÑ ±İ¾×¿¡ ´ëÇØ ÇÑ±¹½ºÅÄ´ÙµåÂ÷Å¸µå ÀºÇà°ú Ã¤¹« Áö±Şº¸Áõ °è¾àÀ» Ã¤°áÇÏ¿© ¾ÈÀü°Å·¡¸¦ º¸ÀåÇÏ°í ÀÖ½À´Ï´Ù." usemap="#Map2"/>
-						<map name="Map2" id="Map2">
-							<area shape="rect" coords="222,4,270,22" href="#" alt="°øÁ¤°Å·¡ À§¿øÈ¸ »ç¾÷ÀÚ ½Å¿øÁ¤º¸ È®ÀÎ" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">
-							<area shape="rect" coords="178,28,270,46" href="#" onclick="javascript:fn_certifiedInfoPopRbk();return false" alt="ÇÑ±¹ ½ºÅÄ´ÙµåÂ÷Å¸µåÀºÇà Ã¤¹«Áö±Şº¸Áõ ¾È³» , ¼­ºñ½º °¡ÀÔ»ç½Ç È®ÀÎ" title="»õÃ¢"/>
-						</map>
-					</div>
-				</div>
-				<!--//f_bottom-->
 			</div>
-			<!-- //footer -->
+			<div class="address">
+				<div class="ct890">
+					<p>ë¦¬ë³µ ê³µì‹ ì˜¨ë¼ì¸ ìŠ¤í† ì–´ (ì•„ë””ë‹¤ìŠ¤ì½”ë¦¬ì•„)     06620 ì„œìš¸íŠ¹ë³„ì‹œ ì„œì´ˆêµ¬ ì„œì´ˆëŒ€ë¡œ 74ê¸¸ 4, ì‚¼ì„±ìƒëª… ì„œì´ˆíƒ€ì›Œ 23ì¸µ</p>
+					<p>ëŒ€í‘œ : ì—ë“œì›Œë“œ ë‹‰ìŠ¨     ì‚¬ì—…ì ë“±ë¡ë²ˆí˜¸ : 214-81-07412     í†µì‹ íŒë§¤ì—…ì‹ ê³  : 2007-ì„œìš¸ì„œì´ˆ-10391</p>
+					<p>ê°œì¸ì •ë³´ ë³´í˜¸ì±…ì„ì : ê¹€ë™ì¼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ê³ ê°ì„¼í„°(ì‹¬ì˜/ìˆ˜ì„ ë¬¸ì˜ í¬í•¨) : 1588-7324 </p>
+					<p class="last">@adidas Korea, LLC. All Rights Reserved. </p>
+					<div class="logo spt_bg">Reebok</div>
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="ct890">
+					<img src="http://image.reebok.co.kr/images/reebok/common/bg_footer_bottom.jpg" alt="" usemap="#Map_bank">
+					<map name="Map_bank" id="Map_bank">
+						<area shape="rect" coords="170,21,260,37" href="#" onclick="javascript:fn_certifiedInfoPopRbk();return false" alt="í•œêµ­ ìŠ¤íƒ ë‹¤ë“œì°¨íƒ€ë“œì€í–‰ ì±„ë¬´ì§€ê¸‰ë³´ì¦ ì•ˆë‚´ , ì„œë¹„ìŠ¤ ê°€ì…ì‚¬ì‹¤ í™•ì¸" title="ìƒˆì°½">
+						<area shape="rect" coords="145,42,191,58" href="#" alt="ê³µì •ê±°ë˜ ìœ„ì›íšŒ ì‚¬ì—…ì ì‹ ì›ì •ë³´ í™•ì¸" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">
+					</map>
+				</div>
+			</div>
 		</div>
-		<!-- //footer_wrap -->
 
-
-
-
-
-
-
-
-		<!-- //footer -->
 	</div>
 </div>
 </body>

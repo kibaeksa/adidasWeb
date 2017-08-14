@@ -277,7 +277,7 @@ html(lang='en')
                 div.wrapper
                     div.utilbox
                         div.search_area
-                            input#search-html(type='text' placeholder="검색은 파일명,파일설명만 찾아냅니다. 양해바람.")
+                            input#search-html(type='text' placeholder="검색")
                         div.button_area
                             a#toggle-mode.btn-ctm(href='javascript:void(0)')
                                 span EDIT MODE
@@ -458,16 +458,18 @@ html(lang='en')
                 
                     $('#toggle-mode').bind('click',function(){
                         if(window.location.hostname == 'localhost'){
-                            if($(this).hasClass('edit')){
-                                $(this).removeClass('edit');
-                                $('#submit-data').addClass('disable');
-                                $('#wrapper').removeClass('edit-mode');
-                                $(this).find('span').text('EDIT MODE');
-                            }else{
-                                $(this).addClass('edit');
-                                $('#submit-data').removeClass('disable');
-                                $('#wrapper').addClass('edit-mode');
-                                $(this).find('span').text('VIEW MODE');
+                            if($('.search_result').length <= 0){
+                                if($(this).hasClass('edit')){
+                                    $(this).removeClass('edit');
+                                    $('#submit-data').addClass('disable');
+                                    $('#wrapper').removeClass('edit-mode');
+                                    $(this).find('span').text('EDIT MODE');
+                                }else{
+                                    $(this).addClass('edit');
+                                    $('#submit-data').removeClass('disable');
+                                    $('#wrapper').addClass('edit-mode');
+                                    $(this).find('span').text('VIEW MODE');
+                                }
                             }
                         }
                     });
@@ -568,13 +570,16 @@ html(lang='en')
                     `;
                     const absPath = '/html/'+brandName+'/';
                     
+                    
+                    console.log(data);
+                    
                     for(key in data){
                         if(key == 'length'){
                             continue;
                         }
-                        
+                        console.log(data[key]);
                         if(data[key].type == 'folder'){
-                            //- console.log(data[key])
+                            
                             htmlString += `
                             <div class="col_box dir_col">
                                 <ul>
@@ -735,7 +740,10 @@ html(lang='en')
                                         });
                                     }
                                     
-                                    
+                                    if(pkgNameKeyword){
+                                        //- console.log(pkgNameKeyword);
+                                        //- console.log(newArray[newArray.length-1])
+                                    }
                                     
                                     for(var i = 0; i < htmlData[key].htmlData.length; i++){
                                         var nameKeyword = searchKeyword(htmlData[key].htmlData[i].name,keyword);
@@ -756,6 +764,8 @@ html(lang='en')
                                     }
                                 }
                             }
+                            
+                            console.log('newArray : ',newArray);
                             
                             return refactoringDataForSearch(newArray);
                         }
@@ -831,8 +841,8 @@ html(lang='en')
                             /* 폴더만 */
                             for(i; i < arr.length; i++){
                                 if(arr[i].type === 'folder'){
-                                    console.log(1111);
-                                    var ctgrKey = arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                                
+                                    //- console.log(1111);
+                                    var ctgrKey = 'folder_'+arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                       
                                                               
                                     if(!newObj[ctgrKey]){
                                         newObj[ctgrKey] = {
@@ -849,8 +859,10 @@ html(lang='en')
                                 }
                             }
                             
-                            return newObj;
-                        }
+                            console.log('in refactoringDataForSearch : ',newObj);
+                            
+                            return newObj;                            
+                        } 
                         /* refactoringDataForSearch function END */
 
                         var newArr = searchInit(keyword);
