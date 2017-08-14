@@ -384,7 +384,6 @@ html(lang='en')
                 const changeContets = (htmlPath , obj) => {
                     document.getElementById('content-iframe').setAttribute('src',htmlPath);
                     $('#left-area').find('.col_box').removeClass('on');
-                    console.log($(obj).parents('.col_box').length);
                     $(obj).parent().parent().parent().addClass('on');
                 };
                 
@@ -405,8 +404,7 @@ html(lang='en')
                         targetPath : '/app/data/codingList/'+brandName+'/',
                         brand : brandName
                     };
-                    
-                    //- console.log(htmlData)
+                
                 
                     $.ajax({
                         type: 'POST',
@@ -510,8 +508,7 @@ html(lang='en')
                 
                             return path;
                         })();
-                
-                        // console.log(parentPath);
+            
                 
                         htmlString += `
                             <div class="col_box dir_col">
@@ -527,8 +524,6 @@ html(lang='en')
                         const keyName = typeof renderData === 'string' ? renderData.replace(/^root___/,'/').replace(/___/g,'/') : renderData.path;
                 
                         if(typeof renderData === 'string'){
-                            //- console.log(htmlData[renderData]);
-                            //- console.log(htmlData);
                             htmlString += `
                                 <div class="col_box dir_col">
                                     <ul>
@@ -578,29 +573,59 @@ html(lang='en')
                             continue;
                         }
                         
-                        //- htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') }</div>`;
-                        htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') }</div>`;
-                        data[key].htmlData.map((htmlObj , index) => {
-                        htmlString += `
-                            <div class="col_box">
+                        if(data[key].type == 'folder'){
+                            //- console.log(data[key])
+                            htmlString += `
+                            <div class="col_box dir_col">
                                 <ul>
-                                    <li class="name">
-                                        <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/')+'/' + htmlObj.originName }' , this);">${htmlObj.name}</a>
-                                        <a href="${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + '/' + htmlObj.originName }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
+                                    <li class="name dir">
+                                        <a href="javascript:void(0)" data-dir="${data[key].originName}">${data[key].name}</a>
                                     </li>
-                                    <li class="desc">${htmlObj.desc ? htmlObj.desc : ''}</li>
+                                    
+                                    ${data[key].desc ? `<li class="desc">${data[key].desc}</li>` : ''}
                                     <li class="modify">
-                                        <input type="text" id="${key+'___'+htmlObj.originName.replace(/\.html/,'')}" value="${htmlObj.desc ? htmlObj.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}">
+                                        <input type="text" id="${data[key].originName.replace(/\.html/,'')}" value="${data[key].desc ? data[key].originDesc : ''}" data-key="${data[key].originName.replace(/___$/,'').replace(/\/$/,'')}">
                                     </li>
                                 </ul>
                             </div>
-                        `
-                        });                        
+                            `;
+                        }else{
+                            htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/g,'/') }</div>`;
+                            data[key].htmlData.map((htmlObj , index) => {
+                                htmlString += `
+                                    <div class="col_box">
+                                        <ul>
+                                            <li class="name">
+                                                <a href="javascript:void(0)" onclick="changeContets('${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/g,'/')+'/' + htmlObj.originName }' , this);">${htmlObj.name}</a>
+                                                <a href="${absPath + key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/') + '/' + htmlObj.originName }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
+                                            </li>
+                                            <li class="desc">${htmlObj.desc ? htmlObj.desc : ''}</li>
+                                            <li class="modify">
+                                                <input type="text" id="${key+'___'+htmlObj.originName.replace(/\.html/,'')}" value="${htmlObj.desc ? htmlObj.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                `;
+                            });
+                        }
+                        
                     }
                     htmlString += '</div>';
             
                     document.getElementById('coding-list').innerHTML = htmlString;
                     $('.utilbox').addClass('fixed');
+                    
+                    
+                    [...document.querySelectorAll('.name.dir>a')].map(value => {
+                        value.addEventListener('click',event =>{
+                            curCategory = event.currentTarget.dataset.dir;
+                            location.hash = event.currentTarget.dataset.dir;                            
+                        });
+                    });
+                    
+                    $('.utilbox').removeClass('fixed').css({
+                        top : 0 
+                    })
                 }
                 
                 const startDragGrid = event => {
@@ -691,36 +716,40 @@ html(lang='en')
                                 for(key in htmlData){
                                     path = htmlData[key].path;
                                     
-                                    //- var newKey = key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/');
-                                    //- var pkgNameKeyword = searchKeyword(newKey,keyword);
-                                    //- 
-                                    //- if(pkgNameKeyword){
-                                    //-     newArray.push({
-                                    //-         type : 'package',
-                                    //-         originName : key,
-                                    //-         name :pkgNameKeyword,
-                                    //-         path : path,
-                                    //-         desc : htmlData[key].desc == undefined ? '' : htmlData[key].desc
-                                    //-         
-                                    //-     });
-                                    //- }
+                                    var newKey = key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/,'/');
+                                    var pkgNameKeyword = searchKeyword(newKey,keyword);
+                                    var pkgDescKeyword = htmlData[key].desc == undefined ? undefined : searchKeyword(htmlData[key].desc,keyword);
+                                    
+                                    
+                                    
+                                    
+                                    if(pkgNameKeyword || pkgDescKeyword){
+                                        newArray.push({
+                                            type : 'folder',
+                                            originName : key,
+                                            name :pkgNameKeyword ? pkgNameKeyword : newKey,
+                                            path : path,
+                                            desc : !!pkgDescKeyword ? pkgDescKeyword : htmlData[key].desc,
+                                            originDesc : htmlData[key].desc == undefined ? '' : htmlData[key].desc
+                                            
+                                        });
+                                    }
+                                    
+                                    
                                     
                                     for(var i = 0; i < htmlData[key].htmlData.length; i++){
                                         var nameKeyword = searchKeyword(htmlData[key].htmlData[i].name,keyword);
                                         var descKeyword = htmlData[key].htmlData[i].desc == undefined ? false : searchKeyword(htmlData[key].htmlData[i].desc,keyword);
-                                        console.log(descKeyword);
                                         
                                         if(nameKeyword || descKeyword){
-                                            console.log(descKeyword);
                                             newArray.push({
                                                 originName : htmlData[key].htmlData[i].name,
                                                 name :!nameKeyword ? htmlData[key].htmlData[i].name : nameKeyword,
                                                 path : path,
-                                                desc : !!descKeyword ? descKeyword : htmlData[key].htmlData[i].desc
+                                                desc : !!descKeyword ? descKeyword : htmlData[key].htmlData[i].desc,
+                                                originDesc : htmlData[key].htmlData[i].desc
                                                 
                                             });
-                                            
-                                            console.log('in Array : ',newArray[newArray.length-1].desc);
 
                                         }
                                         
@@ -776,22 +805,49 @@ html(lang='en')
                                 length : arr.length
                             };
                             
-                            for(i; i < arr.length; i++){
                             
+                            /* File부터 담기 */
+                            for(i; i < arr.length; i++){
                                 var ctgrKey = arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                                
-                                                          
-                                if(!newObj[ctgrKey]){
-                                    newObj[ctgrKey] = {
-                                        path : ctgrKey.replace(/^root___/g,'/').replace(/___/g,'/')+'/',
-                                        htmlData : []
-                                    };                                    
+                                if(arr[i].type !== 'folder'){
+                                    if(!newObj[ctgrKey]){
+                                        newObj[ctgrKey] = {
+                                            name : arr[i].name,
+                                            originName : arr[i].originName,
+                                            desc : arr[i].desc,
+                                            originDesc : arr[i].originDesc,
+                                            type : arr[i].type ? arr[i].type : '',
+                                            path : ctgrKey.replace(/^root___/g,'/').replace(/___/g,'/')+'/',
+                                            htmlData : []
+                                        };                                    
+                                    }
+                                    
+                                    newObj[ctgrKey].htmlData.push(arr[i]);
                                 }
-                                
-                                newObj[ctgrKey].htmlData.push(arr[i]);
-                                
                             }
                             
-                            console.log(newObj);
+                                
+                            i = 0;
+                            /* 폴더만 */
+                            for(i; i < arr.length; i++){
+                                if(arr[i].type === 'folder'){
+                                    console.log(1111);
+                                    var ctgrKey = arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                                
+                                                              
+                                    if(!newObj[ctgrKey]){
+                                        newObj[ctgrKey] = {
+                                            name : arr[i].name,
+                                            originName : arr[i].originName,
+                                            desc : arr[i].desc,
+                                            originDesc : arr[i].originDesc,
+                                            type : arr[i].type ? arr[i].type : '',
+                                            path : ctgrKey.replace(/^root___/g,'/').replace(/___/g,'/')+'/',
+                                            htmlData : []
+                                        };                                    
+                                    }
+                                    newObj[ctgrKey].htmlData.push(arr[i]);
+                                }
+                            }
                             
                             return newObj;
                         }
