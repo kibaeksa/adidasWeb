@@ -1,5 +1,99 @@
 @import 'common/mixin.scss';
 
+.image-grid-modalpop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+
+    .close{
+        width: 24px;
+        height: 24px;
+        display: block;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 25;
+        transition:transform 0.3s;
+        -webkit-transition:-webkit-transform 0.3s;
+
+        &:hover{
+            @include css3(transform,rotate(360deg));
+        }
+
+        img{
+            width: 24px;
+        }
+    }
+
+    .grid-modal-overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+
+        @include css3(transition , opacity 0.1s);
+        @include opacity(0.6);
+    }
+
+    .grid-modal-bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 5;
+
+        transition:transform 0.3s ease-out , opacity 0.3s;
+        -webkit-transition:-webkit-transform 0.3s ease-out , opacity 0.3s;
+
+        @include opacity(0);
+        @include css3(transform , scale(0.5));
+        @include css3(transform-origin , center);
+
+        img{
+            position: absolute;
+
+        }
+    }
+
+    .grid-modal-contents{
+        position: relative;
+        z-index: 10;
+
+        @include opacity(0);
+        @include css3(transition , opacity 0.15s ease 0.3s);
+
+    }
+
+
+    &.open{
+        .grid-modal-bg{
+            @include css3(transform , scale(1));
+            @include opacity(1);
+        }
+
+        .grid-modal-contents{
+            @include opacity(1);
+        }
+    }
+
+    &.close{
+        .grid-modal-overlay{
+            @include opacity(0);
+        }
+
+        .grid-modal-contents{
+            display: none;
+        }
+    }
+}
+
 .campaign-content{
     width: 100%;
     min-width:1200px;
@@ -57,6 +151,23 @@
         width: 100%;
         position: relative;
 
+        img{
+            vertical-align: top;
+        }
+
+        .icon{
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            transition:transform 0.3s;
+            -webkit-transition:-webkit-transform 0.3s;
+
+            img{
+                width: 16px !important;
+            }
+        }
+
         .fix{
             width: 25%;
             position: absolute;
@@ -75,6 +186,17 @@
                 img{
                     @include css3(transition-duration,10s);
                     @include css3(transform,translate3d(0,0,100px));
+                }
+            }
+
+            a{
+                position: relative;
+                display: block;
+
+                &:hover{
+                    .icon{
+                        @include css3(transform,rotate(360deg));
+                    }
                 }
             }
         }
@@ -101,6 +223,17 @@
                             @include css3(transform,translate3d(0,0,100px));
                         }
                     }
+
+                    a{
+                        position: relative;
+                        display: block;
+
+                        &:hover{
+                            .icon{
+                                @include css3(transform,rotate(360deg));
+                            }
+                        }
+                    }
                 }
 
                 .img1-3{
@@ -112,151 +245,82 @@
                 .img2-3{
                     width: 50%;
                     padding-bottom: 25%;
-                    position: relative;
-                    float: left;
+                    position: absolute;
+                    top: 0;
+                    right: 25%;
                     background: url(/images/adidas/event/xbyo/img-grid_horiz-1_tcm65-116510.jpg) center center no-repeat;
                     background-size: cover;
                     -webkit-background-size: cover;
+
+                    .content_inner{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
+
             }
+
         }
     }
     /** image-grids END **/
 
     /** slider-type1 START **/
-    .slider-type1{
+    .carousel-wrapper{
         width: 100%;
         position: relative;
-		overflow: hidden;
-		background:url('/images/adidas/event/sports17/slider_bg.jpg');
-        background-size: cover;
-        -webkit-background-size: cover;
 
-        .slider_wrap{
-			margin:0 auto;
-			width:950px;
+        @include opacity(0);
+        @include css3(transition , opacity 0.3s);
 
-			ul{
-                width: 10000%;
-				position: relative;
-				li{
-					width: 950px;
-					float:left;
-					margin-right: 250px;
+        &.initialized{
+            @include opacity(1);
+        }
 
-					.title{
-					    padding:76px 0 54px 0;
-						text-align: center;
+        .carousel-next , .carousel-prev{
+            width:33px;
+            height: 64px;
+            position: absolute;
+            top: 50%;
+            margin-top: -32px;
 
-						p{
-							text-transform: uppercase;
-							text-align: center;
-							font: 40px/45px 'adinenuPro-black';
-							color:#000;
-						}
-						span{
-							font: 26px/28px 'NotoSansKRRegular';
-							color:#000;
-						}
-					}
-
-					img{width: 100%}
-				}
-			}
-
-
-            .next , .prev{
-                width:33px;
-				height: 64px;
-				position: absolute;
-                top: 50%;
-                margin-top: -32px;
+            &.disable{
+                display: none;
             }
+        }
 
-			.next{
-                right: 50%;
-                margin-right: -570px;
-				overflow: hidden;
-                @include opacity(0.5);
-				@include css3(transition,right 0.4s ease-out 0.1s);
+        .carousel-next{
+            right: 50%;
+            margin-right: -570px;
+            overflow: hidden;
+            @include opacity(0.5);
+            @include css3(transition,right 0.4s ease-out 0.1s);
 
-				img{
-					position: relative;
-					@include animation(0 , 2s , arrow2 ,forwards,infinite);
-				}
-			}
-			.prev{
-                left: 50%;
-                margin-left: -570px;
-				overflow: hidden;
-                @include opacity(0.5);
-                @include css3(transition,left 0.4s ease-out 0.1s);
+            img{
+                position: relative;
+                @include animation(0 , 2s , arrow2 ,forwards,infinite);
+            }
+        }
+        .carousel-prev{
+            left: 50%;
+            margin-left: -570px;
+            overflow: hidden;
+            @include opacity(0.5);
+            @include css3(transition,left 0.4s ease-out 0.1s);
 
-				img{
-					position: relative;
-                    @include animation(0 , 2s , arrow ,forwards,infinite);
-				}
-			}
+            img{
+                position: relative;
+                @include animation(0 , 2s , arrow ,forwards,infinite);
+            }
+        }
 
-		}
-        /* slider_wrap END */
-
-        .num_wrap{
-			position: relative;
-			width: 950px;
-            height: 45px;
-			margin:75px auto;
-
-			.num{
-				position: absolute;
-				left:0;
-				width: 10000%;
-
-				a{
-					position: relative;
-					top:0;
-					width:320px;
-					display: inline-block; text-align: center;
-					font: 24px/30px 'NotoSansKRRegular','Nanum Gothic';
-					color:#000;
-					vertical-align: middle;
-
-                    @include css3(all 0.3s ease-out);
-					span{
-						position: relative;
-						display: inline-block;
-						overflow: hidden;
-						height: 45px;
-						line-height: 35px;
-					}
-
-                    &.on{
-                        position: relative;
-    					font-family: 'NotoSansKRBold','Nanum Gothic';
-    					overflow: hidden;
-
-                        span{
-                            &::after{
-                                content: '';
-                                position: absolute;
-        						bottom: 0px;
-        						left:0;
-        						display: inline-block;
-        						width: 100%;
-        						background: #000;
-        						height: 3px;
-        						margin-top: 15px;
-        						overflow: hidden;
-                            }
-                        }
-
-                    }
-				}
-			}
-		}
-        /* num_wrap END */
+        .carousel-slider{
+            img{
+                vertical-align: top;
+            }
+        }
     }
-    /** slider-type1 END **/
+    /** carousel-wrapper END **/
 
 
     /* Parallax  */
