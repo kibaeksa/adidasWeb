@@ -1,0 +1,556 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	// filter:alpha(opacity=$value * 100);
+	// -ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+/* video_layer */
+.video_layer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 45px;
+		height: 45px;
+		position: absolute;
+		top: 25px;
+		right: 25px;
+		z-index: 20;
+		display: block;
+		background:url('/images/reebok/event/about/sprite.png') -80px 0 no-repeat;
+		text-indent: -5000px;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s ease-in 0.5s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include prefix-css3(transition ,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+	}
+}
+/* video_layer end */
+
+#tenis_williams{
+	min-width: 1280px;
+	overflow: hidden;
+	.button_area{
+		position: relative;
+		display: inline-block;
+		&:hover{
+			a{
+				background: #000;
+				@include prefix-css3(transition ,all 0.4s);
+				span{
+					color:#fff;
+					em{
+						background: url('http://shop.adidas.co.kr/images/adidas/common/adidas_spirite.png') no-repeat;
+						background-position: -685px -900px;
+					}
+				}
+			}
+		}
+		a{
+			display: inline-block;
+			background: #fff;
+			height: 60px;
+			width: 250px;
+			text-align: center;
+			span{
+				font:700 16px/60px 'NotoSansKR';
+				color:#000;
+				em{
+					position: relative;
+					top:1px;
+					display: inline-block;
+					width: 16px;
+					height: 15px;
+				    background: url('http://image.adidas.co.kr/images/adidas/event/originals_climacool/6901-btn-icon-b.png') no-repeat 0 0;
+				}
+			}
+		}
+	}
+	.main_visual{
+		position: relative;
+		height: 800px;
+		&.event{
+			.bg{
+				@include opacity(1);
+			}
+			.line{
+				width: 1600px;
+			}
+			.line_wrap{
+				.line2{
+					left:50%;
+					height: 797px;
+				}
+			}
+		}
+		.bg{
+			position: absolute;
+			left:50%;
+			margin-left: -960px;
+			@include opacity(0);
+			@include transition (all,0.5s);
+
+		}
+		h2{
+			position: relative;
+			z-index: 2;
+			padding: 164px 0 0 0;
+		}
+		.line{
+			position: absolute;
+		    top: 154px;
+		    right: 50%;
+		    z-index: 1;
+		    width: 0px;
+		    margin-right: -100px;
+		    height: 43px;
+			background: #ce0f1b;
+			@include transition (all,0.8s);
+			// transition-delay: 0.4s;
+		}
+		.line_wrap{
+			position: absolute;
+			width: 100%;
+			height: 608px;
+			overflow: hidden;
+			.line2{
+				position: absolute;
+			    top: -86px;
+			    left: 42%;
+			    z-index: 1;
+			    width: 40px;
+			    margin-left: -793px;
+			    height: 0px;
+				@include prefix-css3 (transform,(rotate(-20deg)));
+				background: #0d46a2;
+				@include transition (all,0.5s);
+				transition-delay: 0.4s;
+			}
+		}
+
+	}
+	.scrollbox{
+		position: relative;
+		.bg{
+			position: absolute;
+			left:50%;
+			margin-left: -960px;
+		}
+		p{
+			font: 300 17px/20px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+		}
+		&.statement{
+			padding: 110px 0;
+			background: #f3cd44;
+			text-align: center;
+			@include opacity(0);
+			@include transition (all,0.5s);
+
+			&.event{
+				@include opacity(1);
+			}
+			p{
+				line-height: 30px;
+			}
+			.button_area{
+				padding: 25px 0 0 0;
+			}
+		}
+		&.video_wrap{
+			position: relative;
+			height: 786px;
+			&.event{
+				.bg{
+					@include opacity(1);
+				}
+				.line{
+					top: 140px;
+					left:-4px;
+				}
+			}
+			.bg{
+				@include opacity(0);
+				@include transition (all,0.5s);
+
+			}
+			.line{
+				position: absolute;
+			    top: 240px;
+			    left: -1980px;
+			    z-index: 1;
+			    width: 1950px;
+				@include prefix-css3 (transform,(rotate(-3deg)));
+			    height: 55px;
+			    background: #d12b2b;
+				@include transition (all,0.5s);
+				transition-delay: 0.4s;
+
+			}
+			.video_inn{
+				.video{
+					position: relative;
+					z-index: 2;
+					padding: 99px 0 0 0;
+					text-align: center;
+					img{
+						cursor: pointer;
+					}
+				}
+
+			}
+		}
+		&.collection{
+			height: 996px;
+			&.event{
+				.bg{
+					@include opacity(1);
+				}
+				.line{
+					height: 716px;
+				}
+				.line2{
+			    	height: 832px;
+					left: 50%;
+				}
+				.txt{
+					@include opacity(1);
+				}
+			}
+			.bg{
+				@include opacity(0);
+				@include transition (all,0.8s);
+
+			}
+			.line{
+				position: absolute;
+			    top: 0px;
+			    left: 50%;
+			    z-index: 1;
+			    width: 34px;
+			    margin-left: 331px;
+			    height: 0;
+				background: #d12b2b;
+				@include transition (all,0.5s);
+				transition-delay: 0.4s;
+			}
+			.line_wrap{
+				position: absolute;
+				width: 100%;
+				height: 715px;
+				overflow: hidden;
+			}
+			.line2{
+				position: absolute;
+			    top: -86px;
+			    left: 42%;
+			    z-index: 1;
+			    width: 34px;
+			    margin-left: -793px;
+			    height: 0;
+				@include prefix-css3 (transform,(rotate(-20deg)));
+				background: #d12b2b;
+				@include transition (all,0.5s);
+				transition-delay: 0.4s;
+			}
+			.txt{
+				position: relative;
+				padding: 281px 0 0 590px;
+				@include opacity(0);
+				@include transition (all,0.8s);
+				transition-delay: 1s;
+
+			    z-index: 1;
+				p{
+					font:500 18px/28px 'NotoSansKR';
+					text-align: left;
+					strong{
+						display: inline-block;
+						padding-bottom: 10px;
+						font:76px/76px 'adinenuPro-bold';
+						text-transform: uppercase;
+					}
+				}
+				.button_area{
+					padding-top: 20px;
+					a{
+						background: #000;
+						span{
+							color:#fff;
+							em{
+								background: url('http://shop.adidas.co.kr/images/adidas/common/adidas_spirite.png') no-repeat;
+								background-position: -685px -900px;
+							}
+						}
+					}
+				}
+			}
+		}
+		&.slider_wrap{
+			height: 974px;
+			background: #ddd;
+			&.event{
+				.slider_inn{
+					ul{
+						li{
+							.slide{
+								.title{@include opacity(1);}
+								.shoe_visual{@include opacity(1);}
+								.desc{@include opacity(1);}
+								.button_area{@include opacity(1);}
+							}
+						}
+					}
+				}
+			}
+			.bg{
+				span{
+					position: absolute;
+					top:0;
+					left:0;
+					@include opacity(0);
+					@include prefix-css3(transition ,opacity 0.4s);
+					&.on{
+						@include opacity(1);
+					}
+				}
+			}
+			.slider_inn{
+				margin: 0 auto;
+				width: 950px;
+				ul{
+					position: relative;
+					li{
+						float: left;
+						// &.on{
+						// 	.shoe_visual{
+						// 		opacity: 1;
+						// 	}
+						// 	.desc{
+						// 		opacity: 1
+						// 	}
+						// 	.button_area{
+						// 		opacity: 1;
+						// 	}
+						// }
+						.slide{
+							text-align: center;
+							>*{
+								text-align: center;
+							}
+							.title{
+								@include opacity(0);
+								padding: 70px 0 0 0;
+								font:400 18px 'NotoSansKR';
+								color:#fff;
+								@include prefix-css3(transition ,all 0.6s);
+								transition-delay: 0.5s;
+								strong{
+									font:700 28px 'NotoSansKR';
+								}
+							}
+							.shoe_visual{
+								@include opacity(0);
+								position: relative;
+								padding: 55px 0 0 0;
+								@include prefix-css3(transition ,all 0.6s);
+								transition-delay: 0.6s;
+								// @include prefix-css3(transition ,all 1.5s);
+								// transition-delay: 0.5s;
+							}
+							.desc{
+								padding: 30px 0 45px;
+								@include opacity(0);
+								@include prefix-css3(transition ,all 0.6s);
+								transition-delay: 0.8s;
+							}
+							.button_area{
+								@include opacity(0);
+								@include prefix-css3(transition ,all 0.6s);
+								transition-delay: 0.8s;
+								a{
+									width: 260px;
+									span{
+										letter-spacing: -0.7px;
+										em{
+											position: relative;
+											top:2px;
+											margin-left: 5px;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				.navi{
+					position: absolute;
+				    top: 90px;
+				    left: 50%;
+				    margin-left: -307px;
+				    width: 615px;
+				    text-align: center;
+					span{
+						position: absolute;
+						&.prev{
+							left:0;
+						}
+						&.next{
+							right:0;
+						}
+					}
+				}
+			}
+		}
+		&.wm{
+			&.event{
+				.prd{
+					@include opacity(1);
+				}
+			}
+			.prd{
+				position: relative;
+				float: left;
+				width: 50%;
+				overflow: hidden;
+				@include opacity(0);
+				@include transition (all,0.8s);
+
+
+				.img{
+					img{
+						width: 100%;
+					}
+				}
+				.button_area{
+					position: absolute;
+					bottom:50px;
+					left:50%;
+					margin-left: -100px;
+					a{
+						width: 200px;
+						background: #000;
+						span{
+							color:#fff;
+							em{
+								margin-left: 5px;
+							    top: 2px;
+							    position: relative;
+								background: url('http://shop.adidas.co.kr/images/adidas/common/adidas_spirite.png') no-repeat;
+								background-position: -685px -478px;
+							}
+						}
+					}
+				}
+			}
+		}
+		&.bottom{
+			.col{
+				.img2-3{
+				    background: url('/images/adidas/event/tenis_williams/col_bg.jpg') center center no-repeat;
+					background-size: cover;
+					-webkit-background-size: cover;
+					.button_area{
+						position: absolute;
+						bottom:10%;
+						left:50%;
+						margin-left: -125px;
+					}
+				}
+			}
+		}
+	}
+}
