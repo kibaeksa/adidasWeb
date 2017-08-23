@@ -1,0 +1,357 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	// filter:alpha(opacity=$value * 100);
+	// -ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+#eqt{
+	overflow: hidden;
+	min-width: 950px;
+	.btn{
+		position: relative;
+		display: inline-block;
+	    margin-left: 30px;
+		background: #93cbcd;
+		transition: all 0.5s;
+		@media screen and (max-width: 1280px) {
+			width: 150px;
+			a{
+				em{
+					display: none !important;
+				}
+			}
+		}
+		&:hover{
+			background: #85babc;
+			a{
+
+			}
+		}
+		a{
+			display: inline-block;
+			height: 70px;
+			width: 275px;
+			font:500 16px/70px 'NotoSansKR';
+			color: #000;
+			span{
+				padding: 0 5px 0 25px;
+				font:16px 'Decima Mono';
+			}
+			em{
+				position: absolute;
+				right:30px;
+				background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/arrow.png') no-repeat;
+				display: inline-block;
+				width: 15px;
+			    height: 10px;
+			    top: 50%;
+			    margin-top: -5px;
+			}
+		}
+	}
+	.eqt_nav{
+		position: fixed;
+	    top: 80px;
+		width: 100%;
+		padding: 25px 0;
+		background: #fff;
+		z-index: 1;
+		transition: all 0.2s;
+		&.fixed{
+			// position: fixed;
+			top:0;
+			z-index: 1;
+			padding: 20px 0;
+			min-width: 950px;
+		}
+		h2{
+			position: absolute;
+		    top: 30px;
+		    left: 50px;
+		}
+		.ct1190{
+			@media screen and (max-width: 1280px) {
+				width: 950px;
+			}
+			@media screen and (max-width: 1190px) {
+				width: 750px;
+			}
+		}
+		.nav_inn{
+			float: right;
+			>*{
+				font:16px 'Decima Mono';
+				text-transform: uppercase;
+				color:#000;
+				@media screen and (max-width: 1280px) {
+					font-size: 12px;
+				}
+			}
+			>p{
+				display: inline-block;
+				float: left;
+			    padding-top: 10px;
+				font-weight: bold;
+			}
+			ul{
+				float: left;
+				padding-top: 10px;
+				li{
+					float: left;
+					width: 110px;
+					margin-left: 30px;
+					cursor: pointer;
+					overflow: hidden;
+					@media screen and (max-width: 1280px) {
+						margin-left: 15px;
+					}
+					&:hover{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					&:active{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					&.on{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					span{
+						display: inline-block;
+					    width: 30px;
+					    height: 45px;
+					    vertical-align: middle;
+					    color: #93cbcd;
+					}
+					p{
+						position: relative;
+						display: inline-block;
+						line-height: 24px;
+						em{
+							display: block;
+						    position: absolute;
+						    top: 50%;
+						    left: -140px;
+						    width: 106px;
+						    height: 1px;
+						    background: #177dc6;
+							@include prefix-css3(transition, all 0.5s);
+						}
+					}
+				}
+			}
+			.btn{
+				float: left;
+			}
+		}
+	}
+	.eqt_content{
+		position: relative;
+		&.scrollevent{
+			// top:0;
+			opacity: 0;
+			-webkit-opacity: 0;
+			transition: all 0.8s;
+			-webkit-transition: all 0.8s;
+		}
+		&.type2{
+			.artist{
+				.tit{
+					float: left;
+					.inn{
+						float: right;
+						>*{
+							text-align: right;
+						}
+					}
+				}
+				.box{
+					float: right;
+				}
+			}
+			.text_area{
+				width: 50%;
+			}
+		}
+		&.on{
+			// top:500px;
+			opacity: 1;
+			-webkit-opacity: 1;
+		}
+		.main_visual{
+			position: relative;
+			padding: 15px 0 0 0;
+			margin-left: 50px;
+			.box{
+				float: left;
+				width: 200px;
+				span{
+					position: absolute;
+					&.scroll{
+						bottom:200px;
+					}
+					&.logo{
+						bottom:0;
+					}
+				}
+				&.left{
+					@media screen and (max-width: 1280px) {
+						width: 18%;
+						img{
+							width: 100%;
+						}
+						span{
+							width: 18%;
+							img{
+								width: auto;
+							}
+						}
+					}
+					span{
+						left:0;
+					}
+				}
+				&.right{
+					width: 80%;
+					float: right;
+					img{
+						width: 100%;
+					}
+				}
+
+			}
+		}
+		.text_area{
+			position: relative;
+			left: 50px;
+			float: right;
+			padding: 100px 0;
+			width: 80%;
+			p{
+				color:#000;
+				&.title{
+					padding: 0 0 70px 0;
+					font:16px 'Decima Mono';
+					font-weight: bold;
+					text-transform: uppercase;
+				}
+				font:15px/26px 'NotoSansKR';
+			}
+		}
+		.artist{
+			position: relative;
+			.box{
+				display: inline-block;
+				width: 70%;
+
+				&.thumb{
+					img{
+						width: 100%;
+					}
+				}
+			}
+			.tit{
+				float: right;
+				width: 26%;
+				>*{
+					font:16px 'Decima Mono';
+					color:#000;
+				}
+				.num{
+					display: inline-block;
+				    width: 100%;
+				    height: 50px;
+				    vertical-align: middle;
+				    color: #93cbcd;
+				}
+				p{
+					margin-bottom: 20px;
+					span{
+						font:400 16px 'NotoSansKR';
+					}
+				}
+
+			}
+		}
+		.video{
+			position: relative;
+			left: 50px;
+			float: right;
+			width: 80%;
+			cursor: pointer;
+			@media screen and (max-width: 1280px) {
+				width: 80%;
+				img{
+					width: 80%;
+				}
+			}
+		}
+	}
+}
