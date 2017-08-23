@@ -118,7 +118,16 @@ function getFilesFromDir(fileInfo , targetObj){
                 dirCount += 1;
             }
         }else{
-            getFilesFromDir([fileInfo[0]+file+'/' ,rootPath.replace(/^\//,'root___').replace(/\//,'___') + file, rootPath+file+'/'] , htmlListData);
+
+            if( (fileInfo[0]+file).match(/\/event\/?/) ){
+                console.log('fileInfo[0]+file : ',fileInfo[0]+file);
+                console.log('stats : ',stats.isFile());
+                console.log('-----------------');
+            }
+
+            if( !(fileInfo[0]+file).match(/\/build\/?/) ){
+                getFilesFromDir([fileInfo[0]+file+'/' ,rootPath.replace(/^\//,'root___').replace(/\//g,'___') + file, rootPath+file+'/'] , htmlListData);
+            }
         }
     });
 

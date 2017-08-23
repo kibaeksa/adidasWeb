@@ -71,6 +71,7 @@ var handleSassInject  = function(_path){
 gulp.task('sass-inline:inject',function(){
     gulp.src(path.join(sassInject.path,'*.html'))
         .pipe(inject.after('<div id="container_r">','\n<style type="text/css">'+sassInject.source+'</style>'))
+        .pipe(inject.replace('<script type="text/javascript" src="/data/eventRouter.js"></script>',''))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(path.join(sassInject.path , 'build')))
         .pipe(connect.reload());

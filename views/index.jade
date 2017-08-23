@@ -390,6 +390,7 @@ html(lang='en')
                 const handleData = obj => {
                     for(let key in obj){
                         const splitKey = key.replace(/root/,'/').split('___');
+                        console.log('depth : ',splitKey.length);
                         obj[key].depth = splitKey.length;
                         splitKey.splice(splitKey.length-1);
                         obj[key].parentDir = splitKey;

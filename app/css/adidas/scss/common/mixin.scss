@@ -12,7 +12,7 @@
 	-ms-filter:alpha(opacity=$value * 100);
 }
 
-@mixin animation ($delay, $duration, $animation , $fillmode , $iteration) {
+@mixin animation($delay, $duration, $animation , $fillmode:'forwards' , $iteration:'infinite') {
 
     -webkit-animation-delay: $delay;
     -webkit-animation-duration: $duration;
@@ -39,7 +39,7 @@
     animation-iteration-count:$iteration;
 }
 
-@mixin keyframe ($animation_name) {
+@mixin keyframe($animation_name) {
     @-webkit-keyframes #{$animation_name} {
         @content;
     }
