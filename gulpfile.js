@@ -24,24 +24,30 @@ var sassInject = {
 };
 
 var handleSassInject  = function(_path){
-
     if (fs.existsSync(path.resolve(_path))) {
-        try {
+        if(_path.match(/(\W+|\w+)\.scss/)){
             var sassString = fs.readFileSync(path.resolve(_path),'utf8');
-        } catch (e) {
-            throw '유효한 경로가 아닙니다.';
+            if(sassString != ''){
+                try {
+                    sassInject.source = nodeSass.renderSync({
+                        data : sassString,
+                        outputStyle : 'compressed'
+                    });
+
+                    sassInject.source = sassInject.source.css.toString();
+                    sassInject.path = _path.replace(/(\W+|\w+)\.scss/,'');
+
+                    gulp.start('sass-inline:inject');
+                } catch (e) {
+                    console.log(e.message);
+                    console.log(e.formatted);
+                }
+            }else{
+                console.log('Empty scss file!')
+            }
+
         }
-
-        sassInject.source = nodeSass.renderSync({
-            data : sassString,
-            outputStyle : 'compressed'
-        });
-        sassInject.source = sassInject.source.css.toString();
-        sassInject.path = _path.replace(/(\W+|\w+)\.scss/,'');
-
-        gulp.start('sass-inline:inject');
     }
-
 };
 
 // gulp.task('sass', function () {
