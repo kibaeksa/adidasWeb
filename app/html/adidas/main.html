@@ -136,8 +136,13 @@
 						<li>
 							<a href="#">주문조회</a>
 						</li>
-						<li>
-							<a href="#">가입 후 혜택 받기</a>
+						<!--
+							170824
+							* 회원가입 버튼에 id값 추가
+							  (로그인 후 "주문조회" 버튼에는 없습니다.)
+						 -->
+						<li id="register_btn">
+							<a href="#">회원가입</a>
 						</li>
 						<li class="login last">
 							<a href="#">로그인</a>
@@ -2485,6 +2490,57 @@
 				master_wrapper.find('.num').children('a').bind('click',function(){
 					sliders.move($(this).index());
 				});
+
+				/*
+					170824
+					회원가입 오버 했을 떄 나오는 레이어
+				 */
+				 (function(){
+					 var timer;
+					 var isArea = false;
+					 var handleRegister = function(event){
+						if($('#register_btn').hasClass('active')){
+							return;
+						}
+
+						isArea = true;
+						var offsetTop = $('#header-20160315').offset().top + 32;
+						var htmlString = '<div class=register_intro_wrap style=top:{};><div class=register_intro_inner><div class=benefit_short><div class=inner><ul class=clfix><li class=b1><span class=i></span> 구매금액의 5% 포인트 적립<li class=b2><span class=i></span> 회원 한정 스페셜 이벤트<li class="b3 last"><span class=i></span> 스포츠 프로그램 예약 서비스</ul></div></div><div class=contents><div class=inner><div class=box><img alt=""src=//image.adidas.co.kr/images/adidas/common/register_intro_bnn1.jpg></div><div class=box><img alt=""src=//image.adidas.co.kr/images/adidas/common/register_intro_bnn2.jpg></div><div class=button_area><a class="arrow btn-ctm btn-blue"href=https://shop.adidas.co.kr/PF0601001.action><span>회원가입<span class=spt_bg></span></span></a> <a class="arrow btn-ctm"href=""><span>더 다양한 혜택보기<span class=spt_bg></span></span></a></div></div></div></div></div>';
+
+						$('#register_btn').addClass('active');
+						$('body').prepend(htmlString);
+						$('#header-20160315 h1').addClass('hide');
+
+						$('body>.register_intro_wrap').bind('mouseenter',function(){
+							isArea = true;
+							clearTimeout(timer);
+							timer = '';
+						});
+
+						$('body>.register_intro_wrap').bind('mouseleave',function(){
+							isArea = false;
+							$(this).remove();
+							$('#register_btn').removeClass('active');
+							$('#header-20160315 h1').removeClass('hide');
+						});
+
+					};
+
+					$('#register_btn').bind('mouseenter',handleRegister);
+					$('#register_btn').bind('mouseleave',function(){
+						isArea = false;
+						timer = setTimeout(function(){
+							if(!isArea && $('body>.register_intro_wrap').length > 0){
+								$('body>.register_intro_wrap').remove();
+	 							$('#register_btn').removeClass('active');
+	 							$('#header-20160315 h1').removeClass('hide');
+							 }
+						 }, 2000);
+					 });
+
+
+				 })();
+
 
 
 			})(jQuery);
