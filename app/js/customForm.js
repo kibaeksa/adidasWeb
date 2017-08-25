@@ -1,4 +1,17 @@
 (function($){
+
+	function handleCheck(elem , value){
+		if(value == undefined){
+			return elem.is(':checked');
+		}
+
+		if(jQuery.fn.jquery == '1.4.2'){
+			elem.attr('checked',value);
+		}else{
+			elem.prop('checked',value);
+		}
+	}
+
     /**
 	* $.fn.cmtSelectInit
 	* Initialize custom selectbox
@@ -26,19 +39,24 @@
 				}
 			});
 
-			if(!$(this).data('events')){
+			if(!$(this).attr('data-init')){
+				$(this).attr('data-init' , true);
 				elemContainer.bind('click',toggleSelecbox);
 			}
 
 
-			if(!elemOpions.eq(0).data('events')){
+			if(!elemOpions.eq(0).attr('data-init')){
+
+				elemOpions.each(function(){
+					$(this).attr('data-init',true);
+				});
 
 				elemOpions.bind('click',function(){
 					var $this = $(this);
-					if($(this).hasClass('disable')){
+
+					if($(this).hasClass('disable') || $(this).hasClass('disabled') ){
 						return false;
 					}
-
 
 					if(!!elemContainer.data('callback') && !!elemContainer.data('callback').before){
 						var beforeCallbackResult = elemContainer.data('callback').before.call($(this),$this.attr('data-option-value'),$this.index());
@@ -70,7 +88,7 @@
 
 			function toggleSelecbox(event){
 				event.stopPropagation();
-				if($(this).hasClass('disabled')){
+				if($(this).hasClass('disabled') || $(this).hasClass('disable')){
 					return;
 				}
 
@@ -81,6 +99,14 @@
 					$('.selectbox-ctm').removeClass('open');
 					$(this).addClass('open');
 				}
+
+				var offsetTop = $(this).find('.select-contents li.selected').length == 0 ? 0 : $(this).find('.select-contents li.selected').position().top + $(this).find('.select-contents').scrollTop();
+
+				$(this).find('.select-contents').animate({
+					scrollTop : offsetTop
+				},0);
+
+
 			}
 		});
 	};
@@ -104,7 +130,8 @@
 
 		$this = $(this);
 		$('.input-ctm').each(function(){
-			if(!!$(this).data('events')){
+
+			if(!!$(this).attr('data-init')){
 				return;
 			}
 
@@ -112,12 +139,18 @@
 				$(this).addClass('checked');
 			}
 
+			if($(this).find('input').is(':disabled')){
+				$(this).addClass('disabled');
+			}
+
+			$(this).attr('data-init',true);
+
 			$(this).bind('click',function(event){
 
 				event.preventDefault();
 				event.stopPropagation();
 
-				if($(this).hasClass('disabled')){
+				if($(this).hasClass('disable') || $(this).hasClass('disabled')){
 					return;
 				}
 
@@ -134,15 +167,21 @@
 				if($(this).find('input').is(':checked') && $(this).hasClass('checked')){
 
 					if($(this).hasClass('input-check-ctm')){
-						$(this).removeClass('checked').find('input').attr('checked',false);
+						// $(this).removeClass('checked').find('input').attr('checked',false);
+						$(this).removeClass('checked');
+						handleCheck($(this).removeClass('checked').find('input') , false);
 					}
 
 				}else{
 					if($(this).hasClass('input-radio-ctm')){
-						$('input[type="radio"][name="'+$(this).find('input[type="radio"]').attr('name')+'"]').attr('checked',false).parent().removeClass('checked');
+						// $('input[type="radio"][name="'+$(this).find('input[type="radio"]').attr('name')+'"]').attr('checked',false).parent().removeClass('checked');
+						$('input[type="radio"][name="'+$(this).find('input[type="radio"]').attr('name')+'"]').parent().removeClass('checked');
+						handleCheck($('input[type="radio"][name="'+$(this).find('input[type="radio"]').attr('name')+'"]') , false);
 					}
 
-					$(this).addClass('checked').find('input').attr('checked',true);
+					// $(this).addClass('checked').find('input').attr('checked',true);
+					$(this).addClass('checked');
+					handleCheck($(this).find('input') , true);
 				}
 
 
