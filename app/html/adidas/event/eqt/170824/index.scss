@@ -239,6 +239,12 @@ $width600:600px;
 			.text_area{
 				width: 50%;
 			}
+			.video{
+				p{
+					right: -119px;
+				    left: inherit;
+				}
+			}
 		}
 		&.on{
 			// top:500px;
@@ -346,11 +352,94 @@ $width600:600px;
 			float: right;
 			width: 80%;
 			cursor: pointer;
+			span{
+				position: relative;
+			}
+			p{
+				position: absolute;
+				bottom:0;
+				left:-130px;
+				font: 16px 'Decima Mono';
+				color:#000;
+				em{
+    				font-style: italic;
+				}
+			}
 			@media screen and (max-width: 1280px) {
-				width: 80%;
 				img{
 					width: 80%;
 				}
+				p{
+					// left:800px;
+				}
+			}
+		}
+	}
+	.player_wrap{
+		border-top: 1px solid #dedede;
+		width: 850px;
+		margin: 0 auto 188px;
+		.audioplayer{
+			position: relative;
+			text-align: right;
+			width: 100%;
+			height: 55px;
+			border-bottom:1px solid #dedede;
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			p{
+				position: absolute;
+				left: 50px;
+				top: 18px;
+				font:16px 'adinenuPro-regular';
+				text-transform: uppercase;
+				color:#000;
+				strong{
+					font-family: 'adinenuPro-bold'
+				}
+			}
+			&.active{
+				background: #f4f4f4;
+			}
+			button{
+				position: absolute;
+				right: 30px;
+				top: 0;
+				height:60px;
+				width: 60px;
+				border: none;
+				float:left;
+				outline:none;
+				cursor: pointer;
+				&.play{
+					background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/eqt_btn_play.png');
+					background-size: 50% 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+				&.pause{
+					background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/eqt_btn_stop.png');
+					background-size: 50% 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+			}
+			.timeline{
+				display: inline-block;
+				width: 280px;
+				height: 4px;
+				margin-top: 27px;
+				margin-right: 100px;
+				border-radius: 15px;
+				-webkit-border-radius: 15px;
+				background: rgba(0,0,0,.3);
+			}
+			.playhead{
+				width: 9px;
+				height: 9px;
+				border-radius: 50%;
+				margin-top: -3px;
+				background: rgba(0, 0, 0,1);
 			}
 		}
 	}
