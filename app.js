@@ -1,5 +1,4 @@
-var Promise = require('bluebird');
-var fs = Promise.promisifyAll(require('fs'));
+var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -119,12 +118,6 @@ function getFilesFromDir(fileInfo , targetObj){
             }
         }else{
 
-            if( (fileInfo[0]+file).match(/\/event\/?/) ){
-                console.log('fileInfo[0]+file : ',fileInfo[0]+file);
-                console.log('stats : ',stats.isFile());
-                console.log('-----------------');
-            }
-
             if( !(fileInfo[0]+file).match(/\/build\/?/) ){
                 getFilesFromDir([fileInfo[0]+file+'/' ,rootPath.replace(/^\//,'root___').replace(/\//g,'___') + file, rootPath+file+'/'] , htmlListData);
             }
@@ -160,11 +153,6 @@ app.set('view engine', 'jade');
 app.use('/',express.static(path.resolve(__dirname,'./app')));
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-
-app.get('/html/adidas',function(req , res){
-    init();
-    res.sendFile(__dirname+'/index.html');
-});
 
 app.get('/adidasCodingList',function(req , res){
     init('./app/html/adidas/');
