@@ -1,127 +1,19 @@
 @import './app/css/adidas/scss/common/mixin.scss';
 @import './app/css/adidas/scss/common/common.scss';
 
-#preloadPanel{
-	width: 100%;
-	height: 100%;
-	background: #fff;
-	position: fixed;
-	top: 0;
-	left:0;
-	z-index: 1000;
-	@include opacity(0);
-	@include css3(transition,opacity 1s);
-
-	div{
-		position: relative;
-		font:60px 'adiBlack';
-		color: #000;
-		position: absolute;
-		top:50%;
-		left:50%;
-		@include css3(transform,translate3d(-50%,-50%,0));
-		text-transform:uppercase;
 
 
-		&::after {
-			@extend .pseudo-element;
-    			position: absolute;
-    			top: -110%;
-    			left: -210%;
-    			width: 200%;
-    			height: 100%;
 
-    			background: rgba(255, 255, 255, 0.5);
-    			background: linear-gradient(
-    			to right,
-    			rgba(255, 255, 255, 0.5) 0%,
-    			rgba(255, 255, 255, 0.5) 77%,
-    			rgba(255, 255, 255, 0.5) 92%,
-    			rgba(255, 255, 255, 0.0) 100%
-			);
-
-			@include opacity(0);
-			@include css3(transform,rotate(30deg));
-			@include animation(0.5s,1.6s,shining,fowards,infinite);
-
-			transition-property: left, top, opacity;
-			transition-duration: 1.2s, 1.7s, 0.15s;
-			transition-timing-function: ease;
-
-			-webkit-transition-property: left, top, opacity;
-			-webkit-transition-duration: 1.2s, 1.7s, 0.15s;
-			-webkit-transition-timing-function: ease;
-		}
-	}
-
-	&.loaded{
-		@include css3(transition-duration,0.3s);
-		@include opacity(1);
-	}
-}
-
-.button1{
-	width: 250px;
-	padding: 16px 0;
-	display: inline-block;
-	background: #fff;
-	background:rgba(255,255,255,0.9);
-	text-align: center;
-	transition:background 0.3s;
-	-webkit-transition:background 0.3s;
-
-	&:hover{
-		background:rgba(255,255,255,1);
-	}
-
-	span{
-		position: relative;
-		left: -5px;
-		display: inline-block;
-		font:400 16px 'NotoSansKR','Nanum Gothic';
-		color: #000;
-		display: block;
-
-		.spt_bg{
-			width: 15px;
-			height: 15px;
-			background-position: right -758px;
-			position: absolute;
-			top: 4px;
-			left: auto;
-			right: -19px;
-		}
-	}
-}
-
-.no_scroll{
-	width: 100%;
-	height: 100%;
-	position: relative;
-	overflow: hidden;
-}
 #wrap{
+	overflow: hidden;
 	min-width: 1280px;
 }
 #originals_imvely{
-	width: 100%;
-	position: relative;
-	background: #fff;
 	overflow: hidden;
 	min-width: 1280px;
-	.spt_bg{
-		position: relative;
-		top:3px;
-		margin-left: 8px;
-	    display: inline-block;
-		width: 15px;
-		height: 15px;
-		background: url('/images/adidas/common/adidas_spirite.png') 0 0 no-repeat;
-		background-position: -688px -845px;
-	}
 	.main{
 		position: relative;
-		height: 970px;
+		height: 966px;
 		.bg{
 			position: absolute;
 			top:0;
@@ -130,273 +22,291 @@
 		}
 	}
 
+
+
+
 	.prd-slider-wrapper{
+		.link_wrap{
+			position: absolute;
+			bottom: 130px;
+			right: 705px;
+			@include opacity(0);
+			@include css3(transition, all 0.5s);
+			transition-delay: 1s;
+			-webkit-transition-delay: 1s;
+			z-index: 1;
+			.link{
+				float: left;
+				margin-left: 100px;
+				p{
+					padding: 0 0 10px 0;
+					color:#fff;
+					font:16px/16px 'adihaus' !important;
+					&.title{
+						position: relative;
+						font:24px/24px 'adihaus-medium' !important;
+						span{
+							position: absolute;
+							left: -27px;
+							top: 6px;
+							display: inline-block;
+							padding: 0 8px 0 0;
+							width: 19px;
+							height: 18px;
+							background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bulit.png') no-repeat;
+							&.type2{
+								left: -37px;
+								width: 30px;
+								background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bulits.png') no-repeat;
+							}
+							&.black{
+								background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bulit_black.png') no-repeat;
 
-		#slider1{
-			&.scroll{
-				.ct950{
-					left:0;
-					@include opacity(1);
-					transition: all 0.8s;
-					-webkit-transition: all 0.8s;
+							}
+						}
+					}
 				}
-			}
-			.inner_img{
-				position: absolute;
-				top:118px;
-				left:50%;
-				@include opacity(0);
-				transition: all 0.8s;
-				-webkit-transition: all 0.8s;
-				&.scroll{
-					margin-left: -386px;
-					@include opacity(1);
-				}
-			}
-			.ct950{
-				position: relative;
-				left:100px;
-				@include opacity(0);
-			}
-		}
-		.item-wrapper#slider2{
-			&.scroll{
-				.ct950{
-					left:0;
-					@include opacity(1);
-					transition: all 0.8s;
-					-webkit-transition: all 0.8s;
-				}
-			}
-			.inner_img{
-				position: absolute;
-				top:206px;
-				left:50%;
-				@include opacity(0);
-				transition: all 0.8s;
-				-webkit-transition: all 0.8s;
-				&.scroll{
-					top:206px;
-					margin-left: -340px;
-					@include opacity(1);
-				}
-			}
-			.ct950{
-				position: relative;
-				left:200px;
-				@include opacity(0);
-
-				.indicator{
+				.kor{
+					position: relative;
+					color:#fff;
+					font:500 15px 'NotoSansKR';
 					span{
-						&.active{
-							border: 10px solid #ecff49;
+						position: absolute;
+						top:4px;
+						right:-21px;
+						width: 14px;
+						height: 14px;
+						background: url('/images/adidas/common/icon_btn_black_14x14.png');
+						&.white{
+							background: url('/images/adidas/common/icon_btn_white_14x14.png');
 						}
 					}
 				}
 			}
-
 		}
 		.item-wrapper{
-			position: relative;
-			background: url('/images/adidas/event/originals_imvely/170918/bgimg1.jpg') no-repeat;
-			background-size:100% 100%;
-			.ct950{
-				position: relative;
-				width: 1400px;
-				overflow: hidden;
-				z-index: 5;
-			}
-
-			.section_main{
-
-			}
-			ul{
-				position: relative;
-				height: 862px;
-				li{
-					position: absolute;
-					top:0;
-					left:0;
-					width: 950px;
-					&.active{
-						z-index: 6;
-						.content{
-							.item-img-big{
-								@include opacity(1);
-							}
-							.item-img-small{
-								@include opacity(1);
-							}
-							.item-link{
-								@include opacity(1);
-							}
+			background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bgimg1.jpg') no-repeat;
+			background-position: 50% 50%;
+			&#sliderwrap1{
+				.section_main{
+					.link_wrap{
+						width: 100%;
+						top:0;
+						left:0;
+						.link{
+							position: absolute;
+							&.item2{top: 372px;left: 344px;}
+							&.item1{top: 600px;right: 356px;}
 						}
 					}
-					.content{
-    					height: 862px;
-						&.box1{
-							.link{
-								.title{
-									&:after{
-										background: #000;
-									}
-								}
-							}
+				}
+				li{
+					&.item5{
+						.link_wrap{
+							bottom: 110px;
 						}
-						&.box2{
-							.item-img-small{top:236px;}
-							.item-link{top:344px;}
-							.link{
-								.title{
-									&:after{
-										background: #2a4268;
-									}
-								}
-							}
-						}
-						&.box3{
-							.item-img-small{top:145px;}
-							.item-link{top:606px;}
-							.link{
-								.title{
-									&:after{
-										background: #ff3542;
-									}
-								}
-							}
-						}
-						&.box4{
-							.item-img-small{top:145px;}
-							.item-link{top:606px;}
-							.link{
-								.title{
-									&:after{
-										background: #064731;
-									}
-								}
-							}
-						}
-						&.box5{
-							.item-img-small{top:145px;}
-							.item-link{top:520px;}
-							.link{
-								.title{
-									&:after{
-										background: #4dafe5;
-									}
-								}
-							}
-						}
-
-						&.box6{
-							.item-img-small{top:136px;}
-							.item-link{top:718px;}
-							.link{
-								.title{
-									&:after{
-										background: #a2ff00;
-									}
-								}
-							}
-						}
-						&.box7{
-							.item-img-small{top:40px;}
-							.item-link{top:442px;}
-							.link{
-								.title{
-									&:after{
-										background: #000;
-									}
-								}
-							}
-						}
-						&.box8{
-							.item-img-small{top:65px;}
-							.item-link{top:650px;}
-							.link{
-								.title{
-									&:after{
-										background: #fff;
-									}
-								}
-							}
-						}
-
-						.item-img-big{
+					}
+				}
+			}
+			&#sliderwrap2{
+				background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bgimg2.jpg') no-repeat;
+				.link_wrap{
+					right:780px;
+				}
+				.section_main{
+					.link_wrap{
+						width: 100%;
+						top:0;
+						left:0;
+						.link{
 							position: absolute;
-							@include opacity(0);
-							@include css3 (transition, opacity 0.3s);
-							z-index: 5;
+							&.item2{top: 562px;left: 33px;}
+							&.item1{top: 271px;right: 219px;}
 						}
-						.item-img-small{
-							position: absolute;
-							top:236px;
-							left:1400px;
-							@include opacity(0);
-							@include css3 (transition, opacity 0.3s);
-							z-index: 4;
-
+					}
+				}
+				li{
+					&.item2{
+						.link_wrap{
+							bottom: 100px;
 						}
-						.item-link{
+					}
+					&.item3{
+						.link_wrap{
+							bottom: 85px;
+						    right: 650px;
+						}
+					}
+					&.item4{
+						.link_wrap{
+							bottom: 80px;
+						    right: 780px;
+						}
+					}
+				}
+			}
+			&#sliderwrap3{
+				background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bgimg3.jpg') no-repeat;
+				.section_main{
+					.link_wrap{
+						width: 100%;
+						top:0;
+						left:0;
+						.link{
 							position: absolute;
-							top:500px;
-							left:1400px;
-							width: 500px;
-							@include opacity(0);
-							@include css3 (transition, opacity 0.3s);
-							z-index: 3;
-
+							&.item1{top: 102px;right: 115px;}
+							&.item2{top: 602px;left: -7px;}
+						}
+					}
+				}
+				li{
+					.link_wrap{
+						.link{
+							float: none;
+							padding-bottom: 50px;
+						}
+					}
+					&.item1{
+						.link_wrap{
+							bottom: 88px;
+						    right: 781px;
+						}
+					}
+					&.item2{
+						.link_wrap{
+							bottom: 130px;
+						    right: 787px;
+						}
+					}
+					&.item3{
+						.link_wrap{
+							bottom: 130px;
+							right: 687px;
+						}
+					}
+					&.item4{
+						.link_wrap{
+							bottom: 120px;
+						    right: 657px;
 							.link{
-								margin-bottom: 40px;
-								p{
-									padding-bottom: 18px;
-									color:#000;
-									font:16px/16px 'adihaus-bold';
-									letter-spacing: 7px;
-									text-transform: uppercase;
-									&.title{
-										position: relative;
-										font:30px/34px 'adihaus-bold';
-										letter-spacing: 14px;
-										&:after{
-											position: absolute;
-										    left: -55px;
-										    top: 10px;
-											content: '';
-											display: inline-block;
-											width: 22px;
-											height: 22px;
-										}
-									}
-								}
-								.kor{
-									color:#000;
-									font:700 15px/15px 'NotoSansKR';
-									letter-spacing: 0px;
-								}
+								float: right;
+							    margin-left: 80px;
+
 							}
 						}
 					}
 				}
 			}
+			.section_main{
+				padding: 60px 0 70px;
+				>*{
+					text-align: center;
+					color:#fff;
+				}
+				h2{
+					padding-bottom: 20px;
+					font:56px/56px 'adihaus-bold';
+					letter-spacing: 22px;
+					text-transform: uppercase;
+				}
+				p{
+					padding-bottom: 60px;
+					font:400 18px/18px 'NotoSansKR';
+				}
+				.img{
+					position: relative;
+					.link_wrap{
+						@include opacity(1);
+						.link{
+							>*{
+								color:#000;
+							}
+							p{
+							    padding: 0 0 10px 0;
+							}
+						}
+					}
+				}
+			}
+			.slider{
+				ul{
+					li{
+						position: relative;
+						@include opacity(0);
+						@include css3(transition, all 0.5s);
+						&.on{
+							@include opacity(1);
+							.item{
+								.link_wrap{
+									@include opacity(1);
+
+								}
+							}
+						}
+						.item{
+
+						}
+					}
+				}
+			}
+
 			.indicator{
 				text-align: center;
-				span{
+				a{
+					padding: 0 5px;
 					display: inline-block;
-					margin: 0 10px;
-					width: 16px;
-					height: 16px;
-					background: #000;
-					vertical-align: middle;
-					cursor: pointer;
-					&.active{
-						margin: 0;
-						border: 10px solid #fff;
-						vertical-align: middle;
+					width: 19px;
+					height: 18px;
+					background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/bulit.png') no-repeat;
+					text-indent: -9999px;
+					@include opacity(0.3);
+					&.on{
+						@include opacity(1);
+					}
+					&:hover{
+						@include opacity(1);
+					}
+
+				}
+			}
+
+			.arrow_wrap{
+			    padding: 61px 0 0 0;
+				width: 950px;
+			    position: relative;
+			    margin: 0 auto;
+				.arow{
+					position: absolute;
+					width: 108px;
+					height: 12px;
+					display: inline-block;
+					text-indent: -9999px;
+					@include opacity(0.2);
+
+					&.next-button{
+						right: 0;
+						background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/arrow_next.png') no-repeat;
+					}
+					&.prev-button{
+						left:0;
+						background: url('http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/arrow_next.png') no-repeat;
+						transform: rotate(-180deg);
+					}
+					&:hover{
+						@include opacity(0.9);
+
 					}
 				}
 			}
+
+
+
 		}
+	}
+
+	.bottom{
+		padding: 50px 0;
+		text-align: center;
 	}
 
 }
