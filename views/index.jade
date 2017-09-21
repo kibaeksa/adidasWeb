@@ -2,8 +2,8 @@ doctype
 html(lang='en')
     head
         meta(charset='utf-8')
-        title 코딩리스트
-        link(rel='stylesheet' type='text/css' href='//image.adidas.co.kr/css/adidas/adidas_r.css')
+        title HTML CODING LIST
+        link(rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css')
         style(type='text/css').
             @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
             html , body{
@@ -42,6 +42,13 @@ html(lang='en')
                 padding:13px 15px;
                 margin: 0 5px;
                 display: inline-block;
+                background:#ddd;
+                font:13px 'Noto Sans Kr';
+                text-decoration:none;
+            }
+            
+            .button_area .btn-ctm#submit-data{
+                display:none;
             }
             
             .utilbox.fixed .search_area{
@@ -84,7 +91,7 @@ html(lang='en')
                 position: absolute;
                 top: 16px;
                 left: 20px;
-                background:url('/images/adidas/common/adidas_spirite.png') -110px -1250px;
+                background:url('//image.adidas.co.kr/images/adidas/common/adidas_spirite.png') -110px -1250px;
             }
 
             .search_area input{
@@ -310,11 +317,14 @@ html(lang='en')
             
             
 
-        script(type='text/javascript' src='//image.reebok.co.kr/js/jquery/jquery-1.4.2.js')
+        script(type='text/javascript' src='//code.jquery.com/jquery-1.12.4.min.js')
 
 
     body
         input#brand(type='hidden' value='#{brand}')
+        input(type='hidden' id='jsonfile_path' value='#{filePath}')
+        input(type='hidden' id='jsonfile_name' value='#{fileName}')
+            
         div#wrapper
             div#left-area
                 div.wrapper
@@ -338,77 +348,33 @@ html(lang='en')
                     
             script(type='text/javascript').
                 let brandName = $('input#brand').val();
+                console.log(brandName);
+                const absPath = '/html/'+brandName+'/';
+                const jsonfilePath = document.getElementById('jsonfile_path').value;
+                const jsonfileName = document.getElementById('jsonfile_name').value;
                 let depth = 1;
                 let curCategory = 'root';
-                const absPath = '/html/'+brandName+'/';
                 let htmlData = {};
-                
-                const getDataForRender = key => {
-                    let newData = getObjChildDirectory(key);
-                    newData.push(htmlData[key]);
-                    return newData;
-                }
-                
-                const getObjChildDirectory = path => {
-                    var key,
-                        newObj = [],
-                        i = 0,
-                        count = 0;
-                
-                    for(key in htmlData){
-                        const objPath = key.split('___');
-                        const targetPath = typeof path === 'string' ? path.split('___') : path;
-                
-                        if(key === targetPath.join('___')){
-                            continue;
-                        }
-                
-                        /* 바로 밑에 폴더만 찾는다. */
-                        if(htmlData[key].depth - 1 ==  targetPath.length){
-                            /* Reassign i as 0 */
-                            i = 0;
-                
-                            for(; i < targetPath.length; i++){
-                                if(objPath[i] == targetPath[i]){
-                                    count++;
-                                }else{
-                                    count = 0;
-                                    continue;
-                                }
-                
-                                if(count == targetPath.length){
-                
-                                    newObj.push(key);
-                                    count = 0 ;
-                                    continue;
-                                }
-                            }
-                        }
-                    }
-                
-                
-                    return newObj;
-                
-                };
                 
                 const setHash = event =>{
                     let hash = location.hash.replace(/#/,'');
-                    
-                    console.log(hash);
-                    
                     if(hash == ''){
                         hash = 'root';
                     }
                     
                     const hasObj = getBooleanByKey(hash);
-                    console.log(hasObj)
-                    //- console.log(hasObj);
                     
                     if(hasObj){
-                        renderHTML(getDataForRender(hash));
+                        renderHTML(htmlData[hash]);
                     }else{
                         renderHTML(false);
                     }
+                    
+                    $('#search-html').val('');
+                    $('#submit-data').hide();
+                    $('#toggle-mode').removeClass('edit').find('span').text('수정 하기');
+                    $('#wrapper').removeClass('edit-mode');
+                    
                 };
                 
                 
@@ -443,7 +409,6 @@ html(lang='en')
                 const handleData = obj => {
                     for(let key in obj){
                         const splitKey = key.replace(/root/,'/').split('___');
-                        console.log('depth : ',splitKey.length);
                         obj[key].depth = splitKey.length;
                         splitKey.splice(splitKey.length-1);
                         obj[key].parentDir = splitKey;
@@ -455,10 +420,10 @@ html(lang='en')
                 const submitInfo = () => {
                     var data = {
                         htmlList : htmlData,
-                        targetPath : '/app/data/codingList/'+brandName+'/',
                         brand : brandName
                     };
-                
+                    
+                    console.log(data.htmlList);
                 
                     $.ajax({
                         type: 'POST',
@@ -469,14 +434,12 @@ html(lang='en')
                         },
                         success:function(result){
                             $('#loading').remove();
-                            renderHTML(getDataForRender(curCategory));
+                            renderHTML(htmlData[curCategory]);
                         },
                         error:function(e){
                             $('#loading').remove();
                             $('#wrapper').removeClass('edit-mode');
-                            //- renderHTML(getDataForRender(curCategory));
                             setHash();
-                            console.log(e.responseText);
                         },
                         dataType : 'json',
                     });
@@ -495,7 +458,8 @@ html(lang='en')
                             var index = elem.dataset.index;
                         
                             if(elem.dataset.isdir == 'true'){                                
-                                htmlData[key].desc = event.target.value.replace(/"/,'\"');
+                                htmlData[elem.getAttribute('id')].desc = event.target.value.replace(/"/,'\"');
+                                htmlData[key]['folderData'][index].desc = event.target.value.replace(/"/,'\"');
                             }else{
                                 htmlData[key]['htmlData'][index].desc = event.target.value.replace(/"/,'\"');
                             }
@@ -506,41 +470,14 @@ html(lang='en')
                     dirArray.map(value => {
                         value.addEventListener('click',event =>{
                             curCategory = event.currentTarget.dataset.dir;
-                            location.hash = event.currentTarget.dataset.dir;                            
+                            location.hash = event.currentTarget.dataset.dir;
                         });
                     });
-                
-                    $('#toggle-mode').bind('click',function(){
-                        if(window.location.hostname == 'localhost'){
-                            if($('.search_result').length <= 0){
-                                if($(this).hasClass('edit')){
-                                    $(this).removeClass('edit');
-                                    $('#submit-data').addClass('disable');
-                                    $('#wrapper').removeClass('edit-mode');
-                                    $(this).find('span').text('EDIT MODE');
-                                }else{
-                                    $(this).addClass('edit');
-                                    $('#submit-data').removeClass('disable');
-                                    $('#wrapper').addClass('edit-mode');
-                                    $(this).find('span').text('VIEW MODE');
-                                }
-                            }
-                        }
-                    });
-                
-                    $('#submit-data').bind('click',function(){
-                        if(window.location.hostname == 'localhost'){
-                            if($(this).hasClass('disable')){
-                                return;
-                            }
-                            submitInfo();
-                        }
-                    });
-                
                 
                 }
                 
                 const renderHTML = data => {
+                
                     if(!data){
                         document.getElementById('coding-list').innerHTML = `
                             <div class="nodata" style="text-align: center;font: 700 16px 'NotoSansKR';color: #000;">데이터가 없습니다.</div>
@@ -549,66 +486,69 @@ html(lang='en')
                         return false;
                     }
                     
-                    let htmlString = `<div class="title">${data[data.length-1].path}</div>`;
+                    let htmlString = `<div class="title">${data.path}</div>`;
                 
-                    if(data[data.length-1].depth > 1){
-                        const parentPath = (() =>{
-                            let path = '';
-                            data[data.length-1].parentDir.map((data , index) => {
-                                if(index == 0){
-                                    path += 'root';
-                                }else{
-                                    path += '___'+data;
-                                }
-                            });
                 
-                            return path;
-                        })();
-            
-                
+                    const absolutePath = data.path;
+                    const key = absolutePath.replace(/^\/$/,'root').replace(/^\//,'root___').replace(/\//g,'___');
+                    
+                    if(data.path !== '/'){
+                        
+                        let prevDir = 'root';
+                        
+                        data.path.split('/').map((value , index) => {
+                            if(value !== ''){
+                                if( index < data.path.split('/').length - 2)
+                                prevDir += '___'+value;
+                            }
+                        });
+                        
                         htmlString += `
                             <div class="col_box dir_col">
                                 <ul>
-                                    <li class="name dir"><a href="javascript:void(0)" data-dir="${parentPath}" title="">...</a></li>
+                                    <li class="name dir"><a href="javascript:void(0)" data-dir="${prevDir}" title="Back">...</a></li>
                                 </ul>
-                            </div>
+                            </div> 
                         `;
                     }
-                
-                    data.map( renderData => {
-                
-                        const keyName = typeof renderData === 'string' ? renderData.replace(/^root___/,'/').replace(/___/g,'/') : renderData.path;
-                
-                        if(typeof renderData === 'string'){
+                    
+                    if(data['folderData']){
+                        data['folderData'].map((value , index) => {
+                        
+                            if(value.name.match(/^build$/)){
+                                return;
+                            }
+                            
                             htmlString += `
                                 <div class="col_box dir_col">
                                     <ul>
-                                        <li class="name dir"><a href="javascript:void(0)" data-dir="${renderData}" title="${keyName}">${keyName}</a></li>
-                                        <li class="desc">${htmlData[renderData].desc ? htmlData[renderData].desc : ''}</li>
-                                        <li class="modify"><input type="text" id="${renderData}" value="${htmlData[renderData].desc ? htmlData[renderData].desc : ''}" data-key="${renderData}" data-isdir="true"></li>
+                                        <li class="name dir"><a href="javascript:void(0)" data-dir="${key[key.length-1] === 't' ? key + '___' + value.name : key + value.name}" title="${value.name}">${value.name}</a></li>
+                                        <li class="desc">${value.desc ? value.desc : ''}</li>
+                                        <li class="modify"><input type="text" id="${key[key.length-1] === 't' ? key+'___'+value.name.replace(/\.html/,'') : key + value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}" data-isdir="true"></li>
+                                    </ul>
+                                </div> 
+                            `;
+                        });
+                    }
+                
+                    if(data['htmlData']){
+                        
+                        data['htmlData'].map((value , index) => {
+                            const key = absolutePath.replace(/^\/$/,'root').replace(/^\//,'root___').replace(/\//,'___');
+                            htmlString += `
+                                <div class="col_box">
+                                    <ul>
+                                        <li class="name">
+                                            <a href="javascript:void(0)" onclick="changeContets('${absPath + absolutePath.replace(/root_/,'/') +'/'+ value.name }' , this)">${value.name}</a>
+                                            <a href="${absPath + absolutePath.replace(/root_/,'/') +'/'+ value.name }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
+                                        </li>
+                                        <li class="desc">${value.desc ? value.desc : ''}</li>
+                                        <li class="modify"><input type="text" id="${key+'___'+value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}"></li>
                                     </ul>
                                 </div>
                             `;
-                        }else{
-                            renderData['htmlData'].map((value , index) => {
-                                const key = renderData.path.replace(/^\/$/,'root').replace(/^\//,'root___').replace(/\//,'___');
-                                htmlString += `
-                                    <div class="col_box">
-                                        <ul>
-                                            <li class="name">
-                                                <a href="javascript:void(0)" onclick="changeContets('${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }' , this)">${value.name}</a>
-                                                <a href="${absPath + keyName.replace(/root_/,'/') +'/'+ value.name }" style="margin-left:6px;" target="_blank"><img src="/data/ico_new_window.png" alt="새창" title="새창"/></a>
-                                            </li>
-                                            <li class="desc">${value.desc ? value.desc : ''}</li>
-                                            <li class="modify"><input type="text" id="${key+'___'+value.name.replace(/\.html/,'')}" value="${value.desc ? value.desc : ''}" data-key="${key.replace(/___$/,'').replace(/\/$/,'')}" data-index="${index}"></li>
-                                        </ul>
-                                    </div>
-                                `
-                            });
-                        }
-                
-                
-                    })
+                        });
+                    }
                 
                     htmlString += `</div>`;
                     document.getElementById('coding-list').innerHTML = htmlString;
@@ -622,31 +562,26 @@ html(lang='en')
                         <div class="search_result">
                             <div class="search_title">검색결과 입니다.</div>
                     `;
-                    const absPath = '/html/'+brandName+'/';
-                    
-                    
-                    console.log(data);
-                    
+                    const absPath = '/public/html/';
                     for(key in data){
                         if(key == 'length'){
                             continue;
                         }
-                        console.log(data[key]);
                         if(data[key].type == 'folder'){
                             
                             htmlString += `
-                            <div class="col_box dir_col">
-                                <ul>
-                                    <li class="name dir">
-                                        <a href="javascript:void(0)" data-dir="${data[key].originName}">${data[key].name}</a>
-                                    </li>
-                                    
-                                    ${data[key].desc ? `<li class="desc">${data[key].desc}</li>` : ''}
-                                    <li class="modify">
-                                        <input type="text" id="${data[key].originName.replace(/\.html/,'')}" value="${data[key].desc ? data[key].originDesc : ''}" data-key="${data[key].originName.replace(/___$/,'').replace(/\/$/,'')}">
-                                    </li>
-                                </ul>
-                            </div>
+                                <div class="col_box dir_col">
+                                    <ul>
+                                        <li class="name dir">
+                                            <a href="javascript:void(0)" data-dir="${data[key].originName}">${data[key].name}</a>
+                                        </li>
+                                        
+                                        ${data[key].desc ? `<li class="desc">${data[key].desc}</li>` : ''}
+                                        <li class="modify">
+                                            <input type="text" id="${data[key].originName.replace(/\.html/,'')}" value="${data[key].desc ? data[key].originDesc : ''}" data-key="${data[key].originName.replace(/___$/,'').replace(/\/$/,'')}">
+                                        </li>
+                                    </ul>
+                                </div>
                             `;
                         }else{
                             htmlString += `    <div class="title">${ key.replace(/^root$/g,'/').replace(/^root___/g,'/').replace(/___/g,'/') }</div>`;
@@ -719,17 +654,18 @@ html(lang='en')
                 };
                 
                 document.getElementById('dragHandle').addEventListener('mousedown',startDragGrid);
-                
+                console.log(jsonfilePath+jsonfileName);
                 $.ajax({
-                   url: '/data/codingList/'+brandName+'/codingListInfo.json',
+                   url: jsonfilePath+jsonfileName,
                    dataType : 'json',
                    beforeSend : function(){
-                       $('body').append('<di v id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
+                       $('body').append('<div id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
                    },
                    success:function(result){
                         $('#loading').remove();
-                        htmlData = handleData(result);
-                        console.log(htmlData);
+                        console.log(result);
+                        //- htmlData = handleData(result);
+                        htmlData = result;
                         setHash();
                    },
                    error:function(e){
@@ -794,32 +730,25 @@ html(lang='en')
                                         });
                                     }
                                     
-                                    if(pkgNameKeyword){
-                                        //- console.log(pkgNameKeyword);
-                                        //- console.log(newArray[newArray.length-1])
-                                    }
-                                    
-                                    for(var i = 0; i < htmlData[key].htmlData.length; i++){
-                                        var nameKeyword = searchKeyword(htmlData[key].htmlData[i].name,keyword);
-                                        var descKeyword = htmlData[key].htmlData[i].desc == undefined ? false : searchKeyword(htmlData[key].htmlData[i].desc,keyword);
-                                        
-                                        if(nameKeyword || descKeyword){
-                                            newArray.push({
-                                                originName : htmlData[key].htmlData[i].name,
-                                                name :!nameKeyword ? htmlData[key].htmlData[i].name : nameKeyword,
-                                                path : path,
-                                                desc : !!descKeyword ? descKeyword : htmlData[key].htmlData[i].desc,
-                                                originDesc : htmlData[key].htmlData[i].desc
-                                                
-                                            });
-
+                                    if(htmlData[key].htmlData){
+                                        for(var i = 0; i < htmlData[key].htmlData.length; i++){
+                                            var nameKeyword = searchKeyword(htmlData[key].htmlData[i].name,keyword);
+                                            var descKeyword = htmlData[key].htmlData[i].desc == undefined ? false : searchKeyword(htmlData[key].htmlData[i].desc,keyword);
+                                            
+                                            if(nameKeyword || descKeyword){
+                                                newArray.push({
+                                                    originName : htmlData[key].htmlData[i].name,
+                                                    name :!nameKeyword ? htmlData[key].htmlData[i].name : nameKeyword,
+                                                    path : path,
+                                                    desc : !!descKeyword ? descKeyword : htmlData[key].htmlData[i].desc,
+                                                    originDesc : htmlData[key].htmlData[i].desc
+                                                    
+                                                });
+                                            }
                                         }
-                                        
                                     }
                                 }
                             }
-                            
-                            console.log('newArray : ',newArray);
                             
                             return refactoringDataForSearch(newArray);
                         }
@@ -870,7 +799,6 @@ html(lang='en')
                             };
                             
                             
-                            /* File부터 담기 */
                             for(i; i < arr.length; i++){
                                 var ctgrKey = arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                                
                                 if(arr[i].type !== 'folder'){
@@ -892,10 +820,8 @@ html(lang='en')
                             
                                 
                             i = 0;
-                            /* 폴더만 */
                             for(i; i < arr.length; i++){
                                 if(arr[i].type === 'folder'){
-                                    //- console.log(1111);
                                     var ctgrKey = 'folder_'+arr[i].path.replace(/^\/$/,'root').replace(/\/$/,'').replace(/^\//g,'root___').replace(/\//g,'___');                       
                                                               
                                     if(!newObj[ctgrKey]){
@@ -912,8 +838,6 @@ html(lang='en')
                                     newObj[ctgrKey].htmlData.push(arr[i]);
                                 }
                             }
-                            
-                            console.log('in refactoringDataForSearch : ',newObj);
                             
                             return newObj;                            
                         } 
@@ -952,3 +876,27 @@ html(lang='en')
                 }else{
                     $('.button_area').remove();
                 }
+                
+                $('#toggle-mode').bind('click',function(){
+                    if(window.location.hostname == 'localhost'){
+                        if($('.search_result').length <= 0){
+                            if($(this).hasClass('edit')){
+                                $(this).removeClass('edit');
+                                $('#submit-data').hide();
+                                $('#wrapper').removeClass('edit-mode');
+                                $(this).find('span').text('수정 하기');
+                            }else{
+                                $(this).addClass('edit');
+                                $('#submit-data').show();
+                                $('#wrapper').addClass('edit-mode');
+                                $(this).find('span').text('취소');
+                            }
+                        }
+                    }
+                });
+            
+                $('#submit-data').bind('click',function(){
+                    if(window.location.hostname == 'localhost'){
+                        submitInfo();
+                    }
+                });
