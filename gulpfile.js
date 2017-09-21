@@ -79,6 +79,7 @@ gulp.task('sass-inline:inject',function(){
         .pipe(inject.after('<div class="campaign-content" id="container_r" >','\n<style type="text/css">'+sassInject.source+'</style>'))
         .pipe(inject.after('<div class="campaign-content"id="container_r">','\n<style type="text/css">'+sassInject.source+'</style>'))
         .pipe(inject.after('<div class="campaign-content"id="container_r" >','\n<style type="text/css">'+sassInject.source+'</style>'))
+        .pipe(inject.after('<div id="contents_wrap">','\n<style type="text/css">'+sassInject.source+'</style>'))
         .pipe(inject.replace('<script type="text/javascript" src="/data/eventRouter.js"></script>',''))
         .pipe(rename('index.html'))
         .pipe(gulp.dest(path.join(sassInject.path , 'build')))
@@ -109,6 +110,20 @@ gulp.task('watch',function(){
             handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss'));
         }
     });
+
+    gulp.watch('./app/html/reebok/event/about/campaign/**/*.scss').on('change',function(file){
+        if(!file.path.match(/\\build\\?/)){
+            handleSassInject(file.path , 'reebok');
+        }
+    });
+
+    gulp.watch('./app/html/reebok/event/about/campaign/**/*.html').on('change',function(file){
+        if(!file.path.match(/\\build\\?/)){
+            handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
+        }
+    })
+
+
     gulp.watch('./app/css/adidas/scss/campaign.scss',['sass']);
 });
 
