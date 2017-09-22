@@ -672,128 +672,130 @@ $width600:600px;
 	/* story_wrapper END */
 
 	.mi_products{
+		min-width: 1000px;
 		position: relative;
-		padding: 150px 0 120px;
-		background:#f2f2f2;
+		padding: 0 0 120px;
 
-		h4{
-			margin-bottom: 35px;
-			font:italic 48px/48px 'adinenuPro-black';
-			color:#333;
-			text-align: center;
-			letter-spacing:18px;
-		}
-		// h4
+		.mi_products_head{
+			padding-top: 100px;
+			background: #fafafa;
 
-		.desc{
-			margin-bottom: 40px;
-			font:400 20px/20px 'NotoSansKR','Nanum Gothic';
-			text-align: center;
-			color: #5c5c5c;
-			letter-spacing:2px;
+			h4{
+				margin-bottom: 35px;
+				font:italic 48px/48px 'adinenuPro-black';
+				color:#333;
+				text-align: center;
+				letter-spacing:18px;
+			}
+			// h4
+
+			.desc{
+				margin-bottom: 40px;
+				font:400 20px/20px 'NotoSansKR','Nanum Gothic';
+				text-align: center;
+				color: #5c5c5c;
+				letter-spacing:2px;
+			}
+			// .desc
+
+			.mi_products_tab{
+				margin-top:80px;
+				text-align: center;
+
+				a{
+					display: inline-block;
+					padding: 24px 72px;
+					text-align: center;
+					font:13px/13px 'adinenuPro-bold';
+					letter-spacing: 3px;
+					color: #c6c6c6;
+
+					&.on{
+						color: #000;
+						background: #fff;
+					}
+
+					&:hover{
+						color: #aaa;
+					}
+				}
+			}
 		}
-		// .desc
+		/* mi_products_head END */
 
 		.prodlist{
+			width: 100%;
+			overflow: hidden;
+			padding-top: 50px;
+			padding-bottom:120px;
+			background: #fff;
 			text-align: center;
-			background:#f2f2f2 url('http://image.adidas.co.kr/images/adidas/event/customise/product-shelf-items-background.jpg') 0 -210px repeat;
+			//background:#f2f2f2 url('http://image.adidas.co.kr/images/adidas/event/customise/product-shelf-items-background.jpg') 0 -210px repeat;
 
 			.inner{
-				width: 100%;
-				max-width: 1400px;
-				min-width: 950px;
 				text-align: center;
 				margin:0 auto;
-
-				@media screen and (max-width: $break-large) {
-					width: 1000px;
-				}
 			}
 			// .inner
 
+			.item_container{
+				width: 100%;
+				margin-top: 30px;
+				position: relative;
+				text-align: center;
+
+				&::after{
+					width: 100%;
+					height: 140px;
+					content:'';
+					display: block;
+					background:linear-gradient(to bottom,#fff 0,#f7f7f7 40%,#f7f7f7 85%,#fff 85%);
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+
 			.item{
-				width: 440px;
+				width: 300px;
 				position: relative;
 				display: inline-block;
+				z-index: 5;
+				vertical-align: top;
+				@include opacity(0);
+				@include css3(transition , opacity 0.3s ease);
 
-				@media screen and (max-width: $break-large) {
-					&:last-child{
-						display: none;
-					}
+				&.loaded{
+					@include opacity(1);
 				}
 
 				a{
 					display: block;
 					position: relative;
-					padding-bottom: 235px;
 				}
 
 				.img{
-					width: 440px;
-					height: 220px;
-					background:url('http://image.adidas.co.kr/images/adidas/event/customise/miadidas-product-shelf.png') 0 0 no-repeat;
-
-					&.superstar{
-						background-position:-4px -1348px;
+					width: 300px;
+					height: 145px;
+					text-align: center;
+					margin-bottom: 20px;
+					img{
+						width: 225px;
 					}
-
-					&.stan_smith{
-						background-position:-4px -1124px;
-					}
-
-					&.tubular{
-						background-position:-4px -1572px;
-					}
-
-					&.eqt{
-						background-position:-4px -228px;
-					}
-
-					&.zxflux{
-						background-position:-4px -1796px;
-					}
-
-					&.gazelle{
-						background-position:-4px -452px;
-					}
-
-					&.pure_boost_zg{
-						background-position: -4px -900px;
-					}
-
-					&.pure_boost_x{
-						background-position:-4px -676px;
-					}
-
-					&.adios{
-						background-position:-4px -4px ;
-					}
-
 				}
 
-				.button{
-					width: 300px;
-					height: 55px;
-					position: absolute;
-					top: 250px;
-					left: 50%;
-					margin-left: -150px;
-					text-transform:uppercase;
-					font:400 14px/51px 'NotoSansKR','Nanum Gothic';
-
-					@include opacity(0);
-					@include css3(transform , translate3d(0,15px,0));
-					@include css3(transition , all 0.3s ease);
+				.item_info{
+					position: relative;
+					height: 60px;
 				}
 
 				.mi-button{
-					width: 300px;
+					width: 160px;
+					padding: 12px 0;
 					position: absolute;
-					top: 250px;
+					top: 0;
 					left: 50%;
-					margin-left: -150px;
-					text-transform:uppercase;
-					font:400 14px/51px 'NotoSansKR','Nanum Gothic';
+					margin-left: -80px;
 					background: none;
 					border: 1px solid  #000;
 
@@ -801,40 +803,36 @@ $width600:600px;
 					@include css3(transform , translate3d(0,15px,0));
 					@include css3(transition , all 0.3s ease);
 
-					.arrow{
-						width: 40px;
-					    height: 10px;
-						margin-left: 25px;
-					    position: relative;
-					    display: inline-block;
-					    background: url('http://image.adidas.co.kr/images/adidas/event/customise/miadidas-interface.png') -13px -45px;
-
-						@include css3(transition,background 0s ease 0.15s);
-					}
-
 					.text{
 						position: relative;
 						top: 0;
+						left: -7px;
+						font-size: 14px;
 						@include opacity(1);
 					}
 
+					.arrow{
+						width: 10px;
+						top: 7px;
+					}
+
 					&.hover{
-						.arrow{
-							background-position:-55px -35px;
-						}
+						// .arrow{
+						// 	background-position:-55px -35px;
+						// }
 					}
 
 					&.out{
-						.arrow{
-							background-position:-13px -45px;
-						}
+						// .arrow{
+						// 	background-position:-13px -45px;
+						// }
 					}
 				}
 
 				.text{
 					width: 100%;
 					position: absolute;
-					top: 240px;
+					top: 0;
 					left: 0;
 
 					@include css3(transition , all 0.3s ease);
@@ -849,24 +847,15 @@ $width600:600px;
 						margin-bottom: 5px;
 						color: #5c5c5c;
 						text-align: center;
-						font:500 16px 'NotoSansKR','Nanum Gothic';
+						font:500 14px 'NotoSansKR','Nanum Gothic';
 						color: #333;
 						text-transform:uppercase;
 
 						span{
-							color: #b2b2b2;
-							font:18px 'adinenuPro-bold';
-							text-transform: lowercase;
+							font:13px 'adinenuPro-bold';
+							text-transform: uppercase;
 							letter-spacing:2px;
 						}
-					}
-
-					.desc{
-						top: 28px;
-						color: #5c5c5c;
-						font-size:16px;
-						letter-spacing:2px;
-						font:16px/20px 'adinenuPro-light';
 					}
 				}
 
@@ -883,7 +872,7 @@ $width600:600px;
 
 					.mi-button{
 						@include opacity(1);
-						@include css3(transform , translate3d(0,0,0));
+						@include css3(transform , translate3d(0,-5px,0));
 
 						.text{
 							top: 0;
