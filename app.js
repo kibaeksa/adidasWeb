@@ -94,18 +94,21 @@ function parseJsonData(target , source){
 
             if(target[key].htmlData){
                 for(; i < target[key].htmlData.length; i++){
-                    for(; j < source[key].htmlData.length; j++){
+                    if(source[key].htmlData && source[key].htmlData.length){
+                        for(; j < source[key].htmlData.length; j++){
 
-                        if(target[key].htmlData[i].name == source[key].htmlData[j].name){
+                            if(target[key].htmlData[i].name == source[key].htmlData[j].name){
 
-                            if(!!source[key].htmlData[j].desc){
-                                target[key].htmlData[i].desc = source[key].htmlData[j].desc;
-                                j = 0;
-                                break;
+                                if(!!source[key].htmlData[j].desc){
+                                    target[key].htmlData[i].desc = source[key].htmlData[j].desc;
+                                    j = 0;
+                                    break;
+                                }
                             }
                         }
+                        j = 0;
                     }
-                    j = 0;
+
                 }
             }
             i = 0;
