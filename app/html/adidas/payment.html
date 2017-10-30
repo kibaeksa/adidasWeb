@@ -250,7 +250,28 @@
 			   $(this).find('.tooltip-layer').show();
 		   },function(){
 			   $(this).find('.tooltip-layer').hide();
-		   })
+		   });
+
+
+
+		   // 	전문 동의
+			jQuery('.btn_miadi_noti').bind('click',function(){
+				var popHtml = '<div id="mi_notice_pop" style="width:100%;height:100%;position:fixed;top:0;left:0;z-index:500;">';
+				popHtml += '	<div style="width:100%;height:100%;background:#000;opacity:0.6;filter:alpha(opacity=60);-ms-filter:alpha(opacity=60);z-index:501;"></div>';
+				popHtml += '	<div style="width:630px;height:434px;padding:50px 50px 70px;background:#fff;z-index:502;position:absolute;top:50%;left:50%;margin:-277px 0 0 -315px;background:#fff;">';
+				popHtml += '		<a class="close" href="javascript:void(0)" style="position:absolute;top:0;right:0;"><img src="http://image.adidas.co.kr/images/adidas/event/sports16/sports16_btn_close.gif" alt=""/></a>';
+				popHtml += '		<p style="margin-bottom:25px;color:#444;font:700 25px/19px \'NotoSansKR\';">마이아디다스 유의사항</p>';
+				popHtml += '		<ol>';
+				popHtml += '			<li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">1.온라인스토어에서 본인이 직접 선택하여 입력한 정보(소재·색상·치수 등)에 오류가 없음을 충분히<br/>확인 하였습니다. (결제 완료 후 작업하신 <strong style="color:#f1902f;font-weight:normal;">제품 정보 수정이 불가</strong>함을 이해 하였습니다.)</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">2.온라인스토어 화면상에 표시된 제품, 소재, 원단, 부분품 등의 색감·크기, 자수의 크기·위치·색감, 문자(도형)의 서체·위치·크기가 실물과 다소 다를 수 있음을 이해 하였습니다.</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#f1902f;">3.주문된 제품은 주문일로부터 약 4주~6주가 소요될 수 있으며, 제작공정 및 부득이한 사정에 따라<br/>4~6주가 초과되어 배송될 수 있음을 알고 있습니다.<br/>본인은 불합리한 장기지연이 아닌 한, 배송지연에 따른 책임이 아디다스에 있지 않음을 이해 했습니다.</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">4.주문생산을 위하여 본인이 직접 선택 입력한 정보를 바탕으로 제조된 주문제작 제품이 본인에게 치수 등이 맞지 않는 등의 상황이 발생하더라도 이는 제품의 하자로 간주되지 않으며 수선, 교환, 환불의 대상이 되지 않음을 이해 했습니다.</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">5.본인이 선택하여 주문한 제품은 주문제작 제품으로서, <strong style="color:#f1902f;font-weight:normal;">주문 후 주문취소를 하거나 주문변경을 할 수 없음에<br/>동의합니다.</strong> 또한 주문제품이 본인 또는 본인이 지정한 자가 수령한 후, 본인이 선택한 디자인이나 색상에 불만이 있더라도 이는 교환이나 환불의 대상이 되지 않음을 이해 했습니다.</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">6.주문한 제품과 배송된 제품이 디자인, 색상 또는 사이즈 등이 명백히 다른 경우, <br/>관련 법(배송 받은 날(수령일)로부터 3개월이내 반품가능 등)에 따라 환불 받을 수 있으며 아디다스는 환불 이외에 어떠한 법적 책임을 지지 않음을 이해 했습니다.</li><li style="margin-bottom:5px;font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">7.네이밍 주문 제작 시 아디다스가 부적절하다고 판단하는 명칭이나 조합 [ex) 제3자의 상표권 침해, 미풍양속에 반하는 명칭 등]은 입력이 불가 할 수 있으며, 입력 후에도 아디다스가 부적절하다고 판단하는 경우 주문 취소 가능함을 이해 하였습니다.</li><li style="font:14px/19px \'NotoSansKR\',\'Nanum Gothic\';color:#444;">8.결제 완료 후 지정하신 <strong style="color:#f1902f;font-weight:normal;">배송 정보(주소,연락처 등) 수정이 불가</strong>함을 이해 하였습니다.</li>';
+				popHtml += '		</ol>';
+				popHtml += '	</div>';
+				popHtml += '</div>';
+				jQuery('body').append(popHtml);
+
+				jQuery('#mi_notice_pop .close').bind('click',function(){
+					jQuery('#mi_notice_pop').remove();
+				});
+			});
 
 		});
 
@@ -2263,6 +2284,19 @@
 							<!-- //161213 -->
 
 							<div class="checkout_btn">
+
+								<div class="agreebox">
+									<div class="input-ctm input-check-ctm ctm-check-blue mi">
+										<input type="checkbox" id="mi_check_agree">
+										<label for="mi_check_agree"><span class="ctm-box"><span class=" spt_bg"></span></span>마이 아디다스 상품 구매 동의</label>
+									</div>
+									<!-- 171030 마이 아디다스 동의 수정 -->
+									<a href="javascript:void(0);" class="view_term btn_miadi_noti">
+										<img src="/images/adidas/order/btn_view_miorder_notice.gif" alt="유의사항 전체보기" />
+									</a>
+									<!-- //171030 마이 아디다스 동의 수정 -->
+								</div>
+
 								<!-- 161109 -->
 								<div style="margin-bottom: 15px;">
 									<div class="input-ctm input-check-ctm">
@@ -2271,7 +2305,7 @@
 											<a class="ctm-box spt_bg" href="javascript:void(0)">
 												<span class=" spt_bg"></span>
 											</a>
-											비회원 구매 동의
+											선택한 결제 수단을 다음에도 사용
 										</label>
 									</div>
 								</div>
