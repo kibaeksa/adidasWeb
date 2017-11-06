@@ -1989,61 +1989,12 @@
 
 		<script type="text/javascript">
 			(function($){
-				// item_sliders
-				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
-				$.fn.productsSlider('.related-products .products-list-wrapper'); 
 
-				//main_slider
-				var main_length = $('.master_slide_wrapper .master-slide-container ul li').length;
-				var master_wrapper = $('.master_slide_wrapper');
-				var master_container = master_wrapper.find('.master-slide-container');
-				var master_list = master_container.find('>ul');
+				// 예약가능 버튼
+				$('.reserve_program .time_select li a').click(function(){
+					$(this).toggleClass('on');
+					$(this).parent('li').siblings('li').children('a').removeClass('on');
 
-
-				var sliders = $('#main_slider').Swipers({
-					width : 1920,
-					height : 700,
-					duration : 800,
-					easing : 'ease-out',
-					auto : true,
-					autoTime : 5000,
-					loop : true,
-					autoDuration : 3000,
-					init : function(length){
-
-						$(this).parent('.master_slide_wrapper').append((function(){
-							var htmlString_ = '<div class="num">';
-							for(var i = 0; i < length; i++){
-								if(i == 0){
-									htmlString_ += '<a href="javascript:void(0)" class="on"><span></span></a>';
-								}else{
-									htmlString_ += '<a href="javascript:void(0)"><span></span></a>';
-								}
-							}
-							return htmlString_;
-						})());
-
-						master_wrapper.find('.num').children('a').bind('click',function(){
-							sliders.move($(this).index());
-						});
-
-
-
-		            },
-					callback : function(index){
-						$('.master_slide_wrapper .num a').removeClass('on').eq(index).addClass('on');
-					}
-				});
-
-
-				master_wrapper.find('.next>span').bind('click',function(){
-					sliders.next();
-				});
-				master_wrapper.find('.prev>span').bind('click',function(){
-					sliders.prev();
-				});
-				master_wrapper.find('.num').children('a').bind('click',function(){
-					sliders.move($(this).index());
 				});
 
 
