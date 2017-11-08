@@ -723,7 +723,7 @@ window.requestAnimFrame = (function(){
 		;(function(){
 			var isEntered = false,
 				layerTimer;
-			$('#footer_wrap_160704 .sns .sns_box').bind('mouseenter',function(event){
+			$('#footer_wrap_170919 .sns .sns_box').bind('mouseenter',function(event){
 				event.stopPropagation();
 				if($(this).find('.layer').attr('class') !== undefined){
 					var layerElem = $(this).find('.layer');
@@ -732,7 +732,7 @@ window.requestAnimFrame = (function(){
 						layerElem.removeClass('active');
 					},3000);
 
-					$('#footer_wrap_160704 .sns .sns_box').each(function(){
+					$('#footer_wrap_170919 .sns .sns_box').each(function(){
 						if($(this).find('.layer').attr('class') !== undefined){
 							$(this).find('.layer').removeClass('active');
 						}
