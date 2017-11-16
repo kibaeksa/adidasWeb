@@ -1,160 +1,271 @@
 @import "./app/css/reebok/scss/about.scss";
 #contents_wrap{padding: 0;}
-.campaign_vector_wj{
-    position: relative;
-    min-width: 1200px;
-
-    .button{
-        width: 360px;
-        height: 66px;
-        display: inline-block;
-        background: #fff;
-        text-align: center;
-        span{
-            position: relative;
-            display: inline-block;
-            color: #000;
-            font:700 16px/66px 'NotoSansKR','Nanum Gothic';
-            letter-spacing: 8px;
-
-            .ico{
-                width: 15px;
-                height: 15px;
-                position: relative;
-                top: -1px;
-                display: inline-block;
-                background:url('/images/reebok/event/about/vector_winter_jacket/ico_button_arrow.png') 0 0 no-repeat;
-                vertical-align: middle;
+.campaign_vector_jacket{
+    .modal-popup-wrapper{
+        .popup-contents{
+            p{
+                font:13px/15px 'NotoSansKRLight';
+                color:#666666;
+                margin-bottom: 30px;
             }
+            .shop_head{
+            table{
+                width:100%;
+                th{
+                    height: 50px;
+                    border-top:1px solid #000;
+                    border-bottom: 1px solid #000;
+                    color:#000;
+                    font:13px/15px 'NotoSansKRBold';
+                    text-align: center;
 
+                }
+            }
+            }
+            .shop_cont{
+                height: 530px;
+                overflow-y: scroll;
+                border-bottom: 1px solid #000;
+            table{
+                width:100%;
+                td{
+                    height: 50px;
+                    border-bottom: 1px solid #ececec;
+                    color:#000;
+                    font:13px/15px 'NotoSansKRRegular';
+                    text-align: center;
+                    &.left{
+                        text-align: left;
+                        padding-left: 25px;
+                    }
+                }
+            }
+            }
         }
     }
-
-    .main{
-        width: 100%;
-        height: 1135px;
-        position: relative;
-        background: #036c81;
-
-        .background_box{
-            position: absolute;
-            top: 0;
-            left: 50%;
-            margin-left: -990px;
-            img{
+    .visual_video{
+        background: #000;
+        h2{
+            width: 950px;
+            height: inherit;
+            text-indent: 0;
+            background:none;
+            font:700 72px/76px 'dinpro bold' !important;
+            text-transform: uppercase;
+            span{
+                font:22px/45px 'NotoSansKRMedium' !important;
                 vertical-align: top;
+            }
+
+        }
+        .video_bg{
+            width: 100%;
+            .ie &{
+                video{
+                    width:100%;
+                    min-width: 1900px;
+                    height: 650px;
+                }
+            }
+        }
+        .desc_eng{
+            font:22px/45px 'NotoSansKR' !important;
+            text-transform: uppercase;
+            // letter-spacing: 12px;
+            letter-spacing: 0 !important;
+        }
+        .desc_eng2{
+            margin-bottom: 55px;
+            font:22px/28px 'NotoSansKRRegular','Nanum Gothic';
+        }
+
+        .bg{
+            @include opacity(0);
+            @include prefix-css3(transition ,opacity 1.2s ease-in);
+        }
+
+        .masthead{
+            @include opacity(0);
+            @include prefix-css3(transition ,opacity 1s ease-in);
+            &.active{
+                @include opacity(1);
             }
         }
 
-        .inner{
-            width: 890px;
-            position: relative;
-            margin: 0 auto;
-            padding-top: 75px;
-            z-index: 5;
-            text-align: center;
+        &.active{
+            .bg{
+                @include opacity(1);
+            }
+        }
 
-            h3{
-                margin-bottom: 35px;
-                font:300 48px/48px 'NotoSansKR','Nanum Gothic';
-                text-align: center;
-                color: #fff;
-                letter-spacing: 10px;
+        .video_bg{
+            &.ended{
+                @include opacity(0);
+                @include prefix-css3(transition ,opacity 1.6s ease-in);
+            }
+        }
+        .masthead{
+            @include opacity(0);
+            @include prefix-css3(transition,opacity 0.6s ease 1.5s);
 
-                strong{
-                    margin-top: 5px;
-                    font-weight: 700;
-                    font-size: 68px;
-                    line-height: 68px;
-                    text-align: center;
-                    display: block;
-                    letter-spacing:-0.25px;
+            &.active{
+                top:52%;
+                @include opacity(1);
+                h2{
+                    margin:0 auto;
+                }
+                .desc_eng{
+                    color:#fff;
                 }
             }
-
-            .desc{
-                margin-bottom: 40px;
+        }
+    }
+    .products_collection{
+        width: 100%;
+        height: 1063px;
+        position: relative;
+        background:url('/images/reebok/event/about/vector_winter_jacket/171116/bg_bottom_banner.jpg') no-repeat;
+        background-size: cover;
+        background-position: center center;
+        .bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left:-990px;
+            }
+            h4{
+                font: 60px/60px 'dinpro';
                 text-align: center;
                 color: #fff;
-                font: 23px/32px 'NotoSansKR','Nanum Gothic';
-
-                &.desc_bottom{
-                    margin-bottom: 35px;
-                    font-size: 20px;
-                }
-
-                strong{
-                    font-weight: 700;
-                }
-
-                .din{
-                    font-family: 'dinpro bold';
-                }
-
-                .sml{
-                    font-size: 16px;
-                }
-            }
-
-            .slide_wrapper{
-                width: 100%;
+                padding-top: 60px;
+                margin-bottom: 80px;
                 position: relative;
-                margin-bottom: 65px;
-                .slide_container{
-                    width: 890px;
-                    height: 499px;
-                    position: relative;
-                    overflow: hidden;
-                    border-top: 10px solid  #fff;
-                    border-bottom: 10px solid  #0d64d6;
 
-                    ul{
-                        overflow: hidden;
-                        li{
-                            float: left;
+                span{
+                    font:400 15px/35px 'NotoSansKR';
+                }
+                p{
+                    font:400 18px/35px 'NotoSansKR';
+                    padding-top: 10px;
+                    text-align: center;
+                }
+                a.buy{
+                    display: inline-block;
+                    height: 60px;
+                    padding: 0 10px;
+                    position: relative;
+                    border:1px solid #fff;
+                    background: #fff;
+                    color:#000;
+                    margin-top: 20px;
+                    transition: all 0.4s ease;
+                    span{
+                        position: relative;
+                        padding: 0 110px 0 90px;
+                        font:700 17px/58px 'NotoSansKR','Nanum Gothic';
+                        letter-spacing: 0.2rem;
+                        z-index: 2;
+                        .arrow {
+                            width: 16px;
+                            height: 16px;
+                            position: absolute;
+                            top: 50%;
+                            right: 90px;
+                            opacity: 1;
+                            margin-top: -6px;                            
+                            background: url('http://image.adidas.co.kr/images/reebok/event/about/vector_winter_jacket/ico_button_arrow.png') 0 0 no-repeat;
                         }
                     }
                 }
-                .indicator{
-                    width: 100%;
-                    position: absolute;
-                    bottom: -30px;
-                    left: 0;
+            }
+        p.title{
+            position: relative;
+            padding-bottom: 44px;
+            width: 100%;
+            font:18px/25px 'NotoSansKRlight';
+            text-align: center;
+            color:#fff;
+        }
+        .wide-slider-wrapper{
+            position: relative;
+            width: 100%;
+            height:550px;
+            left: inherit;
+            margin-left:inherit;
+            z-index: 1;
+            overflow: hidden;
+            background: #000;
+            .arrow-prev{
+                position: absolute;
+                top:46%;
+                left:50%;
+                margin-left: -420px;
+                background-position: -125px -80px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            .arrow-next{
+                position: absolute;
+                top:46%;
+                left:50%;
+                margin-left:420px;
+                background-position: -125px -125px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            ul{
+                position: absolute;
+                top:0;
+                width: 100%;
+                height: 550px;
+                li{
+                    width: 970px;
+                    position: relative;
+                    float: left;
+                    @include opacity(0.4);
+                    @include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+
+                }
+                li.active{
+                    @include opacity(1);
                 }
             }
+        }
+        }
 
-            .indicator{
+        .slider-btn{
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+            text-align: center;
+            a{
+                display: inline-block;
+                width: 12px;
+                height: 10px;
+                padding-top: 2px;
                 text-align: center;
-                a{
-                    width: 13px;
-                    height: 13px;
-                    margin: 0 3px;
-                    display: inline-block;
-                    border-radius: 50%;
+                margin-right: 8px;
+                background: #4d4d4d;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                color: #fff;
+                &.on{
                     background: #fff;
-                    @include opacity(0.25);
-
-                    &.on{
-                        @include opacity(1);
-                    }
                 }
             }
         }
-
-    }
-    /* main END */
-
-    .event_box{
-        position: relative;
-        height: 779px;
-        background: #1c1820;
-        .img{
-            position: absolute;
-            left: 50%;
-            top: 0;
-            margin-left: -990px;
-        }
-    }
-
 }
-/*  campaign_vintage_pack end */
+.event_box{
+    position: relative;
+    height: 779px;
+    background: #1c1820;
+    .img{
+        position: absolute;
+        left: 50%;
+        top: 0;
+        margin-left: -990px;
+    }
+}
+/* pump_supreme end */
