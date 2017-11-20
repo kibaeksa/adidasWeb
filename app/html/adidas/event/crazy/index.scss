@@ -59,7 +59,8 @@
 /* video_layer end */
 .video_wrap{
 	position: relative;
-	height: 850px;
+	// height: 850px;
+	padding-bottom: 52.0828%;
 	overflow: hidden;
 	z-index: 2;
 
@@ -73,13 +74,13 @@
 	.player{
 		position: absolute;
 		top:0;
-		left:50%;
-		margin-left: -982px;
+		// left:50%;
+		// margin-left: -982px;
 		z-index: 5;
 	}
 }
 /* ultra_boost */
-.pure_boost{
+.crazy{
 	position: relative;
 	background: #fff;
 	.version{
@@ -99,61 +100,34 @@
 		position: relative;
 		width:950px;
 		margin: 0 auto;
+		padding: 50px 0;
 	}
 
 	.inner_wrap{
 		min-width: 1280px;
 		overflow: hidden;
-		.main{
-			height: 660px;
-			padding-bottom: 30px;
-			.bg{
-				position: absolute;
-				top:0;
-				left:50%;
-				margin-left: -952px;
-				z-index: 1;
-			}
-			h2{
-				position: relative;
-				padding-top: 220px;
-				padding-bottom: 50px;
-				z-index: 2;
-			}
-			.btn{
-				&:hover{
-					a{
-						em{
-							margin-left: 20px;
-						}
-					}
-				}
-				a{
-					position: relative;
-					width:310px;
-					z-index: 2;
-					display: inline-block;
-					background: #fff;
-					font:16px/58px 'NotosansKRBold','Nanum Gothic';
-					color:#000;
-					text-align: center;
-					em{
-						display: inline-block;
-						margin-left: 5px;
-						width:14px;
-						height:13px;
-						background: url("http://image.adidas.co.kr/images/adidas/event/pure_boost_v2/icons.png");
-						@include css3(transition , all 0.5s);
-
-					}
-				}
-			}
-		}
 		.statement{
 			position: relative;
-			padding-bottom: 105px;
+			height: 376px;
+			background: url('/images/adidas/event/crazy/171120/bg_statement.jpg') 0 0 no-repeat;
+			background-size: auto 376px;
 			.inner{
-				height:405px;
+				padding: 30px 0;
+				text-align: center;
+				h2{
+					font:600 25px/25px 'NotosansKRBold','Nanum Gothic';
+					color: #fff;
+					text-align: center;
+				}
+				.statement_txt{
+					p{
+						padding: 20px 0 40px;
+						font:18px/25px 'NotosansKRBold','Nanum Gothic';
+						color: #fff;
+						text-align: center;
+					}
+				}
+				.btn-ctm{}
 			}
 			.txt{
 				position: relative;
@@ -183,6 +157,9 @@
 			}
 			.bg{
 				text-align: center;
+				img{
+					width: 100%;
+				}
 			}
 			.masthead{
 				position: absolute;
@@ -200,8 +177,8 @@
 					@include css3(transition , all 0.5s);
 					&:after{
 						position: absolute;
-						top:38px;
-						left:46px;
+						top:35px;
+						left:41px;
 						content: "";
 						width:25px;
 						height:31px;
@@ -215,6 +192,60 @@
 				}
 			}
 		}
+		.slider_area{
+			overflow: hidden;
+			position: relative;
+			height: 1291px;
+			.bg{
+				position: absolute;
+				top:0px;
+				left:50%;
+				margin-left: -960px;
+				z-index: 1;
+			}
+			.slider_wrap{
+				position: absolute;
+				top: 520px;
+				left: 50%;
+				margin-left: -475px;
+				z-index: 5;
+				.prev-button{
+					position: absolute;
+					top: 50%;
+					left: -30px;
+				}
+				.next-button{
+					position: absolute;
+					top: 50%;
+					right: -30px;
+				}
+				.indicator{
+					position: absolute;
+					bottom: -30px;
+					left: 50%;
+					margin-left: -41px;
+					a{
+						margin-right: 10px;
+						&:last-child{
+							margin-right: 0;
+						}
+						span{
+							display: inline-block;
+						    width: 10px;
+						    height: 10px;
+						    border-radius: 50%;
+							background: #fff;
+							@include opacity(0.8)
+						}
+						&.on{
+							span{
+								@include opacity(1);
+							}
+						}
+					}
+				}
+			}
+		}
 		.img{
 			position: absolute;
 			overflow: hidden;
@@ -222,46 +253,6 @@
 				position: relative;
 				.mm{
 					position: absolute;
-				}
-				.smoke{
-					position: absolute;
-					top:600px;
-					// left:50px;
-					z-index: 50;
-
-
-					animation-name: smoke;
-					animation-duration: 2s;
-					animation-iteration-count: infinite;
-					animation-timing-function: linear;
-
-					-webkit-animation-name: smoke;
-					-webkit-animation-duration: 2s;
-					-webkit-animation-iteration-count: infinite;
-					-webkit-animation-timing-function: linear;
-
-					-ms-animation-name: smoke;
-					-ms-animation-duration: 2s;
-					-ms-animation-iteration-count: infinite;
-					-ms-animation-timing-function: linear;
-
-					@include animation(0s,1.5s,smoke);
-
-					img{
-						width:100%;
-					}
-				}
-				&:after{
-					content: '';
-					display: block;
-					width:100%;
-					height:100%;
-					background: #fff;
-					position: absolute;
-					top:0;
-					left:0;
-					// @include opacity(1);
-					@include css3(transition , left 0.5s);
 				}
 			}
 			&.scroll{
@@ -273,52 +264,27 @@
 				}
 			}
 			&.img1{
-				top:90px;
-				left:-86px;
+				top:0;
+				left:0;
+				img{
+					width: 580px;
+				}
 			}
 			&.img2{
-				top:0px;
-				right:-300px;
-			}
-			&.img3{
-				top:-83px;
-				left:-368px;
-			}
-			&.img4{
 				top:0;
-				right:-206px;
-			}
-			&.img5{
-				top:395px;
-				left:-350px;
-			}
-			&.img6{
-				top:0;
-				left:-206px;
+				right:0;
 				z-index: 1;
-			}
-			&.img7{
-				top:17px;
-				right:-365px;
-				z-index: 2;
-			}
-			&.img8{
-				top:520px;
-				right:-376px;
-				z-index: 2;
-			}
-			&.img9{
-				top:25px;
-				right:-397px;
-				z-index: 2;
+				img{
+					width: 580px;
+				}
 			}
 		}
 		.buy{
 			display: inline-block;
-			width:246px;
-			background: #000;
-			font:15px/53px 'NotosansKRRegular','Nanum Gothic';
-			color:#fff;
+			width:150px;
+			background: #fff;
+			font:600 12px/50px 'NotosansKRRegular','Nanum Gothic';
+			color:#000;
 			text-align: center;
 			&:hover{
 				em{
@@ -331,22 +297,26 @@
 				width:14px;
 				height:13px;
 				background: url("http://image.adidas.co.kr/images/adidas/event/pure_boost_v2/icons.png");
-				background-position: 100% 0;
+				background-position: 0 0;
+				vertical-align: middle;
 				@include css3(transition , all 0.5s);
 			}
 		}
 		.prd_cut{
 			position: relative;
-			padding-top: 205px;
+			background: #222;
 			h3{
 				position: relative;
-				padding-top: 235px;
-				padding-bottom: 233px;
+				padding-top: 150px;
+				padding-bottom: 150px;
 				z-index: 5;
 				p{
-					font:15px/22px 'NotosansKRRegular','Nanum Gothic';
-					color:#000;
+					color:#fff;
+					&.cut_title{
+						font:32px/32px 'adihaus-medium';
+					}
 					&.desc{
+						font:600 14px/22px 'NotosansKRRegular','Nanum Gothic';
 						width: 300px;
 						padding-top: 20px;
 						padding-bottom: 40px;
@@ -356,75 +326,25 @@
 			}
 			.cut{
 				position: relative;
-				height: 652px;
-				padding-bottom: 200px;
 				&.cut1{
 					h3{
-						padding-left: 0;
+						padding-left: 575px;
 					}
 				}
 				&.cut2{
 					h3{
-						padding-left: 675px;
-					}
-				}
-				&.cut3{
-					.img5{
-						top:217px;
-						left:-300px;
-					}
-				}
-				&.cut4{
-					h3{
-						padding-left: 675px;
-					}
-
-				}
-
-			}
-
-		}
-		.campaign-content{
-			position: relative;
-			background: #000;
-			@include css3(transition , opacity 0.5s);
-
-			@include opacity(0);
-
-			&.scroll{
-				@include opacity(1);
-			}
-			.image-grids{
-				.image-grid{
-					.col{
-						.img2-3{
-							position: relative;
-							padding-bottom: 17.85%;
-						    background: url("http://image.adidas.co.kr/images/adidas/event/pure_boost_v2/bg.jpg") center center no-repeat;
-							background-size: 100%;
-							.buy{
-								position: absolute;
-								top: 61%;
-    							left: 10%;
-							}
-						}
+						padding-left: 100px;
 					}
 				}
 			}
+
 		}
 
 		.banner_wrap{
+			background: #222;
 			padding-bottom: 102px;
-			h3{
-				padding: 148px 0;
-				font:36px/36px 'adinenuPro-black';
-				color:#000;
-				text-align: center;
-
-			}
 			.banners{
 				text-align: center;
-
 				ul{
 					display: inline-block;
 					li{
@@ -435,11 +355,60 @@
 						width:345px;
 						height: 450px;
 						overflow: hidden;
+						&:hover{
+							.masthead{
+								.play{
+									background: #000;
+									border:3px solid #000;
+									&:after{
+										background-position: 100% 0;
+									}
+								}
+							}
+						}
 						img{
 							@include css3(transition , all 3s);
 						}
+						.masthead{
+							position: absolute;
+							top:50%;
+							left:50%;
+							.play{
+								position: relative;
+								display: inline-block;
+								width:64px;
+								height: 64px;
+								margin-left: -32px;
+								margin-top: -32px;
+								border:2px solid #fff;
+								border-radius: 50%;
+								cursor: pointer;
+								@include css3(transition , all 0.5s);
+								&:after{
+									position: absolute;
+									top:18px;
+									left:22px;
+									content: "";
+									width:20px;
+									height:23px;
+								    display: block;
+									background: url("/images/adidas/event/crazy/btn_arrow.png");
+									background-position: 0 0;
+									background-size: 40px;
+									@include css3(transition , all 0.5s);
 
+								}
 
+							}
+						}
+						p{
+							position: absolute;
+							bottom: 30px;
+							width: 100%;
+							font: 18px/18px 'adihaus-medium';
+							color: #fff;
+							text-align: center;
+						}
 						&:hover{
 							img{
 								transform: scale(1.1);
@@ -447,13 +416,6 @@
 						}
 						&.last{
 							margin-right: 0px;
-						}
-						.buy{
-							position: absolute;
-							top:362px;
-							left:50%;
-							margin-left: -140px;
-							width:280px;
 						}
 					}
 				}
@@ -467,13 +429,3 @@
 /*
  * For ie old version
  */
-
-@include keyframe(smoke){
-	0%{
-		top:500px;
-	}
-
-	100%{
-	    top:0;
-	}
-}
