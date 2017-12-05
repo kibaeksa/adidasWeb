@@ -19,7 +19,7 @@
 				font:1.2rem/2rem 'adinenuPro-black';
 				text-transform: uppercase;
 				color:#aaaaaa;
-				transition: all 1.2s;
+				@include css3(transition, all 1.2s);
 				span{
 					position: absolute;
 					bottom:0px;
@@ -28,14 +28,17 @@
 					width: 17px;
 					height: 9px;
 					background:url('http://image.adidas.co.kr/images/adidas/event/ecomzone_k_171130/arrow.png') no-repeat;
-					opacity: 0;
-					transition: all 0.5s;
+					@include css3(opacity, 0);
+					@include css3(transition, all 0.5s);
+					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
 				}
 				&.on{
 					color:#000;
 					span{
 						bottom:-10px;
-						opacity: 1;
+						@include css3(opacity, 1);
+						-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 
 					}
 				}
@@ -65,40 +68,36 @@
 					width: 100%;
 					// height: 228px;
 					// height: 20rem;
-					opacity: 0;
+					@include css3(opacity, 0);
 					overflow: hidden;
-					transition: opacity 0.5s;
+					@include css3(transition, opacity 0.5s);
+					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+
 					.img{
-						transform: scale(1);
-						transition: opacity 0.5s, transform 10s;
-						transition-delay: 0.5s;
+						@include css3(transform, scale(1));
+						@include css3(transition, opacity 0.5s, transform 10s);
+						@include css3(transition-delay, 0.5s);
+
 						img{
 							width: 100%;
 						}
 					}
-					&.online{
-						// background: url('ecomzone/online_bg.jpg') no-repeat;
-						// background-size: auto 100%;
-						// background-position: center center;
-					}
-					&.newarrival{
-						// background: url('ecomzone/newarrival_bg.jpg') no-repeat;
-						// background-size: auto 100%;
-						// background-position: center center;
-					}
-					&.topseller{
-						// background: url('ecomzone/topseller_bg.jpg') no-repeat;
-						// background-size: auto 100%;
-						// background-position: center center;
-					}
+
 					&.on{
-						opacity: 1;
+						@include css3(opacity, 1);
+						-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+
+						z-index: 5;
 						.img{
-							transform: scale(1.15);
+							@include css3(transform, scale(1.15));
+
 						}
 						.txt{
 							// top:50%;
-							opacity: 1;
+							@include css3(opacity, 1);
+							-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+
 						}
 					}
 					.txt{
@@ -106,9 +105,14 @@
 						position: absolute;
 						top:50%;
 						left:50%;
-						transform: translate(-50%,-50%);
-						opacity: 0;
-						transition: all 0.8s;
+						@include css3(transform, translate(-50%,-50%));
+						@include css3(opacity, 0);
+						@include css3(transition, all 0.8s);
+						-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+
+						// transition: all 0.8s;
+						// -webkit-transition: all 0.8s;
 						// transition-delay: 0.8s;
 					}
 					p{
@@ -133,21 +137,20 @@
 				left:0;
 				right:0;
 				opacity: 0;
-				// -webkit-opacity: 0;
-				// transition-delay: 2s;
-				// transition: opacity 0.4s;
-
+				-webkit-opacity: 0;
+				-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 				&.on{
 					z-index: 2;
 					opacity: 1;
 					-webkit-opacity: 1;
+					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 					.prd_section{
 					    // margin: 30px 13rem 0;
 						transition: all 0.8s;
+						-webkit-transition: all 0.8s;
 						// transition-delay: 1s;
 						&.active{
 							margin: 2rem 0rem 20px;
-
 							.box{
 								.tit{
 									width: 30px;
@@ -162,6 +165,9 @@
 										}
 										&.price{
 											opacity: 1;
+											-webkit-opacity: 1;
+											-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+
 											font:400 13px 'NotoSansKR';
 											span{
 												display: inline-block;
@@ -203,7 +209,6 @@
 									}
 								}
 							}
-
 						}
 						.box{
 							position: relative;
@@ -228,7 +233,8 @@
 								color:#fff;
 								font:11px/18px 'adinenuPro-bold';
 								 z-index: 2;
-								transition: all 0.5s;
+								 transition: all 0.5s;
+								 -webkit-transition: all 0.5s;
 							}
 						}
 						&:after{
@@ -241,6 +247,7 @@
 				}
 				.prd_section{
 					margin: 2rem 10rem 20px;
+					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 					// margin: 30px 13rem 0;
 					@media screen and (min-width: 1080px ) {
 						margin: 2rem 13rem 20px;
@@ -286,11 +293,15 @@
 								color:#000;
 								font:13px 'NotoSansKR';
 								transition: all 1.2s;
+								-webkit-transition: all 1.2s;
 								&.title{
 									font:13px 'NotoSansKR';
 								}
 								&.price{
 									opacity: 0;
+									-webkit-opacity: 0;
+									-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
 								}
 							}
 						}
@@ -332,16 +343,88 @@
 			top:50%;
 			left:50%;
 			width: 100%;
-		    transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		    -webkit-transform: translate(-50%, -50%);
 			p{
 				text-align: center;
 				color:#fff;
-    			font: 700 1.5rem/2rem 'NotoSansKR';
+    			font: 700 1.5rem/2rem 'NotoSansKR', 'Nanum Gothic';
 				letter-spacing: -0.5px;
 				&.logo{
     				padding: 0 0 11px 0;
 				}
 
+			}
+		}
+	}
+}
+
+.ie10, .ie9, .ie8{
+	#ecomzone{
+		.header{
+			ul{
+				li{
+					font:20px/30px "adiBlack";
+				}
+			}
+		}
+
+		.date{
+			p{
+				font: 400 12px "NotoSansKR", "Nanum Gothic"
+			}
+		}
+
+	}
+}
+
+.ie8{
+	#ecomzone{
+		.header{
+			ul{
+				li{
+					&.on{
+						font-weight: bold;
+						span{
+							display: block;
+						}
+					}
+					span{
+						display: none;
+					}
+				}
+			}
+		}
+		.container{
+			.main_visual{
+				ul{
+					li{
+						padding: 20px 0;
+						.txt{
+							top:35%;
+							left:auto;
+						}
+
+					}
+				}
+			}
+			.prd_wrapper{
+				.prd_wrap{
+					.prd_section{
+						margin:5% 20% 0% 20%;
+						.box{
+							.title{
+								p{
+									&.price{
+										.pre_price{
+											display: inline-block;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
