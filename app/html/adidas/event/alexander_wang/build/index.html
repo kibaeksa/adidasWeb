@@ -1167,31 +1167,9 @@
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
 
-			(function() {
-				var lastTime = 0;
-				var vendors = ['ms', 'moz', 'webkit', 'o'];
-				for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-					window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-					window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-											   || window[vendors[x]+'CancelRequestAnimationFrame'];
-				}
 
-				if (!window.requestAnimationFrame)
-					window.requestAnimationFrame = function(callback , timer){
-						console.log('1werwr1');
-						var t = timer !=undefined ? timer : 10;
-						setTimeout(callback , t);
-					};
-
-				if (!window.cancelAnimationFrame)
-					window.cancelAnimationFrame = function(id) {
-						clearTimeout(id);
-					};
-			}());
 
 				(function($){
-
-
 
 					// $(".main_button").mouseenter(function(){
 					// 	random(wordArray1 , 'text1');
