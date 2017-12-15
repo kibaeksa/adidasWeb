@@ -1071,34 +1071,14 @@
 										<span style="font-size:50px;padding-left:145px;">DECEMBER 15 TH</span>
 									</p>
 									<div class="btn">
-										<a href="#">
+										<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=437">
 											<span>구매하기</span>
 											<span class="arrow_ico"></span>
 										</a>
 									</div>
 								</div>
 							</div>
-							<!-- <div class="box box7">
-								<div class="bg">
-									<div class="bg1"></div>
-									<div class="bg2"></div>
-								</div>
-								<div class="inn">
-									<p class="title">[PROPHERE]</p>
-								</div>
-							</div>
-							<div class="box box8">
-								<div class="bg">
-									<div class="bg1"></div>
-									<div class="bg2"></div>
-								</div>
-								<div class="inn">
-									<p class="title">[PROPHERE]</p>
-									<p>
-										<span>DECEMBER 15 TH</span>
-									</p>
-								</div>
-							</div> -->
+
 
 						</div>
 					</div>
@@ -1133,14 +1113,6 @@
 							<div class="btn"><span></span></div>
 							<em>06</em>
 						</div>
-						<!-- <div class="btn_wrap">
-							<div class="btn"><span></span></div>
-							<em>07</em>
-						</div>
-						<div class="btn_wrap">
-							<div class="btn"><span></span></div>
-							<em>08</em>
-						</div> -->
 					</div>
 				</div>
 
@@ -1226,6 +1198,11 @@
 
 					//slider
 					$('#prophere .prev').hide();
+
+					// var rolling = setInterval(auto,1000)
+
+
+
 					var slider = function(obj){
 						var index = 0;
 						var elem = $(obj);
@@ -1248,7 +1225,7 @@
 								indibtn.children('span').css({'left':'-100%'});
 								// indibtn.children('span').eq(len -1).animate({'left':'100%'},btntimer);
 								indibtn.children('span').eq(len-1 ).animate({'left':0},btntimer);
-								btn.removeClass('on').eq(7).addClass('on');
+								btn.removeClass('on').eq(len-1).addClass('on');
 
 								index = len;
 								next.hide();
@@ -1322,7 +1299,65 @@
 
 						})
 
+						function auto(){
+							if(index > len-2){
+
+								// index = 0;
+								// elemslide.animate({'left':-1920*index+'px'},btntimer);
+								// item.removeClass('active').eq(0).addClass('active');
+								// indibtn.children('span').css({'left':'-100%'});
+								// indibtn.children('span').eq(0).animate({'left':0},btntimer);
+								// btn.removeClass('on').eq(0).addClass('on');
+                                //
+								// next.show();
+								// prev.hide();
+								console.log(index)
+
+
+							}
+							else{
+								index++;
+								elemslide.animate({'left':-1920*index+'px'},btntimer);
+								item.removeClass('active').eq(index).addClass('active');
+								indibtn.children('span').css({'left':'-100%'});
+								indibtn.children('span').eq(index-1).animate({'left':'100%'},btntimer);
+								indibtn.children('span').eq(index).animate({'left':0},btntimer);
+								btn.removeClass('on').eq(index).addClass('on');
+
+								next.show();
+								prev.show();
+								console.log(index)
+								if(index == 5){
+									next.hide();
+									index =5;
+								}
+
+							}
+						}
+
+						function rollingonce (){
+							setInterval(auto,4500);
+
+
+								// setInterval(auto,4500);
+								// if(index == 5){
+								// 	return false;
+								// 	console.log(ccc)
+								// }
+
+
+						}
+
+						function setTimerolling(){
+							setTimeout(rollingonce,10800);
+						}
+
+						return setTimerolling();
+
+
 					}
+
+
 
 					$('.content').each(function(){
 						slider(this);
