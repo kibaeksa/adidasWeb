@@ -1,0 +1,1590 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+html.no_scroll {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.video_layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  .close {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    background-position: 0 -685px;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    transition: opacity 0.4s ease-in 0.2s;
+    -webkit-transition: opacity 0.4s ease-in 0.2s;
+  }
+  .bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s;
+    -webkit-transition: opacity 0.4s;
+  }
+  &.loaded {
+    .bg {
+      opacity: 0.6;
+      -ms-filter: alpha(opacity = 60);
+      filter: alpha(opacity = 60);
+    }
+    .close {
+      opacity: 1;
+      -ms-filter: alpha(opacity = 100);
+      filter: alpha(opacity = 100);
+    }
+  }
+  .video {
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+#bts {
+  position: relative;
+  background: #fff;
+  a {
+    &.button {
+      display: block;
+      margin-top: 35px;
+      width: 261px;
+      height: 48px;
+      font: 16px/44px 'NotoSansKR','Nanum Gothic';
+      border: 2px solid #2faf92;
+      color: #2faf92;
+      transition: all 0.8s;
+      -webkit-transition: all 0.8s;
+      -moz-transition: all 0.8s;
+      -o-transition: all 0.8s;
+      -ms-transition: all 0.8s;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+    &:hover.button {
+      background: #2faf92;
+      color: #fff;
+      border: 2px solid #2faf92;
+      font: 16px/44px 'NotoSansKR','Nanum Gothic';
+    }
+  }
+  .main_visual {
+    position: relative;
+    overflow: hidden;
+    img {
+      position: relative;
+      top: 0;
+      margin-left: -952px;
+      left: 50%;
+    }
+    .txt {
+        display: block;
+        padding: 50px 0;
+        text-align: center;
+      p {
+        font: 40px 'NotoSansKR';
+        color: #000;
+        letter-spacing: -0.1rem;
+        text-align: center;
+        strong{
+
+        }
+      }
+      span {
+          text-align: center;
+          display: block;
+            color: #000;
+        font: 16px 'NotoSansKRRegular','Nanum Gothic';
+        padding: 25px 0 0;
+        strong{
+            font-size: 700;
+        }
+      }
+      a {
+        &.button {
+          display: inline-block;
+          margin-top: 35px;
+          width: 260px;
+          height: 48px;
+          font: 16px/44px 'NotoSansKR','Nanum Gothic';
+          border: 2px solid #000;
+          background: #000;
+          color: #fff;
+          transition: all 0.8s;
+          -webkit-transition: all 0.8s;
+          -moz-transition: all 0.8s;
+          -o-transition: all 0.8s;
+          -ms-transition: all 0.8s;
+          letter-spacing: -1px;
+          text-align: center;
+        }
+        &:hover.button {
+          background: #fff;
+          color: #000;
+          border: 2px solid #000;
+          font: 16px/44px 'NotoSansKR','Nanum Gothic';
+        }
+      }
+    }
+  }
+  .cont1 {
+    position: relative;
+    height: 880px;
+    background: #edf6ff;
+    .txt {
+      position: absolute;
+      left: 50%;
+      top: 215px;
+      margin-left: -475px;
+    }
+    .img {
+      position: absolute;
+      right: 50%;
+      top: 100px;
+      margin-right: -550px;
+    }
+    .txt {
+      h3 {
+        font: 40px/40px 'adihausDIN-Cond','Nanum Gothic';
+        color: #000;
+        letter-spacing: 8px;
+      }
+      .sub_title {
+        font: 24px/40px 'NotoSansKRLight','Nanum Gothic';
+        color: #000;
+      }
+      .line {
+        overflow: hidden;
+        margin-top: 20px;
+        hr {
+          width: 25px;
+          height: 3px;
+          background: #000;
+          border: none;
+          float: left;
+        }
+      }
+      p {
+        margin-top: 25px;
+        font: 15px/23px "NotoSansKRRegular", "Nanum Gothic";
+        color: #000;
+      }
+      a.button {
+        float: left;
+        width: 240px;
+        margin-top: 30px;
+      }
+    }
+  }
+  .content_box {
+      width: 100%;
+      position: relative;
+
+      .inner {
+          position: relative;
+          height: 41%;
+          z-index: 2;
+      }
+
+      .bg,
+      .img_bg {
+          width: 100%;
+          position: absolute;
+          left: 0;
+          z-index: 1;
+      }
+
+      .img_box {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          z-index: 2;
+      }
+
+      .bg img {}
+
+      &.intro {
+          height: 2000px;
+          background: url('http://image.adidas.co.kr/images/adidas/event/climazone/171110/main_bg.jpg')top center no-repeat;
+
+          .img-1 {
+              margin-left: -450px;
+              top: 0;
+              left: 50%;
+
+              img {
+                  width: 1379px;
+              }
+          }
+
+          .img-2 {
+              width: 479px;
+              height: 828px;
+              position: relative;
+              margin-left: -660px;
+              top: 135px;
+
+              img {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  opacity: 0;
+                  filter: alpha(opacity = 0);
+                  -ms-filter: alpha(opacity = 0);
+                  transition: opacity 1.5s;
+                  -webkit-transition: opacity 1.5s;
+
+                  &.active {
+                      opacity: 1;
+                      filter: alpha(opacity = 100);
+                      -ms-filter: alpha(opacity = 100);
+                  }
+                  width: 479px;
+              }
+          }
+
+          .img_bg-1 {
+              left: 50%;
+              margin-left: -703px;
+              top: 140px;
+              z-index: 2;
+          }
+      }
+      &.box4 {
+          padding: 100px 0;
+          .img-1 {
+              margin-left: 0;
+              left: auto;
+              right: 80px;
+              .image_wrapper {
+                  width: 800px;
+                  height: 1100px;
+              }
+              .image_wrapper_bg {
+                  width: 867px;
+                  height: 1146px;
+                  position: absolute;
+                  top: -46px;
+                  right: -43px;
+              }
+          }
+
+          .img-2 {
+              margin-left: 0;
+              right: auto;
+              left: 80px;
+
+              .image_wrapper {
+                  width: 800px;
+                  height: 1100px;
+                  z-index: 2;
+              }
+
+              .image_wrapper_bg {
+                  width: 867px;
+                  height: 1146px;
+                  position: absolute;
+                  top: -46px;
+                  right: -43px;
+              }
+          }
+
+          .image_wrapper2 {
+              position: absolute;
+              width: 149px;
+              height: 1102px;
+              top: 195px;
+              left: -1023px;
+              z-index: 5;
+          }
+
+          .image_wrapper2_bg {
+              width: 178px;
+              height: 1089px;
+              position: absolute;
+              top: 238px;
+              left: -1023px;
+              z-index: 4;
+          }
+
+          .image_wrapper2 {
+              .box {
+                  width: 149px;
+                  height: 1102px;
+                  overflow: hidden;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  transition: all 0 ease-in;
+                  -webkit-transition: all 0 ease-in;
+                  opacity: 0;
+
+                  > img {
+                      transform: scale(1.1);
+                      -webkit-transform: scale(1.1);
+                      transition: all 0 ease;
+                      -webkit-transition: all 0 ease;
+                  }
+
+                  &.active {
+                      opacity: 1;
+                      z-index: 2;
+                      transition-duration: 0.6s;
+                      -webkit-transition-duration: 0.6s;
+
+                      > img {
+                          transform: scale(1);
+                          -webkit-transform: scale(1);
+                          transition-duration: 1s;
+                          -webkit-transition-duration: 1s;
+                      }
+                  }
+
+                  &.disable {
+                      opacity: 1;
+
+                      img {
+                          transition-duration: 1.5s;
+                          -webkit-transition-duration: 1.5s;
+                          transform: scale(0.99);
+                          -webkit-transform: scale(0.99);
+                      }
+                  }
+              }
+          } 
+          .txt-1 {
+              top: 130px;
+              left: auto;
+              right: 955px;
+          }
+
+          .txt-2 {
+              top: 130px;
+              right: auto;
+              left: 895px;
+              z-index: 11;
+          }
+
+          .tech_slider .arrow {
+              margin-top: -110px;
+          }
+
+          .tech_detail_slider_wrapper {
+              top: 1400px;
+              bottom: 0;
+          }
+
+          .tech_wrap {
+              width: 325px;
+              margin-top: 40px;
+              margin-left: 157px;
+
+              h5 {
+                  position: relative;
+                  font: 12px 'NotoSansKRBold','Nanum Gothic';
+                  color: #000;
+
+                  .line {
+                      width: 165px;
+                      height: 1px;
+                      background: #e6e6e6;
+                      position: absolute;
+                      top: 10px;
+                      left: 95px;
+                      display: block;
+                  }
+
+                  .ico {
+                      width: 7px;
+                      height: 10px;
+                      display: block;
+                      position: absolute;
+                      top: 6px;
+                      left: 275px;
+                      background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                  }
+              }
+
+              .tech_icons {
+                  padding-top: 25px;
+                  overflow: hidden;
+
+                  li {
+                      width: 98px;
+                      height: 74px;
+                      float: left;
+                      margin-right: 15px;
+
+                      &.t3 {
+                          margin-right: 0;
+                      }
+
+                      a {
+                          display: block;
+                          width: 60px;
+                          height: 48px;
+                      }
+
+                      span {
+                          margin: 0 auto;
+                          height: 48px;
+                          display: block;
+                          background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                      }
+
+                      &.t1 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: 0 0;
+                          }
+
+                          a.active span {
+                              background-position: 0 -81px;
+                          }
+                      }
+
+                      &.t2 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -109px 0;
+                          }
+
+                          a.active span {
+                              background-position: -109px -81px;
+                          }
+                      }
+
+                      &.t3 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -221px 0;
+                          }
+
+                          a.active span {
+                              background-position: -221px -81px;
+                          }
+                      }
+                  }
+              }
+
+              .tech_contents {
+                  position: relative;
+                  margin-top: 40px;
+
+                  .tech_box {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      opacity: 0;
+                      filter: alpha(opacity = 0);
+                      -ms-filter: alpha(opacity = 0);
+                      transition: opacity 0.4s;
+                      -webkit-transition: opacity 0.4s;
+
+                      &.active {
+                          opacity: 1;
+                          filter: alpha(opacity = 100);
+                          -ms-filter: alpha(opacity = 100);
+                      }
+
+                      h6 {
+                          margin-bottom: 20px;
+                          color: #000;
+                          font: 700 23px 'NotoSansKR','Nanum Gothic';
+                      }
+
+                      .tech_desc {
+                          width: 355px;
+                          color: #000;
+                          font: 500 16px 'NotoSansKR','Nanum Gothic';
+                      }
+                  }
+              }
+          }
+
+          .tech_wrap2 {
+              width: 325px;
+              margin-top: 40px;
+              margin-left: 157px;
+
+              h5 {
+                  position: relative;
+                  font: 12px 'NotoSansKRBold','Nanum Gothic';
+                  color: #000;
+
+                  .line {
+                      width: 165px;
+                      height: 1px;
+                      background: #e6e6e6;
+                      position: absolute;
+                      top: 10px;
+                      left: 95px;
+                      display: block;
+                  }
+
+                  .ico {
+                      width: 7px;
+                      height: 10px;
+                      display: block;
+                      position: absolute;
+                      top: 6px;
+                      left: 275px;
+                      background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                  }
+              }
+
+              .tech_icons {
+                  padding-top: 25px;
+                  overflow: hidden;
+
+                  li {
+                      width: 98px;
+                      height: 74px;
+                      float: left;
+                      margin-right: 15px;
+
+                      &.t3 {
+                          margin-right: 0;
+                      }
+
+                      a {
+                          display: block;
+                          width: 60px;
+                          height: 48px;
+                      }
+
+                      span {
+                          margin: 0 auto;
+                          height: 48px;
+                          display: block;
+                          background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                      }
+
+                      &.t1 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: 0 0;
+                          }
+
+                          a.active span {
+                              background-position: 0 -81px;
+                          }
+                      }
+
+                      &.t2 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -109px 0;
+                          }
+
+                          a.active span {
+                              background-position: -109px -81px;
+                          }
+                      }
+
+                      &.t3 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -221px 0;
+                          }
+
+                          a.active span {
+                              background-position: -221px -81px;
+                          }
+                      }
+                  }
+              }
+
+              .tech_contents {
+                  position: relative;
+                  margin-top: 40px;
+
+                  .tech_box {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      opacity: 0;
+                      filter: alpha(opacity = 0);
+                      -ms-filter: alpha(opacity = 0);
+                      transition: opacity 0.4s;
+                      -webkit-transition: opacity 0.4s;
+
+                      &.active {
+                          opacity: 1;
+                          filter: alpha(opacity = 100);
+                          -ms-filter: alpha(opacity = 100);
+                      }
+
+                      h6 {
+                          margin-bottom: 20px;
+                          color: #000;
+                          font: 700 23px 'NotoSansKR','Nanum Gothic';
+                      }
+
+                      .tech_desc {
+                          width: 355px;
+                          color: #000;
+                          font: 500 16px 'NotoSansKR','Nanum Gothic';
+                      }
+                  }
+              }
+          }
+      }
+
+      &.box5 {
+          height: 2600px;
+          background-color: #eff5f6;
+          padding-top: 300px;
+
+          .img-1 {
+              margin-left: 0;
+              left: auto;
+              right: 240px;
+
+              .image_wrapper {
+                  width: 640px;
+                  height: 920px;
+                  z-index: 2;
+              }
+
+              .image_wrapper_bg {
+                  width: 709px;
+                  height: 985px;
+                  position: absolute;
+                  top: -46px;
+                  right: -37px;
+              }
+          }
+
+          .img-2 {
+              margin-left: 0;
+              right: auto;
+              left: 240px;
+
+              .image_wrapper {
+                  width: 640px;
+                  height: 920px;
+                  z-index: 2;
+              }
+
+              .image_wrapper_bg {
+                  width: 709px;
+                  height: 917px;
+                  position: absolute;
+                  top: 50px;
+                  right: -43px;
+              }
+          }
+
+          .image_wrapper2 {
+              position: absolute;
+              width: 149px;
+              height: 1102px;
+              top: 195px;
+              left: -1023px;
+              z-index: 5;
+          }
+
+          .image_wrapper2_bg {
+              width: 178px;
+              height: 1089px;
+              position: absolute;
+              top: 238px;
+              left: -1079px;
+              z-index: 4;
+          }
+
+          .image_wrapper2 {
+              .box {
+                  width: 149px;
+                  height: 1102px;
+                  overflow: hidden;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  transition: all 0 ease-in;
+                  -webkit-transition: all 0 ease-in;
+                  opacity: 0;
+
+                  > img {
+                      transform: scale(1.1);
+                      -webkit-transform: scale(1.1);
+                      transition: all 0 ease;
+                      -webkit-transition: all 0 ease;
+                  }
+
+                  &.active {
+                      opacity: 1;
+                      z-index: 2;
+                      transition-duration: 0.6s;
+                      -webkit-transition-duration: 0.6s;
+
+                      > img {
+                          transform: scale(1);
+                          -webkit-transform: scale(1);
+                          transition-duration: 1s;
+                          -webkit-transition-duration: 1s;
+                      }
+                  }
+
+                  &.disable {
+                      opacity: 1;
+
+                      img {
+                          transition-duration: 1.5s;
+                          -webkit-transition-duration: 1.5s;
+                          transform: scale(0.99);
+                          -webkit-transform: scale(0.99);
+                      }
+                  }
+              }
+          }
+
+          .image_wrapper3 {
+              position: absolute;
+              width: 149px;
+              height: 1102px;
+              top: 195px;
+              right: -1023px;
+              z-index: 5;
+          }
+
+          .image_wrapper3_bg {
+              width: 178px;
+              height: 1089px;
+              position: absolute;
+              top: 238px;
+              right: -1023px;
+              z-index: 4;
+          }
+
+          .image_wrapper3 {
+              .box {
+                  width: 149px;
+                  height: 1102px;
+                  overflow: hidden;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  transition: all 0 ease-in;
+                  -webkit-transition: all 0 ease-in;
+                  opacity: 0;
+
+                  > img {
+                      transform: scale(1.1);
+                      -webkit-transform: scale(1.1);
+                      transition: all 0 ease;
+                      -webkit-transition: all 0 ease;
+                  }
+
+                  &.active {
+                      opacity: 1;
+                      z-index: 2;
+                      transition-duration: 0.6s;
+                      -webkit-transition-duration: 0.6s;
+
+                      > img {
+                          transform: scale(1);
+                          -webkit-transform: scale(1);
+                          transition-duration: 1s;
+                          -webkit-transition-duration: 1s;
+                      }
+                  }
+
+                  &.disable {
+                      opacity: 1;
+
+                      img {
+                          transition-duration: 1.5s;
+                          -webkit-transition-duration: 1.5s;
+                          transform: scale(0.99);
+                          -webkit-transform: scale(0.99);
+                      }
+                  }
+              }
+          }
+
+          .img_bg-1 {
+              bottom: 0;
+              left: 50%;
+
+              img {}
+
+              p.middle_txt {
+                  position: absolute;
+                  z-index: 10;
+                  color: #fff;
+                  bottom: 31%;
+                  width: 100%;
+                  text-align: center;
+                  font: 31px/40px 'NotosansKRlIGHT';
+                  LETTER-SPACING: 15PX;
+              }
+          }
+
+          .img_bg-2 {
+              top: -500px;
+          }
+
+          .txt-1 {
+              top: -60px;
+              left: auto;
+              right: 965px;
+              z-index: 11;
+          }
+
+          .txt-2 {
+              top: -100px;
+              right: auto;
+              left: 897px;
+              z-index: 11;
+          }
+
+          .tech_slider .arrow {
+              margin-top: -50px;
+          }
+
+          .tech_detail_slider_wrapper {
+              top: 1400px;
+              bottom: 0;
+          }
+
+          .tech_wrap3 {
+              width: 325px;
+              margin-top: 40px;
+              margin-left: 184px;
+
+              h5 {
+                  position: relative;
+                  font: 12px 'NotoSansKRBold','Nanum Gothic';
+                  color: #000;
+
+                  .line {
+                      width: 165px;
+                      height: 1px;
+                      background: #e6e6e6;
+                      position: absolute;
+                      top: 10px;
+                      left: 95px;
+                      display: block;
+                  }
+
+                  .ico {
+                      width: 7px;
+                      height: 10px;
+                      display: block;
+                      position: absolute;
+                      top: 6px;
+                      left: 275px;
+                      background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                  }
+              }
+
+              .tech_icons {
+                  padding-top: 25px;
+                  overflow: hidden;
+
+                  li {
+                      width: 98px;
+                      height: 74px;
+                      float: left;
+                      margin-right: 15px;
+
+                      &.t3 {
+                          margin-right: 0;
+                      }
+
+                      a {
+                          display: block;
+                          width: 60px;
+                          height: 48px;
+                      }
+
+                      span {
+                          margin: 0 auto;
+                          height: 48px;
+                          display: block;
+                          background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                      }
+
+                      &.t1 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: 0 0;
+                          }
+
+                          a.active span {
+                              background-position: 0 -81px;
+                          }
+                      }
+
+                      &.t2 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -109px 0;
+                          }
+
+                          a.active span {
+                              background-position: -109px -81px;
+                          }
+                      }
+
+                      &.t3 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -221px 0;
+                          }
+
+                          a.active span {
+                              background-position: -221px -81px;
+                          }
+                      }
+                  }
+              }
+
+              .tech_contents {
+                  position: relative;
+                  margin-top: 40px;
+
+                  .tech_box {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      opacity: 0;
+                      filter: alpha(opacity = 0);
+                      -ms-filter: alpha(opacity = 0);
+                      transition: opacity 0.4s;
+                      -webkit-transition: opacity 0.4s;
+
+                      &.active {
+                          opacity: 1;
+                          filter: alpha(opacity = 100);
+                          -ms-filter: alpha(opacity = 100);
+                      }
+
+                      h6 {
+                          margin-bottom: 20px;
+                          color: #000;
+                          font: 700 23px 'NotoSansKR','Nanum Gothic';
+                      }
+
+                      .tech_desc {
+                          width: 355px;
+                          color: #000;
+                          font: 500 16px 'NotoSansKR','Nanum Gothic';
+                      }
+                  }
+              }
+          }
+
+          .tech_wrap4 {
+              width: 325px;
+              margin-top: 40px;
+              margin-left: 183px;
+
+              h5 {
+                  position: relative;
+                  font: 12px 'NotoSansKRBold','Nanum Gothic';
+                  color: #000;
+
+                  .line {
+                      width: 165px;
+                      height: 1px;
+                      background: #e6e6e6;
+                      position: absolute;
+                      top: 10px;
+                      left: 95px;
+                      display: block;
+                  }
+
+                  .ico {
+                      width: 7px;
+                      height: 10px;
+                      display: block;
+                      position: absolute;
+                      top: 6px;
+                      left: 275px;
+                      background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                  }
+              }
+
+              .tech_icons {
+                  padding-top: 25px;
+                  overflow: hidden;
+
+                  li {
+                      width: 98px;
+                      height: 74px;
+                      float: left;
+                      margin-right: 15px;
+
+                      &.t3 {
+                          margin-right: 0;
+                      }
+
+                      a {
+                          display: block;
+                          width: 60px;
+                          height: 48px;
+                      }
+
+                      span {
+                          margin: 0 auto;
+                          height: 48px;
+                          display: block;
+                          background: url("http://image.adidas.co.kr/images/adidas/event/climazone/171110/usp_bg.png") 0 -110px no-repeat;
+                      }
+
+                      &.t1 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: 0 0;
+                          }
+
+                          a.active span {
+                              background-position: 0 -81px;
+                          }
+                      }
+
+                      &.t2 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -109px 0;
+                          }
+
+                          a.active span {
+                              background-position: -109px -81px;
+                          }
+                      }
+
+                      &.t3 {
+                          span {
+                              width: 98px;
+                              height: 74px;
+                              background-position: -221px 0;
+                          }
+
+                          a.active span {
+                              background-position: -221px -81px;
+                          }
+                      }
+                  }
+              }
+
+              .tech_contents {
+                  position: relative;
+                  margin-top: 40px;
+
+                  .tech_box {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      opacity: 0;
+                      filter: alpha(opacity = 0);
+                      -ms-filter: alpha(opacity = 0);
+                      transition: opacity 0.4s;
+                      -webkit-transition: opacity 0.4s;
+
+                      &.active {
+                          opacity: 1;
+                          filter: alpha(opacity = 100);
+                          -ms-filter: alpha(opacity = 100);
+                      }
+
+                      h6 {
+                          margin-bottom: 20px;
+                          color: #000;
+                          font: 700 23px 'NotoSansKR','Nanum Gothic';
+                      }
+
+                      .tech_desc {
+                          width: 355px;
+                          color: #000;
+                          font: 500 16px 'NotoSansKR','Nanum Gothic';
+                      }
+                  }
+              }
+          }
+      }
+  }
+  .cont2 {
+    position: relative;
+    overflow: hidden;
+    .slider {
+      position: relative;
+      width: 825px;
+      height: 440px;
+      left: 50%;
+      margin-left: -416px;
+      top: 80px;
+      overflow: hidden;
+      opacity: 0;
+      -moz-transition: top 0.8s,opacity 0.8s;
+      -o-transition: top 0.8s,opacity 0.8s;
+      -webkit-transition: top 0.8s,opacity 0.8s;
+      transition: top 0.8s, opacity 0.8s;
+      ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4000px;
+      }
+      li {
+        float: left;
+        &.box01 {}
+        &.box02 {
+          margin: 0 90px 0 0;
+        }
+        &.box03 {}
+      }
+      .slider_title {
+        text-align: center;
+        color: #fff;
+        position: absolute;
+        left: 0;
+        margin-left: 205px;
+        position: absolute;
+        top: 50px;
+        z-index: 5;
+        .title {
+          font: 40px/40px 'adihausDIN-Cond','Nanum Gothic';
+          letter-spacing: 8px;
+          text-align: center;
+        }
+        p {
+          font: 15px/25px 'NotoSansKRRegular','Nanum Gothic';
+          text-align: center;
+        }
+        .line {
+          overflow: hidden;
+          margin: 8px;
+          hr {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border: none;
+          }
+        }
+      }
+    }
+    a {
+      &.btn_prev {
+        position: absolute;
+        top: 17%;
+        left: 50%;
+        margin-left: -477px;
+        width: 32px;
+        height: 61px;
+        display: block;
+        background: url("http://image.adidas.co.kr/images/adidas/event/parley/btn_arrow.png") 0 0 no-repeat;
+        opacity: 0;
+        -moz-transition: top 0.8s,opacity 0.8s;
+        -o-transition: top 0.8s,opacity 0.8s;
+        -webkit-transition: top 0.8s,opacity 0.8s;
+        transition: top 0.8s, opacity 0.8s;
+      }
+      &.btn_next {
+        position: absolute;
+        top: 17%;
+        left: 50%;
+        margin-left: 440px;
+        width: 32px;
+        height: 61px;
+        display: block;
+        background: url("http://image.adidas.co.kr/images/adidas/event/parley/btn_arrow.png") -32px 0 no-repeat;
+        opacity: 0;
+        -moz-transition: top 0.8s,opacity 0.8s;
+        -o-transition: top 0.8s,opacity 0.8s;
+        -webkit-transition: top 0.8s,opacity 0.8s;
+        transition: top 0.8s, opacity 0.8s;
+      }
+    }
+    .slide_title {
+      font: 20px/40px 'adihausDIN-Cond','Nanum Gothic';
+      color: #000;
+      letter-spacing: 2px;
+      text-align: center;
+      height: 150px;
+      top: 80px;
+      opacity: 0;
+      -moz-transition: top 0.8s,opacity 0.8s;
+      -o-transition: top 0.8s,opacity 0.8s;
+      -webkit-transition: top 0.8s,opacity 0.8s;
+      transition: top 0.8s, opacity 0.8s;
+      ul {
+        left: 50%;
+        position: absolute;
+        margin-left: -288px;
+      }
+      li {
+        float: left;
+        position: relative;
+        text-align: center;
+        margin-top: 45px;
+        a {
+          &::before {
+            content: '';
+            width: 0;
+            height: 1px;
+            display: block;
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            background: #363636;
+            transition: width 0.3s;
+          }
+          &::after {
+            content: '';
+            width: 0;
+            height: 1px;
+            display: block;
+            position: absolute;
+            right: 50%;
+            bottom: -15px;
+            background: #363636;
+            transition: width 0.3s;
+          }
+          &.active {
+            &::after, &::before {
+              width: 50%;
+            }
+          }
+          color: #000;
+          padding: 0 10px 15px;
+        }
+        &:first-child {
+          margin-right: 94px;
+        }
+        &:last-child {
+          margin-left: 43px;
+        }
+        a.active {
+          font: 20px/17px 'adihausDIN-Cond-medium','Nanum Gothic';
+          /*border-bottom:1px solid #363636;*/
+        }
+      }
+    }
+    .slider_cont {
+      position: relative;
+      height: 560px;
+      li {
+        display: none;
+        &.active {
+          display: block;
+        }
+      }
+      .box1 {
+        .txt {
+          position: absolute;
+          left: 50%;
+          top: 110px;
+          margin-left: -30px;
+        }
+        .img {
+          position: absolute;
+          left: 50%;
+          top: 30px;
+          margin-left: -635px;
+        }
+        .txt {
+          h3 {
+            font: 40px/40px 'adihausDIN-Cond','Nanum Gothic';
+            color: #000;
+            letter-spacing: 8px;
+          }
+          .sub_title {
+            font: 24px/40px 'NotoSansKRLight','Nanum Gothic';
+            color: #000;
+          }
+          .line {
+            overflow: hidden;
+            margin-top: 20px;
+            hr {
+              width: 25px;
+              height: 3px;
+              background: #000;
+              border: none;
+              float: left;
+            }
+          }
+          p {
+            margin-top: 25px;
+            font: 15px/23px "NotoSansKRRegular", "Nanum Gothic";
+            color: #000;
+            span {
+              font: 15px/23px "NotoSansKR", "Nanum Gothic";
+            }
+          }
+          a.button {
+            float: left;
+            width: 240px;
+            margin-top: 30px;
+          }
+        }
+      }
+      .box2 {
+        .txt {
+          position: absolute;
+          left: 50%;
+          top: 110px;
+          margin-left: -475px;
+          opacity: 0;
+          -moz-transition: top 0.8s,opacity 0.8s;
+          -o-transition: top 0.8s,opacity 0.8s;
+          -webkit-transition: top 0.8s,opacity 0.8s;
+          transition: top 0.8s, opacity 0.8s;
+        }
+        .img {
+          position: absolute;
+          right: 50%;
+          top: 30px;
+          margin-right: -550px;
+          opacity: 0;
+          -moz-transition: top 0.8s,opacity 0.8s;
+          -o-transition: top 0.8s,opacity 0.8s;
+          -webkit-transition: top 0.8s,opacity 0.8s;
+          transition: top 0.8s, opacity 0.8s;
+        }
+        .txt {
+          h3 {
+            font: 40px/40px 'adihausDIN-Cond','Nanum Gothic';
+            color: #000;
+            letter-spacing: 8px;
+          }
+          .sub_title {
+            font: 24px/40px 'NotoSansKRLight','Nanum Gothic';
+            color: #000;
+          }
+          .line {
+            overflow: hidden;
+            margin-top: 20px;
+            hr {
+              width: 25px;
+              height: 3px;
+              background: #000;
+              border: none;
+              float: left;
+            }
+          }
+          p {
+            margin-top: 25px;
+            font: 15px/23px "NotoSansKRRegular", "Nanum Gothic";
+            color: #000;
+            span {
+              font: 15px/23px "NotoSansKR", "Nanum Gothic";
+            }
+          }
+          a.button {
+            float: left;
+            width: 240px;
+            margin-top: 30px;
+          }
+        }
+      }
+    }
+  }
+  .collections {
+    /*min-width:1200px;*/
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 70px;
+    img {
+      opacity: 0;
+    }
+    .colfix {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      width: 25.1%;
+      background: #fff;
+      img {
+        width: 100%;
+        transition: all 2s;
+        -webkit-transition: all 2s;
+        -moz-transition: all 2s;
+        -o-transition: all 2s;
+        -ms-transition: all 2s;
+        opacity: 0;
+      }
+      &:hover img {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+      }
+    }
+    .imgs {
+      position: relative;
+      background: #fff;
+      left: 25%;
+      width: 100%;
+      .col {
+        > div {
+          overflow: hidden;
+        }
+        .img2 {
+          width: 25%;
+          position: relative;
+          float: left;
+          img {
+            width: 100%;
+            transition: all 2s;
+            -webkit-transition: all 2s;
+            -moz-transition: all 2s;
+            -o-transition: all 2s;
+            -ms-transition: all 2s;
+          }
+          &:hover img {
+            transform: scale(1.1);
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform-origin: center center;
+          }
+        }
+        .img3 {
+          position: relative;
+          width: 50%;
+          float: left;
+          text-align: center;
+          overflow: hidden;
+          opacity: 0;
+          -webkit-opacity: 0;
+          transition: all 2s;
+          -webkit-transition: all 2s;
+          -moz-transition: all 2s;
+          -o-transition: all 2s;
+          -ms-transition: all 2s;
+          position: relative;
+          padding-bottom: 25%;
+          width: 50%;
+          float: left;
+          opacity: 0;
+          overflow: hidden;
+          background: url("/images/adidas/event/bts/171219/col_03.jpg") center center no-repeat;
+          img:hover {
+            /*transform:scale(1.1);
+            -webkit-transform:scale(1.1);
+            -moz-transform:scale(1.1);
+            -o-transform:scale(1.1);
+            -ms-transform:scale(1.1)*/
+          }
+        }
+        .img4 {
+          width: 25%;
+          position: relative;
+          float: left;
+          img {
+            width: 100%;
+            transition: all 1.2s;
+            -webkit-transition: all 1.2s;
+            -moz-transition: all 1.2s;
+            -o-transition: all 1.2s;
+            -ms-transition: all 1.2s;
+            transform: scale(1);
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -o-transform: scale(1);
+            -ms-transform: scale(1);
+            &:hover {
+              transform: scale(1.1);
+              -webkit-transform: scale(1.1);
+              -moz-transform: scale(1.1);
+              -o-transform: scale(1.1);
+              -ms-transform: scale(1.1);
+            }
+          }
+        }
+        .img3 div {
+          position: absolute;
+          top: 38%;
+          text-align: center;
+          left: 50%;
+          margin-left: -200px;
+          color: #fff;
+          font: 20px/50px 'NotoSansKRLight','Nanum Gothic';
+          span {
+            color: #fff;
+            font: 40px/40px 'adihausDIN-Cond','Nanum Gothic';
+            letter-spacing: 6px;
+          }
+        }
+      }
+    }
+  }
+  .email {
+    background: url("http://image.adidas.co.kr/images/adidas/event/parley/bottom_bg.jpg?v=3") 0 0 no-repeat;
+    height: 800px;
+    position: relative;
+    opacity: 0;
+    -moz-transition: top 0.8s,opacity 0.8s;
+    -o-transition: top 0.8s,opacity 0.8s;
+    -webkit-transition: top 0.8s,opacity 0.8s;
+    transition: top 0.8s, opacity 0.8s;
+    .inner {
+      width: 900px;
+      height: 308px;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -175px;
+      margin-left: -475px;
+      padding: 50px 0 0 50px;
+      display: inline-block;
+      p {
+        &.title {
+          font: 28px/50px 'NotoSansKRLight','Nanum Gothic';
+          letter-spacing: 2px;
+          margin-bottom: 10px;
+        }
+        font: 15px/28px 'NotoSansKRRegular','Nanum Gothic';
+        color: #000;
+      }
+      a.button {
+        float: left;
+      }
+    }
+  }
+}
+
+/*box1 end*/
