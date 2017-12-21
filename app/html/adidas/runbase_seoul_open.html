@@ -1703,10 +1703,24 @@
 										// var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
 										// oMap.addOverlay(marker);
 
+										var runbaseLC = new naver.maps.LatLng(37.545627, 127.042434);
 										var map = new naver.maps.Map('map', {
-										    center: new naver.maps.LatLng(37.5405867, 126.9946487),
+										    center: new naver.maps.LatLng(37.545627, 127.042434),
 										    zoom: 10
 										});
+
+										// 마커로 사용할 이미지 정의
+										var markerOptions = {
+										    position: runbaseLC,
+										    icon: {
+										        url: 'http://static.naver.net/maps/v3/pin_default.png',
+										        size: new naver.maps.Size(22, 35),
+										        anchor: new naver.maps.Point(11, 35)
+										    }
+										};
+										var marker = new naver.maps.Marker(markerOptions);
+
+										marker.setMap(map); // 추가
 
 									</script>
 									<div style="text-align:center; margin-bottom:90px;">
