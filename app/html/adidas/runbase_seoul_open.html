@@ -170,8 +170,8 @@
 	/* //150513 */
 </script>
 <!-- 20170529 runbase naver 지도 추가 서비스 실제 운영시 키값 : ErPahvwIWR-->
-<!-- <script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=cpw9RMOfkmb0qIa7Vz23 "></script> -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=1KG6a0e2Hj9na72OD3D6&submodules=geocoder"></script>
+<script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=cpw9RMOfkmb0qIa7Vz23 "></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=1KG6a0e2Hj9na72OD3D6"></script>
 </head>
 <body>
 
@@ -1689,20 +1689,26 @@
 										<h3>05</h3>
 										<p>RUNBASE SEOUL LOCATION</p>
 									</div>
-									<div id="nmap" style="width:764px; height:303px; margin:0 auto 30px;"></div>
+									<!-- <div id="nmap" ></div> -->
+									<div id="map" style="width:764px; height:303px; margin:0 auto 30px;"></div>
 									<script type="text/javascript">
 
 
-										var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
-										var oMap = new nhn.api.map.Map('nmap', {
-											center : nPoint,
-											zoom : 100
-										});
+										// var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
+										// var oMap = new nhn.api.map.Map('nmap', {
+										// 	center : nPoint,
+										// 	zoom : 100
+										// });
+                                        //
+										// // 마커로 사용할 이미지 정의
+										// var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
+										// var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
+										// oMap.addOverlay(marker);
 
-										// 마커로 사용할 이미지 정의
-										var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
-										var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
-										oMap.addOverlay(marker);
+										var map = new naver.maps.Map('map', {
+										    center: new naver.maps.LatLng(37.3595704, 127.105399),
+										    zoom: 10
+										});
 
 									</script>
 									<div style="text-align:center; margin-bottom:90px;">
