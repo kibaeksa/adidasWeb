@@ -94,6 +94,7 @@
 						.img{
 							@include css3(transform, scale(1.15));
 
+
 						}
 						.txt{
 							// top:50%;
@@ -151,9 +152,10 @@
 					-webkit-opacity: 1;
 					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 					.prd_section{
-					    margin: 30px 13rem 0;
+					    // margin: 30px 13rem 0;
 						transition: all 0.8s;
 						-webkit-transition: all 0.8s;
+						-ms-transition: all 0.8s;
 						// transition-delay: 1s;
 						&.active{
 							margin: 2rem 0rem 20px;
@@ -213,12 +215,16 @@
 								.img{
 
 									img{
+										-ms-interpolation-mode: bicubic;
 										// @include css3(transform, scale(1.02));
-
 										// transition-duration: 8s;
 									    // -webkit-transition-duration: 8s;
 									    // transform: translate3d(0, 0, 50px);
 									    // -webkit-transform: translate3d(0, 0, 50px);
+										&.small{
+											opacity: 0 !important;
+
+										}
 									}
 								}
 							}
@@ -260,14 +266,10 @@
 					}
 				}
 				.prd_section{
-					margin: 2rem 10rem 20px;
+					margin: 2rem 12rem 20px;
+					// margin: 2rem 10rem 20px;
 					-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 					// margin: 30px 13rem 0;
-					@media screen and (min-width: 1080px ) {
-						margin: 2rem 13rem 20px;
-
-					  }
-
 					.box{
 						position: relative;
 						float: left;
@@ -281,14 +283,23 @@
 							overflow: hidden;
 							img{
 								width: 100%;
+								-ms-interpolation-mode: bicubic;
 								// @include css3(transform, scale(1));
 								// @include css3(transition, 2s);
 								// transition-delay: 1s;
-
 								// transform: translate3d(0, 0, 0);
 								// -webkit-transform: translate3d(0, 0, 0);
 								// transition-duration: 3s;
 							    // -webkit-transition-duration: 3s;
+								// z-index: 2 !important;
+								&.small{
+									position: absolute;
+									top:0;
+									left:0;
+									opacity: 1;
+									// z-index: 1;
+
+								}
 							}
 						}
 						.tit{
@@ -305,8 +316,11 @@
 							// transition: all 1.2s;
 						}
 						.title{
-							// padding: 2px 0 0 0;
-							margin: 9px 20px 0 20px;
+							// margin: 9px 20px 0 20px;
+						    margin: 9px 14px 0 14px;
+							height: auto;
+							overflow: hidden;
+
 							p{
 								text-align: center;
 								color:#000;
