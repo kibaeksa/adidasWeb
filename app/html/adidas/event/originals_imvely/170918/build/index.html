@@ -1094,7 +1094,7 @@
 						<div class="ct1190">
 							<div id="sliders1" class="slider">
 							    <ul>
-							        <li class="on">
+							        <li class="on" data-index="0">
 							        	<div class="item">
 											<img src="http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/img1_1.png" alt="">
 											<div class="link_wrap">
@@ -1111,7 +1111,7 @@
 											</div>
 							        	</div>
 							        </li>
-									<li>
+									<li data-index="1">
 										<div class="item">
 											<img src="http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/img1_2.png" alt="">
 											<div class="link_wrap">
@@ -1123,7 +1123,7 @@
 											</div>
 										</div>
 									</li>
-									<li>
+									<li data-index="2">
 										<div class="item">
 											<img src="http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/img1_3.png" alt="">
 											<div class="link_wrap">
@@ -1135,7 +1135,7 @@
 											</div>
 										</div>
 									</li>
-									<li>
+									<li data-index="3">
 										<div class="item">
 											<img src="http://image.adidas.co.kr/images/adidas/event/originals_imvely/170918/img1_4.png" alt="">
 											<div class="link_wrap">
@@ -1441,6 +1441,7 @@
 						},400)
 					},300);
 
+
 					var sliders = $('#sliders1').Swipers({
 					    width : 1190,
 					    height : 824,
@@ -1453,10 +1454,22 @@
 
 					$('#sliderwrap1 .prev-button').bind('click',function(){
 					    sliders.prev();
+						var curent = $('#sliders1 ul li.on');
+						var currentindex = curent.attr('data-index');
+						var ii = sliders.activeIndex;
+						// console.log(ii)
+						// currentin
 					});
 
 					$('#sliderwrap1 .next-button').bind('click',function(){
 					    sliders.next();
+						var curent = $('#sliders1 ul li.on');
+						var currentindex = curent.attr('data-index');
+						var ii = sliders.activeIndex;
+						// console.log(ii)
+						// console.log(currentindex)
+
+
 					});
 
 					$('#sliderwrap1 .indicator a').bind('click',function(){
