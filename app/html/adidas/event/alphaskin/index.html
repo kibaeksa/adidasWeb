@@ -1064,8 +1064,8 @@
 							<img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/logo.png" alt="">
 						</div>
 						<div class="btn_wrap">
-							<div class="btn"><a href="#">남성제품 구매하기</a></div>
-							<div class="btn"><a href="#">여성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=491">남성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=492">여성제품 구매하기</a></div>
 						</div>
 						<div class="men"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/top_men.jpg" alt=""></div>
 						<div class="women"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/top_women.png" alt=""></div>
@@ -1074,13 +1074,13 @@
 
 				<div class="video">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/video.png" alt=""></div>
-					<span><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/play.png" alt=""></span>
+					<span><a class="play play-video" onclick="openModalVideoViewer('ln6OxIBF5xE')"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/play.png" alt=""></a></span>
 				</div>
 
 				<div class="statement">
 					<p>피부처럼 온 몸을 감싸는 컴프레션으로</p>
 					<p class="b">새로운 차원의 집중력과 퍼포먼스를 경험하다.</p>
-					<div class="btn"><a href="#">구매하기</a></div>
+					<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=472">구매하기</a></div>
 				</div>
 
 				<div class="box right" style="height:640px;margin-bottom:160px;">
@@ -1093,8 +1093,8 @@
 						<span>360</span>
 						<p>본딩 처리된 반사소재 플랫심으로 어떤 동작에도 자유로운 핏<br>최상급 컴프레션으로 몸을 완벽히 감싸는 착용감</p>
 						<div class="btn_wrap">
-							<div class="btn"><a href="#">남성제품 구매하기</a></div>
-							<div class="btn"><a href="#">여성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=491">남성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=492">여성제품 구매하기</a></div>
 						</div>
 					</div>
 				</div>
@@ -1109,8 +1109,8 @@
 						<span>TECH</span>
 						<p>더운 날씨를 압도하는 클라이마칠 소재의 강력한 쿨링과 쾌적한 착용감<br>적절한 강도의 컴프레션으로 몸의 실루엣을 드러내는 서포트 핏</p>
 						<div class="btn_wrap">
-							<div class="btn"><a href="#">남성제품 구매하기</a></div>
-							<div class="btn"><a href="#">여성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=491">남성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=492">여성제품 구매하기</a></div>
 						</div>
 					</div>
 				</div>
@@ -1125,8 +1125,8 @@
 						<span>SPORT</span>
 						<p>더운 날씨에도 시원하고 쾌적한 착용감을 제공하는<br>클라이마쿨 테크놀로지</p>
 						<div class="btn_wrap">
-							<div class="btn"><a href="#">남성제품 구매하기</a></div>
-							<div class="btn"><a href="#">여성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=491">남성제품 구매하기</a></div>
+							<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=492">여성제품 구매하기</a></div>
 						</div>
 					</div>
 				</div>
@@ -1138,7 +1138,30 @@
 			<!-- <script type="text/javascript" src="/js/adidas/event/customise/common.js"></script> -->
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
+				$('.play-video').bind('click',function(){
+					var videoId = $(this).attr('data-video-id');
+					viewVideo(videoId);
+					return false;
+				});
 
+				function viewVideo(videoId){
+					var $this = $(this);
+					var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+					$('html').addClass('no_scroll');
+					$('body').append(videoLayerElem);
+					setTimeout(function(){
+						$('.video_layer').addClass('loaded');
+						setTimeout(function(){
+							$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+						},20);
+					},300);
+
+					$('.video_layer .close').bind('click',function(){
+						$('html').removeClass('no_scroll');
+						$('.video_layer').remove();
+					});
+					return false;
+				}
 			</script>
 
 		</div>
