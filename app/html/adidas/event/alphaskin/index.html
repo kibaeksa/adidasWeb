@@ -1057,7 +1057,7 @@
 
 			<div class="alphaskin">
 
-				<div class="main">
+				<div class="main scrollbox">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/top_bg.jpg" alt=""></div>
 					<div class="content ct950">
 						<div class="masthead">
@@ -1072,18 +1072,18 @@
 					</div>
 				</div>
 
-				<div class="video">
+				<div class="video scrollbox">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/video.png" alt=""></div>
-					<span><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/play.png" alt=""></span>
+					<span onclick="openModalVideoViewer('EspMCuyslXY')"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/play.png" alt=""></span>
 				</div>
 
-				<div class="statement">
+				<div class="statement scrollbox">
 					<p>피부처럼 온 몸을 감싸는 컴프레션으로</p>
 					<p class="b">새로운 차원의 집중력과 퍼포먼스를 경험하다.</p>
 					<div class="btn"><a href="#">구매하기</a></div>
 				</div>
 
-				<div class="box right" style="height:640px;margin-bottom:160px;">
+				<div class="box right scrollbox" style="height:640px;margin-bottom:160px;">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box1_bg.jpg" alt=""></div>
 					<div class="img ct950">
 						<img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box1.png" alt="">
@@ -1099,7 +1099,7 @@
 					</div>
 				</div>
 
-				<div class="box " style="height:640px;margin-bottom:170px;">
+				<div class="box scrollbox" style="height:640px;margin-bottom:170px;">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box2_bg.jpg" alt=""></div>
 					<div class="img ct950">
 						<img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box2.png" alt="">
@@ -1115,7 +1115,7 @@
 					</div>
 				</div>
 
-				<div class="box right box3" style="height:640px;margin-bottom:160px;">
+				<div class="box right box3 scrollbox" style="height:640px;margin-bottom:160px;">
 					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box3_bg.jpg" alt=""></div>
 					<div class="img ct950">
 						<img src="http://image.adidas.co.kr/images/adidas/event/alphaskin/box3.png" alt="">
@@ -1134,11 +1134,33 @@
 			</div>
 			<!-- //alphaskin -->
 
-
-			<!-- <script type="text/javascript" src="/js/adidas/event/customise/common.js"></script> -->
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
+				(function(){
 
+					var scollF = function(){
+
+						var array =[];
+						var scrollCons = document.querySelectorAll('.scrollbox');
+
+						for(var i = 0; i < scrollCons.length; i++ ){
+							var conPos = scrollCons[i].offsetTop;
+							array.push(conPos)
+						}
+
+						for( var pos = 0; pos <array.length; pos++ ){
+							var currentPos = $(this).scrollTop();
+							if(currentPos >= array[pos]){
+								$('.alphaskin .scrollbox').eq(pos).addClass('on');
+							}
+						}
+
+					}
+
+					$(window).scroll(scrollF);
+
+
+				})(jQuery)
 			</script>
 
 		</div>
