@@ -764,6 +764,77 @@
 					</div>
 					<!-- //bn_bot -->
 
+					<div class="mail_box">
+						<div class="inner">
+							<div class="mail_box_img">
+								<img src="/images/reebok/event/about/always/img_mail.jpg" alt="">
+							</div>
+							<div class="mail_box_form">
+								<h2>STAY CURRENT</h2>
+								<p>이메일 뉴스레터 구독하시고, <em>#ALWAYS CLASSIC</em> 캠페인의 새로운 컨텐츠,<br>
+									리복 클래식 신제품 소식을 놓치지 마세요!</p>
+								<table width="100%">
+									<colgroup>
+										<col width="60%">
+										<col width="5%">
+										<col width="35%">
+									</colgroup>
+									<tr>
+										<td>
+											<input type="text" class="input-ctm" placeholder="*이름">
+										</td>
+										<td></td>
+										<td>
+											<div class="selectbox-ctm">
+												<a href="javascript:void(0)">*성별</a>
+												<div class="arrow spt_bg"></div>
+												<div class="select-contents option-list">
+													<ul>
+														<li data-option-value="value1"><a href="javascript:void(0)">*남성</a></li>
+														<li data-option-value="value2"><a href="javascript:void(0)">*여성</a></li>													
+													</ul>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="td-void" colspan="3"></td>
+									</tr>
+									<tr>
+										<td width="100%" colspan="3">
+											<input type="text" class="input-ctm" placeholder="*이메일">
+										</td>
+									</tr>
+									<tr>
+										<td class="td-void" colspan="3"></td>
+									</tr>
+									<tr>
+										<td width="100%" colspan="3" style="height:24px;">
+											<div class="input-ctm input-check-ctm" style="padding-left:0;">
+												<input type="checkbox" id="custom_chk1">
+												<label for="custom_chk1" style="font-size: 16px;color:#ab2328;">
+													<a class="ctm-box" href="javascript:void(0)">
+														<span class=" spt_bg"></span>
+													</a>
+													마케팅 수신 동의
+												</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="td-void" colspan="3"></td>
+									</tr>
+									<tr>
+										<td width="100%" colspan="3">
+											<a href="javascript:void(0)" class="btn-signup"></a>
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						</div>
+					</div>
+					<!-- //mail_box -->
 
                 	<div class="sns_followus">
                 		<div class="inner">
@@ -906,46 +977,100 @@
 							return false;
 						}
 
-						// function initVideo(targetId , videoSrc){
-						// 	if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
-						// 		$('.visual_video .masthead').animate({
-						// 			opacity:1
-						// 		});
-						// 	}
-
-						// 	var elemVideo = document.createElement('video');
-						// 	var elemSource = document.createElement('source');
-						// 	var targetElem = document.getElementById(targetId);
-
-						// 	// elemVideo.autoplay = true;
-						// 	// elemVideo.loop = true;
-						// 	elemVideo.muted = true;
-
-						// 	elemSource.src = videoSrc;
-						// 	elemSource.type = 'video/mp4';
-						// 	elemVideo.appendChild(elemSource);
-
-						// 	elemVideo.onloadstart = function(){
-						// 		targetElem.appendChild(elemVideo);
-						// 		setTimeout(function(){
-						// 			elemVideo.setAttribute('class','loaded');
-
-						// 			setTimeout(function(){
-						// 				elemVideo.play();
-						// 				$('.visual_video .masthead').addClass('active');
-						// 			},100)
-						// 		},500);
-						// 	}
-
-						// 	elemVideo.onended = function(){
-						// 		this.parentNode.parentNode.removeChild(this.parentNode);
-						// 		setTimeout(function(){
-						// 			$('.visual_video .bg').addClass('active');
-						// 		},10);
-						// 	}
-						// }
-
-						// initVideo('video-background' , '/images/reebok/event/about/nada/nada_video.mp4');
+						$.fn.cmtSelectInit = function(){
+							$('.selectbox-ctm').each(function(){
+								var elemContainer = $(this);
+								var elemOpions = elemContainer.find('.select-contents').find('*[data-option-value],[data-option-value=""]');
+				
+								elemOpions.each(function(){
+									var $this = $(this);
+									var optionText = (function(){
+										if($this.attr('data-option-text') == undefined){
+											return $this.find('*').text()
+										}else{
+											return $this.attr('data-option-text');
+										}
+									})();
+				
+									var optionValue = $(this).attr('data-option-value');
+				
+									if($this.hasClass('selected')){
+										elemContainer.find('>a').html(optionText);
+										elemContainer.attr('data-value',optionValue);
+									}
+								});
+				
+								if(!$(this).attr('data-init')){
+									$(this).attr('data-init' , true);
+									elemContainer.bind('click',toggleSelecbox);
+								}
+				
+				
+								if(!elemOpions.eq(0).attr('data-init')){
+				
+									elemOpions.each(function(){
+										$(this).attr('data-init',true);
+									});
+				
+									elemOpions.bind('click',function(){
+										var $this = $(this);
+				
+										if($(this).hasClass('disable') || $(this).hasClass('disabled') ){
+											return false;
+										}
+				
+										if(!!elemContainer.data('callback') && !!elemContainer.data('callback').before){
+											var beforeCallbackResult = elemContainer.data('callback').before.call($(this),$this.attr('data-option-value'),$this.index());
+											if(beforeCallbackResult === false){
+												return;
+											}
+										}
+				
+										var optionText = (function(){
+											if($this.attr('data-option-text') == undefined){
+												return $this.find('*').text()
+											}else{
+												return $this.attr('data-option-text');
+											}
+				
+										})();
+				
+										elemOpions.removeClass('selected');
+										$this.addClass('selected');
+										elemContainer.find('>a').html(optionText);
+										elemContainer.attr('data-value',$this.attr('data-option-value'));
+				
+										if(!!elemContainer.data('callback') && !!elemContainer.data('callback').after){
+											elemContainer.data('callback').after.call($this,$this.attr('data-option-value'),$this.index());
+										}
+									});
+								}
+				
+				
+								function toggleSelecbox(event){
+									event.stopPropagation();
+									if($(this).hasClass('disabled') || $(this).hasClass('disable')){
+										return;
+									}
+				
+									if($(this).hasClass('open')){
+										$('.selectbox-ctm').removeClass('open');
+										$(this).removeClass('open');
+									}else{
+										$('.selectbox-ctm').removeClass('open');
+										$(this).addClass('open');
+									}
+				
+									var offsetTop = $(this).find('.select-contents li.selected').length == 0 ? 0 : $(this).find('.select-contents li.selected').position().top + $(this).find('.select-contents').scrollTop();
+				
+									$(this).find('.select-contents').animate({
+										scrollTop : offsetTop
+									},0);
+				
+				
+								}
+							});
+						};
 
             		})(jQuery);
 
