@@ -987,1151 +987,59 @@
 
 				})();
 
-			</script>
-			<style type="text/css">
-				html.no_scroll{
-					width: 100%;
-				    height: 100%;
-				    position: relative;
-				    overflow: hidden;
-				}
-
-				.video_layer{
-					width:100%;
-					height:100%;
-					position:fixed;
-					top:0;
-					left:0;
-					z-index:100;
-				}
-
-				.video_layer .close{
-					width: 50px;
-					height: 50px;
-					position: absolute;
-					top: 0;
-					right: 0;
-					z-index: 20;
-					background-position: 0 -685px;
-					opacity: 0;
-					-ms-filter:alpha(opacity=0);
-					filter:alpha(opacity=0);
-					transition:opacity 0.4s ease-in 0.2s;
-					-webkit-transition:opacity 0.4s ease-in 0.2s;
-				}
-
-				.video_layer .bg{
-					width: 100%;
-					height: 100%;
-					background: #000;
-					opacity: 0;
-					-ms-filter:alpha(opacity=0);
-					filter:alpha(opacity=0);
-					z-index: 5;
-					position: absolute;
-					top: 0;
-					left: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-				.video_layer.loaded .bg{
-					opacity: 0.6;
-					-ms-filter:alpha(opacity=60);
-					filter:alpha(opacity=60);
-				}
-
-				.video_layer.loaded .close{
-					opacity: 1;
-					-ms-filter:alpha(opacity=100);
-					filter:alpha(opacity=100);
-				}
-
-				.video_layer .video{
-					width: 100%;
-					height: 100%;
-					z-index: 6;
-					position: absolute;
-					top: 0;
-					left: 0;
-				}
-
-				#wrap {
-					min-width: 1050px;
-					overflow: hidden;
-				}
-
-				#football{
-					width: 100%;
-					position: relative;
-					overflow: hidden;
-					background: #000;
-					min-width: 1024px;
-				}
-
-				#football .button{
-					position: relative;
-					display: block;
-					height: 53px;
-					border: 2px solid  #fff;
-					background-image:url('about:blank');
-				}
-
-				#football .button.dark{
-					position: relative;
-					display: block;
-					height: 53px;
-					border: 2px solid  #000;
-				}
-
-				#football .button span{
-					position: relative;
-					z-index: 1;
-					display: block;
-					height: 53px;
-					font:14px/53px 'NotoSansKRLight','Nanum Gothic';
-					text-align: center;
-					color: #fff;
-					text-transform: uppercase;
-				}
-
-				#football .button.dark span{
-					color: #000;
-				}
-
-				#football .button span strong{
-					font:15px 'adihaus-bold';
-					letter-spacing:-0.5px;
-				}
-
-				#football .button::after{
-					content:'';
-					display: block;
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					width: 100%;
-					height: 0;
-					z-index:0;
-					background: #fff;
-					transition:height 0.3s;
-					-webkit-transition:height 0.3s;
-				}
-
-				#football .button.dark::after{
-					background: #000;
-				}
-
-				#football .button:hover span{
-					color: #000;
-					font:14px/53px 'NotoSansKR','Nanum Gothic';
-				}
-
-				#football .button.dark:hover span{
-					color: #fff;
-				}
-
-				.ie_old #football .button:hover{
-					background: #fff;
-				}
-
-				.ie_old #football .button.black:hover{
-					background: #000;
-				}
-
-				#football .button:hover::after{
-					height: 100%;
-				}
-
-				#football .visual{
-					height: 768px;
-					position: relative;
-					width: 100%;
-					overflow: hidden;
-				}
-
-
-
-				#football .visual .bg{
-					position: absolute;
-					top: 0;
-					left: 50%;
-					margin-left: -952px;
-				}
-
-				#football .visual .slider {
-					position: relative;
-					height: 900px;
-				}
-
-				#football .visual .slider ul {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 4000px;
-				}
-
-				#football .visual .slider ul li.fade{
-					display: none;
-					float:left;
-				}
-
-				#football .visual .slider ul li.fade_in{
-					display: block;
-					position: absolute;
-					top: 0;
-					left: 0;
-				}
-
-				#football .visual .num {
-					position: absolute;
-				     bottom: 175px;
-				     left: 50%;
-				     margin-left: -20px;
-				}
-
-				#football .visual .num a{
-					width: 13px;
-					height: 12px;
-					margin: 0 1px;
-					background: none;
-					border:2px solid #fff;
-					display: inline-block;
-					border-radius: 10px;
-				}
-
-				#football .visual .num a.active{
-					background: #fff;
-				}
-
-				#football .visual .button{
-					width: 304px;
-					position: absolute;
-					bottom: 95px;
-					left: 50%;
-					margin-left: -152px;
-				}
-
-				#football .visual .button1{
-					width: 304px;
-					position: absolute;
-					bottom: 160px;
-					left: 50%;
-					margin-left: -155px;
-				}
-
-				#football .visual .button2{
-					width: 304px;
-					position: absolute;
-					bottom: 95px;
-					left: 50%;
-					margin-left: 6px;
-				}
-
-				#football .button3{
-					width: 258px;
-				    top: 326px;
-				    left: 50%;
-				    margin-left: -303px;
-				    background: rgba(0,0,0,0.6);
-				}
-
-				#football .button4{
-					width: 258px;
-				    top: 269px;
-				    left: 50%;
-				    margin-left: 44px;
-				    background: rgba(0,0,0,0.6);
-				}
-
-				#football .button5{
-					width: 258px;
-					top: 170px;
-					left: 50%;
-					margin-left: -477px;
-					background: rgba(0,0,0,0.6);
-				}
-
-				#football .button6{
-					width: 310px;
-					bottom: 85px;
-					left: 50%;
-					margin-left: -163px;
-					background: rgba(0,0,0,0.6);
-				}
-
-				#football .paper_cut{
-					width: 1900px;
-					height: 108px;
-					position: absolute;
-					bottom: 0;
-					left: 50%;
-					margin-left: -950px;
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20170330/bg_paper_cut.png') center 0 repeat-x;
-				}
-
-				#football .statement{
-					height: 490px;
-					position: relative;
-					overflow: hidden;
-					opacity: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .statement.loaded{
-					opacity: 1;
-				}
-
-				.ie9 #football .statement{
-					opacity: 1;
-				}
-
-				#football .wrap {
-					width:100%;
-					position:relative;
-				}
-
-				#football .wrap p.sel_tit{
-					text-align: center;
-					color: #e60325;
-					font : 16px 'adihausDIN-Cond';
-					letter-spacing: 2px;
-				}
-
-				#football .wrap .slider_wrap {
-					margin:0 auto;
-					position:relative;
-					width:1920px;
-					overflow: hidden;
-				}
-
-				#football .wrap .slider_wrap .button1{
-					width: 304px;
-					position: absolute;
-					bottom: 115px;
-					left: 50%;
-					margin-left: -160px;
-				}
-
-
-				#football .wrap .slider_wrap ul.slider {
-					position:relative;
-					width: 6000px;
-					margin-top: 50px;
-				}
-				#football .wrap .slider_wrap ul.slider li {
-					width:1920px;
-					float:left;
-					margin-top:30px;
-					text-align:center;
-					position: relative;
-				}
-				#football .wrap .slider_wrap ul.slider li .title {
-					padding:76px 0 54px 0;
-					text-align:center;
-				}
-				#football .wrap .slider_wrap ul.slider li .title p {
-					text-transform:uppercase;
-					text-align:center;
-					font:40px/45px 'adinenuPro-black';
-					color:#000;
-				}
-				#football .wrap .slider_wrap ul.slider li .title span {
-					font:400 26px/28px 'NotoSansKR';
-					color:#000;
-				}
-				#football .wrap .slider_wrap ul.slider li img {
-					width:1920px;
-				}
-				#football .wrap .slider_wrap ul.slider:after {
-					content:'';
-					display:block;
-					width:0;
-					height:0;
-					clear:both;
-				}
-
-				#football .wrap .numslider {
-					font: 30px/35px 'adinenuPro-black','Nanum Gothic';
-					top: -25px;
-					color: #fff;
-					width: 560px;
-					height: 100px;
-					overflow: hidden;
-					letter-spacing: 12px;
-					position: relative;
-					margin: 0 auto;
-				}
-
-				#football .wrap .numslider ul {
-					width: 2000px;
-				    position: absolute;
-				    bottom: 20px;
-				    left: -560px;
-				}
-
-				#football .wrap .numslider ul li {
-					width: 560px;
-					text-align: center;
-					float: left;
-					font:50px/30px 'adinenuPro-black';
-					letter-spacing: 10px;
-					color:#fff;
-				}
-
-				#football .wrap .btn {
-					position: absolute;
-				    top: 26px;
-				    left: 50%;
-				    width: 340px;
-				    margin-left: -175px;
-				    z-index: 10;
-				}
-				#football .wrap .btn a {
-					width:64px;
-					height:64px;
-					position:absolute;
-					top:0;
-					overflow:hidden;
-					opacity:.5;
-					filter:alpha(opacity=50);
-					-ms-filter:alpha(opacity=50);
-				}
-				#football .wrap .btn a img {
-					position:relative;
-				}
-				#football .wrap .btn a.next {
-					right:-100px;
-					transition:right 0.4s ease-out 0.1s;
-					-webkit-transition:right 0.4s ease-out 0.1s;
-					-moz-transition:right 0.4s ease-out 0.1s;
-					-o-transition:right 0.4s ease-out 0.1s;
-					-ms-transition:right 0.4s ease-out 0.1s;
-				}
-				#football .wrap .btn a.next img {
-					animation:arrow2 2s infinite;
-					-webkit-animation:arrow2 2s infinite;
-				}
-				#football .wrap .btn a.prev {
-					left:-100px;
-					transition:left 0.4s ease-out 0.1s;
-					-webkit-transition:left 0.4s ease-out 0.1s;
-					-moz-transition:left 0.4s ease-out 0.1s;
-					-o-transition:left 0.4s ease-out 0.1s;
-					-ms-transition:left 0.4s ease-out 0.1s;
-				}
-				#football .wrap .btn a.prev img {
-					animation:arrow 2s infinite;
-					-webkit-animation:arrow 2s infinite;
-				}
-
-				#football .bottom_area .banner_area {
-					position: relative;
-					width:100%;
-					opacity: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .bottom_area .banner_area .banner01{
-					position: relative;
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20171123/banner_ace.jpg') 0 0 repeat-x;
-					width:1903px;
-					height:471px;
-					left:50%;
-					margin-left: -951px;
-				}
-
-				#football .bottom_area .banner_area .banner02{
-					position: relative;
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20171123/banner_all.jpg') 0 0 repeat-x;
-					width:1903px;
-					height:429px;
-					left:50%;
-					margin-left: -951px;
-				}
-
-				#football .bottom_area .banner_area{
-					opacity: 1;
-				}
-
-				.ie9 #football .bottom_area .banner_area{
-					opacity: 1;
-				}
-
-
-
-				@media screen and (max-width: 1400px){
-						#football .statement{
-							overflow: visible;
-						}
-				}
-
-
-
-				#football .statement .bg{
-					width: 1900px;
-					position: absolute;
-					top: 0;
-					left: 50%;
-					margin-left: -950px;
-				}
-
-				#football .statement p{
-					position: relative;
-					top: 125px;
-					font: 22px/28px 'NotoSansKRLight','Nanum Gothic';
-					color: #fff;
-					text-align: center;
-					letter-spacing: -1px;
-				}
-
-				#football .statement p.first{
-
-				}
-				#football .statement p.first span{
-					font: 20px/14px 'NotoSansKRLight','Nanum Gothic';
-					display: block;
-					color: #0392b0;
-					text-align: center;
-					letter-spacing: 1.2px;
-					padding-top: 30px;
-				}
-
-				#football .statement p.first strong{
-					font: 24px/14px 'adihausDIN-Cond-bold';
-					text-align: center;
-					letter-spacing: 1.2px;
-				}
-
-				#football .cont1 {
-					height: 1807px;
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20171123/slide01_bg.jpg') center 0 repeat-x;
-				}
-
-				#football .cont1 .features{
-					position: relative;
-					margin-top: -70px;
-					padding-bottom: 50px;
-					padding-top: 200px;
-					display: none;
-				}
-
-				#football .cont1 .features .box{
-					position: relative;
-					width: 1140px;
-					height: 743px;
-					margin: 0 auto;
-				}
-
-				#football .cont1 .features .box .bg{
-					display: inline-block;
-					position: absolute;
-					top: -67px;
-    				left: -115px;
-
-    				opacity: 0;
-
-    				transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .box .fore_bg{
-					display: inline-block;
-					position: absolute;
-					left: 0;
-					top: 150px;
-					z-index: 1;
-
-					opacity: 0;
-
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .box .fore_bg a{
-					display: inline-block;
-				    position: absolute;
-				    top: 40%;
-				    left: 39%;
-				    background: url('http://image.adidas.co.kr/images/adidas/event/pure_boost/play.png') center 0 repeat-x;
-				    z-index: 1;
-				    width: 99px;
-				    height: 98px;
-				}
-
-				#football .cont1 .features .box .fore_bg:hover a{
-					background:url('http://image.adidas.co.kr/images/adidas/event/pure_boost/play_hover.png') center 0 repeat-x;
-				}
-
-				#football .cont1 .features .box.type2 .bg{
-					left: auto;
-				    right: -74px;
-				    top: 46px;
-				}
-
-				#football .cont1 .features .box.type2 .fore_bg{
-					left: auto;
-					right: 60px;
-				}
-
-				#football .cont1 .features .box .textbox{
-					width: 385px;
-					position: absolute;
-					top: 300px;
-					right: 20px;
-
-					opacity: 0;
-
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .box.type2 .textbox{
-					right: auto;
-					left: 0;
-				}
-
-				#football .cont1 .features .box .bg.loaded,
-				#football .cont1 .features .box .fore_bg.loaded,
-				#football .cont1 .features .box .textbox.loaded{
-					opacity: 1;
-				}
-
-				.ie9 #football .cont1 .features .box .bg,
-				.ie9 #football .cont1 .features .box .fore_bg,
-				.ie9 #football .cont1 .features .box .textbox{
-					opacity: 1;
-				}
-
-				#football .cont1 .features .box .textbox h3{
-					font:39px/44px 'adinenuPro-bold';
-					letter-spacing: 3px;
-					color: #fff;
-				}
-
-				#football .cont1 .features .box .textbox h3.kor{
-					font:400 36px/40px 'NotoSansKR';
-					letter-spacing: 0;
-					color: #fff;
-				}
-
-				#football .cont1 .features .box .textbox h3::after{
-					content:'';
-					display: block;
-					width: 25px;
-					height: 3px;
-					margin: 20px 0 20px;
-					background: #f70325;
-				}
-
-				#football .cont1 .features .box .textbox .desc{
-					margin-bottom: 30px;
-					font:17px/26px 'NotoSansKRLight','Nanum Gothic';
-					color: #fff;
-					letter-spacing:-0.75px;
-				}
-
-				#football .cont1 .features .box .textbox .button{
-					width: 310px;
-				}
-
-
-
-
-
-
-
-				#football .cont1 .features .video_box{
-					position: relative;
-					width: 1060px;
-					height: 633px;
-					margin: 0 auto;
-				}
-
-				#football .cont1 .features .box .bg{
-					display: inline-block;
-					position: absolute;
-					top: -67px;
-    				left: -115px;
-
-    				opacity: 0;
-
-    				transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .video_box .fore_bg{
-					display: inline-block;
-					position: absolute;
-					right: 0;
-					top: 20px;
-					z-index: 1;
-					opacity: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .video_box .fore_bg a{
-					display: inline-block;
-				    position: absolute;
-				    top: 40%;
-				    left: 39%;
-				    background: url('http://image.adidas.co.kr/images/adidas/event/pure_boost/play.png') center 0 repeat-x;
-				    z-index: 1;
-				    width: 99px;
-				    height: 98px;
-				}
-
-				#football .cont1 .features .video_box .fore_bg:hover a{
-					background:url('http://image.adidas.co.kr/images/adidas/event/pure_boost/play_hover.png') center 0 repeat-x;
-				}
-
-				#football .cont1 .features .video_box.type2 .bg{
-					left: auto;
-				    right: -74px;
-				    top: 46px;
-				}
-
-				#football .cont1 .features .video_box.type2 .fore_bg{
-					left: auto;
-					right: 60px;
-				}
-
-				#football .cont1 .features .video_box .textbox{
-					width: 385px;
-					position: absolute;
-					top: 270px;
-					left: 0;
-					margin-top:-120px;
-					opacity: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .cont1 .features .video_box.type2 .textbox{
-					right: auto;
-					left: 0;
-				}
-
-				#football .cont1 .features .video_box .bg.loaded,
-				#football .cont1 .features .video_box .fore_bg.loaded,
-				#football .cont1 .features .video_box .textbox.loaded{
-					opacity: 1;
-				}
-
-				.ie9 #football .cont1 .features .video_box .bg,
-				.ie9 #football .cont1 .features .video_box .fore_bg,
-				.ie9 #football .cont1 .features .video_box .textbox{
-					opacity: 1;
-				}
-
-				#football .cont1 .features .video_box .textbox h3{
-					font:39px/55px 'adinenuPro-bold';
-					letter-spacing: 3px;
-					color: #fff;
-				}
-
-				#football .cont1 .features .video_box .textbox h3.kor {
-					font:400 36px/40px 'NotoSansKR';
-					letter-spacing: 0;
-					color: #fff;
-				}
-
-				#football .cont1 .features .video_box .textbox h3::after{
-					content:'';
-					display: block;
-					width: 25px;
-					height: 3px;
-					margin: 20px 0 22px;
-					background: #f70325;
-				}
-
-				#football .cont1 .features .video_box .textbox .desc{
-					margin-bottom: 30px;
-					font:17px/26px 'NotoSansKRLight','Nanum Gothic';
-					color: #fff;
-					letter-spacing:-0.75px;
-				}
-
-				#football .cont1 .features .video_box .textbox .button{
-					width: 310px;
-				}
-
-
-
-
-
-
-
-				#football .bottom_area{
-					position: relative;
-					overflow: hidden;
-					background-size:100% 100%;
-				}
-
-				#football .bottom_area .bg{
-					position: absolute;
-					top: 0;
-					left: 50%;
-					margin-left: -950px;
-				}
-
-				#football .bottom_area .inner{
-					width: 950px;
-					position: relative;
-					margin: -17px auto 0;
-					overflow: hidden;
-				}
-
-				#football .bottom_area .inner .box{
-					width: 300px;
-					float: left;
-					margin-right: 25px;
-					position: relative;
-				}
-
-				#football .bottom_area .inner .box .button{
-					width: 246px;
-					position: absolute;
-					bottom: 20px;
-					left:25px;
-				}
-
-				#football .bottom_area .inner .box.last{
-					margin-right: 0;
-				}
-
-				html.no_scroll{
-					width: 100%;
-				    height: 100%;
-				    position: relative;
-				    overflow: hidden;
-				}
-
-				.video_layer{
-					width:100%;
-					height:100%;
-					position:fixed;
-					top:0;
-					left:0;
-					z-index:100;
-				}
-
-				.video_layer .close{
-					width: 50px;
-					height: 50px;
-					position: absolute;
-					top: 0;
-					right: 0;
-					z-index: 20;
-					background-position: 0 -685px;
-					opacity: 0;
-					-ms-filter:alpha(opacity=0);
-					filter:alpha(opacity=0);
-					transition:opacity 0.4s ease-in 0.2s;
-					-webkit-transition:opacity 0.4s ease-in 0.2s;
-				}
-
-				.video_layer .bg{
-					width: 100%;
-					height: 100%;
-					background: #000;
-					opacity: 0;
-					-ms-filter:alpha(opacity=0);
-					filter:alpha(opacity=0);
-					z-index: 5;
-					position: absolute;
-					top: 0;
-					left: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-				.video_layer.loaded .bg{
-					opacity: 0.6;
-					-ms-filter:alpha(opacity=60);
-					filter:alpha(opacity=60);
-				}
-
-				.video_layer.loaded .close{
-					opacity: 1;
-					-ms-filter:alpha(opacity=100);
-					filter:alpha(opacity=100);
-				}
-
-				.video_layer .video{
-					width: 100%;
-					height: 100%;
-					z-index: 6;
-					position: absolute;
-					top: 0;
-					left: 0;
-				}
-				.boost_slider_wrap{
-					width: 100%;
-					height: 503px;
-					position: relative;
-					overflow: hidden;
-				}
-
-				.boost_slider_wrap .next{
-					width:61px;
-					height:61px;
-					display: block;
-					position: absolute;
-					top: 220px;
-
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20171123/btn_next.png') 0 0 no-repeat;
-					z-index: 15;
-				}
-
-				.boost_slider_wrap .prev{
-					width:61px;
-					height:61px;
-					display: block;
-					position: absolute;
-					top: 220px;
-
-					background:url('http://image.adidas.co.kr/images/adidas/event/football/20171123/btn_prev.png') 0 0 no-repeat;
-					z-index: 15;
-				}
-
-				.boost_slider_wrap .next{
-					right: 50%;
-					margin-right: -475px;
-				}
-
-				.boost_slider_wrap .prev{
-					right: 50%;
-					margin-right: 414px;
-				}
-
-				.boost_slider_wrap .slider{
-					width: 50000px;
-					height: 480px;
-					position: absolute;
-					top: 0;
-					left:-1425px;
-				}
-
-				.boost_slider_wrap .slider .box{
-					width: 950px;
-					height: 480px;
-					position: relative;
-					float: left;
-					margin-right: 1px;
-					overflow: hidden;
-					/*background: #fff;*/
-				}
-
-				.boost_slider_wrap .slider .box img{
-					transition:opacity 0.3s;
-					-webkit-transition:opacity 0.3s;
-					/*opacity:0.2;*/
-					opacity:1;
-					/*filter:alpha(opacity=20);
-					-ms-filter:alpha(opacity=20);*/
-				}
-
-
-				.boost_slider_wrap .slider .box.active img{
-					opacity: 1;
-					filter:alpha(opacity=100);
-					-ms-filter:alpha(opacity=100);
-				}
-
-				.prev_slider_btn,
-				.next_slider_btn{
-					width: 100%;
-					height: 503px;
-					position: absolute;
-					top: 0;
-					display: block;
-					z-index: 10;
-					background-image:url('about:blank');
-				}
-
-				.prev_slider_btn{
-					left:-50%;
-					margin-left: -475px;
-				}
-
-				.next_slider_btn{
-					left: 50%;
-		  				margin-left: 475px;
-				}
-				.boost_cut_slider{
-					opacity: 0;
-					transition:opacity 0.4s;
-					-webkit-transition:opacity 0.4s;
-				}
-
-				#football .boost_cut_slider.loaded{
-					opacity: 1;
-				}
-
-				.ie9 #football .boost_cut_slider{
-					opacity: 1;
-				}
-
-				.boost_cut_slider .title{
-					padding-bottom: 70px;
-					font: 21px/28px 'NotoSansKRRegular','Nanum Gothic';
-					text-align: center;
-					color:#fff;
-					letter-spacing: -1px;
-				}
-				.boost_cut_slider .num{
-					padding: 0 0 130px;
-					text-align: center;
-				}
-
-				.boost_cut_slider .num span{
-					width: 8px;
-					height: 8px;
-					margin: 0 2px;
-					background: #555555;
-					display: inline-block;
-					border-radius:5px;
-				}
-
-				.boost_cut_slider .num span.on{
-					background: #fff;
-				}
-
-
-
-				/*@media screen and (max-width: 1400px){
-					#football .visual{
-						height: 640px;
-					}
-					#football .visual .bg{
-						top: -75px;
-						margin-left: -730px;
-					}
-
-					#football .visual .bg img{
-						width: 1460px;
-					}
-
-					#football .visual .button{
-						bottom: 87px;
-					}
-
-					#football .statement p.first{
-
-					}
-
-					#football .statement .bg{
-					}
-
-					#football .statement .bg img{
-						width: 100%;
-					}
-
-					#football .visual .slider {
-						position: relative;
-						height: 640px;
-					}
-
-					#football .visual .slider ul {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 4000px;
-					}
-
-					#football .visual .slider ul li.fade{
-						display: none;
-						float:left;
-					}
-
-					#football .visual .slider ul li.fade_in{
-						display: block;
-						position: absolute;
-						top: 0;
-						left: 0;
-					}
-
-					#football .visual .num {
-						position: absolute;
-	   				     bottom: 162px;
-	   				     left: 50%;
-	   				     margin-left: -20px;
-					}
-
-					#football .visual .num a{
-					    width: 13px;
-					    height: 12px;
-					    margin: 0 1px;
-						background: none;
-						border:2px solid #fff;
-					    display: inline-block;
-					    border-radius: 10px;
-					}
-
-					#football .visual .num a.active{
-					    background: #fff;
-					}*/
-				}
-
-			</style>
+			</script>			
 
 			<div id="football">
 
 				<div class="visual">
 					<div class="bg">
-							<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/visual.jpg" alt="">
+						<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/visual.jpg" alt="">
 					</div>
-						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=421" class="button button1">
-							<span>구매하기</span>
-						</a>
+					<h2>MASTER CONTROL</h2>
+					<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=473" class="button">
+						<span>구매하기</span>
+					</a>
 				</div>
 
-
-				<!-- <div class="statement" data-parallax="" data-parallax-speed="0.3" data-parallax-addclass="loaded">
-					<div class="bg"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/statement_bg.jpg" alt="" /></div>
-					<p class="first">게임의 판을 뒤집다. <strong>NEMEZIZ 17</strong>, 상상을 뛰어넘는 정확도와 민첩함을 경험하라.
-					<span>리오넬 메시</span>
-					</p>
-				</div> -->
-
 				<div class="wrap">
-					<p class="sel_tit">SELECT SURFACE</p>
+					<p class="sel_tit">경기장 타입 선택하기</p>
+
+					<div class="slide_bar">
 						<div class="numslider">
 							<ul>
 								<li>케이지</li>
 								<li class="on">스태디움</li>
 								<li>스트리트</li>
-							</ul>
+							</ul>						
 						</div>
-
-					<div class="btn">
-						<a href="javascript:void(0)" class="next"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/next.png" alt=""></a>
-						<a href="javascript:void(0)" class="prev"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/prev.png" alt=""></a>
+						<div class="btn">
+							<a href="javascript:void(0)" class="next"></a>
+							<a href="javascript:void(0)" class="prev"></a>
+						</div>
 					</div>
+
 					<div class="slider_wrap">
 
 						<ul class="slider">
 
 							<li>
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide01.jpg" alt="">
-								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=423" class="button button1">
-									<span>구매하기</span>
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/prd_cage.png" alt="">
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=423" class="button button1" style="background: #fff;">
+									<span style="color: #000">구매하기</span>
 								</a>
 							</li>
 
 							<li class="on">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide02.jpg" alt="">
-								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=422" class="button button1">
-									<span>구매하기</span>
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/prd_stadium.png" alt="">
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=422" class="button button1" style="background: #fff;">
+									<span style="color: #000">구매하기</span>
 								</a>
 							</li>
 
 							<li>
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide03.jpg" alt="">
-								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=424" class="button button1">
-									<span>구매하기</span>
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/prd_street.png" alt="">
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=424" class="button button1" style="background: #fff;">
+									<span style="color: #000">구매하기</span>
 								</a>
 							</li>
 
@@ -2143,24 +1051,24 @@
 				<div class="cont1">
 					<div class="features">
 						<div class="box">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide01_1.jpg" alt=""/>
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/cage_01.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded" style="top: 50%; margin-top:-20px;">
+							<div class="textbox">
 								<h3 class="kor">케이지를 지배하라</h3>
 								<div class="desc" class="" >공간이 좁아질수록 더욱 빛나는 컨트롤.<br />
 									풋볼 코트와 케이지를 모두 지배하다.<br />
-									프레데터 탱고 18.1+ TF. </div>
+									프레데터v 탱고 18.1+ TF. </div>
 								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=423" class="button ">
 									<span>구매하기</span>
 								</a>
 							</div>
 						</div>
-						<div class="video_box" style="margin-top: 130px;">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide01_2.jpg" alt=""/>
+						<div class="video_box">
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/cage_02.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded" style="top: 50%; margin-top:-20px;">
+							<div class="textbox">
 								<h3 class="kor">케이지를 점거하다</h3>
 								<div class="desc" class="" >케이지를 뒤흔드는 컨트롤의 혁명.<br />
 									무너지는 수비, 새로운 마스터의 탄생.<br />
@@ -2172,31 +1080,30 @@
 						</div>
 					</div>
 
-					<div class="features" style="display: block;">
-						<div class="video_box">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide02_1.jpg" alt=""/>
+					<div class="features" style="display: block;">						
+						<div class="box">
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/stadium_02.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded">
-								<h3 class="kor">컨트롤 마스터의 탄생</h3>
-								<div class="desc" class="" >모든 것을 컨트롤하라. 모든 게임을 지배하라.<br />
-									범접할 수 없는 완성형 컨트롤.<br />
-									프레데터 18.1 FG. </div>
+							<div class="textbox">
+								<h3 class="kor">비교할 수 없는 정교함</h3>
+								<div class="desc" class="" >비교할 수 없는 정교함으로 컨트롤을 완성하다.<br />
+									게임의 지배하는 컨트롤의 절대법칙. 프레데터 18+ FG.<br />
+									절대 흔들리지 않는 안정감을 경험하라. </div>
 								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=422" class="button ">
 									<span>구매하기</span>
 								</a>
 							</div>
 						</div>
-						<div class="box">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide02_2.jpg" alt=""/>
+						<div class="video_box">
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/stadium_01.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded">
-								<h3 class="kor">그라운드의 중심에 서다</h3>
-								<div class="desc" class="" >날카로운 정교함으로 90분을 관통하다.<br />
-									경기의 시작부터, 마지막 휘슬이 울리는 순간까지.<br />
-									눈에 보이지 않는 강력한 서포트로 게임을 지휘하다.<br />
-									프레데터 18.1+ FG. </div>
+							<div class="textbox">
+								<h3 class="kor">모든 것을 지배하라</h3>
+								<div class="desc" class="" >90분을 관통하는 날카로운 컨트롤. 게임의 모든 것을 지배하다.<br />
+									무결점의 실루엣이 선사하는 강력한 락다운.<br />
+									끈 없는 레이스리스 디자인의 혁명. 프레데터 18+ FG. </div>
 								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=422" class="button ">
 									<span>구매하기</span>
 								</a>
@@ -2204,12 +1111,12 @@
 						</div>
 					</div>
 
-					<div class="features" style="padding-top:100px;">
+					<div class="features">
 						<div class="box">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide03_1.jpg" alt=""/>
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/street_01.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded" style="top: 50%; margin-top:-20px;">
+							<div class="textbox">
 								<h3 class="kor">스트리트를 소유하다</h3>
 								<div class="desc" class="" >90분의 끝을 알리는 휘슬. 진정한 게임은 이제 시작이다.<br />
 									그라운드를 넘어 세상의 모든 축구를 소유하라.<br />
@@ -2219,11 +1126,11 @@
 								</a>
 							</div>
 						</div>
-						<div class="video_box" style="margin-top: 130px;">
-							<div class="fore_bg" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-								<img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/slide03_2.jpg" alt=""/>
+						<div class="video_box">
+							<div class="fore_bg">
+								<img src="http://image.adidas.co.kr/images/adidas/event/cold_blood/180129/street_02.png" alt=""/>
 							</div>
-							<div class="textbox" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded" style="top: 50%; margin-top:-20px;">
+							<div class="textbox">
 								<h3 class="kor">완벽한 지배의 시작</h3>
 								<div class="desc" class="" >경기장의 조명이 꺼질 때, 스트리트는 잠에서 깨어난다.<br />
 									세상의 모든 게임을 완벽히 지배하다.<br />
@@ -2236,83 +1143,6 @@
 					</div>
 				</div>
 				<!-- //features -->
-
-				<div class="bottom_area">
-					<div class="bg">
-						<!-- <img src="http://image.adidas.co.kr/images/adidas/event/football/20170207/bg_black_paper.jpg" alt="" /> -->
-					</div>
-					<div class="banner_area" data-parallax="" data-parallax-speed="0.2" data-parallax-addclass="loaded">
-
-							<div class="banner02">
-								<a href="http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001" class="button button5">
-									<span>자세히 보기</span>
-								</a>
-							</div>
-
-					</div>
-
-
-					<!-- //boost_cut_slider -->
-					<!-- <div class="boost_cut_slider" data-parallax="" data-parallax-speed="0.1" data-parallax-addclass="loaded">
-						<div class="title">
-							등장하는 순간, 게임의 레벨은 달라지지. <br>
-							#터보차지 폭발적인 스피드의 엔진, 그 이상.
-						</div>
-						<div class="boost_slider_wrap">
-							<div class="slider_wrap">
-								<div class="slider" style="left: -1425px;">
-									<div class="box clone"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/10.jpg" alt=""></div>
-									<div class="box clone"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/11.jpg" alt=""></div>
-
-									<div class="box active"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/01.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/02.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/03.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/04.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/05.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/06.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/07.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/08.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/09.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/10.jpg" alt=""></div>
-									<div class="box"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/11.jpg" alt=""></div>
-
-									<div class="box clone active"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/01.jpg" alt=""></div>
-									<div class="box clone"><img src="http://image.adidas.co.kr/images/adidas/event/football/20171123/02.jpg" alt=""></div>
-								</div>
-
-
-								<a href="javascript:void(0)" class="prev"></a>
-								<a href="javascript:void(0)" class="next"></a>
-
-								<a href="javascript:void(0)" class="prev_slider_btn"></a>
-								<a href="javascript:void(0)" class="next_slider_btn"></a>
-							</div>
-
-						</div>
-
-
-						<div class="num">
-							<span class="on"></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-					</div>
-
-					<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=302" class="button button6">
-						<span>축구 제품 전체 보기</span>
-					</a> -->
-
-
-
-				</div>
 
 			</div>
 			<!-- //football -->
@@ -2329,7 +1159,7 @@
 					var windowWidth = $(window).width();
 					var defaultSlideMargin = windowWidth/2 - itemWidth/2;
 
-					var numWidth = 560;
+					var numWidth = 380;
 					var defaultNumMargin = windowWidth/2 - numWidth/2;
 
 
@@ -2378,9 +1208,12 @@
 							left : defaultSlideMargin - (index * itemWidth)
 						});
 						numSliderElem.stop().animate({
-							left : index * -560
+							left : index * -380
 						});
 						afterAnimate();
+						
+						var offset = $(".wrap").offset();
+						$('html, body').animate({scrollTop : offset.top}, 800);
 					}
 
 					function afterAnimate(){
@@ -2419,199 +1252,24 @@
 						}
 					});
 
+					$(window).scroll(function () {
+						var thisScroll = $(this).scrollTop();
+						var lastScroll = 0;
+						var slideValue = $('.wrap').offset().top;
+						var slideBarValue = $('.slide_bar').offset().top;					
 
-				})(jQuery);
-
-			</script>
-
-			<script type="text/javascript">
-				;(function($){
-					var index = 0;
-					var timer;
-
-					function intervalFade(){
-						if (index == 0){
-							index = 1;
-							$('#fadebox1').fadeOut(1000);
-							$('#fadebox2').fadeIn(1000);
-							$('.visual>.num a').removeClass('active').eq(1).addClass('active');
-
-
+						if (thisScroll > lastScroll && thisScroll > slideValue + 24) {
+							$('.slide_bar').addClass('on');
 						}else{
-							index = 0;
-							$('#fadebox2').fadeOut(1000);
-							$('#fadebox1').fadeIn(1000);
-							$('.visual>.num a').removeClass('active').eq(0).addClass('active');
-						}
-					}
-
-					$(document).ready(function(){
-						timer = setInterval(intervalFade,4000);
-
-						$('.visual>.num a').bind('click',function(){
-							if($(this).hasClass('active')){
-								return false;
-							}
-
-
-							clearInterval(timer);
-
-							intervalFade();
-
-							timer = setInterval(intervalFade,4000);
-
-							return false;
-
-						});
-					});
-
-				})(jQuery);
-
-				// function test(){
-				// 	alert(11);
-				// }();
-
-			</script>
-			<script type="text/javascript">
-				(function($){
-
-					$('.features .video-button').bind('click',function(){
-						$('#football .video-button').bind('click',function(){
-
-							var videoId = $(this).attr('data-video-id');
-							viewVideo(videoId);
-							return false;
-						});
-					});
-
-
-					function viewVideo(videoId){
-						var $this = $(this);
-						var videoLayerElem = $('<div class="video_layer"><a class="spt_bg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
-						$('html').addClass('no_scroll');
-						$('body').append(videoLayerElem);
-						setTimeout(function(){
-							$('.video_layer').addClass('loaded');
-							setTimeout(function(){
-								$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-							},20);
-						},300);
-
-						$('.video_layer .close').bind('click',function(){
-							$('html').removeClass('no_scroll');
-							$('.video_layer').remove();
-						});
-						return false;
-					}
-
-
-					(function(){
-						var wrapElem = $('.boost_slider_wrap');
-						var sliderElem = wrapElem.find('.slider');
-						var boxElems = sliderElem.find('.box');
-
-						var index = 0;
-						var prevIdx = -1;
-						var length = boxElems.length - 4;
-						var moveVal = -951;
-						var defaultVal = 950-(($(window).width()+moveVal)/2);
-						var nowVal = (defaultVal*-1) + moveVal;
-
-						var cloneCount = 2;
-						var cloneLength = cloneCount*2;
-
-						sliderElem.css({
-							left : nowVal
-						});
-
-						wrapElem.find('.prev_slider_btn').bind('click',prevMove);
-						wrapElem.find('.next_slider_btn').bind('click',nextMove);
-
-						wrapElem.find('.prev').bind('click',prevMove);
-						wrapElem.find('.next').bind('click',nextMove);
-
-						function prevMove(){
-							if(index == 0){
-								setIndex(length-1);
-							}else{
-								setIndex(index-1);
-							}
-
-							beforeAnimate();
-
-							return false;
-						}
-
-						function nextMove(){
-							if(index == length-1){
-								setIndex(0);
-							}else{
-								setIndex(index + 1);
-							}
-
-							beforeAnimate();
-
-							return false;
-						}
-
-						function setIndex(i){
-							prevIdx = index;
-							index = i;
-						}
-
-						function beforeAnimate(){
-
-							if(prevIdx == 0 && index == length-1){
-								sliderElem.css({
-									left : ((length+cloneCount-1)*moveVal)-defaultVal
-								});
-							}else if(prevIdx == length-1 && index == 0){
-								sliderElem.css({
-									left : defaultVal*-1
-								});
-							}
-
-							animate();
-						}
-
-						function setNum(idx){
-							$('.boost_cut_slider .num span').removeClass('on').eq(idx).addClass('on');
-						}
-
-						function animate(){
-							sliderElem.animate({
-								// left : nowVal + (moveVal * index)
-								left : (defaultVal*-1) + (moveVal * (index+1))
-							});
-							endAnimate();
-						}
-
-						function endAnimate(){
-							boxElems.removeClass('active');
-							if(index == 0){
-								boxElems.eq(length+cloneCount).addClass('active');
-							}else if(index == length-1){
-								boxElems.eq(1).addClass('active');
-							}
-							boxElems.eq(index+cloneCount).addClass('active');
-
-							setNum(index);
-						}
-
-						$(window).resize(function(){
-							defaultVal = 950-(($(window).width()+moveVal)/2);
-							nowVal = (defaultVal*-1) + (moveVal*(index+1));
-							sliderElem.css({
-								left : nowVal
-							});
-						});
-					})();
-
+							$('.slide_bar').removeClass('on');
+						}							
+					})
 
 
 				})(jQuery);
-			</script>
 
+			</script>
+			
 		</div>
 
 		<div id="footer_r">
