@@ -644,33 +644,33 @@
                     </div>
 
                     <!-- 2017-02-05 리복 이메일 구독 스크립트 추가 START -->
-					<script type="text/javascript">
+                    <script type="text/javascript">
 						//성별 셋팅
-						function choiceGender(gender){
-							$("field2").value = gender;
+                        function choiceGender(gender){
+							$("field2").val() = gender;
 						}
 
 						function dataSend(){
-							if($("field1").value == ""){
+							if(jQuery("#field1").val() == ""){
 								alert("이름을 입력하세요.");
-								$("field1").focus();
+								jQuery("#field1").focus();
 								return;
 							}
 
-							if($("field2").value == ""){
+							if(jQuery("#field2").val() == ""){
 								alert("성별을 선택하세요.");
-								$("field2").focus();
+								jQuery("#field2").focus();
 								return;
 							}
 
-							if($("field0").value == ""){
+							if(jQuery("#field0").val() == ""){
 								alert("E-Mail을 입력하세요.");
-								$("field0").focus();
+								jQuery("#field0").focus();
 								return;
 							} else {
 								if(!checkEmail()){
 									alert("E-Mail 형식을 확인 하세요.");
-									$("field0").focus();
+									jQuery("#field0").focus();
 									return;
 								}
 							}
@@ -678,7 +678,7 @@
 							// 마케팅 수신 동의 체크
 							if(!jQuery("#custom_chk1").is(':checked')) {
 								alert("마케팅 수신 동의를 체크해 주세요.");
-								$("#custom_chk1").focus();
+								jQuery("#custom_chk1").focus();
 								return;
 							}
 							document.getElementById('form45').submit();
@@ -686,7 +686,7 @@
 
 						// 이메일 체크
 						function checkEmail(){
-							var emailVal = $("field0").value;
+							var emailVal = jQuery("#field0").value;
 							var reg = /^((\w|[\-\.])+)@((\w|[\-\.][^(\.)\1])+)\.([A-Za-z]+)$/;
 							if (emailVal.search(reg) != -1 && emailVal.length < 31) {
 								return true;
@@ -694,7 +694,9 @@
 							return false;
 						}
 					</script>
-					<form method="post" name="FlexweaveForm" action="https://s780143993.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s= document.querySelector('form#form45input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form45" class="elq-form" >
+
+                    <form method="post" name="FlexweaveForm" action="https://s780143993.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form45 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form45" class="elq-form">
+
 						<input value="FlexweaveForm" type="hidden" name="elqFormName"  />
 						<input value="780143993" type="hidden" name="elqSiteId"  />
 						<input name="elqCampaignId" type="hidden"  />
@@ -757,7 +759,8 @@
 									</tr>
 									<tr>
 										<td width="100%" colspan="5">
-											<a href="javascript:dataSend();"  class="btn-signup"></a>
+                                            <a href="#; none;" onclick="javascript:dataSend();" class="btn-signup"></a>
+
 										</td>
 									</tr>
 								</table>
@@ -773,6 +776,7 @@
             	<!-- //campaign_about //flexweave -->
 
                 <script type="text/javascript">
+
 
             		(function($){
 
