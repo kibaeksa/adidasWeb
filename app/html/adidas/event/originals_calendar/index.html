@@ -1057,84 +1057,110 @@
 
 			<div class="originals_calendar">
 
-				<div class="box ">
-					<div class="title">
-						<h2>adidas originals statement calendar</h2>
-						<span><img src="/images/adidas/event/originals_calendar/adidas_logo.png" alt=""></span>
-					</div>
-					<div class="img scrollbox">
-						<div class="bg"><img src="/images/adidas/event/originals_calendar/1.jpg" alt=""></div>
-						<div class="logo ct1190">
-							<img src="/images/adidas/event/originals_calendar/adidas_logo_black.png" alt="">
-							<div class="txt clfix" style="text-align:right;">
-								<div class="txt_innbox">
-									<p style="text-align:right;">2018.01.27<span>출시예정</span></p>
-								</div>
-								<div class="txt_innbox">
-									<p class="bold">white mountaineering</p>
-								</div>
-								<span class="bar"></span>
-								<div class="btn"><a href="javascript:void(0)">COMING SOON</a></div>
-							</div>
+					<div class="box ">
+						<div class="title">
+							<h2>adidas originals statement calendar</h2>
+							<span><img src="http://image.adidas.co.kr/images/adidas/event/originals_calendar/adidas_logo.png" alt=""></span>
 						</div>
-					</div>
-					<div class="img scrollbox">
-						<div class="bg"><img src="/images/adidas/event/originals_calendar/2.jpg" alt=""></div>
-						<div class="logo ct1190">
-							<div class="txt left clfix">
-								<div class="txt_innbox">
-									<p style="text-align:left;">2018.01.20<span>런칭</span></p>
-								</div>
-								<div class="txt_innbox">
-									<p class="bold">united arrows & sons</p>
-								</div>
-								<span class="bar"></span>
+						<div class="img scrollbox neighborhood">
+							<div class="bg"><img src="/images/adidas/event/originals_calendar/neighborhood.jpg" alt=""></div>
+							<div class="logo ct1190">
+								<div class="txt left clfix white">
+									<div class="txt_innbox">
+										<p style="text-align:left;">2018.02.24<span style="padding-left: 8px;">런칭</span></p>
+									</div>
+									<div class="txt_innbox">
+										<p class="bold">Originals by<br>NEIGHBORHOOD</p>
+									</div>
+									<span class="bar"></span>
 
-								<div class="btn"><a href="http://shop.adidas.co.kr/PF020611.action?pn=UA_AND_SONS"
-									style="
-									font: 400 20px/53px 'NotoSansKR';
-									width: 205px;
-									text-align: center;
-									padding: 0;">
-									자세히 보기</a>
+									<div class="btn"><a href="http://shop.adidas.co.kr/PF020611.action?pn=UA_AND_SONS" style="
+										font: 400 20px/53px 'NotoSansKR';
+										width: 205px;
+										text-align: center;
+										padding: 0;">
+										자세히 보기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="img scrollbox ">
+							<div class="bg"><img src="/images/adidas/event/originals_calendar/1.jpg" alt=""></div>
+							<div class="logo ct1190">
+								<img src="/images/adidas/event/originals_calendar/adidas_logo_black.png" alt="">
+								<div class="txt clfix" style="text-align:right;">
+									<div class="txt_innbox">
+										<p style="text-align:right;">2018.01.27<span style="padding-left: 8px;">런칭</span></p>
+									</div>
+									<div class="txt_innbox">
+										<p class="bold">white mountaineering</p>
+									</div>
+									<span class="bar"></span>
+									<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=490" style="
+										font: 400 20px/53px 'NotoSansKR';
+										width: 205px;
+										text-align: center;
+										padding: 0;">
+										자세히 보기</a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="img scrollbox">
+							<div class="bg"><img src="/images/adidas/event/originals_calendar/2.jpg" alt=""></div>
+							<div class="logo ct1190">
+								<div class="txt left clfix">
+									<div class="txt_innbox">
+										<p style="text-align:left;">2018.01.20<span style="padding-left: 8px;">런칭</span></p>
+									</div>
+									<div class="txt_innbox">
+										<p class="bold">united arrows &amp; sons</p>
+									</div>
+									<span class="bar"></span>
+
+									<div class="btn"><a href="http://shop.adidas.co.kr/PF020611.action?pn=UA_AND_SONS" style="
+										font: 400 20px/53px 'NotoSansKR';
+										width: 205px;
+										text-align: center;
+										padding: 0;">
+										자세히 보기</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
-
-			</div>
-			<!-- //alphaskin -->
 
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
 
 				(function(){
 
+					$('.ready').click(function(){
+						alert('준비 중입니다.');
+					})
 
 
-					var scollF = function(){
+					var scrollArray = [];
+					var scrollSelectors = document.querySelectorAll('.scrollbox');
 
-						var array =[];
-						var scrollCons = document.querySelectorAll('.scrollbox');
-						console.log(scrollCons)
-
-						for(var i = 0; i < scrollCons.length; i++ ){
-							var conPos = scrollCons[i].offsetTop;
-							array.push(conPos)
+					function getPos(){
+						for(var i = 0; i<scrollSelectors.length; i++){
+							var mypos = scrollSelectors[i].offsetTop;
+							scrollArray.push(mypos)
 						}
-
-						for( var pos = 0; pos <array.length; pos++ ){
-							var currentPos = $(this).scrollTop() + $('.originals_calendar .title').height() +$('#header-20160315').height();
-							if(currentPos >= array[pos]){
+					}
+					getPos();
+					$(window).scroll(function(){
+						var thisPos = $(this).scrollTop() + 500;
+						for(var pos= 0 ; pos < scrollArray.length; pos++){
+							if(thisPos> scrollArray[pos]){
 								$('.originals_calendar .scrollbox').eq(pos).addClass('on');
 							}
 						}
-
-
-					}
-
-					$(window).scroll(scollF)
+					})
 
 
 				})(jQuery)
