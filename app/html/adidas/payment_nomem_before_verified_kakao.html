@@ -7,7 +7,7 @@
 <meta property="og:title" content="아디다스 공식 온라인 스토어" />
 <meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" />
 <meta property="og:url" content="http://shop.adidas.co.kr"/>
-<title>아디다스 공식 온라인 스토어 메인페이지</title>
+<title>아디다스 공식 온라인 스토어</title>
 
 <link rel="shortcut icon" href="/images/adidas/favicon.ico" />
 <link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
@@ -28,14 +28,136 @@
 	/*160929*/
 	(function($){
 		$(document).ready(function(){
-			$('.form_box input[type="text"],.form_box input[type="password"]').blur(function(){
-				if($('.form_box .pwd_input').val() !== '' && $('.form_box .id_input').val() !== ''){
+			setProdinfoPosition($(document));
+			$(document).bind('scroll',function(){
+				setProdinfoPosition($(this));
+			});
 
-					$('.form_box .btn-ctm').addClass('active');
+			$('.payment-main .prods_info .deliv_tooltip .spt_bg').hover(function(){
+				$(this).siblings('.tooltip-layer').show();
+			},function(){
+				$(this).siblings('.tooltip-layer').hide();
+			});
+
+			function setProdinfoPosition(obj){
+				var endPos = $('#footer_r').offset().top - ($('.prods_info').outerHeight() + 120);
+				if( $('.payment-main .contents').offset().top + 58 < obj.scrollTop() && endPos > obj.scrollTop() ){
+					$('.payment-main .contents .prods_info').css({
+						top : 0
+					}).addClass('fixed');
+				}else if(endPos <= obj.scrollTop()){
+					if($('.payment-main .contents .prods_info').hasClass('fixed')){
+						$('.payment-main .contents .prods_info').removeClass('fixed').css({
+							top : ($('#footer_r').offset().top - $('.prods_info').outerHeight())-260
+						});
+					}
 				}else{
-					$('.form_box .btn-ctm').removeClass('active');
+					$('.payment-main .contents .prods_info').css({
+						top : 58
+					}).removeClass('fixed');
+				}
+			}
+
+			// 비회원 시, 로그인/비회원구매 선택 라디오버튼
+			$('.delivery_info .for_guest>.box>.box_form .input-ctm').ctmInputSetCallback({
+				before : function(){
+					if(this.hasClass('checked')){
+						return false;
+					}
+				},
+				after : function(){
+					//170303 스크립트 추가
+					if(this.find('input').attr('id') == 'guest_payment1'){
+						$('.delivery_info .for_guest>.deliv_form_wrap').hide();
+						$('.delivery_info .for_guest>.login_naver').hide();
+						$('.delivery_info .for_guest>.login_form').show();
+					}else if(this.find('input').attr('id') == 'guest_payment2'){
+						$('.delivery_info .for_guest>.login_form').hide();
+						$('.delivery_info .for_guest>.login_naver').hide();
+						$('.delivery_info .for_guest>.deliv_form_wrap').show();
+					}else{
+						$('.delivery_info .for_guest>.login_form').hide();
+						$('.delivery_info .for_guest>.deliv_form_wrap').hide();
+						$('.delivery_info .for_guest>.login_naver').show();
+					}
 				}
 			});
+
+			// 결제수단 선택하는 라디오버튼
+			$('.payment_info .payment_options .input-ctm').ctmInputSetCallback({
+				before: function(){
+					if(this.hasClass('checked')){
+						return false;
+					}
+				},
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					$('.payment_contents>div').hide();
+					$('#'+elemId+'_payment').show();
+
+					setProdinfoPosition($(document));
+
+				}
+			});
+
+
+			// 무통장입금 신청하기/신청안함 라디오버튼
+			$('#vbank_payment #select_vbank_recpt_yn .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'VBANK_CASH_RECPT_APPLY_Y'){
+						$('#vbank_payment #desc_vbank').show();
+						$('#vbank_payment #select_vbank_recpt_prpos').show();
+					}else{
+						$('#vbank_payment #desc_vbank').hide();
+						$('#vbank_payment #select_vbank_recpt_prpos').hide();
+					}
+				}
+			});
+
+			// 무통장입금 개인소득공제/사업자증빙 라디오버튼
+			$('#vbank_payment #select_vbank_recpt_prpos .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'VBANK_CASH_RECPT_PUBL_PRPOS_01'){
+						$('#vbank_payment #vbank_escrw_business').hide();
+						$('#vbank_payment #vbank_escrw_personal').show();
+					}else{
+						$('#vbank_payment #vbank_escrw_personal').hide();
+						$('#vbank_payment #vbank_escrw_business').show();
+					}
+				}
+			});
+
+			// 실시간계좌이체 신청하기/신청안함 라디오버튼
+			$('#account_payment #select_account_recpt_yn .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+
+					if(elemId == 'CASH_RECPT_APPLY_Y'){
+						$('#account_payment #desc_account').show();
+						$('#account_payment #select_account_recpt_prpos').show();
+					}else{
+						$('#account_payment #desc_account').hide();
+						$('#account_payment #select_account_recpt_prpos').hide();
+					}
+				}
+			});
+
+			// 실시간계좌이체 개인소득공제/사업자증빙 라디오버튼
+			$('#account_payment #select_account_recpt_prpos .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'CASH_RECPT_PUBL_PRPOS_01'){
+						$('#account_payment #account_escrw_business').hide();
+						$('#account_payment #account_escrw_personal').show();
+					}else{
+						$('#account_payment #account_escrw_personal').hide();
+						$('#account_payment #account_escrw_business').show();
+					}
+				}
+			});
+
 
 			// 170317 툴팁 스크립트 START
 			$('.naver_tooltipbox .spt_bg').hover(function(){
@@ -43,6 +165,7 @@
 			},function(){
 				$(this).siblings('.tooltip-layer').hide();
 			});
+
 
 		});
 
@@ -1053,122 +1176,480 @@
 	<div id="container_r" style="background: #fff;">
 		<div id="contents_r">
 
-			<div class="location_r ct950">
-				<div class="go_back spt_bg"><a href="#">Back</a></div>
-				<span><a href="#">Home</a></span>
-				<span class="ico"></span>
-				<span>로그인</span>
-			</div>
+			<div class="payment-main">
+				<h2 class="blind">주문서 작성</h2>
+				<div class="contents">
+					<div class="payment_wrap">
+						<h3>배송지 정보</h3>
+						<div class="delivery_info">
+							<div class="for_guest">
+								<div class="box">
+									<div class="box_form">
+										<div class="input-ctm input-radio-ctm">
+											<input type="radio" checked="" id="guest_payment1" name="guest_payment"/>
+											<label for="guest_payment1">
+												<span class="ctm-box spt_bg">
+													<span class=" spt_bg"></span>
+												</span>
+												로그인
+											</label>
+										</div>
 
-			<div class="login-main clfix">
-				<div class="login_form">
-					<h3>로그인</h3>
-					<div class="form_box">
-						<div class="box">
-							<input type="text" placeholder="아이디" class="id_input"/>
-						</div>
-						<div class="box">
-							<input type="password" placeholder="비밀번호" class="pwd_input"/>
-						</div>
-						<div class="chk_area">
-							<div class="input-ctm input-check-ctm" data-init="true">
-								<input type="checkbox" id="custom_chk1">
-								<label for="custom_chk1">
-									<a class="ctm-box" href="javascript:void(0)">
-										<span class=" spt_bg"></span>
-									</a>
-									아이디 저장
-								</label>
-							</div>
-							<span class="btn_find">
-								<a href="javascript:void(0)">아이디</a> / <a href="javascript:void(0)" onclick="window.open('/html/adidas/popup_find_idpwd.html','','width=680,height=720')">비밀번호 찾기</a>
-							</span>
-							<!-- 170814 아이디/비밀번호 찾기 위치조정 -->
+										<!-- 180222 카카오 추가 -->
 
-							<!-- 170814 아이디/비밀번호 찾기 위치조정 END -->
-							<!-- 170814 자동로그인 -->
-							<!-- <div class="input-ctm input-check-ctm auto_login last">
-								<input type="checkbox" id="custom_chk_auto_login"/>
-								<label for="custom_chk_auto_login">
-									<a class="ctm-box" href="javascript:void(0)">
-										<span class=" spt_bg"></span>
-									</a>
-									자동 로그인
-								</label>
-							</div> -->
-							<!-- 170814 자동로그인 END -->
-						</div>
-						<!-- //chk_area -->
+										<div class="input-ctm input-radio-ctm">
+											<input type="radio" id="guest_payment3" name="guest_payment"/>
+											<label for="guest_payment3">
+												<span class="ctm-box spt_bg">
+													<span class=" spt_bg"></span>
+												</span>
+												SNS 로그인
+											</label>
+										</div>
 
-						<!-- 180222 카카오 추가 -->
-						<a href="#" class="btn-ctm btn-blue anim"><span>로그인<span class=" spt_bg"></span></span></a>
-						<a href="#" class="btn-ctm sns_btn nvr"><span>네이버 로그인</span></a>
-						<a href="#" class="btn-ctm sns_btn kko"><span>카카오 로그인</span></a>
-						<!-- 180222 카카오 추가 END-->
+										<!-- 180222 카카오 추가 END-->
 
-						<!-- 170317 네이버 툴팁박스 -->
-						<!-- <span class="naver_tooltipbox">
-							<span class="spt_bg"></span>
-							<span class="tooltip-layer">
-								<div class="arrow spt_bg"></div>
-								<div class="tooltip-contents">
-									<ul class="li-dot">
-										<li><span class="bul"></span>사용 중인 브라우저에 타인의 네이버 계정이 로그인되어 있는경우 로그아웃 후에 네이버 아이디로 로그인을 진행해 주세요. </li>
-										<li><span class="bul"></span>본인의 네이버 아이디가 아니라도 아디클럽 아이디와 연동이 가능 합니다. </li>
-										<li><span class="bul"></span>공용 PC에서 네이버 아이디로 로그인을 한 경우 타인이 아이디 도용을 막기 위해 사용 완료시 반드시 브라우저를 종료해 주시길 바랍니다.  </li>
-									</ul>
+										<div class="input-ctm input-radio-ctm">
+											<input type="radio" id="guest_payment2" name="guest_payment"/>
+											<label for="guest_payment2">
+												<span class="ctm-box spt_bg">
+													<span class=" spt_bg"></span>
+												</span>
+												비회원 주문
+											</label>
+										</div>
+
+
+
+
+									</div>
+									<!-- //box_form -->
 								</div>
-							</span>
-						</span> -->
-						<!-- 170317 END -->
+								<!-- //box -->
+
+								<div class="box login_form">
+									<div style="overflow: hidden;margin-bottom:10px;">
+										<input type="text" />
+										<input type="password" />
+										<a href="#" class="btn-ctm btn-blue"><span>로그인</span></a>
+									</div>
+									<a href="#" class="find_info">아이디, 비밀번호 찾기 <img src="/images/adidas/order/ico_circle_gray.gif" alt=""/></a>
+								</div>
+								<!-- //login_form -->
+
+								<div class="box deliv_form_wrap" style="padding-top:0;display: none;">
+									<a href="#" class="btn-ctm btn-blue "><span>본인인증</span></a>
+								</div>
+								<!-- //deliv_form_wrap -->
+
+								<!-- 170303 네이버로그인 -->
+								<!-- 180222 카카오 추가 -->
+								<div class="box login_naver" style="padding-top:0;display: none;">
+									<a href="#" class="btn-ctm sns_btn nvr"><span>네이버</span></a>
+									<a href="#" class="btn-ctm sns_btn kko"><span>카카오</span></a>
+								<!-- 180222 카카오 추가 END-->
+
+
+
+									 <!-- 170317 네이버 툴팁박스 -->
+ 									<!-- <span class="naver_tooltipbox">
+ 										<span class="spt_bg"></span>
+ 										<span class="tooltip-layer">
+ 											<div class="arrow spt_bg"></div>
+ 											<div class="tooltip-contents">
+ 												<ul class="li-dot">
+ 													<li><span class="bul"></span>사용 중인 브라우저에 타인의 네이버 계정이 로그인되어 있는경우 로그아웃 후에 네이버 아이디로 로그인을 진행해 주세요. </li>
+ 													<li><span class="bul"></span>본인의 네이버 아이디가 아니라도 아디클럽 아이디와 연동이 가능 합니다. </li>
+ 													<li><span class="bul"></span>공용 PC에서 네이버 아이디로 로그인을 한 경우 타인이 아이디 도용을 막기 위해 사용 완료시 반드시 브라우저를 종료해 주시길 바랍니다.  </li>
+ 												</ul>
+ 											</div>
+ 										</span>
+ 									</span> -->
+ 									<!-- 170317 END -->
+
+
+
+								</div>
+								<!-- 170303 네이버로그인 ENd -->
+							</div>
+							<!-- //for_guest -->
+
+						</div>
+						<!-- //delivery_info -->
+
+						<h3>결제수단</h3>
+						<div class="payment_info">
+							<div class="box payment_options">
+								<div class="box_form">
+									<div class="input-ctm input-radio-ctm">
+										<input type="radio" id="creditcard" name="payMethod" checked="" value="03"/>
+										<label for="creditcard">
+											<span class="ctm-box spt_bg">
+												<span class=" spt_bg"></span>
+											</span>
+											신용카드 (일반)
+										</label>
+									</div>
+
+									<div class="input-ctm input-radio-ctm">
+										<input type="radio" id="kpay" name="payMethod" value="03"/>
+										<label for="kpay">
+											<span class="ctm-box spt_bg">
+												<span class=" spt_bg"></span>
+											</span>
+											KPAY
+										</label>
+									</div>
+
+									<div class="input-ctm input-radio-ctm">
+										<input type="radio" id="account" name="payMethod" value="04"/>
+										<label for="account">
+											<span class="ctm-box spt_bg">
+												<span class=" spt_bg"></span>
+											</span>
+											실시간 계좌이체
+										</label>
+									</div>
+
+									<div class="input-ctm input-radio-ctm">
+										<input type="radio" id="vbank" name="payMethod" value="05"/>
+										<label for="vbank">
+											<span class="ctm-box spt_bg">
+												<span class=" spt_bg"></span>
+											</span>
+											무통장 입금
+										</label>
+									</div>
+
+									<div class="input-ctm input-radio-ctm last">
+										<input type="radio" id="mobile" name="payMethod" value="07"/>
+										<label for="mobile">
+											<span class="ctm-box spt_bg">
+												<span class=" spt_bg"></span>
+											</span>
+											휴대폰 결제
+										</label>
+									</div>
+								</div>
+							</div>
+							<!-- //payment_options -->
+							<div class="payment_contents">
+								<div class="payment_mobile_wrap" id="mobile_payment">
+									<div class="box">
+										<h4>결제 안내</h4>
+										<p class="desc">결제 한도금액은 통신사별, 회원등급별, 신규/번호이동 여부에 따라 다를 수 있습니다.</p>
+										<p class="desc" style="margin-bottom:8px;"><strong>※ 결제 제한 및 이용한도에 대한 자세한 내용은 FAQ 참고</strong></p>
+										<p class="desc">휴대폰 결제의 경우, 현금영수증 및 세금계산서 발급은 불가능합니다.</p>
+										<p class="desc" style="margin-bottom:18px;">(현금영수증은 휴대폰 요금 현금 지불 시에만 통신사 통해 발급 가능)</p>
+										<h4>취소 및 반품 안내</h4>
+										<ul>
+											<li>-결제한 달과 취소/반품한 달이 같은 경우, 결제 금액은 당일 취소 됩니다.</li>
+											<li>-결제한 달과 취소/반품한 달이 다른 경우, 입력하신 은행 계좌로 영업일 기준 3일 이내에 환불 됩니다.</li>
+											<li>-부분 취소/반품의 경우, 취소 건을 제외한 금액을 재결제 하시면 이전 결제 건 전체가 취소 됩니다.</li>
+											<li>-부분 취소 시 결제한도 금액이 부족한 경우, 휴대폰 결제 외에 다른 결제 수단으로 이용해주세요.</li>
+										</ul>
+										<p class="desc"><strong>※ 자세한 결제 취소 및 반품 절차는 FAQ 참고</strong></p>
+									</div>
+
+								</div>
+								<div class="payment_kpay_wrap" id="kpay_payment">
+									<div class="box" style="border-bottom-width:0;">
+										<h4>KG이니시스의 스마트폰 앱 간편결제 서비스</h4>
+										<p class="desc">사용자가 신용카드 결제정보를 Kpay에 미리 등록하고, 가맹점 결제 시 Kpay 어플리케이션을 실행, 간편하게 결제하는 서비스 입니다.</p>
+										<dl>
+											<dt>※ Kpay 지원 카드</dt>
+											<dd>신한, 비씨, 삼성, 롯데, 하나, 국민, 현대, 농협, 외환카드 사용가능</dd>
+										</dl>
+										<dl>
+											<dt>※ Kpay 안드로이드 지원 단말</dt>
+											<dd>지원 OS : 안드로이드 4.0 아이스크림 샌드위치 이상<br/>해상도 : 1280 x 720 이상 단말 (갤럭시S2 와 해당 동급 스마트폰 사용 불가)</dd>
+										</dl>
+										<dl>
+											<dt>※ Kpay iOS 지원 단말</dt>
+											<dd>지원 OS : iOS 6.0 이상(iPhone 4 이상 단말기 사용가능)<br/>해상도 : 1280 x 720 이상 단말(갤럭시S2 와 해당 동급 스마트폰 사용 불가)</dd>
+										</dl>
+										<p class="desc"><strong>위의 지원 카드 및 지원 단말기 등을 확인 후 사용해 주세요.</strong></p>
+									</div>
+								</div>
+
+								<div class="payment_account_wrap" id="account_payment">
+									<div class="first box" style="border-bottom:1px solid #d6d8d9;">
+										<ul class="desc">
+											<li><strong>- 실시간 계좌이체시 은행별 서비스 가능시간을 확인바랍니다.</strong></li>
+											<li class="last"><strong>- 실시간 계좌이체는 10분 이내로 입금확인을 하실 수 있습니다.</strong></li>
+										</ul>
+									</div>
+									<div class="box">
+										<h4>현금영수증 신청</h4>
+										<div class="box_form" id="select_account_recpt_yn" style="margin-bottom: 0;">
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="CASH_RECPT_APPLY_Y" name="CASH_RECPT_APPLY" checked=""/>
+												<label for="CASH_RECPT_APPLY_Y">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													신청하기
+												</label>
+											</div>
+											<!-- 현급영수증 신청하기 -->
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="CASH_RECPT_APPLY_N" name="CASH_RECPT_APPLY"/>
+												<label for="CASH_RECPT_APPLY_N">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													신청안함
+												</label>
+											</div>
+											<!-- 현급영수증 신청안함 -->
+										</div>
+										<!-- //box_form -->
+										<ul class="desc" id="desc_account" style="margin-top: 15px;">
+											<li>- 개인 소득공제용으로 신청하실 경우 국세청으로 자동전송됩니다.</li>
+											<li class="last">- 사업자 지출 증빙용으로 신청하시면 세금계산서로 활용 가능합니다.</li>
+										</ul>
+									</div>
+
+									<div class="box" id="select_account_recpt_prpos">
+										<h4>현금영수증 발급</h4>
+										<div class="box_form">
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="CASH_RECPT_PUBL_PRPOS_01" name="CASH_RECPT_PUBL_PRPOS_R" checked=""/>
+												<label for="CASH_RECPT_PUBL_PRPOS_01">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													개인소득공제용
+												</label>
+											</div>
+											<!-- 개인소득공제용 -->
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="CASH_RECPT_PUBL_PRPOS_02" name="CASH_RECPT_PUBL_PRPOS_R"/>
+												<label for="CASH_RECPT_PUBL_PRPOS_02">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													사업자증빙용
+												</label>
+											</div>
+											<!-- 사업자 증빙용 -->
+										</div>
+										<!-- //box_form -->
+										<div class="info_escrw">
+											<div id="account_escrw_personal" style="display: block;">
+												<label for="CASH_RECPT_MOBLN">휴대폰번호</label>
+												<input type="text" id="CASH_RECPT_MOBLN"/>
+											</div>
+											<div id="account_escrw_business">
+												<label for="CASH_RECPT_BIZRN">사업자 등록번호</label>
+												<input type="text" id="CASH_RECPT_BIZRN"/>
+											</div>
+										</div>
+									</div>
+									<div class="box last">
+										<h4>한국스탠다드차타드은행 채무지급보증안내</h4>
+										<ul class="desc">
+											<li class="last">당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드은행과 채무 지급보증 계약을 체결하여 안전거래를<br/>보장하고 있습니다.</li>
+										</ul>
+										<a href="#" style="position: absolute;top: 15px;left: 220px;"><img src="/images/adidas/order/btn_security_check.gif" alt="서비스 가입사실 확인"/></a>
+									</div>
+								</div>
+								<!-- //payment_account -->
+
+								<div class="payment_account_wrap" id="vbank_payment">
+									<div class="first box" style="border-bottom:1px solid #d6d8d9;">
+										<ul class="desc">
+											<li class="last"><strong>- 아래 ‘결제하기’ 버튼클릭 후 입금은행 및 계좌, 입금기한을 확인하실 수 있습니다.</strong></li>
+										</ul>
+									</div>
+									<div class="box">
+										<h4>현금영수증 신청</h4>
+										<div class="box_form" id="select_vbank_recpt_yn" style="margin-bottom: 0;">
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="VBANK_CASH_RECPT_APPLY_Y" name="VBANK_CASH_RECPT_APPLY" checked=""/>
+												<label for="VBANK_CASH_RECPT_APPLY_Y">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													신청하기
+												</label>
+											</div>
+											<!-- 현급영수증 신청하기 -->
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="VBANK_CASH_RECPT_APPLY_N" name="VBANK_CASH_RECPT_APPLY"/>
+												<label for="VBANK_CASH_RECPT_APPLY_N">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													신청안함
+												</label>
+											</div>
+											<!-- 현급영수증 신청안함 -->
+
+										</div>
+										<!-- //box_form -->
+										<ul class="desc" id="desc_vbank" style="margin-top: 15px;">
+											<li>- 개인 소득공제용으로 신청하실 경우 국세청으로 자동전송됩니다.</li>
+											<li class="last">- 사업자 지출 증빙용으로 신청하시면 세금계산서로 활용 가능합니다.</li>
+										</ul>
+									</div>
+
+									<div class="box" id="select_vbank_recpt_prpos">
+										<h4>현금영수증 발급</h4>
+										<div class="box_form">
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="VBANK_CASH_RECPT_PUBL_PRPOS_01" name="VBANK_CASH_RECPT_PUBL_PRPOS_R" checked=""/>
+												<label for="VBANK_CASH_RECPT_PUBL_PRPOS_01">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													개인소득공제용
+												</label>
+											</div>
+											<!-- 개인소득공제용 -->
+
+											<div class="input-ctm input-radio-ctm">
+												<input type="radio" id="VBANK_CASH_RECPT_PUBL_PRPOS_02" name="VBANK_CASH_RECPT_PUBL_PRPOS_R"/>
+												<label for="VBANK_CASH_RECPT_PUBL_PRPOS_02">
+													<span class="ctm-box spt_bg">
+														<span class=" spt_bg"></span>
+													</span>
+													사업자증빙용
+												</label>
+											</div>
+											<!-- 사업자 증빙용 -->
+										</div>
+										<!-- //box_form -->
+										<div class="info_escrw">
+											<div id="vbank_escrw_personal" style="display: block;">
+												<label for="VBANK_CASH_RECPT_MOBLN">휴대폰번호</label>
+												<input type="text" id="VBANK_CASH_RECPT_MOBLN"/>
+											</div>
+											<div id="vbank_escrw_business">
+												<label for="VBANK_CASH_RECPT_BIZRN">사업자 등록번호</label>
+												<input type="text" id="VBANK_CASH_RECPT_BIZRN"/>
+											</div>
+										</div>
+									</div>
+									<div class="box last">
+										<h4>한국스탠다드차타드은행 채무지급보증안내</h4>
+										<ul class="desc">
+											<li class="last">당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드은행과 채무 지급보증 계약을 체결하여 안전거래를<br/>보장하고 있습니다.</li>
+										</ul>
+										<a href="#" style="position: absolute;top: 15px;left: 220px;"><img src="/images/adidas/order/btn_security_check.gif" alt="서비스 가입사실 확인"/></a>
+									</div>
+								</div>
+								<!-- //payment_vbank -->
+
+							</div>
+							<!-- //payment_contents -->
+
+							<div class="checkout_btn">
+								<div class="agreebox">
+									<div class="input-ctm input-check-ctm ctm-check-blue">
+										<input type="checkbox" id="custom_chk1"/>
+										<label for="custom_chk1">
+											<span class="ctm-box">
+												<span class=" spt_bg"></span>
+											</span>
+											비회원 구매 약관 동의
+										</label>
+									</div>
+
+									<a href="#" class="view_term">약관 전문 보기<span class="spt_bg"></span></a>
+								</div>
+								<a href="#" class="btn-ctm btn-blue"><span>결제하기</span></a>
+							</div>
+						</div>
+						<!-- //payment_info -->
 					</div>
-					<!-- //form_box -->
+					<!-- //payment_wrap -->
 
+					<div class="prods_info" id="test_box">
 
+						<div class="total_amount">총 주문 상품 : 2개</div>
+						<div class="price_box">
+							<div class="box clfix">
+								<strong>총 주문 가격</strong>
+								<div class="price-container">
+									<span class="prc">129,000<span class="won">원</span></span>
+								</div>
+							</div>
+							<div class="box clfix">
+								<strong>할인</strong>
+								<div class="price-container">
+									<span class="prc sale">10,000<span class="won">원</span></span>
+								</div>
+							</div>
+							<div class="box deliv clfix">
+								<strong>배송비
+									<span class="deliv_tooltip">
+										<span class="spt_bg"></span>
+										<span class="tooltip-layer">
+											<div class="arrow spt_bg"></div>
+											<div class="tooltip-contents">50,000원 이상 구매 시 무료배송</div>
+										</span>
+									</span>
+								</strong>
 
+								<div class="price-container">
+									<span class="prc">15,000<span class="won">원</span></span>
+								</div>
+							</div>
+							<div class="box total_p clfix">
+								<strong>총 결제금액</strong>
+								<div class="price-container">
+									<span class="prc">134,000<span class="won">원</span></span>
+									<p class="point">예상포인트 <strong>5,540 (5%)</strong></p>
+								</div>
+							</div>
+						</div>
+						<!-- //price_box -->
 
-					<dl>
-						<dt>오프라인 스토어에서 가입하신 회원님.</dt>
-						<dd>
-							<ol>
-								<li>1) 휴대폰으로 전송된 임시 아이디/비밀번호로 로그인</li>
-								<li>2) 회원가입 페이지로 이동해, 회원가입 절차 완료</li>
-							</ol>
-						</dd>
-					</dl>
-					<a href="#" class="btn-ctm btn-lgray"><span>비회원 주문조회</span></a>
+						<div class="prodlist">
+							<div class="box first">
+								<div class="img"><img src="http://image.adidas.co.kr/upload/prod/basic/60/S76582-1_60X60.jpg" alt="" /></div>
+								<div class="info">
+									<div class="tit"><a href="#">슈퍼스타</a></div>
+									<div class="details">사이즈 : 235 / 수량 1</div>
+									<div class="price-container">
+										<span class="prc">129,000<span class="won">원</span></span>
+									</div>
+								</div>
+
+							</div>
+							<div class="box last">
+								<div class="img"><img src="http://image.adidas.co.kr/upload/prod/basic/60/S76582-1_60X60.jpg" alt="" /></div>
+								<div class="info">
+									<div class="tit"><a href="#">슈퍼스타</a></div>
+									<div class="details">사이즈 : 235 / 수량 1</div>
+									<div class="price-container">
+										<span class="prc line">129,000<span class="won">원</span></span>
+										<span class="prc sale">87,200<span class="won">원</span></span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- //prodlist -->
+
+						<div class="btn_coupon">
+							<a href="#">쿠폰사용 <span class="spt_bg"></span></a>
+						</div>
+
+					</div>
+					<!-- //prods_info -->
+
 				</div>
-				<!-- //login_form -->
+				<!-- //contents -->
 
-				<div class="register">
-					<h3>회원가입</h3>
-
-					<!-- 171110 이벤트 부분 추가 START -->
-					<!-- <div style="margin-bottom: 26px;">
-						<a href="http://shop.adidas.co.kr/PF020611.action?pn=thanks10th">
-							<img src="//image.adidas.co.kr/images/adidas/temp/banner_event_10th.jpg" alt="">
-						</a>
-					</div> -->
-					<!-- 171110 이벤트 부분 추가 END -->
-					<dl>
-						<dt>지금 아디다스 공식 멤버십 아디클럽에 가입하시고<br/>아디다스 공식 온/오프라인 스토어에서 멤버 혜택을 누리세요.</dt>
-						<dd>
-							<ul>
-								<li><span class="spt_bg"></span>구매금액의 5% 포인트 적립 : 5천 포인트 당 5천원 쿠폰 발급</li>
-								<li><span class="spt_bg"></span>생일기념, 시즌 쿠폰 제공</li>
-								<li><span class="spt_bg"></span>골드, 실버, 브론즈 차등 혜택 제공</li>
-								<li><span class="spt_bg"></span>멤버만을 위한 특별한 이벤트 초대</li>
-							</ul>
-						</dd>
-					</dl>
-
-					<!-- 180222 카카오 추가 -->
-					<a href="#" class="btn-ctm btn-blue"><span>회원가입<span class=" spt_bg"></span></span></a>
-					<a href="#" class="btn-ctm sns_btn kko_register"><span>카카오 회원가입</span></a>
-					<!-- 180222 카카오 추가 END-->
-				</div>
 			</div>
-			<!-- //login-main -->
+			<!-- //payment-main -->
 
 		</div>
 	</div>

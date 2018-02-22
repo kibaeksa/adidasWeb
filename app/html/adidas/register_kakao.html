@@ -28,21 +28,49 @@
 	/*160929*/
 	(function($){
 		$(document).ready(function(){
-			$('.form_box input[type="text"],.form_box input[type="password"]').blur(function(){
-				if($('.form_box .pwd_input').val() !== '' && $('.form_box .id_input').val() !== ''){
 
-					$('.form_box .btn-ctm').addClass('active');
-				}else{
-					$('.form_box .btn-ctm').removeClass('active');
+
+			$('.register-main .register_form input[type="text"]').each(function(){
+				var defaultValue = $(this).val();
+				$(this).focus(function(){
+					if($(this).val() == defaultValue){
+						$(this).val('');
+						$(this).addClass('focus');
+					}
+
+					if($(this).hasClass('id_input')){
+						$('#id_input_guide').show();
+					}
+
+				});
+
+				$(this).blur(function(){
+					if($(this).val() == ''){
+						$(this).val(defaultValue);
+						$(this).removeClass('focus');
+					}
+
+					if($(this).hasClass('id_input')){
+						$('#id_input_guide').hide();
+					}
+				});
+			});
+
+			$('.register-main .register_form input[type="password"]').focus(function(){
+				$(this).siblings('.fake_input').hide();
+			});
+
+			$('.register-main .register_form input[type="password"]').blur(function(){
+				if($(this).val() == ''){
+					$(this).siblings('.fake_input').show();
 				}
 			});
 
-			// 170317 툴팁 스크립트 START
-			$('.naver_tooltipbox .spt_bg').hover(function(){
-				$(this).siblings('.tooltip-layer').show();
-			},function(){
-				$(this).siblings('.tooltip-layer').hide();
+			$('.register-main .register_form .fake_input').bind('click',function(){
+				$(this).hide();
+				$(this).siblings('input[type="password"]').focus();
 			});
+
 
 		});
 
@@ -1057,118 +1085,532 @@
 				<div class="go_back spt_bg"><a href="#">Back</a></div>
 				<span><a href="#">Home</a></span>
 				<span class="ico"></span>
-				<span>로그인</span>
+				<span>회원가입</span>
 			</div>
 
-			<div class="login-main clfix">
-				<div class="login_form">
-					<h3>로그인</h3>
-					<div class="form_box">
-						<div class="box">
-							<input type="text" placeholder="아이디" class="id_input"/>
-						</div>
-						<div class="box">
-							<input type="password" placeholder="비밀번호" class="pwd_input"/>
-						</div>
-						<div class="chk_area">
-							<div class="input-ctm input-check-ctm" data-init="true">
-								<input type="checkbox" id="custom_chk1">
-								<label for="custom_chk1">
-									<a class="ctm-box" href="javascript:void(0)">
-										<span class=" spt_bg"></span>
-									</a>
-									아이디 저장
-								</label>
-							</div>
-							<span class="btn_find">
-								<a href="javascript:void(0)">아이디</a> / <a href="javascript:void(0)" onclick="window.open('/html/adidas/popup_find_idpwd.html','','width=680,height=720')">비밀번호 찾기</a>
-							</span>
-							<!-- 170814 아이디/비밀번호 찾기 위치조정 -->
+			<div class="register-main clfix">
+				<h3>회원가입</h3>
+				<div class="contents">
+					<div class="register_form">
 
-							<!-- 170814 아이디/비밀번호 찾기 위치조정 END -->
-							<!-- 170814 자동로그인 -->
-							<!-- <div class="input-ctm input-check-ctm auto_login last">
-								<input type="checkbox" id="custom_chk_auto_login"/>
-								<label for="custom_chk_auto_login">
-									<a class="ctm-box" href="javascript:void(0)">
-										<span class=" spt_bg"></span>
-									</a>
-									자동 로그인
-								</label>
-							</div> -->
-							<!-- 170814 자동로그인 END -->
+						<!-- 161121 start -->
+						<div class="row" style="height:40px;">
+							<div class="col">
+								<!-- <input type="text" value="홍길동" disabled="" class="strong"> -->
+
+								<div class="input-ctm input-radio-ctm" style="margin-left: 25px;margin-top: 6px;margin-right: 15px;">
+									<input type="radio" id="custom_chk1" name="memAgre1" id="memAgre2">
+									<label for="memAgre2" style="padding-left: 30px;">
+										<a class="ctm-box spt_bg" href="javascript:void(0)">
+											<span class=" spt_bg"></span>
+										</a>
+										아이핀(i-PIN) 인증
+									</label>
+								</div>
+
+								<div class="input-ctm input-radio-ctm">
+									<input type="radio" id="custom_chk1" name="memAgre1" id="memAgre3">
+									<label for="memAgre3" style="padding-left: 30px;">
+										<a class="ctm-box spt_bg" href="javascript:void(0)">
+											<span class=" spt_bg"></span>
+										</a>
+										휴대폰 인증
+									</label>
+								</div>
+
+								<a href="#" class="btn-ctm btn-lgray" style="width:144px;height:40px;position:absolute;top:0;right:0;"><span style="line-height:40px;">본인인증<span class=" spt_bg"></span></span></a>
+
+							</div>
 						</div>
-						<!-- //chk_area -->
+						<!-- 161121 end -->
 
 						<!-- 180222 카카오 추가 -->
-						<a href="#" class="btn-ctm btn-blue anim"><span>로그인<span class=" spt_bg"></span></span></a>
-						<a href="#" class="btn-ctm sns_btn nvr"><span>네이버 로그인</span></a>
-						<a href="#" class="btn-ctm sns_btn kko"><span>카카오 로그인</span></a>
+						<div class="row name_check">
+							<div class="col">
+								<input type="text" value="이름" class="id_input">
+							</div>
+						</div>
+
+						<div class="row kko_phone">
+							<div class="col">
+								<input type="text" value="휴대폰번호" class="phone_input">
+							</div>
+						</div>
+
+						<div class="row">
+							<p class="kko_phone_check">
+								이미 가입된 번호입니다.
+							</p>
+						</div>
+
+						<div class="row kko_line"></div>
 						<!-- 180222 카카오 추가 END-->
 
-						<!-- 170317 네이버 툴팁박스 -->
-						<!-- <span class="naver_tooltipbox">
-							<span class="spt_bg"></span>
-							<span class="tooltip-layer">
+						<div class="row email clfix">
+							<div class="col box1">
+								<input type="text" value="이메일*">
+							</div>
+							<div class="col a">
+								@
+							</div>
+							<div class="col box2">
+								<input type="text" value="">
+							</div>
+
+							<div class="selectbox-ctm size_shoes">
+								<a href="javascript:void(0)">직접입력</a>
 								<div class="arrow spt_bg"></div>
-								<div class="tooltip-contents">
-									<ul class="li-dot">
-										<li><span class="bul"></span>사용 중인 브라우저에 타인의 네이버 계정이 로그인되어 있는경우 로그아웃 후에 네이버 아이디로 로그인을 진행해 주세요. </li>
-										<li><span class="bul"></span>본인의 네이버 아이디가 아니라도 아디클럽 아이디와 연동이 가능 합니다. </li>
-										<li><span class="bul"></span>공용 PC에서 네이버 아이디로 로그인을 한 경우 타인이 아이디 도용을 막기 위해 사용 완료시 반드시 브라우저를 종료해 주시길 바랍니다.  </li>
+								<div class="select-contents option-list">
+									<ul>
+										<li data-option-value=""><a href="javascript:void(0)">직접입력</a></li>
+										<li data-option-value="naver.com" class="selected"><a href="javascript:void(0)">naver.com</a></li>
+										<li data-option-value="hanmail.net"><a href="javascript:void(0)">hanmail.net</a></li>
+										<li data-option-value="hotmail.com"><a href="javascript:void(0)">hotmail.com</a></li>
+										<li data-option-value="nate.com"><a href="javascript:void(0)">nate.com</a></li>
+										<li data-option-value="yahoo.co.kr"><a href="javascript:void(0)">yahoo.co.kr</a></li>
+										<li data-option-value="empas.com"><a href="javascript:void(0)">empas.com</a></li>
+										<li data-option-value="dreamwiz.com"><a href="javascript:void(0)">dreamwiz.com</a></li>
+										<li data-option-value="freechal.com"><a href="javascript:void(0)">freechal.com</a></li>
+										<li data-option-value="lycos.co.kr"><a href="javascript:void(0)">lycos.co.kr</a></li>
+										<li data-option-value="korea.com"><a href="javascript:void(0)">korea.com</a></li>
+										<li data-option-value="gmail.com"><a href="javascript:void(0)">gmail.com</a></li>
+										<li data-option-value="hanmir.com"><a href="javascript:void(0)">hanmir.com</a></li>
+										<li data-option-value="paran.com"><a href="javascript:void(0)">paran.com</a></li>
 									</ul>
 								</div>
-							</span>
-						</span> -->
-						<!-- 170317 END -->
+							</div>
+							<!-- //selectbox-ctm -->
+						</div>
+						<!-- //email -->
+
+						<div class="row phone">
+							<div class="col">
+								<input type="text" value="010-1234-5678" disabled="">
+							</div>
+						</div>
+
+						<div class="row clfix birth">
+							<div class="col">
+								<div class="selectbox-ctm">
+									<a href="javascript:void(0)">생년</a>
+									<div class="arrow spt_bg"></div>
+									<div class="select-contents option-list">
+										<ul>
+											<li data-option-value="2010"><a href="javascript:void(0)">2010</a></li>
+											<li data-option-value="2009"><a href="javascript:void(0)">2009</a></li>
+											<li data-option-value="2008"><a href="javascript:void(0)">2008</a></li>
+											<li data-option-value="2007"><a href="javascript:void(0)">2007</a></li>
+											<li data-option-value="2006"><a href="javascript:void(0)">2006</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- //selectbox-ctm -->
+							</div>
+
+							<div class="col">
+								<div class="selectbox-ctm">
+									<a href="javascript:void(0)">월</a>
+									<div class="arrow spt_bg"></div>
+									<div class="select-contents option-list">
+										<ul>
+											<li data-option-value="01"><a href="javascript:void(0)">01</a></li>
+											<li data-option-value="02"><a href="javascript:void(0)">02</a></li>
+											<li data-option-value="03"><a href="javascript:void(0)">03</a></li>
+											<li data-option-value="04"><a href="javascript:void(0)">04</a></li>
+											<li data-option-value="05"><a href="javascript:void(0)">05</a></li>
+											<li data-option-value="06"><a href="javascript:void(0)">06</a></li>
+											<li data-option-value="07"><a href="javascript:void(0)">07</a></li>
+											<li data-option-value="08"><a href="javascript:void(0)">08</a></li>
+											<li data-option-value="09"><a href="javascript:void(0)">09</a></li>
+											<li data-option-value="10"><a href="javascript:void(0)">10</a></li>
+											<li data-option-value="11"><a href="javascript:void(0)">11</a></li>
+											<li data-option-value="12"><a href="javascript:void(0)">12</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- //selectbox-ctm -->
+							</div>
+
+							<div class="col" style="margin-right: 0;">
+								<div class="selectbox-ctm">
+									<a href="javascript:void(0)">일</a>
+									<div class="arrow spt_bg"></div>
+									<div class="select-contents option-list">
+										<ul>
+											<li data-option-value="01"><a href="javascript:void(0)">01</a></li>
+											<li data-option-value="02"><a href="javascript:void(0)">02</a></li>
+											<li data-option-value="03"><a href="javascript:void(0)">03</a></li>
+											<li data-option-value="04"><a href="javascript:void(0)">04</a></li>
+											<li data-option-value="05"><a href="javascript:void(0)">05</a></li>
+											<li data-option-value="06"><a href="javascript:void(0)">06</a></li>
+											<li data-option-value="07"><a href="javascript:void(0)">07</a></li>
+											<li data-option-value="08"><a href="javascript:void(0)">08</a></li>
+											<li data-option-value="09"><a href="javascript:void(0)">09</a></li>
+											<li data-option-value="10"><a href="javascript:void(0)">10</a></li>
+											<li data-option-value="11"><a href="javascript:void(0)">11</a></li>
+											<li data-option-value="12"><a href="javascript:void(0)">12</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- //selectbox-ctm -->
+							</div>
+
+							<!--
+								170915
+								생일정보 입력 시,혜택 안내
+							 -->
+							<p class="tip"><span class="spt_bg ico"></span> 생일을 입력해 주시면, 생일 쿠폰 등 다양한 혜택을 받으실 수 있습니다.</p>
+						</div>
+						<!-- //birth -->
+						<!-- 180214 -->
+						<div class="row clfix gender" style="margin-bottom:20px;">
+							<div class="col" style="margin-right: 0;">
+								<div class="selectbox-ctm" style="width:100%">
+									<a href="javascript:void(0)">성별 (선택)</a>
+									<div class="arrow spt_bg"></div>
+									<div class="select-contents option-list">
+										<ul>
+											<li data-option-value="선택하지 않음"><a href="javascript:void(0)">선택하지 않음</a></li>
+											<li data-option-value="남자"><a href="javascript:void(0)">남자</a></li>
+											<li data-option-value="여자"><a href="javascript:void(0)">여자</a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- //selectbox-ctm -->
+							</div>
+						</div>
+						<!-- 180214 -->
+						<!--
+						170220 기존 부분 삭제
+						<div class="row check_area mkt_agr clfix">
+							<dl>
+								<dt>마케팅 수신동의</dt>
+								<dd>
+									<div class="input-ctm input-check-ctm" id="id4">
+										<input type="checkbox" id="custom_chk1"/>
+										<label for="custom_chk1">
+											<a class="ctm-box" href="javascript:void(0)">
+												<span class=" spt_bg"></span>
+											</a>
+											SMS
+										</label>
+									</div>
+
+									<div class="input-ctm input-check-ctm" id="id4">
+										<input type="checkbox" id="custom_chk1"/>
+										<label for="custom_chk1">
+											<a class="ctm-box" href="javascript:void(0)">
+												<span class=" spt_bg"></span>
+											</a>
+											e-Mail
+										</label>
+									</div>
+
+								</dd>
+							</dl>
+						</div>
+
+						<div class="row check_area terms_agr clfix">
+							<dl>
+								<dt>이용약관*</dt>
+								<dd>
+									<div class="input-ctm input-check-ctm" id="id4">
+										<input type="checkbox" id="custom_chk1"/>
+										<label for="custom_chk1">
+											<a class="ctm-box" href="javascript:void(0)">
+												<span class=" spt_bg"></span>
+											</a>
+											모든 약관에 동의함
+										</label>
+									</div>
+
+									170220 삭제
+									<a href="#" class="btn-ctm btn-lgray anim"><span>약관 전체보기<span class=" spt_bg"></span></span></a>
+
+								</dd>
+							</dl>
+						</div>
+						-->
+
+						<!-- 170220 추가 -->
+						<div class="agr_box">
+							<div class="box all_agree">
+								<!-- 170310 blue 클래스 추가 -->
+								<div class="input-ctm input-check-ctm small blue" id="check_agree_all">
+									<input type="checkbox" id="all_check">
+									<label for="all_check">
+										<a class="ctm-box spt_bg" href="javascript:void(0)">
+											<span class=" spt_bg"></span>
+										</a>
+										전체동의 <span>(약관 및 개인 정보 수집 동의 등)</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="sub_agreements">
+
+								<div class="agree_items">
+									<div class="box">
+										<div class="input-ctm input-check-ctm small">
+											<input type="checkbox" id="agree_inicis_terms01">
+											<label for="agree_inicis_terms01">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												(필수) 구매이용약관동의
+											</label>
+										</div>
+										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/01_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+									</div>
+									<div class="box">
+										<div class="input-ctm input-check-ctm small">
+											<input type="checkbox" id="agree_inicis_terms02">
+											<label for="agree_inicis_terms02">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												(필수) 개인정보 수집 이용동의
+											</label>
+										</div>
+										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/02_Information.html','inicisTerm','width=450,height=580')">자세히보기 <span class="spt_bg"></span></a>
+									</div>
+
+									<div class="box">
+										<div class="input-ctm input-check-ctm small">
+											<input type="checkbox" id="agree_inicis_terms03">
+											<label for="agree_inicis_terms03">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												(필수) 아디클럽 이용약관
+											</label>
+										</div>
+										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/03_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+									</div>
+
+								</div>
+
+								<div class="box">
+									<div class="input-ctm input-check-ctm small">
+										<input type="checkbox" id="agree_inicis_terms04">
+										<label for="agree_inicis_terms04">
+											<a class="ctm-box spt_bg" href="javascript:void(0)">
+												<span class=" spt_bg"></span>
+											</a>
+											<!--
+												170915
+												개인정보 취급 위탁동의 (선택) ==> (필수)
+												(구매 및 배송 관련) ==> (구매 및 배송 등 관련)
+											-->
+											(필수) 개인정보 취급 위탁동의 (구매 및 배송 등 관련)
+										</label>
+									</div>
+									<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/04_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+								</div>
+
+
+								<div class="box sns">
+									<span>(선택) 쿠폰 발급, 회원전용 이벤트 등 안내 수신동의</span>
+									<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/04_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+								</div>
+
+								<div class="box" style="border-top-width:0;padding-top: 0;">
+									<div class="subscribe_details">
+										<div class="input-ctm input-check-ctm small" style="margin-right:15px;">
+											<input type="checkbox" id="agree_inicis_terms04">
+											<label for="agree_inicis_terms04">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												SMS 수신
+											</label>
+										</div>
+
+										<div class="input-ctm input-check-ctm small" style="margin-right:0;">
+											<input type="checkbox" id="agree_inicis_terms04">
+											<label for="agree_inicis_terms04">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												e-Mail 수신
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- 171106 개인정보 보호기간 추가 -->
+								<div class="box">
+									<span>(선택) 개인정보 보호기관</span>
+								</div>
+
+								<div class="box" style="border-top-width:0;padding-top: 0;">
+									<div class="subscribe_details">
+										<div class="input-ctm input-radio-ctm small" style="margin-right:15px;">
+											<input type="radio" id="privacy_keep_term_1y" name="privacy_keep_term">
+											<label for="privacy_keep_term_1y">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												1년
+											</label>
+										</div>
+
+										<div class="input-ctm input-radio-ctm small" style="margin-right:15px;">
+											<input type="radio" id="privacy_keep_term_3y" name="privacy_keep_term">
+											<label for="privacy_keep_term_3y">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												3년
+											</label>
+										</div>
+
+										<div class="input-ctm input-radio-ctm small" style="margin-right:0;">
+											<input type="radio" id="privacy_keep_term_permanent" name="privacy_keep_term">
+											<label for="privacy_keep_term_permanent">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												영구보관
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<ul class="privacy_keep_notice li-dot">
+									<li><span class="bul"></span> 해당 기간 서비스 미사용 시 휴면계정전환</li>
+									<li><span class="bul"></span> 별도로 선택하지 않는 경우, 기본 1년간 보관</li>
+								</ul>
+								<!-- 171106 개인정보 보호기간 추가 END -->
+
+							</div>
+						</div>
+						<!-- //170220 -->
+
+
+
+						<div class="row btn_area">
+							<!-- 170220 버튼색상 수정 -->
+							<a href="#" class="btn-ctm btn-lgray"><span>회원가입<span class=" spt_bg"></span></span></a>
+						</div>
 					</div>
-					<!-- //form_box -->
+					<!-- //register_form -->
 
+					<div class="register_desc">
+						<ul>
+							<li><span class="spt_bg"></span>고객님의 개인정보를 신중히 취급하며,<br/>동의없이 정보가 공개되지 않습니다.</li>
+							<li><span class="spt_bg"></span>아디다스 공식 온라인 쇼핑몰에 가입하시면,<br/>아디클럽 회원으로 자동 가입됩니다.</li>
+							<li><span class="spt_bg"></span>매장에서 가입하신 고객은 웹 회원가입 과정을 거쳐야,<br/>정식 아이디/패스워드가 등록됩니다. </li>
+							<li class="last"><span class="spt_bg"></span>가입 후 휴대전화로 전송해 드린 아디클럽 회원증을 <br/>다운로드 하시면, 오프라인 매장에서도 상품 구매 후 <br/>포인트 적립이 가능합니다.</li>
+						</ul>
+					</div>
+					<!-- //register_desc -->
 
-
-
-					<dl>
-						<dt>오프라인 스토어에서 가입하신 회원님.</dt>
-						<dd>
-							<ol>
-								<li>1) 휴대폰으로 전송된 임시 아이디/비밀번호로 로그인</li>
-								<li>2) 회원가입 페이지로 이동해, 회원가입 절차 완료</li>
-							</ol>
-						</dd>
-					</dl>
-					<a href="#" class="btn-ctm btn-lgray"><span>비회원 주문조회</span></a>
 				</div>
-				<!-- //login_form -->
-
-				<div class="register">
-					<h3>회원가입</h3>
-
-					<!-- 171110 이벤트 부분 추가 START -->
-					<!-- <div style="margin-bottom: 26px;">
-						<a href="http://shop.adidas.co.kr/PF020611.action?pn=thanks10th">
-							<img src="//image.adidas.co.kr/images/adidas/temp/banner_event_10th.jpg" alt="">
-						</a>
-					</div> -->
-					<!-- 171110 이벤트 부분 추가 END -->
-					<dl>
-						<dt>지금 아디다스 공식 멤버십 아디클럽에 가입하시고<br/>아디다스 공식 온/오프라인 스토어에서 멤버 혜택을 누리세요.</dt>
-						<dd>
-							<ul>
-								<li><span class="spt_bg"></span>구매금액의 5% 포인트 적립 : 5천 포인트 당 5천원 쿠폰 발급</li>
-								<li><span class="spt_bg"></span>생일기념, 시즌 쿠폰 제공</li>
-								<li><span class="spt_bg"></span>골드, 실버, 브론즈 차등 혜택 제공</li>
-								<li><span class="spt_bg"></span>멤버만을 위한 특별한 이벤트 초대</li>
-							</ul>
-						</dd>
-					</dl>
-
-					<!-- 180222 카카오 추가 -->
-					<a href="#" class="btn-ctm btn-blue"><span>회원가입<span class=" spt_bg"></span></span></a>
-					<a href="#" class="btn-ctm sns_btn kko_register"><span>카카오 회원가입</span></a>
-					<!-- 180222 카카오 추가 END-->
-				</div>
+				<!-- //contents -->
 			</div>
-			<!-- //login-main -->
+			<!-- //register-main -->
+
+
+			<script type="text/javascript">
+				// 170220 start
+				(function($){
+					$('#check_agree_all').ctmSelectSetCallback({
+						after : function(){
+							var elemInputs = $('.sub_agreements .agree_items .input-check-ctm');
+							var i = 0;
+							var isChecked = this.find('input[type="checkbox"]').attr('checked');
+
+							for(; i < elemInputs.length; i++){
+								if(isChecked){
+									if(!$(elemInputs[i]).hasClass('checked')){
+										$(elemInputs[i]).trigger('click');
+
+										$('.register_form>.btn_area .btn-ctm').removeClass('btn-lgray').addClass('btn-blue');
+									}
+								}else{
+									if($(elemInputs[i]).hasClass('checked')){
+										$(elemInputs[i]).trigger('click');
+										$('.register_form>.btn_area .btn-ctm').removeClass('btn-blue').addClass('btn-lgray');
+									}
+								}
+							}
+
+							$('.sub_agreements').fadeIn();
+						}
+					});
+
+					$('.sub_agreements .agree_items .input-check-ctm').ctmSelectSetCallback({
+						after : function(){
+							var obj = $('.sub_agreements .agree_items .input-check-ctm');
+							var isAllChecked = (function(){
+								var length = obj.length;
+								var count = 0;
+								obj.each(function(index){
+									if($(this).find('input[type="checkbox"]').attr('checked')){
+										count += 1;
+										// console.log(obj.length);
+									}
+								});
+
+								if(count == length){
+									return true;
+								}else{
+									return false;
+								}
+							})();
+
+							if(isAllChecked){
+								$('#check_agree_all').addClass('checked');
+								$('#check_agree_all').find('input[type="checkbox"]').attr('checked',true);
+
+								$('.register_form>.btn_area .btn-ctm').removeClass('btn-lgray').addClass('btn-blue');
+							}else{
+								$('#check_agree_all').removeClass('checked');
+								$('#check_agree_all').find('input[type="checkbox"]').attr('checked',false);
+
+								$('.register_form>.btn_area .btn-ctm').removeClass('btn-blue').addClass('btn-lgray');
+							}
+
+						}
+					});
+
+
+					/*
+					170918 SNS 활성화/비활성화 삭제
+					$('#subscribe_agree').ctmSelectSetCallback({
+						after : function(){
+							if($(this).find('input[type="checkbox"]').attr('checked')){
+								$('.subscribe_details').addClass('active');
+							}else{
+								$('.subscribe_details').removeClass('active');
+								$('.subscribe_details .input-check-ctm').removeClass('checked');
+								$('.subscribe_details .input-check-ctm').find('input[type="checkbox"]').attr('checked',false);
+							}
+						}
+					});
+
+					$('.subscribe_details .input-check-ctm').ctmSelectSetCallback({
+						before : function(){
+							if(!$(this).parent().hasClass('active')){
+								return false;
+							}
+						}
+					})
+					*/
+
+					/*
+						170915
+						생일 입력하지 않고 회원가입 시도 시 ,문구 노출
+					 */
+					setTimeout(function(){
+						$('.row.birth').addClass('show_tip');
+					},1200);
+
+
+				})(jQuery);
+				// 170220 end
+			</script>
 
 		</div>
 	</div>
