@@ -465,7 +465,7 @@
 					</div>
 
 				</div>
-
+				<!-- container end-->
 
 				<div class="date"><p>* 본 정보는 2017.11.15 기준입니다.</p></div>
 
@@ -492,13 +492,25 @@
 					var menuIndex = 0;
 					var slide_item = $('.prd_wrapper.active .swiper-wrapper .prd-box');
 					var menuColor = ['#ffdf00','#92d39f','#c71500'];
-					var autoTime = 2500;
-					clearInterval(autoActive);
+					var autoTime = 500;
+					// clearInterval(autoActive);
+
+
+					// cal - container
+					var boxWid = $('.prd-box').width();
+					var containerWid = $('#ecomzone .container');
+					containerWid.css({
+						'width' : boxWid*3,
+						'left' :'8px'
+					})
+
 					// auto
 					var autoActive = setInterval(itemActive,autoTime);
 
+
 					// item function
 					function itemActive(){
+
 						slide_item = $('.prd_wrapper.active .swiper-wrapper .prd-box');
 
 						if( index > itemLength - 1 ){
@@ -506,11 +518,9 @@
 							$('.prd_wrapper.active .swiper-pagination span:eq(1)').trigger('click');
 							slide_item.removeClass('on').eq(index).addClass('on');
 							index++;
-							console.log(index)
 						}else{
 							slide_item.removeClass('on').eq(index).addClass('on');
 							index++;
-							console.log(index)
 						}
 
 						if(index > maxitemLength){
@@ -519,30 +529,27 @@
 							index = 0;
 							$('.prd_wrapper.active .swiper-pagination span:eq(0)').trigger('click');
 
-
 							slide_item.removeClass('on').eq(index).addClass('on');
-							function automenu(){
-								console.log('menuready')
-								console.log('index'+index)
 
-								if(menuIndex == 2){
-									menuIndex = 0;
-									$menuList.removeClass('active').eq(menuIndex).addClass('active');
-									$prd_wrapper.removeClass('active').eq(menuIndex).addClass('active');
-									$menuList.children('p').children('span').css({'background': menuColor[menuIndex]});
-									$('.main_visual .content').removeClass('active').eq(menuIndex).addClass('active');
+							console.log('menuready')
 
-
-								}else{
-									menuIndex++;
-									$menuList.removeClass('active').eq(menuIndex).addClass('active');
-									$prd_wrapper.removeClass('active').eq(menuIndex).addClass('active');
-									$menuList.children('p').children('span').css({'background': menuColor[menuIndex]});
-									$('.main_visual .content').removeClass('active').eq(menuIndex).addClass('active');
-								}
-
+							if(menuIndex == 2){
+								menuIndex = 0;
+								$menuList.removeClass('active').eq(menuIndex).addClass('active');
+								$prd_wrapper.removeClass('active').eq(menuIndex).addClass('active');
+								$menuList.children('p').children('span').css({'background': menuColor[menuIndex]});
+								$('.main_visual .content').removeClass('active').eq(menuIndex).addClass('active');
+								console.log('자동함수menuIndex :'+menuIndex)
+							}else{
+								menuIndex++;
+								$menuList.removeClass('active').eq(menuIndex).addClass('active');
+								$prd_wrapper.removeClass('active').eq(menuIndex).addClass('active');
+								$menuList.children('p').children('span').css({'background': menuColor[menuIndex]});
+								$('.main_visual .content').removeClass('active').eq(menuIndex).addClass('active');
+								console.log('자동함수menuIndex'+menuIndex)
 							}
-							automenu();
+
+
 						}
 
 					}
@@ -550,6 +557,7 @@
 
 					$menuList.click(function(){
 						clearInterval(autoActive);
+						autoActive = setInterval(itemActive, autoTime);
 						var menuIndex = $(this).index();
 						index = 0;
 						slide_item = $('.prd_wrapper.active .swiper-wrapper .prd-box');
@@ -563,11 +571,16 @@
 							'background': menuColor[menuIndex]
 						})
 
-						autoActive = setInterval(itemActive, autoTime);
-
 						console.log('menuIndex'+menuIndex)
-						console.log('index'+index)
-					})
+
+
+					});
+
+
+
+
+
+
 
 
 					var swiper = new Swiper('#prd_sell', {
