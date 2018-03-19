@@ -120,31 +120,65 @@ html.no_scroll {
     left: 0;
   }
 }
-
-.football_jersey {
-  position: relative;
-  background: #fff;
-  overflow: hidden;
-  .inner_wrap .main {
-    padding-top: 60px;
-    h2 {
-      font: 45px/68px 'adinenuPro-bold';
-      text-align: center;
+.main {
+  padding-top: 60px;
+  h2 {
+    font: 45px/68px 'adinenuPro-bold';
+    text-align: center;
+    color: #000;
+    letter-spacing: 16px;
+    strong {
+      font: 125px/100px 'adinenuPro-bold';
       color: #000;
-      letter-spacing: 16px;
-      strong {
-        font: 100px/90px 'adinenuPro-bold';
+      letter-spacing: 10px;
+    }
+  }
+  p{
+    margin-top: 10px;
+    font:400 25px 'NotoSansKR';
+    text-align: center;
+    color:#000;
+  }
+}
+.homeaway{
+  ul{
+    margin: 50px auto 10px;
+    overflow: hidden;
+    width: 964px;
+    li{
+      float: left;
+      width: 470px;
+      height: 80px;
+      border: 1px solid #000;
+      background: #fff;   
+      text-align: center;
+      margin: 0 5px;
+      cursor: pointer;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      opacity: .3;
+      &.on{
+        opacity: 1;        
+      }
+      a{
+        font: 30px/82px "adinenuPro-bold";
         color: #000;
-		letter-spacing: 10px;
+        text-transform: uppercase;
       }
     }
-	p{
-		margin-top: 10px;
-		font:400 25px 'NotoSansKR';
-		text-align: center;
-		color:#000;
-	}
   }
+}
+.homeaway-tap{
+  display: none;
+  &.on{
+    display: block;
+  }
+}
+.football_jersey,
+.football_away {
+  position: relative;
+  background: #fff;
+  overflow: hidden;  
   .button {
     display: block;
     margin-top: 10px;
@@ -218,8 +252,7 @@ html.no_scroll {
 
 .team_section {
   text-align: center;
-  position: relative;
-  padding-top: 90px;
+  position: relative; 
   height: 4591px;
   .team_btn {
     width: 950px;
@@ -230,32 +263,39 @@ html.no_scroll {
     margin: 0;
     margin-left: -483px;
     z-index: 10;
-	li{
-		float: left;
-		margin-left: 95px;
-		cursor: pointer;
-		&:first-child{
-			margin-left: 0;
-		}
-		a {
-	      width: 166px;
-	      height: 166px;
-	      display: block;
-	      background: url('/images/adidas/event/football_jersey/180105/team_logo.png?v=1') 0 -166px no-repeat;
-	    }
-		p{
-			font :500 20px 'NotoSansKR';
-			color:#d3d3d3;
-			text-align: center;
-			margin-top: 10px;
-
-		}
-
-	}
-
+    li{
+      float: left;
+      margin-left: 95px;
+      cursor: pointer;
+      &:first-child{
+        margin-left: 0;
+      }
+      a {
+          width: 166px;
+          height: 166px;
+          display: block;
+          background: url('/images/adidas/event/football_jersey/180105/team_logo.png?v=1') 0 -166px no-repeat;
+        }
+      p{
+        font :500 20px 'NotoSansKR';
+        color:#d3d3d3;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
   }
 }
-.football_jersey .team_section .team_btn li.on p{
+.team_section.away {
+  .team_btn{
+    li{
+      a{
+        background: url('/images/adidas/event/football_jersey/180320/team_logo.png') 0 -166px no-repeat;
+      }
+    }
+  }
+}
+.football_jersey .team_section .team_btn li.on p,
+.football_away .team_section .team_btn li.on p{
 	color:#000;
 }
 
@@ -269,7 +309,6 @@ html.no_scroll {
   }
   &#col_btn {
     width: 166px;
-
     background-position: -166px -166px;
   }
   &#ger_btn {
@@ -307,10 +346,28 @@ html.no_scroll {
   }
 }
 
+.football_away .team_section .team_btn li.on a {
+  &#arg_btn_away {
+    background-position: 0 0;
+  }
+  &#col_btn_away {
+    background-position: -166px 0;
+  }
+  &#ger_btn_away {
+    background-position: -332px 0;
+  }
+  &#mex_btn_away {
+    background-position: -498px 0;
+  }
+  &#rus_btn_away {
+    background-position: -664px 0;
+  }
+}
+
 .team_section .team_contents {
   position: absolute;
   height: 4313px;
-  top: 290px;
+  top: 340px;
   left: 50%;
   margin-left: -960px;
   .team_slider {
@@ -336,8 +393,8 @@ html.no_scroll {
 		  }
 		  .txt_box{
 			  position: absolute;
-			  top: 425px;
-		      right: 495px;
+			  top: 445px;
+		    right: 495px;
 			  h3{
 				  font:90px/100px 'adihausDIN-Cond-bold';
 				  color:#fff;
@@ -360,29 +417,30 @@ html.no_scroll {
 		  }
 	  }
 	  .cont1 {
-        position: relative;
-		margin-left: 1040px;
-		margin-top: 100px;
-        .img {}
-        .txt {
-          position: absolute;
-		  top: 100px;
-		  left: -590px;
-          color: #000;
-          h3 {
-            font:700 48px 'NotoSansKR';
-			&::after{
-				content: '';
-				display: block;
-				width: 25px;
-				height: 3px;
-				background-color: #000;
-				margin: 13px 0 23px 0;
-			}
+      position: relative;
+      margin-left: 1040px;
+      margin-top: 100px;
+      .img {}
+      .txt {
+        position: absolute;
+        top: 100px;
+        left: -590px;
+        color: #000;
+        z-index: 1;
+        h3 {
+          font:700 48px 'NotoSansKR';
+            &::after{
+              content: '';
+              display: block;
+              width: 25px;
+              height: 3px;
+              background-color: #000;
+              margin: 13px 0 23px 0;
+            }
           }
           p {
             font:400 17px/28px 'NotoSansKR';
-			letter-spacing: -0.7px;
+			      letter-spacing: -0.7px;
           }
           a.button {
             margin-top: 40px;
@@ -393,40 +451,43 @@ html.no_scroll {
 
       .cont2 {
         position: relative;
-		margin-left: 230px;
-    	margin-top: 60px;
-		a.video-button{
-			position: absolute;
-			width: 102px;
-			height: 102px;
-			top: 315px;
-			left: 315px;
-			display: block;
-			background: url('/images/adidas/event/football_jersey/180105/play.png')center center no-repeat;
-			&:hover{
-				background: url('/images/adidas/event/football_jersey/180105/play_ov.png')center center no-repeat;
-			}
-		}
-        .img {}
+        margin-left: 230px;
+        margin-top: 60px;
+        a.video-button{
+          position: absolute;
+          width: 102px;
+          height: 102px;
+          top: 315px;
+          left: 315px;
+          display: block;
+          background: url('/images/adidas/event/football_jersey/180105/play.png')center center no-repeat;
+          &:hover{
+            background: url('/images/adidas/event/football_jersey/180105/play_ov.png')center center no-repeat;
+          }
+        }
+        .img {
+
+        }
         .txt {
           position: absolute;
-		  top: 190px;
-    	  right: 450px;
+		      top: 190px;
+    	    right: 450px;
           color: #000;
-		  h3 {
-            font:700 48px 'NotoSansKR';
-			&::after{
-				content: '';
-				display: block;
-				width: 25px;
-				height: 3px;
-				background-color: #000;
-				margin: 13px 0 23px 0;
-			}
+          z-index: 1;
+            h3 {
+              font:700 48px 'NotoSansKR';
+            &::after{
+              content: '';
+              display: block;
+              width: 25px;
+              height: 3px;
+              background-color: #000;
+              margin: 13px 0 23px 0;
+            }
           }
           p {
             font:400 17px/28px 'NotoSansKR';
-			letter-spacing: -0.7px;
+			      letter-spacing: -0.7px;
           }
           a.button {
             margin-top: 40px;
@@ -506,7 +567,16 @@ html.no_scroll {
     }
   }
 }
-
+.football_away .team_section{
+  .txt_box{
+    position: absolute;
+    top: 180px;
+      right: 495px;
+    h3{
+      font:90px/90px 'adihausDIN-Cond-bold' !important;
+    }
+  }
+}
 .football_jersey .video {
   position: relative;
   margin-bottom: 50px;
@@ -533,7 +603,8 @@ html.no_scroll {
     }
   }
 }
-.football_jersey .banner_area{
+.football_jersey .banner_area,
+.football_away .banner_area{
 	position: relative;
 	height: 504px;
 	width: 100%;
