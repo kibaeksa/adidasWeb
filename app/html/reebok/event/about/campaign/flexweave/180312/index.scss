@@ -716,10 +716,10 @@
     }
 
     .prd_ctgr{
-        text-align: center;
         position: relative;
         background: url('/images/reebok/event/about/flexweave/180312/sub_visual.jpg') top center no-repeat;
         height: 846px;
+        text-align: center;
         .box_wrap{
             position: absolute;
             top: 40px;
@@ -747,6 +747,10 @@
                     }
                 }
                 span{
+                    position: relative;
+                    z-index: 1;
+                    display: block;
+                    text-align: center;
                     font:500 18px/65px 'NotoSansKR';
                     color:#000;
                     cursor: pointer;
@@ -754,7 +758,25 @@
                     overflow: hidden;
                 }
             }
-    }
+        }
+        .sub_imgs{
+            position: relative;
+            padding: 160px 0 0 0;
+            display: inline-block;
+            .img{
+                position: absolute;
+                left: 50%;
+                margin-left: -200px;
+                width: 400px;
+                text-align: center;
+                @include opacity(0);
+                @include transition (opacity, 0.5s);
+                &.on{
+                    @include opacity(1);
+
+                }
+            }
+        }
     }
     .prd_cuts{
         position: absolute;
