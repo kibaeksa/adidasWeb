@@ -1,9 +1,18 @@
 @import './app/css/adidas/scss/common/mixin.scss';
 @import './app/css/adidas/scss/common/common.scss';
-
+#wrap{
+	overflow: hidden;
+	min-width: 1280px;
+}
 #DEERUPT{
 	min-width: 1280px;
-
+	overflow: hidden;
+	.video_wrap{
+		&.on{
+			position: relative;
+			z-index: 3;
+		}
+	}
 	.main_video_wrap{
 		position: relative;
 		.main{
@@ -207,12 +216,40 @@
 						position: relative;
 					    padding: 60px 0 0 0;
 						img{
+							position: relative;
 							margin: 0 5px;
+							@include css3(transition, all 0.8s);
+							transition-delay: 0.8s;
+
 						}
 						.right{
 							position: absolute;
 						    top: -124px;
 						    right: 0;
+						}
+					}
+				}
+				&.last{
+					.content{
+						.imgs{
+							img{
+								top:10px;
+
+								@include css3(opacity, 0);
+							}
+						}
+					}
+					&.on{
+						.content{
+							.imgs{
+								img{
+									@include css3(opacity, 1);
+
+									&.img1{ top:40px; }
+									&.img2{ top:-10px; }
+									&.img3{ top:40px; }
+								}
+							}
 						}
 					}
 				}
@@ -254,6 +291,8 @@
 
 		}
 		#shoes{
+			margin: 0 auto;
+
 			ul{
 				li{
 					div{
@@ -317,7 +356,7 @@
 			    border: 1px solid #cccccc;
 			    margin-left: -1px;
 				background: #fff;
-				@include css3(transition, all 0.5s);
+				@include css3(transition, all 0.1s);
 				img{
 					position: relative;
 					top: 6px;
@@ -325,7 +364,7 @@
 				}
 				&.on{
 					border:1px solid #000;
-					z-index: 1;
+					z-index: 1 !important;
 					img{
 						transform: scale(1.1);
 					}

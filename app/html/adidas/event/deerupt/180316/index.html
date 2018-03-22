@@ -1025,12 +1025,10 @@
 							<li><div class="img"><img src="" alt="" style="background-image:url('/images/adidas/event/DEERUPT/180316/img4.jpg');background-size:cover;background-origin:content-box;"></div></li>
 							<li><div class="img"><img src="" alt="" style="background-image:url('/images/adidas/event/DEERUPT/180316/img5.jpg');background-size:cover;background-origin:content-box;"></div></li>
 							<li><div class="img"><img src="" alt="" style="background-image:url('/images/adidas/event/DEERUPT/180316/img6.jpg');background-size:cover;background-origin:content-box;"></div></li>
-							<!-- <li><div class="img"><img src="/images/adidas/event/DEERUPT/180316/img3.jpg" alt=""></div></li>
-							<li><div class="img"><img src="/images/adidas/event/DEERUPT/180316/img4.jpg" alt=""></div></li>
-							<li><div class="img"><img src="/images/adidas/event/DEERUPT/180316/img5.jpg" alt=""></div></li>
-							<li><div class="img"><img src="/images/adidas/event/DEERUPT/180316/img6.jpg" alt=""></div></li> -->
 						</ul>
-						<video src="/images/adidas/event/DEERUPT/180316/video1.mp4" class="video" id="video" type='video/mp4'></video>
+						<div class="video_wrap on" style="position: relative;width: 100%;height: 100%;background:#000;">
+							<video src="/images/adidas/event/DEERUPT/180316/video1.mp4" class="video" id="video" playsinline muted type='video/mp4'></video>
+						</div>
 						<div class="navi">
 							<div class="prev"><img src="/images/adidas/event/DEERUPT/180316/navi_prev.png" alt=""></div>
 							<div class="next"><img src="/images/adidas/event/DEERUPT/180316/navi_next.png" alt=""></div>
@@ -1047,7 +1045,7 @@
 						<div class="video_clips clfix">
 							<p>BACK TO LOOK</p>
 							<ul>
-								<li>01</li>
+								<li id="video_clips_first">01</li>
 								<li>02</li>
 								<li>03</li>
 							</ul>
@@ -1061,7 +1059,7 @@
 						</div>
 					</div>
 					<div class="btns">
-						<a href="javascript:void(0)">view colorways</a>
+						<a href="javascript:void(0)" id="videwShoes">view colorways</a>
 						<div class="btn"><a href="http://shop.adidas.co.kr/PF070801.action?pageNo=528">구매하기</a></div>
 					</div>
 				</div>
@@ -1078,13 +1076,13 @@
 									</div>
 								</div>
 							</li>
-							<li>
+							<li class="last">
 								<div class="content">
 									<div class="title"><img src="/images/adidas/event/DEERUPT/180316/gal2_txt.png" alt=""></div>
-									<div class="imgs">
-										<img src="/images/adidas/event/DEERUPT/180316/middle_video1.png" alt="" onclick="openModalVideoViewer('WCJS-C9fHZs')">
-										<img src="/images/adidas/event/DEERUPT/180316/middle_video2.png" alt="" onclick="openModalVideoViewer('W7BVi_EtbLM')">
-										<img src="/images/adidas/event/DEERUPT/180316/middle_video3.png" alt="" onclick="openModalVideoViewer('kZFl8NCMCNA')">
+									<div class="imgs ">
+										<img src="/images/adidas/event/DEERUPT/180316/middle_video1.png" alt="" onclick="openModalVideoViewer('WCJS-C9fHZs')" class="img1">
+										<img src="/images/adidas/event/DEERUPT/180316/middle_video2.png" alt="" onclick="openModalVideoViewer('W7BVi_EtbLM')" class="img2">
+										<img src="/images/adidas/event/DEERUPT/180316/middle_video3.png" alt="" onclick="openModalVideoViewer('kZFl8NCMCNA')" class="img3">
 									</div>
 								</div>
 							</li>
@@ -1210,6 +1208,7 @@
 						var li_length = $('.main ul li').length; //6
 						var video = document.getElementById('video');
 						var windowWid = $(window).width();
+						console.log(windowWid)
 
 						var nextVideo = [
 							'/images/adidas/event/DEERUPT/180316/video0.mp4',
@@ -1240,8 +1239,8 @@
 								index++;
 								console.log(index)
 
+								$('.video').css({ 'display':'block' });
 								video.src = nextVideo[index];
-								$('.video').css({ 'display':'block' })
 								video.play();
 
 							}
@@ -1288,10 +1287,17 @@
 						});
 
 						function videoEnded(e) {
-							$('.video').css({ 'display':'none' });
 							$('.main ul li').removeClass('on').eq(index).addClass('on');
 							$('.main_video_wrap .btn').html('<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=528" class="">구매하기</a>');
+							$('.video').css({ 'display':'none' });
+							$('.video_wrap').removeClass('on');
 						}
+						// function videocuts() {
+						// 	alert();
+						// 	// $('.main ul li').removeClass('on').eq(index).addClass('on');
+						// 	$('.main_video_wrap .btn').html('<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=528" class="">구매하기</a>');
+						// 	// $('.video').css({ 'display':'none' });
+						// }
 
 						// video cut 3
 						$('.video_clips ul li').mouseover(function(){
@@ -1302,10 +1308,12 @@
 							$('.video_title ul li').removeClass('on');
 						});
 						$('.video_clips ul li').click(function(){
-							var clipIndec = $(this).index();
-							$('.main_video_wrap .btn').html('<span class="viewShoes">View in 360°</span>');
-							video.src = mainVideo[clipIndec];
 							$('.video').css({ 'display':'block' });
+							$('.video_wrap').addClass('on');
+
+							$('.main_video_wrap .btn').html('<span class="viewShoes">View in 360°</span>');
+							var clipIndec = $(this).index();
+							video.src = mainVideo[clipIndec];
 							video.play();
 							video.addEventListener('ended',videoEnded,false);
 							$('.viewShoes').click(function(){
@@ -1314,11 +1322,19 @@
 						});
 
 
+						$( document ).ready(function() {
+						    $('#video_clips_first').trigger('click');
+						});
+
+						$('#videwShoes').click(function(){
+							var shoesOffset = $('.shoes_wrap').offset().top;
+							console.log(shoesOffset)
+							$("html,body").animate({scrollTop:shoesOffset}, '800');
+						});
+
 						//middle slide
-
-
 						var middleSlider = (function(){
-							var $middleslide = $('#middleSlide');
+
 							var itemWidth = $('.gallery_wrap ul li').width();
 							var gallMargin = 70;
 							var itemLength = $('.gallery_wrap ul li').length;
@@ -1329,18 +1345,19 @@
 							return {
 								next : function(){
 									$('#middleSlide .next-button').addClass('on');$('#middleSlide .prev-button').removeClass('on');
-
-
 									gallIndex++;
 									$('.navi_gaz span').removeClass('on').eq(gallIndex).addClass('on');
-									$('.gallery_wrap ul').animate({'left':- ( itemWidth*gallIndex + gallMargin ) +'px'},700);
+									$('.gallery_wrap ul').animate({'left':- ( itemWidth*gallIndex + gallMargin ) +'px'},500);
+									$('.gallery_wrap ul li').removeClass('on').eq(gallIndex).addClass('on');
 								},
 								prev : function(){
 									$('#middleSlide .prev-button').addClass('on');$('#middleSlide .next-button').removeClass('on');
 
 									gallIndex--;
 									$('.navi_gaz span').removeClass('on').eq(gallIndex).addClass('on');
-									$('.gallery_wrap ul').animate({'left':  ( itemWidth*gallIndex ) +'px'},700);
+									$('.gallery_wrap ul').animate({'left':  ( itemWidth*gallIndex ) +'px'},500);
+									$('.gallery_wrap ul li').removeClass('on').eq(gallIndex).addClass('on');
+
 								},
 							}
 
@@ -1354,6 +1371,7 @@
 						});
 
 
+						// bottom slide
 						var shoes = $('#shoes').Swipers({
 						    width : windowWid,
 						    height : 650,
@@ -1362,9 +1380,45 @@
 						        $('.indicator a').removeClass('on').eq(index).addClass('on');
 						    }
 						});
+
 						$('.indicator a').bind('click',function(){
 						    shoes.move($(this).index());
 						});
+
+						function resizeMini(){
+							windowWid = 1280;
+							shoes = $('#shoes').Swipers({
+								width : windowWid,
+								height : 650,
+								duration : 600,
+								callback : function( index , prevIdx ){
+									$('.indicator a').removeClass('on').eq(index).addClass('on');
+								}
+							});
+						}
+
+						$(window).resize(function(){
+							windowWid = $(window).width();
+							// console.log(windowWid)
+							shoes = $('#shoes').Swipers({
+							    width : windowWid,
+							    height : 650,
+							    duration : 600,
+							    callback : function( index , prevIdx ){
+							        $('.indicator a').removeClass('on').eq(index).addClass('on');
+							    }
+							});
+							if(windowWid < 1280 ){
+								console.log('aaa')
+								resizeMini();
+							}
+						});
+						$( document ).ready(function() {
+							$('.video_wrap').addClass('on');
+							$('#video_clips_first').trigger('click');
+						});
+
+
 
 
 					})(jQuery)
