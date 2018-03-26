@@ -76,6 +76,59 @@ button {
 	width: 100%;
 	height: auto;
 	background-color: #fff;
+	.visual_video{
+		position: relative;
+		cursor: pointer;
+		.bg{
+			text-align: center;
+			video{
+				height: 650px;
+			}
+		}
+		.masthead{
+			position: absolute;
+			top:55.6%;
+			left:50%;
+			z-index: 5;
+			.play{
+				position: relative;
+				display: inline-block;
+				width:110px;
+				height: 110px;
+				margin-left: -55px;			
+				background: rgba(0, 0, 0, 0.3);
+				@include css3(transition , all 0.5s);
+				background: url("http://image.adidas.co.kr/images/adidas/event/golf/tour360/tour_video_icon.png");				
+			}
+		}
+		.video_txt {			
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 1;
+			h4 {
+				width: 100%;
+				font: 600 65px/65px 'adinenuPro-black';
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				top: 28.4615%;
+				left: 0;
+			}
+			p {
+				width: 100%;
+				font: 300 21px/30px 'NotoSansKR';
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				top: 41.5384%;
+				left: 0;	
+			}			
+		}
+	}
 	.tour_video_wrap {
 		width: 100%;
 		height: 650px;
@@ -86,43 +139,7 @@ button {
 			position: absolute;
 			z-index: 1;
 			background-color: #058164;
-		}
-		div {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			background: rgba(0, 0, 0, 0.5);
-			z-index: 5;
-			h4 {
-				width: 100%;
-				font: 600 65px/65px 'adinenuPro-black';
-				text-align: center;
-				color: #fff;
-				position: absolute;
-				top: 50%;
-				left: 0;
-				margin-top: -140px;
-			}
-			p {
-				width: 100%;
-				font: 300 21px/30px 'NotoSansKr_demiLight';
-				text-align: center;
-				color: #fff;
-				position: absolute;
-				top: 50%;
-				left: 0;
-				margin-top: -55px;
-			}
-			img {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				margin-top: 45px;
-				margin-left: -55px;
-			}
-		}
+		}		
 	}
 	.tour_slide_wrap {
 		width: 100%;
@@ -219,7 +236,7 @@ button {
 				margin: 0 auto;
 				border: 2px solid #000;
 				box-sizing: border-box;
-				font: 600 23px/66px 'NotoSansKr_medium';
+				font: 600 23px/66px 'NotoSansKR';
 				text-align: center;
 				color: #000;
 			}
@@ -254,11 +271,13 @@ button {
 		}
 	}
 	.tour_content_wrap {
-		width: 1280px;
+		width: 100%;
+		max-width: 1280px;
 		height: auto;
 		padding: 60px 0 70px;
 		margin: 0 auto;
 		>div {
+			position: relative;
 			width: 100%;
 			height: 460px;
 			padding-top: 60px;
@@ -273,31 +292,38 @@ button {
 			float: left;
 		}
 		dl {
-			width: 680px;
+			position: absolute;
+			top:50px;
+			right:0;
+			width: 100%;
+			padding-left: 50%;
 			height: auto;
-			float: left;
-			margin-left: 100px;
+			box-sizing: border-box;					
+			-webkit-box-sizing: border-box;					
 			dt {
 				margin-bottom: 46px;
-				font: 600 25px/38px 'NotoSansKr_bold';
+				font: 600 25px/38px 'NotoSansKR';
+				color: #000;
 			}
 			dd {
+				margin-bottom: 32px;
 				.num_box {
 					width: 19px;
 					height: 19px;
 					margin: 2px 0;
 					float: left;
 					background-color: #000;
-					font: 300 15px/23px 'adineuePro-bold';
+					font: 300 15px/23px 'adinenuPro-bold';
 					text-align: center;
 					color: #fff;
 				}
 				.text_box {
-					width: 650px;
-					padding-left: 10px;
-					padding-bottom: 32px;
-					float: left;
-					font: 600 16px/23px 'NotoSansKr_regular';
+					display: block;					
+					padding-left: 30px;									
+					font: 400 16px/23px 'NotoSansKR';
+
+					word-wrap: break-word; /* Internet Explorer 5.5+ */					
+					word-break:break-all;
 				}
 			}
 		}
@@ -352,13 +378,13 @@ button {
 				margin-top: 15px;
 				display: none;
 				h6 {
-					font: 300 55px/65px 'adineuePro-bold';
+					font: 300 55px/65px 'adinenuPro-bold';
 					text-align: center;
 					color: #fff;
 				}
 				p {
 					padding-top: 10px;
-					font: 300 20px/25px 'NotoSansKr_regular';
+					font: 300 20px/25px 'NotoSansKR';
 					text-align: center;
 					color: #fff;
 				}
@@ -374,24 +400,26 @@ button {
 						display: block;
 						&:first-child {
 							font: 300 55px/52px 'adineuePro-light';
+							text-align: center;
 						}
 						&:last-child {
-							font: 300 55px/55px 'adineuePro-bold';
+							font: 300 55px/55px 'adinenuPro-bold';
+							text-align: center;
 						}
 					}
 				}
 				p {
-					font: 600 20px/55px 'NotoSansKr_regular';
+					font: 600 20px/55px 'NotoSansKR';
 				}
 			}
 			.year2005 {
 				h6 {
 					width: 100%;
 					display: block;
-					font: 300 55px/55px 'adineuePro-bold';
+					font: 300 55px/55px 'adinenuPro-bold';
 				}
 				p {
-					font: 600 20px/55px 'NotoSansKr_regular';
+					font: 600 20px/55px 'NotoSansKR';
 				}
 			}
 		}
@@ -439,7 +467,7 @@ button {
 					p {
 						width: 100%;
 						margin-top: 12px;
-						font: 300 20px/55px 'adineuePro-bold';
+						font: 300 20px/55px 'adinenuPro-bold';
 						text-align: center;
 						color: #fff;
 						opacity: 0.5;
@@ -512,3 +540,17 @@ button {
 	}
 }
 
+@media screen and (max-width: 1190px) {
+	.tour_content_wrap {
+		width: 1190px !important;		
+		dl {			
+			padding-left: 50% !important;
+			padding-right: 5% !important;						
+			dt {
+				margin-bottom: 46px;
+				font: 600 25px/38px 'NotoSansKR';
+				color: #000;
+			}			
+		}
+	}
+}
