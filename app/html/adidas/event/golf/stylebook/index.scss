@@ -7,7 +7,7 @@ button {
     cursor: pointer;
     border: 0;
     background-color: transparent; }
-  
+
 button:focus {
 outline: none; }
 
@@ -53,10 +53,12 @@ outline: none; }
 		height: 100%;
 		overflow: hidden;
 		img {
-			width: 100%;
+			// width: 100%;
 			position: absolute;
 			top: 0;
-			left: 0;
+			left: 50%;
+            margin-left: -960px;
+            width: 1920px;
 		}
 		img.gate_back {
 			opacity: 0;
@@ -245,6 +247,11 @@ outline: none; }
 	}
 }
 #golf_style_gallery_pc {
+    @include css3(opacity,0);
+
+    &.opacity{
+        @include css3(opacity,1);
+    }
 	.back_to_link {
 		width: 100px;
 		height: 14px;
@@ -286,7 +293,8 @@ outline: none; }
 		position: absolute;
 	}
 	.style_listing_con {
-		position: fixed;
+        // position: fixed;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		background-color: rgba(20, 20, 20, 0.95);
@@ -327,10 +335,28 @@ outline: none; }
 			.number_wrap {
 				width: 480px;
 				height: 330px;
-				left: 0;
+				left: 50%;
 				margin-top: -400px;
-				margin-left: 450px;
+			    margin-left: -526px;
 				overflow: hidden;
+                @include css3(opacity,0);
+                @include css3(transition, all 0.4s);
+
+                ul{
+                    li{
+
+                    }
+                }
+
+                &.on{
+                    @include css3(opacity,1);
+                    margin-left: -426px;
+                    ul{
+                        li{
+
+                        }
+                    }
+                }
 			}
 			.img_wrap {
 				width: 100%;
@@ -387,11 +413,12 @@ outline: none; }
 		display: block;
 		z-index: -10;
 		img {
-			width: 100%;
+			// width: 100%;
 			display: block;
 			position: absolute;
 			top: 0;
-			left: 0;
+			left: 50%;
+            margin-left: -960px;
 		}
 	}
 	.scroll_mark {
@@ -526,9 +553,11 @@ outline: none; }
 			height: 340px;
 			position: absolute;
 			top: 0;
-			left: 0;
-			margin-left: 640px;
-			transition: all 0.6s;
+			left: 50%;
+            margin-left: -300px;
+			// margin-left: 640px;
+            transition: all 0.6s;
+			-webkit-transition: all 0.6s;
 		}
 		li {
 			width: 533px;
@@ -715,57 +744,57 @@ outline: none; }
 }
 @media screen and (min-width: 1461px) and (max-width: 1680px) {
 	#golf_style_gallery_pc {
-		.style_listing_con {
-			.list_contents {
-				.number_wrap {
-					margin-left: 300px;
-				}
-			}
-		}
-		.number_wrap {
-			ul {
-				width: 480px;
-				height: 330px;
-			}
-			li {
-				width: 480px;
-				height: 330px;
-				font: 600 300px/400px 'adihausDIN CnMedium', 'NotoSansKR';
-			}
-		}
-		.img_wrap {
-			ul {
-				margin-left: 540px;
-			}
-		}
+		// .style_listing_con {
+		// 	.list_contents {
+		// 		.number_wrap {
+		// 			margin-left: 300px;
+		// 		}
+		// 	}
+		// }
+		// .number_wrap {
+		// 	ul {
+		// 		width: 480px;
+		// 		height: 330px;
+		// 	}
+		// 	li {
+		// 		width: 480px;
+		// 		height: 330px;
+		// 		font: 600 300px/400px 'adihausDIN CnMedium', 'NotoSansKR';
+		// 	}
+		// }
+		// .img_wrap {
+		// 	ul {
+		// 		margin-left: 540px;
+		// 	}
+		// }
 	}
 }
-@media screen and (min-width: 1200px) and (max-width: 1460px) {
-	#golf_style_gallery_pc {
-		.style_listing_con {
-			.list_contents {
-				.number_wrap {
-					width: 400px;
-					height: 280px;
-					margin-left: 180px;
-				}
-			}
-		}
-		.number_wrap {
-			ul {
-				width: 400px;
-				height: 280px;
-			}
-			li {
-				width: 400px;
-				height: 280px;
-				font: 600 230px/350px 'adihausDIN CnMedium', 'NotoSansKR';
-			}
-		}
-		.img_wrap {
-			ul {
-				margin-left: 380px;
-			}
-		}
-	}
-}
+// @media screen and (min-width: 1200px) and (max-width: 1460px) {
+// 	#golf_style_gallery_pc {
+// 		.style_listing_con {
+// 			.list_contents {
+// 				.number_wrap {
+// 					width: 400px;
+// 					height: 280px;
+// 					margin-left: 180px;
+// 				}
+// 			}
+// 		}
+// 		.number_wrap {
+// 			ul {
+// 				width: 400px;
+// 				height: 280px;
+// 			}
+// 			li {
+// 				width: 400px;
+// 				height: 280px;
+// 				font: 600 230px/350px 'adihausDIN CnMedium', 'NotoSansKR';
+// 			}
+// 		}
+// 		.img_wrap {
+// 			ul {
+// 				margin-left: 380px;
+// 			}
+// 		}
+// 	}
+// }
