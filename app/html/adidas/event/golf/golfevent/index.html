@@ -1069,7 +1069,11 @@
 				</div>
 
 				<div class="event_content_wrap">
-					<img src="/images/adidas/event/golf/golfevent/event_main_w.jpg" alt="">
+					<img src="/images/adidas/event/golf/golfevent/event_main_w.jpg" usemap="#map1" alt="">
+					<map id="map1" name="map1">
+						<area shape="rec" coords="465,764,612,800" href="http://shop.adidas.co.kr/PF070202.action?EVENT_ID=4345" alt="신청하기">
+						<area shape="rec" coords="826,764,972,800" href="http://shop.adidas.co.kr/PF070202.action?EVENT_ID=4326" alt="신청하기">
+					</map>
 
 					<div class="event_video_wrap">
 						<video autoplay="" mute loop>
@@ -1078,7 +1082,7 @@
 						</video>
 						<div>
 							<h4>ADIDAS GOLF</h4>
-							<img src="/images/adidas/event/golf/golfevent/event_video_icon.png" alt="비디오 아이콘">
+							<img src="/images/adidas/event/golf/golfevent/event_video_icon.png" class="play play-video" onclick="openModalVideoViewer('X1LgeHTTD3A')" alt="비디오 아이콘">
 						</div>
 					</div>
 
@@ -1095,7 +1099,7 @@
 
 			<script type="text/javascript" src="/js/prx.min.js"></script>
 			<script type="text/javascript">
-				(function(){
+				(function($){
 
 					$(document).ready(function(){
 						var winW = $(window).width();
@@ -1106,31 +1110,33 @@
 						$('.deco_img_05').delay(400).animate({marginLeft: '14%', opacity: 1}, 600);
 					});
 
-				})(jQuery)
-				$('.play-video').bind('click',function(){
-					var videoId = $(this).attr('data-video-id');
-					viewVideo(videoId);
-					return false;
-				});
-
-				function viewVideo(videoId){
-					var $this = $(this);
-					var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
-					$('html').addClass('no_scroll');
-					$('body').append(videoLayerElem);
-					setTimeout(function(){
-						$('.video_layer').addClass('loaded');
-						setTimeout(function(){
-							$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-						},20);
-					},300);
-
-					$('.video_layer .close').bind('click',function(){
-						$('html').removeClass('no_scroll');
-						$('.video_layer').remove();
+					$('.play-video').bind('click',function(){
+						var videoId = $(this).attr('data-video-id');
+						viewVideo(videoId);
+						return false;
 					});
-					return false;
-				}
+
+					function viewVideo(videoId){
+						var $this = $(this);
+						var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+						$('html').addClass('no_scroll');
+						$('body').append(videoLayerElem);
+						setTimeout(function(){
+							$('.video_layer').addClass('loaded');
+							setTimeout(function(){
+								$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&controls=0&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+							},20);
+						},300);
+
+						$('.popup .close').bind('click',function(){
+							$('html').removeClass('no_scroll');
+							$('.video_layer').remove();
+						});
+						return false;
+					}
+
+				})(jQuery);
+				
 			</script>
 
 		</div>
