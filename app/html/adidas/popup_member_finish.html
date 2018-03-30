@@ -48,43 +48,6 @@
 
 	<script type="text/javascript">
 		(function($){
-			// selected
-			$('.modal-popup-manage_address .input-radio-ctm').ctmInputSetCallback({
-				before : function(e){
-					$('.modal-popup-manage_address table tr').removeClass('selected');
-					$(this).parent().parent().addClass('selected');
-				},
-				after : function(){
-					//
-				}
-			});
-
-			$('.tab_list a').bind('click',function(){
-				if($(this).hasClass('on')){
-					return;
-				}
-
-				$('.tab_list a').removeClass('on').eq($(this).index()).addClass('on');
-				$('.tab_contents_wrap>.tab_cont_box').hide().eq($(this).index()).show();
-			});
-
-			$('.finder_input input').bind('focus',function(){
-				if($(this).attr('defaultValue') == $(this).val()){
-					$(this).val('');
-					$(this).css({
-						color : '#000'
-					});
-				}
-			});
-
-			$('.finder_input input').bind('blur',function(){
-				if('' == $(this).val()){
-					$(this).val($(this).attr('defaultValue'));
-					$(this).css({
-						color : '#999'
-					});
-				}
-			});
 
 		})(jQuery)
 	</script>
