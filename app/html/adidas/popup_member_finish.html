@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta property="og:title" content="아디다스 공식 온라인 스토어" />
+<meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" />
+<meta property="og:url" content="http://shop.adidas.co.kr"/>
+<title>아디다스 공식 온라인 스토어 메인페이지</title>
+
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<!-- 170215 스크립트 추가 -->
+<script type="text/javascript" src="/js/customForm.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/adidas/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+
+</head>
+<body>
+
+	<!-- 180330 start -->
+	<div class="modal-popup-wrapper modal-popup-find_idpwd_sns not_layer">
+		<div class="popup">
+			<div class="popup-header">
+				<h2>회원 가입 안내</h2>
+				<a href="javascript:void(0)" class="close">
+					<span class="spt_bg"></span>
+				</a>
+			</div>
+			<div class="popup-contents" >
+				<p style="padding-bottom:50px;text-align:center;font:600 18px 'NotoSansKR';color:#000;">회원가입이 완료되었습니다.</p>
+				<a href="#" class="btn-ctm btn-blue arrow" style="height:50px;">
+				    <span style="line-height:50px;">아디클럽 혜택 자세히 보기<span class="spt_bg"></span></span>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		(function($){
+			// selected
+			$('.modal-popup-manage_address .input-radio-ctm').ctmInputSetCallback({
+				before : function(e){
+					$('.modal-popup-manage_address table tr').removeClass('selected');
+					$(this).parent().parent().addClass('selected');
+				},
+				after : function(){
+					//
+				}
+			});
+
+			$('.tab_list a').bind('click',function(){
+				if($(this).hasClass('on')){
+					return;
+				}
+
+				$('.tab_list a').removeClass('on').eq($(this).index()).addClass('on');
+				$('.tab_contents_wrap>.tab_cont_box').hide().eq($(this).index()).show();
+			});
+
+			$('.finder_input input').bind('focus',function(){
+				if($(this).attr('defaultValue') == $(this).val()){
+					$(this).val('');
+					$(this).css({
+						color : '#000'
+					});
+				}
+			});
+
+			$('.finder_input input').bind('blur',function(){
+				if('' == $(this).val()){
+					$(this).val($(this).attr('defaultValue'));
+					$(this).css({
+						color : '#999'
+					});
+				}
+			});
+
+		})(jQuery)
+	</script>
+	<!-- 180330 end -->
+
+
+</body>
+</html>
