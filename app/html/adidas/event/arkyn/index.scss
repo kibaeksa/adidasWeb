@@ -32,61 +32,84 @@ html.no_scroll {
   overflow: hidden;
 }
 
+/* video_layer */
 .video_layer {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  .close {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 20;
-    background-position: 0 -685px;
-    opacity: 0;
-    -ms-filter: alpha(opacity=0);
-    filter: alpha(opacity=0);
-    transition: opacity 0.4s ease-in 0.2s;
-    -webkit-transition: opacity 0.4s ease-in 0.2s;
-  }
-  .bg {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    opacity: 0;
-    -ms-filter: alpha(opacity=0);
-    filter: alpha(opacity=0);
-    z-index: 5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: opacity 0.4s;
-    -webkit-transition: opacity 0.4s;
-  }
-  &.loaded {
-    .bg {
-      opacity: 0.6;
-      -ms-filter: alpha(opacity=60);
-      filter: alpha(opacity=60);
-    }
-    .close {
-      opacity: 1;
-      -ms-filter: alpha(opacity=100);
-      filter: alpha(opacity=100);
-    }
-  }
-  .video {
-    width: 100%;
-    height: 100%;
-    z-index: 6;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110
+}
+.video_layer .video {
+	width:100%;
+	height:100%;
+	z-index:6;
+	position:absolute;
+	top:0;
+	left:0
+}
+.video_layer .close {
+	width:45px;
+  height:45px;
+  padding: 5px;
+	position:absolute;
+	top:0;
+	right:0;
+	z-index:20;
+	display:block;
+	background:#000 url("/images/reebok/event/about/sprite.png") -75px 5px no-repeat;
+	text-indent:-5000px;
+	opacity:0;
+	transition:opacity 0.4s ease-in 0.5s;
+	-webkit-transition:opacity 0.4s ease-in 0.5s;
+	-moz-transition:opacity 0.4s ease-in 0.5s;
+	-o-transition:opacity 0.4s ease-in 0.5s;
+	-ms-transition:opacity 0.4s ease-in 0.5s
+}
+.video_layer .bg {
+	width:100%;
+	height:100%;
+	background:#000;
+	z-index:5;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0;
+	transition:opacity 0.4s;
+	-webkit-transition:opacity 0.4s;
+	-moz-transition:opacity 0.4s;
+	-o-transition:opacity 0.4s;
+	-ms-transition:opacity 0.4s
+}
+.video_layer.loaded .bg {
+	opacity:.6
+}
+.video_layer.loaded .close {
+	opacity:1
+}
+/* video_layer end */
+.video_wrap{
+	position: relative;
+	// height: 850px;
+	padding-bottom: 52.0828%;
+	overflow: hidden;
+	z-index: 2;
+
+	.bg{
+		position: absolute;
+		top:0px;
+		left:50%;
+		margin-left: -960px;
+		z-index: 1;
+	}
+	.player{
+		position: absolute;
+		top:0;
+		// left:50%;
+		// margin-left: -982px;
+		z-index: 5;
+	}
 }
 
 #arkyn {
@@ -120,6 +143,7 @@ html.no_scroll {
   .main_visual {
     position: relative;
     overflow: hidden;
+    margin-top: 30px;
     .bg {
       width: 1440px;
       position: relative;
@@ -158,6 +182,16 @@ html.no_scroll {
           color: #fff;
           border: 2px solid #000;
         }
+      }
+    }
+    .prd {
+      position: absolute;
+      top: 600px;
+      left: 50%;
+      margin-left: -215px;
+      width: 430px;
+      img{
+        width: 100%;
       }
     }    
     .txt {
@@ -220,6 +254,7 @@ html.no_scroll {
         }
         p{
           font:18px/26px 'NotoSansKR', 'Nanum Gothic';
+          color: #000;
         }
         a{
           margin-top: 20px;
@@ -276,6 +311,7 @@ html.no_scroll {
       .con_txt{
         left: auto;   
         right: 0;
+        bottom: 180px;
         padding: 29px 0 45px 35px;       
       }
       .con_img{
@@ -302,6 +338,7 @@ html.no_scroll {
           display: block;
           font: 14px/14px 'NotoSansKR';
           text-align: center;
+          color: #000;
         }
       }
     }
@@ -346,11 +383,12 @@ html.no_scroll {
           .item_box{
             position: relative;
             >img{
+              margin-left: 100px;
               width: 600px;
               height: 400px;
             }
             .con_txt{                   
-              width: 600px;
+              width: 500px;
               height: 250px;              
               p{
                 position: absolute;
@@ -362,9 +400,10 @@ html.no_scroll {
       }
       .btn {
         position: absolute;
-        top: 55%;
-        left: 0;
-        width: 100%;        
+        top: 50%;
+        left: 50%;
+        margin-left: -595px;
+        width: 1190px;        
         z-index: 10;
         a {
           width: 32px;
@@ -379,7 +418,7 @@ html.no_scroll {
             position: relative;
           }
           &.next-button {
-            right: 50px;
+            right: 0;
             transition: right 0.4s ease-out 0.1s;
             -webkit-transition: right 0.4s ease-out 0.1s;
             -moz-transition: right 0.4s ease-out 0.1s;
@@ -391,7 +430,7 @@ html.no_scroll {
             }
           }
           &.prev-button {
-            left: 50px;
+            left: 0;
             transition: left 0.4s ease-out 0.1s;
             -webkit-transition: left 0.4s ease-out 0.1s;
             -moz-transition: left 0.4s ease-out 0.1s;

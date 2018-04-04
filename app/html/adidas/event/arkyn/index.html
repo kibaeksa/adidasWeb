@@ -982,7 +982,6 @@
 					})();
 
 				})();
-
 			</script>
 
 			<div id="arkyn">
@@ -990,7 +989,8 @@
 					<div class="bg">
 						<img src="/images/adidas/event/arkyn/visual.jpg" alt="">
 						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=538" class="button"><em>ARKYN</em> 구매하기</a>
-					</div>					
+					</div>				
+					<div class="prd"><img src="/images/adidas/event/arkyn/visual_shoe.png" alt=""></div>	
 					<div class="txt">
 						<img src="/images/adidas/event/arkyn/logo.png" alt="">
 						<h3>스니커즈, 그 이상</h3>
@@ -1054,8 +1054,8 @@
 							<div id="sliders1">
 							    <ul>
 							        <li><img src="/images/adidas/event/arkyn/slide-mid-01.jpg" alt=""></li>
-							        <li><img src="/images/adidas/event/arkyn/slide-mid-02.jpg" alt=""></li>
 							        <li><img src="/images/adidas/event/arkyn/slide-mid-03.jpg" alt=""></li>
+							        <li><img src="/images/adidas/event/arkyn/slide-mid-02.jpg" alt=""></li>
 							    </ul>
 							</div>
 							<!-- 커스텀 넘버링 버튼 -->
@@ -1202,15 +1202,19 @@
 					var sliders2 = $('#sliders2').Swipers({
 					    width : 1000,
 					    height : 500,
-					    duration : 600,
-						auto  :false,
-						autoTime : 5000,
+					    duration : 600,						
+						loop: true,					
 					    callback : function( index , prevIdx ){
 					        $('#indic2 a').removeClass('on').eq(index).addClass('on');
 					        $('#sliders2').find('li').removeClass('on').eq(index).addClass('on');
-					    }
+					    },
+						
 					});
 
+					$(window).ready(function(){
+						sliders2.move(2);
+					});					
+					
 					$('.prev-button').bind('click',function(){
 						sliders2.prev();
 					});
@@ -1283,33 +1287,7 @@
 								"opacity":"1",
 								"top":"0"
 							});							
-						}						
-
-						// if( scrollPX > col ){
-						// 	$('#arkyn .collections .ord1').css({
-						// 		"opacity":"1",
-						// 	});
-						// 	setTimeout(function(){
-						// 		$('#arkyn .collections .ord2').css({
-						// 			"opacity":"1",
-						// 		});
-						// 	},250)
-						// 	setTimeout(function(){
-						// 		$('#arkyn .collections .ord3').css({
-						// 			"opacity":"1",
-						// 		});
-						// 	},380)
-						// 	setTimeout(function(){
-						// 		$('#arkyn .collections .ord4').css({
-						// 			"opacity":"1",
-						// 		});
-						// 	},450)
-						// 	setTimeout(function(){
-						// 		$('#arkyn .collections .ord5').css({
-						// 			"opacity":"1",
-						// 		});
-						// 	},550)
-						// }
+						}
 
 					});
 
