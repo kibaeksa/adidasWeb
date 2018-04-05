@@ -541,17 +541,33 @@
                     </div>
 
                     <div class="visual_video">
-                        <div class="bg"><img src="/images/reebok/event/about/complete/180329/video.jpg" alt=""></div>
-                            <div class="masthead active">
-                                <h2>COMPLETE 2LCS</h2>
-                                <p>여자친구들<br>꽃잎 흩날리는 봄날. 리복 컴플리트 2LCS를 신고서.</p>
-                                <a href="javascript:void(0)" class="play-video" data-video-id="SM7cJr0JV2I" style="visibility: hidden;"></a>
+                        <div class="bg"><img src="/images/reebok/event/about/complete/180405/bg.jpg" alt=""></div>
+                        <div class="bg bgflower"><img src="/images/reebok/event/about/complete/180405/flower_bg.png" alt=""></div>
+                        <div class="neon"><img src="/images/reebok/event/about/complete/180405/neon.gif" alt=""></div>
+                        <div class="slider_wrap">
+                            <div id="sliders">
+                                <ul>
+                                    <li><img src="/images/reebok/event/about/complete/180405/main_slide1.jpg" alt=""></li>
+                                    <li><img src="/images/reebok/event/about/complete/180405/main_slide2.jpg" alt=""></li>
+                                    <li><img src="/images/reebok/event/about/complete/180405/main_slide3.jpg" alt=""></li>
+                                    <li><img src="/images/reebok/event/about/complete/180405/main_slide4.jpg" alt=""></li>
+                                </ul>
                             </div>
-                        <!-- <div class="video_bg" id="video-background">
-                            <video autoplay="" loop="" class="loaded">
-                                <source src="/images/reebok/event/about/complete/video.mp4" type="video/mp4">
-                            </video>
-                        </div> -->
+                        </div>
+                        <div class="indicator">
+                            <a class="on" href="javascript:void(0)">1</a>
+                            <a href="javascript:void(0)">2</a>
+                            <a href="javascript:void(0)">3</a>
+                            <a href="javascript:void(0)">4</a>
+                        </div>
+                        <div class="txt">
+                            <p>꽃잎 흩날리는 봄날</p>
+                            <p class="eng">COMPLETE 2LCS</p>
+                            <div class="video_wrap">
+                                <div class="video_play" data-video-id="SM7cJr0JV2I"><img src="/images/reebok/event/about/complete/180405/video1.jpg" alt=""><span></span><p>제품 영상 보기</p></div>
+                                <div class=" video_ready" data-video-id="SM7cJr0JV2I"><img src="/images/reebok/event/about/complete/180405/video2.jpg" alt=""><span></span><p>여자친구 영상 보기</p></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="products_all ">
@@ -804,6 +820,22 @@
 
                   	(function($){
 
+                        setTimeout(function(){
+                            $('.slider_wrap').addClass('on');
+                        },800);
+
+                        var sliders = $('#sliders').Swipers({
+                            width : 522,
+                            height : 644,
+                            duration : 600,
+                            auto  :true,
+                            autoTime : 5000,
+                            callback : function( index , prevIdx ){
+                                $('.indicator a').removeClass('on').eq(index).addClass('on');
+                            }
+                        });
+                        $('.indicator a').bind('click',function(){ sliders.move($(this).index()); });
+
                         var index = 0;
                         // 중앙 메인 텍스트 오버 이벤트
                         $('.products_content_all .labels .label').bind('mouseover',function(){
@@ -841,7 +873,7 @@
                             scrollArray.push(mypos)
 
                         }
-                        console.log(scrollArray)
+                        // console.log(scrollArray)
                         $(window).scroll(function(){
                             for(var pos = 0; pos < scrollArray.length; pos++){
                                 var thisPos = $(this).scrollTop() + 100;
@@ -849,88 +881,82 @@
                                     $('.eventContent').eq(pos).addClass('on');
                                 }
                             }
-                        })
+                        });
 
+                        $('.video_ready').bind('click',function(){
+                            alert('영상이 준비중입니다.')
+                        });
 
-                  		$('.play-video').bind('click',function(){
+                  		$('.video_play').bind('click',function(){
                   			//영상대기
                             // alert('영상이 준비중입니다');
                             // return false;
-
                   			var videoId = $(this).attr('data-video-id');
               				viewVideo(videoId);
               				return false;
                   		});
-                  		function viewVideo(videoId){
-              				var $this = $(this);
-              				var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
-              				$('html').addClass('no_scroll');
-              				$('body').append(videoLayerElem);
-              				setTimeout(function(){
-              					$('.video_layer').addClass('loaded');
-              					setTimeout(function(){
-              						$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-              					},20);
-              				},300);
+                        function viewVideo(videoId){
+                            var $this = $(this);
+                            var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+                            $('html').addClass('no_scroll');
+                            $('body').append(videoLayerElem);
+                            setTimeout(function(){
+                            	$('.video_layer').addClass('loaded');
+                            	setTimeout(function(){
+                            		$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+                            	},20);
+                            },300);
 
-              				$('.video_layer .close').bind('click',function(){
-              					$('html').removeClass('no_scroll');
-              					$('.video_layer').remove();
-              				});
-              				return false;
-              			  }
+                            $('.video_layer .close').bind('click',function(){
+                            	$('html').removeClass('no_scroll');
+                            	$('.video_layer').remove();
+                            });
+                            return false;
+                        }
 
                         function initVideo(targetId , videoSrc){
-          					if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
-          						$('.visual_video .video_bg').hide();
-          						$('.visual_video .bg').animate({
-          							opacity : 1
-          						});
-          						$('.visual_video .masthead').animate({
-          							opacity:1
-          						});
-          					}
+                            if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
+                            	$('.visual_video .video_bg').hide();
+                            	$('.visual_video .bg').animate({
+                            		opacity : 1
+                            	});
+                            	$('.visual_video .masthead').animate({
+                            		opacity:1
+                            	});
+                            }
 
-          					var elemVideo = document.createElement('video');
-          					var elemSource = document.createElement('source');
-          					var targetElem = document.getElementById(targetId);
+                            var elemVideo = document.createElement('video');
+                            var elemSource = document.createElement('source');
+                            var targetElem = document.getElementById(targetId);
 
-          					elemVideo.autoplay = true;
-          					elemVideo.loop = true;
-          					elemVideo.muted = true;
+                            elemVideo.autoplay = true;
+                            elemVideo.loop = true;
+                            elemVideo.muted = true;
 
-          					elemSource.src = videoSrc;
-          					elemSource.type = 'video/mp4';
-          					elemVideo.appendChild(elemSource);
+                            elemSource.src = videoSrc;
+                            elemSource.type = 'video/mp4';
+                            elemVideo.appendChild(elemSource);
 
-          					elemVideo.onloadstart = function(){
-          						targetElem.appendChild(elemVideo);
-          						setTimeout(function(){
-          							elemVideo.setAttribute('class','loaded');
-          							setTimeout(function(){
-                                        elemVideo.play();
-          								$('.visual_video .masthead').addClass('active');
-          							},100)
-          						},500);
+                            elemVideo.onloadstart = function(){
+                            	targetElem.appendChild(elemVideo);
+                            	setTimeout(function(){
+                            		elemVideo.setAttribute('class','loaded');
+                            		setTimeout(function(){
+                                    elemVideo.play();
+                            			$('.visual_video .masthead').addClass('active');
+                            		},100)
+                            	},500);
 
-          					}
+                            }
 
-          					elemVideo.onended = function(){
-          						this.parentNode.parentNode.removeChild(this.parentNode);
-          					  }
-          				  }
+                            elemVideo.onended = function(){
+                            	this.parentNode.parentNode.removeChild(this.parentNode);
+                              }
+                        }
 
-              			// initVideo('video-background' , 'http://image.reebok.co.kr/images/reebok/event/about/complete/video.mp4');
-
-
-
-                        $(window).scroll(function(){
-                            var headerH = $('#header_150930').height();
-                            var breadcrumbs = $('.breadcrumbs').height();
-                            var thisPos = $(this).scrollTop()+headerH+breadcrumbs;
+          			    // initVideo('video-background' , 'http://image.reebok.co.kr/images/reebok/event/about/complete/video.mp4');
 
 
-                        });
 
                         function wideSlider(t){function e(){c.style.width=t.width*(a+4)+"px",c.style.position="absolute",c.style.left=m*-1+t.width*-1+"px"}function n(t,e){void 0==e&&(e=s),f=e,s=t}function i(){for(var t=0,e=3;t<2;t++){var n=h[t].cloneNode(!0);c.appendChild(n)}for(;e<5;e++){var n=h[h.length-e].cloneNode(!0);c.insertBefore(n,c.firstChild)}}function d(t,e){var n,i;return y=!0,void 0!==t?(n=t,i=e+.15*(n-e),c.style.left=i+"px"):(n=(w*s+m+v)*-1,i=(w*f+m+v)*-1),Math.abs(n-i)<1?(i=n,y=!1,c.style.left=n+"px",!1):void requestAnimationFrame(function(){d(n,i)})}function o(){if(t.callback){var e,n=[];s>1&&s<a-2?(n.push(h[s+2]),e=s):s<=1||s>p-5?0==s||s==p-2?(e=0,n.push(h[2]),n.push(h[p-2])):(e=1,n.push(h[3]),n.push(h[p-1])):s==a-1||1==s?(e=a-1,n.push(h[1]),n.push(h[a+1])):(e=a-2,n.push(h[0]),n.push(h[a])),t.callback.call(window,n,e)}}function l(){r=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,m=t.width-(r-w)/2,c.style.left=m*-1+t.width*(s+1)*-1+"px"}var u=document.getElementById(t.elemId),c=function(){for(var t=u.children,e=0;e<t.length;e++)if("ul"==t[e].nodeName.toLowerCase())return t[e]}(),h=c.children,r=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,s=0,f=-1,a=h.length,p=a+4,w=t.width,m=t.width-(r-w)/2,v=t.width,y=!1;return i(),e(),$(window).resize(l),{next:function(){y||(s==p-5?n(0,-1):n(s+1),o(),d())},prev:function(){y||(0==s?n(p-5,p-4):n(s-1),o(),d())},slide:function(t){y||t!==s&&t<a&&(n(t),o(),d())}}}
 

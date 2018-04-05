@@ -33,6 +33,104 @@
     .inner{
         text-align: center;
     }
+    .visual_video{
+        height: 820px;
+        .bgflower{
+            z-index: 2;
+        }
+        .neon{
+            position: absolute;
+                top: 134px;
+                left: 50%;
+                margin-left: -561px;
+        }
+        .slider_wrap{
+            position: relative;
+            text-align: center;
+            @include prefix-css3(opacity,0);
+            @include prefix-css3(transition, 0.5s);
+            &.on{
+                @include prefix-css3(opacity,1);
+
+            }
+            #sliders{
+                display: inline-block;
+                margin: 70px 0 0 520px;
+            }
+        }
+        .indicator{
+            position: absolute;
+            bottom: 64px;
+            left: 50%;
+            width: 522px;
+            z-index: 2;
+            text-align: center;
+            display: inline-block;
+            a{
+                display: inline-block;
+                margin: 0 3px;
+                width: 12px;height: 12px;
+                background: #f7dbe0;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                text-indent: -9999px;
+                &.on{
+                    background: #ff7f89;
+                }
+            }
+        }
+        .txt{
+            position: absolute;
+            left:50%;
+            top:114px;
+            margin-left: -463px;
+            z-index: 2;
+            >*{
+                text-align: center;
+            }
+            p{
+                font:300 22px/22px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 5px;
+                &.eng{
+                    padding: 134px 0 235px 0;
+                    font:24px 'DINWebPro-CondMedium';
+                    letter-spacing: 0;
+                }
+            }
+            .video_wrap{
+                div{
+                    position: relative;
+                    float: left;
+                    margin: 0 4px;
+                    cursor: pointer;
+                    &:hover{
+                        span{
+                            background: #ff7f89;
+                        }
+                    }
+                    span{
+                        position: absolute;
+                        top: 107px;
+                        left:0;
+                        width: 100%;
+                        height: 3px;
+                        transition: all 0.5s;
+                        -webkit-transition: all 0.5s;
+                    }
+                    p{
+                        padding: 7px 0 0 0;
+                        text-align: center;
+                        font-size: 14px;
+                        letter-spacing: 0;
+                    }
+                }
+                &:after{
+                    content: '';display: block;clear: both;
+                }
+            }
+        }
+    }
     .eventContent{
         &.on{
             &.products_content_all{
@@ -74,17 +172,6 @@
         }
     }
 
-    .visual_video{
-        .masthead{
-            width: 100%;
-            h2{
-
-            }
-            p{
-                font: 300 18px 'NotoSansKR';
-            }
-        }
-    }
     .label{
         // position: absolute;
         // top:337px;
