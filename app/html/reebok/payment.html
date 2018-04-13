@@ -10,7 +10,7 @@
 	  <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 
       <script type="text/javascript">
-
+		// 180413 스크립트 일부수정 및 추가 start
 		function fn_ChangePayMethod(sel) {
 			if ( sel == "credit" ) {
 
@@ -19,102 +19,65 @@
 				// 사업자번호 초기화
 				fn_initCashRecptBizrno();
 
-				jQuery("#escrw").hide();
-				jQuery("#escrw_info").hide();
-				jQuery("#escrw_personal").hide();
-				jQuery("#escrw_business").hide();
-				jQuery("#noInt").show();
-				// 161209
+				jQuery(".pay_method").hide();
+
+				jQuery("#noInt").show();	
 				jQuery("#credit_payment").show();
-
-				//소비자 피해보상 신청
-				jQuery("#escrw_reward_apply").hide();
-
 				jQuery("#cardReport").show();
-				jQuery("#mobile_payment").hide();
-
-				jQuery("#cardReport_choice2").hide();
 				jQuery("#CARD_PAYMT_TYPE").val("01");
 
-			} else if (sel == "account" || sel == "vbank"){
+			} else if (sel == "account" || sel == "vbank" || sel == 'naver'){
+
+				jQuery(".pay_method").hide();
 
 				jQuery("#escrw").show();
 				jQuery("#escrw_info").show();
 				jQuery("#escrw_personal").show();
-				jQuery("#escrw_business").hide();
-				jQuery("#noInt").hide();
-
-				jQuery("#cardReport").hide();
-				// 161209
-				jQuery("#credit_payment").hide();
-
-				//소비자 피해보상 신청
 				jQuery("#escrw_reward_apply").show();
 
 				if( sel == 'account'){
 					var htmlsc='- 실시간 계좌이체시 은행별 서비스 가능시간을 확인바랍니다.<br/>- 실시간 계좌이체는 10분 이내로 입금확인을 하실 수 있습니다.';
 				}else if( sel == 'vbank'){
 					var htmlsc='- 아래 ‘결제하기’ 버튼클릭 후 입금은행 및 계좌, 입금기한을 확인하실 수 있습니다.';
+				}else if( sel == 'naver'){
+					var htmlsc = '- 네이버페이는 네이버ID로 별도 앱 설치 없이 신용카드 또는 은행계좌 정보를 등록하여<br/>&nbsp;&nbsp;네이버페이 비밀번호로 결제할 수 있는 간편결제 서비스입니다.<br/>- 주문 변경 시 카드사 혜택 및 할부 적용 여부는 해당 카드사 정책에 따라 변경될 수 있습니다.<br/>- 결제 가능한 신용카드 : 신한, 삼성, 현대, BC, 국민, 하나, 롯데, NH농협, 씨티<br/>- 결제 가능한 은행 : NH농협, 국민, 신한, 우리, 기업, SC제일, 부산, 경남, 수협, 우체국<br/>- 네이버페이 카드 간편결제는 네이버페이에서 제공하는 카드사 별 무이자, 청구할인 혜택을<br>&nbsp;&nbsp;받을 수 있습니다.';
 				}
 				jQuery('#account_desc').html(htmlsc);
-				jQuery("#mobile_payment").hide();
-
-				jQuery("#cardReport_choice2").hide();
 				jQuery("#CARD_PAYMT_TYPE").val("01");
 
 			} else if ( sel == "kpay" ) {
-
 				// 핸드폰번호 초기화
 				fn_initCashRecptMoblno();
 				// 사업자번호 초기화
 				fn_initCashRecptBizrno();
 
-				jQuery("#escrw").hide();
-				jQuery("#escrw_info").hide();
-				jQuery("#escrw_personal").hide();
-				jQuery("#escrw_business").hide();
-				// 161209
-				jQuery("#credit_payment").hide();
+				jQuery(".pay_method").hide();				
 				jQuery("#noInt").show();
-
-				//소비자 피해보상 신청
-				jQuery("#escrw_reward_apply").hide();
-
 				jQuery("#cardReport").show();
-				jQuery("#mobile_payment").hide();
-
 				jQuery("#cardReport_choice2").show();
 				jQuery("#CARD_PAYMT_TYPE").val("02");
 			} else if ( sel == "mobile" ) {
-				jQuery("#escrw").hide();
-				jQuery("#escrw_info").hide();
-				jQuery("#escrw_personal").hide();
-				jQuery("#escrw_business").hide();
-				jQuery("#noInt").hide();
-				jQuery("#escrw_reward_apply").hide();
-				jQuery("#cardReport").hide();
-				// 161209
-				jQuery("#credit_payment").hide();
-				jQuery("#mobile_payment").show();
-
-				jQuery("#cardReport_choice2").hide();
+				jQuery(".pay_method").hide();				
+				jQuery("#mobile_payment").show();		
+				jQuery("#CARD_PAYMT_TYPE").val("01");
+			} else if ( sel == "kakao" ) {
+				jQuery(".pay_method").hide();
+				jQuery("#kakao_payment").show();
+				jQuery("#CARD_PAYMT_TYPE").val("01");
+			} else if ( sel == "lpay" ) {
+				jQuery(".pay_method").hide();				
+				jQuery("#lpay_payment").show();
+				jQuery("#CARD_PAYMT_TYPE").val("01");
+			} else if ( sel == "payco" ) {
+				jQuery(".pay_method").hide();				
+				jQuery("#payco_payment").show();
 				jQuery("#CARD_PAYMT_TYPE").val("01");
 			} else {
-				jQuery("#escrw").hide();
-				jQuery("#escrw_info").hide();
-				jQuery("#escrw_personal").hide();
-				jQuery("#escrw_business").hide();
-				jQuery("#noInt").hide();
-				// 161209
-				jQuery("#credit_payment").hide();
-				jQuery("#escrw_reward_apply").hide();
-				jQuery("#cardReport").hide();
-				jQuery("#mobile_payment").hide();
-
-				jQuery("#cardReport_choice2").hide();
+				jQuery(".pay_method").hide()				
 				jQuery("#CARD_PAYMT_TYPE").val("01");
 			}
 		}
+		// 180413 스크립트 일부수정 및 추가 end
 
 		//핸드폰번호 초기화
 		function fn_initCashRecptMoblno() {
@@ -1546,10 +1509,13 @@
 											<tr class="noline" id="payMethodTr">
 												<th scope="row">결제수단 선택</th>
 												<td>
-													<input type="radio" name="payMethod" id="creditcard" onclick="fn_ChangePayMethod('credit');" value="03" checked><label for="creditcard">카드결제</label>
-                                                    <!-- 170324 리복 네이버페이 -->
-                                                    <input type="radio" name="payMethod" id="pay_naver" value="" onclick="fn_ChangePayMethod('naver');" ><label for="pay_naver">네이버페이</label>
+													<input type="radio" name="payMethod" id="creditcard" onclick="fn_ChangePayMethod('credit');" value="03" checked><label for="creditcard">카드결제</label>                                                    
+                                                    <input type="radio" name="payMethod" id="pay_naver" onclick="fn_ChangePayMethod('naver');" value="05"><label for="pay_naver">네이버페이</label>
+                                                    <input type="radio" name="payMethod" id="pay_kakao" onclick="fn_ChangePayMethod('kakao');" value="05"><label for="pay_kakao">카카오페이</label>
+                                                    <input type="radio" name="payMethod" id="pay_lpay" onclick="fn_ChangePayMethod('lpay');" value="05"><label for="pay_lpay">LPAY</label>
+                                                    <input type="radio" name="payMethod" id="pay_payco" onclick="fn_ChangePayMethod('payco');" value="05"><label for="pay_payco">PAYCO</label>
 													<input type="radio" name="payMethod" id="kpay" onclick="fn_ChangePayMethod('kpay');" value="03"><label for="kpay">KPAY</label>
+													<div class="void_line"></div>
 													<input type="radio" name="payMethod" id="vbank" onclick="fn_ChangePayMethod('vbank');" value="05"><label for="vbank">무통장입금</label>
 													<input type="radio" name="payMethod" id="mobile" onclick="fn_ChangePayMethod('mobile');" value="07"><label for="mobile">휴대폰결제</label>
 													<input type="radio" name="payMethod" id="account" onclick="fn_ChangePayMethod('account');" value="04"><label for="account">실시간이체</label>
@@ -1561,9 +1527,8 @@
 											</tr>
 										</tbody>
 									</table>
-
-									<!-- 161209 start -->
-									<div id="credit_payment" style="display:block;">
+								
+									<div id="credit_payment" class="pay_method" style="display:block;">
 										<table summary="카드 결제">
 											<caption>카드결제 선택</caption>
 											<colgroup>
@@ -1605,9 +1570,137 @@
 											</tbody>
 										</table>
 									</div>
-									<!-- //161209 -->
 
-									<div id="mobile_payment" style="display:none;">
+									<div id="kakao_payment" class="pay_method" style="display:none;">
+										<table summary="카카오 결제">
+											<caption>카카오페이 선택</caption>
+												<colgroup>
+													<col width="142px">
+													<col>
+												</colgroup>
+												<tbody>
+													<tr>
+														<th scope="row" class="noline"></th>
+														<td colspan="2" class="noline" style="padding:5px 0;">
+															<table border="0" cellpadding="0" cellspacing="0">																
+																<colgroup>
+																	<col width="142px">
+																	<col>
+																</colgroup>															
+
+																<tr>																	
+																	<th class="noline"></th>																	
+																	<td colspan="2" class="noline" style="padding:5px 0;">
+																		<div style="padding-left:8px;">
+																			<ul>
+																				<li>
+																					-카카오페이 간편결제는 카카오페이에서 운영하는 간편결제 서비스 입니다.
+																				</li>
+																				<li>
+																					-결제가능카드 : 신한, BC, KB, 삼성, 현대, 롯데, 하나, NH
+																				</li>
+																				<li>
+																					-카카오페이로 결제 시 카드사에서 제공하는 제휴 및 청구할인은 이용불가 합니다.
+																				</li>																				
+																			</ul>																			
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+									</div>
+
+									<div id="lpay_payment" class="pay_method" style="display:none;">
+										<table summary="엘페이 결제">
+											<caption>엘페이 선택</caption>
+												<colgroup>
+													<col width="142px">
+													<col>
+												</colgroup>
+												<tbody>
+													<tr>
+														<th scope="row" class="noline"></th>
+														<td colspan="2" class="noline" style="padding:5px 0;">
+															<table border="0" cellpadding="0" cellspacing="0">																
+																<colgroup>
+																	<col width="142px">
+																	<col>
+																</colgroup>															
+
+																<tr>																	
+																	<th class="noline"></th>																	
+																	<td colspan="2" class="noline" style="padding:5px 0;">
+																		<div style="padding-left:8px;">
+																			<ul>
+																				<li>
+																					-L.pay 간편결제는 롯데에서 운영하는 온 / 오프라인 통합 간편결제 서비스입니다.
+																				</li>
+																				<li>
+																					-결제 불가 카드 : 농협카드, 씨티카드 (추후 서비스 제공 예정)
+																				</li>
+																				<li>
+																					-결제방법 : 앱 가입 -> 결제수단 등록 -> 지문 or PIN 인증 후 결제
+																				</li>																				
+																				<li>
+																					-카드사/금융사별 정책에 따라 고액 결제 시, 추가 인증이 필요합니다.
+																				</li>																				
+																			</ul>																			
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+									</div>
+
+									<div id="payco_payment" class="pay_method" style="display:none;">
+										<table summary="페이코 결제">
+											<caption>페이코 선택</caption>
+												<colgroup>
+													<col width="142px">
+													<col>
+												</colgroup>
+												<tbody>
+													<tr>
+														<th scope="row" class="noline"></th>
+														<td colspan="2" class="noline" style="padding:5px 0;">
+															<table border="0" cellpadding="0" cellspacing="0">																
+																<colgroup>
+																	<col width="142px">
+																	<col>
+																</colgroup>															
+
+																<tr>																	
+																	<th class="noline"></th>																	
+																	<td colspan="2" class="noline" style="padding:5px 0;">
+																		<div style="padding-left:8px;">
+																			<ul>
+																				<li>
+																					-PAYCO 간편결제는 엔에이치엔페이코(주)에서 운영하는 서비스이며,<br />PAYCO ID 하나로 간편하게 결제하실 수 있습니다.
+																				</li>
+																				<li>
+																					-결제가능 카드 : 신한, BC, KB, 삼성, 현대, 롯데, 하나, NH
+																				</li>
+																				<li>
+																					-BC, KB, 현대, NH로 결제 시 카드사에서 제공하는 제휴 및 청구할인 이용이 가능합니다. (단, 정책에 따라 일부 변동이 있을 수 있습니다.)
+																				</li>																				
+																			</ul>																			
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+									</div>
+
+									<div id="mobile_payment" class="pay_method" style="display:none;">
 										<table summary="카드 결제">
 											<caption>카드결제 선택</caption>
 												<colgroup>
@@ -1636,19 +1729,19 @@
 																			<p style="margin-bottom:5px;font-size:11px;color:#888;">결제 한도금액은 통신사별, 회원등급별, 신규/번호이동 여부에 따라 다를 수 있습니다.</p>
 																			<p style="margin-bottom:15px;font-size:11px;color:#ff0000;">※ 결제 제한 및 이용한도에 대한 자세한 내용은 FAQ 참고</p>
 
-																			<p style="margin-bottom:3px;font-size:11px;color:#888;">휴대폰 결제의 경우, 현금영수증 및 세금계산서 발급은 불가능합니다.</p>
+																			<p>휴대폰 결제의 경우, 현금영수증 및 세금계산서 발급은 불가능합니다.</p>
 																			<p style="margin-bottom:15px;font-size:11px;color:#888;">(현금영수증은 휴대폰 요금 현금 지불 시에만 통신사 통해 발급 가능)</p>
 
 																			<p style="margin-bottom:12px;font-size:13px;color:#222;font-weight:bold;">취소 및 반품 안내</p>
 
 																			<ul>
-																				<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																				<li>
 																					-결제한 달과 취소/반품한 달이 같은 경우, 결제 금액은 당일 취소 됩니다.
 																				</li>
-																				<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																				<li>
 																					-결제한 달과 취소/반품한 달이 다른 경우, 입력하신 은행 계좌로 영업일 기준 3일 이내에 환불 됩니다.
 																				</li>
-																				<li style="margin-bottom:3px;font-size:11px;color:#888;">
+																				<li>
 																					-부분 취소/반품의 경우, 취소 건을 제외한 금액을 재결제 하시면 이전 결제 건 전체가 취소 됩니다.
 																				</li>
 																				<li style="margin-bottom:10px;font-size:11px;color:#888;">
@@ -1664,10 +1757,9 @@
 													</tr>
 												</tbody>
 											</table>
-										</div>
+									</div>
 
-
-									<div id="cardReport" style="display: none;">
+									<div id="cardReport" class="pay_method" style="display: none;">
 										<table summary="카드 결제">
 											<caption>카드결제 선택</caption>
 											<colgroup>
@@ -1678,7 +1770,7 @@
 												<tr>
 													<th scope="row" class="noline"></th>
 													<td colspan="2" class="noline" style="padding:5px 0;">
-													<div id="cardReport_choice2" style="display:none;">
+													<div id="cardReport_choice2" class="pay_method" style="display:none;">
 														<!-- 141217 K-Pay 가이드 -->
 
 															<table border="0" cellpadding="0" cellspacing="0">
@@ -1741,7 +1833,7 @@
 										</table>
 									</div>
 
-									<div id="escrw" style="display: none;">
+									<div id="escrw" class="pay_method" style="display: none;">
 										<table summary="실시간 계좌이체 - 현금연수증 신청">
 											<caption>실시간 계좌이체 - 현금연수증 신청</caption>
 											<colgroup>
@@ -1759,7 +1851,7 @@
 												<tr class="noline">
 													<td class="noline"></td>
 													<th scope="row">현금영수증 신청</th>
-													<td style="width:402px;">
+													<td style="width:360px;">
 														<input type="radio" name="CASH_RECPT_APPLY" id="CASH_RECPT_APPLY_Y" onclick="fn_ChangeCashRecptApply(this.value);" value="Y" checked="checked"><label for="CASH_RECPT_APPLY_Y"> 신청하기</label>
 														<input type="radio" name="CASH_RECPT_APPLY" id="CASH_RECPT_APPLY_N" onclick="fn_ChangeCashRecptApply(this.value);" value="N"><label for="CASH_RECPT_APPLY_N"> 신청안함</label>
 													</td>
@@ -1768,7 +1860,7 @@
 										</table>
 									</div>
 
-									<div id="escrw_info" style="display: none;">
+									<div id="escrw_info" class="pay_method" style="display: none;">
 										<table summary="실시간 계좌이체 - 현금연수증 신청">
 											<caption>실시간 계좌이체 - 현금연수증 신청</caption>
 											<colgroup>
@@ -1796,7 +1888,7 @@
 										</table>
 									</div>
 
-									<div id="escrw_personal" style="display: none;">
+									<div id="escrw_personal" class="pay_method" style="display: none;">
 										<table summary="실시간 계좌이체 - 현금연수증 신청">
 											<caption>실시간 계좌이체 - 현금연수증 신청</caption>
 											<colgroup>
@@ -1826,7 +1918,7 @@
 										</table>
 									</div>
 
-									<div id="escrw_business" style="display: none;">
+									<div id="escrw_business" class="pay_method" style="display: none;">
 										<table summary="실시간 계좌이체 - 현금연수증 신청 사업자증빙용">
 											<caption>실시간 계좌이체 - 현금연수증 신청 사업자증빙용</caption>
 											<colgroup>
@@ -1847,7 +1939,7 @@
 										</table>
 									</div>
 
-									<div id="escrw_reward_apply" style="display: none;">
+									<div id="escrw_reward_apply" class="pay_method" style="display: none;">
 										<table summary="한국스탠다드차타드은행 채무지급보증안내">
 											<caption>한국스탠다드차타드은행 채무지급보증안내</caption>
 											<colgroup>
