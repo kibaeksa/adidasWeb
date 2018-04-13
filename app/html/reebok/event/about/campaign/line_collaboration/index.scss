@@ -41,14 +41,14 @@
                 margin-bottom: 40px;
                 font:400 18px/22px 'NotoSansKR';
             }
-            a{
+            a.play-video{
                 position: relative;
                 display: inline-block;
                 width: 60px;
                 height: 60px;
                 border: 6px solid #fff;
                 box-sizing: border-box;
-                margin-left: 10px;
+                margin-bottom: 50px;            
                 &.btn-play-video{
                     font: 18px/60px 'NotoSansKR';
                     margin: 0 4px;
@@ -62,11 +62,17 @@
                         height: 25px;
                         background: url('http://image.reebok.co.kr/images/reebok/event/about/always/ico-video.png') 0 0 no-repeat;
                     }
-                }
-                &.btn-buy{
-                    font: 18px/60px 'NotoSansKR';
-                    margin: 0 4px;
-                }
+                }                
+            }
+            a.btn-buy{
+                position: relative;
+                display: inline-block;
+                width: 200px;
+                height: 50px;
+                font: 18px/50px 'NotoSansKR';
+                color: #fff;                
+                border: 1px solid #fff;              
+                text-align: center;
             }
         }
     }
@@ -75,9 +81,10 @@
         overflow: hidden;
         width: 100%;
         position: relative;
-        height: 1348px;
+        height: 1476px;
         background: #fff;
         .event_bar{
+            display: none;
             width: 890px;
             height: 90px;
             margin:0 auto;
@@ -108,7 +115,44 @@
             position: relative;
             left: 50%;
             top: 0;
-            margin-left: -990px;
+            margin-left: -990px;            
+        }
+        .slider_wrap{
+            position: absolute;
+            top: 51.8%;
+            left: 50%;
+            text-align: center;
+            @include prefix-css3(opacity,0);
+            @include prefix-css3(transition, 0.5s);
+            &.on{
+                @include prefix-css3(opacity,1);
+
+            }
+            #sliders{
+                display: inline-block;
+                // margin: 70px 0 0 520px;
+            }
+        }
+        .indicator{
+            position: absolute;
+            bottom:-30px;
+            left: 0;
+            width: 425px;
+            z-index: 2;
+            text-align: center;
+            display: inline-block;
+            a{
+                display: inline-block;
+                margin: 0 3px;
+                width: 12px;height: 12px;
+                background: #bee5da;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                text-indent: -9999px;
+                &.on{
+                    background: #fff;
+                }
+            }
         }
     }
 
