@@ -36,15 +36,21 @@
 
 		  				jQuery('.imgscut_box .thumbnails a.cut-video-button').removeClass('on');
 
-		  				var imgSrc = jQuery(this).attr('data-img500');
-		  				var bigImg = imgSrc.replace('/500/','/source/');
-		       			bigImg = bigImg.replace('_500X500','');
+		  				var imgSrc = jQuery(this).attr('data-img720');
+		  				var bigImg = imgSrc.replace('/720/','/source/');
+		       			bigImg = bigImg.replace('_720X720','');
 
 		  				jQuery('.imgscut_box .cut img').attr('src',imgSrc);
 		  				jQuery('.imgscut_box .cloud-zoom').attr('href',bigImg);
 		  				jQuery('.imgscut_box .thumbnails a').removeClass('on');
 		  				jQuery(this).addClass('on');
 
+						//180329 슬라이스 배경 경로수정코드
+						var imgSrc = jQuery(this).attr('data-img720');
+						var imgUrl = 'url(' + imgSrc + ')';
+						// console.log(imgSrc);
+						// console.log(imgUrl);
+						jQuery('.renew180306').find('.bg').css('border-image-source', imgUrl);					
 		  			});
 
 		  			jQuery('.imgscut_box .thumbnails a.cut-video-button').bind('click',function(){
@@ -54,31 +60,48 @@
 		  					jQuery(this).addClass('on');
 		  				}
 
-						if(!player){
-							// 160921 html 수정
-							jQuery('.imgscut_box>.cut').append('<div class="cut_video_wrap active"><div id="cut_video"></div></div>');
-							// 160921 html 수정 끝
-							player = new YT.Player('cut_video', {
-								height: '500',
-								width: '500',
-								videoId: videoId,
-								playerVars: {
-									autoplay: 1,
-									controls: 0,
-									showinfo : 0,
-									autohide : 0,
-									disablekb : 0,
-									loop : 1,
-									playlist : videoId,
-									modestbranding : 1,
-									wmode:'transparent',
-                                    rel : 0
-								}
-							});
-						}else{
-							jQuery('.cut_video_wrap').addClass('active');
-							player.playVideo();
-						}
+						// if(!player){
+						// 	// 160921 html 수정
+						// 	jQuery('.imgscut_box>.cut').append('<div class="cut_video_wrap active"><div id="cut_video"></div></div>');
+						// 	// 160921 html 수정 끝
+						// 	player = new YT.Player('cut_video', {
+						// 		height: '720',
+						// 		width: '720',
+						// 		videoId: videoId,
+						// 		playerVars: {
+						// 			autoplay: 1,
+						// 			controls: 0,
+						// 			showinfo : 0,
+						// 			autohide : 0,
+						// 			disablekb : 0,
+						// 			loop : 1,
+						// 			playlist : videoId,
+						// 			modestbranding : 1,
+						// 			wmode:'transparent',
+                        //             rel : 0
+						// 		}
+						// 	});
+						// }else{
+						// 	jQuery('.cut_video_wrap').addClass('active');
+						// 	player.playVideo();
+						// }
+						var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+						$('html').addClass('no_scroll');
+						$('body').append(videoLayerElem);
+						setTimeout(function(){
+							$('.video_layer').addClass('loaded');
+							setTimeout(function(){
+								$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+							},20);
+						},300);
+
+						$('.video_layer .close').bind('click',function(){
+							$('html').removeClass('no_scroll');
+							$('.video_layer').remove();
+						});
+						return false;
+						// jQuery('.renew180306').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+						
 		  			});
 	  			}
 
@@ -402,17 +425,17 @@
 
   			})();
 
-  			$('.imgscut_box .thumbnails a').bind('mouseover',function(event){
-  				var imgSrc = $(this).attr('data-img500');
-  				var bigImg = imgSrc.replace('/500/','/source/');
-       			bigImg = bigImg.replace('_500X500','');
+  			// $('.imgscut_box .thumbnails a').bind('mouseover',function(event){
+  			// 	var imgSrc = $(this).attr('data-img720');
+  			// 	var bigImg = imgSrc.replace('/720/','/source/');
+       		// 	bigImg = bigImg.replace('_720X720','');
 
 
-  				$('.imgscut_box .cut img').attr('src',imgSrc);
-  				$('.imgscut_box .cloud-zoom').attr('href',bigImg);
-  				$('.imgscut_box .thumbnails a').removeClass('on');
-  				$(this).addClass('on');
-  			})
+  			// 	$('.imgscut_box .cut img').attr('src',imgSrc);
+  			// 	$('.imgscut_box .cloud-zoom').attr('href',bigImg);
+  			// 	$('.imgscut_box .thumbnails a').removeClass('on');
+  			// 	$(this).addClass('on');
+  			// })
 
 
 
@@ -535,11 +558,70 @@
 				}
 			});
 
-  		});
+		  });
 
   	})(jQuery);
   	// 160822 script end
   </script>
+  <style>
+	/* video_layer */
+	.video_layer {
+		width:100%;
+		height:100%;
+		position:fixed;
+		top:0;
+		left:0;
+		z-index:110
+	}
+	.video_layer .video {
+		width:100%;
+		height:100%;
+		z-index:6;
+		position:absolute;
+		top:0;
+		left:0
+	}
+	.video_layer .close {
+		width:45px;
+		height:45px;
+		position:absolute;
+		top:25px;
+		right:25px;
+		z-index:20;
+		display:block;
+		background:url("/images/reebok/event/about/sprite.png") -80px 0 no-repeat;
+		text-indent:-5000px;
+		opacity:0;
+		transition:opacity 0.4s ease-in 0.5s;
+		-webkit-transition:opacity 0.4s ease-in 0.5s;
+		-moz-transition:opacity 0.4s ease-in 0.5s;
+		-o-transition:opacity 0.4s ease-in 0.5s;
+		-ms-transition:opacity 0.4s ease-in 0.5s
+	}
+	.video_layer .bg {
+		width:100%;
+		height:100%;
+		background:#000;
+		z-index:5;
+		position:absolute;
+		top:0;
+		left:0;
+		opacity:0;
+		transition:opacity 0.4s;
+		-webkit-transition:opacity 0.4s;
+		-moz-transition:opacity 0.4s;
+		-o-transition:opacity 0.4s;
+		-ms-transition:opacity 0.4s
+	}
+	.video_layer.loaded .bg {
+		opacity:.6
+	}
+	.video_layer.loaded .close {
+		opacity:1
+	}
+	/* video_layer end */
+
+  </style>
  </head>
 
  <body>
@@ -596,51 +678,7 @@
             </div>
         </div>
 	</div>
-    <!-- 180117 스피드 배송 안내  팝업 END -->
-
-     <!-- 170401 스피드배송 안내 POPUP 업데이트  -->
-     <!-- <div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice1"
-         data-modalpop=""
-         data-modalpop-width="600"
-         data-modalpop-height="500"
-         data-modalpop-name="modalpop-notice1"
-         data-modalpop-autoopen=""
-         data-modalpop-fade=""
-     >
- 		<div class="overlay"></div>
- 		<div class="popup">
-            <div class="popup-header">
-                <h2>스피드 배송 서비스 오픈!</h2>
-                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-            </div>
-
- 			<div class="popup-contents">
- 			    <div class="desc">
- 			        SPEEDY DELIVERY (스피드 배송)란?<br/>
-                    상품상세 페이지에<span class="spt_bg ico_car"></span>표시가 된 상품을 저녁 6시부터<br/>
-                    다음 날 오전 9시까지 주문 후 결제 완료된<span class="spt_bg ico_car"></span>상품에 한하여 다음날 또는<br/>
-                    당일까지 빠르게 배송해 드리는 서비스 입니다.
- 			    </div>
-
-                <ul class="li-dot">
-                    <li>
-                        <div class="bul"></div>
-                        배송지 기준으로 서울 및 수도권 인근지역(일부지역 제외)에 한하여 진행 됩니다.
-                    </li>
-                    <li>
-                        <div class="bul"></div>
-                        빠르고 안전한 배송을 위해 박스 규격은 가로/세로/높이의 합이 80cm 이내이며, <br/>총 주문 수량은 3개로 제한 됩니다. (단, 신발은 2개만 가능)
-                    </li>
-                    <li>
-                        <div class="bul"></div>
-                        기타 SPEEDY DELIVERY 관련 자세한 안내는 FAQ를 참고해주시기 바랍니다.
-                    </li>
-                </ul>
-
-                <a href="" class="more">FAQ 바로가기 <span><img src="/images/adidas/common/icon_custom_arrow.png" alt=""></span></a>
- 			</div>
- 		</div>
- 	</div> -->
+    <!-- 180117 스피드 배송 안내  팝업 END -->     
 
 	<!-- 180117 교환, 환불 안내 팝업 -->
     <div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice2"
@@ -2991,7 +3029,7 @@
 				</div>
 				<!-- //prod_calc //140624 -->
 
-				<div class="location_r ct950">
+				<div class="location_r ct1190">
 					<div class="go_back spt_bg"><a href="#">Back</a></div>
 					<span><a href="#">Home</a></span>
 					<span class="ico"></span>
@@ -3002,489 +3040,553 @@
 					<span>Men's Gazelle OG Shoes</span>
 				</div>
 
-				<!-- 170201 start -->
+				
 				<div class="product-main product-main-update">
-
-					<div class="product-infomation">
-						<div class="ct950 clfix">
+					<!-- 180306 start -->
+					<div class="product-infomation renew180306">
+						<div class="bg"></div>
+						<div class="bg2"></div>
+						<div class="ct1190 clfix">
 							<div class="imgscut_box" >
 								<div class="cut zoom_area" id="zoom_area">
 									<a class="cloud-zoom" rel="adjustX: 0, adjustY:0" href="http://image.adidas.co.kr/upload/prod/basic/source/AH5104-1.jpg">
-										<img src="http://image.adidas.co.kr/upload/prod/basic/500/AH5104-1_500X500.jpg" alt="" />
-										<!-- 160824 뱃지 / 로고 추가 -->
-										<div class="ss logo spt_bg"></div>
+										<img src="http://image.adidas.co.kr/upload/prod/basic/720/AH5104-1_720X720.jpg" alt="" />
+										
 										<!-- <div class="product-badge new">
 											<span>NEW</span>
-										</div> -->
-                                        <!-- 170329 당일배송 뱃지 -->
-                                        <div class="product-badge oneday">
+										</div> -->                                   
+										<!-- <div class="product-badge best">
+											<span>best</span>
+										</div>                                   -->
+										<!-- <div class="product-badge online_only">
+											<span>online only</span>
+										</div>                                     -->
+                                        <!-- <div class="product-badge oneday">
                                             <span>SPEED DELIVERY</span>
-                                        </div>
+										</div> -->
+										<div class="product-badge mi">
+											<span>MIADIDAS</span>
+										</div>
 										<div class="prod_label"></div>
 									</a>
 
 								</div>
-								<!-- //cut -->
+								<!-- //cut -->								
 
-								<div class="thumbnails">
-									<a class="on" href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/prod/basic/500/AH5104-1_500X500.jpg"><img src="http://image.adidas.co.kr/upload/prod/basic/60/AH5104-1_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/prod/etc/500/AH5104-2_500X500.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-2_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/prod/etc/500/AH5104-3_500X500.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-3_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/prod/etc/500/AH5104-4_500X500.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-4_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/prod/etc/500/AH5104-5_500X500.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-5_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-8_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-8_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" class="last" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-9_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-9_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-10_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-10_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-11_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-11_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-12_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-12_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-13_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-13_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" data-img500="http://image.adidas.co.kr/upload/modelcut/500/AH5104-14_500X500.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-14_60X60.jpg" alt="" /></a>
-									<a href="javascript:void(0)" class="cut-video-button" data-ytbid="zgPNEhcbvV0">
-										<img src="/images/adidas/common/btn_play.png" alt="">
-										<div class="img">
-											<img src="http://s7g10.scene7.com/is/image/adidasMedia?&amp;src=B48878_product_video" alt="">
-										</div>
-									</a>
+								<div class="thumbnails cut_thumbnails_wrap">									
+									<div id="cut_slider">
+										<a class="on" href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/basic/720/AH5104-1_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/basic/60/AH5104-1_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/etc/720/AH5104-2_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-2_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/etc/720/AH5104-3_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-3_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/etc/720/AH5104-4_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-4_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/etc/720/AH5104-5_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/etc/60/AH5104-5_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-8_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-8_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-9_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-9_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-9_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-9_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-10_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-10_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-11_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-11_60X60.jpg" alt="" /></a>
+										<a href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/modelcut/720/AH5104-10_720X720.jpg"><img src="http://image.adidas.co.kr/upload/modelcut/60/AH5104-10_60X60.jpg" alt="" /></a>									
+										<a href="javascript:void(0)" class="cut-video-button" data-ytbid="zgPNEhcbvV0">
+											<img src="/images/adidas/common/btn_play.png" alt="">
+											<div class="img">
+												<img src="http://s7g10.scene7.com/is/image/adidasMedia?&amp;src=B48878_product_video" alt="">
+											</div>
+										</a>
+									</div>	
+									<div class="btn-prev cut_slider_btn">
+										<button class="prev" data-btn="0"><img src="http://image.adidas.co.kr/images/adidas/common/arrow-up.png" alt=""></button>
+									</div>								
+									<div class="btn-next cut_slider_btn">
+										<button class="next" data-btn="1"><img src="http://image.adidas.co.kr/images/adidas/common/arrow-dw.png" alt=""></button>
+									</div>
 								</div>
 								<!-- //thumbnails -->
+								
+								<script type='text/javascript'>
+		
+									var container = 512;
+									var display = 8;
+									var item = container / display;
+									var count = $('#cut_slider a').length;
+									var slidebox = item * count;
+							
+									// console.log(container);
+									// console.log(display);
+									// console.log(item);
+									// console.log(count);
+									// console.log(slidebox);
+							
+									function init() {										
+										$('.cut_thumbnails_wrap').css("height",container);
+										$('#cut_slider').css("height",slidebox);
+										$('#cut_slider a').css("width",item-12);            
+									}
+									
+									function moveSlider() {
+										var check = $(this).attr('data-btn');
+										var nowTop = $('#cut_slider').position().top;							
+										var end = -(slidebox-container);
+							
+										if(check == 0){
+											$('.btn-next').show();
+											if (nowTop >= -item) {												
+												$('.btn-prev').hide();												
+											}else if(nowTop == 0){
+												return false;	
+											}
+											$('#cut_slider').animate({top : '+='+item+'px'},200);
+										}else if (check == 1){
+											$('.btn-prev').show();
+											if (nowTop <= end + item) {
+												$('.btn-next').hide();							
+											}else if(nowTop == end){
+												return false;	
+											}
+											$('#cut_slider').animate({top : '-='+item+'px'},200);
+										}
+										console.log(nowTop);
+										console.log(end);
+									}
+							
+									$(document).ready(function () {
+										init();
+							
+										$('.next').bind('click',moveSlider);
+										$('.prev').bind('click',moveSlider);
+									});
+							
+								</script>
 							</div>
 							<!-- //imgscut_box -->
 
 							<div class="buy_box">
-								<div class="rating">
-									<div class="rating-star">
-										<div class="star-container">
-											<div class="star-point" style="width:50%;"><img src="/images/adidas/common/ico_rating.png" alt="" /></div>
-											<div class="star-bg"><img src="/images/adidas/common/ico_rating_empty.png" alt="" /></div>
+								<div class="inner">
+									<div class="rating">
+										<div class="rating-star">
+											<div class="star-container">
+												<div class="star-point" style="width:50%;"><img src="/images/adidas/common/ico_rating.png" alt="" /></div>
+												<div class="star-bg"><img src="/images/adidas/common/ico_rating_empty.png" alt="" /></div>
+											</div>
+											<div class="star-count">4.5/5</div>
 										</div>
-										<div class="star-count">4.5/5</div>
+										<!-- //rating-star -->
+	
+										<a href="#" class="review_link">상품평 전체보기</a>
 									</div>
-									<!-- //rating-star -->
-
-									<a href="#" class="review_link">상품평 전체보기</a>
-								</div>
-								<!-- //rating -->
-
-								<div class="prd_title">
-									<p class="ctgr">Men's Originals</p>
-									<h2>수퍼스타 파운데이션</h2>
-								</div>
-
-								<div class="price">
-									<div class="price-container">
-										<!-- 160824 세일 안하는 상품 금액표시 -->
-										<span class="prc">249,000<span class="won">원</span></span>
-										<!--
-										<span class="prc line">249,000<span class="won">원</span></span>
-										<span class="prc sale">127,200<span class="won">원</span></span>
-										-->
+									<!-- //rating -->
+	
+									<div class="prd_title">
+										<p class="ctgr">Men's Originals</p>
+										<h2>수퍼스타 파운데이션</h2>
 									</div>
-									<span class="point">예상포인트<strong>5,540 (5%)</strong></span>
-
-									<div id="presale_price" class="sale_info">
-										<span class="btn">이전판매가격</span>
-										<div class="cont">
-											<h6>이전 판매가격 정보</h6>
-											<dl>
-												<dt>최초 출시가</dt>
-												<dd id="pn_price">369,000원</dd>
-											</dl>
-											<dl>
-												<dt>이전 할인 판매가</dt>
-												<dd id="pps_price">295,200원</dd>
-											</dl>
-											<dl class="result">
-												<dt>현재 판매가</dt>
-												<dd id="ps_price"><strong>147,600원<strong></strong></strong></dd>
-											</dl>
+	
+									<div class="price">
+										<div class="price-container">											
+											<span class="prc">249,000<span class="won">원</span></span>
+											<!--
+											<span class="prc line">249,000<span class="won">원</span></span>
+											<span class="prc sale">127,200<span class="won">원</span></span>
+											-->
 										</div>
+										<span class="point">예상포인트<strong>5,540 (5%)</strong></span>
+	
+										<div id="presale_price" class="sale_info">
+											<span class="btn">이전판매가격</span>
+											<div class="cont">
+												<h6>이전 판매가격 정보</h6>
+												<dl>
+													<dt>최초 출시가</dt>
+													<dd id="pn_price">369,000원</dd>
+												</dl>
+												<dl>
+													<dt>이전 할인 판매가</dt>
+													<dd id="pps_price">295,200원</dd>
+												</dl>
+												<dl class="result">
+													<dt>현재 판매가</dt>
+													<dd id="ps_price"><strong>147,600원<strong></strong></strong></dd>
+												</dl>
+											</div>
+										</div>
+	
 									</div>
-
-								</div>
-								<!-- //price -->
-
-								<div class="other_color">
-									<p>Color Black [AA5106]</p>
-									<div class="thumbnails clfix">
-										<a class="on" href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/pr od/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a class="last" href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-										<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-									</div>
-								</div>
-
-								<div class="size_box">
-									<!-- 160830 clfix 클래스 추가 및 사이즈차트 버튼 명 한글로 수정  -->
-									<p class="clfix">
-										<a href="javascript:void(0)" class="view_sizechart">사이즈 차트 보기</a>
-										<!-- 160825 입고알림 신청하기 버튼 -->
-										<a href="javascript:void(0)" class="view_stock_alarm">입고알림 신청하기</a>
-									</p>
-									<div class="select_box clfix">
-
-										<div class="select_size">
-											<!-- <div class="selectbox-ctm size_shoes">
-												<a href="javascript:void(0)">사이즈 선택</a>
-												<div class="arrow spt_bg"></div>
-												<div class="select-contents option-list">
-													<ul>
-														<li class="selected" data-option-value="230"><a href="javascript:void(0)">230</a></li>
-														<li data-option-value="235"><a href="javascript:void(0)">235</a></li>
-														<li data-option-value="240" class="disable"><a href="javascript:void(0)">240</a></li>
-														<li data-option-value="245" class="disable"><a href="javascript:void(0)">245</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-													</ul>
+									<!-- //price -->
+									
+									<div class="super_week_ban" style="margin-bottom: 25px;">
+										<a href="http://shop.adidas.co.kr/PF070401.action"><img src="http://image.adidas.co.kr/images/adidas/order/1711_a_superweekend_prod_detail.jpg" alt=""></a>
+									</div>									
+	
+									<div class="other_color">
+										<p>Color Black [AA5106]</p>
+										<div class="thumbnails clfix">
+											<a class="on" href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a class="last" href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a href="javascript:void(0)"><img src="http://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>										
+										</div>										
+									</div>	
+	
+									<div class="size_box">
+										<p class="clfix">
+											<a href="javascript:void(0)" class="view_sizechart">사이즈 차트 보기</a>
+											<a href="javascript:void(0)" class="view_stock_alarm">입고알림 신청하기</a>
+										</p>
+										<div class="select_box clfix">
+	
+											<div class="select_size">
+												<!-- <div class="selectbox-ctm size_shoes">
+													<a href="javascript:void(0)">사이즈 선택</a>
+													<div class="arrow spt_bg"></div>
+													<div class="select-contents option-list">
+														<ul>
+															<li class="selected" data-option-value="230"><a href="javascript:void(0)">230</a></li>
+															<li data-option-value="235"><a href="javascript:void(0)">235</a></li>
+															<li data-option-value="240" class="disable"><a href="javascript:void(0)">240</a></li>
+															<li data-option-value="245" class="disable"><a href="javascript:void(0)">245</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
+														</ul>
+													</div>
+												</div> -->
+												<!-- //selectbox-ctm -->	
+												
+												<div class="selectbox-ctm size_clothes">
+													<a href="javascript:void(0)">사이즈 선택</a>
+													<div class="arrow spt_bg"></div>
+													<div class="select-contents option-list">
+														<ul class="clfix">
+															<li data-option-value="230" data-option-text="85">
+																<a href="javascript:void(0)">
+																	<span class="num">085</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="90">
+																<a href="javascript:void(0)">
+																	<span class="num">090</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="95">
+																<a href="javascript:void(0)">
+																	<span class="num">095</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+	
+															<li data-option-value="230" data-option-text="100">
+																<a href="javascript:void(0)">
+																	<span class="num">100</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="105">
+																<a href="javascript:void(0)">
+																	<span class="num">105</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li class="disable" data-option-value="230" data-option-text="110">
+																<a href="javascript:void(0)">
+																	<span class="num">110</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="115">
+																<a href="javascript:void(0)">
+																	<span class="num">115</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="120">
+																<a href="javascript:void(0)">
+																	<span class="num">120</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="125">
+																<a href="javascript:void(0)">
+																	<span class="num">125</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+															<li data-option-value="230" data-option-text="130">
+																<a href="javascript:void(0)">
+																	<span class="num">130</span>
+																	<span>신장 </span>
+																	<span class="size">160~165cm</span>
+																	<span>가슴둘레</span>
+																	<span class="size">86cm</span>
+																</a>
+															</li>
+														</ul>
+	
+														<div class="rating_percantage">
+															<div class="top">
+																<div class="tit">사이즈 리뷰 통계 <span>매우 작아요 80%</span></div>
+																<div class="total">205명 평가</div>
+															</div>
+															<div class="rating_wrap">
+	
+																<div class="box">
+																	<div class="label">매우 작아요</div>
+																	<div class="bar_wrap">
+																		<div style="width:20%;"></div>
+																	</div>
+																	<div class="num">24</div>
+																</div>
+	
+																<div class="box">
+																	<div class="label">작아요</div>
+																	<div class="bar_wrap">
+																		<div style="width:60%;"></div>
+																	</div>
+																	<div class="num">24</div>
+																</div>
+	
+																<div class="box">
+																	<div class="label">적당해요</div>
+																	<div class="bar_wrap">
+																		<div style="width:100%;"></div>
+																	</div>
+																	<div class="num">24</div>
+																</div>
+	
+																<div class="box">
+																	<div class="label">커요</div>
+																	<div class="bar_wrap">
+																		<div style="width:10%;"></div>
+																	</div>
+																	<div class="num">24</div>
+																</div>
+	
+																<div class="box">
+																	<div class="label">매우 커요</div>
+																	<div class="bar_wrap">
+																		<div></div>
+																	</div>
+																	<div class="num">24</div>
+																</div>
+	
+															</div>
+														</div>
+	
+													</div>
 												</div>
-											</div> -->
-											<!-- //selectbox-ctm -->
-
-                                            <!-- 170201 start -->
-											<div class="selectbox-ctm size_clothes">
-												<a href="javascript:void(0)">사이즈 선택</a>
-												<div class="arrow spt_bg"></div>
-												<div class="select-contents option-list">
-													<ul class="clfix">
-														<li data-option-value="230" data-option-text="85">
-															<a href="javascript:void(0)">
-																<span class="num">085</span>
-																<span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-																<span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-														<li data-option-value="230" data-option-text="90">
-															<a href="javascript:void(0)">
-																<span class="num">090</span>
-																<span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-																<span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-														<li data-option-value="230" data-option-text="95">
-															<a href="javascript:void(0)">
-                                                                <span class="num">095</span>
-																<span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-																<span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-
-														<li data-option-value="230" data-option-text="100">
-															<a href="javascript:void(0)">
-                                                                <span class="num">100</span>
-																<span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-																<span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-														<li data-option-value="230" data-option-text="105">
-															<a href="javascript:void(0)">
-                                                                <span class="num">105</span>
-																<span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-																<span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-														<li class="disable" data-option-value="230" data-option-text="110">
-															<a href="javascript:void(0)">
-                                                                <span class="num">110</span>
-                                                                <span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-                                                                <span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-														<li data-option-value="230" data-option-text="115">
-															<a href="javascript:void(0)">
-                                                                <span class="num">115</span>
-                                                                <span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-                                                                <span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-															</a>
-														</li>
-                                                        <li data-option-value="230" data-option-text="120">
-                                                            <a href="javascript:void(0)">
-                                                                <span class="num">120</span>
-                                                                <span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-                                                                <span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-                                                            </a>
-                                                        </li>
-                                                        <li data-option-value="230" data-option-text="125">
-                                                            <a href="javascript:void(0)">
-                                                                <span class="num">125</span>
-                                                                <span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-                                                                <span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-                                                            </a>
-                                                        </li>
-                                                        <li data-option-value="230" data-option-text="130">
-                                                            <a href="javascript:void(0)">
-                                                                <span class="num">130</span>
-                                                                <span>신장 </span>
-                                                                <span class="size">160~165cm</span>
-                                                                <span>가슴둘레</span>
-                                                                <span class="size">86cm</span>
-                                                            </a>
-                                                        </li>
-													</ul>
-
-                                                    <div class="rating_percantage">
-                                                        <div class="top">
-                                                            <div class="tit">사이즈 리뷰 통계 <span>매우 작아요 80%</span></div>
-                                                            <div class="total">205명 평가</div>
-                                                        </div>
-                                                        <div class="rating_wrap">
-
-                                                            <div class="box">
-                                                                <div class="label">매우 작아요</div>
-                                                                <div class="bar_wrap">
-                                                                    <div style="width:20%;"></div>
-                                                                </div>
-                                                                <div class="num">24</div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="label">작아요</div>
-                                                                <div class="bar_wrap">
-                                                                    <div style="width:60%;"></div>
-                                                                </div>
-                                                                <div class="num">24</div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="label">적당해요</div>
-                                                                <div class="bar_wrap">
-                                                                    <div style="width:100%;"></div>
-                                                                </div>
-                                                                <div class="num">24</div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="label">커요</div>
-                                                                <div class="bar_wrap">
-                                                                    <div style="width:10%;"></div>
-                                                                </div>
-                                                                <div class="num">24</div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="label">매우 커요</div>
-                                                                <div class="bar_wrap">
-                                                                    <div></div>
-                                                                </div>
-                                                                <div class="num">24</div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
+	
+											</div>										
+	
+											<div class="select_amount">
+												<div class="selectbox-ctm">
+													<a href="javascript:void(0)">수량 선택</a>
+													<div class="arrow spt_bg"></div>
+													<div class="select-contents option-list">
+														<ul>
+															<li data-option-value="1" class="disable"><a href="javascript:void(0)">1</a></li>
+															<li data-option-value="2"><a href="javascript:void(0)">2</a></li>
+															<li data-option-value="3"><a href="javascript:void(0)">3</a></li>
+															<li data-option-value="4"><a href="javascript:void(0)">4</a></li>
+															<li data-option-value="5"><a href="javascript:void(0)">5</a></li>
+															<li data-option-value="6"><a href="javascript:void(0)">6</a></li>
+															<li data-option-value="7"><a href="javascript:void(0)">7</a></li>
+															<li data-option-value="8"><a href="javascript:void(0)">8</a></li>
+															<li data-option-value="9"><a href="javascript:void(0)">9</a></li>
+															<li data-option-value="10"><a href="javascript:void(0)">10</a></li>
+														</ul>
+													</div>
 												</div>
+												<!-- //selectbox-ctm -->
+											</div>
+											<!-- //select_amount -->
+											
+											<div class="size_alert">
+												<span class="spt_bg"></span>사이즈와 수량을 선택해 주세요.
 											</div>
 
+											<div id="fitanalytics__button" style="cursor: pointer; display: inline-block; padding: 10px 0px;"><img src="//integrations.fitanalytics.com/assets/button/fit-finder-pdp.svg" style="height: 18px; display: inline-block; margin-right: 5px; vertical-align: top; margin-top: -3px;"><a class="fitanalytics__button-text" style="display: inline-block; white-space: nowrap; vertical-align: top; line-height: 14px; font-family: &quot;ITC Avant Garde Gothic W04&quot;, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 11px; color: rgb(0, 0, 0);">고객님께 꼭 맞는 사이즈를 찾아보세요!</a></div>	
+	
 										</div>
-										<!-- //select_size -->
+										<!-- //select_box -->
+									</div>
+									<!-- //size_box -->
 
-										<div class="select_amount">
-											<div class="selectbox-ctm">
-												<a href="javascript:void(0)">수량 선택</a>
-												<div class="arrow spt_bg"></div>
-												<div class="select-contents option-list">
-													<ul>
-														<li data-option-value="1" class="disable"><a href="javascript:void(0)">1</a></li>
-														<li data-option-value="2"><a href="javascript:void(0)">2</a></li>
-														<li data-option-value="3"><a href="javascript:void(0)">3</a></li>
-														<li data-option-value="4"><a href="javascript:void(0)">4</a></li>
-														<li data-option-value="5"><a href="javascript:void(0)">5</a></li>
-														<li data-option-value="6"><a href="javascript:void(0)">6</a></li>
-														<li data-option-value="7"><a href="javascript:void(0)">7</a></li>
-														<li data-option-value="8"><a href="javascript:void(0)">8</a></li>
-														<li data-option-value="9"><a href="javascript:void(0)">9</a></li>
-														<li data-option-value="10"><a href="javascript:void(0)">10</a></li>
-													</ul>
+									<div class="oneday_deliv_info">
+										<div class="ico_car spt_bg"></div>
+										<div>
+											도착예정일 - 2월 27일 월요일
+											<!--170401 스피드배송 툴팁팝업   -->
+											<div class="spt_bg">
+												<div class="tooltip-layer">
+													<div class="tooltip-contents">
+														<p class="tit">SPEEDY DELIVERY(스피드 배송)란? </p>
+														<ul class="li-dot">
+															<li>
+																<div class="bul"></div>
+																SPEEDY DELIVERY(스피드 배송)란?<br/>
+																주문하신 다음날 주문 상품을 받아볼 수 있으며, <br/>
+																배송지 주소 기준으로 서울 및 수도권 <br/>
+																인근지역(일부 지역 제외) 에 한하여 <br/>
+																배송 가능한 서비스 입니다.
+															</li>
+															<li>
+																<div class="bul"></div>
+																상품을 받으실 지역을 선택하여 <br/>
+																SPEEDY DELIVERY(스피드 배송) 가능여부를  <br/>
+																확인해 볼 수 있습니다.
+															</li>
+															<li>
+																<div class="bul"></div>
+																배송박스의 규격이 가로/세로/높이 80cm<br/>
+																제한되어 있어, 각 주문 건당 신발 2개, <br/>
+																의류 3개, 기타 용품 3개주문이 가능하며 <br/>
+																총 주문 개는 3개를 초과할 수 없습니다.
+															</li>
+														</ul>
+													</div>
 												</div>
 											</div>
-											<!-- //selectbox-ctm -->
 										</div>
-										<!-- //select_amount -->
-
-
-                                        <!-- 170612 사이즈 얼럿 -->
-                                        <div class="size_alert">
-											<span class="spt_bg"></span>사이즈와 수량을 선택해 주세요.
-										</div>
-
-
+										<div class="desc">지금 주문 시, 서울 서초구 기준</div>
+										<a href="javascript:void(0)" class="btn_change_addr" onclick="window.open('/html/adidas/find_zip_oneday.html','','width=650px,height=290px,status=no,titlebar=no')">지역변경</a>
 									</div>
-									<!-- //select_box -->
-								</div>
-								<!-- //size_box -->
-
-                                <!-- 170401 툴팁으로 인한 코딩수정 -->
-                                <div class="oneday_deliv_info">
-                                    <div class="ico_car spt_bg"></div>
-                                    <div>
-                                        도착예정일 - 2월 27일 월요일
-                                        <!--170401 스피드배송 툴팁팝업   -->
-                                        <div class="spt_bg">
-                                            <div class="tooltip-layer">
-                                                <div class="tooltip-contents">
-                                                    <p class="tit">SPEEDY DELIVERY(스피드 배송)란? </p>
-                                                    <ul class="li-dot">
-                                                        <li>
-                                                            <div class="bul"></div>
-                                                            SPEEDY DELIVERY(스피드 배송)란?<br/>
-                                                            주문하신 다음날 주문 상품을 받아볼 수 있으며, <br/>
-                                                            배송지 주소 기준으로 서울 및 수도권 <br/>
-                                                            인근지역(일부 지역 제외) 에 한하여 <br/>
-                                                            배송 가능한 서비스 입니다.
-                                                        </li>
-                                                        <li>
-                                                            <div class="bul"></div>
-                                                            상품을 받으실 지역을 선택하여 <br/>
-                                                            SPEEDY DELIVERY(스피드 배송) 가능여부를  <br/>
-                                                            확인해 볼 수 있습니다.
-                                                        </li>
-                                                        <li>
-                                                            <div class="bul"></div>
-                                                            배송박스의 규격이 가로/세로/높이 80cm<br/>
-                                                            제한되어 있어, 각 주문 건당 신발 2개, <br/>
-                                                            의류 3개, 기타 용품 3개주문이 가능하며 <br/>
-                                                            총 주문 개는 3개를 초과할 수 없습니다.
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="desc">지금 주문 시, 서울 서초구 기준</div>
-                                    <a href="javascript:void(0)" class="btn_change_addr" onclick="window.open('/html/adidas/find_zip_oneday.html','','width=650px,height=290px,status=no,titlebar=no')">지역변경</a>
-                                </div>
-                                <!-- 170401 END -->
-                                    <!-- 170531 수정 -->
-								<div class="etc_info">
-									<dl class="clfix">
-										<dt>배송비</dt>
-                                        <dd>5만원 이상 구매시 무료배송 (도서 산간 지역은 추가 배송비 발생)</dd>
-									</dl>
-
-                                    <!-- 171110 이벤트 부분 추가 -->
-                                    <!-- <dl class="clfix">
-										<dt>이벤트</dt>
-                                        <dd><a href="http://shop.adidas.co.kr/PF020611.action?pn=thanks10th">아디클럽 10주년 EVENT - 스타벅스 기프티콘 2매 증정</a></dd>
-									</dl> -->
-                                    <!-- 171110 이 라인 삭제 -->
-
-                                    <!-- 171219 이벤트 부분 추가 -->
-                                    <!-- <dl class="clfix">
-										<dt>이벤트</dt>
-                                        <dd><a href="http://shop.adidas.co.kr/PF020611.action?pn=AdiHoliday201712">20만원 이상 구매 시 선물 증정 (~2017.12.31)</a></dd>
-									</dl> -->
-                                    <!-- 171219 이벤트 부분 끝 -->
-
-                                    <!-- 180109 Npay 삭제 START -->
-                                    <!-- <dl class="clfix">
-										<dd class="pay_info_detail">
-                                            <ul class="clfix">
-                                                <li>
-                                                    <a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="naverpay-eventpopup">
-                                                        <img src="/images/adidas/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn">
-                                                        오픈! 네이버페이로 첫 결제 시 무조건 2000원
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    카드 무이자 안내
-                                                    <span class="ico spt_bg view_card_benefit"></span>
-                                                </li>
-                                            </ul>
-                                        </dd>
-									</dl> -->
-                                    <!-- 180109 Npay 삭제 END -->
-
-                                    <!-- 180109 카드 무이자 안내 START -->
-                                    <dl class="clfix">
-										<dd class="pay_info_detail">
-                                            <ul class="clfix">
-                                                <li>
-                                                    <a href="javascript:void(0)" class="tit view_card_benefit">
-                                                        카드 무이자 안내
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="view_card_benefit">
-                                                        자세히보기
-                                                        <span class="ico spt_bg"></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </dd>
-									</dl>
-                                    <!-- 180109 카드 무이자 안내 END -->
-
-								</div>
-
-								<div class="button_wrap clfix col3">
-									<a href="#" class="btn-ctm btn-blue btn_buy"><span>구매하기</span></a>
-									<a href="#" class="btn-ctm btn-gray btn_cart"><span>장바구니</span></a>
-                                    <a href="#" class="btn_npay"><img src="/images/adidas/common/btn_buy_npay.jpg" alt="NPay 결제" /></a>
-
-
-                                    <!-- 170209 장바구니 팝업 -->
-                                    <div class="alert_addedcart">
-                                        <a href="javascript:void(0)" class="close">
-                                            <span class="spt_bg"></span>
-                                        </a>
-                                        <p class="tit">상품을 장바구니에 담았습니다.</p>
-                                        <div class="btn_area col2 clfix">
-                                    		<a href="#" class="btn-ctm btn-blue"><span>장바구니 바로가기</span></a>
-                                        </div>
-                                    </div>
-                                    <!-- //170209 -->
-
-
-								</div>
-
-								<div>
-									<a href="#"><img src="/images/adidas/common/bg_miadi_bnn.gif" alt="오직 하나뿐인 당신만의 스타일을 만들어보세요!"/></a>
-								</div>
-
-								<div class="sns">
-									<a href="#" class="fb"><span class="ico spt_bg"></span></a>
-									<a href="#" class="twt"><span class="ico spt_bg"></span></a>
-								</div>
+									
+									<div class="etc_info">
+										<dl class="clfix">
+											<dt>배송비</dt>
+											<dd>5만원 이상 구매시 무료배송 (도서 산간 지역은 추가 배송비 발생)</dd>
+										</dl>
+	
+										<!-- 171110 이벤트 부분 추가 -->
+										<!-- <dl class="clfix">
+											<dt>이벤트</dt>
+											<dd><a href="http://shop.adidas.co.kr/PF020611.action?pn=thanks10th">아디클럽 10주년 EVENT - 스타벅스 기프티콘 2매 증정</a></dd>
+										</dl> -->
+										<!-- 171110 이 라인 삭제 -->
+	
+										<!-- 171219 이벤트 부분 추가 -->
+										<!-- <dl class="clfix">
+											<dt>이벤트</dt>
+											<dd><a href="http://shop.adidas.co.kr/PF020611.action?pn=AdiHoliday201712">20만원 이상 구매 시 선물 증정 (~2017.12.31)</a></dd>
+										</dl> -->
+										<!-- 171219 이벤트 부분 끝 -->
+	
+										<!-- 180109 Npay 삭제 START -->
+										<!-- <dl class="clfix">
+											<dd class="pay_info_detail">
+												<ul class="clfix">
+													<li>
+														<a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="naverpay-eventpopup">
+															<img src="/images/adidas/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn">
+															오픈! 네이버페이로 첫 결제 시 무조건 2000원
+														</a>
+													</li>
+													<li>
+														카드 무이자 안내
+														<span class="ico spt_bg view_card_benefit"></span>
+													</li>
+												</ul>
+											</dd>
+										</dl> -->
+										<!-- 180109 Npay 삭제 END -->	
+										
+										<dl class="clfix">
+											<dd class="pay_info_detail">
+												<ul class="clfix">
+													<li>
+														<a href="javascript:void(0)" class="tit view_card_benefit">
+															카드 무이자 안내
+														</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)" class="view_card_benefit">
+															자세히보기
+															<span class="ico spt_bg"></span>
+														</a>
+													</li>
+												</ul>
+											</dd>
+										</dl>										
+	
+									</div>
+	
+									<div class="button_wrap clfix col3">
+										<a href="#" class="btn-ctm btn-blue btn_buy"><span>구매하기</span></a>
+										<a href="#" class="btn-ctm btn-gray btn_cart"><span>장바구니</span></a>
+										<a href="#" class="btn_npay"><img src="/images/adidas/common/btn_buy_npay.jpg" alt="NPay 결제" /></a>	
+										
+										<div class="alert_addedcart">
+											<a href="javascript:void(0)" class="close">
+												<span class="spt_bg"></span>
+											</a>
+											<p class="tit">상품을 장바구니에 담았습니다.</p>
+											<div class="btn_area col2 clfix">
+												<a href="#" class="btn-ctm btn-blue"><span>장바구니 바로가기</span></a>
+											</div>
+										</div>
+									</div>
+	
+									<!-- 180409 A/B 테스트 -->
+									<div>
+										<!-- <a href="#"><img src="/images/adidas/common/bg_miadi_bnn.gif" alt="오직 하나뿐인 당신만의 스타일을 만들어보세요!"/></a> -->
+										<a href="#"><img src="/images/adidas/common/bg_miadi_bnn2.jpg" alt="오직 하나뿐인 당신만의 스타일을 만들어보세요!"/></a>
+									</div>
+	
+									<div class="sns clfix">
+										<a href="#" class="fb"><span class="ico spt_bg"></span></a>
+										<a href="#" class="twt"><span class="ico spt_bg"></span></a>
+									</div>
+								</div>								
 							</div>
 							<!-- //buy_box -->
 						</div>
 					</div>
 					<!-- //product-infomation -->
+					<!-- 180306 END -->
 
 					<div class="product-description">
 						<div class="ct950">
