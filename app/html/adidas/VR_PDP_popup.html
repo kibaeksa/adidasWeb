@@ -1260,22 +1260,15 @@
 
 
 		<div id="container_r">
-		<!-- <link rel="stylesheet" href="/css/swiper.min.css"> -->
-		<script src="/js/swiper.min.js"></script>
 
-			<div class="test_bg_area" style="min-width:950px;overflow:hidden;">
-				<img src="/images/adidas/etc/vr_store_test_img.jpg" alt="">
-				<style media="screen">
 
-				</style>
-
+			<div class="test_bg_area" style="min-width:950px;overflow:hidden;text-align:center;">
+				<button class="modal-popup-click" data-modalpop-click="vr_pdp-popup" style="margin:20px;">vr 상품 예시 버튼</button>
 			</div>
 
 			<script>
 				(function($){
 				})(jQuery);
-
-
 			</script>
 
 		</div>
@@ -1526,51 +1519,44 @@
 					</div>
 
 					<div class="select_box clfix">
-						<div class="selectbox-ctm sel_design select_size">
-							<a href="#" class="toggle_arw"><span>270</span></a>
+						<div class="sel_design select_size">
+							<!-- !!사이즈 미선택시 focused_box display : block -->
+							<div class="focused_box"></div>
 							<select name="select_size" id="select_size">
-								<option value="235" selected="">235</option>
+								<option value="235" selected="">사이즈 선택</option>
 								<option value="240">240</option>
 								<option value="245">245</option>
 								<option value="250">250</option>
 							</select>
 						</div>
-						<!-- <div class="selectbox-ctm select_size" data-init="">
-						    <a href="javascript:void(0)">270</a>
-						    <div class="arrow spt_bg"></div>
-						    <div class="select-contents option-list">
-						        <ul>
-						            <li data-option-value="value1" data-init=""><a href="javascript:void(0)">235</a></li>
-						            <li data-option-value="value2" data-init=""><a href="javascript:void(0)">240</a></li>
-						            <li data-option-value="값3" data-init=""><a href="javascript:void(0)">245</a></li>
-						        </ul>
-						    </div>
+						<div class="sel_design select_amount">
+							<select name="select_amount" id="select_amount">
+								<option value="1" selected="">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
 						</div>
-						<div class="selectbox-ctm select_amount" data-init="">
-						    <a href="javascript:void(0)">1</a>
-						    <div class="arrow spt_bg"></div>
-						    <div class="select-contents option-list">
-						        <ul>
-						            <li data-option-value="value1" data-init=""><a href="javascript:void(0)">1</a></li>
-						            <li data-option-value="value2" data-init=""><a href="javascript:void(0)">2</a></li>
-						            <li data-option-value="값3" data-init=""><a href="javascript:void(0)">3</a></li>
-						            <li data-option-value="값4" data-init=""><a href="javascript:void(0)">4</a></li>
-						        </ul>
-						    </div>
-						</div> -->
 					</div>
 
 					<div class="btn_wrap">
 						<div class="detail"><a href="">자세히 보기</a></div>
-						<div class="buy"><a href="">바로구매</a></div>
+						<div class="buy"><a href="javascript:void(0)">바로구매</a></div>
 						<div class="buylist"><a href=""><span></span></a></div>
 					</div>
     			</div>
     		</div>
+			<script src="/js/swiper.min.js"></script>
 			<script type="text/javascript">
 				(function($){
+					// 사이즈 미선택시 박스표시 on
+	                $('.vr_pdp_popup .btn_wrap .buy a').click(function(){
+	                    $('.select_box .focused_box').addClass('on')
+	                    setTimeout(function(){
+	                        $('.vr_pdp_popup .select_box .focused_box').removeClass('on')
+	                    },1500)
+	                });
 
-					setTimeout(function(){
 						var swiper = new Swiper('#sliders', {
 							pagination: {
 							  el: '.indicator',
@@ -1585,14 +1571,11 @@
 							},
 							loop: true,
 						});
-					},100);
+
 
 				})(jQuery)
 			</script>
     	</div>
-
-
-
 		<!-- 180423 END -->
 
 
