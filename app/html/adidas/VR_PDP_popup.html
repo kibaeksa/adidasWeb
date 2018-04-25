@@ -1510,32 +1510,51 @@
 								<li class="swiper-slide"><img src="http://image.adidas.co.kr/upload/prod/basic/380/DA9331-1_380X380.jpg"></li>
 								<li class="swiper-slide"><img src="http://image.adidas.co.kr/upload/prod/basic/380/DA9331-1_380X380.jpg"></li>
 								<li class="swiper-slide"><img src="http://image.adidas.co.kr/upload/prod/basic/380/DA9331-1_380X380.jpg"></li>
+								<li class="swiper-slide"><img src="http://image.adidas.co.kr/upload/prod/basic/380/DA9331-1_380X380.jpg"></li>
 							  	<li class="swiper-slide"><img src="http://image.adidas.co.kr/upload/prod/basic/380/DA9331-1_380X380.jpg"></li>
 							</ul>
-							<div class="indicator"></div>
+						</div>
+						<div class="indicator">
+							<span class="on"><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
+							<span><a href="javascript:void(0)"></a></span>
 						</div>
 						<div class="arrow_btn button-prev"><span></span></div>
 						<div class="arrow_btn button-next"><span></span></div>
 					</div>
 
 					<div class="select_box clfix">
-						<div class="sel_design select_size">
+						<div class="selectbox-ctm select_size" data-init="">
 							<!-- !!사이즈 미선택시 focused_box display : block -->
 							<div class="focused_box"></div>
-							<select name="select_size" id="select_size">
-								<option value="235" selected="">사이즈 선택</option>
-								<option value="240">240</option>
-								<option value="245">245</option>
-								<option value="250">250</option>
-							</select>
+						    <a href="javascript:void(0)">사이즈 선택</a>
+						    <div class="arrow spt_bg"></div>
+						    <div class="select-contents option-list">
+						        <ul>
+						            <li data-option-value="value1" data-init=""><a href="javascript:void(0)">235</a></li>
+						            <li data-option-value="value2" data-init=""><a href="javascript:void(0)">240</a></li>
+									<li data-option-value="값3" data-init=""><a href="javascript:void(0)">245</a></li>
+									<li data-option-value="값3" data-init=""><a href="javascript:void(0)">250</a></li>
+						            <li data-option-value="값3" data-init=""><a href="javascript:void(0)">255</a></li>
+						        </ul>
+						    </div>
 						</div>
-						<div class="sel_design select_amount">
-							<select name="select_amount" id="select_amount">
-								<option value="1" selected="">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-							</select>
+						<div class="selectbox-ctm select_amount" data-init="">
+						    <a href="javascript:void(0)">1</a>
+						    <div class="arrow spt_bg"></div>
+						    <div class="select-contents option-list">
+						        <ul>
+						            <li data-option-value="value1" data-init=""><a href="javascript:void(0)">1</a></li>
+						            <li data-option-value="value2" data-init=""><a href="javascript:void(0)">2</a></li>
+						            <li data-option-value="값3" data-init=""><a href="javascript:void(0)">3</a></li>
+									<li data-option-value="값4" data-init=""><a href="javascript:void(0)">4</a></li>
+						            <li data-option-value="값4" data-init=""><a href="javascript:void(0)">5</a></li>
+						        </ul>
+						    </div>
 						</div>
 					</div>
 
@@ -1546,34 +1565,54 @@
 					</div>
     			</div>
     		</div>
-			<script src="/js/swiper.min.js"></script>
+			<script src="http://image.adidas.co.kr/js/swiper.min.js"></script>
 			<script type="text/javascript">
 				(function($){
 					// 사이즈 미선택시 박스표시 on
 	                $('.vr_pdp_popup .btn_wrap .buy a').click(function(){
 	                    $('.select_box .focused_box').addClass('on')
 	                    setTimeout(function(){
-	                        $('.vr_pdp_popup .select_box .focused_box').removeClass('on')
+	                        $('.vr_pdp_popup .select_box .focused_box').removeClass('on');
 	                    },1500)
 	                });
-					setTimeout(function(){
-						var swiper = new Swiper('#sliders', {
-							pagination: {
-							  el: '.indicator',
-									clickable: true,
-								renderBullet: function (index, className) {
-								  return '<span class="' + className + '"><a href="javascript:void(0)"></a></span>';
-								},
-							},
-							navigation: {
-							  nextEl: '.button-next',
-							  prevEl: '.button-prev',
-							},
-							loop: true,
-						});
-					},50)
+					var sliders = $('#sliders').Swipers({
+					    width : 380,
+					    height : 380,
+					    duration : 600,
+						auto  :true,
+						autoTime : 5000,
+					    callback : function( index , prevIdx ){
+					        $('.indicator span').removeClass('on').eq(index).addClass('on');
+					    }
+					});
+					$('.button-prev').bind('click',function(){
+					    sliders.prev();
+					});
 
+					$('.button-next').bind('click',function(){
+					    sliders.next();
+					});
 
+					$('.indicator span').bind('click',function(){
+					    sliders.move($(this).index());
+					});
+
+					// setTimeout(function(){
+					// 	var swiper = new Swiper('#sliders', {
+					// 		pagination: {
+					// 		  el: '.indicator',
+					// 				clickable: true,
+					// 			renderBullet: function (index, className) {
+					// 			  return '<span class="' + className + '"><a href="javascript:void(0)"></a></span>';
+					// 			},
+					// 		},
+					// 		navigation: {
+					// 		  nextEl: '.button-next',
+					// 		  prevEl: '.button-prev',
+					// 		},
+					// 		loop: true,
+					// 	});
+					// },50)
 
 
 				})(jQuery)
