@@ -1,0 +1,995 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+
+	}
+}
+
+#trailrun_package{
+	position: relative;
+	min-width: 1280px;
+	// .visual{
+	// 	position: relative;
+	// 	img{ width: 100%; }
+	// 	.play{
+	// 		position: absolute;
+	// 		top:50%;
+	// 		margin-top: -45px;
+	// 		left:50%;
+	// 		margin-left: -45px;
+	// 		a{
+	//
+	// 		}
+	// 	}
+	// }
+	.buy{
+		position: relative;
+		@include css3(box-sizing,border-box);
+		display: inline-block;
+		padding: 12px 0 15px;
+		text-align: center;
+		width: 147px;
+		border:2px solid #000;
+		letter-spacing: -0.5px;
+		color:#fff;
+		font:16px/16px 'NotosansKR', 'Nanum Gothic';
+		@include css3(transition, all 0.5s);
+		&:hover{
+			span.txt{
+				color:#000;
+			}
+			span.bg{
+				background: none;
+			}
+			em{
+				background-position: 0 0;
+			}
+		}
+		span.txt{
+			position: relative;
+			z-index: 1;
+		}
+		span.bg{
+			position: absolute;
+			margin: 0;
+			top:0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			background: #000;
+			@include css3(transition, all 0.5s);
+		}
+		em{
+			position: relative;
+			top:3px;
+			left:5px;
+			display: inline-block;
+			background: url("http://image.adidas.co.kr/images/adidas/event/iniki/icon.png") no-repeat;
+			background-position: 100% 0;
+			width: 17px; height:17px;
+		}
+	}
+	.logo{
+		position: relative;
+		padding: 21px 0;
+		text-align: center;
+		background: #fff;
+	}
+
+
+
+	.video_wrap{
+		position: relative;
+		height: 1000px;
+		overflow: hidden;
+		z-index: 2;
+
+		.bg{
+			position: absolute;
+			top:0px;
+			left:50%;
+			margin-left: -960px;
+			z-index: 1;
+		}
+		.txt_box{
+			position: absolute;
+			top: 400px;
+			left: 50%;
+			margin-left: -347px;
+			z-index: 2;
+			text-align: center;
+			h3{
+				font:70px/70px 'adinenuPro-black';
+				color:#fff;
+				text-align: center;
+			}
+			a.video-button{
+				display: block;
+				height: 116px;
+				width: 116px;
+				margin: 20px auto;
+				z-index: 1;
+				background: url('/images/adidas/event/trailrun_package/btn_play.png') no-repeat;
+				@include css3(transition, all 0.5s);
+				&:hover{
+					background: url('/images/adidas/event/trailrun_package/btn_play_over.png') no-repeat;
+					@include css3(transition, all 0.5s);
+				}
+			}
+		}
+	}
+
+	.cont1{
+		position: relative;
+		top:0;
+		height: 930px;
+		overflow: hidden;
+		.bg{
+			position: absolute;
+			left:50%;
+			margin-left: -960px;
+		}
+		.img_wrap{
+			position: absolute;
+			top: 280px;
+			left:50%;
+			margin-left: -595px;
+			z-index: 2;
+			@include opacity(1);
+			@include css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+		}
+		.txt_wrap{
+			position: absolute;
+			top:100px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			z-index: 1;
+			@include opacity(0);
+			@include css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+			h3{
+				padding-top: 65px;
+				text-align: center;
+				font:700 35px/45px 'NotosansKR';
+				letter-spacing: 0px;
+				color:#000;
+				span{
+					font:50px/70px 'adinenuPro-black';
+				}
+			}
+
+		}
+	}
+
+	.cont2{
+		position: relative;
+		top:0;
+		height: 1207px;
+		overflow: hidden;
+		.img_wrap{
+			position: absolute;
+			top: 325px;
+			left:50%;
+			margin-left: -595px;
+			z-index: 2;
+			@include opacity(1);
+			@include css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+		}
+		.txt_wrap3{
+			position: absolute;
+			top:100px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			z-index: 1;
+			@include opacity(0);
+			@include css3(transition, all 0.5s);
+			&.scroll{
+				top:0 ;
+				@include opacity(1);
+
+			}
+			h3{
+				padding-top: 65px;
+				text-align: center;
+				font:700 35px/60px 'NotosansKR';
+				letter-spacing: -0.5px;
+				color:#000;
+				span{
+					font:50px/50px 'adinenuPro-black';
+					letter-spacing: 0;
+				}
+			}
+			.buy{
+				margin-top: 10px;
+			}
+		}
+		.txt_wrap2{
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			margin-left: -231px;
+			@include opacity(0);
+			@include css3(transition, all 0.5s);
+			&.scroll{
+				bottom:90px ;
+				@include opacity(1);
+
+			}
+			p{
+				text-align: center;
+				font:700 35px/60px 'NotosansKR';
+				letter-spacing: -0.5px;
+				color:#000;
+				span{
+					font:50px/50px 'adinenuPro-black';
+					letter-spacing: 0;
+				}
+			}
+		}
+	}
+
+	// slider
+	.wrap{
+		width: 100%;
+		background:#fff;
+		overflow: hidden;
+		background: url("/images/adidas/event/trailrun_package/slide_bg.jpg") no-repeat;
+		background-size: 100% 100%;
+		height: 620px;
+
+		.slider_wrap{
+			margin:0 auto;
+			position: relative;
+			width:984px;
+			height: 544px;
+			text-align: center;
+
+			.title{
+				padding: 64px 0 0 0;
+				text-align: center;
+
+				p{
+					text-align: center;
+					font:28px/28px 'NotoSansKRRegular';
+					color:#000;
+				}
+				span{
+					display: inline-block;
+					text-align: center;
+					padding-top: 36px;
+					font:19px/25px 'NotoSansKRRegular';
+					color:#000;
+				}
+			}
+			a.buy{
+				display: inline-block;
+				margin-top: 30px;
+				padding:0 100px;
+				text-align: center;
+				border:1px solid #000;
+				font:15px/57px 'NotoSansKRRegular';
+				color:#000;
+
+			}
+
+			ul.slider{
+				position: relative;
+				// height: 485px;
+				li{
+					position: relative;
+					width: 952px;
+					margin-top: 10px;
+					float:left;
+					margin-right: 500px;
+					text-align: center;
+					top:100px ;
+					@include opacity(0);
+					@include css3(transition, all 0.5s);
+
+					&.scroll{
+						top:0 ;
+						@include opacity(1);
+
+					}
+					.title{
+							padding:76px 0 54px 0;
+							text-align: center;
+						p{
+							text-transform: uppercase;
+							text-align: center;
+							font: 40px/45px 'adinenuPro-black';
+							color:#000;
+						}
+						span{
+							font: 26px/28px 'NotoSansKRRegular';
+							color:#000;
+						}
+					}
+
+				}
+			}
+			ul.slider:after{
+				content: '';
+				display: block;
+				width: 0; height: 0;
+				clear:both;
+			}
+			.btn{
+				position: absolute;
+				top:280px;
+				width: 100%;
+				text-align: center;
+				.next{
+					width:33px;
+					height: 64px;
+					position: absolute; right: -100px;
+					@include css3(transition,right 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow2 2s infinite;
+						-webkit-animation: arrow2 2s infinite;
+					}
+				}
+				.prev{
+					width:33px;
+					height: 64px;
+					position: absolute; left: -100px;
+					@include css3(transition,left 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow 2s infinite;
+						-webkit-animation: arrow 2s infinite;
+					}
+				}
+
+			}
+		}
+		.num_wrap{
+			position: relative;
+			width: 100%;
+			margin:0px 0 20px 0;
+			// overflow: hidden;
+			height: 45px;
+			.num{
+				position: absolute;
+				left:0;
+				width: 10000px;
+				a{
+					position: relative;
+					top:0;
+					width:317px;
+					display: inline-block; text-align: center;
+					font: 22px/30px 'NotoSansKRRegular';
+					color:#000;
+					vertical-align: middle;
+					transition: all 0.3s ease-out;
+					span{
+						position: relative;
+						display: inline-block;
+						overflow: hidden;
+						height: 45px;
+						line-height: 35px;
+					}
+				}
+				a.on{
+					position: relative;
+					font: 22px/30px 'NotoSansKRBold';
+					overflow: hidden;
+
+					// span:after{
+					// 	position: absolute;
+					// 	bottom: 0px;
+					// 	left:0;
+					// 	display: inline-block;
+					// 	content: '';
+					// 	width: 100%;
+					// 	background: #000;
+					// 	height: 3px;
+					// 	margin-top: 15px;
+					// 	overflow: hidden;
+					// }
+				}
+			}
+		}
+	}
+
+	// slider
+	.wrap2{
+		width: 100%;
+		background:#fff;
+		overflow: hidden;
+		height: 610px;
+
+		.slider_wrap2{
+			margin:0 auto;
+			position: relative;
+			width:984px;
+			height: 544px;
+			text-align: center;
+
+			.title{
+				padding: 64px 0 0 0;
+				text-align: center;
+
+				p{
+					text-align: center;
+					font:28px/28px 'NotoSansKRRegular';
+					color:#000;
+				}
+				span{
+					display: inline-block;
+					text-align: center;
+					padding-top: 36px;
+					font:19px/25px 'NotoSansKRRegular';
+					color:#000;
+				}
+			}
+			a.buy{
+				display: inline-block;
+				margin-top: 30px;
+				padding:0 100px;
+				text-align: center;
+				border:1px solid #000;
+				font:15px/57px 'NotoSansKRRegular';
+				color:#000;
+
+			}
+
+			ul.slider2{
+				position: relative;
+				// height: 485px;
+				li{
+					position: relative;
+					width: 952px;
+					margin-top: 10px;
+					float:left;
+					margin-right: 500px;
+					text-align: center;
+					top:100px ;
+					@include opacity(0);
+					@include css3(transition, all 0.5s);
+
+					&.scroll{
+						top:0 ;
+						@include opacity(1);
+
+					}
+					.title{
+							padding:76px 0 54px 0;
+							text-align: center;
+						p{
+							text-transform: uppercase;
+							text-align: center;
+							font: 40px/45px 'adinenuPro-black';
+							color:#000;
+						}
+						span{
+							font: 26px/28px 'NotoSansKRRegular';
+							color:#000;
+						}
+					}
+
+				}
+			}
+			ul.slider2:after{
+				content: '';
+				display: block;
+				width: 0; height: 0;
+				clear:both;
+			}
+			.btn{
+				position: absolute;
+				top:280px;
+				width: 100%;
+				text-align: center;
+				.next2{
+					width:33px;
+					height: 64px;
+					position: absolute; right: -100px;
+					@include css3(transition,right 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow2 2s infinite;
+						-webkit-animation: arrow2 2s infinite;
+					}
+				}
+				.prev2{
+					width:33px;
+					height: 64px;
+					position: absolute; left: -100px;
+					@include css3(transition,left 0.4s ease-out 0.1s);
+					overflow: hidden;
+					img{
+						position: relative;
+						animation: arrow 2s infinite;
+						-webkit-animation: arrow 2s infinite;
+					}
+				}
+
+			}
+		}
+		.num_wrap{
+			position: relative;
+			width: 100%;
+			margin:0px 0 20px 0;
+			// overflow: hidden;
+			height: 45px;
+			.num{
+				position: absolute;
+				left:0;
+				width: 10000px;
+				a{
+					position: relative;
+					top:0;
+					width:317px;
+					display: inline-block; text-align: center;
+					font: 22px/30px 'NotoSansKRRegular';
+					color:#000;
+					vertical-align: middle;
+					transition: all 0.3s ease-out;
+					span{
+						position: relative;
+						display: inline-block;
+						overflow: hidden;
+						height: 45px;
+						line-height: 35px;
+					}
+				}
+				a.on{
+					position: relative;
+					font: 22px/30px 'NotoSansKRBold';
+					overflow: hidden;
+
+					// span:after{
+					// 	position: absolute;
+					// 	bottom: 0px;
+					// 	left:0;
+					// 	display: inline-block;
+					// 	content: '';
+					// 	width: 100%;
+					// 	background: #000;
+					// 	height: 3px;
+					// 	margin-top: 15px;
+					// 	overflow: hidden;
+					// }
+				}
+			}
+		}
+	}
+
+
+	.gal_wrap{
+		position: relative;
+		width:100%;
+		height:1192px;
+		background: #fff;
+		overflow: hidden;
+		background: url("/images/adidas/event/trailrun_package/cont2_bg.jpg") no-repeat;
+		background-size: 100% 100%;
+		.gal{
+
+					position: absolute;
+					width: 950px;
+					left:50%;
+					margin-left: -405px;
+					// display: none;
+					@include opacity (1);
+					@include css3(transition,all 0.6s);
+
+
+					.box_left{
+						position: relative;
+						left:-350px;
+						top:200px ;
+						@include opacity(0);
+						@include css3(transition, all 0.5s);
+						&.scroll{
+							top:140px;
+							@include opacity (1);
+						}
+						p{
+							&.s_title{
+								padding-bottom: 3px;
+								text-align: center;
+								font:22px/22px 'NotosansKRBold', 'Nanum Gothic';
+								color:#000;
+							}
+							&.title{
+								position: relative;
+								padding-bottom: 10px;
+								left:10px;
+								text-align: center;
+								font:33px/33px 'adinenuPro-black';
+								letter-spacing: 16px;
+								color:#000;
+								margin-top: 20px;
+							}
+							&.desc{
+								display: block;
+								padding-bottom: 30px;
+								text-align: center;
+								font:400 18px/28px 'NotosansKR', 'Nanum Gothic';
+								color:#333;
+								letter-spacing: -1px;
+							}
+						}
+					}
+					.box_right{
+						position: absolute;
+						right:70px;
+						width:475px;
+						top:65px;
+						text-align: right;
+						p{
+							&.s_title{
+								padding-bottom: 3px;
+								text-align: right;
+								font:22px/22px 'NotosansKRBold', 'Nanum Gothic';
+								color:#000;
+							}
+							&.title{
+								position: relative;
+								padding-bottom: 20px;
+								left:10px;
+								text-align: right;
+								font:33px/33px 'adinenuPro-black';
+								letter-spacing: 16px;
+								color:#000;
+							}
+							&.desc{
+								display: block;
+								padding-bottom: 30px;
+								text-align: right;
+								padding-top: 20px;
+								font:16px/28px 'NotosansKRRegular', 'Nanum Gothic';
+								color:#333;
+								letter-spacing: -1px;
+							}
+						}
+						a.buy{
+							width:240px;
+
+
+						}
+					}
+					.box_left2{
+						position: relative;
+						left:-190px;
+						top:260px ;
+
+						p{
+							&.s_title{
+								padding-bottom: 3px;
+								text-align: center;
+								font:22px/22px 'NotosansKRBold', 'Nanum Gothic';
+								color:#000;
+							}
+							&.title{
+								position: relative;
+								padding-bottom: 10px;
+								left:10px;
+								text-align: center;
+								font:33px/33px 'adinenuPro-black';
+								letter-spacing: 16px;
+								color:#000;
+								margin-top: 20px;
+							}
+							&.desc{
+								display: block;
+								padding-bottom: 30px;
+								text-align: center;
+								font:400 18px/28px 'NotosansKR', 'Nanum Gothic';
+								color:#333;
+								letter-spacing: -1px;
+							}
+						}
+					}
+					.box_right2{
+						position: absolute;
+						right:130px;
+						top:715px;
+						text-align: center;
+						@include opacity(0);
+						@include css3(transition, all 0.5s);
+						&.scroll{
+							top:665px;
+							@include opacity (1);
+						}
+						p{
+							&.s_title{
+								padding-bottom: 3px;
+								text-align: right;
+								font:22px/22px 'NotosansKRBold', 'Nanum Gothic';
+								color:#000;
+							}
+							&.title{
+								position: relative;
+							    padding-bottom: 20px;
+							    text-align: center;
+							    font: 33px/33px 'adinenuPro-black';
+							    letter-spacing: 16px;
+							    color: #000;
+							}
+							&.desc{
+								display: block;
+								padding-bottom: 30px;
+								text-align: center;
+								font:400 18px/28px 'NotosansKR', 'Nanum Gothic';
+								color:#333;
+								letter-spacing: -1px;
+							}
+						}
+						a.buy{
+							width:240px;
+
+
+						}
+					}
+
+				}
+
+		.gal_btn{
+			position: absolute;
+			left:0;
+			bottom: 50px;
+			width: 100%;
+			text-align: center;
+			a{
+				display: inline-block;
+				padding:0 22px;
+				height: 45px;
+				font: 16px/45px 'NotoSansKRBold';
+				background: #fff;
+				color:#000;
+				opacity: .8;
+				transition:all 0.6s;
+				.icons{
+					display: inline-block;
+					margin-left: 30px;
+					width:14px;
+					height: 13px;
+					background-image: url('/images/adidas/event/sports17/icons.png');
+				}
+			}
+			a:hover{
+				opacity: 1;
+			}
+		}
+
+	}
+	.techwrap{
+		position: relative;
+		overflow: hidden;
+		height: 380px;
+		display: none;
+		width: 1214px;
+		margin: 0 auto;
+		ul{
+			li{
+				display: inline-block;
+				text-align: center;
+				margin: 0 47px;
+				vertical-align: top;
+				width: 306px;
+				img{
+					width: 200px;
+					height: 200px;
+					text-align: center;
+				}
+				p{
+					padding-top: 15px;
+					font:400 16px/26px 'NotoSansKR';
+					text-align: center;
+					color:#000;
+					span{
+						font:700 28px/54px 'NotoSansKR';
+						letter-spacing: -0.5px;
+						text-align: center;
+						&.eng{
+							font:33px/56px 'adihausDIN-Cond-bold';
+							letter-spacing: 0;
+							text-transform: uppercase;
+							.ico{
+								font: 25px/30px 'adihausDIN-Cond-bold';
+    							vertical-align: text-top;
+							}
+						}
+
+					}
+				}
+			}
+		}
+	}
+
+	.bottom{
+		position: relative;
+		text-align: center;
+		margin-bottom: 100px;
+	}
+
+
+}
+
+
+
+
+@include keyframe(shining){
+	0%{
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+
+	100%{
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+@include keyframe(arrow){
+	0%{
+		left: 100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: -110%;
+	}
+}
+@include keyframe(arrow2){
+	0%{
+		left: -100%;
+	}
+
+	25%{
+		left: 0%;
+	}
+
+	50%{
+		left: 0%;
+	}
+
+	75%{
+		left: 0%;
+	}
+
+	100%{
+		left: 110%;
+	}
+}
