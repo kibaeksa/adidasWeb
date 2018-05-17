@@ -714,6 +714,56 @@
 						</div>
 					</div>
 
+					<div class="instagram_wrap">
+						<div class="bg"><img src="/images/reebok/event/about/line/180516/insta_bg.jpg" alt=""></div>
+						<div class="inn">
+							<div class="pictures"><img src="/images/reebok/event/about/line/180516/insta_pictures.png" alt=""></div>
+							<div class="shoes"><img src="/images/reebok/event/about/line/180516/insta_shoes.png" alt=""></div>
+							<div class="hash_tags">
+								<div>
+									<span>#키즈패피</span>
+									<span>#패밀리룩</span>
+									<span>#데일리룩</span>
+								</div>
+								<div>
+									<span>#키즈운동화</span>
+									<span>#커플룩</span>
+									<span>#대세키즈템</span>
+								</div>
+							</div>
+							<div class="insta_slider_wrap">
+								<div class="insta_slider" id="insta_slider">
+									<ul class="slide">
+										<li>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiK5ov9BYfS/?taken-by=dcong2"><img src="/images/reebok/event/about/line/180516/slide1_1.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiK5ov9BYfS/?taken-by=dcong2"><img src="/images/reebok/event/about/line/180516/slide1_2.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiK5ov9BYfS/?taken-by=dcong2"><img src="/images/reebok/event/about/line/180516/slide1_3.jpg" alt=""></a></span>
+											<span class="last"><a target="_blank" href="https://www.instagram.com/p/BiK5ov9BYfS/?taken-by=dcong2"><img src="/images/reebok/event/about/line/180516/slide1_4.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiLfqamhqOh/?taken-by=iam_maldi"><img src="/images/reebok/event/about/line/180516/slide1_5.jpg" alt=""></a></span>
+											<span><a target="_blank"  href="https://www.instagram.com/p/BiLfqamhqOh/?taken-by=iam_maldi"><img src="/images/reebok/event/about/line/180516/slide1_6.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiJBEs9nzeY/?taken-by=youngjoo1225"><img src="/images/reebok/event/about/line/180516/slide1_7.jpg" alt=""></a></span>
+											<span class="last"><a href="https://www.instagram.com/p/BiJBEs9nzeY/?taken-by=youngjoo1225"><img src="/images/reebok/event/about/line/180516/slide1_8.jpg" alt=""></a></span>
+										</li>
+										<li>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiI8RWElOqe/?taken-by=k_noriter"><img src="/images/reebok/event/about/line/180516/slide2_1.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiI8RWElOqe/?taken-by=k_noriter"><img src="/images/reebok/event/about/line/180516/slide2_2.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiJdHZMlM_e/?taken-by=yunidul"><img src="/images/reebok/event/about/line/180516/slide2_3.jpg" alt=""></a></span>
+											<span class="last"><a target="_blank" href="https://www.instagram.com/p/BiJdHZMlM_e/?taken-by=yunidul"><img src="/images/reebok/event/about/line/180516/slide2_4.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiJdHZMlM_e/?taken-by=yunidul"><img src="/images/reebok/event/about/line/180516/slide2_5.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiGFV8FHYlZ/?taken-by=jeiannsj"><img src="/images/reebok/event/about/line/180516/slide2_6.jpg" alt=""></a></span>
+											<span><a target="_blank" href="https://www.instagram.com/p/BiGFV8FHYlZ/?taken-by=jeiannsj"><img src="/images/reebok/event/about/line/180516/slide2_7.jpg" alt=""></a></span>
+											<span class="last"><a target="_blank" href="https://www.instagram.com/p/BiGFV8FHYlZ/?taken-by=jeiannsj"><img src="/images/reebok/event/about/line/180516/slide2_8.jpg" alt=""></a></span>
+										</li>
+									</ul>
+								</div>
+								<div class="indicaotr">
+									<span class="on"><em></em></span>
+									<span><em></em></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div class="visual_video">
 						<!-- <div class="bg"><img src="/images/reebok/event/about/line/video_bg.jpg" alt=""/></div> -->
 						<div class="masthead">
@@ -751,7 +801,6 @@
 							</div>
 						</div>
 					</div>
-
 
 					<div class="products_collection">
 
@@ -805,6 +854,36 @@
 
 			<script type="text/javascript">
 				(function ($) {
+
+					setTimeout(function(){
+						$('.instagram_wrap').addClass('active');
+					},1000)
+
+					//insta sldier
+					// $('.insta_slider_wrap .indicaotr span').bind('click',function(){
+					// 	var index = $(this).index();
+					// 	var sliderwidth = 954;
+					// 	$('.insta_slider_wrap .indicaotr span').removeClass('on').eq(index).addClass('on');
+					// 	$('.insta_slider').animate({
+					// 		'left': - sliderwidth*index +'px'
+					// 	})
+					// });
+
+					var swiper_insta = $('#insta_slider').Swipers({
+        				width : 954,
+        				height : 475,
+        				auto : true,
+						loop : true,
+						duration : 800,
+						easing : 'easeInOutCubic',
+						callback : function(index){
+							$('.indicaotr span').removeClass('on').eq(index).addClass('on');
+						}
+        			});
+					$('.insta_slider_wrap .indicaotr span').bind('click',function(){
+						swiper_insta.move($(this).index());
+					})
+
 
 					$('.play-video').bind('click', function () {
 						var videoId = $(this).attr('data-video-id');
