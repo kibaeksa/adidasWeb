@@ -123,6 +123,22 @@ gulp.task('watch',function(){
         }
     })
 
+    /* 180518 프로모션 리뉴얼 */
+
+    gulp.watch('./app/html/reebok/campaign/**/*.scss').on('change',function(file){
+        if(!file.path.match(/\\build\\?/)){
+            handleSassInject(file.path , 'reebok');
+        }
+    });
+
+    gulp.watch('./app/html/reebok/campaign/**/*.html').on('change',function(file){
+        if(!file.path.match(/\\build\\?/)){
+            handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
+        }
+    })
+
+    /* 180518 프로모션 리뉴얼 END*/
+
 
     gulp.watch('./app/css/adidas/scss/campaign.scss',['sass']);
 });
