@@ -1020,9 +1020,9 @@
 						<div class="team_btn">
 							<a href="javascript:void(0)" class="on">EP <em>1</em></a>
 							<a href="javascript:void(0)">EP <em>2</em></a>
-							<a href="javascript:alert('준비중입니다.')">EP <em>3</em></a>
-							<a href="javascript:alert('준비중입니다.')">EP <em>4</em></a>
-							<a href="javascript:alert('준비중입니다.')">EP <em>5</em></a>
+							<a href="javascript:alert('준비중입니다.')" onclick="return false;">EP <em>3</em></a>
+							<a href="javascript:alert('준비중입니다.')" onclick="return false;">EP <em>4</em></a>
+							<a href="javascript:alert('준비중입니다.')" onclick="return false;">EP <em>5</em></a>
 						</div>
 
 						<div class="team_contents">
@@ -1069,7 +1069,7 @@
 
 					<div class="allbuy_area">
 						<div class="bg"><img src="/images/adidas/event/football/football_son/buy_area.jpg" alt=""></div>
-						<a href="http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001&CATG_CHK=2&CATG_CLK=Y" class="btn-ctm arrow">
+						<a href="http://shop.adidas.co.kr/PF020204.action?S_BRAND_CD=1&S_CTGR_CD=01004001001" class="btn-ctm arrow">
 							<span>축구 제품 모두 보기<span class="spt_bg"></span></span>
 						</a>
 					</div>
@@ -1139,7 +1139,7 @@
 					var index = 0;
 					var length = 5;
 
-					function jerseyAnim(){
+					function sonAnim(){
 						$('.football_son .team_btn>a').removeClass('on').eq(index).addClass('on');
 						$('.football_son .team_slider li').fadeOut().eq(index).fadeIn();
 						$('.football_son .name_slider ul').animate({
@@ -1150,36 +1150,16 @@
 					$('.football_son .team_btn>a').bind('click',function(){
 						if($(this).hasClass('on')){
 							return;
+						}else if($(this).index() > 1){
+							alert('준비중입니다.');
+							return false;
 						}
 
-						index = $(this).index();
-
-						jerseyAnim();
+						index = $(this).index();					
+						
+						sonAnim();
 					});
-
-					$('.team_contents .prev').bind('click',function(){
-
-						if(index == 0){
-							index = 4;
-						}else {
-							index--;
-						}
-
-						jerseyAnim();
-
-					});
-
-
-					$('.team_contents .next').bind('click',function(){
-
-						if(index == length-1){
-							index = 0;
-						}else {
-							index++;
-						}
-
-						jerseyAnim();
-					});
+					
 				})(jQuery);
 			</script>
 
