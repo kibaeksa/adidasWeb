@@ -988,7 +988,7 @@
 							<strong>reddy</strong>
 							tracksuit
 						</h2>
-						<div class="btn" onclick="openModalVideoViewer('pSo7oxukP8Q')"><img src="/images/adidas/event/originals/180411_reddy/play.png" alt=""></div>
+						<div class="btn testVideo" data-video-id="UALKsnyDitb8"><img src="/images/adidas/event/originals/180411_reddy/play.png" alt=""></div>
 					</div>
 
 				</div>
@@ -1153,15 +1153,39 @@
 					<img src="/images/adidas/event/originals/180411_reddy/ending.jpg" alt="">
 				</div>
 
-
-
-
-
 			</div>
 
 			<script type="text/javascript">
 
 				(function($){
+
+
+					$('.testVideo').bind('click',function(){
+
+						var videoId = $(this).attr('data-video-id');
+						viewVideo(videoId);
+						return false;
+					});
+
+					function viewVideo(videoId){
+						var $this = $(this);
+						var videoLayerElem = $('<div id="video-modal-popup"><div class="overlay"></div><div class="popup" style="width:100%;height:100%;top:0;left:0;margin:0;"><a href="javascript:void(0)" class="close spt_bg" style="top:0;"></a></div></div>');
+						$('html').addClass('no_scroll');
+						$('body').append(videoLayerElem);
+						setTimeout(function(){
+							$('#video-modal-popup').addClass('loaded');
+							setTimeout(function(){
+								$('#video-modal-popup').find('.popup').append('<iframe src="http://embed.ustudio.com/embed/DiSTJCt7hAxS/'+videoId+'?autoplay=true" width="100%" height="100%" frameborder="0" scrolling="no" allowFullScreen="true" webkitAllowFullScreen="true" mozAllowFullScreen="true"> </iframe>');
+							},20);
+						},300);
+
+						$('#video-modal-popup .close').bind('click',function(){
+							$('html').removeClass('no_scroll');
+							$('#video-modal-popup').remove();
+						});
+						return false;
+					}
+
 					var index = 1;
 					var len = $('.slider_wrap .slide').length;
 					setInterval(banneRolling,5000)
