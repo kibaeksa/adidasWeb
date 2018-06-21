@@ -1,0 +1,85 @@
+@import "./app/css/reebok/scss/about.scss";
+#contents_wrap{padding: 0;}
+.campaign_wannaone{
+    .visual_video{
+        height: 770px;
+        background: #000;
+        .bg{
+            margin-left: -960px;
+            @include opacity(0);
+            @include prefix-css3(transition ,opacity 1.2s ease-in);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .masthead{
+            @include opacity(0);
+            @include prefix-css3(transition ,opacity 1s ease-in);
+            &.active{
+                @include opacity(1);
+            }
+        }
+
+        &.active{
+            .bg{
+                @include opacity(1);
+            }
+        }
+
+        .video_bg{
+            &.ended{
+                @include opacity(0);
+                @include prefix-css3(transition ,opacity 1.6s ease-in);
+            }
+        }
+        .masthead{
+            @include opacity(0);
+            @include prefix-css3(transition,opacity 0.6s ease 1.5s);
+            a{
+                width: 135px;
+                height: 135px;
+                &:after{
+                    border-top: 24px solid transparent;
+                    border-bottom: 24px solid transparent;
+                    border-left: 24px solid #fff;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin: -23px 0 0 -9px;
+                }
+            }
+            &.active{
+                top:50%;
+                @include opacity(1);
+                h2{
+                    margin:0 auto 12px;
+                }
+                .desc_eng{
+                    color:#fff;
+                }
+            }
+        }
+    }
+    .bottom{
+        position: relative;
+        height: 875px;
+        a{
+            position: absolute;
+                width: 296px;
+                height: 73px;
+                display: inline-block;
+                top: 714px;
+                left: 50%;
+                margin-left: -147px;
+                z-index: 2;
+        }
+        .bg{
+            position: absolute;
+            left:50%;
+            margin-left: -960px;
+        }
+    }
+
+
+}
+/* zoku end */
