@@ -983,7 +983,7 @@
 
 			<div id="prophere">
 
-				<div class="teager">	
+				<div class="teager on">
 					<div class="loading">
 						<h2 class="intro_01"><img src="/images/adidas/event/football/heretocreate/intro_01.png" alt=""></h2>
 						<h2 class="intro_02"><img src="/images/adidas/event/football/heretocreate/intro_02.png" alt=""></h2>
@@ -994,45 +994,45 @@
 				<div class="scene">
 					<section id="slider">
 						<div class="slider-content">
-							<div class="image image-first" data-href="#" data-click="0">
+							<div class="image image-first">
 								<div class="slider-item">
 									<img src="/images/adidas/event/football/heretocreate/scene-1.jpg" alt="">
 								</div>
-								<div class="image-text">
+								<div class="image-text" style="padding-left:100px;">
 									<h3>CREATIVITY<br><strong>IS THE ANSWER</strong></h3>
-									<a href="#">자세히보기</a>
+									<a href="#; false;" class="btn_more" data-cont="cont-1">자세히보기</a>
 								</div>
 							</div>
-							<div class="image" data-href="#" data-click="0">
+							<div class="image">
 								<div class="slider-item">
-									<div class="item-img-1" data-src="/images/adidas/event/football/heretocreate/scene-2.jpg"></div>					
+									<img src="/images/adidas/event/football/heretocreate/scene-2.jpg" alt="">
 								</div>
 								<div class="image-text">
 									<h3>CREATIVITY<br><strong>IS THE ANSWER</strong></h3>
-									<a href="#">자세히보기</a>
+									<a href="#; false;" class="btn_more" data-cont="cont-2">자세히보기</a>
 								</div>
 							</div>
-							<div class="image" data-href="#" data-click="0">
+							<div class="image">
 								<div class="slider-item">
-									<div class="item-img-1" data-src="/images/adidas/event/football/heretocreate/scene-3.jpg"></div>					
+									<img src="/images/adidas/event/football/heretocreate/scene-3.jpg" alt="">
 								</div>
 								<div class="image-text">
 									<h3>CREATIVITY<br><strong>IS THE ANSWER</strong></h3>
-									<a href="#">자세히보기</a>
+									<a href="#; false;" class="btn_more" data-cont="cont-3">자세히보기</a>
 								</div>
 							</div>
-							<div class="image image-last" data-href="#" data-click="0">
+							<div class="image image-last">
 								<div class="slider-item">
-									<div class="item-img-1" data-src="/images/adidas/event/football/heretocreate/scene-4.jpg"></div>					
+									<img src="/images/adidas/event/football/heretocreate/scene-4.jpg" alt="">
 								</div>
 								<div class="image-text">
 									<h3>CREATIVITY<br><strong>IS THE ANSWER</strong></h3>
-									<a href="#">자세히보기</a>
+									<a href="#; false;" class="btn_more" data-cont="cont-4">자세히보기</a>
 								</div>
 							</div>
 						</div>
 					</section>
-				</div>					
+				</div>
 				<!-- // scene -->
 
 				<div class="content">
@@ -1194,66 +1194,36 @@
 						$('.video_close').hide();
 					});
 
-					var myVar = setInterval(timer,3000);
-
-					function timer (){
-						$("#prophere .box .bg .bg1").css({
-							'visibility':'visible'
-						});
-						setTimeout(function(){
-							$("#prophere .box .bg .bg2").css({
-								'visibility':'visible'
-							});
-						},100);
-						setTimeout(function(){
-							$("#prophere .box .bg .bg2").css({
-								'visibility':'hidden'
-							});
-						},250);
-						setTimeout(function(){
-							$("#prophere .box .bg .bg1").css({
-								'visibility':'hidden'
-							});
-						},400);
-					}
-
 					// loading
-					// function loading(){
-					// 	$('#prophere .loading .intro_01').addClass('on');
-					// 	setTimeout(function(){
-					// 		$('#prophere .loading .intro_01').removeClass('on');
-					// 		$('#prophere .loading .intro_01').css({
-					// 			'left': '60%',
-					// 			'top': '-100%',
-					// 		});
-					// 		$('#prophere .loading .intro_02').addClass('on');
-					// 	},3000)
-					// 	setTimeout(function(){
-					// 		$('.teager').addClass('none');
-					// 	},6000)
-					// 	setTimeout(function(){
-					// 		$('.teager').remove();
-					// 		$('.scene').fadeIn();
-					// 	},6200)
-					// }
-					// setTimeout(loading,1000);								
-
-					
+					function loading(){
+						$('#prophere .loading .intro_01').addClass('on');
+						setTimeout(function(){
+							$('#prophere .loading .intro_01').removeClass('on');
+							$('#prophere .loading .intro_01').css({
+								'left': '60%',
+								'top': '-100%',
+							});
+							$('#prophere .loading .intro_02').addClass('on');
+						},3000)
+						setTimeout(function(){
+							$('.teager').addClass('none');
+						},6000)
+						setTimeout(function(){
+							$('.teager').remove();
+							$('.scene').addClass('on');
+						},6200)
+					}
+					setTimeout(loading,1000);
 
 					// scene
-					
-					$(".image").width($("#slider").width()/4);
-					$(".item-img-1").addClass("item-img-loaded")
+					$(".image").width($("#slider").width()/3.6);
+					$(".item-img-1").addClass("item-img-loaded");
 
 					var loaded = true;
 
 					function reset(){
-						$(".image").width($("#slider").width()/4);
+						$(".image").width($("#slider").width()/3.6);
 						$(".image").attr("data-click",0);
-
-						$(".image").find(".item-img-2").css({
-							opacity:0
-						})
 
 						$(".image").find(".item-img-1").css({
 							opacity:1
@@ -1264,9 +1234,10 @@
 
 					$(window).resize(function(){
 						reset();
+						console.log($("#slider").width());
 					})
 
-					$(".item-img-1, .item-img-2").each(function(){
+					$(".item-img-1").each(function(){
 						var src = $(this).attr("data-src")
 						$(this).css({
 							background:`url(${src}) no-repeat`,
@@ -1277,103 +1248,97 @@
 						if ($(window).width() > 980) {
 							if (loaded) {
 								$(".image:first-child").mouseout();
-							}			
+							}
 
 							$(this).find(".image-text").css({
 								opacity:1
 							})
 
 							$(".image").width($("#slider").width()/4)
-							$(this).width($("#slider").width()/2)
+							$(this).width($("#slider").width()/3)
 						}
 					})
 
 					$(".image").mouseout(function(){
 						if ($(window).width() > 980) {
-							$(this).find(".item-img-2").css({
-								opacity:0
-							})
-
 							$(this).find(".item-img-1").css({
 								opacity:1
 							})
 
-							$(".image").width($("#slider").width()/4)
+							$(".image").width($("#slider").width()/3.6);
+							$('.slider-item img').removeClass('on');
+							$(".image-text").css('opacity','0');
 						}
 					})
 
 					$(".image:last-child").mouseover(function(event){
 						if ($(window).width() > 980) {
-							$(".image").width($("#slider").width()/5)
-							$(this).width($("#slider").width()/1.5)
+							$(".image").width($("#slider").width()/4)
+							$(this).width($("#slider").width()/3)
 						}
 					})
 
-					$(".image").click(function(event){
-						event.stopPropagation();
-						if ($(window).width() > 980) {
-							// window.open($(".image").attr("data-href") || "/");
-
-							$(".image").width('0');
-							$(this).width($("#slider").width());
-
-							console.log($(this)); // $('.image')
-							console.log($("#slider").width()); // 100%
-						}
-
-						if ($(window).width() <= 980) {
-							if ($(this).attr("data-click") == 0) {
-
-								$(".image").attr("data-click",0)
-
-								$(this).attr("data-click",1)
-
-								$(".image").find(".item-img-2").css({
-									opacity:0
-								})
-
-								$(".image").find(".item-img-1").css({
-									opacity:1
-								})
-
-								$(this).find(".item-img-1").css({
-									opacity:0
-								})
-
-								$(this).find(".item-img-2").css({
-									opacity:1
-								})
-
-								$(this).find(".image-text").css({
-									opacity:1
-								})
-
-								if ($(event.currentTarget).hasClass("image-first")) {
-									$(".image").width($("#slider").width()/4)
-									$(this).width($("#slider").width())
-								}
-								else{
-									$(".image").width($("#slider").width()/4)
-									$(this).width($("#slider").width()/2)
-								}
-
-							}
-							else{
-								window.open($(".image").attr("data-href") || "/");
-								$(this).attr("data-click",0);
-							}
-						}
+					$(".btn_more").click(function(){
+						//$('.scene').removeClass('on');
+						$(this).attr('data-cont');
+						console.log($(this).attr('data-cont'));
 					})
+
+					// $(".image").click(function(event){
+					// 	event.stopPropagation();
+					// 	if ($(window).width() > 980) {
+					//
+					// 		$(this).width($("#slider").width());
+					// 		$(this).find('.slider-item img').addClass('on');
+					// 		$(this).siblings().width(0);
+					//
+					// 		setTimeout(function(){
+					// 			$('.scene').removeClass('on');
+					// 		},1000)
+					// 	}
+					//
+					// 	if ($(window).width() <= 980) {
+					// 		if ($(this).attr("data-click") == 0) {
+					//
+					// 			$(".image").attr("data-click",0)
+					//
+					// 			$(this).attr("data-click",1)
+					//
+					// 			$(".image").find(".item-img-1").css({
+					// 				opacity:1
+					// 			})
+					//
+					// 			$(this).find(".item-img-1").css({
+					// 				opacity:1
+					// 			})
+					//
+					// 			$(this).find(".image-text").css({
+					// 				opacity:1
+					// 			})
+					//
+					// 			if ($(event.currentTarget).hasClass("image-first")) {
+					// 				$(".image").width($("#slider").width()/4)
+					// 				$(this).width($("#slider").width())
+					// 			}
+					// 			else{
+					// 				$(".image").width($("#slider").width()/4)
+					// 				$(this).width($("#slider").width()/2)
+					// 			}
+					//
+					// 		}
+					// 		else{
+					// 			window.open($(".image").attr("data-href") || "/");
+					// 			$(this).attr("data-click",0);
+					// 		}
+					// 	}
+					// })
 
 					// note to remove
-					$(".image:first-child").mouseover();
+					// $(".image:first-child").mouseover();
 
 					$(window).click(function(){
 						reset();
 					})
-
-
-
 
 
 					var winWid = $(window).width();
@@ -1517,36 +1482,28 @@
 
 						function rollingonce (){
 							setInterval(auto,4500);
-
-
 								// setInterval(auto,4500);
 								// if(index == 5){
 								// 	return false;
 								// 	console.log(ccc)
 								// }
-
-
 						}
 
 						function setTimerolling(){
-							setTimeout(rollingonce,10800);
+							setTimeout(function(){
+								if (!$('.scene').hasClass('on')) {
+									rollingonce();
+								}
+							},7000)
+							// setTimeout(rollingonce,10800);
 						}
 
 						return setTimerolling();
-
-
 					}
-
-
 
 					$('.content').each(function(){
 						slider(this);
 					});
-
-
-
-
-
 
 				})(jQuery);
 
