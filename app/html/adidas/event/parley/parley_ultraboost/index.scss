@@ -1,0 +1,457 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+#preloadPanel {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	@include css3(transition, opacity 0.9s);
+	div {
+		position: relative;
+		font: 50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include css3(transform, translate3d(-50%, -50%, 0));
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient( to right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%);
+			@include opacity(0);
+			@include css3(transform, rotate(30deg));
+			@include animation(1s, 1.2s, shining);
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+	&.loaded {
+		@include opacity(0);
+	}
+}
+
+.video-viewer {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	.video {
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.close {
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include css3(transition, opacity 0.4s ease-in 0.2s);
+	}
+	.bg {
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+		@include opacity(0);
+		@include css3(transition, opacity 0.4s);
+	}
+	&.loaded {
+		.bg {
+			@include opacity(0.6);
+		}
+		.close {
+			@include opacity(1);
+		}
+	}
+}
+
+#parley {
+	position: relative;
+	background: #fff;
+	overflow: hidden;
+	.inner{
+		width: 1024px;
+		margin: 0 auto;
+	}
+	a {
+		&.button {
+			display: block;
+			position: absolute;
+			width: 261px;
+			height: 52px;
+			font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+			border: 2px solid #2faf92;
+			color: #fff;
+			background: #2faf92;
+			transition: all 0.8s;
+			-webkit-transition: all 0.8s;
+			-moz-transition: all 0.8s;
+			-o-transition: all 0.8s;
+			-ms-transition: all 0.8s;
+			letter-spacing: -1px;
+			text-align: center;
+		}
+		&:hover.button {
+			background: none;
+			color: #2faf92;
+			border: 2px solid #2faf92;
+			font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+		}
+	}
+	.main_visual {
+		position: relative;
+		overflow: hidden;
+		height: 849px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -952px;
+			left: 50%;
+		}
+		a {
+			&.button {
+				display: block;
+				position: absolute;
+				top: 75%;
+				left: 50%;
+				margin-left: -98px;
+				width: 196px;
+				height: 52px;
+				font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				border: 2px solid #000;
+				background: #000;
+				color: #fff;
+				transition: all 0.8s;
+				-webkit-transition: all 0.8s;
+				-moz-transition: all 0.8s;
+				-o-transition: all 0.8s;
+				-ms-transition: all 0.8s;
+				letter-spacing: 0;
+				text-align: center;
+			}
+			&:hover.button {
+				color: #fff;
+				background: #117073;
+				border: 2px solid #117073;
+				font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+			}
+		}
+	}
+	.sec_01{
+		position: relative;
+		top: 80px;
+		opacity: 0;
+		-moz-transition: top 0.8s, opacity 0.8s;
+		-o-transition: top 0.8s, opacity 0.8s;
+		-webkit-transition: top 0.8s, opacity 0.8s;
+		transition: top 0.8s, opacity 0.8s;
+		margin-bottom: 70px;
+		.inner{
+			padding: 40px;
+			width: 1024px;
+			margin: 0 auto;
+			color: #000;
+			h3{
+				font: 600 34px 'NotoSansKR';
+				padding-bottom: 20px;
+			}
+			p{
+				font: 500 20px 'NotoSansKR';
+			}
+		}
+	}
+	.sec_02 {
+		position: relative;
+		height: 1021px;
+		top: 80px;
+		opacity: 0;
+		-moz-transition: top 0.8s, opacity 0.8s;
+		-o-transition: top 0.8s, opacity 0.8s;
+		-webkit-transition: top 0.8s, opacity 0.8s;
+		transition: top 0.8s, opacity 0.8s;
+		.img {
+			position: absolute;
+			left: 50%;
+			margin-left: -960px;
+			height: 560px;
+		}
+		.desc_area {
+			position: absolute;
+			top: 110px;
+			left: 50%;
+			margin-left: -600px;
+			z-index: 2;
+			// width: 1188px;
+			ul {
+				overflow: hidden;
+				width: 100%;
+				li {
+					color: #000;
+					text-align: center;
+					float: left;
+					margin-left: 40px;
+					&:first-child {
+						margin-left: 0;
+					}
+					h4 {
+						text-align: center;
+						font: 500 20px/26px 'NotoSansKR', 'Nanum Gothic';
+						padding-top: 20px;
+					}
+					p {
+						text-align: center;
+						font: 400 14px/24px 'NotoSansKR', 'Nanum Gothic';
+						padding-top: 10px;
+					}
+					&#desc1 {
+						margin-top: 0;
+						opacity: 0;
+						-moz-transition: top 0.8s, opacity 0.8s;
+						-o-transition: top 0.8s, opacity 0.8s;
+						-webkit-transition: top 0.8s, opacity 0.8s;
+						transition: top 0.8s, opacity 0.8s;
+						img{
+						}
+						h4{
+							padding-top: 120px;
+						}
+					}
+					&#desc2 {
+						margin-top: 100px;
+						opacity: 0;
+						-moz-transition: top 0.8s, opacity 0.8s;
+						-o-transition: top 0.8s, opacity 0.8s;
+						-webkit-transition: top 0.8s, opacity 0.8s;
+						transition: top 0.8s, opacity 0.8s;
+						img{}
+						h4{
+							padding-top: 40px;
+							padding-left: 20px;
+						}
+						P{
+							padding-left: 20px;
+						}
+					}
+					&#desc3 {
+						margin-top: 50px;
+						opacity: 0;
+						-moz-transition: top 0.8s, opacity 0.8s;
+						-o-transition: top 0.8s, opacity 0.8s;
+						-webkit-transition: top 0.8s, opacity 0.8s;
+						transition: top 0.8s, opacity 0.8s;
+						img{}
+						h4{
+							padding-top: 80px;
+							margin-left: -20px;
+						}
+						p{
+							margin-left: -20px;
+						}
+					}
+				}
+			}
+		}
+	}
+	.sec_03 {
+		position: relative;
+		top: 80px;
+		height: 651px;
+		opacity: 0;
+		-moz-transition: top 0.8s, opacity 0.8s;
+		-o-transition: top 0.8s, opacity 0.8s;
+		-webkit-transition: top 0.8s, opacity 0.8s;
+		transition: top 0.8s, opacity 0.8s;
+		margin-bottom: 70px;
+		.inner{
+			overflow: hidden;
+			.box{
+				float: left;
+				width:50%;
+				padding-top: 200px;
+				h3{
+					font: 600 34px 'NotoSansKR';
+					color: #000;
+					padding-bottom: 20px;
+				}
+				p{
+					font: 500 20px 'NotoSansKR';
+					color: #000;
+				}
+				a {
+					margin-top: 40px;
+					&.button {
+						display: inline-block;
+						position: static;
+						width: 200px;
+						height: 52px;
+						font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+						border: 2px solid #000;
+						color: #fff;
+						background: #000;
+						transition: all 0.8s;
+						-webkit-transition: all 0.8s;
+						-moz-transition: all 0.8s;
+						-o-transition: all 0.8s;
+						-ms-transition: all 0.8s;
+						letter-spacing: -1px;
+						text-align: center;
+					}
+					&:hover.button {
+						background: #117073;
+						color: #fff;
+						border: 2px solid #117073;
+						font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					}
+				}
+			}
+			img{
+				position: absolute;
+				top: 0;
+				left: 50%;
+			}
+		}
+	}
+	.sec_04 {
+		position: relative;
+		top: 80px;
+		opacity: 0;
+		-moz-transition: top 0.8s, opacity 0.8s;
+		-o-transition: top 0.8s, opacity 0.8s;
+		-webkit-transition: top 0.8s, opacity 0.8s;
+		transition: top 0.8s, opacity 0.8s;
+		margin-bottom: 90px;
+		.inner{
+			text-align: center;
+			h3{
+				font: 600 34px 'NotoSansKR';
+				text-align: center;
+				color: #000;
+				padding-bottom: 20px;
+			}
+			p{
+				font: 500 20px 'NotoSansKR';
+				text-align: center;
+				color: #000;
+			}
+			a {
+				margin-top: 40px;
+				&.button {
+					display: inline-block;
+					position: static;
+					width: 200px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #000;
+					color: #fff;
+					background: #000;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+				&:hover.button {
+					background: #117073;
+					color: #fff;
+					border: 2px solid #117073;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+			img{
+				margin-top: 50px;
+			}
+		}
+	}
+	.sec_05{
+		position: relative;
+		height: 246px;
+		top: 80px;
+		opacity: 0;
+		-moz-transition: top 0.8s, opacity 0.8s;
+		-o-transition: top 0.8s, opacity 0.8s;
+		-webkit-transition: top 0.8s, opacity 0.8s;
+		transition: top 0.8s, opacity 0.8s;
+		margin-bottom: 150px;
+		.img {
+			position: absolute;
+			left: 50%;
+			margin-left: -960px;
+			height: 560px;
+		}
+	}
+}
+
+@include keyframe(shining) {
+	0% {
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+	100% {
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+
+@include keyframe(arrow) {
+	0% {
+		left: 100%;
+	}
+	25% {
+		left: 0%;
+	}
+	50% {
+		left: 0%;
+	}
+	75% {
+		left: 0%;
+	}
+	100% {
+		left: -110%;
+	}
+}
+
+@include keyframe(arrow2) {
+	0% {
+		left: -100%;
+	}
+	25% {
+		left: 0%;
+	}
+	50% {
+		left: 0%;
+	}
+	75% {
+		left: 0%;
+	}
+	100% {
+		left: 110%;
+	}
+}
