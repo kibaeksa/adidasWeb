@@ -1380,118 +1380,118 @@
 				(function($){
 
 					var slidersCont1 = $('#slider-cont-1').Swipers({
-					    width : 1920,
-					    height : 890,
-					    duration : 600,
+						width : 1920,
+						height : 890,
+						duration : 600,
 						easing : 'ease-out',
 						autoTime : 5000,
 						loop : true,
-						auto : true,
+						// auto : true,
 						// autoDuration : 1000,
-					    callback : function( index , prevIdx ){
-					        $('.indicator1 .btn_wrap').removeClass('on').eq(index).addClass('on');
+						callback : function( index , prevIdx ){
+							$('.indicator1 .btn_wrap').removeClass('on').eq(index).addClass('on');
 							setTimeout(function(){$('.indicator1 .btn').removeClass('on').eq(index).addClass('on')},0);
 							videoFn();
-					    }
+						}
 					});
 					var slidersCont2 = $('#slider-cont-2').Swipers({
-					    width : 1920,
-					    height : 890,
+						width : 1920,
+						height : 890,
 						easing : 'ease-out',
 						autoTime : 5000,
 						loop : true,
-						auto : true,
-					    callback : function( index , prevIdx ){
-					        $('.indicator2 .btn_wrap').removeClass('on').eq(index).addClass('on');
-					        setTimeout(function(){$('.indicator2 .btn').removeClass('on').eq(index).addClass('on')},0);
+						// auto : true,
+						callback : function( index , prevIdx ){
+							$('.indicator2 .btn_wrap').removeClass('on').eq(index).addClass('on');
+							setTimeout(function(){$('.indicator2 .btn').removeClass('on').eq(index).addClass('on')},0);
 							videoFn();
-					    }
+						}
 					});
 					var slidersCont3 = $('#slider-cont-3').Swipers({
-					    width : 1920,
-					    height : 890,
+						width : 1920,
+						height : 890,
 						easing : 'ease-out',
 						autoTime : 5000,
 						loop : true,
-						auto : true,
-					    callback : function( index , prevIdx ){
-					        $('.indicator3 .btn_wrap').removeClass('on').eq(index).addClass('on');
-					        setTimeout(function(){$('.indicator3 .btn').removeClass('on').eq(index).addClass('on')},0);
+						// auto : true,
+						callback : function( index , prevIdx ){
+							$('.indicator3 .btn_wrap').removeClass('on').eq(index).addClass('on');
+							setTimeout(function(){$('.indicator3 .btn').removeClass('on').eq(index).addClass('on')},0);
 							videoFn();
-					    }
+						}
 					});
 					var slidersCont4 = $('#slider-cont-4').Swipers({
-					    width : 1920,
-					    height : 890,
+						width : 1920,
+						height : 890,
 						easing : 'ease-out',
 						autoTime : 5000,
 						loop : true,
-						auto : true,
-					    callback : function( index , prevIdx ){
-					        $('.indicator4 .btn_wrap').removeClass('on').eq(index).addClass('on');
-					        setTimeout(function(){$('.indicator4 .btn').removeClass('on').eq(index).addClass('on')},0);
+						// auto : true,
+						callback : function( index , prevIdx ){
+							$('.indicator4 .btn_wrap').removeClass('on').eq(index).addClass('on');
+							setTimeout(function(){$('.indicator4 .btn').removeClass('on').eq(index).addClass('on')},0);
 							videoFn();
-					    }
+						}
 					});
 
 					$('.prev-button1').bind('click',function(){
 						videoFn();
-					    slidersCont1.prev();
+						slidersCont1.prev();
 					});
 
 					$('.next-button1').bind('click',function(){
 						videoFn();
-					    slidersCont1.next();
+						slidersCont1.next();
 					});
 
 					$('.indicator1 .btn_wrap').bind('click',function(){
 						videoFn();
-					    slidersCont1.move($(this).index());
+						slidersCont1.move($(this).index());
 					});
 
 					$('.prev-button2').bind('click',function(){
 						videoFn();
-					    slidersCont2.prev();
+						slidersCont2.prev();
 					});
 
 					$('.next-button2').bind('click',function(){
 						videoFn();
-					    slidersCont2.next();
+						slidersCont2.next();
 					});
 
 					$('.indicator2 .btn_wrap').bind('click',function(){
 						videoFn();
-					    slidersCont2.move($(this).index());
+						slidersCont2.move($(this).index());
 					});
 
 					$('.prev-button3').bind('click',function(){
 						videoFn();
-					    slidersCont3.prev();
+						slidersCont3.prev();
 					});
 
 					$('.next-button3').bind('click',function(){
 						videoFn();
-					    slidersCont3.next();
+						slidersCont3.next();
 					});
 
 					$('.indicator3 .btn_wrap').bind('click',function(){
 						videoFn();
-					    slidersCont3.move($(this).index());
+						slidersCont3.move($(this).index());
 					});
 
 					$('.prev-button4').bind('click',function(){
 						videoFn();
-					    slidersCont4.prev();
+						slidersCont4.prev();
 					});
 
 					$('.next-button4').bind('click',function(){
 						videoFn();
-					    slidersCont4.next();
+						slidersCont4.next();
 					});
 
 					$('.indicator4 .btn_wrap').bind('click',function(){
 						videoFn();
-					    slidersCont4.move($(this).index());
+						slidersCont4.move($(this).index());
 					});
 
 					function videoFn (){
@@ -1590,15 +1590,21 @@
 					$(".btn_more").click(function(){
 						$('.scene').removeClass('on');
 						var dataCont = $(this).attr('data-cont');
-						var dataNum = $(this).attr('data-num');
+						var dataIdx = $(this).attr('data-num');
 						//console.log(dataCont);
-						//console.log(dataNum);
+						//console.log(dataIdx);
 						$('#'+dataCont).fadeIn(800).find('.indicator_wrap .btn_wrap').eq(0).trigger('click');
+						setTimeout(function(){$('#'+dataCont).find('.next-button'+dataIdx).trigger('click')},5000)
 					})
 
 					$(".btn_cont_close").click(function(){
-						$("#conts .cont_box").fadeOut(500);
+						$("#conts .cont_box").fadeOut(300);
 						$(".scene").addClass('on');
+						$('.indicator1 .btn_wrap').eq(0).trigger('click');
+						$('.indicator2 .btn_wrap').eq(0).trigger('click');
+						$('.indicator3 .btn_wrap').eq(0).trigger('click');
+						$('.indicator4 .btn_wrap').eq(0).trigger('click');
+						swiper.stopAutoplay();
 					})
 
 					// note to remove
