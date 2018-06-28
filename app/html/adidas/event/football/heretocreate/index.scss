@@ -66,7 +66,7 @@
         width: 100%;
         height: 890px;
         background: #000;
-        transition: all 0.5s;
+        transition: all 0.3s;
         opacity: 0;
         z-index: 3;
 
@@ -267,7 +267,7 @@
         position: relative;
         height: 890px;
         z-index: 4;
-        >li {
+    .cont_box {
             position: relative;
             top: 0;
             left: 0;
@@ -281,11 +281,11 @@
         .btn_cont_close {
             position: absolute;
             top: 100px;
-            right: 10px;
+            right: 20px;
             overflow: hidden;
             transform: rotate(-90deg);
             z-index: 5;
-
+            cursor: pointer;
             .bcc_text {
                 float: left;
                 font: 16px/16px 'NotoSansKR';
@@ -293,7 +293,7 @@
             }
 
             .bcc_line {
-                margin: 9px 6px 0 6px;
+                margin: 8px 6px 0 6px;
                 float: left;
                 width: 30px;
                 height: 1px;
@@ -302,8 +302,9 @@
 
             .bcc_img {
                 float: left;
-                font: 16px/16px 'NotoSansKR';
-                color: #fff;
+                width: 16px;
+                height: 16px;
+                background: url('/images/adidas/event/football/heretocreate/btn-close.png') center center no-repeat;
             }
         }
 
@@ -401,11 +402,9 @@
                 width: 1920px;
                 z-index: 10;
                 a {
-                    width: 32px;
-                    height: 64px;
+                    height: 45px;
                     position: absolute;
                     top: 0;
-                    overflow: hidden;
                     opacity: 1;
                     filter: alpha(opacity = 50);
                     -ms-filter: alpha(opacity = 50);
@@ -415,7 +414,7 @@
                     }
 
                     &.next-button {
-                        right: 50px;
+                        right: 0;
                         transition: right 0.4s ease-out 0.1s;
                         -webkit-transition: right 0.4s ease-out 0.1s;
                         -moz-transition: right 0.4s ease-out 0.1s;
@@ -426,10 +425,19 @@
                             animation: arrowLoop_right 2s infinite;
                             -webkit-animation: arrowLoop_right 2s infinite;
                         }
+                        &::after{
+                            float: right;
+                            content: "";
+                            display: inline-block;
+                            width: 55px;
+                            height: 1px;
+                            border-top: 1px solid #fff;
+                            margin: 22px 0 0 10px;
+                        }
                     }
 
                     &.prev-button {
-                        left: 50px;
+                        left: 0;
                         transition: left 0.4s ease-out 0.1s;
                         -webkit-transition: left 0.4s ease-out 0.1s;
                         -moz-transition: left 0.4s ease-out 0.1s;
@@ -439,6 +447,15 @@
                         img {
                             animation: arrowLoop_left 2s infinite;
                             -webkit-animation: arrowLoop_left 2s infinite;
+                        }
+                        &::after{
+                            float: left;
+                            content: "";
+                            display: inline-block;
+                            width: 55px;
+                            height: 1px;
+                            border-top: 1px solid #fff;
+                            margin: 22px 10px 0 0;
                         }
                     }
                 }
@@ -468,10 +485,9 @@
                         width: 156px;
                         height: 3px;
                         background: rgba(255, 255, 255, 0.4);
-
                         &.on {
                             span {
-                                left: 0;
+                                animation: mymove 5s;
                             }
                         }
 
@@ -479,7 +495,7 @@
                             position: absolute;
                             top: 0;
                             left: 0;
-                            width: 3%;
+                            width: 0;
                             height: 6px;
                             background: #fff;
                             display: inline-block;
@@ -500,4 +516,9 @@
             }
         }
     }
+}
+
+@keyframes mymove {
+    from {width: 0;}
+    to {width: 100%;}
 }
