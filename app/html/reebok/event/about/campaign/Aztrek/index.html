@@ -559,7 +559,7 @@
             <!-- contents_wrap -->
             <div id="contents_wrap">
 
-            	<div class="campaign_wrap campaign_floatride">
+            	<div class="campaign_wrap campaign_Aztrek">
             		<div class="breadcrumbs">
             			<div class="inner">
             				<a href="">Our Story <span class="sptbg"></span></a>
@@ -567,9 +567,65 @@
             				<strong>Aztrek</strong>
             			</div>
             		</div>
+                    <div class="box1">
+                        <div class="img">
+                            <img src="/images/reebok/event/about/Aztrek/img1.jpg" alt="img1">
+                        </div>
+                        <div class="btn">
+                            <a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=650">구매하기</a>
+                        </div>
+                    </div>
+                    <div class="box2">
+                        <div class="top">
+                            <h1>AZTREK OG<br>
+                            Goods Box EVENT</h1>
+                            <span>2018.7.12 ~ 7.31</span>
+                            <p>기간 내 아즈트렉 OG를 구매하시면<br>
+                            구매자 선착순 워너원 포스트카드, 추첨을 통하여 굿즈 박스세트를 드립니다!
+                            </p>
+                        </div>
+                        <div class="img">
+                            <img src="/images/reebok/event/about/Aztrek/img2.png" alt="img2">
+                        </div>
+                        <div class="bottom">
+                            <img src="/images/reebok/event/about/Aztrek/img3.jpg" alt="img3">
+                            <div class="btn">
+                                <a href="http://shop.reebok.co.kr/RPF070201.action?EVENT_ID=5185">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="products_collection">
+                        <div class="bg">
+                            <img src="/images/reebok/event/about/Aztrek/bg.jpg" alt="bg">
+                        </div>
+                        <a href="javascript:void(0)" class="arrow-prev"><img src="/images/reebok/event/about/Aztrek/prev.png" alt=""></a>
+                        <a href="javascript:void(0)" class="arrow-next"><img src="/images/reebok/event/about/Aztrek/next.png" alt=""></a>
+                        <div class="wide-slider-wrapper" id="wide_slider">
 
+                            <ul>
+                                <li class="active">
+                                    <img src="/images/reebok/event/about/Aztrek/slide1.jpg" alt="">
+                                </li>
+                                <li>
+                                    <img src="/images/reebok/event/about/Aztrek/slide2.jpg" alt="">
+                                </li>
+                                <li>
+                                    <img src="/images/reebok/event/about/Aztrek/slide3.jpg" alt="">
+                                </li>
+                                <!-- <li class="active"><img src="/images/reebok/event/about/wannaone/01.png" alt="">
+                                    <img src="/images/reebok/event/about/wannaone/01_txt.png" alt="" class="txt" style="top:158px;left:198px;"> -->
+                            </ul>
+                        </div>
 
+                        <div class="slider-btn">
+                            <a href="javascript:void(0)" class="on"></a>
+                            <a href="javascript:void(0)"></a>
+                            <a href="javascript:void(0)"></a>
+                        </div>
+
+                    </div>
+                    <!-- //products_collection -->
 
 
 
@@ -586,12 +642,33 @@
             	<script type="text/javascript">
 
             		(function($){
+                        var swipers = $('#wide_slider').Swipers({
+                            width:1000,
+                            height : 791,
+                            auto : true,
+                            loop : true,
+                            duration : 800,
+                            easing : 'easeInOutCubic',
+                            callback : function(index){
+                                // $('.products_collection .prodlist_wrap .prodlist_box').fadeOut().eq(index).fadeIn();
+                                $('.products_collection .slider-btn a').removeClass('on').eq(index).addClass('on');
+                                $('.wide-slider-wrapper ul li').removeClass('active').eq(index+1).addClass('active');
+                            }
+                        });
 
+                        $('.products_collection .arrow-prev').bind('click',function(){
+                            swipers.prev();
+                            console.log(11);
+                        });
+
+                        $('.products_collection .arrow-next').bind('click',function(){
+                            swipers.next();
+                        });
+
+                        $('.products_collection .slider-btn a').bind('click',function(){
+                            swipers.move($(this).index());
+                        });
             		})(jQuery);
-
-
-
-
 
 
             	</script>
