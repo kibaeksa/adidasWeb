@@ -705,12 +705,19 @@
 						</div>
 					</div>
 
-					<div class="main_visual">
-						<div class="bg"><img src="/images/reebok/event/about/flexweave/180719/visual.jpg" alt=""></div>
-						<div class="inn">
-							<div class="btn"><a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=658">구매하기</a></div>
-						</div>
-					</div>
+					<div class="visual_video">
+                		<div class="bg">
+                            <div class="iebg"><img src="http://image.reebok.co.krhttp://image.reebok.co.kr/images/reebok/event/about/always/visual.jpg" alt=""></div>
+                            <video playsinline="" autoplay="" muted="" loop="" >
+                              <source src="/images/reebok/event/about/flexweave/180719/video.mp4" type="video/mp4" >
+                            </video>
+                        </div>
+                		<div class="masthead">
+                			<a href="javascript:void(0)" class="btn-play-video" data-video-id="OqvNF6_bKQw"></a>
+                			<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=658" class="btn-buy">구매하기</a>
+                		</div>
+                	</div>
+					<!-- //visual_video -->
 
 					<div class="event scrollbox">
 						<img src="/images/reebok/event/about/flexweave/180719/title1.png" alt="용감한 여자들">
@@ -856,37 +863,30 @@
 					});
 
 
-					$('.video').bind('click', function () {
+					$('.btn-play-video').bind('click',function(){
 						var videoId = $(this).attr('data-video-id');
-						alert('COMING SOON');
-						// viewVideo(videoId);
+						viewVideo(videoId);
 						return false;
 					});
 
-					function viewVideo(videoId) {
+					function viewVideo(videoId){
 						var $this = $(this);
-						var videoLayerElem = $(
-							'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
-						);
+						var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
 						$('html').addClass('no_scroll');
 						$('body').append(videoLayerElem);
-						setTimeout(function () {
+						setTimeout(function(){
 							$('.video_layer').addClass('loaded');
-							setTimeout(function () {
-								$('.video_layer').find('.video').append(
-									'<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' + videoId +
-									'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-							}, 20);
-						}, 300);
+							setTimeout(function(){
+								$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+							},20);
+						},300);
 
-						$('.video_layer .close').bind('click', function () {
+						$('.video_layer .close').bind('click',function(){
 							$('html').removeClass('no_scroll');
 							$('.video_layer').remove();
 						});
 						return false;
 					}
-
-
 
 					var scrollArray = [];
 					var scrollSelectors = document.querySelectorAll('.scrollbox');
