@@ -984,8 +984,9 @@
 			<div id="originals_superstar">
 
 				<div class="main_visual">
-					<div class="bg"><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/main_visual.jpg" alt=""></div>
+					<div class="bg"><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/main_bg.jpg" alt=""></div>
 					<div class="inn ct1190">
+						<div class="video_play" onclick="openModalVideoViewer('IzyteF8OyhQ')"><img src="http://image.adidas.co.kr/images/adidas/event/originals/originals_superstar/180723/play_btn.png" alt=""></div>
 						<img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/logo.png" alt="">
 						<h2>
 							superstar<br>in superstar
@@ -1001,6 +1002,53 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="more" style="padding: 75px 0 0 0;">
+					<strong>슈퍼스타 WITH 효린(HYOLYN)</strong>
+					<p class="main_more">'바다보러갈래' 뮤직비디오 속 슈퍼스타 스타일을 확인하세요.</p>
+					<div class="bar"><span></span></div>
+					<div class="arrow"></div>
+					<p>more</p>
+				</div>
+
+				<div class="products_collection main_collection">
+					<div class="wide-slider-wrapper" id="wide_slider2">
+					  <a href="javascript:void(0)" class="arrow arrow-prev"></a>
+					  <a href="javascript:void(0)" class="arrow arrow-next"></a>
+					  <ul>
+						<li class="active"><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/01.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/02.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/03.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/04.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/05.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/06.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/07.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/08.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/09.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/10.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/11.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/12.jpg" alt=""></li>
+						<li><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/180723/13.jpg" alt=""></li>
+					  </ul>
+					</div>
+
+					<div class="slider-btn">
+						<a href="javascript:void(0)" class="on"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+					</div>
+				</div>
+				<!-- //products_collection -->
 
 				<div class="section scroll">
 					<div class="bg"><img src="http://image.adidas.co.kr//images/adidas/event/originals/originals_superstar/section1_bg.jpg" alt=""></div>
@@ -1074,7 +1122,7 @@
 					<p>more</p>
 				</div>
 
-				<div class="products_collection">
+				<div class="products_collection dokki_collection">
 					<div class="wide-slider-wrapper" id="wide_slider">
 					  <a href="javascript:void(0)" class="arrow arrow-prev"></a>
 					  <a href="javascript:void(0)" class="arrow arrow-next"></a>
@@ -1135,26 +1183,50 @@
 						elemId : 'wide_slider',
 						width : 926,
 						callback : function(elem , index){
-							$('.wide-slider-wrapper ul li').removeClass('active');
+							$('.dokki_collection .wide-slider-wrapper ul li').removeClass('active');
 							for(var i = 0; i < elem.length; i++){
 								$(elem[i]).addClass('active');
 							}
-							$('.products_collection .slider-btn a').removeClass('on').eq(index).addClass('on');
+							$('.dokki_collection .slider-btn a').removeClass('on').eq(index).addClass('on');
 						}
 					});
-					$('.products_collection .arrow-prev').bind('click',function(){
+					$('.dokki_collection .arrow-prev').bind('click',function(){
 						wslr.prev();
 					});
-					$('.products_collection .arrow-next').bind('click',function(){
+					$('.dokki_collection .arrow-next').bind('click',function(){
 						wslr.next();
 					});
-					$('.products_collection .slider-btn a').bind('click',function(){
+					$('.dokki_collection .slider-btn a').bind('click',function(){
 						if($(this).hasClass('on')){
 							return;
 						}
 						wslr.slide($(this).index());
 					});
-					// $('.products_collection .arrow-next').trigger("click");
+
+					var wslr2 = wideSlider({
+						elemId : 'wide_slider2',
+						width : 926,
+						callback : function(elem , index){
+							$('.main_collection .wide-slider-wrapper ul li').removeClass('active');
+							for(var i = 0; i < elem.length; i++){
+								$(elem[i]).addClass('active');
+							}
+							$('.main_collection .slider-btn a').removeClass('on').eq(index).addClass('on');
+						}
+					});
+					$('.main_collection .arrow-prev').bind('click',function(){
+						wslr2.prev();
+					});
+					$('.main_collection .arrow-next').bind('click',function(){
+						wslr2.next();
+					});
+					$('.main_collection .slider-btn a').bind('click',function(){
+						if($(this).hasClass('on')){
+							return;
+						}
+						wslr2.slide($(this).index());
+					});
+
 
 
 				})(jQuery);
