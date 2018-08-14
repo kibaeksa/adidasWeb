@@ -597,6 +597,7 @@
                                     <div><img src="/images/reebok/event/about/Dashonic/sect_01_main02.jpg" alt=""></div>
                                     <div><img src="/images/reebok/event/about/Dashonic/sect_01_main03.jpg" alt=""></div>
                                 </div>
+                                <div class="sect_01_video"><img src="/images/reebok/event/about/Dashonic/video.jpg" alt="" class="play-video-cst" data-video-id="1EKe7o4ReUY"></div>
                                 <div class="sect_01_sub"><img src="/images/reebok/event/about/Dashonic/sect_01_sub.png" alt=""></div>
                             </div>
                         </div>
@@ -727,6 +728,35 @@
             			$('.slide_prd .indicator a').bind('click',function(){
             				swipers_prd.move($(this).index());
             			});
+
+                        $('.play-video-cst').bind('click', function () {
+    						var videoId = $(this).attr('data-video-id');
+    						viewVideo(videoId);
+    						return false;
+    					});
+
+    					function viewVideo(videoId) {
+    						var $this = $(this);
+    						var videoLayerElem = $(
+    							'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
+    						);
+    						$('html').addClass('no_scroll');
+    						$('body').append(videoLayerElem);
+    						setTimeout(function () {
+    							$('.video_layer').addClass('loaded');
+    							setTimeout(function () {
+    								$('.video_layer').find('.video').append(
+    									'<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' + videoId +
+    									'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+    							}, 20);
+    						}, 300);
+
+    						$('.video_layer .close').bind('click', function () {
+    							$('html').removeClass('no_scroll');
+    							$('.video_layer').remove();
+    						});
+    						return false;
+    					}
 
             		})(jQuery);
 
