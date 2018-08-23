@@ -566,7 +566,8 @@
 		background: #000;
 		text-align: center;
 		color:#fff;
-		font:500 20px/28px 'NotoSansKR';
+		font:500 19px/28px 'NotoSansKR';
+		text-transform: uppercase;
 	}
 	.bottom{
 		position: relative;
@@ -628,6 +629,193 @@
 				img{
 					width: 100%;
 				}
+			}
+		}
+	}
+	.products_collection{
+		width: 100%;
+		padding: 60px 0 215px 0;
+		position: relative;
+		background: url(/images/adidas/event/originals/pod/180808/collections_bg.jpg) no-repeat;
+		background-size: 100% 100%;
+		&.on{
+			.video_wrap {
+				.video{
+					.bg{
+						top:0;
+						@include css3(opacity,1);
+					}
+					>img{
+						top:105px;
+
+						@include css3(opacity,1);
+					}
+				}
+				.deco{
+					top:2px;
+					@include css3(opacity,1);
+				}
+			}
+		}
+		.title{
+			padding: 0 0 48px 0;
+			text-align: center;
+			.pod{
+				position: relative;
+				display: inline-block;
+				margin: 0 0 22px 0;
+				p{
+					position: relative;
+					z-index: 1;
+					font: 50px/48px 'adihaus-medium';
+					color:#fff;
+					text-align: center;
+					letter-spacing: 9px;
+				}
+				span{
+					position: absolute;
+					bottom:0;
+					left:0;
+					width: 100%;
+					height: 17px;
+					background: #0f1519;
+				}
+			}
+			p{
+				font:400 18px 'NotoSansKR';
+				color:#fff;
+				text-align: center;
+				text-transform: uppercase;
+			}
+		}
+		.wide-slider-wrapper{
+			position: relative;
+			width: 100%;
+			height:585px;
+			left: inherit;
+			margin-left:inherit;
+			z-index: 1;
+			overflow: hidden;
+			.btn{
+				position: absolute;
+			    top: 293px;
+				left:50%;
+			    text-align: center;
+			    z-index: 2;
+				a{
+					position: relative;
+					display: inline-block;
+					width:45px;
+					height: 45px;
+					position: absolute;
+					overflow: hidden;
+					background: #000;
+					img{
+						position: absolute;
+						top:50%;
+						left:50%;
+						transform: translate(-50%,-50%);
+					}
+				}
+				.next{
+				    left: 469px;
+					img{
+						animation: arrownext 2s infinite;
+						-webkit-animation: arrownext 2s infinite;
+					}
+				}
+				.prev{
+					left: -500px;
+					img{
+					    animation: arrowprev 2s infinite;
+					    -webkit-animation: arrowprev 2s infinite;
+					}
+				}
+
+			}
+			ul{
+				position: absolute;
+				top:0;
+				width: 100%;
+				height: 702px;
+				li{
+					// width: 1063px;
+					margin:0 40px;
+					position: relative;
+					float: left;
+					@include opacity(1);
+					@include css3(transition, opacity 0.4s ease-in 0.3s);
+					&:after{
+						position: absolute;
+						top:0;
+						left:0;
+						content: '';
+						width: 100%;
+						height: 100%;;
+						background: rgba(0,0,0,0.5);
+						@include css3(transition, all 0.4s ease-in 0.3s);
+					}
+				}
+				li.active{
+					&:after{
+						background: rgba(0,0,0,0);
+					}
+					// @include opacity(1);
+				}
+			}
+		}
+		.slider-btn{
+			width: 100%;
+			position: relative;
+			padding: 30px 0 120px;
+			text-align: center;
+			a{
+				display: inline-block;
+				width: 14px;
+				height: 14px;
+				border-radius: 80px;
+				text-align: center;
+				margin: 0 4px;
+				text-transform: uppercase;
+				background: rgba(108,108,108,0.5);
+				&.on{
+					background: rgba(255,255,255,1);
+				}
+			}
+		}
+		.video_wrap{
+			position: relative;
+			.video{
+				position: relative;
+				width: 876px;
+				margin: 0 auto;
+				text-align: right;
+
+				>img{
+					position: relative;
+					top:130px;
+					margin-right: 65px;
+					@include css3(opacity,0);
+					@include css3(transition, all 0.8s);
+					transition-delay: 1.4s;
+				}
+				.bg{
+					position: absolute;
+					top:20px;
+					left:0;
+					@include css3(opacity,0);
+					@include css3(transition, all 0.8s);
+					transition-delay: 1s;
+				}
+			}
+			.deco{
+				position: absolute;
+			    top: 20px;
+			    left: 50%;
+			    margin-left: 352px;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.8s);
+				transition-delay: 1.6s;
 			}
 		}
 	}

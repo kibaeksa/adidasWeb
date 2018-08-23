@@ -1014,7 +1014,7 @@
 					<div class="model_bot">
 						<div class="visual_video">
 							<div class="bg"><img src="/images/adidas/event/originals/pod/180808/bg_video.jpg" alt="" class="play-video" data-video-id="dz-SSZE53Sg" /></div>
-							<div class="masthead"><a class="play play-video" onclick="openModalVideoViewer('dz-SSZE53Sg')"></a></div>							
+							<div class="masthead"><a class="play play-video" onclick="openModalVideoViewer('dz-SSZE53Sg')"></a></div>
 						</div>
 					</div>
 				</div>
@@ -1149,6 +1149,59 @@
 					</div>
 				</div>
 
+				<div class="products_collection scroll">
+					<div class="title">
+						<div class="pod">
+							<p>P.O.D. STYLE</p>
+							<span></span>
+						</div>
+						<p>도끼 주노플로, 블랙핑크와 함께한 P.o.d. system 스타일 화보</p>
+					</div>
+					<div class="wide-slider-wrapper" id="wide_slider2">
+						<div class="btn">
+							<a href="javascript:void(0)" class="next"><img src="/images/adidas/event/originals/pod/180808/arrow_next.png" alt=""></a>
+							<a href="javascript:void(0)" class="prev"><img src="/images/adidas/event/originals/pod/180808/arrow_prev.png" alt=""></a>
+						</div>
+					  <ul>
+						<li class="active"><img src="/images/adidas/event/originals/pod/180808/01.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/02.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/03.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/04.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/05.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/06.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/07.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/08.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/09.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/10.jpg" alt=""></li>
+						<li><img src="/images/adidas/event/originals/pod/180808/11.jpg" alt=""></li>
+					  </ul>
+					</div>
+
+					<div class="slider-btn">
+						<a href="javascript:void(0)" class="on"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+						<a href="javascript:void(0)"></a>
+					</div>
+
+					<div class="video_wrap ">
+						<div class="video" >
+							<img src="/images/adidas/event/originals/pod/180808/video.jpg" alt="" onclick="openModalVideoViewer('EspMCuyslXY')">
+							<img src="/images/adidas/event/originals/pod/180808/video_bg.png" alt="" class="bg">
+						</div>
+						<img src="/images/adidas/event/originals/pod/180808/video_deco.png" alt="" class="deco">
+					</div>
+
+				</div>
+				<!-- //products_collection -->
+
 				<div class="modal_popup ">
 					<div class="overlay"></div>
 					<a href="javascript:void(0)" class="close"><img src="/images/adidas/event/originals/pod/popup_close.png" alt=""></a>
@@ -1164,6 +1217,24 @@
 			<script type="text/javascript">
 
 				(function($){
+
+					$(window).load(function(){
+						var scrollArray = [];
+		       			var scrollContent = document.querySelectorAll('.scroll');
+						for(var i = 0; i<scrollContent.length; i++){
+							 var mypos = scrollContent[i].offsetTop;
+							 scrollArray.push(mypos)
+						}
+
+		       			$(window).scroll(function(){
+		       				var thispos = $(this).scrollTop() + 0;
+		       				for(var pos = 0; pos<scrollArray.length; pos++){
+		       					if(thispos>scrollArray[pos]){
+		       						$('#originals_pod .scroll').eq(pos).addClass('on');
+		       					}
+		       				}
+		       			});
+					});
 
 					$('.card_wrap').bind('click', function(){
 						var videoURL = $(this).attr('data-video');
@@ -1181,30 +1252,12 @@
 					});
 
 
-
-
-
-
 					// 바텀 collection popup
 					$('.modal_popup .close').bind('click',function(){
 						$('.modal_popup').removeClass('on');
 					});
 
-					var scrollArray = [];
-	       			var scrollContent = document.querySelectorAll('.scroll');
-					for(var i = 0; i<scrollContent.length; i++){
-						 var mypos = scrollContent[i].offsetTop;
-						 scrollArray.push(mypos)
-					}
 
-	       			$(window).scroll(function(){
-	       				var thispos = $(this).scrollTop() + 500;
-	       				for(var pos = 0; pos<scrollArray.length; pos++){
-	       					if(thispos>scrollArray[pos]){
-	       						$('#originals_superstar .scroll').eq(pos).addClass('on');
-	       					}
-	       				}
-	       			});
 
 					// slider
 					var slider_wrap = $('.slider_inn');
@@ -1219,7 +1272,7 @@
 
 					// next 함수/prev 함수
 					var incre = 0;
-					$('.next').click(function(){
+					$('.slider_wrap .next').click(function(){
 
 						incre++;
 						if( slider.is(':animated') == true ) return;
@@ -1230,7 +1283,7 @@
 						return false;
 					});
 
-					$('.prev').click(function(){
+					$('.slider_wrap .prev').click(function(){
 						incre--;
 						if( slider.is(':animated') == true ) return;
 						$('.slider_inn ul li').removeClass('on').eq(incre+1).addClass('on');
@@ -1249,9 +1302,31 @@
 						slider.stop().animate({ 'left' : -moveSlider_width*incre },500);
 					}
 
-					// resizing
-					$(window).resize(function(){
+					// LOOKBOOK
+					function wideSlider(t){function e(){c.style.width=t.width*(a+4)+"px",c.style.position="absolute",c.style.left=m*-1+t.width*-1+"px"}function n(t,e){void 0==e&&(e=s),f=e,s=t}function i(){for(var t=0,e=3;t<2;t++){var n=h[t].cloneNode(!0);c.appendChild(n)}for(;e<5;e++){var n=h[h.length-e].cloneNode(!0);c.insertBefore(n,c.firstChild)}}function d(t,e){var n,i;return y=!0,void 0!==t?(n=t,i=e+.15*(n-e),c.style.left=i+"px"):(n=(w*s+m+v)*-1,i=(w*f+m+v)*-1),Math.abs(n-i)<1?(i=n,y=!1,c.style.left=n+"px",!1):void requestAnimationFrame(function(){d(n,i)})}function o(){if(t.callback){var e,n=[];s>1&&s<a-2?(n.push(h[s+2]),e=s):s<=1||s>p-5?0==s||s==p-2?(e=0,n.push(h[2]),n.push(h[p-2])):(e=1,n.push(h[3]),n.push(h[p-1])):s==a-1||1==s?(e=a-1,n.push(h[1]),n.push(h[a+1])):(e=a-2,n.push(h[0]),n.push(h[a])),t.callback.call(window,n,e)}}function l(){r=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,m=t.width-(r-w)/2,c.style.left=m*-1+t.width*(s+1)*-1+"px"}var u=document.getElementById(t.elemId),c=function(){for(var t=u.children,e=0;e<t.length;e++)if("ul"==t[e].nodeName.toLowerCase())return t[e]}(),h=c.children,r=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,s=0,f=-1,a=h.length,p=a+4,w=t.width,m=t.width-(r-w)/2,v=t.width,y=!1;return i(),e(),$(window).resize(l),{next:function(){y||(s==p-5?n(0,-1):n(s+1),o(),d())},prev:function(){y||(0==s?n(p-5,p-4):n(s-1),o(),d())},slide:function(t){y||t!==s&&t<a&&(n(t),o(),d())}}}
 
+					var wslr2 = wideSlider({
+						elemId : 'wide_slider2',
+						width : 970,
+						callback : function(elem , index){
+							$('.products_collection .wide-slider-wrapper ul li').removeClass('active');
+							for(var i = 0; i < elem.length; i++){
+								$(elem[i]).addClass('active');
+							}
+							$('.products_collection .slider-btn a').removeClass('on').eq(index).addClass('on');
+						}
+					});
+					$('.products_collection .prev').bind('click',function(){
+						wslr2.prev();
+					});
+					$('.products_collection .next').bind('click',function(){
+						wslr2.next();
+					});
+					$('.products_collection .slider-btn a').bind('click',function(){
+						if($(this).hasClass('on')){
+							return;
+						}
+						wslr2.slide($(this).index());
 					});
 
 
