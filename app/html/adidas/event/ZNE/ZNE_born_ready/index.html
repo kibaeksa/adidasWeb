@@ -1027,7 +1027,7 @@
 			</div> -->
 			<div class="video">
 				<!-- <img src="http://image.adidas.co.kr/images/adidas/event/zne/ZNE_born_ready/main.jpg" alt="main"> -->
-				<video id="video" src="http://image.adidas.co.kr/images/adidas/event/zne/ZNE_born_ready/181020/naeunson1.mp4" loop muted autoplay playsinline></video>
+				<video id="myVideo" src="http://image.adidas.co.kr/images/adidas/event/zne/ZNE_born_ready/181020/naeunson1.mp4" loop muted autoplay playsinline></video>
 			</div>
 			<div class="txt">
 				<h1>THE NEW Z.N.E.<br>
@@ -1388,11 +1388,11 @@
 
 	<script type="text/javascript" src="/js/adidas/event/commonCampaign.js"></script>
 		<script type="text/javascript">
-		var video = document.getElementById('#video');
-
-		video.oncanplay = function() {
-		    alert("Can start playing audio");
-		};
+		// var video = document.getElementById('#video');
+		//
+		// video.oncanplay = function() {
+		//     alert("Can start playing audio");
+		// };
 		(function($){
 
 
@@ -1471,6 +1471,12 @@
 			});
 
 
+			var vid = document.getElementById("myVideo");
+			vid.onloadstart = function() {
+			    alert("Starting to load video");
+			};
+
+
 			var loop = setInterval(start,700);
 
 	        var len = 11;
@@ -1489,6 +1495,7 @@
 	                console.log(index);
 	            }
 	        };
+
 
 
 
