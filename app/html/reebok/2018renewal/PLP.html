@@ -25,9 +25,11 @@
 <script type="text/javascript" src="/js/reebok/efu2018/jquery-1.11.2.min.js"></script> -->
 <!-- 181101 jQuery upgrade -->
 <script type="text/javascript" src="/js/reebok/efu2018/jquery-1.12.4.min.js"></script>
-<script>
+<!-- 181108 jQuery 치환 하기 코드 삭제 -->
+<!-- <script>
     var jquery_1_11 = jQuery.noConflict();
-</script>
+</script> -->
+
 <!-- 181101 jQuery ui 1.12.1 upgrade-->
 <script type="text/javascript" src="/js/reebok/efu2018/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/js/reebok/efu2018/ui.js"></script>
@@ -37,130 +39,129 @@
 <!-- <script src="http://image.reebok.co.kr/js/reebok/efu2018/slick.min.js"></script> -->
 <link rel="stylesheet" href="/css/reebok/efu2018/plp.css">
 <script type="text/javascript">
-jQuery(function(){
-	//snb 온오프
-	jQuery(".productSnb .style01>a, .productSnb .style02>a").click(function(){
-		if(!jQuery(this).parent().hasClass("on")) {
-			jQuery(".productSnb .style01, .productSnb .style02").removeClass("on");
-			jQuery(".productSnb .style02").find("div").slideUp();
+	(function($){
+	$(document).ready(function(){
+		//snb 온오프
+		jQuery(".productSnb .style01>a, .productSnb .style02>a").click(function(){
+			if(!jQuery(this).parent().hasClass("on")) {
+				jQuery(".productSnb .style01, .productSnb .style02").removeClass("on");
+				jQuery(".productSnb .style02").find("div").slideUp();
+				jQuery(this).parent().addClass("on");
+				jQuery(this).next("div").slideDown();
+			} else {
+				jQuery(".productSnb .style01, .productSnb .style02").removeClass("on");
+				jQuery(this).next("div").slideUp();
+			}
+			return false;
+		});
+
+		//메뉴 온오프 텍스트 컬러
+		jQuery(".productSnb .style02 div a").click(function(){
+			jQuery(".productSnb .style02 div ul li").removeClass("on");
+			jQuery(".productSnb .style02 div>p").removeClass("on");
 			jQuery(this).parent().addClass("on");
-			jQuery(this).next("div").slideDown();
-		} else {
-			jQuery(".productSnb .style01, .productSnb .style02").removeClass("on");
-			jQuery(this).next("div").slideUp();
-		}
-		return false;
-	});
 
-	//메뉴 온오프 텍스트 컬러
-	jQuery(".productSnb .style02 div a").click(function(){
-		jQuery(".productSnb .style02 div ul li").removeClass("on");
-		jQuery(".productSnb .style02 div>p").removeClass("on");
-		jQuery(this).parent().addClass("on");
+			return false;
+		});
 
-		return false;
-	});
+		//select size
+		jQuery(".productSnb .sizeArea1 li a").click(function(){
+			jQuery(".productSnb .sizeArea1 li").removeClass("on");
+			jQuery(this).parent().addClass("on");
 
-	//select size
-	jQuery(".productSnb .sizeArea1 li a").click(function(){
-		jQuery(".productSnb .sizeArea1 li").removeClass("on");
-		jQuery(this).parent().addClass("on");
+			return false;
+		});
 
-		return false;
-	});
+		jQuery(".productSnb .sizeArea2 li a").click(function(){
+			jQuery(".productSnb .sizeArea2 li").removeClass("on");
+			jQuery(this).parent().addClass("on");
 
-	jQuery(".productSnb .sizeArea2 li a").click(function(){
-		jQuery(".productSnb .sizeArea2 li").removeClass("on");
-		jQuery(this).parent().addClass("on");
+			return false;
+		});
 
-		return false;
-	});
+		jQuery(".productSnb .sizeArea3 li a").click(function(){
+			jQuery(".productSnb .sizeArea3 li").removeClass("on");
+			jQuery(this).parent().addClass("on");
 
-	jQuery(".productSnb .sizeArea3 li a").click(function(){
-		jQuery(".productSnb .sizeArea3 li").removeClass("on");
-		jQuery(this).parent().addClass("on");
+			return false;
+		});
 
-		return false;
-	});
+		//SELECT COLOR
+		jQuery(".productSnb .colorArea li").click(function(){
+			if(!jQuery(this).find("a").hasClass("on")) {
+				jQuery(".productSnb .colorArea li a").removeClass("on");
+				jQuery(this).find("a").addClass("on");
+			} else {
+				jQuery(this).find("a").removeClass("on");
+			}
+			return false;
+		});
 
-	//SELECT COLOR
-	jQuery(".productSnb .colorArea li").click(function(){
-		if(!jQuery(this).find("a").hasClass("on")) {
-			jQuery(".productSnb .colorArea li a").removeClass("on");
-			jQuery(this).find("a").addClass("on");
-		} else {
-			jQuery(this).find("a").removeClass("on");
-		}
-		return false;
-	});
+		//리스트 hover
+	    // 181108 jQuery 치환 START
+		jQuery(".plp-grid .item")
+		.bind("mouseenter", function(){
+			var thisContent = jQuery(this);
+			// var _this = jQuery(this);
+			// var _this = jQuery(this);
 
+			var thumOverImg = thisContent.find(".thum").attr("data-over");
 
-	/*  20180627 수정 */
-	//리스트 hover
-	jQuery(".plp-grid .item")
-	.bind("mouseenter", function(){
-		var _this = jQuery(this);
-		var _this_11 = jquery_1_11(this);
+			thisContent.addClass("hover");
+			thisContent.find(".relationImgArea").css("visibility", "visible");
 
-		var thumOverImg = _this.find(".thum").attr("data-over");
+			thisContent.find(".thum").attr("src", thumOverImg);
 
-		_this.addClass("hover");
-		_this.find(".relationImgArea").css("visibility", "visible");
-
-		_this.find(".thum").attr("src", thumOverImg);
-
-		if(!_this_11.find(".relationImg").hasClass("playSlide")){
-			_this_11.find(".relationImg").slick({
-				slidesToShow: 3,
-				slidesToScroll: 1,
-				infinite: false,
-				speed: 500,
-				initialSlide : 0
-				//autoplay: true,
-				//autoplaySpeed: 2000,
+			if(!thisContent.find(".relationImg").hasClass("playSlide")){
+				thisContent.find(".relationImg").slick({
+					slidesToShow: 3,
+					slidesToScroll: 1,
+					infinite: false,
+					speed: 500,
+					initialSlide : 0
+					//autoplay: true,
+					//autoplaySpeed: 2000,
+				});
+				thisContent.find(".relationImg").addClass("playSlide");
+			}
+			thisContent.find(".relationImg li").bind("mouseenter", function(){
+				var smallThumSrc = jQuery(this).find("img").attr("src");
+				jQuery(this).addClass("on");
+				thisContent.find(".thum").attr("src", smallThumSrc);
 			});
-			_this_11.find(".relationImg").addClass("playSlide");
-		}
-		_this.find(".relationImg li").bind("mouseenter", function(){
-			var smallThumSrc = jQuery(this).find("img").attr("src");
-			jQuery(this).addClass("on");
-			_this.find(".thum").attr("src", smallThumSrc);
-		});
 
-		_this.find(".relationImg li").bind("mouseleave" , function(){
-			jQuery(this).removeClass("on");
-		});
+			thisContent.find(".relationImg li").bind("mouseleave" , function(){
+				jQuery(this).removeClass("on");
+			});
 
-	})
-	.bind("mouseleave" , function(){
-		var _this = jQuery(this);
-		var _this_11 = jquery_1_11(this);
-		var thumOutImg = _this.find(".thum").attr("data-out");
-		if(_this_11.find(".relationImg").hasClass("playSlide")){
-			_this_11.find(".relationImg").slick('slickGoTo', 0);
-		}
-		_this.removeClass("hover");
-		_this.find(".relationImgArea").css("visibility", "hidden");
-		_this.find(".thum").attr("src", thumOutImg);
+		})
+		.bind("mouseleave" , function(){
+			var thisContent = jQuery(this);
+			var thumOutImg = thisContent.find(".thum").attr("data-out");
+			if(thisContent.find(".relationImg").hasClass("playSlide")){
+				thisContent.find(".relationImg").slick('slickGoTo', 0);
+			}
+			thisContent.removeClass("hover");
+			thisContent.find(".relationImgArea").css("visibility", "hidden");
+			thisContent.find(".thum").attr("src", thumOutImg);
+		});
+	    // 181108 jQuery 치환 END
+
+		/* //상단 롤링
+		jQuery('.productTop .banner').bxSlider({
+	    	auto:true,
+			pager:true,
+			controls:true,
+			speed: 500,
+			pause: 3300
+	    });
+
+		var bannerPageW = jQuery(".bx-controls .bx-pager").width()/2;
+		jQuery(".bx-controls .bx-pager").css({
+			'margin-left':-bannerPageW
+		}); */
 	});
-	/*  //20180627 수정 */
-
-	/* //상단 롤링
-	jquery_1_11('.productTop .banner').bxSlider({
-    	auto:true,
-		pager:true,
-		controls:true,
-		speed: 500,
-		pause: 3300
-    });
-
-	var bannerPageW = jQuery(".bx-controls .bx-pager").width()/2;
-	jQuery(".bx-controls .bx-pager").css({
-		'margin-left':-bannerPageW
-	}); */
-
-});
-
+})(jQuery);
 </script>
 
 
@@ -614,14 +615,13 @@ jQuery(function(){
     								</div>
     								<div class="info_wrapper">
     									<!-- hover 경우 노출 -->
-    									<div class="relationImgArea" style="visibility: hidden;">
-    										<ul class="relationImg slick-initialized slick-slider playSlide"><button class="slick-prev slick-arrow slick-disabled" aria-label="Previous" type="button" aria-disabled="true" style="display: block;">Previous</button>
-    											<div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 330px; transform: translate3d(0px, 0px, 0px);"><li class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 66px;"><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li><li class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 66px;"><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li><li class="slick-slide slick-active" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 66px;"><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li><li class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 66px;"><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li><li class="slick-slide" data-slick-index="4" aria-hidden="true" tabindex="-1" style="width: 66px;"><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li></div></div>
-
-
-
-
-    										<button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: block;" aria-disabled="false">Next</button></ul>
+    									<div class="relationImgArea" >
+    										<ul class="relationImg ">
+												<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum3.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
+											</ul>
     									</div>
     									<!-- //hover 경우 노출 -->
     									<!-- //hover 경우 노출 -->
@@ -656,14 +656,13 @@ jQuery(function(){
     								</div>
     								<div class="info_wrapper">
     									<!-- hover 경우 노출 -->
-    									<div class="relationImgArea">
-    										<ul class="relationImg">
-    											<li><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li>
-    											<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
-    											<li><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li>
-    											<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
-    											<li><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li>
-    										</ul>
+										<div class="relationImgArea" >
+    										<ul class="relationImg ">
+												<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum2.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum3.jpg" alt=""></li>
+												<li><img src="/images/reebok/efu2018/product/thum1.jpg" alt=""></li>
+											</ul>
     									</div>
     									<!-- //hover 경우 노출 -->
     									<!-- //hover 경우 노출 -->
