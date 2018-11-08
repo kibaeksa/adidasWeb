@@ -1603,4 +1603,4 @@
     return this;
   };
 
-})(jquery_1_11);
+})(jQuery);
