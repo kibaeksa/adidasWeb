@@ -14,12 +14,25 @@
 <script type="text/javascript" src="/js/comCode.js"></script>
 <script type="text/javascript" src="/js/validatorUtil.js"></script>
 
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.8.23/themes/base/jquery-ui.css" media="all" />
-<link rel="stylesheet" type="text/css" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" media="all" />
-<link rel="stylesheet" type="text/css" href="/css/datepicker_jquery.css"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script>
-<script type="text/javascript" src="/js/jquery/datepicker_jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" media="all" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="/css/datepicker_jquery.css"/> -->
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/tags/latest/ui/minified/i18n/jquery-ui-i18n.min.js"></script> -->
+<!-- <script type="text/javascript" src="/js/jquery/datepicker_jquery.js"></script> -->
+<style>
+    #ui-datepicker-div{
+        z-index: 100 !important;
+    }
+</style>
+<script>
+	$(function () {
+		$("#testDatepicker").datepicker({
+		});
+	});
+</script>
 
 </head>
 <body>
@@ -291,6 +304,7 @@ function fn_classChg(arg){
 								</ul>
 
 								<div class="date">
+                                    <input type="text" id="testDatepicker">
 									<label for="FROM_APPLY_DT" class="blind">시작일</label>
 									<input onkeydown="cfn_setDateFld(FROM_APPLY_DT)" type="text" name="FROM_APPLY_DT" id="FROM_APPLY_DT" title="시작일">
 									~
