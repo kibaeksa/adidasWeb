@@ -1034,11 +1034,11 @@
 					<a href="javascript:void(0)" class="video-button play-video" onclick="openModalVideoViewer('iisMyJdkyqg')"></a>
 					<div class="img"><img src="/images/adidas/event/parley/181115/video.jpg" alt=""></div>
 					<div class="btn">
-						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=286">PARLEY 제품 구매하기</a>
+						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=286"><span>PARLEY</span> 제품 구매하기</a>
 					</div>
 				</div>
 
-				<div class="main_visual">
+				<div class="main_visual eventScroll">
 					<div class="img">
 						<img src="/images/adidas/event/parley/181115/section_visual.jpg" alt="">
 					</div>
@@ -1050,7 +1050,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="detail">
+				<div class="detail eventScroll">
 					<div class="wrap">
 						<div class="left"><img src="/images/adidas/event/parley/181115/detail.png" alt=""></div>
 						<div class="right">
@@ -1066,7 +1066,7 @@
 								<div class="btn">
 									<a href="http://shop.adidas.co.kr/PF080801.action">런베이스 바로가기</a>
 								</div>
-								<div class="btn cyan">
+								<div class="btn">
 									<a href="https://www.runtastic.com/ko/groups/adidas-x-parley-run-for-the-oceans/members">런타스틱 앱 다운로드</a>
 								</div>
 							</div>
@@ -1074,12 +1074,14 @@
 					</div>
 				</div>
 
-				<div class="mid">
+				<div class="mid eventScroll">
 					<div class="img">
 						<img src="/images/adidas/event/parley/181115/mid.jpg" alt="">
 					</div>
 					<div class="txt">
-						<h1>PARLEY A.I.R.전략</h1>
+						<!-- <h1>PARLEY A.I.R.전략</h1> -->
+						<h1>
+						<span>P</span><span>A</span><span>R</span><span>L</span><span>E</span><span>Y</span>&nbsp;<span>A.</span><span>I.</span><span>R.</span>&nbsp;<span>전</span><span>략</span></h1>
 						<p>A.I.R.은 해양 오염을 예방하는 우리의 실천 전략</p>
 					</div>
 				</div>
@@ -1091,21 +1093,21 @@
 					<div class="txt">
 
 							<div class="wrap">
-								<h1>예방 <span>(Avoid)</span></h1>
+								<h1>예방 <span>(AVOID)</span></h1>
 								<p>비닐백과 미세 플라스틱의<br>
 								사용을 줄일것.<br>
 								가능하다면, 생산조차 하지 않을것.
 								</p>
 							</div>
 							<div class="wrap middle">
-								<h1>차단 <span>(Intercept)</span></h1>
+								<h1>차단 <span>(INTERCEPT)</span></h1>
 								<p>
 									플라스틱이 바다에<br>
 									버려지기 전에 회수할 것.
 								</p>
 							</div>
 							<div class="wrap">
-								<h1>리디자인 <span>(Redesign)</span></h1>
+								<h1>리디자인 <span>(REDESIGN)</span></h1>
 								<p>
 									소재 선택부터 생산 방식까지<br>
 									모든 과정에 걸쳐 친환경 혁신기술을 도입할 것.<br>
@@ -1136,7 +1138,7 @@
 						탄생하게 되었습니다.</p>
 						<div class="btn">
 							<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=286">
-								PARLEY 제품 구매하기
+								<span>PARLEY</span> 제품 구매하기
 							</a>
 						</div>
 					</div>
@@ -1152,7 +1154,24 @@
 			<script type="text/javascript">
 				(function($){
 
+					var scrollArray = [];
+					var scrollContents = document.querySelectorAll('.eventScroll');
+					console.log(scrollContents)
 
+					for(var index = 0; index < scrollContents.length; index++ ){
+						var mypos = scrollContents[index].offsetTop;
+						scrollArray.push(mypos);
+						console.log(mypos)
+					}
+
+					$(window).scroll(function(){
+						var thispos = $(this).scrollTop() + 500;
+						for(var pos = 0; pos < scrollArray.length; pos++){
+							if(thispos > scrollArray[pos]){
+								$('#parley .eventScroll').eq(pos).addClass('on')
+							}
+						}
+					})
 
 
 				})(jQuery);
