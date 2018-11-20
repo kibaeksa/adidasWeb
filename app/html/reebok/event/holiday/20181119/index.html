@@ -10,6 +10,7 @@
       <script type="text/javascript" src="/js/common.js"></script>
 	  <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="http://image.reebok.co.kr/js/modalPopup.min.js?v=170607"></script>
+    <script type="text/javascript" src="/js/swiper.min.js"></script>
    </head>
    <body>
       <div id="wrap">
@@ -184,18 +185,10 @@
 			    }
 			    .holiday_2018_wrap{
 			        position: relative;
-			        height: 3400px;
 			        overflow: hidden;
 			    }
-			    #holiday_2018{
-			        /* height: 3706px; */
-			        position: absolute;
-			        left:50%;
-			        margin-left: -960px;
-			    }
-			    #holiday_2018 .box{
 
-			    }
+
 			    .holiday_201709_pop>.popup{
 			        top:45% !important;
 			    }
@@ -243,19 +236,24 @@
 			    }
 
 
-
-
-
-                .slide_area{
+                .cont_area1{
+                    position: relative;
+                    height: 1416px;
+                }
+                .cont_area3{
+                    position: relative;
+                    height: 1477px;
+                }
+                .cont_area2{
                     position: relative;
                     height: 592px;
                 }
-                .slide_area .img{
+                .symmetry{
                     position: absolute;
-                    top:0;
-                    left: 50%;
-                    margin-left:-960px;
+                    left:50%;
+                    margin-left: -960px;
                 }
+
                 .collection.slider{
                     position: absolute;
                     top: 50%;
@@ -287,8 +285,10 @@
 			<div class="holiday_2018_wrap">
 			    <div id="holiday_2018">
 			        <div class="box">
-                        <div class="cont_area"><!--http://image.reebok.co.kr/upload/campaign/reebok/181119-->
-                            <img src="/images/reebok/event/holiday/20181119/1811_r_holiday_DT_1.jpg" alt="" usemap="#Map01">
+                        <div class="cont_area1"><!--http://image.reebok.co.kr/upload/campaign/reebok/181119-->
+                            <div class="img symmetry">
+                                <img src="/images/reebok/event/holiday/20181119/1811_r_holiday_DT_1.jpg" alt="" usemap="#Map01">
+                            </div>
                             <map name="Map01" id="Map01">
                               <!-- <area shape="rect" coords="983,1320,1150,1349" href="http://shop.reebok.co.kr/RPF070801.action?pageNo=690" alt="" onfocus="this.blur();"/> -->
                               <area shape="rect" coords="516,1132,1404,1238" href="http://shop.reebok.co.kr/RPF060201.action?emailYn=Y" alt="쿠폰 확인" class="btn_entry"/>
@@ -296,15 +296,15 @@
                             </map>
                         </div>
 
-                        <div class="slide_area">
-                            <div class="img">
+                        <div class="cont_area2">
+                            <div class="img symmetry">
                                 <img src="/images/reebok/event/holiday/20181119/1811_r_holiday_DT_2.jpg" alt="">
                             </div>
                             <div class="collection slider" >
                               <div class="collection_slider_wrap " >
                                   <div id="collection_slider">
                                       <ul>
-                                          <li><img src="/images/reebok/event/holiday/20181119/slide1.jpg" alt=""></li>
+                                          <li class="on"><img src="/images/reebok/event/holiday/20181119/slide1.jpg" alt=""></li>
                                             <li><img src="/images/reebok/event/holiday/20181119/slide2.jpg" alt=""></li>
                                             <li><img src="/images/reebok/event/holiday/20181119/slide3.jpg" alt=""></li>
                                             <li><img src="/images/reebok/event/holiday/20181119/slide4.jpg" alt=""></li>
@@ -320,8 +320,10 @@
                           </div>
                         </div>
 
-                          <div class="cont_area"><!--http://image.reebok.co.kr/upload/campaign/reebok/181119-->
-                              <img src="/images/reebok/event/holiday/20181119/1811_r_holiday_DT_3.jpg" alt="" usemap="#Map02">
+                          <div class="cont_area3"><!--http://image.reebok.co.kr/upload/campaign/reebok/181119-->
+                              <div class="img symmetry">
+                                  <img src="/images/reebok/event/holiday/20181119/1811_r_holiday_DT_3.jpg" alt="" usemap="#Map02">
+                              </div>
                               <map name="Map02" id="Map02">
                                 <area shape="rect" coords="898,684,1076,716" href="http://shop.reebok.co.kr/RPF110101.action?CPON_ID=9297" alt="쿠폰 사용 가능 매장 보기" onfocus="this.blur();">
 
@@ -344,9 +346,10 @@
                                 var sliders = $('.slider #collection_slider').Swipers({
         							width : 302,
         							height : 131,
-        							duration : 600,
-        							auto  :true,
-        							autoTime : 4000,
+                                    auto: true,
+            						loop: true,
+            						duration: 800,
+            						easing: 'easeInOutCubic',
         							callback : function( index , prevIdx ){
         								$('.slider .indicator a').removeClass('on').eq(index).addClass('on');
         							}

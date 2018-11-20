@@ -2,59 +2,94 @@
 @import './app/css/adidas/scss/common/common.scss';
 
 
-.video-viewer {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 100;
-	.video {
-		width: 100%;
-		height: 100%;
-		z-index: 6;
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-	.close {
-		width: 50px;
-		height: 50px;
-		position: absolute;
-		top: 0;
-		right: 0;
-		z-index: 20;
-		background-position: 0 -685px;
-		@include opacity(0);
-		@include css3(transition, opacity 0.4s ease-in 0.2s);
-	}
-	.bg {
-		width: 100%;
-		height: 100%;
-		background: #000;
-		z-index: 5;
-		position: absolute;
-		top: 0;
-		left: 0;
-		@include opacity(0);
-		@include css3(transition, opacity 0.4s);
-	}
-	&.loaded {
-		.bg {
-			@include opacity(0.6);
+// .video-viewer {
+// 	width: 100%;
+// 	height: 100%;
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: 100;
+// 	.video {
+// 		width: 100%;
+// 		height: 100%;
+// 		z-index: 6;
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 	}
+// 	.close {
+// 		width: 50px;
+// 		height: 50px;
+// 		position: absolute;
+// 		top: 0;
+// 		right: 0;
+// 		z-index: 20;
+// 		background-position: 0 -685px;
+// 		@include opacity(0);
+// 		@include css3(transition, opacity 0.4s ease-in 0.2s);
+// 	}
+// 	.bg {
+// 		width: 100%;
+// 		height: 100%;
+// 		background: #000;
+// 		z-index: 5;
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 		@include opacity(0);
+// 		@include css3(transition, opacity 0.4s);
+// 	}
+// 	&.loaded {
+// 		.bg {
+// 			@include opacity(0.6);
+// 		}
+// 		.close {
+// 			@include opacity(1);
+// 		}
+// 	}
+// }
+#wrap{
+	overflow: hidden;
+	min-width: 1190px;
+}
+.common_btn{
+	display: inline-block;
+	position: absolute;
+	bottom:50%;
+	left: 50%;
+	margin-bottom:-250px;
+	margin-left: -119.795px;
+	background: #000;
+	&:hover{
+		background: #fff;
+		transition: all .5s ease-in;
+		a{
+			color:#000;
 		}
-		.close {
-			@include opacity(1);
+	}
+	a{
+		display: block;
+		color: #fff;
+		// padding: 17px 38px 12px;
+		// font-family: 'NotoSansKR';
+		// font-weight: 700;
+		// font-size: 18px;
+		border:2px solid #000;
+		width: 240px;
+		text-align: center;
+			font: 700 18px/60px 'NotoSansKR';
+		span{
+			font:21px 'adihausDIN-Cond-bold';
 		}
 	}
 }
+
 
 #parley {
 	position: relative;
 	background: url('/images/adidas/event/parley/181115/bg.jpg') 100% 100% no-repeat;
 	overflow: hidden;
-
-
+	min-width:1220px;
 	.video {
 		position: relative;
 		height: 850px;
@@ -103,34 +138,6 @@
 			left: 50%;
 			margin-left: -960px;
 			height: 560px;
-		}
-		.btn{
-			display: inline-block;
-			position: absolute;
-			bottom:50%;
-			left: 50%;
-			margin-bottom:-250px;
-			margin-left: -119.795px;
-			background: #000;
-			&:hover{
-				background: #fff;
-				transition: all .5s ease-in;
-				a{
-					color:#000;
-				}
-			}
-			a{
-				display: block;
-			    color: #fff;
-			    padding: 15px 38px;
-			    font-family: 'NotoSansKR';
-			    font-weight: 700;
-			    font-size: 18px;
-				border:2px solid #000;
-				span{
-					font:21px 'adihausDIN-Cond-bold';
-				}
-			}
 		}
 	}
 
@@ -201,8 +208,6 @@
 		height: 683px;
 
 		.wrap{
-
-			width:1920px;
 			.left{
 				position: absolute;
 			    bottom: 50%;
@@ -218,7 +223,7 @@
 			    bottom: 50%;
 			    right: 50%;
 				margin-bottom: -183px;
-			    margin-right: -604px;
+			    margin-right: -615px;
 			    float: left;
 			    display: inline-block;
 				h1{
@@ -242,6 +247,7 @@
 					.btn:first-child{
 						display: inline-block;
 						background: #000;
+					    margin-right: 5px;
 						&:hover{
 							background: #fff;
 							transition: all .5s ease-in;
@@ -251,11 +257,14 @@
 						}
 						a{
 							display: block;
-							padding:21px 50px;
+							// padding:21px 50px;
 							color:#fff;
-							font-family:'NotoSansKR';
-							font-weight:400;
-							font-size:18px;
+							// font-family:'NotoSansKR';
+							// font-weight:400;
+							// font-size:18px;
+							text-align: center;
+							font: 700 18px/60px 'NotoSansKR';
+							width: 240px;
 							border: 2px solid #000;
 						}
 						&.cyan{
@@ -285,11 +294,14 @@
 						}
 						a{
 							display: block;
-							padding:21px 50px;
+							// padding:21px 50px;
 							color:#fff;
-							font-family:'NotoSansKR';
-							font-weight:400;
-							font-size:18px;
+							// font-family:'NotoSansKR';
+							// font-weight:400;
+							// font-size:18px;
+							text-align: center;
+							font: 700 18px/60px 'NotoSansKR';
+							width: 240px;
 							border: 2px solid #00a2a4;
 						}
 							&:hover{
@@ -366,6 +378,23 @@
 						position: relative;
 						left: -20px;
 						opacity: 0;
+					}
+					&:first-child,
+					&:nth-child(2),
+					&:nth-child(3),
+					&:nth-child(4),
+					&:nth-child(5),
+					&:nth-child(6),
+					&:nth-child(7),
+					&:nth-child(8),
+					&:nth-child(9){
+						font:40px 'adihausDIN-Cond-medium';
+					}
+					&:nth-child(10),
+					&:last-child{
+						font-family:'NotoSansKR';
+						font-weight:400;
+						font-size:34px;
 					}
 				}
 			}
@@ -563,34 +592,7 @@
 				margin-top: 38px;
 				text-align: center;
 			}
-			.btn{
-				display: inline-block;
-				position: absolute;
-				bottom:50%;
-				left: 50%;
-				margin-bottom:-250px;
-				margin-left: -119.795px;
-				background: #000;
-				&:hover{
-					background: #fff;
-					transition: all .5s ease-in;
-					a{
-						color:#000;
-					}
-				}
-				a{
-					display: block;
-				    color: #fff;
-				    padding: 15px 38px;
-				    font-family: 'NotoSansKR';
-				    font-weight: 700;
-				    font-size: 18px;
-					border: 2px solid #000;
-					span{
-						font:21px 'adihausDIN-Cond-bold';
-					}
-				}
-			}
+
 		}
 		.img{
 			position: absolute;
@@ -600,6 +602,9 @@
 		    margin-left: -700px;
 		    text-align: center;
 			img{}
+		}
+		.common_btn{
+			margin-bottom: -190px;
 		}
 	}
 
