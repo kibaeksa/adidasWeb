@@ -1,189 +1,29 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
+<script type="text/javascript" src="/data/eventRouter.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <meta property="og:title" content="아디다스 공식 온라인 스토어" />
 <meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" />
 <meta property="og:url" content="http://shop.adidas.co.kr"/>
-<title>아디다스 공식 온라인 스토어 메인페이지</title>
+<title>아디다스</title>
 
 <link rel="shortcut icon" href="/images/adidas/favicon.ico" />
 <link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
-<link rel="stylesheet" type="text/css" href="/css/adidas/runbase_seoul.css" /><!-- 20170524 추가 -->
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
-<!-- <script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script> -->
-<script type="text/javascript" src="/js/jquery/jquery-1.12.4.min.js"></script>
-<script src="/js/modalPopup.js"></script>
-<script type="text/javascript" src="/js/customForm.js"></script>
-<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
-<script type="text/javascript" src="/js/comCode.js"></script>
-<script type="text/javascript" src="/js/validatorUtil.js"></script>
-<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="/js/adidas/adidas.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
-
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
-
-		});
-
-		jQuery('#new_prodlist li').hover(function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:1},200);
-		},function(){
-			jQuery(this).find('.type').find('.view_quick').stop();
-			jQuery(this).find('.type').find('.view_quick').animate({opacity:0},200);
-		});
-
-		// 170511 푸터 SNS 레이어 수정 START
-		jQuery('.f_sns>div>a.btn').bind('click',function(){
-			var $this = jQuery(this);
-			if( $this.siblings('.layer').hasClass('layer') ){
-				if($this.hasClass('on')){
-					$this.removeClass('on');
-					$this.siblings('.layer').show();
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-				}else{
-					jQuery('.f_sns>div>a.btn').removeClass('on');
-					jQuery('.f_sns>div>.layer').removeClass('open');
-					jQuery('.f_sns>div>.layer').hide();
-					$this.addClass('on');
-					$this.siblings('.layer').show();
-
-					setTimeout(function(){
-						$this.siblings('.layer').addClass('open');
-					},10);
-
-				}
-				return false;
-			}else{
-				return true;
-			}
-		});
-
-		jQuery('.f_sns>div>.layer>.close').bind('click',function(){
-			var $this = jQuery(this);
-			$this.parent().siblings('.btn').removeClass('on');
-			$this.parent().removeClass('open');
-			return false;
-		});
-		// 170511 푸터 SNS 레이어 수정 END
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" media="all"></script>
+<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script><script type="text/javascript" src="/js/adidas/adidas.js"></script>
 
 
-		// 161208 start
-		if(jQuery('.market .no_data_layer').length >= 1){
-			jQuery('.market>a').hover(function(){
-				jQuery(this).siblings('.no_data_layer').show();
-			},function(){
-				jQuery(this).siblings('.no_data_layer').hide();
-			});
-		}
-		// 161208 end
-
-
-	});
-
-	/* fa funcion 함수 */
-	function strCut(obj,len) {
-		var str = obj;
-		var l = 0;
-		for (var i=0; i<str.length; i++) {
-			l += (str.charCodeAt(i) > 128) ? 2 : 1;
-			if (l > len) return str.substring(0,i) + "..";
-		}
-		return str;
-	}
-	/* //150513 */
-
-	//151116 러닝클럽 종료 안내 팝업 닫기
-	function closeRcEndNotiLayer(){
-		jQuery('#popup_rc_end_noti').hide();
-	}
-
-
-	/* 150513 */
-	jQuery(document).ready(function(){
-		var title1 = '2015년 브라질 월드컵 기념 온라인단독 한정상품 7500원 할인 쿠폰';
-		var title2 = '생일축하 기념 10% 할인 쿠폰';
-		var cutln = navigator.appVersion.indexOf('MSIE 7.0') < 0 ? 32 : 30; //바이트 수
-
-		jQuery('.coupon_popup_layer .body .cpn li').eq(0).find('.label').attr('title',title1).text(strCut(title1 , cutln));
-		jQuery('.coupon_popup_layer .body .cpn li').eq(1).find('.label').attr('title',title2).text(strCut(title2 , cutln));
-
-		// 슈퍼위켄드 닫기팝업
-		jQuery('.modal-popup-super_weekend .close ,.modal-popup-super_weekend.overlay').bind('click',function(){
-			console.log(this);
-			jQuery('.modal-popup-super_weekend').hide();
-			return false;
-		});
-	});
-	/* //150513 */
-</script>
-<!-- 171221 runbase naver 지도 api v3 -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=1KG6a0e2Hj9na72OD3D6"></script>
 </head>
 <body>
 
-
 	<div id="wrap">
-
-		<script type="text/javascript" src="/js/adidas/navigation.js"></script>
-		<script type="text/javascript" src="/js/topSearchR.js"></script>
-		<script type="text/javascript" src="/js/validatorUtil.js"></script>
-		<script type="text/javascript" src="/js/search/dqAutoCompleteCommonTop.js"></script>
-		<script type="text/javascript" src="/js/adidas/select_layer.js"></script>
-
 		<!-- 160324 start -->
 		<div id="header-20160315">
 			<a href="#" class="topbnn_toggle spt_bg"></a>
@@ -500,23 +340,25 @@
 							<div class="ct950">
 								<div class="ctgr_box">
 									<div class="box col_18">
+										<!--
+										170627
+										스피드배송만 blue 클래스 유지
+										-->
 										<dl>
-											<dt>남성</dt>
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><storng>온라인 단독상품</storng></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#">온라인 단독</a></li>
+													<li><a href="#">런칭 캘린더</a></li>
+													<li><a href="#">스탭 리뷰</a></li>
+													<li><a href="#">VR 스토어</a></li>
+													<li class="line"><a href="#">마이 아디다스</a></li>
+													<li><a href="#">러닝화 가이드</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -565,7 +407,7 @@
 													<li><a href="#">공</a></li>
 													<li><a href="#">가방</a></li>
 													<li><a href="#">모자</a></li>
-													<li><a href="#">양밀</a></li>
+													<li><a href="#">양말</a></li>
 													<li><a href="#">시계</a></li>
 													<li><a href="#">디지털 액세서리</a></li>
 													<li><a href="#">피트니스 용품</a></li>
@@ -614,24 +456,25 @@
 							<div class="ct950">
 								<div class="ctgr_box">
 									<div class="box col_18">
+										<!--
+										170627
+										스피드배송만 blue 클래스 유지
+										-->
 										<dl>
-											<dt>여성</dt>
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><strong>온라인 단독상품</strong></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">팬츠 가이드</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#">온라인 단독</a></li>
+													<li><a href="#">런칭 캘린더</a></li>
+													<li><a href="#">스탭 리뷰</a></li>
+													<li><a href="#">VR 스토어</a></li>
+													<li class="line"><a href="#">마이 아디다스</a></li>
+													<li><a href="#">스포츠브라 가이드</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -679,7 +522,7 @@
 												<ul>
 													<li><a href="#">가방</a></li>
 													<li><a href="#">모자</a></li>
-													<li><a href="#">양밀</a></li>
+													<li><a href="#">양말</a></li>
 													<li><a href="#">시계</a></li>
 													<li><a href="#">디지털 액세서리</a></li>
 													<li><a href="#">피트니스 용품</a></li>
@@ -730,22 +573,22 @@
 								<div class="ctgr_box">
 									<div class="box col_18">
 										<dl>
-											<dt>키즈</dt>
+											<!--
+											170627
+											스피드배송만 blue 클래스 유지
+											-->
+											<dt>FEATURES</dt>
 											<dd>
 												<ul>
-													<!--
-													160415
-													신상품/인기상품/할인상품/온라인 단독상품 strong 태그 추가
-													-->
 													<li><a href="#"><strong>신상품</strong></a></li>
 													<li><a href="#"><strong>인기상품</strong></a></li>
 													<li class="line"><a href="#"><strong>할인상품</strong></a></li>
-													<li><a href="#"><strong>온라인 단독상품</strong></a></li>
-													<li><a href="#">마이 아디다스</a></li>
-													<li><a href="#">하이라이트 CONCEPT</a></li>
-													<li class="line"><a href="#">하이라이트 CONCEPT</a></li>
-													<!-- 160415 공식아웃렛 span 태그 추가-->
-													<li><a href="#"><span style="color:#a6141e;">공식 아웃렛</span></a></li>
+													<li><a href="#"><storng class="blue">스피드 배송</storng></a></li>
+													<li><a href="#">온라인 단독</a></li>
+													<li class="line"><a href="#">스탭 리뷰</a></li>
+													<li><a href="#">슈퍼스타 360</a></li>
+													<li class="line"><a href="#">스타워즈컬렉션</a></li>
+													<li><a href="#"><strong class="red">공식 아웃렛</strong></a></li>
 												</ul>
 											</dd>
 										</dl>
@@ -1378,8 +1221,8 @@
 						</div>
 						<!-- //depth2_contents -->
 					</li>
-					<!-- 170220 VR STORE 추가 -->
-					<li class="vrstore">
+					<!-- 170615 VR 메뉴 삭제 -->
+					<!-- <li class="vrstore line">
 						<a href="http://360pano.kr/adidaskorea/20170209/web/" target="_blank">VR STORE</a>
 						<div class="depth2_contents">
 							<div class="ct950">
@@ -1398,462 +1241,140 @@
 								</div>
 							</div>
 						</div>
+					</li> -->
+
+					<!-- 170615 스피드배송 추가 -->
+					<li class="kor">
+						<a href="#">스피드 배송</a>
 					</li>
-					<!-- 170220 VR STORE 끝 -->
+
 				</ul>
 			</div>
 			<!-- //gnb_menu -->
+
+			<!-- 170627 only_bars 수정-->
+			<div class="oneday_bars" style="display: block;">
+				<div class="ct950">
+					<div class="bar" style="margin: 0 auto;padding: 13px 0 0 32px;">
+						<span class="spt_bg" style="background: url('http://image.adidas.co.kr/images/adidas/common/ico_delivery.png');"></span>
+						<a href="javascript:void(0)" style="letter-spacing: -0.7px;" class="modal-popup-click" data-modalpop-click="free-deliver-popup"><span style="font:13px 'adinenuPro-regular';color: #333;letter-spacing: 0.7px;">FREE DELIVERY!</span>  7월 한 달간, 전 제품 무료배송/교환/반품 서비스  <small style="font-size:12px;">(단, 마이아디다스 제외)</small></a>
+					</div>
+				 </div>
+			 </div>
+
+			<!-- 170627 only_bars 수정 end-->
+
 		</div>
 		<!-- 160324 end -->
 
-		<!-- 170425 -->
 		<div id="container_r">
-			<!-- 170523 -->
-			<div id="runbase">
-				<div id="runbase_header">
-					<div class="runbase_header_inner ct950 clfix">
-						<h2 class="logo"><img src="/images/adidas/club/runbase/logo.png" alt="런베이스"></h2>
-						<div class="runbase_gnb">
-							<ul class="clfix">
-								<li>
-									<a href="javascript:void(0)">
-										<strong>ABOUT</strong>
-										<span>런베이스 서울이란?</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)">
-										<strong>SCHEDULE</strong>
-										<span>프로그램 스케줄</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)">
-										<strong>COACH</strong>
-										<span>코치진</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)">
-										<strong>COURSE</strong>
-										<span>러닝 코스</span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" class="last">
-										<strong>LOCATION</strong>
-										<span>오시는길</span>
-									</a>
-								</li>
-							</ul>
+
+			<link type="text/css" rel="stylesheet" href="/css/adidas/event/campaign.css"/>
+
+			<div id="next_level">
+				<div class="visual masthead">
+					<div class="bg"><img src="/images/adidas/event/basketball/next_level/visual.jpg" alt=""></div>
+					<div class="visual_tit">				
+						<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=747" class="btn-buy">구매하기<span><img src="" alt=""></span></a>
+					</div>				
+				</div>
+
+				<div class="section">
+					<div class="article scrollbox">
+						<div class="bg"><img src="/images/adidas/event/basketball/next_level/bg_cont_01s.jpg" alt=""></div>
+						<div class="inner">
+							<!-- <div class="cont_img fl"><img src="/images/adidas/event/basketball/next_level/img_cont_01.jpg" alt=""></div> -->
+							<div class="cont_txt fr tar">
+								<h2>MARQUEE BOOST</h2>
+								<p class="desc tar">
+									코트 위에서 가장 편안한 농구화.<br>
+									90년대 클래식 모델에서 영감을 받은 마퀴 부스트는 경기 시작부터<br>
+									버저 비터가 울리는 마지막 순간까지 편안한 쿠셔닝을 제공합니다.
+								</p>								
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=748" class="btn-buy">구매하기<span><img src="" alt=""></span></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="article scrollbox">
+						<div class="bg"><img src="/images/adidas/event/basketball/next_level/bg_cont_02s.jpg" alt=""></div>
+						<div class="inner">
+							<!-- <div class="cont_img fr"><img src="/images/adidas/event/basketball/next_level/img_cont_01.jpg" alt=""></div> -->
+							<div class="cont_txt fl tal">
+								<h2>PRO VISION</h2>
+								<p class="desc">
+									전장 바운스 미드솔과 헤링본 패던의 아웃솔은 언제 어디서든<br>
+									볼러들에게 최상의 안정감과 서포트를 제공합니다.
+								</p>
+								<a href="http://shop.adidas.co.kr/PF070801.action?pageNo=750" class="btn-buy">구매하기<span><img src="" alt=""></span></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="article scrollbox">
+						<div class="bg"><img src="/images/adidas/event/basketball/next_level/bg_cont_03s.jpg" alt=""></div>
+						<div class="inner">
+							<!-- <div class="cont_img fl"><img src="/images/adidas/event/basketball/next_level/img_cont_01.jpg" alt=""></div> -->
+							<div class="cont_txt fr tar">
+								<h2>N3XT L3V3L</h2>
+								<p class="desc tar">
+									브룩클린 팜과 아디다스의 합작으로 탄생한 넥스트 레벨.<br>
+									새롭게 선보이는 라이트스트라이크 미드솔 쿠셔닝과 프라임니트 갑피,<br>
+									그리고 안정적인 착화감을 제공해 주는 측면 지지대로,<br>
+									거침 없는 플레이를 위해 탄생한 혁신적인 퍼포먼스 농구화
+								</p>
+								<a href="javascript:void(0)" class="btn-buy">입고 예정<span><img src="" alt=""></span></a>
+								<!-- <a href="http://shop.adidas.co.kr/PF070801.action?pageNo=749" class="btn-buy">구매하기<span><img src="" alt=""></span></a> -->
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- runbase_header end-->
-				<div id="runbase_container" class="main">
-					<div class="runbase_main">
-						<!-- 170615 메인이미지수정 -->
-						<div class="main_visual"><div class="main_visual_bg"><img src="http://image.adidas.co.kr/images/adidas/club/runbase/main.jpg" alt="런베이스서울"></div></div>
-						<!-- 170615 메인이미지수정 end -->
-						<div class="runbase_about">
-							<div class="aboutbox about1">
-								<div class="ct950" style="text-align:center;">
-									<div class="title">
-										<h3>01</h3>
-										<p>about runbase seoul</p>
-									</div>
-									<div class="slider_wrap about_slider">
-										<div id="sliders" style="display:inline-block;">
-											<!-- 170615 이미지수정 -->
-											<ul>
-										        <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_slider01.jpg" alt=""></li>
-										        <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide2.jpg" alt=""></li>
-										        <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide3.jpg" alt=""></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide4.jpg" alt=""></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide5.jpg" alt=""></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide6.jpg" alt=""></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide7.jpg" alt=""></li>
-										        <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/slide8.jpg" alt=""></li>
-										    </ul>
-											<!-- 170615 이미지수정 end-->
-										</div>
-										<div class="arrow">
-											<a class="prev-button" href="javascript:void(0)"><</a>
-											<a class="next-button" href="javascript:void(0)">></a>
-										</div>
-										<div class="indicator">
-										    <a class="on" href="javascript:void(0)"></a>
-										    <a href="javascript:void(0)"></a>
-										    <a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-										    <a href="javascript:void(0)"></a>
-										</div>
-									</div>
-									<!-- 171219 -->
-									<p class="runbase_desc">
-										러너를 위한 공간 런베이스서울은 서울숲역과 근접한 곳으로 서울의 중심에 위치하여<br>
-										서울숲 코스, 한강 코스, 트랙 코스 등 다양한 러닝 코스와 프로그램이 구성되어 있습니다.
-									</p>
-									<p class="runbase_desc">
-										러너들의 고충이였던 락커룸과 샤워시설이 완비되어 있으며,<br>
-										러닝화 및 러닝 의류를 준비 못한 이용객에게는 렌탈 서비스를 제공합니다.
-									</p>
-									<p class="runbase_desc" style="padding-bottom:0px;">
-										또한 전문 선수들의 러닝 코칭, 코어운동, 리커버리 클래스 등<br>
-										러너들에게 필요한 다양한 프로그램이 상시 운영되고 있습니다.
-									</p>
-									<!-- 171219 -->
-									<!-- 170615 이미지수정 -->
-									<div style="padding-top:40px;"><img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_info_v2.png" alt=""></div>
-									<!-- 170615 이미지수정 end-->
-								</div>
-							</div>
-							<!-- 예약사이트오픈 스케쥴 -->
-							<div class="aboutbox about2">
-								<div class="ct950" style="text-align:center;">
-									<div class="title">
-										<h3>02</h3>
-										<p>RUNBASE SEOUL PROGRAM SCHEDULE</p>
-									</div>
 
-									<div class="runbase_schedule" style="width:770px; margin:0 auto;">
-										<div class="box clfix">
-											<div class="date">
-												<span>7</span>
-												<p>SUN</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span>online</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL WOMEN’S 러닝 크리에이터</p>
-													</li>
-													<li>
-														<span>online</span>
-														<p class="runbase_desc">밸런스 트레이닝 시즌 2 한강에서 펼쳐지는 상쾌한 트레이닝 미션 밸런스 트레이닝 시즌 2 한강에서 펼쳐지는 상쾌한 트레이닝 미션</p>
-													</li>
-													<li>
-														<span class="off">offline</span>
-														<p class="runbase_desc">WOMEN’S 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="box clfix">
-											<div class="date">
-												<span>8</span>
-												<p>MON</p>
-											</div>
-											<div class="course">
-												<ul>
-													<li>
-														<span class="close">close</span>
-														<p class="runbase_desc">CYTYNIGHT RUN IN JAMSIL 서울 러닝 크리에이터</p>
-													</li>
-												</ul>
-											</div>
-										</div>
+				<!-- <div class="box video">
+					<div class="inner">
+						<a href="javascript:void(0)" onclick="openModalVideoViewer('HE5zYl2GD6c')">
+							<img src="//image.adidas.co.kr/images/adidas/event/dame4/video.jpg" alt="">
+						</a>
+					</div>
+				</div> -->
 
-									</div>
-
-
-									<a href="#" class="btn-ctm arrow runbase-btn" style="width:770px;">
-									    <span>런베이스 프로그램 예약하기<span class="spt_bg"></span></span>
-									</a>
-								</div>
-							</div>
-							<div class="aboutbox about3">
-								<div class="ct950" style="text-align:center;">
-									<div class="title">
-										<h3>03</h3>
-										<p>RUNBASE SEOUL COACH</p>
-									</div>
-									<div class="slider_wrap coach_slider">
-										<div id="sliders_coach" style="display:inline-block;">
-											<!-- 171219 -->
-											<ul>
-										        <!-- <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider01.png" alt="강문희"></li> -->
-										        <li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider02.png" alt="조준우"></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider07.png" alt="정윤"></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider04_v2.png" alt="김예림"></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider05.png" alt="오예석"></li>
-												<li><img src="http://image.adidas.co.kr/images/adidas/club/runbase/coach_slider06.png" alt="최하영"></li>
-										    </ul>
-											<!-- 171219 -->
-										</div>
-										<div class="arrow">
-											<a class="prev-button" href="javascript:void(0)"><</a>
-											<a class="next-button" href="javascript:void(0)">></a>
-										</div>
-										<div class="indicator">
-										    <a class="on" href="javascript:void(0)"></a>
-										    <a href="javascript:void(0)"></a>
-										    <a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-											<a href="javascript:void(0)"></a>
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="aboutbox about4">
-								<div class="ct950" style="text-align:center;">
-									<div class="title">
-										<h3>04</h3>
-										<p>RUNBASE SEOUL running course</p>
-									</div>
-									<!-- 171219 -->
-									<div style="text-align:center;"><img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_running_course.png" alt=""></div>
-									<!-- 171219 -->
-									<a href="javascript:void(0)" class="btn-ctm arrow runbase-btn" style="display:inline-block;width:764px;">
-										<span>러닝코스 자세히 보기<span class="spt_bg"></span></span>
-									</a>
-								</div>
-							</div>
-							<div class="aboutbox about5">
-								<div class="ct950" style="text-align:center;">
-									<div class="title">
-										<h3>05</h3>
-										<p>RUNBASE SEOUL LOCATION</p>
-									</div>
-									<!-- <div id="nmap" ></div> -->
-									<div id="map" style="width:764px; height:303px; margin:0 auto 30px;"></div>
-									<script type="text/javascript">
-
-										// var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
-										// var oMap = new nhn.api.map.Map('nmap', {
-										// 	center : nPoint,
-										// 	zoom : 100
-										// });
-                                        //
-										// // 마커로 사용할 이미지 정의
-										// var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
-										// var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
-										// oMap.addOverlay(marker);
-
-										var runbaseLC = new naver.maps.LatLng(37.545627, 127.042434);
-										var map = new naver.maps.Map('map', {
-										    center: new naver.maps.LatLng(37.545627, 127.042434),
-										    zoom: 10
-										});
-
-										// 마커로 사용할 이미지 정의
-										var markerOptions = {
-										    position: runbaseLC,
-										    icon: {
-										        url: 'http://static.naver.net/maps/v3/pin_default.png',
-										        size: new naver.maps.Size(22, 35),
-										        anchor: new naver.maps.Point(11, 35)
-										    }
-										};
-										var marker = new naver.maps.Marker(markerOptions);
-
-										marker.setMap(map); // 추가
-
-									</script>
-									<div style="text-align:center; margin-bottom:90px;">
-										<!-- 171219 -->
-										<img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_map_info.png" alt="" >
-										<!-- 171219 -->
-									</div>
-									<!-- 170615 인스타삭제 -->
-									<div class="sns" style="text-align:center;">
-										<a href="https://www.facebook.com/runbaseseoul/">
-										<img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_sns.png" alt="">
-										</a>
-									</div>
-									<!-- 170615 인스타삭제 end -->
-								</div>
-							</div>
-						</div>
-
+				<div class="bottom scrollbox">
+					<div class="bg"><img src="/images/adidas/event/basketball/next_level/bottom.jpg" alt=""></div>
+					<div class="bottom_box">
+						<img src="/images/adidas/event/basketball/next_level/img_bottom.jpg" alt="">
 					</div>
 				</div>
-				<!-- runbase_container end-->
-
-
-				<script>
-					(function($){
-						$.fn.Swipers=function(a){function m(){f.loop&&(c.prepend($(d[d.length-1]).clone()),c.append($(d[0]).clone()),d=c.children()),f.easing&&!$.easing[f.easing]&&(f.easing=!1),b.css({width:f.width,height:f.height,position:"relative",overflow:"hidden"}),c.css({width:f.loop?(d.length+2)*j:d.length*j,height:f.height,position:"absolute",overflow:"hidden",left:f.loop?-1*f.width:0}),d.css({width:f.width,height:f.height,float:"left"}),f.auto&&(k=setInterval(function(){o(g+1,!0)},f.autoTime)),f.init&&f.init.call(b.get(0),i)}function n(a){h=g,g=a}function o(a,b){var d=b?e.autoDuration||e.duration:e.duration,g={isAuto:b,duration:d||void 0};if(f.loop)a<0?(n(i-1),c.css({left:(i+1)*j*-1}),g.num=i):a>=i?(n(0),c.css({left:0}),g.num=1):(g.num=a+1,n(a));else{if(a<0||a>i-1)return;g.num=a,n(a)}p(g)}function p(a){var b=a.duration,e=a.num,i=a.isAuto?"easeOutSine":f.easing;f.autoTime&&!a.isAuto&&clearInterval(k),c.stop().animate({left:j*e*-1},b,i),f.callback&&f.callback.call($(d[g]),g,h),setTimeout(function(){l=!1,f.autoTime&&!a.isAuto&&(clearInterval(k),k=setInterval(function(){o(g+1,!0)},f.autoTime))},b)}var b=$(this),c=b.children(),d=c.children(),e={width:$(d[0]).get(0).clientWidth,height:$(d[0]).get(0).clientHeight,loop:!1,auto:!1,autoTime:!!a.auto&&3e3,dragable:!1,easing:!1,duration:800,autoDuration:800},f=$.extend(e,a);f.auto&&!f.loop&&(f.loop=!0);var k,g=0,h=-1,i=d.length,j=f.moveValue?f.moveValue:f.width,l=!1;return m(),{prev:function(){return o(g-1),!1},next:function(){return o(g+1),!1},move:function(a){return a!==g&&o(a),!1}}};
-
-
-						// about img slider
-						var sliders = $('#sliders').Swipers({
-							width : 764,
-							height : 414,
-							duration : 600,
-							auto  :true,
-							autoTime : 5000,
-							callback : function( index , prevIdx ){
-								$('.about_slider .indicator a').removeClass('on').eq(index).addClass('on');
-							}
-							});
-
-							$('.about_slider .prev-button').bind('click',function(){
-								sliders.prev();
-							});
-
-							$('.about_slider .next-button').bind('click',function(){
-								sliders.next();
-							});
-
-							$('.about_slider .indicator a').bind('click',function(){
-							sliders.move($(this).index());
-						});
-
-						$('#runbase .runbase_schedule .box .course ul').each(function(){
-							var single_li = $(this).find('li').length;
-							if(single_li == 1){
-								$(this).children('li').addClass('mt15');
-							}
-						});
-
-						//ie line-height
-						// var ie8 = $('html').hasClass('ie8');
-						var ie = $('html').hasClass('ie');
-						if( ie == true ){
-							$('#runbase .user_information ul>li div').addClass('ie8');
-							$('#runbase #runbase_container .runbase_schedule .box .date>span').addClass('ie');
-						}
-
-						// coach slider
-						var sliders_coach = $('#sliders_coach').Swipers({
-							width : 770,
-							height : 334,
-							duration : 600,
-							auto  :true,
-							autoTime : 5000,
-							callback : function( index , prevIdx ){
-								$('.coach_slider .indicator a').removeClass('on').eq(index).addClass('on');
-							}
-							});
-
-							$('.coach_slider .prev-button').bind('click',function(){
-								sliders_coach.prev();
-							});
-
-							$('.coach_slider .next-button').bind('click',function(){
-								sliders_coach.next();
-							});
-
-							$('.coach_slider .indicator a').bind('click',function(){
-							sliders_coach.move($(this).index());
-						});
-
-						// menu scroll evnet
-						$('#runbase_header .runbase_gnb ul li').click(function(){
-							var index = $(this).index();
-							var pos = $('.runbase_about .aboutbox').eq(index).position().top;
-							$('#runbase_header .runbase_gnb ul li').removeClass('active').eq(index).addClass('active');
-							$('html,body').animate({
-							  scrollTop : pos
-							},500);
-
-						})
-						$(window).scroll(function(){
-							var nowscroll = $(this).scrollTop();
-
-							if(nowscroll>=80){
-							  $('#runbase_header').addClass('fixed')
-							}else{
-							  $('#runbase_header').removeClass('fixed')
-							}
-
-							$('.aboutbox').each(function(index){
-
-							  var start = $(this).position().top;
-							  var end = start + $(this).height();
-
-							  if(nowscroll >= start){
-								$('#runbase_header .runbase_gnb ul li').removeClass('active').eq(index).addClass('active');
-							  }
-							});
-						})
-
-
-
-
-					})(jQuery);
-				</script>
-
-
 			</div>
-			<!-- 170523 end -->
+			<!-- //next_level -->
+
+			<script>
+				(function ($) {
+
+					var scrollArray = [];					
+					var scrollCon = document.querySelectorAll('.scrollbox');
+
+					for (var i = 0; i < scrollCon.length; i++) {
+						var mypos = scrollCon[i].offsetTop;
+						scrollArray.push(mypos);
+					}
+
+					console.log(scrollArray);
+					
+					$(window).scroll(function () {
+						for (var pos = 0; pos < scrollArray.length; pos++) {
+							var thisPos = $(this).scrollTop() + 300;
+							console.log(thisPos);
+
+							if (thisPos >= scrollArray[pos]) {
+								$('#next_level .scrollbox').eq(pos).addClass('on');
+							}
+						}
+					});
+
+				}) (jQuery);
+			</script>
+
 		</div>
-		<!-- container_r end -->
 
 		<div id="footer">
 
@@ -2064,93 +1585,8 @@
 		</div>
 		<!-- footer end -->
 
-		<script type="text/javascript">
-			(function($){
-				// item_sliders
-				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
-				$.fn.productsSlider('.related-products .products-list-wrapper'); 
-
-				//main_slider
-				var main_length = $('.master_slide_wrapper .master-slide-container ul li').length;
-				var master_wrapper = $('.master_slide_wrapper');
-				var master_container = master_wrapper.find('.master-slide-container');
-				var master_list = master_container.find('>ul');
-
-
-				var sliders = $('#main_slider').Swipers({
-					width : 1920,
-					height : 700,
-					duration : 800,
-					easing : 'ease-out',
-					auto : true,
-					autoTime : 5000,
-					loop : true,
-					autoDuration : 3000,
-					init : function(length){
-
-						$(this).parent('.master_slide_wrapper').append((function(){
-							var htmlString_ = '<div class="num">';
-							for(var i = 0; i < length; i++){
-								if(i == 0){
-									htmlString_ += '<a href="javascript:void(0)" class="on"><span></span></a>';
-								}else{
-									htmlString_ += '<a href="javascript:void(0)"><span></span></a>';
-								}
-							}
-							return htmlString_;
-						})());
-
-						master_wrapper.find('.num').children('a').bind('click',function(){
-							sliders.move($(this).index());
-						});
-
-
-
-		            },
-					callback : function(index){
-						$('.master_slide_wrapper .num a').removeClass('on').eq(index).addClass('on');
-					}
-				});
-
-
-				master_wrapper.find('.next>span').bind('click',function(){
-					sliders.next();
-				});
-				master_wrapper.find('.prev>span').bind('click',function(){
-					sliders.prev();
-				});
-				master_wrapper.find('.num').children('a').bind('click',function(){
-					sliders.move($(this).index());
-				});
-
-
-			})(jQuery);
-		</script>
-
-		<!-- 170425 end -->
 
 	</div>
-
-	<!-- 181204 재정비 팝업  -->
-	<div class="modal-popup-wrapper" 
-		data-modalpop="" 
-		data-modalpop-name="fade-popup" 
-		data-modalpop-width="500"	 
-		data-modalpop-height="500" 
-		data-modalpop-fade="" 
-		data-modalpop-autoopen=""
-	>
-		<div class="overlay"></div>
-		<div class="popup" style="background:none;">
-			<div class="popup-header" style="background:none;border-bottom:0;">
-				<a href="javascript:void(0)" class="close" style="width:30px;height:30px;right:0;"><span class="spt_bg" style="background:url('http://image.adidas.co.kr/images/adidas/club/ar_pop_btn_cancel_201709.png'); width:30px;height:30px;margin:0;"></span></a>
-			</div>
-			<div class="popup-contents" style="padding:0;position:relative;">
-				<img src="http://image.adidas.co.kr/images/adidas/club/1812_a_pop_run_DT.jpg" width="100%" alt="">
-			</div>
-		</div>
-	</div>
-	<!-- 181204 재정비 팝업 end -->
 
 </body>
 </html>
