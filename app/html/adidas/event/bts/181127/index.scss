@@ -1,14 +1,570 @@
 @import './app/css/adidas/scss/common/mixin.scss';
 @import './app/css/adidas/scss/common/common.scss';
 
-
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
 #bts_kids{
 	position: relative;
+	.navi{
+		position: fixed;
+		top:-50px;
+		width: 100%;
+		height: 50px;
+		background: #ffdfe8;;
+		z-index: 12;
+		text-align: center;
+		@include css3(transition, all 0.5s);
+		&.on{
+			top:0;
+		}
+
+		div{
+			position: relative;
+			display: inline-block;
+			margin: 0 30px;
+			text-align: center;
+			overflow: hidden;
+			cursor: pointer;
+
+			&.on{
+				em{
+					left:0;
+				}
+			}
+			span{
+				position: relative;
+				z-index: 1;
+				font:600 20px/50px 'NotoSansKR';
+				color:#000;
+
+			}
+			em{
+				position: absolute;
+				bottom:12px;
+				left: -101%;
+				width: 100%;
+				height: 12px;
+				background: #ddd;
+				@include css3(transition, all 0.5s);
+			}
+		}
+	}
+
+	.main{
+		position: relative;
+		height: 750px;
+		.bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left: -960px;
+		}
+		.ct1190{
+			padding: 322px 0 0 0;
+			text-align: center;
+		}
+	}
+
+	.statement{
+		position: relative;
+		.bg{
+			padding: 75px 0 160px;
+			text-align: center;
+		}
+		.inn{
+			position: absolute;
+			top:50px;
+			width: 100%;
+			text-align: center;
+			h2{
+				text-align: center;
+				font: 58px/58px 'adinenuPro-black';
+				color:#000;
+				letter-spacing: -1px;
+			}
+			p{
+			    padding: 15px 0 0 0;
+				text-align: center;
+				font:400 22px/25px 'NotoSansKR';
+				color:#000;
+				letter-spacing: -1px;
+
+			}
+			.btn{
+				padding: 100px 0 0 0;
+				display: inline-block;
+				width: 350px;
+				&:hover{
+					a{
+						background: #555;
+					}
+				}
+				a{
+					display: block;
+					font:400 18px/62px 'NotoSansKR';
+					color:#fff;
+					background: #000;
+					text-align: center;
+					@include css3(transition, all 0.5s);
+				}
+			}
+		}
+	}
 
 	.title_wrap{
 		position: relative;
-		.ct1190{
-			
+		height: 660px;
+		@include css3(transition, all 1s);
+		.inn{
+			padding: 60px 0 0 0;
+			.deco{
+				position: absolute;
+				top:34px;
+				left:50%;
+				&.deco-img1{
+					margin-left: -547px;
+				}
+				&.deco-img2{
+					top: 436px;
+				    margin-left: 78px;
+				}
+				&.deco-img3{
+					margin-left: 461px;
+					    top: 0;
+				}
+			}
+		}
+		.tab_wrap{
+			position: relative;
+		    z-index: 2;
+			text-align: center;
+			.tab{
+				display: inline-block;
+				margin: 0 12px;
+				box-sizing: border-box;
+				width: 320px;
+				padding: 20px;
+				text-align: center;
+				background: #fff;
+				vertical-align: middle;
+				@include css3(opacity,0.4);
+				@include css3(transition, all 0.5s);
+				&.on{
+					width: 340px;
+					@include css3(opacity,1);
+				}
+				&.tab2{
+					.txt_wrap{
+						background: #f3faff;
+						p{
+							&.title{
+								em{
+									background: #c0d8ff;
+								}
+							}
+						}
+					}
+				}
+				&.tab3{
+					.txt_wrap{
+						background: #fff6d7;
+						p{
+							&.title{
+								em{
+									background: #ffe283;
+								}
+							}
+						}
+					}
+				}
+				img{
+					width: 100%;
+				}
+				.txt_wrap{
+					padding: 20px 0;
+					background: #fff3f6;
+					text-align: center;
+					p{
+						text-align: center;
+						font: 500 16px/20px 'NotoSansKR';
+						color:#000;
+						&.title{
+							position: relative;
+							padding: 0 0 25px 0;
+							display: inline-block;
+							&:after{
+								position: absolute;
+							    bottom: 13px;
+							    left: 50%;
+							    margin-left: -5px;
+							    content: '';
+							    display: inline-block;
+							    width: 10px;
+							    height: 1px;
+							    background: #ada6a8;
+							}
+							span{
+								position: relative;
+								font: 700 22px/22px 'NotoSansKR';
+								z-index: 1;
+							}
+							em{
+								position: absolute;
+							    bottom: 25px;left:0;
+								width: 100%;
+								height: 12px;
+								background: #fea3bd;
+							}
+
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	.prd_box{
+		position: relative;
+		padding: 200px 0 0 0;
+		&.smart_deco{
+			.deco{
+				position: absolute;
+				&.deco-img1{
+					top: 165px;
+				    left: 50%;
+				    margin-left: -524px;
+				}
+				&.deco-img2{
+					right:0;
+				}
+			}
+			.bnn_wrap{
+				padding: 55px 0 45px 0;
+				background: #ffedf2;
+			}
+		}
+		&.smart_cube{
+			.deco{
+				position: absolute;
+				&.deco-img1{
+					left:0;
+
+				}
+				&.deco-img2{
+					top: 164px;
+				    left: 50%;
+				    margin-left: 387px;
+				}
+			}
+			.bnn_wrap{
+				padding: 55px 0 45px 0;
+				background: #f4faff;
+			}
+			.txt_area{
+				p{
+					&.title{
+					    color: #207bec;
+					}
+				}
+			}
+		}
+		&.smart_mini{
+			.deco{
+				position: absolute;
+				&.deco-img1{
+					top: 164px;
+				    left: 50%;
+				    margin-left: -524px;
+				}
+				&.deco-img2{
+					top:586px;
+					right:0;
+
+				}
+			}
+			.prd_cut_wrap{
+				width: 422px;
+				.prd_cut{
+					display: inline-block;
+					.link{
+						>span{
+							position: absolute;
+							left:0;
+							display: inline-block;
+							width: 24px;
+							height: 24px;
+							border-radius: 50px;
+
+						}
+						.txt{
+							display: block;
+							padding-left: 35px;
+							letter-spacing: -0.7px;
+						}
+						em{
+							position: relative;
+							padding-left: 35px;
+
+						}
+					}
+				}
+			}
+			.bnn_wrap{
+				padding: 55px 0 45px 0;
+				background: #fffae7;
+			}
+			.txt_area{
+				p{
+					&.title{
+					    color: #ffd237;
+					}
+				}
+			}
+		}
+
+		&.on{
+			.slider_area{
+				top:0;
+				@include css3(opacity,1);
+			}
+			.txt_area{
+				p{
+					left:0;
+					@include css3(opacity,1);
+
+				}
+				.prd_cut{
+					left:0;
+					@include css3(opacity,1);
+
+				}
+			}
+		}
+		.arrow{
+			position: absolute;
+			top:65px;
+			left:50%;
+			margin-left: -20px;
+		}
+		.ct950{
+			&:after{
+				content: '';display: block;clear: both;
+			}
+		}
+		.left{
+			float: left;
+		}
+		.indicator{
+			margin: 10px 0 0 0;
+			text-align: center;
+			a{
+				box-sizing: border-box;
+				display: inline-block;
+				margin: 0 2px;
+				width: 13px;
+				height: 13px;
+				border:1px solid #000;
+				border-radius: 100px;
+				&.on{
+					background: #000;
+				}
+			}
+		}
+		.right{
+			float: right;
+		}
+		.slider_area{
+			position: relative;
+			top:50px;
+			@include css3(opacity,0);
+			@include css3(transition, all 0.5s);
+		}
+		.txt_area{
+			p{
+				position: relative;
+				left:50px;
+				color:#000;
+				text-transform: uppercase;
+				letter-spacing: -0.5px;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.5s);
+				transition-delay: 0.2s;
+				&.title{
+					font: 36px 'adinenuPro-black';
+					color:#fec9d7;
+				}
+				&.kor{
+					font:600 28px 'NotoSansKR';
+					span{
+						font: 14px 'adinenuPro-regular';
+						color:#999;
+					}
+				}
+				&.set{
+					padding: 0 0 5px 0;
+					font:300 15px 'NotoSansKR';
+				}
+				&.desc{
+					font:400 16px/19px 'NotoSansKR';
+				}
+			}
+			.prd_cut{
+				position: relative;
+				left:50px;
+				padding: 25px 0 0 0;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.5s);
+				transition-delay: 0.4s;
+				.link{
+					position: relative;
+					margin: 15px 0 0 0;
+					&:hover{
+						em{
+							span{
+								margin-left: 20px;
+							}
+						}
+					}
+					a{
+						position: absolute;
+						left:0;top:0;width: 100%;height: 100%;
+						z-index: 1;
+
+					}
+					>span{
+						display: inline-block;
+						margin: 0 8px 0 0;
+						vertical-align: middle;
+					}
+					.txt{
+						display: inline-block;
+						font:600 16px/24px 'NotoSansKR';
+						vertical-align: middle;
+						span{
+							display: inline-block;
+							margin-left: 3px;
+							font:400 15px 'adinenuPro-light';
+						}
+					}
+					em{
+						position: absolute;
+						right:0;top:0;
+						vertical-align: middle;
+						font:500 16px/24px 'NotoSansKR';
+						color:#000;
+						span{
+							position: relative;
+							margin-left: 15px;
+							background: url('/images/adidas/event/bts/181127/icon_arrow.png') no-repeat;
+							background-size:100% 100%;
+							display: inline-block;width: 33px;height: 11px;
+							@include css3(transition, all 0.2s);
+						}
+					}
+				}
+			}
+		}
+		.bnn_wrap{
+			margin: 50px 0 0 0;
+
+			>div{
+				// text-align: center;
+			}
+			h3{
+				padding: 0 0 40px 0;
+				text-align: center;
+				font: 30px 'adinenuPro-black';
+				color:#000;
+				text-transform: uppercase;
+			    letter-spacing: 7px;
+			}
+			.bnn{
+				margin-right:156px;
+				display: inline-block;
+				&.right{
+					margin-right: 0;
+				}
+				.txt{
+					p{
+						text-align: center;
+						color:#000;
+						font:400 14px 'NotoSansKR';
+						letter-spacing: -0.7px;
+
+						&.title{
+							padding: 10px 0 0 0;
+							font:600 20px 'NotoSansKR';
+						}
+					}
+				}
+			}
 		}
 	}
+
+	.col_wrap{
+		position: relative;
+		width: 1600px;
+		height: 1200px;
+		margin: 0 auto;
+		padding: 100px 0;
+		&:after{
+			content: '';
+			display: inline-block;
+			clear: both;
+		}
+		&.on{
+			div{
+				@include css3(opacity,1);
+			}
+			.col6,.col7{
+				top:0;
+			}
+
+		}
+		div{
+			@include css3(opacity,0);
+			@include css3(transition, all 0.5s);
+		}
+		.left{
+			float: left;
+		}
+		.center{
+			float: left;
+			width: 800px;
+			&:after{
+				content: '';
+				display: inline-block;
+				clear: both;
+			}
+			.col2{
+				float: left;
+				transition-delay: 0.2s;
+			}
+			.col3{
+				float: left;
+
+				transition-delay: 0.4s;
+			}
+			.col4{
+				float: left;
+				transition-delay: 0.6s;
+			}
+		}
+		.right{
+			float: right;
+			transition-delay: 0.8s;
+
+		}
+		.col6,.col7{
+			position: relative;
+			top:50px;
+			float: left;
+			transition-delay: 1.2s;
+
+		}
+	}
+
 }
