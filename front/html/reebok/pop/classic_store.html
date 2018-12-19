@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>리복 공식 온라인 스토어</title>
+
+<link rel="stylesheet" type="text/css" href="http://image.reebok.co.kr/css/reebok/reebok.css" />
+<script type="text/javascript" src="http://image.reebok.co.kr/js/jquery/jquery-1.4.2.js"></script>
+
+<script type="text/javascript">
+
+function resetLeftMenu(obj){
+	jQuery('.gym_left a').removeClass('on');
+	obj.each(function(){
+		jQuery(this).hide();
+	});
+}
+jQuery(document).ready(function(){
+	var fitStoreArr=jQuery('.gym_right div');
+	var nowfitidx=0;
+	jQuery('.gym_left a').mouseover(function(){
+		var thisIdx=jQuery(this).parent('li').index();
+		if(nowfitidx==thisIdx) return false;
+		resetLeftMenu(fitStoreArr);
+		nowfitidx=thisIdx;
+		jQuery(this).addClass('on');
+		jQuery(fitStoreArr[nowfitidx]).show();
+	});
+	jQuery('.gym_left a').click(function(){
+		return false;
+	});
+});
+</script>
+</head>
+<body>
+<style type="text/css">
+	html,body{height:100%;position:relative;}
+	.popup_gym_layer{height:100%;position:relative;}
+	.gym_left{width:290px;float:left;height:100%;background:#383838;}
+	.gym_left h1{padding:30px 0 20px 30px;border-bottom:1px solid #797979;}
+	.gym_left li{border-bottom:1px solid #797979;}
+	.gym_left li a{
+		display:block;
+		height:31px;
+		padding-right:25px;
+		text-align:right;
+		color:#a9a9a9;
+		background:#383838;
+		line-height:31px;
+	}
+	.gym_left li a.on{background:#fff;color:#5a5a5a;font-weight:bold;}
+	.gym_right{padding:30px 0 0 30px;float:left;}
+	.gym_right div{display:none;}
+</style>
+<div class="popup_gym_layer">
+	<div class="gym_left">
+		<h1><img src="http://image.reebok.co.kr/images/reebok/popup/tit_classic_store.gif" alt="Classic Store"/></h1>
+		<ul>
+			<li><a href="#" class="on">RCS 압구정</a></li>
+			<li><a href="#">안산한양대</a></li>
+			<li><a href="#">부평</a></li>
+		</ul>
+	</div>
+	<div class="gym_right">
+		<div style="display:block;">
+			<img src="http://image.reebok.co.kr/images/reebok/popup/img_classic_store1.jpg" alt="Reebok 압구정 클래식 스토어" border="0" usemap="#Map1"/>
+			<map name="Map1" id="Map1">
+				<area shape="rect" coords="292,83,399,108" href="http://me2.do/5ybWwv0i" target="_blank" alt="Reebok 압구정 클래식 스토어 위치보기 [새창]" title="새창">
+			</map>
+		</div>
+		<div>
+			<img src="http://image.reebok.co.kr/images/reebok/popup/img_classic_store2.jpg" alt="Reebok 안산한양대 클래식 스토어" border="0" usemap="#Map2"/>
+			<map name="Map2" id="Map2">
+				<area shape="rect" coords="292,83,399,108" href="http://me2.do/IIr4HPpV" target="_blank" alt="Reebok 안산한양대 클래식 스토어 [새창]" title="새창">
+			</map>
+		</div>
+		<div>
+			<img src="http://image.reebok.co.kr/images/reebok/popup/img_classic_store3.jpg" alt="Reebok 부평 클래식 스토어" border="0" usemap="#Map3"/>
+			<map name="Map3" id="Map3">
+				<area shape="rect" coords="292,83,399,108" href="http://me2.do/FIKNzTsx" target="_blank" alt="Reebok 부평 클래식 스토어 위치보기 [새창]" title="새창">
+			</map>
+		</div>
+		
+	</div>
+	
+</div>
+	
+</body>
+</html>
