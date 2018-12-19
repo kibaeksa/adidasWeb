@@ -1,0 +1,365 @@
+@import "./app/css/reebok/scss/about.scss";
+#wrap{
+    overflow: hidden;
+    min-width: 980px;
+}
+#contents_wrap{padding: 0;}
+.campaign_activechill{
+
+    .btn{
+        display: inline-block;
+        width: 250px;
+        text-align: center;
+        color:#fff;
+        font:400 18px/60px 'NotoSansKR';
+        border:1px solid #fff;
+        background: rgba(0,0,0,0);
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+
+        &:hover{
+            background: rgba(0,0,0,0.4);
+        }
+    }
+    .main_visual{
+        position: relative;
+        height: 650px;
+
+        &.active{
+
+            .masthead{
+                opacity: 1;
+                -webkit-opacity: 1;
+            }
+        }
+        .bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+        .masthead{
+            position: relative;
+            padding: 150px 0 0 0;
+            text-align: center;
+            opacity: 0;
+            -webkit-opacity: 0;
+            transition: all 0.8s;
+            -webkit-transition: all 0.8s;
+            img{
+                display: block;
+                padding: 0 0 40px 0;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .visual_video{
+        position: relative;
+        background: #fff;
+        height:650px !important;
+        .bg{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -1017px;
+            width: 1980px;
+            img{
+                display: block;
+            }
+        }
+
+        .video_bg{
+            width: 100%;
+            .ie &{
+                video{
+                    width:100%;
+                    min-width: 1900px;
+                    height: 650px;
+                }
+            }
+        }
+
+        .masthead{
+            text-align: center;
+            top:50%;
+            h2{
+                margin-bottom: 5px;
+            }
+            p{
+                margin-bottom: 40px;
+                font:400 18px/22px 'NotoSansKR';
+            }
+            img{
+                display: block;
+                margin: 0 auto 60px;
+            }
+            a.play-video{
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 60px;
+                border: 6px solid #fff;
+                box-sizing: border-box;
+                margin-bottom: 50px;
+                &.btn-play-video{
+                    font: 18px/60px 'NotoSansKR';
+                    margin: 0 4px;
+                    padding-right: 25px;
+                    .ico-video{
+                        position: absolute;
+                        top: 17px;
+                        right: 35px;
+                        display: inline-block;
+                        width: 25px;
+                        height: 25px;
+                        background: url('http://image.reebok.co.kr/images/reebok/event/about/always/ico-video.png') 0 0 no-repeat;
+                    }
+                }
+            }
+            a.btn-buy{
+                position: relative;
+                display: inline-block;
+                width: 200px;
+                height: 50px;
+                font: 18px/50px 'NotoSansKR';
+                color: #fff;
+                border: 1px solid #fff;
+                text-align: center;
+            }
+        }
+    }
+
+    .products_collection{
+        width: 100%;
+        height: 948px;
+        // padding-top: 50px;
+        position: relative;
+        background: #8dcdc5;
+        .bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+        h3{
+            position: relative;
+            padding: 65px 0 50px;
+            text-align: center;
+        }
+        .wide-slider-wrapper{
+            position: relative;
+            width: 100%;
+            height:640px;
+            left: inherit;
+            margin-left:inherit;
+            z-index: 1;
+            overflow: hidden;
+            .arrow-prev{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-left: -495px;
+
+                z-index: 2;
+                width: 26px;
+                height: 26px;
+            }
+            .arrow-next{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-left:490px;
+
+                z-index: 2;
+                width: 26px;
+                height: 26px;
+            }
+            ul{
+                position: absolute;
+                top:0;
+                width: 100%;
+                height: 640px;
+                li{
+                    width: 990px;
+                    position: relative;
+                    float: left;
+                    text-align: center;
+                    @include opacity(0.6);
+                    @include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+                    img{
+                        position: relative;
+                        display: inline-block;
+                        &.over{
+                            position: absolute;
+                            top:0;
+                            left:50px;
+                            @include opacity(0);
+                            @include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+                            transition-delay: 0.8s;
+
+                        }
+                    }
+                }
+                li.active{
+                    @include opacity(1);
+                    img{
+                        &.over{
+                            @include opacity(1);
+
+                        }
+                    }
+                }
+            }
+        }
+        .slider-btn{
+            width: 100%;
+            position: relative;
+            padding: 30px 0;
+            text-align: center;
+            a{
+                display: inline-block;
+                width: 12px;
+                height: 10px;
+                padding-top: 2px;
+                text-align: center;
+                margin-right: 8px;
+                background: #fff;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                color: #fff;
+                opacity: .5;
+                &.on{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .bottom_banner_wrap{
+        position: relative;
+        // height: 824px;
+        background: url('/images/reebok/event/about/activechill/180514/banner_bottom_bg.jpg') no-repeat;
+        background-size: 100% 100%;
+        padding-bottom: 60px;
+        &.scroll{
+            h4{
+                top : 0 !important;
+                opacity: 1 !important;
+                -webkit-opacity: 1 !important;
+                em{
+                    left:0 !important;
+                }
+            }
+        }
+        .bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+        .content{
+            position: relative;
+            text-align: center;
+            >*{
+                text-align: center;
+            }
+            h4{
+                position: relative;
+                top:20px;
+                margin: 50px 0;
+                display: inline-block;
+                overflow: hidden;
+                opacity: 0;
+                -webkit-opacity: 0;
+                transition: all 0.8s;
+                -webkit-transition: all 0.8s;
+                span{
+                    position: relative;
+                    z-index: 1;
+                }
+                em{
+                    position: absolute;
+                    bottom:0;
+                    left:-100%;
+                    width: 100%;
+                    height: 14px;
+                    background: #0465d1;
+                    transition: all 0.6s;
+                    -webkit-transition: all 0.6s;
+                    transition-delay: 0.8s;
+                    -webkit-transition-delay: 0.8s;
+                }
+            }
+            div{
+                @media screen and(max-width: 1590px){
+                    ul{
+                        width: 1232px !important;
+                        li{
+                            width: 300px !important;
+                        }
+                    }
+                }
+                @media screen and(max-width: 1280px){
+                    ul{
+                        width: 622px !important;
+                        li{
+                            margin-bottom: 10px !important;
+                        }
+                    }
+                }
+                ul{
+                    width: 1548px;
+                    margin: 0 auto;
+                    li{
+                        width: 379px;
+                        overflow: hidden;
+                        display: inline-block;
+                        margin: 0 10px 0 0;
+                        float: left;
+                        img{
+                            width: 100%;
+                            transition: all 0.3s;
+                            -webkit-transition: all 0.3s;
+                            &:hover{
+                                transform: scale(1.03);
+                            }
+                        }
+                    }
+                    &:after{
+                        content: '';
+                        display: block;
+                        height: 0;
+                        clear: both;
+                    }
+                }
+            }
+            .desc{
+                margin: 29px 0 25px 0;
+                p{
+                    text-align: center;
+                    color:#fff;
+                    font:100 22px/24px 'NotoSansKR';
+                    z-index: 1;
+                    span{
+                        position: relative;
+                        display: inline-block;
+                        span{
+                            font:500 22px 'NotoSansKR';
+                            letter-spacing: -0.7px;
+                            z-index: 1;
+                        }
+                        em{
+                            position: absolute;
+                            bottom:3px;
+                            left:0;
+                            width: 100%;
+                            background: #0465d1;
+                            height: 7px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

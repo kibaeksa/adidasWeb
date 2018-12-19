@@ -1,0 +1,773 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>아디다스 공식 온라인 스토어</title>
+	<link rel="shortcut icon" href="http://image.adidas.co.kr/images/adidas/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" href="http://image.adidas.co.kr/images/adidas/icon_114.png" />
+	<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+	<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+	<style type="text/css">
+		/* clearfix */
+		.clearfix{*zoom:1;}
+		.clearfix:after{content: '';display: block;clear: both;}
+
+		#pop{min-width:770px;}
+		.mrn_spt{background-image:url(http://image.adidas.co.kr/images/adidas/event/sprite_mirun2015.png) !important;background-repeat:no-repeat;background-position:0 0;display:block;}
+		#popupHeader{
+			height:65px;
+			background:#191919;
+			/*background-image:url(http://image.adidas.co.kr/images/adidas/event/pop1_headerBg.png);*/
+		}
+		#popupHeader h1{padding-top:21px;color:#f7f7f7;font:bold 16px 'NotoSansKRRegular','Nanum Gothic';background:none;letter-spacing:-1px;text-align: center;}
+		#popupHeader a.close{width:27px;height:27px;background-position:-105px -490px;position:absolute;top:18px;right:16px;}
+		#popupContents{padding:15px 15px 0;background:#f2f2f2;}
+
+		#popupContents .box{
+			padding: 0 35px;
+		}
+
+		#popupContents .grid{
+			margin: 0;
+			padding:0 35px 45px;
+			background:url('http://image.adidas.co.kr/images/adidas/event/bg_dotted.jpg') 0 bottom repeat-x;
+		}
+
+		#popupContents .grid_line{
+			border-bottom: 1px dotted  #a9a9a9;
+
+		}
+
+		#popupContents .tit_box{
+			padding: 30px 0 20px;
+			text-align: center;
+
+		}
+
+		#popupContents .tit_box h2{
+			margin: 0;
+			padding: 0;
+			color: #cb2b6f;
+			font:20px 'NotoSansKRBold','Nanum Gothic';
+			text-align: center;
+			border-bottom: 1px dotted  #a9a9a9;
+		}
+		#popupContents .tit_box p{
+			margin: 0;
+			padding: 0;
+			color: #656564;
+			font:12px 'NotoSansKR','Nanum Gothic';
+			text-align: center;
+		}
+
+		#popupContents .tit_box .desc{
+			text-align: center;
+			font:12px 'NotoSansKRBold','Nanum Gothic';
+			color: #656564;
+		}
+
+		#popupContents .desc_box{
+			padding: 0 15px;
+		}
+
+		#popupContents .desc_box dt{
+			margin-bottom: 5px;
+			font:bold 11px 'Dotum';
+			color: #333;
+		}
+
+		#popupContents .desc_box dd{
+
+		}
+
+		#popupContents .desc_box dd li{
+			color: #777;
+			font:11px/16px 'Dotum';
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents h3{
+			padding: 0 15px;
+			color:#333;
+			font:bold 11px 'Dotum',dotum;
+		}
+
+		#popupContents .agree_wrapper{
+
+		}
+
+		#popupContents .agree_wrapper .check_box{
+			position: absolute;
+			top:10px;
+			right:25px;
+		}
+
+		#popupContents .agree_wrapper .check_box .check_a{
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: block;
+			width: 18px;
+			height: 18px;
+			background:url('http://image.adidas.co.kr/images/adidas/event/sprite.png') 0 0 no-repeat;
+			vertical-align: top;
+		}
+
+		#popupContents .agree_wrapper .check_box label{
+			display: block;
+			padding: 3px 25px 0 0;
+			vertical-align:  top;
+			cursor: pointer;
+			font:11px 'dotum';
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents .agree_wrapper .check_box.all_check label{
+			padding-top: 2px;
+			font-weight: bold;
+			font-size: 12px;
+			color: #333;
+		}
+
+		#popupContents .agree_wrapper .check_box input{
+			position: absolute;
+			top: 0;
+			left: -2000px;
+			vertical-align:  top;
+		}
+
+		#popupContents .agree_wrapper .check_box .check_a.on{
+			background-position: -26px 0;
+		}
+
+		#popupContents .agree_wrapper .tit{
+			height: 23px;
+			padding-top: 3px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#popupContents .agree_wrapper .tit h3{
+			float: left;
+			margin: 0;
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents .agree_wrapper .tit a.view{
+			float: left;
+			text-decoration:underline;
+			font:11px 'Dotum',dotum;
+			color: #666;
+		}
+
+		#popupContents .agree_wrapper .tit .check_box{
+			position: absolute;
+			top: 0;
+		}
+
+		#popupContents .agree_wrapper ol li{
+			height: 34px;
+			margin-bottom: 1px;
+			position: relative;
+			background: #fff;
+		}
+
+		#popupContents .agree_wrapper ol li span{
+			display: block;
+			padding:11px 0 0 17px;
+			color: #666;
+			font:11px 'Dotum',dotum;
+			letter-spacing: -0.75px
+		}
+
+		#popupContents .agree_wrapper ol li span strong{
+			color: #333;
+		}
+
+		#popupContents .agree_wrapper ol li span .view{
+			margin-left: 15px;
+			text-decoration:underline;
+			font:11px 'Dotum',dotum;
+			color: #666;
+		}
+
+		#pop .li_prefix li{
+			position: relative;
+			padding-left: 10px;
+			margin-bottom:2px;
+			font:12px 'Dotum',dotum;
+			color: #333;
+			letter-spacing:-0.75px;
+		}
+
+		#pop .li_prefix li.no_pfx{
+			padding: 0;
+		}
+
+		#pop .li_prefix li .pfx{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		#popupContents .btn_area{
+			padding: 30px 0 5px;
+			text-align: center;
+		}
+
+		#popupContents .btn_area a{
+			width: 194px;
+			height: 42px;
+			display: inline-block;
+			text-align: center;
+			font:14px/42px 'NotoSansKR','Nanum Gothic';
+			color: #fff;
+			display: inline-block;
+			background: #191919;
+		}
+
+		#popupContents table.tbl{table-layout:fixed;}
+		#popupContents table.tbl th{text-align:left;height:43px;padding-left:12px;background:#fff;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea;font:12px 'NotoSansKR','Nanum Gothic';color: #555;}
+		#popupContents table.tbl td{text-align:left;height:43px;padding-left:20px;border-bottom:1px solid #eaeaea;background:#fff;color:#000;}
+		#popupContents table.tbl td label{color:#000;}
+		#popupContents table.tbl td select{width:85px !important;height:23px;float:left;margin:3px 10px 0 0;}
+		#popupContents table.tbl td input[type="num"]{box-sizing: border-box; width: 85px; height:23px; border:1px solid #a8acad;}
+		#popupContents input[type="password"]{border:1px solid #a8acad;}
+
+		#popupContents .mrn_gdr{margin-bottom:12px;overflow:hidden;}
+		#popupContents .mrn_gdr dt{width:100px;float:left;color:#666;font:bold 12px 'Dotum';letter-spacing:-.75px;}
+		#popupContents .mrn_gdr dd{overflow:hidden;float:left;}
+		#popupContents .mrn_gdr dd span{display:block;width:55px;float:left;}
+
+		#popupContents td .snack_lb{margin-bottom:2px;overflow:hidden;}
+		#popupContents td .snack_lb input{float:left;margin:2px 2px 0 0;}
+		#popupContents td .snack_lb label{float:left;color:#666;font:bold 12px/16px 'Dotum';letter-spacing:-1px;}
+		#popupContents td .snack_desc{margin-bottom:2px;padding-left:15px;color:#666;font:12px 'Dotum';letter-spacing:-1px;}
+
+		#popupContents td .li_prefix li{
+			color: #999;
+			letter-spacing:-0.75px;
+			line-height: 16px;
+			font-size: 11px;
+		}
+
+		#popupContents dl.desc_box{
+			margin-bottom: 20px;
+			padding: 0 15px;
+		}
+
+		#popupContents dl.desc_box dt,
+		#popupContents dl.desc_box dd li{
+			margin: 0;
+			font:11px/16px 'Dotum',dotum;
+			color: #777;
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents dl.desc_box dd li strong{
+			color: #ff474a;
+			font-weight: normal;
+		}
+
+		#popupContents td .pkg_box .rdo_box{
+			margin-bottom:5px;
+		}
+
+		#popupContents td .pkg_box .rdo_box label{
+			letter-spacing: -0.75px;
+			color: #666;
+			font-weight: bold;
+		}
+
+		#popupContents td .pkg_box .cont{
+			padding-left:18px;
+		}
+
+		#popupContents td .pkg_box .cont li{
+			margin-bottom:2px;
+			color: #666;
+		}
+
+		#popupContents td .pkg_box .cont .li_prefix li{
+			font-size: 12px;
+		}
+
+		#popupContents td .pkg_box .cont .li_prefix li strong{
+			color: #ff474a;
+			font-weight: normal;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper{
+			padding-bottom: 20px;
+			border-bottom: 1px dotted  #b2b2b2;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .chk_all,
+		#popupContents td .pkg_box .cont .agree_wrapper li{
+			position: relative;
+			height: 18px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .check_box{
+			display: inline-block;
+			position:relative;
+			left: 0;
+			top: 0;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper li{
+			margin-bottom:7px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .chk_all{
+			margin-bottom: 5px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .chk_all a.view{
+			margin-left:10px;
+			text-decoration:underline;
+			font:11px 'Dotum',dotum;
+			color: #666;
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper li.last{
+			margin-bottom: 0;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .check_box .check_a{
+			right: auto;
+			left: 0;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .check_box label{
+			padding:3px 0 0 25px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper .chk_all .check_box label{
+			font:bold 12px 'Dotum',dotum;
+			padding: 2px 0 0 25px;
+		}
+
+		#popupContents td .pkg_box .cont .agree_wrapper ol{
+			padding-left: 26px;
+		}
+
+		#popupContents td .pkg_box .cont .marking{
+			padding-top: 15px;
+		}
+
+		#popupContents td .pkg_box .cont .marking p{
+			margin-bottom: 10px;
+			font:bold 12px 'Dotum',dotum;
+			color: #666;
+			letter-spacing:-0.75px;
+		}
+
+		#popupContents td .pkg_box .cont .marking .txt{
+			margin-bottom: 10px;
+		}
+
+		#popupContents td .pkg_box .cont .marking .txt input{
+			width: 150px;
+			height: 21px;
+		}
+
+		#popupContents td .pkg_box .cont .marking span{
+			margin-left: 5px;
+			font:12px 'Dotum',dotum;
+			letter-spacing:-0.75px;
+			color: #999;
+		}
+
+		#popupContents td .pkg_box .cont .marking .chk{
+			margin-bottom: 15px;
+		}
+
+		#popupContents td .pkg_box .cont .marking .chk label{
+			color: #666;
+			font:bold 12px 'Dotum',dotum;
+			letter-spacing:-0.75px;
+		}
+		.tit2{
+			margin:13px 0 0 0;
+			padding:0 15px;
+			color:#aaa;font: 11px/16px 'Dotum'
+		}
+		.box.desc{
+			position: relative;
+
+		}
+		.box.desc p{
+			float: left;
+		}
+		.edit_mypage{
+			position: absolute;
+			top:7px;
+			right:0;
+		}
+		.edit_mypage a{display: inline-block;}
+		.size-more{
+			display:inline-block;
+			padding:0 0 0 15px;
+			text-decoration: underline; font-size:11px;
+		}
+		.course4 .course{
+			float: left;
+			color:#000;
+			padding-right: 30px;
+		}
+		.adi_club{
+			margin-bottom: 15px;
+		}
+		.adi_club:last-child{margin-bottom: 0;}
+		.adi_club input{
+			box-sizing:border-box;
+			padding: 0 8px;
+			width: 135px;
+			height: 23px;
+			border:1px solid #a8acad;
+			margin-right: 5px;
+		}
+		.adi_club a{
+			padding:0 23px;
+			display: inline-block;
+			color:#fff;
+			background: #888;
+			height: 23px;
+			font:12px/23px 'NotoSansKRMedium','Nanum Gothic'
+		}
+		.course3_con{display: none;}
+		.course4_con{
+			display: none;
+			/*padding-left: 20px;*/
+			margin:0 20px;
+			padding-top: 15px;
+			margin-top: 15px;
+			border-top:1px dotted #b2b2b2;
+
+		}
+
+		.course label , .course input{
+			vertical-align: middle;
+		}
+
+		/*20170216*/
+		#popupContents .box table .detail{}
+		#popupContents .box table .detail p {
+			padding-bottom: 5px;
+			font:12px/16px 'Dotum',dotum;
+			color:#666;
+		}
+		#popupContents .box table .detail ul{
+			display: block;
+			margin: 0 0px 10px 0px;
+			/*padding-bottom: 10px;*/
+			
+		}
+		#popupContents .box table .detail ul li label{
+			font:12px/18px 'Dotum',dotum;
+			color:#999;
+		}
+		#popupContents .box table .detail .adi_invite .box{
+			display: inline-block;
+			margin-right: 20px;
+			padding:0;
+			font:12px/21px 'Dotum',dotum;
+			color:#666;
+		}
+		#popupContents .box table .detail .btn{
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+
+		#popupContents .box table .detail .box input{
+			width: 150px; height: 21px;
+			border-radius: 3px;
+			-webkit-border-radius: 3px;
+			-ms-border-radius: 3px;
+			border-color: #c7d8e3;
+		}
+
+		#popupContents .box table .ymd:after{content: ''; height:0; clear: both; display: inline-block;}
+		#popupContents .box table .ymd li{float:left; padding-right: 30px; height: 30px; line-height: 30px;}
+
+		#popupContents .desc_box li{
+			color: #777;
+			font:11px/16px 'Dotum';
+			letter-spacing:-0.75px;
+		}
+		.red{ padding-left: 10px; color:#c60146 !important; }
+
+		#popupContents .box table .w8_info{
+			/*border-bottom: 1px dotted  #a9a9a9;*/
+		}
+		#popupContents .box table .w8_info p{
+			font:11px/11px 'Dotum',dotum;
+			color:#999;
+			letter-spacing: -1px;
+		}
+		#popupContents .box table .w8_info a{
+			display: inline-block;
+			padding:10px 0 15px 0;
+		}
+		#popupContents .box table .adi_invite{
+			padding-top: 15px;
+		}
+	</style>
+	<script>
+		$(document).ready(function(){
+
+
+			$('#course3').click(function(){
+				$('.course4_con').show();
+			})
+			$('#course2').click(function(){
+				$('.course4_con').hide();
+			})
+
+		});
+	</script>
+</head>
+<body>
+<div id="pop">
+	<div id="popupHeader">
+		<h1>신청서 작성</h1>
+		<a class="close mrn_spt" href="javascript:self.close();"></a>
+	</div>
+	<div id="popupContents" style="padding:20px 0 20px;">
+		<div style="padding-left:20px;">
+			<img src="http://image.adidas.co.kr/images/adidas/popup/mirun2016/bg_step2.jpg" alt=""/>
+		</div>
+
+		<div class="box" style="padding:0 35px 0px;">
+			<div class="tit_box" style="margin-bottom: 15px;">
+				<h2 style="padding:0 0 20px 0; margin-bottom:20px;">2017 아디다스 마이런 부산 참가 신청서</h2>
+				<div class="desc_box">
+
+					<ul>
+						<li style="padding-bottom:10px;">참가자분들의 정보를 소중히 다루고 있으며 본인 동의 없이는 외부에 유출 하지 않습니다. 해당 정보를 정확히 입력해 주시기 바랍니다. </li>
+						<li style="padding-bottom:10px;">아래 수집되는 개인정보는 본 행사 진행 시 본인 확인, 기록 측정, 기념품 제공 등을 위해 수집되며  기재하지 않으시거나 동의 하지 않으시는 경우 <br>
+						참가 신청이 되지 않습니다. 참가자 정보는 회원정보를 기반으로 하며 최종 참가자 정보는 3월 12일 24시 기준으로 저장된 회원정보로 업데이트 됩니다.
+					</li>
+						<li>* 개인정보 수집이용목적 : 참가자의 신원확인, 물품사이즈 확인, 물품배송, 차기 대회소식전달 목적으로 수집합니다.</li>
+						<li>* 수집 이용되는 개인정보의 항목 : 아래의 기재사항이 수집 이용됩니다. </li>
+						<li>* 참가자는 동일 개인정보로 중복 접수 신청이 되지 않으며, 대리 참가 접수 불가합니다. </li>
+						<li>* 프로모션 무료 참가자와 매장/온라인에서 접수한 참가자가 동일한 경우(중복 접수 확인 시)</li>
+						<li class="red">- 참가비의 경우 환불이 되며(1인만 참여) 참가자님께 개별 확인 연락을 드릴 예정입니다.</li>
+						<li class="red">- 중복 접수로 확인될 시 매장 및 온라인에서 접수한 정보를 기준으로 접수됩니다. (배송 정보 포함)</li>
+						<li class="red">- 중복 접수건에 대해 명의 변경(대체 참가)은 불가합니다.</li>
+					</ul>
+				</div>
+			</div>
+			<table cellpadding="0" cellspacing="0" width="100%" class="tbl" width="730">
+				<colgroup>
+					<col width="122px">
+					<col width="242px">
+					<col width="125px">
+					<col width="*">
+				</colgroup>
+				<tr>
+					<th rowspan="" id="thChanged">참가코스</th>
+					<td colspan="3" style="height:auto;padding:16px 0 16px 0;" class="course4 clearfix">
+						<div style="overflow:hidden;padding-left:20px; padding-top: 1px;">
+							<div class="course"><input type="radio" id="course3" name="course" /> <label for="course3">Women’s 8K코스</label></div>
+							<div class="course"><input type="radio" id="course2" name="course" /> <label for="course2">10km 코스</label></div>
+						</div>
+						<div class="course4_con">
+							<div class="detail">
+								<p><strong>자신의 취향에 맞는 그룹을 선택해주세요! (1개만 선택 가능)</strong></p>
+								<ul>
+									<li><label for="type1"><input type="radio" id="type1" name="course_w8"> ENERGY RUNNER 러닝이 취미이자, 일상인 러너</label></li>
+									<li><label for="type2"><input type="radio" id="type2" name="course_w8"> BOOST RUNNER 모든 스포츠를 즐기는 러너</label></li>
+									<li><label for="type3"><input type="radio" id="type3" name="course_w8"> STYLE RUNNER 스타일리쉬하게 돋보이고 싶은 러너</label></li>
+								</ul>
+								<div class="w8_info">
+									<p>* Women’ 8K 참가자는 3개 그룹 모두 함께 출발합니다.</p>
+									<p>* 그룹 선택은 소셜 이벤트 참가 및 그룹별 평균 기록 산출을 통해 우승그룹 시상 시 활용됩니다. </p>
+									<a href="http://adidasmirun.com/02/05/"><img src="http://image.adidas.co.kr/images/adidas/popup/mirun2017/w8k_btn.png" alt="" /></a>
+								</div>
+								
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+					<tr>
+						<th>이름</th>
+						<td colspan="3" style="margin-right:5px;vertical-align:middle;color:#000;">
+							홍길동
+						</td>
+					</tr>
+					<tr>
+						<th>생년월일</th>
+						<td colspan="3" style="padding:12px 0 6px 20px; margin-right:5px;vertical-align:middle;color:#000;">
+							<ul class="ymd">
+								<li >1999년 12월 31일</li>
+								<li style="text-align:left;color:#999;font:11px/15px 'Dotum';letter-spacing:-.75px;">* 노출되는 생년월일이 실제와 다를 경우 <br> 마이페이지내의 개인정보 수정을 통하여 수정해 주세요.</li>
+								<li style="padding:2px 0"><a href="#"><img src="http://image.adidas.co.kr/images/adidas/popup/mirun2017/btn_edit.png" alt=""></a></li>
+
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th>성별</th>
+						<td colspan="3">
+							남자
+							<!-- <input type="radio" id="male">
+							<label for="male" style="margin-right:15px">남자</label>
+							<input type="radio" id="female">
+							<label for="female">여자</label> -->
+						</td>
+					</tr>
+
+					<tr>
+						<th>이메일</th>
+						<td colspan="3">appeal748@naver.com</td>
+					</tr>
+
+					<tr>
+						<th>주소</th>
+						<td colspan="3" style="padding:12px 0 6px 20px; margin-right:5px;vertical-align:middle;color:#000;">
+							<ul>
+								<li style="padding-bottom: 2px">서울특별시 서초구 서초2동 1321-15 서초타워 23층</li>
+
+							</ul>
+						</td>
+					</tr>
+
+					<tr>
+						<th>핸드폰번호</th>
+						<td colspan="3" style="padding:12px 0 6px 20px; margin-right:5px;vertical-align:middle;color:#000;">
+							<ul class="ymd">
+								<li style="padding-bottom: 2px;">02-1234-3453</li>
+								<li style="text-align:left;color:#999;font:11px/15px 'Dotum';letter-spacing:-.75px;">* 참가자 본인의 핸드폰번호를 기입해주시기 바랍니다. <br>* 번호 수정은 마이페이지 내 개인정보 수정에서 가능합니다.</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th>티셔츠 사이즈</th>
+						<td colspan="3" style="padding:12px 0 10px 20px;">
+							<div style="clear:both;">
+								<dl class="mrn_gdr">
+									<dt>남성용 (Male)</dt>
+									<dd>
+										<span>
+											<input type="radio" id="male_size90">
+											<label for="male_size90">90</label>
+										</span>
+										<span>
+											<input type="radio" id="male_size95">
+											<label for="male_size95">95</label>
+										</span>
+										<span>
+											<input type="radio" id="male_size100">
+											<label for="male_size100">100</label>
+										</span>
+										<span>
+											<input type="radio" id="male_size105">
+											<label for="male_size105">105</label>
+										</span>
+										<span>
+											<input type="radio" id="male_size110">
+											<label for="male_size110">110</label>
+										</span>
+										<span>
+											<input type="radio" id="male_size115">
+											<label for="male_size115">115</label>
+										</span>
+									</dd>
+								</dl>
+
+								<dl class="mrn_gdr">
+									<dt>여성용 (Female)</dt>
+									<dd>
+										<span>
+											<input type="radio" id="female_size80">
+											<label for="female_size80">80</label>
+										</span>
+										<span>
+											<input type="radio" id="female_size85">
+											<label for="female_size85">85</label>
+										</span>
+										<span>
+											<input type="radio" id="female_size90">
+											<label for="female_size90">90</label>
+										</span>
+										<span>
+											<input type="radio" id="female_size95">
+											<label for="female_size95">95</label>
+										</span>
+										<span>
+											<input type="radio" id="female_size100">
+											<label for="female_size100">100</label>
+										</span>
+										<span>
+											<input type="radio" id="female_size105">
+											<label for="female_size105">105</label>
+										</span>
+									</dd>
+								</dl>
+							</div>
+							<ul class="li_prefix">
+								<li class="no_pfx">원하는 사이즈의 기념품이 이미 소진되었을 경우, 신청 사이즈를 수령하지 못할 수 있습니다. 이 점 양해 부탁 드립니다.</li>
+								<li><span class="pfx">*</span>기념 티셔츠는 성별 교차 선택이 가능하며, 사이즈별 품절 시 선택에서 보이지 않을 수 있습니다.</li>
+								<li class="last"><span class="pfx">*</span>기념 티셔츠 사이즈는 선택 후 변경이 불가능하며, 교환을 원하실 시 행사 당일 현장에서 잔여수량에 한하여<br/>교환이 가능합니다.</li>
+							</ul>
+						</td>
+					</tr>
+
+					
+
+					<tr>
+					<th style="">
+						참가신청 <br>
+						비밀번호
+					</th>
+					<td colspan="3" style="padding:15px 0 18px 20px;">
+						<div class="detail">
+							<div class="box" style="margin-bottom:5px; padding:0;">
+								<input type="text" style="width:105px;height:19px;">
+								<span style="color:#999;">(숫자 6자리 입력)</span>
+							</div>
+						</div>
+						<ul class="li_prefix" style="padding:15px 0 0 0;">
+							<li><span class="pfx">*</span> 본 신청 페이지가 아닌 대회 홈페이지에서 참가정보를 확인하시거나 수정하실때 필요한 비밀번호입니다. <br>
+   기억하기 쉬운 걸로 작성해 주시기 바랍니다. (마이런 부산 홈페이지에서 3월 30일 이후 확인 가능)</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+
+
+		</div>
+
+
+
+		<div class="btn_area">
+			<a href="#">참가 신청하기</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	(function($){
+
+		$('.check_box label').bind('click',function(){
+			var aElem = $(this).find('a.check_a');
+			if(aElem.hasClass('on')){
+				aElem.removeClass('on');
+			}else{
+				aElem.addClass('on');
+			}
+		});
+
+	})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,981 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+@font-face {
+    font-family: 'AdihausDIN';
+    src: url('//hp.dev.brand.adidas.com/com/apps/nmd/CDN_PATH/fonts/adidas/AdihausDIN-Medium.ttf?locale=ko_KR') format('truetype'),
+         url('//hp.dev.brand.adidas.com/com/apps/nmd/CDN_PATH/fonts/adidas/AdihausDIN-Medium.woff?locale=ko_KR') format('woff');
+    font-weight: 400;
+}
+
+#golfStyleBook_1808{
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+
+  // 상단 고정 탭 스타일
+  .golf_stylebook_mainTab{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    background: #1c1c1c;
+
+    &.scrollBox{
+      position: fixed;
+      margin-top: 0;
+    }
+
+    >div{
+      width: 1200px;
+      margin: 0 auto;
+    }
+  }//.golf_stylebook_mainTab
+
+  .fixed_tab{
+    height: 84px;
+    overflow: hidden;
+
+    h3{
+      width: 240px;
+      float: left;
+      font: 500 26px/88px "adinenuPro-bold";
+      color: #fff;
+      letter-spacing: 2px;
+
+      span{
+        font: 300 26px/78px "adinenuPro-regular";
+      }
+    }
+
+    a{
+      width: 205px;
+      height: 30px;
+      margin-top: 22px;
+      padding: 5px 0;
+      display: block;
+      float: left;
+
+      .lineName{
+        width: 135px;
+        height: 30px;
+        display: block;
+        margin-left: 40px;
+        float: left;
+        font: 600 17px/34px "AdihausDIN";
+        letter-spacing: 3px;
+        color: #3f3f3f;
+        position: relative;
+
+        &:before{
+          width: 1px;
+          height: 10px;
+          content: " ";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          margin-top: 9px;
+          margin-left: -20px;
+          background-color: #3f3f3f;
+        }
+      }
+
+      .icon{
+        width: 30px;
+        height: 30px;
+        display: block;
+        float: left;
+        position: relative;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+
+        &:before, &:after{
+          width: 1px;
+          height: 10px;
+          content: " ";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: #f3f3f3;
+        }
+
+        &:before{
+          transform: rotate(-45deg);
+          margin-top: 9px;
+          margin-left: 11px;
+        }
+
+        &:after{
+          transform: rotate(45deg);
+          margin-top: 9px;
+          margin-left: 18px;
+        }
+
+        &.actIcon{
+          transform: rotateZ(180deg);
+          -webkit-transition: all .5s;
+          transition: all .5s;
+        }
+      }//.icon
+    }
+  }//.fixed_tab
+
+  .hover_tab{
+    display: none;
+    height: 240px;
+    padding: 19px 0 57px;
+
+    a{
+      width: 360px;
+      height: 240px;
+      display: block;
+      float: left;
+      margin-right: 60px;
+
+      &:last-child{
+        background: url('') no-repeat;
+        margin-right: 0;
+      }
+
+      img{
+        display: block;
+      }
+
+      img:last-child{
+        display: none;
+      }
+
+      &:hover, &.act_line{
+        img{
+          display: none;
+        }
+
+        img:last-child{
+          display: block;
+        }
+      }
+    }
+  }//.hover_tab
+
+  // 골프 라인 별 공통 스타일
+  .golf_stylebook{
+    width: 100%;
+    height: auto;
+    padding-top: 84px;
+
+    >div{
+      display: none;
+      position: relative;
+
+      > img{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+      }
+
+      > div{
+        position: relative;
+
+        >img{
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 50%;
+        }
+      }
+
+      &.actLineBox{
+        display: block;
+      }
+
+      >a{
+        width: 400px;
+        height: 70px;
+        display: block;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-bottom: 120px;
+        margin-left: -200px;
+
+        >span{
+          height: 70px;
+          display: block;
+        }
+
+        .hover_deco{
+          width: 0;
+          background: #000;
+          position: absolute;
+          top: 0;
+          left: 0;
+          opacity: 0;
+          -webkit-transition: all .5s;
+          transition: all .5s;
+        }
+
+        .text{
+          width: 400px;
+          font: 400 21px/68px "notoSansKR";
+          color: #000;
+          letter-spacing: -0.25px;
+          text-indent: 68px;
+          position: absolute;
+          z-index: 5;
+
+          .line{
+            font: 600 22px/68px "AdihausDIN";
+            letter-spacing: 3px;
+            padding-right: 5px;
+          }
+
+          .dir_icon{
+            width: 34px;
+            height: 1px;
+            background: #000;
+            display: block;
+            float: right;
+            margin-top: 34px;
+            margin-right: 45px;
+            position: relative;
+
+            &:before, &:after{
+              width: 1px;
+              height: 10px;
+              content: " ";
+              display: block;
+              position: absolute;
+              background: #000;
+              top: 0;
+              right: 0;
+              margin-right: 2px;
+            }
+
+            &:before{
+              transform: rotate(-58deg);
+              margin-top: -7px;
+            }
+
+            &:after{
+              transform: rotate(58deg);
+              margin-top: -2px;
+            }
+          }
+        }
+
+        &:hover{
+          .hover_deco{
+            width: 400px;
+            opacity: 1;
+            -webkit-transition: all .5s;
+            transition: all .5s;
+          }
+
+          .text{
+            color: #fff;
+
+            .dir_icon{
+              background: #fff;
+
+              &:before, &:after{
+                background: #fff;
+              }
+            }
+          }
+        }//a.hover_action
+
+      }//.a[전체상품 보기]
+    }
+  }//.golf_stylebook
+
+  // 01 아디다스 라인
+  #adidasLine{
+    width: 100%;
+    height: 7070px;
+    background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_mainbg.jpg');
+
+    // 상단 이미지 그룹
+    .top_group{
+      width: 100%;
+      height: 1815px;
+      position: relative;
+
+      img:nth-child(1){
+        margin-top: 340px;
+        margin-left: 40px;
+        opacity: 0;
+        z-index: 5;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+      }
+
+      img:nth-child(2){
+        margin-top: 150px;
+        margin-left: -680px;
+        opacity: 0;
+        z-index: 1;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: -580px;
+          -webkit-transition: all 0.5s 0.4s;
+          transition: all 0.5s 0.4s;
+        }
+      }
+
+      img:nth-child(3){
+        margin-top: 170px;
+        margin-left: -640px;
+        opacity: 0;
+        z-index: 2;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: -540px;
+          -webkit-transition: all 0.5s 0.8s;
+          transition: all 0.5s 0.8s;
+        }
+      }
+
+    img:nth-child(4){
+        margin-top: 775px;
+        margin-left: 165px;
+        opacity: 0;
+        z-index: 5;
+
+        &.onEffect{
+          opacity: 1;
+          margin-top: 675px;
+          -webkit-transition: all 0.8s;
+          transition: all 0.8s;
+        }
+      }
+
+    img:nth-child(5){
+        margin-top: 1015px;
+        margin-left: -800px;
+        opacity: 0;
+        z-index: 4;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: -700px;
+          -webkit-transition: all 0.8s 0.2s;
+          transition: all 0.8s 0.2s;
+        }
+      }
+    }
+
+    // 배너 이미지 그룹
+    .banner_group{
+      width: 100%;
+      height: 612px;
+      background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_long_01.jpg') center top no-repeat;
+
+      img:nth-child(1){
+        margin-top: 210px;
+        margin-left: -145px;
+        opacity: 0;
+        z-index: 4;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+      }
+
+      img:nth-child(2){
+        top: auto;
+        bottom: 0;
+        margin-left: 155px;
+        opacity: 0;
+        z-index: 2;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: 55px;
+          -webkit-transition: all 0.8s 0.2s;
+          transition: all 0.8s 0.2s;
+        }
+      }
+    }
+
+    // 블라인드 이미지 그룹
+    .blind_group_middle{
+      width: 100%;
+      height: 1560px;
+      margin-top: 260px;
+
+      div{
+        width: 420px;
+        height: 0;
+        background-position: center top;
+        position: absolute;
+        top: 0;
+        left: 50%;
+      }
+
+      .img_hong{
+        background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_hong_02.jpg') no-repeat;
+        margin-left: -600px;
+
+        &.onEffect{
+          height: 680px;
+          -webkit-transition: all 0.8s;
+          transition: all 0.8s;
+        }
+      }
+
+      .img_ahn{
+        background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_ahn_02.jpg') no-repeat;
+        margin-left: -170px;
+
+        &.onEffect{
+          height: 680px;
+          -webkit-transition: all 0.8s 0.4s;
+          transition: all 0.8s 0.4s;
+        }
+      }
+
+      .adidas_choi_img03_bg{
+        margin-top: 765px;
+        margin-left: -485px;
+        z-index: 3;
+      }
+
+      .adidas_choi_img03{
+        margin-top: 760px;
+        margin-left: 250px;
+        opacity: 0;
+        z-index: 5;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: 50px;
+          -webkit-transition: all 0.8s 0.4s;
+          transition: all 0.8s 0.4s;
+        }
+      }
+    }
+
+    // 중 하단 이미지 그룹
+    .bottom_group{
+      width: 100%;
+      height: 1600px;
+      margin-top: 175px;
+
+      img:nth-child(1){
+        margin-top: 0;
+        margin-left: -600px;
+        opacity: 0;
+        z-index: 1;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.8s;
+          transition: all 0.8s;
+        }
+      }
+
+      img:nth-child(2){
+        margin-top: 400px;
+        margin-left: -700px;
+        opacity: 0;
+        z-index: 1;
+
+        &.onEffect{
+          opacity: 1;
+          margin-top: 500px;
+          -webkit-transition: all 0.8s 0.2s;
+          transition: all 0.8s 0.2s;
+        }
+      }
+
+      img:nth-child(3){
+        margin-top: 940px;
+        margin-left: 50px;
+        opacity: 0;
+        z-index: 3;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.5s 0.5s;
+          transition: all 0.5s 0.5s;
+        }
+      }
+
+      img:nth-child(4){
+        margin-top: 405px;
+        margin-left: -250px;
+        opacity: 0;
+        z-index: 1;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: -350px;
+          -webkit-transition: all 0.8s 0.5s;
+          transition: all 0.8s 0.5s;
+        }
+      }
+
+      img:nth-child(5){
+        margin-top: 410px;
+        margin-left: -270px;
+        opacity: 0;
+        z-index: 2;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: -370px;
+          -webkit-transition: all 0.8s 0.8s;
+          transition: all 0.8s 0.8s;
+        }
+      }
+    }
+
+    .blind_group_bottom{
+      width: 1200px;
+      height: 750px;
+      margin: 0 auto;
+      z-index: 5;
+
+      div{
+        width: 590px;
+        height: 0;
+        background-position: center top;
+        position: absolute;
+        top: 0;
+        left: 50%;
+      }
+
+      .img_ahn{
+        background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_ahn_03.jpg') no-repeat;
+        margin-left: -600px;
+
+        &.onEffect{
+          height: 750px;
+          -webkit-transition: all 1s;
+          transition: all 1s;
+        }
+      }
+
+      .img_hong{
+        background: url('/images/adidas/event/golf/stylebook/180828/01_adidas_hong_03.jpg') no-repeat;
+        margin-left: 10px;
+
+        &.onEffect{
+          height: 750px;
+          -webkit-transition: all 1s 0.4s;
+          transition: all 1s 0.4s;
+        }
+      }
+    }
+
+    >a .text .dir_icon{
+      margin-right: 55px;
+    }
+  }
+
+  // 02 아디크로스 라인
+  #adicrossLine{
+    width: 100%;
+    height: 3800px;
+
+    .gray_bgi{
+      width: 100%;
+      background-size: 100%;
+    }
+
+    // 상단 이미지 박스
+    >img:nth-child(1){
+      margin-top: 173px;
+      margin-left: -330px;
+      opacity: 0;
+      z-index: 5;
+
+      &.onEffect{
+        opacity: 1;
+        -webkit-transition: all 0.5s 0.8s;
+        transition: all 0.5s 0.8s;
+      }
+    }
+
+    .half_back{
+      height: 0;
+      background: url('/images/adidas/event/golf/stylebook/180828/02_adicross_ahn_gray01.png') right top no-repeat;
+
+      &.onEffect{
+        height: 1120px;
+        -webkit-transition: all 0.5s 0.5s;
+        transition: all 0.5s 0.5s;
+      }
+
+      img{
+        margin-top: 90px;
+        margin-left: 205px;
+        opacity: 0;
+
+        &.onEffect{
+          opacity: 1;
+          margin-left: 105px;
+          -webkit-transition: all 0.5s 1.2s;
+          transition: all 0.5s 1.2s;
+        }
+      }
+    }
+
+    .left_group{
+      width: 460px;
+      height: 810px;
+      position: relative;
+      top: 0;
+      left: 50%;
+      margin-top: -380px;
+      margin-left: -610px;
+      z-index: 5;
+
+      img:nth-child(1){
+        left: auto;
+        right: 0;
+        z-index: 5;
+        opacity: 0;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+      }
+
+      img:nth-child(2){
+        top: auto;
+        bottom: 0;
+        left: 0;
+        z-index: 3;
+        opacity: 0;
+
+        &.onEffect{
+          opacity: 1;
+          -webkit-transition: all 0.8s 0.4s;
+          transition: all 0.8s 0.4s;
+        }
+      }
+    }
+
+    >.adicross_kimbio02{
+      margin-top: 1080px;
+      z-index: 8;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-top: 980px;
+        -webkit-transition: all 0.8s;
+        transition: all 0.8s;
+      }
+    }
+
+    // 배너 이미지 그룹
+    .banner_back{
+      width: 0;
+      height: 1070px;
+      margin-top: -140px;
+      background: url('/images/adidas/event/golf/stylebook/180828/02_adicross_ahn_gray02.png') left top no-repeat;
+
+      &.onEffect{
+        width: 100%;
+        -webkit-transition: width 1.4s;
+        transition: width 1.4s;
+        background-position: center top;
+      }
+
+      img{
+        margin-top: 300px;
+        margin-left: -680px;
+        opacity: 0;
+
+        &.onEffect{
+          margin-top: 264px;
+          margin-left: -580px;
+          opacity: 1;
+          -webkit-transition: all 0.5s 1.2s;
+          transition: all 0.5s 1.2s;
+        }
+      }
+    }
+
+    >.adicross_smalllogo{
+      margin-top: 2345px;
+      margin-left: -145px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+      }
+    }
+
+    >.adicross_kimbio03{
+      margin-top: 2090px;
+      margin-left: 210px;
+      z-index: 8;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-left: 110px;
+        -webkit-transition: all 0.8s;
+        transition: all 0.8s;
+      }
+    }
+
+    >.adicross_logo_bg{
+      margin-top: 2570px;
+      margin-left: 535px;
+      opacity: 0;
+
+      &.onEffect{
+        margin-left: 435px;
+        opacity: 1;
+        -webkit-transition: all 0.8s 0.4s;
+        transition: all 0.8s 0.4s;
+      }
+    }
+
+    .blind_group{
+      width: 100%;
+      height: 712px;
+      margin-top: 295px;
+      z-index: 10;
+
+      .left_blind{
+        width: 675px;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -625px;
+        background: url('/images/adidas/event/golf/stylebook/180828/02_adicross_kim_half_01.png') center top no-repeat;
+
+        &.onEffect{
+          height: 712px;
+          -webkit-transition: all 1s 0.4s;
+          transition: all 1s 0.4s;
+        }
+      }
+
+      .right_blind{
+        width: 635px;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -40px;
+        background: url('/images/adidas/event/golf/stylebook/180828/02_adicross_kim_half_02.png') center top no-repeat;
+
+        &.onEffect{
+          height: 712px;
+          -webkit-transition: all 1s;
+          transition: all 1s;
+        }
+      }
+
+      img{
+        top: auto;
+        bottom: 0;
+        margin-bottom: 80px;
+        margin-left: -415px;
+        opacity: 0;
+
+        &.onEffect{
+          opacity: 1;
+          margin-bottom: 0;
+          margin-left: -315px;
+          -webkit-transition: all 0.8s 0.5s;
+          transition: all 0.8s 0.5s;
+        }
+      }
+    }
+
+    >a .text{
+      text-indent: 59px;
+    }
+  }
+
+  // 03 아디퓨어 라인
+  #adipureLine{
+    width: 100%;
+    height: 4210px;
+    position: relative;
+    background: #f9f9f7 url('/images/adidas/event/golf/stylebook/180828/03_adidas_mainbg.jpg') no-repeat;
+    background-position: center;
+
+    // .deco_line{
+    //   height: 4px;
+    //   position: absolute;
+    //   top: 0;
+    //   left: 50%;
+    // }
+    //
+    // .purple{
+    //   background: #0d0f42;
+    // }
+    //
+    // .pink{
+    //   width: 100%;
+    //   background: #e2c9c2;
+    // }
+    // >div:nth-child(1){
+    //   width: 120%;
+    //   margin-top: 915px;
+    //   margin-left: -1000px;
+    //   transform: rotate(-8.7deg);
+    // }
+    //
+    // >div:nth-child(2){
+    //   margin-top: 1570px;
+    //   margin-left: -1000px;
+    // }
+    //
+    // >div:nth-child(3){
+    //   width: 120%;
+    //   margin-top: 3190px;
+    //   margin-left: -1000px;
+    //   transform: rotate(12deg);
+    // }
+
+    // 배경라인 01 이미지
+    >img:nth-child(1){
+      margin-top: 365px;
+      margin-left: -116px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+      }
+    }
+
+    >img:nth-child(2){
+      margin-top: 142px;
+      margin-left: 442px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-top: 163px;
+        margin-left: 300px;
+        -webkit-transition: all 0.8s 0.5s;
+        transition: all 0.8s 0.5s;
+      }
+    }
+
+    >img:nth-child(3){
+      margin-top: 360px;
+      margin-left: -750px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-top: 342px;
+        margin-left: -650px;
+        -webkit-transition: all 0.8s 1s;
+        transition: all 0.8s 1s;
+      }
+    }
+
+    // 배경라인 02 이미지
+    >img:nth-child(4){
+      margin-top: 870px;
+      margin-left: 40px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-left: -40px;
+        -webkit-transition: all 0.8s;
+        transition: all 0.8s;
+      }
+    }
+
+    // 중간 좌우 이미지
+    >img:nth-child(5){
+      margin-top: 1720px;
+      margin-left: -500px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-left: -600px;
+        -webkit-transition: all 0.8s;
+        transition: all 0.8s;
+      }
+    }
+
+    >img:nth-child(6){
+      margin-top: 2150px;
+      margin-left: -10px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-left: 90px;
+        -webkit-transition: all 0.8s 0.5s;
+        transition: all 0.8s 0.5s;
+      }
+    }
+
+    // 배경라인 03 이미지
+    >img:nth-child(7){
+      margin-top: 2765px;
+      margin-left: -553px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        -webkit-transition: all 0.8s;
+        transition: all 0.8s;
+      }
+    }
+
+    >img:nth-child(8){
+      margin-top: 3080px;
+      margin-left: 100px;
+      opacity: 0;
+
+      &.onEffect{
+        opacity: 1;
+        margin-top: 3095px;
+        margin-left: 160px;
+        -webkit-transition: all 0.8s 0.6s;
+        transition: all 0.8s 0.6s;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 1300px){
+  #golfStyleBook_1808{
+    .golf_stylebook_mainTab > div{
+        width: 1140px;
+      }
+
+    .hover_tab a{
+        margin-right: 30px;
+      }
+    }
+}

@@ -1,0 +1,558 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+/* video_layer */
+.video_layer {
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110
+}
+.video_layer .video {
+	width:100%;
+	height:100%;
+	z-index:6;
+	position:absolute;
+	top:0;
+	left:0
+}
+.video_layer .close {
+	width:45px;
+	height:45px;
+	position:absolute;
+	top:25px;
+	right:25px;
+	z-index:20;
+	display:block;
+	background:url("/images/reebok/event/about/sprite.png") -80px 0 no-repeat;
+	text-indent:-5000px;
+	opacity:0;
+	transition:opacity 0.4s ease-in 0.5s;
+	-webkit-transition:opacity 0.4s ease-in 0.5s;
+	-moz-transition:opacity 0.4s ease-in 0.5s;
+	-o-transition:opacity 0.4s ease-in 0.5s;
+	-ms-transition:opacity 0.4s ease-in 0.5s
+}
+.video_layer .bg {
+	width:100%;
+	height:100%;
+	background:#000;
+	z-index:5;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0;
+	transition:opacity 0.4s;
+	-webkit-transition:opacity 0.4s;
+	-moz-transition:opacity 0.4s;
+	-o-transition:opacity 0.4s;
+	-ms-transition:opacity 0.4s
+}
+.video_layer.loaded .bg {
+	opacity:.6
+}
+.video_layer.loaded .close {
+	opacity:1
+}
+/* video_layer end */
+
+button {
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent; }
+  
+  button:focus {
+    outline: none; }
+
+/* 모듈 별 셋팅 영역 */
+.golf_icon_set {
+	background: url("/images/adidas/event/golf/golf_iconSet.png") no-repeat;
+}
+#golf_tour_pc {
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	.visual_video{
+		position: relative;
+		cursor: pointer;
+		.bg{
+			text-align: center;
+			video{
+				height: 650px;
+			}
+		}
+		.masthead{
+			position: absolute;
+			top:55.6%;
+			left:50%;
+			z-index: 5;
+			.play{
+				position: relative;
+				display: inline-block;
+				width:110px;
+				height: 110px;
+				margin-left: -55px;			
+				background: rgba(0, 0, 0, 0.3);
+				@include css3(transition , all 0.5s);
+				background: url("http://image.adidas.co.kr/images/adidas/event/golf/tour360/tour_video_icon.png");				
+			}
+		}
+		.video_txt {			
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 1;
+			h4 {
+				width: 100%;
+				font: 600 65px/65px 'adinenuPro-black';
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				top: 28.4615%;
+				left: 0;
+			}
+			p {
+				width: 100%;
+				font: 300 21px/30px 'NotoSansKR';
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				top: 41.5384%;
+				left: 0;	
+			}			
+		}
+	}
+	.tour_video_wrap {
+		width: 100%;
+		height: 650px;
+		position: relative;
+		video {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			z-index: 1;
+			background-color: #058164;
+		}		
+	}
+	.tour_slide_wrap {
+		width: 100%;
+		height: 950px;
+		background-size: auto;
+		background-position: center top;
+		background-repeat: no-repeat;
+		background-image: url("/images/adidas/event/golf/tour360/tour_product_bgi.jpg");
+		position: relative;
+		h3 {
+			width: 100%;
+			padding-top: 75px;
+			img {
+				width: 325px;
+				display: block;
+				margin: 0 auto;
+			}
+		}
+		.slide_pd {
+			width: 100%;
+			height: 440px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin-top: 200px;
+			overflow: hidden;
+			img {
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				margin-left: -2680px;
+				&:last-child {
+					margin-left: -1580px;
+				}
+				&:nth-child(1) {
+					margin-left: -480px;
+				}
+				&:nth-child(2) {
+					margin-left: 620px;
+				}
+			}
+		}
+		.slide_pd_btn {
+			width: 1020px;
+			height: 70px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-top: 395px;
+			margin-left: -510px;
+			z-index: 3;
+			button {
+				width: 32px;
+				height: 70px;
+				padding: 10px 0;
+				span {
+					width: 32px;
+					height: 50px;
+					display: block;
+				}
+			}
+			.left_pd {
+				float: left;
+				span {
+					background-position: 0 -28px;
+				}
+			}
+			.right_pd {
+				float: right;
+				span {
+					background-position: -33px -28px;
+				}
+			}
+		}
+		.slide_info {
+			width: 800px;
+			height: 150px;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			margin-bottom: 140px;
+			margin-left: -400px;
+			h5 {
+				font: 600 40px/48px 'adinenuPro-black';
+				text-align: center;
+				color: #000;
+				padding-bottom: 30px;
+			}
+			a {
+				width: 270px;
+				height: 70px;
+				display: block;
+				margin: 0 auto;
+				border: 2px solid #000;
+				box-sizing: border-box;
+				font: 600 23px/66px 'NotoSansKR';
+				text-align: center;
+				color: #000;
+			}
+		}
+		.slide_pd_indi {
+			width: 70px;
+			height: 10px;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			margin-bottom: 80px;
+			margin-left: -35px;
+			li {
+				width: 10px;
+				height: 10px;
+				float: left;
+				margin-right: 20px;
+				border-radius: 50%;
+				background: #9a9a9a;
+				button {
+					width: 100%;
+					height: 100%;
+					display: block;
+				}
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+			li.act_pd_indi {
+				background: #000001;
+			}
+		}
+	}
+	.tour_content_wrap {
+		width: 100%;
+		max-width: 1280px;
+		height: auto;
+		padding: 60px 0 70px;
+		margin: 0 auto;
+		>div {
+			position: relative;
+			width: 100%;
+			height: 460px;
+			padding-top: 60px;
+			border-bottom: 1px solid #e1e1e1;
+			box-sizing: border-box;
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+		img {
+			display: block;
+			float: left;
+		}
+		dl {
+			position: absolute;
+			top:50px;
+			right:0;
+			width: 100%;
+			padding-left: 50%;
+			height: auto;
+			box-sizing: border-box;					
+			-webkit-box-sizing: border-box;					
+			dt {
+				margin-bottom: 46px;
+				font: 600 25px/38px 'NotoSansKR';
+				color: #000;
+			}
+			dd {
+				margin-bottom: 32px;
+				.num_box {
+					width: 19px;
+					height: 19px;
+					margin: 2px 0;
+					float: left;
+					background-color: #000;
+					font: 300 15px/23px 'adinenuPro-bold';
+					text-align: center;
+					color: #fff;
+				}
+				.text_box {
+					display: block;					
+					padding-left: 30px;									
+					font: 400 16px/23px 'NotoSansKR';
+					letter-spacing: -0.01em;
+
+					word-wrap: break-word; /* Internet Explorer 5.5+ */					
+					word-break:break-all;
+					white-space: normal;
+				}
+			}
+		}
+	}
+	.tour_gallery_wrap {
+		width: 100%;
+		height: 24.5vw;
+		.gallery_box {
+			width: 25%;
+			height: 100%;
+			float: left;
+			background-size: 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+		}
+		.gallery_img01 {
+			background-image: url("/images/adidas/event/golf/tour360/tour360_zoom01_w.jpg");
+		}
+		.gallery_img02 {
+			background-image: url("/images/adidas/event/golf/tour360/tour360_zoom02_w.jpg");
+		}
+		.gallery_img03 {
+			background-image: url("/images/adidas/event/golf/tour360/tour360_zoom03_w.jpg");
+		}
+		.gallery_img04 {
+			background-image: url("/images/adidas/event/golf/tour360/tour360_zoom04_w.jpg");
+		}
+	}
+	.tour_history_wrap {
+		width: 100%;
+		height: 810px;
+		background-size: 1903px;
+		background-position: center top;
+		background-repeat: no-repeat;
+		background-image: url("/images/adidas/event/golf/tour360/tour_history_bgi.jpg");
+		position: relative;
+		.history_text {
+			width: 650px;
+			height: 160px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-top: 80px;
+			margin-left: -325px;
+			div {
+				width: 100%;
+				height: auto;
+				position: absolute;
+				top: 0;
+				left: 0;
+				margin-top: 15px;
+				display: none;
+				h6 {
+					font: 300 55px/65px 'adinenuPro-bold';
+					text-align: center;
+					color: #fff;
+				}
+				p {
+					padding-top: 10px;
+					font: 300 20px/25px 'NotoSansKR';
+					text-align: center;
+					color: #fff;
+				}
+				&:nth-child(1) {
+					display: block;
+				}
+			}
+			.double_title {
+				margin-top: 0;
+				h6 {
+					span {
+						width: 100%;
+						display: block;
+						&:first-child {
+							font: 300 55px/52px 'adinenuPro-light';
+							text-align: center;
+						}
+						&:last-child {
+							font: 300 55px/55px 'adinenuPro-bold';
+							text-align: center;
+						}
+					}
+				}
+				p {
+					font: 600 20px/55px 'NotoSansKR';
+				}
+			}
+			.year2005 {
+				h6 {
+					width: 100%;
+					display: block;
+					font: 300 55px/55px 'adinenuPro-bold';
+				}
+				p {
+					font: 600 20px/55px 'NotoSansKR';
+				}
+			}
+		}
+		.history_content {
+			width: 1200px;
+			height: 470px;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			margin-bottom: 80px;
+			margin-left: -600px;
+			overflow: hidden;
+			div {
+				width: 150px;
+				height: 210px;
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				margin-left: -750px;
+				a {
+					width: 100%;
+					height: 100%;
+					display: block;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					img {
+						display: block;
+						position: absolute;
+						bottom: 0;
+					}
+					img.shoes_img {
+						width: 150px;
+						left: 0;
+						margin-bottom: 107px;
+						opacity: 0.5;
+					}
+					img.shoes_mark {
+						width: 40px;
+						left: 50%;
+						margin-bottom: 67px;
+						margin-left: -20px;
+						opacity: 0.7;
+					}
+					p {
+						width: 100%;
+						margin-top: 12px;
+						font: 300 20px/55px 'adinenuPro-bold';
+						text-align: center;
+						color: #fff;
+						opacity: 0.5;
+						position: absolute;
+						bottom: 0;
+					}
+				}
+				&:nth-child(2) {
+					margin-left: 270px;
+				}
+				&:last-child {
+					margin-left: -450px;
+				}
+			}
+			.act_history {
+				width: 520px;
+				height: 470px;
+				margin-left: -275px;
+				a {
+					img.shoes_img {
+						width: 520px;
+						margin-bottom: 135px;
+						opacity: 0.85;
+					}
+					img.shoes_mark {
+						width: 80px;
+						margin-bottom: 55px;
+						margin-left: -40px;
+						opacity: 0.9;
+					}
+					p {
+						margin-top: 0;
+						opacity: 0.9;
+					}
+				}
+			}
+		}
+		.history_btn {
+			width: 1020px;
+			height: 70px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-top: 395px;
+			margin-left: -510px;
+			z-index: 3;
+			button {
+				width: 32px;
+				height: 70px;
+				padding: 10px 0;
+				span {
+					width: 32px;
+					height: 50px;
+					display: block;
+				}
+			}
+			.left_hs {
+				float: left;
+				span {
+					background-position: -66px -28px;
+				}
+			}
+			.right_hs {
+				float: right;
+				span {
+					background-position: -100px -28px;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1190px) {
+	.tour_content_wrap {
+		width: 1190px !important;		
+		dl {			
+			padding-left: 50% !important;
+			padding-right: 5% !important;						
+			dt {
+				margin-bottom: 46px;
+				font: 600 25px/38px 'NotoSansKR';
+				color: #000;
+			}			
+		}
+	}
+}

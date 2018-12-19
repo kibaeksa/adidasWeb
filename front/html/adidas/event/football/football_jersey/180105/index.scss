@@ -1,0 +1,581 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+html.no_scroll {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.video_layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  .close {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    background-position: 0 -685px;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    transition: opacity 0.4s ease-in 0.2s;
+    -webkit-transition: opacity 0.4s ease-in 0.2s;
+  }
+  .bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s;
+    -webkit-transition: opacity 0.4s;
+  }
+  &.loaded {
+    .bg {
+      opacity: 0.6;
+      -ms-filter: alpha(opacity = 60);
+      filter: alpha(opacity = 60);
+    }
+    .close {
+      opacity: 1;
+      -ms-filter: alpha(opacity = 100);
+      filter: alpha(opacity = 100);
+    }
+  }
+  .video {
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.football_jersey {
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  .inner_wrap .main {
+    padding-top: 60px;
+    h2 {
+      font: 45px/68px 'adinenuPro-bold';
+      text-align: center;
+      color: #000;
+      letter-spacing: 16px;
+      strong {
+        font: 100px/90px 'adinenuPro-bold';
+        color: #000;
+		letter-spacing: 10px;
+      }
+    }
+	p{
+		margin-top: 10px;
+		font:400 25px 'NotoSansKR';
+		text-align: center;
+		color:#000;
+	}
+  }
+  .button {
+    display: block;
+    margin-top: 10px;
+    padding: 0 22px 0 25px;
+    font: 16px/51px 'NotoSansKR','Nanum Gothic';
+    font-weight: 400;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    letter-spacing: -1px;
+    &:hover {
+      background: none;
+      color: #000;
+      border: 2px solid #000;
+    }
+  }
+
+  .w_button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0 125px;
+    font: 16px/51px 'NotoSansKR','Nanum Gothic';
+    font-weight: 400;
+    text-align: center;
+    background: #fff;
+    color: #000;
+    border: 2px solid #fff;
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    letter-spacing: -1px;
+    &:hover {
+      background: none;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+  }
+
+  .l_button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0 125px;
+    font: 16px/51px 'NotoSansKR','Nanum Gothic';
+    font-weight: 400;
+    text-align: center;
+    background: none;
+    color: #fff;
+    border: 2px solid #fff;
+    transition: all 0.8s;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    letter-spacing: -1px;
+    &:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #fff;
+    }
+  }
+
+}
+
+.team_section {
+  text-align: center;
+  position: relative;
+  padding-top: 90px;
+  height: 4591px;
+  .team_btn {
+    width: 950px;
+    height: 205px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin: 0;
+    margin-left: -483px;
+    z-index: 10;
+	li{
+		float: left;
+		margin-left: 95px;
+		cursor: pointer;
+		&:first-child{
+			margin-left: 0;
+		}
+		a {
+	      width: 166px;
+	      height: 166px;
+	      display: block;
+	      background: url('/images/adidas/event/football_jersey/180105/team_logo.png?v=1') 0 -166px no-repeat;
+	    }
+		p{
+			font :500 20px 'NotoSansKR';
+			color:#d3d3d3;
+			text-align: center;
+			margin-top: 10px;
+
+		}
+
+	}
+
+  }
+}
+.football_jersey .team_section .team_btn li.on p{
+	color:#000;
+}
+
+.football_jersey .team_section .team_btn li a {
+	margin-left: 29px;
+	&:first-child{
+		margin-left: 0;
+	}
+  &#arg_btn {
+    width: 166px;
+  }
+  &#col_btn {
+    width: 166px;
+
+    background-position: -166px -166px;
+  }
+  &#ger_btn {
+    width: 166px;
+
+    background-position: -332px -166px;
+  }
+  &#mex_btn {
+    width: 166px;
+
+    background-position: -498px -166px;
+  }
+  &#rus_btn {
+    width: 166px;
+
+    background-position: -664px -166px;
+  }
+}
+
+.football_jersey .team_section .team_btn li.on a {
+  &#arg_btn {
+    background-position: 0 0;
+  }
+  &#col_btn {
+    background-position: -166px 0;
+  }
+  &#ger_btn {
+    background-position: -332px 0;
+  }
+  &#mex_btn {
+    background-position: -498px 0;
+  }
+  &#rus_btn {
+    background-position: -664px 0;
+  }
+}
+
+.team_section .team_contents {
+  position: absolute;
+  height: 4313px;
+  top: 290px;
+  left: 50%;
+  margin-left: -960px;
+  .team_slider {
+    position: relative;
+    width: 1920px;
+    height: 4313px;
+    overflow: hidden;
+    ul {
+      width: 7000px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    li {
+      position: absolute;
+      display: none;
+      &.active {
+        display: block;
+      }
+      .top {
+		  img{
+			  position: relative;
+		  }
+		  .txt_box{
+			  position: absolute;
+			  top: 425px;
+		      right: 495px;
+			  h3{
+				  font:90px/100px 'adihausDIN-Cond-bold';
+				  color:#fff;
+				  letter-spacing: 10px;
+				  text-align: left;
+				  &::after{
+					  content: '';
+					  display: block;
+					  width: 25px;
+					  height: 3px;
+					  background-color: #fff;
+					  margin: 5px 0 15px 0 ;
+				  }
+			  }
+			  p{
+				  font:36px 'adihausDIN-Cond';
+				  color:#fff;
+				  margin-bottom: 20px;
+			  }
+		  }
+	  }
+	  .cont1 {
+        position: relative;
+		margin-left: 1040px;
+		margin-top: 100px;
+        .img {}
+        .txt {
+          position: absolute;
+		  top: 100px;
+		  left: -590px;
+          color: #000;
+          h3 {
+            font:700 48px 'NotoSansKR';
+			&::after{
+				content: '';
+				display: block;
+				width: 25px;
+				height: 3px;
+				background-color: #000;
+				margin: 13px 0 23px 0;
+			}
+          }
+          p {
+            font:400 17px/28px 'NotoSansKR';
+			letter-spacing: -0.7px;
+          }
+          a.button {
+            margin-top: 40px;
+            width: 225px;
+          }
+        }
+      }
+
+      .cont2 {
+        position: relative;
+		margin-left: 230px;
+    	margin-top: 60px;
+		a.video-button{
+			position: absolute;
+			width: 102px;
+			height: 102px;
+			top: 315px;
+			left: 315px;
+			display: block;
+			background: url('/images/adidas/event/football_jersey/180105/play.png')center center no-repeat;
+			&:hover{
+				background: url('/images/adidas/event/football_jersey/180105/play_ov.png')center center no-repeat;
+			}
+		}
+        .img {}
+        .txt {
+          position: absolute;
+		  top: 190px;
+    	  right: 450px;
+          color: #000;
+		  h3 {
+            font:700 48px 'NotoSansKR';
+			&::after{
+				content: '';
+				display: block;
+				width: 25px;
+				height: 3px;
+				background-color: #000;
+				margin: 13px 0 23px 0;
+			}
+          }
+          p {
+            font:400 17px/28px 'NotoSansKR';
+			letter-spacing: -0.7px;
+          }
+          a.button {
+            margin-top: 40px;
+            width: 225px;
+          }
+        }
+      }
+      .bottom1 {
+        margin-top: 130px;
+      }
+
+	  .bottom2 {
+		  position: relative;
+          margin-top: 100px;
+		  .bottom_txt{
+			  position: absolute;
+			  top: 480px;
+    		  left: 760px;
+			  text-align: center;
+			  h3{
+				  font:38px 'adinenuPro-black';
+				  color:#fff;
+				  letter-spacing: 6px;
+				  &::after{
+	  				content: '';
+	  				display: block;
+					text-align: center;
+	  				width: 25px;
+	  				height: 3px;
+	  				background-color: #fff;
+	  				margin: 13px auto 18px;
+	  			}
+			  }
+		  }
+      }
+    }
+  }
+  a {
+    &.prev {
+      bottom: 86px;
+      margin-left: 484px;
+      display: block;
+      position: absolute;
+      width: 59px;
+      height: 59px;
+      background: url('http://image.adidas.co.kr/images/adidas/event/football_jersey/btn_prev.png') 0 0 no-repeat;
+    }
+    &.next {
+      bottom: 86px;
+      margin-left: 1382px;
+      display: block;
+      position: absolute;
+      width: 59px;
+      height: 59px;
+      background: url('http://image.adidas.co.kr/images/adidas/event/football_jersey/btn_next.png') 0 0 no-repeat;
+    }
+  }
+  .name_slider {
+    font: 30px/35px 'adinenuPro-black','Nanum Gothic';
+    color: #fff;
+    width: 830px;
+    height: 100px;
+    overflow: hidden;
+    letter-spacing: 12px;
+    position: relative;
+    margin: 0 auto;
+    ul {
+      width: 7000px;
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+    }
+    li {
+      width: 830px;
+      text-align: center;
+      float: left;
+    }
+  }
+}
+
+.football_jersey .video {
+  position: relative;
+  margin-bottom: 50px;
+  .img {
+    position: relative;
+    left: 50%;
+    margin-left: -960px;
+    height: 560px;
+  }
+  a {
+    &.video-button {
+      position: absolute;
+      display: block;
+      height: 99px;
+      width: 99px;
+      top: 245px;
+      left: 50%;
+      margin-left: -60px;
+      z-index: 1;
+      background: url('http://image.adidas.co.kr/images/adidas/event/pure_boost/play_hover.png') no-repeat;
+    }
+    &:hover.video-button {
+      background: url("http://image.adidas.co.kr/images/adidas/event/pure_boost/play.png") no-repeat;
+    }
+  }
+}
+.football_jersey .banner_area{
+	position: relative;
+	height: 504px;
+	width: 100%;
+	margin-bottom: 120px;
+	ul{
+		text-align: center;
+		li{
+			position: relative;
+			width: 328px;
+			height: 504px;
+			display: inline-block;
+			margin-left: 30px;
+			overflow: hidden;
+			&:first-child{
+				margin-left: 0;
+			}
+			img{
+				position: absolute;
+				@include css3(transition , all 3s);
+			}
+			&:hover{
+				img{
+					transform: scale(1.1);
+				}
+			}
+			.txt{
+				width: 100%;
+				position: absolute;
+				bottom: 50px;
+				text-align: center;
+				h4{
+					font:30px 'adinenuPro-black';
+					letter-spacing: 2px;
+					text-align: center;
+					color:#fff;
+				}
+				.l_button{
+					padding: 0;
+					width: 270px;
+				}
+			}
+		}
+	}
+
+}

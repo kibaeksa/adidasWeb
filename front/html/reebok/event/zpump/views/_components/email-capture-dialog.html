@@ -1,0 +1,297 @@
+<section data-ng-if="pageClass === 'home' && deviceResolution === 'desktop'" class="module homeShare">
+    <div class="container">
+
+        <div class="row track" data-track="BRAND|BMH|SOCIAL FOLLOW">
+            <div class="col-xs-12 text-center addthis_toolbox">
+                <h2 class="delta-subheadline color-cream">{{languageObj.share}}</h2>
+                <a href="#" data-track="FACEBOOK" class="addthis_button_facebook">
+                    <span class="icon icon-35 icon-svg-facebook-c"></span>
+                </a>
+                <a href="#" data-track="TWITTER" class="addthis_button_twitter">
+                    <span class="icon icon-35 icon-svg-twitter-c"></span>
+                </a>
+                <a href="#" data-track="GOOGLEPLUS" class="addthis_button_google_plusone_share">
+                    <span class="icon icon-35 icon-svg-google-plus-c"></span>
+                </a>
+                <a href="#" data-track="EMAIL" class="addthis_button_email">
+                    <span class="icon icon-35 icon-svg-email-c"></span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- overlayEmail = {{overlayEmail}} -->
+<div data-ng-show="pageClass === 'home' || overlayEmail" class="container email-capture color-cream" ng-class="{'valign': overlayEmail === true }">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+            <h3 class="paragraph text-uppercase margin-top30 padding-bottom10">{{languageObj.subscribeToReebok}}</h3>
+            <form data-subscribe data-preset="subscribe" onsubmit="return false;" name="subscribeForm" class="subscribeForm" novalidate>
+
+                <div data-ng-show="emailFormSuccessful && responseReceived" class="form-error margin20">
+                    <div class="message"><p>{{languageObj.subscribeSuccess}}</p></div>
+                </div>
+                <div data-ng-show="emailFormSubmitted && responseReceived && !emailFormSuccessful && !ageNotValid" class="form-error margin20">
+                    <div class="message"><p>{{languageObj.subscribeError}}</p></div>
+                </div>
+
+                <div data-ng-show="dateNotValid && !emailFormSuccessful" class="form-error margin20">
+                    <div class="message"><p>{{languageObj.invalidDate}}</p></div>
+                </div>
+
+                <div data-ng-show="ageNotValid && responseReceived && !emailFormSuccessful" class="form-error margin20">
+                    <div class="message"><p>{{languageObj.over14}}</p></div>
+                </div>
+
+                <div data-ng-show="emailNotValid && responseReceived && !emailFormSuccessful" class="form-error margin20">
+                    <div class="message"><p>{{languageObj.invalidEmail}}</p></div>
+                </div>
+
+                <div class="errors">
+
+                    <!-- Error Begin -->
+                    <div data-ng-show="subscribeForm.email.$dirty && subscribeForm.email.$invalid">
+                        <div data-ng-show="subscribeForm.email.$error.required" class="form-error">
+                            <div class="message"><p>{{languageObj.emailRequired}}</p></div>
+                        </div>
+                        <div data-ng-show="subscribeForm.email.$error.pattern" class="form-error">
+                            <div class="message"><p>{{languageObj.invalidEmail}}</p></div>
+                        </div>
+                    </div>
+
+                    <div data-ng-show="subscribeForm.DOBMonth.$dirty && subscribeForm.DOBMonth.$invalid ">
+                        <div data-ng-show="subscribeForm.DOBMonth.$error.required" class="form-error">
+                            <div class="message"><p>{{languageObj.monthRequired}}</p></div>
+                        </div>
+                    </div>
+                    <div data-ng-show="subscribeForm.DOBDay.$dirty && subscribeForm.DOBDay.$invalid ">
+                        <div data-ng-show="subscribeForm.DOBDay.$error.required" class="form-error">
+                            <div class="message"><p>{{languageObj.dayRequired}}</p></div>
+                        </div>
+                    </div>
+                    <div data-ng-show="subscribeForm.DOBYear.$dirty && subscribeForm.DOBYear.$invalid ">
+                        <div data-ng-show="subscribeForm.DOBYear.$error.required" class="form-error">
+                            <div class="message"><p>{{languageObj.yearRequired}}</p></div>
+                        </div>
+                    </div>
+
+                    <!--<div data-ng-show="subscribeForm.agecheck.$dirty && subscribeForm.agecheck.$invalid ">-->
+                        <!--<div data-ng-show="subscribeForm.agecheck.$error.required" class="form-error">-->
+                            <!--<div class="message"><p>Age check required.</p></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- Error End -->
+
+                </div>
+
+                <div class="ngdialog-input">
+
+                    <input data-ng-model-onblur ng-model="subscribe.email" class="" type="text"
+                           name="email" placeholder="{{languageObj.enterYourEmail}}" required autocomplete="off" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/" ng-model-options="{ updateOn: 'blur' }" data-ng-focus="formStarted(pageClass, overlayEmail)" />
+
+                    <h3 class="paragraph text-uppercase padding-bottom10">{{languageObj.enterDob}}</h3>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <select name="DOBMonth" ng-model="subscribe.month" required>
+                                <option value="" disabled selected>{{languageObj.month}}</option>
+                                <option value="01">Jan</option>
+                                <option value="02">Feb</option>
+                                <option value="03">Mar</option>
+                                <option value="04">Apr</option>
+                                <option value="05">May</option>
+                                <option value="06">Jun</option>
+                                <option value="07">Jul</option>
+                                <option value="08">Aug</option>
+                                <option value="09">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <select name="DOBDay" ng-model="subscribe.day" required>
+                                <option value="" disabled selected>{{languageObj.day}}</option>
+                                <option value="01">1</option>
+                                <option value="02">2</option>
+                                <option value="03">3</option>
+                                <option value="04">4</option>
+                                <option value="05">5</option>
+                                <option value="06">6</option>
+                                <option value="07">7</option>
+                                <option value="08">8</option>
+                                <option value="09">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <select name="DOBYear" ng-model="subscribe.year" required>
+                                <option value="" disabled selected>{{languageObj.year}}</option>
+                                <option value="2014">2014</option>
+                                <option value="2013">2013</option>
+                                <option value="2012">2012</option>
+                                <option value="2011">2011</option>
+                                <option value="2010">2010</option>
+                                <option value="2009">2009</option>
+                                <option value="2008">2008</option>
+                                <option value="2007">2007</option>
+                                <option value="2006">2006</option>
+                                <option value="2005">2005</option>
+                                <option value="2004">2004</option>
+                                <option value="2003">2003</option>
+                                <option value="2002">2002</option>
+                                <option value="2001">2001</option>
+                                <option value="2000">2000</option>
+                                <option value="1999">1999</option>
+                                <option value="1998">1998</option>
+                                <option value="1997">1997</option>
+                                <option value="1996">1996</option>
+                                <option value="1995">1995</option>
+                                <option value="1994">1994</option>
+                                <option value="1993">1993</option>
+                                <option value="1992">1992</option>
+                                <option value="1991">1991</option>
+                                <option value="1990">1990</option>
+                                <option value="1989">1989</option>
+                                <option value="1988">1988</option>
+                                <option value="1987">1987</option>
+                                <option value="1986">1986</option>
+                                <option value="1985">1985</option>
+                                <option value="1984">1984</option>
+                                <option value="1983">1983</option>
+                                <option value="1982">1982</option>
+                                <option value="1981">1981</option>
+                                <option value="1980">1980</option>
+                                <option value="1979">1979</option>
+                                <option value="1978">1978</option>
+                                <option value="1977">1977</option>
+                                <option value="1976">1976</option>
+                                <option value="1975">1975</option>
+                                <option value="1974">1974</option>
+                                <option value="1973">1973</option>
+                                <option value="1972">1972</option>
+                                <option value="1971">1971</option>
+                                <option value="1970">1970</option>
+                                <option value="1969">1969</option>
+                                <option value="1968">1968</option>
+                                <option value="1967">1967</option>
+                                <option value="1966">1966</option>
+                                <option value="1965">1965</option>
+                                <option value="1964">1964</option>
+                                <option value="1963">1963</option>
+                                <option value="1962">1962</option>
+                                <option value="1961">1961</option>
+                                <option value="1960">1960</option>
+                                <option value="1959">1959</option>
+                                <option value="1958">1958</option>
+                                <option value="1957">1957</option>
+                                <option value="1956">1956</option>
+                                <option value="1955">1955</option>
+                                <option value="1954">1954</option>
+                                <option value="1953">1953</option>
+                                <option value="1952">1952</option>
+                                <option value="1951">1951</option>
+                                <option value="1950">1950</option>
+                                <option value="1949">1949</option>
+                                <option value="1948">1948</option>
+                                <option value="1947">1947</option>
+                                <option value="1946">1946</option>
+                                <option value="1945">1945</option>
+                                <option value="1944">1944</option>
+                                <option value="1943">1943</option>
+                                <option value="1942">1942</option>
+                                <option value="1941">1941</option>
+                                <option value="1940">1940</option>
+                                <option value="1939">1939</option>
+                                <option value="1938">1938</option>
+                                <option value="1937">1937</option>
+                                <option value="1936">1936</option>
+                                <option value="1935">1935</option>
+                                <option value="1934">1934</option>
+                                <option value="1933">1933</option>
+                                <option value="1932">1932</option>
+                                <option value="1931">1931</option>
+                                <option value="1930">1930</option>
+                                <option value="1929">1929</option>
+                                <option value="1928">1928</option>
+                                <option value="1927">1927</option>
+                                <option value="1926">1926</option>
+                                <option value="1925">1925</option>
+                                <option value="1924">1924</option>
+                                <option value="1923">1923</option>
+                                <option value="1922">1922</option>
+                                <option value="1921">1921</option>
+                                <option value="1920">1920</option>
+                                <option value="1919">1919</option>
+                                <option value="1918">1918</option>
+                                <option value="1917">1917</option>
+                                <option value="1916">1916</option>
+                                <option value="1915">1915</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-1">
+                            <input id="agreement" name="agreement" type="checkbox" ng-model="checked" value="" placeholder="" required>
+                            <label for="agreement">
+                                <span class="checkbox"></span>
+                            </label>
+                        </div>
+                        <div class="col-xs-10 col-sm-11">
+                            <p class="padding-bottom20 text-justify right-attribution nomargin" ng-bind-html="renderHtml(languageObj.subscribeText)"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <input type="button" class="submit" value="{{languageObj.submitEmail}}"
+                                data-ng-disabled="subscribeForm.$invalid" ng-click="submit()">
+                        <!-- <button type="submit" class="submit"
+                                data-ng-disabled="subscribeForm.$invalid">Submit</button> -->
+                        </div>
+                    </div>
+                </div>
+                <!--<br/>-->
+                <!--<span>-->
+                    <!--<input data-ng-model="subscribe.agecheck" type="checkbox" id="subscribeAgeCheck" name="agecheck" value="over" required />-->
+                    <!--<label for="subscribeAgeCheck">{{languageObj.over14}}</label>-->
+                <!--</span>-->
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<section data-ng-if="pageClass === 'home' && !overlayEmail" class="module">
+    <div class="container">
+
+        <div class="row padding-top20">
+            <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 text-center">
+                <img class="img-responsive inline-block"  src="images/BMH-horizontal-logo-c.png" />
+            </div>
+        </div>
+
+    </div>
+</section>

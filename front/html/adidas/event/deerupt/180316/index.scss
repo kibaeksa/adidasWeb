@@ -1,0 +1,397 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+#wrap{
+	overflow: hidden;
+	min-width: 1280px;
+}
+#DEERUPT{
+	min-width: 1280px;
+	overflow: hidden;
+	.video_wrap{
+		&.on{
+			position: relative;
+			z-index: 3;
+		}
+	}
+	.main_video_wrap{
+		position: relative;
+		.main{
+			position: relative;
+			height: 860px;
+			overflow: hidden;
+			ul{
+				li{
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					position: absolute;
+					&.on{
+						z-index: 1;
+					}
+					.img{
+						height: 100%;
+						width: 100%;
+						position: absolute;
+						top: 0;
+						left: 0;
+						img{
+							height: 100%;
+							width: 100%;
+							position: absolute;
+							top: 0;
+							left: 0;
+							object-fit: cover;
+							display: block;
+						}
+					}
+				}
+			}
+			.navi{
+				position: absolute;
+				top:460px;
+				left:50%;
+				margin-left: -595px;
+				z-index: 2;
+				width: 1190px;
+				div{
+					position: absolute;
+					top:0;
+					color:#fff;
+					// width: 100%;
+					display: inline-block;
+					&.prev{
+						left:0;
+					}
+					&.next{
+						right:0;
+					}
+				}
+			}
+		}
+		.innerContent{
+			position: absolute;
+			top:45px;
+			left:50%;
+			margin-left: -595px;
+			z-index: 3;
+			width: 1190px;
+			.logo{
+				h2{
+					float: left;
+					font: 36px 'adihaus-bold';
+					color:#fff;
+					span{
+						display: block;
+						padding: 15px 0 0 0;
+						font: 16px 'adihaus-medium';
+						color:#fff;
+						text-transform: uppercase;
+					}
+				}
+				.img{
+					float: right;
+				}
+
+			}
+			.video_clips{
+				padding: 67px 0 0 0;
+				text-align: right;
+				p{
+					display: inline-block;
+					padding: 0 15px 0 0;
+					font: 16px 'adihausDIN-Cond-medium';
+					color:#fff;
+					letter-spacing: 2px;
+				}
+				ul{
+					display: inline-block;
+					li{
+						display: inline-block;
+    					margin: 0 0 0 15px;
+						font: 16px 'adihausDIN-Cond-medium';
+						color:#fff;
+						cursor: pointer;
+
+
+					}
+				}
+				.video_title{
+					ul{
+						li{
+							position: absolute;
+						    top: 183px;
+						    right: 0;
+							text-transform: uppercase;
+							font-size: 22px;
+							@include css3(opacity,0);
+							@include css3(transition, all 0.5s);
+							&.on{
+								@include css3(opacity,1);
+							}
+						}
+					}
+				}
+			}
+		}
+		.btns{
+			position: absolute;
+			bottom:55px;
+			left:50%;
+			margin-left: -595px;
+			z-index: 3;
+			width: 1190px;
+			a{
+				font: 20px 'adinenuPro-bold';
+				color:#fff;
+				text-transform: uppercase;
+			}
+			.btn{
+				display: inline-block;
+				float: right;
+				span{
+					font: 18px 'adinenuPro-regular';
+				    text-transform: uppercase;
+				    color: #fff;
+				    letter-spacing: 1px;
+					cursor: pointer;
+				}
+				a{
+					display: inline-block;
+					width: 170px;
+					text-align: center;
+					font:500 16px/50px 'NotoSansKR';
+					color:#fff;
+					border: 2px solid #fff;
+				}
+			}
+		}
+		.video{
+			// height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			object-fit: cover;
+			display: none;
+			z-index: 3;
+			min-width: 1530px;
+		}
+	}
+
+	.gallery_wrap{
+		position: relative;
+		padding: 80px 0 0 0;
+	    width: 1190px;
+		height: 640px;
+	    margin: 0 auto 100px;
+		#gallery{
+			margin: 0 0 20px 0;
+		}
+		.gall_navi{
+			position: relative;
+			margin: 0 5px 50px 0;
+			z-index: 1;
+			pointer-events: inherit;
+			@include css3(opacity, 0.4);
+			@include css3(transition, all 0.5s);
+
+			&.on{
+				pointer-events: none;
+				@include css3(opacity, 1);
+
+			}
+		}
+		ul{
+			position: relative;
+			li{
+				float: left;
+				.content{
+					margin: 0 auto;
+					width: 1190px;
+					.title{
+						// padding: 0 0 50px 0;
+					}
+					.imgs{
+						position: relative;
+					    padding: 60px 0 0 0;
+						img{
+							position: relative;
+							margin: 0 5px;
+							@include css3(transition, all 0.8s);
+							transition-delay: 0.8s;
+
+						}
+						.right{
+							position: absolute;
+						    top: -124px;
+						    right: 0;
+						}
+					}
+				}
+				&.last{
+					.content{
+						.imgs{
+							img{
+								top:10px;
+
+								@include css3(opacity, 0);
+							}
+						}
+					}
+					&.on{
+						.content{
+							.imgs{
+								img{
+									@include css3(opacity, 1);
+
+									&.img1{ top:40px; }
+									&.img2{ top:-10px; }
+									&.img3{ top:40px; }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		.navi_gaz{
+			position: relative;
+			top:15px;
+			z-index: 1;
+			span{
+				display: inline-block;
+				width: 40px;
+				height: 2px;
+				background: #d7d7d7;
+				@include css3(transition, all 0.5s);
+				&.on{
+					width: 82px;
+					background: #000;
+				}
+			}
+		}
+	}
+
+	.shoes_wrap{
+		position: relative;
+	    margin: 100px 0 0 0;
+	    background: url(/images/adidas/event/DEERUPT/180316/bottom_bg.png) no-repeat;
+	    background-position: 0 119px;
+	    background-size: 100% 100%;
+		padding-bottom: 508px;
+		h3{
+			position: absolute;
+		    top: 155px;
+		    left: 50%;
+		    margin-left: -597px;
+		    font: 40px 'adihaus-bold';
+		    text-transform: uppercase;
+		    color: #000;
+
+		}
+		#shoes{
+			margin: 0 auto;
+
+			ul{
+				li{
+					div{
+						width: 1190px;
+						margin: 0 auto;
+						.txt{
+							position: relative;
+							padding: 220px 0 0 0;
+							display: inline-block;
+							width: 400px;
+							vertical-align: top;
+							p{
+								&.title{
+									padding: 0 0 14px 0;
+									font: 30px 'adihaus-medium';
+									text-transform: uppercase;
+								}
+								font:16px 'NotoSansKR';
+								color:#000;
+
+							}
+							.btn{
+								display: inline-block;
+								margin: 30px 0 0 0;
+								a{
+									display: inline-block;
+									width: 170px;
+									text-align: center;
+									font:600 16px/50px 'NotoSansKR';
+									color:#000;
+									border:2px solid #000;
+								}
+							}
+						}
+						.img{
+							display: inline-block;
+							width: 490px;
+							padding:  0 0 0 160px;
+							img{
+								width: 100%;
+							}
+						}
+					}
+				}
+			}
+		}
+		.indicator{
+			width: 1190px;
+		    margin: 0 auto;
+		    position: absolute;
+		    bottom: 550px;
+		    left: 50%;
+		    margin-left: -596px;
+			a{
+				position: relative;
+				display: block;
+			    float: left;
+			    width: 80px;
+			    height: 80px;
+			    text-align: center;
+			    border: 1px solid #cccccc;
+			    margin-left: -1px;
+				background: #fff;
+				@include css3(transition, all 0.1s);
+				img{
+					position: relative;
+					top: 6px;
+					@include css3(transition, all 0.5s);
+				}
+				&.on{
+					border:1px solid #000;
+					z-index: 1 !important;
+					img{
+						transform: scale(1.1);
+					}
+
+				}
+			}
+
+		}
+		.bottom_txt{
+			position: absolute;
+		    left: 50%;
+		    bottom: 235px;
+		    margin-left: -100px;
+
+			p{
+				text-align: center;
+				font: 30px 'adihaus-medium';
+				text-transform: uppercase;
+				color:#000;
+			    letter-spacing: 10px;
+				&.small{
+					padding: 10px 0 0 0;
+					font: 12px 'adihaus-medium';
+					letter-spacing: 0;
+
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,405 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+/* video_layer */
+.video_layer {
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110
+}
+.video_layer .video {
+	width:100%;
+	height:100%;
+	z-index:6;
+	position:absolute;
+	top:0;
+	left:0
+}
+.video_layer .close {
+	width:45px;
+	height:45px;
+	position:absolute;
+	top:25px;
+	right:25px;
+	z-index:20;
+	display:block;
+	background:url("/images/reebok/event/about/sprite.png") -80px 0 no-repeat;
+	text-indent:-5000px;
+	opacity:0;
+	transition:opacity 0.4s ease-in 0.5s;
+	-webkit-transition:opacity 0.4s ease-in 0.5s;
+	-moz-transition:opacity 0.4s ease-in 0.5s;
+	-o-transition:opacity 0.4s ease-in 0.5s;
+	-ms-transition:opacity 0.4s ease-in 0.5s
+}
+.video_layer .bg {
+	width:100%;
+	height:100%;
+	background:#000;
+	z-index:5;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0;
+	transition:opacity 0.4s;
+	-webkit-transition:opacity 0.4s;
+	-moz-transition:opacity 0.4s;
+	-o-transition:opacity 0.4s;
+	-ms-transition:opacity 0.4s
+}
+.video_layer.loaded .bg {
+	opacity:.6
+}
+.video_layer.loaded .close {
+	opacity:1
+}
+/* video_layer end */
+
+#preloadPanel{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 1000;
+	@include css3(transition,opacity 0.9s);
+
+	div{
+		position: relative;
+		font:50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top:50%;
+		left:50%;
+		@include css3(transform,translate3d(-50%,-50%,0));
+
+
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0.5) 77%,
+			rgba(255, 255, 255, 0.5) 92%,
+			rgba(255, 255, 255, 0.0) 100%
+			);
+
+			@include opacity(0);
+			@include css3(transform,rotate(30deg));
+			@include animation(1s,1.2s,shining);
+
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+
+	&.loaded{
+		@include opacity(0);
+	}
+}
+
+.video-viewer{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:100;
+
+	.video{
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.close{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include css3(transition,opacity 0.4s ease-in 0.2s);
+	}
+
+	.bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		@include opacity(0);
+		@include css3(transition,opacity 0.4s);
+	}
+
+	&.loaded{
+		.bg{
+			@include opacity(0.6);
+		}
+
+		.close{
+			@include opacity(1);
+		}
+
+	}
+}
+
+#blank_canvas{
+    min-width: 1190px;
+    overflow: hidden;
+    .bg{
+        position: absolute;
+        left:50%;
+        margin-left: -960px;
+    }
+
+    .main_visual{
+        position: relative;
+        height: 1000px;
+        overflow: hidden;        
+    }
+
+    .statement{        
+        position: relative;       
+        padding: 50px 0;
+        &.on{
+            .txt{
+                top:0;
+                @include css3(opacity,1);
+            }
+        }
+        .txt{
+            position: relative;
+            top: 50px;
+            text-align: center;
+            @include css3(transition, all 0.8s);
+            transition-delay: 0.5s;
+            @include css3(opacity,0);            
+            h3{                
+                font:500 46px/46px 'adinenuPro-black';
+                color:#000;
+                padding-bottom: 15px;
+                text-align: center;
+            }
+            p{
+                padding-bottom: 30px;
+                font:500 18px/24px 'NotoSansKR';
+                color:#000;
+                text-align: center;
+            }
+            .btn{
+                display: inline-block;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                width: 250px;
+                text-align: center;
+                border:2px solid #000;
+                background:rgba(255,255,255,0.3);
+                @include css3(transition, all 0.5s);
+                &:hover{
+                    background: #000;
+                    a{
+                        color: #fff;
+                        span{
+                            background-image: url('http://image.adidas.co.kr/images/adidas/common/icon_btn_white_14x14.png');
+                        }
+                    }
+                }
+                a{
+                    display: block;
+                    text-align: center;
+                    font:500 16px/48px 'NotoSansKR';
+                    color:#000;
+                    .spt_bg{
+                        position: relative;
+                        top:1px;
+                        display: inline-block;
+                        width: 14px;
+                        height: 14px;
+                        padding-left: 18px;
+                        background-image: url('http://image.adidas.co.kr/images/adidas/common/icon_btn_black_14x14.png');
+                        background-repeat: no-repeat;
+                        background-position: 100% 0;
+                    }
+                }
+            }
+        }
+    }
+    .prd_section{
+        position: relative;
+        height: 480px;
+        text-align: center;      
+        &.on{
+            .content{
+                .box{
+                    .txt{
+                        bottom:50px;
+                        @include css3(opacity,1);
+                    }
+                }
+            }
+        }
+        .content{ 
+            .box{
+                position: relative;
+                padding: 0;
+                float: left;
+                width: 50%;
+                h3{
+                    text-align: center;
+                    font:300 42px/42px 'adinenuPro-black';
+                    color:#000;
+                    text-transform: uppercase;                 
+                }
+                .img{
+                    overflow: hidden;
+                    height: 480px;
+                    img{
+                        margin-top: -80px;
+                        @include css3(transition, 2s);
+                    }
+                }
+                .txt{
+                    position: absolute;
+                    bottom:0 ;
+                    left: 50%;
+                    margin-left: -125px;
+                    @include css3(transition, all 0.8s);
+                    transition-delay: 0.5s;
+                    @include css3(opacity,0);
+                    .btn{
+                        position: relative;
+                        display: inline-block;
+                        box-sizing: border-box;
+                        -webkit-box-sizing: border-box;
+                        margin: 30px auto 0;
+                        width: 250px;
+                        text-align: center;
+                        border:2px solid #000;
+                        background: #000;
+                        @include css3(transition, all 0.5s);
+                        &:hover{
+                            background: none;
+                            a{
+                                color:#000;
+                                span{
+                                    
+                                    background-image: url(http://image.adidas.co.kr/images/adidas/common/icon_btn_black_14x14.png);
+                                }
+                            }
+                        }
+                        a{
+                            display:block;
+                            font:500 16px/48px 'NotoSansKR';
+                            color:#fff;
+                            text-align: center;
+                            .spt_bg{
+                                position: relative;
+                                top:1px;
+                                display: inline-block;
+                                width: 14px;
+                                height: 14px;
+                                padding-left: 18px;
+            
+                                background-image: url('http://image.adidas.co.kr/images/adidas/common/icon_btn_white_14x14.png');
+                                
+                                background-repeat: no-repeat;
+                                background-position: 100% 0;
+                            }
+                        }
+                    }
+                }
+                &:hover{
+                    .img{
+                        img{
+                            @include css3(transform, scale(1.1));
+                        }
+                    }
+                }                
+            }
+        }        
+    }
+    .bottom{
+        position: relative;
+        height: 990px;
+        padding: 50px 0;
+        text-align: center;
+        .visual_video{			
+			cursor: pointer;
+			&:hover{
+				.masthead{
+					.play{
+						cursor: pointer;
+						background: none;
+						border:3px solid #fff;
+						&:after{
+							background-position: 100% 0;
+						}
+					}
+				}
+			}
+			.bg{
+				text-align: center;
+				img{
+					width: 100%;
+				}
+			}
+			.masthead{
+				position: absolute;
+				top:50%;
+				left:50%;
+				.play{
+					position: relative;
+					display: inline-block;
+					width:105px;
+					height: 105px;
+					margin-left: -52px;
+					margin-top: -52px;
+					border:3px solid #c1c0c3;
+					border-radius: 100px;
+					background: rgba(0, 0, 0, 0.3);
+					@include css3(transition , all 0.5s);
+					&:after{
+						position: absolute;
+						top:38px;
+						left:43px;
+						content: "";
+						width:25px;
+						height:31px;
+					    display: block;
+						background: url("http://image.adidas.co.kr/images/adidas/event/crazy/btn_arrow_w.png");
+						background-position: 0 0;
+						@include css3(transition , all 0.5s);
+
+					}
+
+				}
+			}
+		}
+    }
+
+}
