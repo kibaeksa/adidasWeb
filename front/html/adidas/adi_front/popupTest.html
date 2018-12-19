@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+ <head>
+  <title>아디다스 공식 온라인 스토어</title>
+  <meta http-equiv="content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css"/>
+  <script src="/js/jquery/jquery-1.4.2.js"></script>
+  <!-- <script src="/js/modalPopup.min.js"></script> -->
+  <script src="/js/modalPopup.js"></script>
+
+ </head>
+
+ <body>
+
+    <div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice1"
+        data-modalpop=""
+        data-modalpop-width="600"
+        data-modalpop-name="modalpop-notice1"
+        data-modalpop-fade=""
+        data-modalpop-valign="center"
+    >
+ 		<div class="overlay"></div>
+ 		<div class="popup">
+            <div class="popup-header">
+                <h2>당일배송 서비스 오픈!</h2>
+                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+            </div>
+
+ 			<div class="popup-contents">
+ 			    <p>당일배송 서비스 오픈!</p>
+ 			</div>
+ 		</div>
+ 	</div>
+
+    <div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice1"
+        data-modalpop=""
+        data-modalpop-width="1000"
+        data-modalpop-height="500"
+        data-modalpop-valign="top"
+        data-modalpop-name="popup_notice2"
+    >
+ 		<div class="overlay"></div>
+ 		<div class="popup">
+            <div class="popup-header">
+                <h2>그냥 팝업</h2>
+                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+            </div>
+
+ 			<div class="popup-contents">
+ 			    <p>될랑가 모르것네</p>
+ 			</div>
+ 		</div>
+ 	</div>
+
+
+    <div style="padding: 10px;">
+        <button data-modalpop-click="modalpop-notice1" class="modal-popup-click">당일배송 서비스 오픈!</button>
+        <button data-modalpop-click="popup_notice2" class="modal-popup-click">커스텀 팝업</button>
+        <button class="modal-popup-click" data-modalpop-click="modal-dialog">컨펌 팝업</button>
+    </div>
+
+
+    <script>
+        setTimeout(function(){
+            $('body').append('<div class="modal-popup-wrapper" data-modalpop=""data-modalpop-width="600"data-modalpop-height="300"data-modalpop-valign="top"data-modalpop-name="new_popup"><div class="overlay"></div><div class="popup"><div class="popup-header"><h2>그냥 팝업</h2><a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a></div><div class="popup-contents"><p>새로운 팝업</p></div></div></div>');
+            $('body').append('<div class="modal-popup-wrapper" data-modalpop=""data-modalpop-width="600"data-modalpop-height="300"data-modalpop-valign="top"data-modalpop-name="new_popup"><div class="overlay"></div><div class="popup"><div class="popup-header"><h2>그냥 팝업</h2><a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a></div><div class="popup-contents"><p>새로운 팝업</p></div></div></div>');
+
+            ModalPopup.rerender();
+        },2000);
+
+        ModalPopup.init({
+            name : 'modal-dialog',
+            width : 500,
+            height : 300,
+            autoOpen : true,
+            htmlString : {
+                contents : '<div style="margin-bottom:10px;font:500 14px/14px \'NotoSansKR\';color:#000;">진행 하시겠습니까?</div>'
+            },
+            disableClose : true,
+            onload : function(obj){
+                console.log(obj.name,' is loaded');
+            },
+            onopen : function(obj){
+                console.log(obj.name,' is opened');
+            },
+            onclose : function(obj){
+                console.log(obj.name,' is closed');
+            },
+            buttons : [
+                {
+                    text : '확인',
+                    className : 'btn-ctm btn-blue',
+                    callback : function(event , obj){
+                        // alert('확인')
+                    }
+                },
+                {
+                    text : '취소',
+                    className : 'btn-ctm btn-gray',
+                    callback : function(event , obj){
+                        // alert('취소');
+                    }
+                },
+                {
+                    text : '닫기',
+                    className : 'btn-ctm btn-lgray',
+                    callback : function(event , obj){
+                        ModalPopup.closePopup(obj.name);
+                    }
+                },
+                {
+                    text : '아디다스 온라인스토어',
+                    link : 'http://shop.adidas.co.kr',
+                    className : 'btn-ctm',
+                    attrs : {
+                        target : '_blank',
+                        dataTest : 'HEY'
+                    }
+                }
+            ]
+        });
+
+        ModalPopup.bind('modalpop-notice1',{
+            onload : function(obj){
+                alert('당일배송 팝업 LOADED');
+            },
+            onopen : function(obj){
+                alert('당일배송 팝업 OPEN');
+            },
+            onclose : function(obj){
+                alert('당일배송 팝업 CLOSE');
+            },
+        });
+
+
+        ModalPopup.bind({
+            onopen : function(obj){
+                alert('Common open');
+            },
+            onclose : function(obj){
+                alert('Common close');
+            },
+        });
+
+
+    </script>
+ </body>
+</html>
