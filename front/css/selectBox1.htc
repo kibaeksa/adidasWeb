@@ -1,0 +1,438 @@
+<public:component>
+<public:attach event="ondocumentready" handler="initializeSelectBox" />
+<public:attach event="onpropertychange" handler="eventChangeProperty" />
+<public:attach event="onmousedown" for="document" handler="eventMouseDown" />
+<public:property name="setColor" put="setupColor" />
+<public:property name="setImage" put="setupImage" />
+
+<script language="JavaScript">
+
+
+// 변수 선언
+var objSelectBox = this;
+var mTable, mTBody, mTR, mTD;
+var sTable, sTBody, sTR, sTD;
+var widthObject, heightObject, topMT, heightMT, topST, heightST;
+var close_check = 0;
+
+// 기본 색상 및 글자 설정
+var normal_bgcolor = "#ffffff";
+var normal_color = "#999999";
+var active_bgcolor = "#e1e1e1";
+var active_color = "#000000";
+var normal_border_tag = "1 solid #E1E1E1";
+var active_border_tag = "1 solid #ffffff";
+var font_tag = "normal 9pt 돋움";
+var arrow_image = "/img/front/basis/icon_select.gif";
+
+// onMouseDown 이벤트가 발생할 때 서브 레이어를 닫을 조건이면 레이어를 감춤
+function eventMouseDown(){
+  if(close_check) closeSubLayer();
+}
+
+// onChange 이벤트 처리
+function eventChangeProperty(){
+  if (window.event.type == "propertychange" && window.event.propertyName == "selectedIndex"){
+    if (objSelectBox.onchange != null) objSelectBox.onchange();
+  }
+}
+
+// onMouseWheel 이벤트 처리 (현재 개발 작업중)
+function eventMouseWheel(){
+  var idx = 0;
+/*
+  if(event.type == "mousewheel"){
+    for(t=0; t<objSelectBox.length; t++){
+      if(event.srcElement == sTD[t]) idx = t;
+      sTD[t].style.color = normal_color;
+      sTD[t].style.background = normal_bgcolor;
+    }
+
+    for(i=0; i<event.wheelDelta; i+=120) idx--;
+    for(i=0; i>event.wheelDelta; i-=120) idx++;
+    idx = Math.max(idx, 0);
+    idx = Math.min(idx, objSelectBox.length - 1);
+
+    sTD[idx].style.color = active_color;
+    sTD[idx].style.background = active_bgcolor;
+  }
+*/
+}
+
+// 프로퍼티로 색상을 설정시에 색상 관련 변수 변경
+function setupColor(color_list){
+  var color_array = color_list.split(",");
+  var color = new Array();
+
+  for(i=0; i<color_array.length; i++){
+    color[i] = color_array[i];
+  }
+
+  if(color[0]) normal_color = color[0];
+  if(color[1]) normal_bgcolor = color[1];
+  if(color[2]) active_color = color[2];
+  if(color[3]) active_bgcolor = color[3];
+  if(color[4]) normal_border_tag = "1 solid "+color[4];
+  if(color[5]) active_border_tag = "1 solid "+color[5];
+}
+
+// 프로퍼티로 화살표 이미지를 설정시에 화살표 이미지를 변경
+function setupImage(image_file){
+  if(image_file) arrow_image = image_file;
+}
+
+// 문자열의 길이를 계산
+function getStringLength(string){
+  var i, j=0;
+
+  for(i=0;i<string.length;i++) {
+    lengthString = escape(string.charAt(i)).length;
+    if(lengthString > 4) j++;
+    j++;
+  }
+
+  return j;
+}
+
+// 문자열의 넓이를 구함 (픽셀, 굴림, 12px 기준)
+function getStringPixelWidth(string_value){
+  var ascii_code;
+  var string_value_length = string_value.length;
+  var character;
+  var character_width;
+  var character_length;
+  var total_width = 0;
+  var total_length = 0;
+
+  var special_char_size = 6;
+  var multibyte_char_size = 12;
+  var base_char_start = 32;
+  var base_char_end =  127;
+  var ascii_char_size = Array(4,4,4,6,6,10,8,4,5,5,6,6,4,6,4,6,6,6,6,6,6,6,6,6,6,6,4,4,8,6,8,6,12,8,8,9,8,8,7,9,8,3,6,8,7,11,9,9,8,9,8,8,8,8,8,10,8,8,8,6,11,6,6,6,4,7,7,7,7,7,3,7,7,3,3,6,3,11,7,7,7,7,4,7,3,7,6,10,7,7,7,6,6,6,9,6);
+
+  for(i=0; i<string_value_length; i++){
+    character = string_value.substring(i,(i+1));
+    ascii_code = character.charCodeAt(0);
+    
+    if(ascii_code < base_char_start){
+      character_width = special_char_size;
+    }else if(ascii_code <= base_char_end){
+      idx = ascii_code - base_char_start;
+      character_width = ascii_char_size[idx];
+    }else if(ascii_code > base_char_end){
+      character_width = multibyte_char_size;
+    }
+    total_width += character_width;
+  }
+
+  return total_width;
+}
+
+function initializeSize(){
+  // 메인 테이블의 높이 설정
+  topMT = 0;
+  heightMT = 16;
+
+  // 옵션 테이블의 높이 설정
+  heightST = objSelectBox.length * 18 + 1 + 1;
+
+  // 셀렉트 박스의 넓이를 설정 (최대 글자수에 따라 계산)
+  if(objSelectBox.style.width){
+    widthObject = parseInt(objSelectBox.style.width);
+  }else{
+    lengthMax = 0;
+    for(i=0; i<objSelectBox.length; i++){
+      lengthOption = getStringLength(objSelectBox.options[i].text);
+      if(lengthMax < lengthOption){
+        lengthMax = lengthOption;
+        stringLong = objSelectBox.options[i].text;
+      }
+    }
+    widthObject = getStringPixelWidth(stringLong) + 12 + 12 + 2;
+  }
+  heightObject = heightMT + heightST;
+}
+
+// 셀렉트 박스를 테이블로 변환
+function convertSelectBox(){
+  var textDefault = objSelectBox.options[objSelectBox.selectedIndex].text;
+
+  // 테이블들의 높이,넓이 설정
+  initializeSize();
+
+  // 메인 레이어와 서브 레이어를 담을 레이어를 설정
+  fDiv = document.createElement("DIV");
+  fDiv.style.width = widthObject;
+  fDiv.style.position = "relative";
+  fDiv.style.zIndex = 10;
+  fDiv.style.display = "inline";
+  fDiv.style.verticalAlign = "bottom";
+  fDiv.onmouseover = mouseoverFD;
+  fDiv.onmouseout = mouseoutFD;
+
+  // 메인 테이블이 담길 레이어를 설정
+  mDiv = document.createElement("DIV");
+  mDiv.style.width = widthObject;
+  mDiv.style.height = heightMT;
+  mDiv.style.position = "relative";
+  mDiv.onblur = blurTitle;
+  mDiv.onmousewheel = eventMouseWheel;
+
+  // 서브 테이블이 담길 레이어를 설정
+  sDiv = document.createElement("DIV");
+  sDiv.style.top = 0;
+  sDiv.style.left = 0;
+  sDiv.style.width = widthObject;
+  sDiv.style.height = 0;
+  sDiv.style.display = "none";
+  sDiv.style.position = "absolute";
+  sDiv.style.scrollbarFaceColor = "#FFFFFF";
+  sDiv.style.scrollbarHighlightColor = "#FFFFFF";
+  sDiv.style.scrollbarShadowColor = "#E7E7E7";
+  sDiv.style.scrollbar3dLightColor = "#C7C7C7";
+  sDiv.style.scrollbarArrowColor = "#797979";
+  sDiv.style.scrollbarTrackColor = "#C7C7C7";
+  sDiv.style.scrollbarDarkshadowColor = "#C7C7C7";
+  sDiv.style.scrollbarBaseColor = "#FFFFFF";
+  sDiv.onmousewheel = eventMouseWheel;
+
+  // 메인 테이블 생성 및 셋팅
+  mTable = document.createElement("TABLE");
+  mTable.border = 0;
+  mTable.cellSpacing = 2;
+  mTable.cellPadding = 0;
+  mTable.style.width = widthObject;
+  mTable.style.height = heightMT;
+  mTable.style.color = normal_color;
+  mTable.style.background = normal_bgcolor;
+  mTable.style.border = normal_border_tag;
+  mTable.onmouseover = mouseoverMT;
+  mTable.onmouseout = mouseoutMT;
+
+  mTBody = document.createElement("TBODY");
+  mTable.appendChild(mTBody);
+
+  mTR = document.createElement("TR");
+  mTR.onclick = changeSubLayerDisplay;
+  mTD_title = document.createElement("TD");
+  mTD_title.width = widthObject - 20;
+  mTD_title.valign = "baseline";
+  mTD_title.innerHTML = " " + textDefault;
+  mTD_title.onselectstart = function(){return false;};
+  mTD_title.style.font = font_tag;
+  mTD_title.style.color = normal_color
+  mTD_title.style.background = normal_bgcolor;
+  mTD_title.style.cursor = "default";
+  mTR.appendChild(mTD_title);
+  mTD = document.createElement("TD");
+  mTD.width = "14";
+  mTD.align = "center";
+  mTD.onselectstart = function(){return false;};
+    arrowImage = document.createElement("IMG");
+    arrowImage.src = arrow_image;
+    arrowImage.valign = "bottom";
+    arrowImage.style.filter = "gray()";
+  mTD.appendChild(arrowImage);
+  mTR.appendChild(mTD);
+  mTBody.appendChild(mTR);
+  mDiv.appendChild(mTable);
+
+  // 옵션 항목 출력 테이블 생성 및 셋팅
+  sTable = document.createElement("TABLE");
+  sTable.style.width = widthObject;
+  sTable.style.color = normal_color;
+  sTable.style.background = normal_bgcolor;
+  sTable.style.border = normal_border_tag;
+  sTBody = document.createElement("TBODY");
+  sTable.appendChild(sTBody);
+
+  sTR = new Array();
+  sTD = new Array();
+  for(i=0; i<objSelectBox.length; i++){
+    textSelectBox = objSelectBox.options[i].text;
+    valueSelectBox = objSelectBox.options[i].value;
+
+    sTR = document.createElement("TR");
+    sTD[i] = document.createElement("TD");
+    sTD[i].height = "18";
+    sTD[i].onmouseover = mouseoverST;
+    sTD[i].onmouseout = mouseoutST;
+    sTD[i].onclick = selectOption;
+    sTD[i].onselectstart = function(){return false;};
+    sTD[i].style.font = font_tag;
+    sTD[i].style.color = normal_color;
+    sTD[i].style.background = normal_bgcolor;
+    sTD[i].style.cursor = "default";
+    sTD[i].innerHTML = " " + textSelectBox;
+    sTR.appendChild(sTD[i]);
+    sTBody.appendChild(sTR);
+  }
+  sDiv.appendChild(sTable);
+
+  // 메인 레이어와 서브 레이어를 fDiv 레이어에 넣음
+  fDiv.appendChild(mDiv);
+  fDiv.appendChild(sDiv);
+
+  // fDiv 레이어를 문서에 삽입
+  insertAdjacentElement("afterEnd",fDiv);
+}
+
+// 서브 레이어의 상태 변경
+function changeSubLayerDisplay(){
+  if(sDiv.style.display == "none"){
+    openSubLayer();
+  }else{
+    closeSubLayer();
+  }
+}
+
+// 서브 레이어 여는 함수
+function openSubLayer(){
+  var yDocumentClient = window.event.clientY;
+  var heightDocumentClient = parent.document.body.clientHeight;
+  var yMT = window.event.offsetY + 5;
+  var upSpace = yDocumentClient - yMT;
+  var downSpace = heightDocumentClient - yDocumentClient - (heightMT - yMT);
+
+  // 옵션 레이어를 위로 출력
+  if((objSelectBox.length < 11 && (objSelectBox.length * 20 + 4) > downSpace) || (objSelectBox.length > 10 && downSpace < 204)){
+    sDiv.style.top = 0 - heightST;
+    makeScroll("up",upSpace);
+  // 옵션 레이어를 아래로 출력
+  }else{
+    sDiv.style.top = heightMT;
+    makeScroll("down",downSpace);
+  }
+  sTD[objSelectBox.options.selectedIndex].style.color = active_color;
+  sTD[objSelectBox.options.selectedIndex].style.background = active_bgcolor;
+  sDiv.style.display = "block";
+  fDiv.style.zIndex = 100;
+}
+
+// 서브 레이어 닫는 함수
+function closeSubLayer(){
+  if(sDiv.style.display != "none"){
+    mTD_title.innerHTML = " "+objSelectBox.options[objSelectBox.selectedIndex].text;
+    mTD_title.style.color = active_color;
+    mTD_title.style.background = active_bgcolor;
+    mDiv.focus();
+
+    for(i=0; i<objSelectBox.length; i++){
+      sTD[i].style.color = normal_color;
+      sTD[i].style.background = normal_bgcolor;
+    }
+    sDiv.style.display = "none";
+    sDiv.style.height = 0;
+    fDiv.style.zIndex = 10;
+    removeScroll();
+  }
+}
+
+// 여백 공간과 출력될 레이어의 크기에 따라 스크롤바를 생성
+function makeScroll(type,space){
+  if(heightST > space){
+    countMaxOption = parseInt((space - 4) / 20);
+    heightTmp = 20 * countMaxOption + 4;
+
+    if(type=="up") sDiv.style.top = 0 - heightTmp;
+
+    sTable.style.border = "";
+    sTable.style.width = widthObject - 18;
+
+    sDiv.style.height = heightTmp;
+    sDiv.style.border = normal_border_tag;
+    
+    // 스크롤바 생성 및 설정
+    sDiv.style.overflowY = "scroll";
+  }
+}
+
+// 생성된 스크롤바를 없애고 테이블 및 레이어의 높이 및 넓이를 재설정
+function removeScroll(){
+  if(sDiv.style.overflowY == "scroll"){
+    sDiv.style.top = 0;
+    sDiv.style.height = 0;
+    sDiv.style.border = "";
+    sDiv.style.overflowY = "";
+    sTable.style.width = widthObject;
+    sTable.style.border = normal_border_tag;
+  }
+}
+
+// 값을 선택시 타이틀을 변경하고 값을 설정
+function selectOption(){
+  obj = window.event.srcElement;
+  for(i=0; i<objSelectBox.length; i++){
+    if(sTD[i] == obj){
+      objSelectBox.options[i].selected = true;
+    }else{
+      objSelectBox.options[i].selected = false;
+    }
+  }
+
+  closeSubLayer();
+}
+
+// fDiv 레이어 Mouse Over
+function mouseoverFD(){
+  close_check = 0;
+}
+
+// fDiv 레이어 Mouse Out
+function mouseoutFD(){
+  close_check = 1;
+}
+
+// 타이틀 출력 테이블 Mouse Over
+function mouseoverMT(){
+  mTable.style.border = active_border_tag;
+  arrowImage.style.filter = '';
+}
+
+// 타이틀 출력 테이블 Mouse Out
+function mouseoutMT(){
+  mTable.style.border = normal_border_tag;
+  arrowImage.style.filter = 'gray()';
+}
+
+// 옵션 항목 Mouse Over
+function mouseoverST(){
+  obj = window.event.srcElement;
+  for(i=0; i<objSelectBox.length; i++){
+    if(obj == sTD[i]){
+      sTD[i].style.color = active_color;
+      sTD[i].style.background = active_bgcolor;
+    }else{
+      sTD[i].style.color = normal_color;
+      sTD[i].style.background = normal_bgcolor;
+    }
+  }
+}
+
+// 옵션 항목 Mouse Out
+function mouseoutST(){
+  obj = window.event.srcElement.parentElement;
+  obj.style.color = normal_color;
+  obj.style.background = normal_bgcolor;
+}
+
+// 타이틀 테이블 onBlur
+function blurTitle(){
+  mTD_title.style.color = normal_color;
+  mTD_title.style.background = normal_bgcolor;
+}
+
+function initializeSelectBox(){
+  var browser_version = new Number(((window.navigator.appVersion.split('; '))[1].split(' '))[1]);
+
+  if(tagName!="SELECT"){
+    alert("셀렉트 박스에만 적용이 가능합니다.");return;
+  }else if(navigator.appName != "Microsoft Internet Explorer" || browser_version < 5.0){
+    return;
+  }else{
+    objSelectBox.style.display = "none";
+    if(objSelectBox.length) convertSelectBox();
+  }
+}
+</script>
+</public:component>

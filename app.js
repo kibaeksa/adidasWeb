@@ -7,15 +7,15 @@
     * @property:{String : staticPath}     Path for static resource
 */
 var adidasCodingListInfo = {
-    htmlPath : setCustomPath('./app/html/adidas/'),
-    jsonFilePath : setCustomPath('./app/data/codingList/adidas/'),
+    htmlPath : setCustomPath('./front/html/adidas/'),
+    jsonFilePath : setCustomPath('./front/data/codingList/adidas/'),
     jsonFileName : 'codingListInfo.json'
 };
 
 
 var reebokCodingListInfo = {
-    htmlPath : setCustomPath('./app/html/reebok/'),
-    jsonFilePath : setCustomPath('./app/data/codingList/reebok/'),
+    htmlPath : setCustomPath('./front/html/reebok/'),
+    jsonFilePath : setCustomPath('./front/data/codingList/reebok/'),
     jsonFileName : 'codingListInfo.json'
 };
 
@@ -31,7 +31,7 @@ var bodyParser = require('body-parser');
 var htmlList = {};
 var htmlListJson;
 var jsonPath;
-var staticPath = './app';
+var staticPath = './front';
 
 var PORT = process.env.PORT || 2000;
 
@@ -275,7 +275,7 @@ app.get('/adidasCodingList',function(req , res){
     brand = 'adidas';
     htmlListJson = adidasHtmlListJson;
 
-    init('./app/html/adidas/');
+    init('./front/html/adidas/');
     res.render('index', {
         filePath : '/data/codingList/adidas/',
         fileName : adidasCodingListInfo.jsonFileName,
@@ -288,7 +288,7 @@ app.get('/reebokCodingList',function(req , res){
     brand = 'reebok';
     htmlListJson = reebokHtmlListJson;
 
-    init('./app/html/reebok/');
+    init('./front/html/reebok/');
     res.render('index', {
         filePath : '/data/codingList/reebok/',
         fileName : reebokCodingListInfo.jsonFileName,
