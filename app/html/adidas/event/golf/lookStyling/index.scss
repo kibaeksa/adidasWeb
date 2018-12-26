@@ -1,6 +1,216 @@
 @import './app/css/adidas/scss/common/mixin.scss';
 @import './app/css/adidas/scss/common/common.scss';
+.popup-layer{
+    position: fixed;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 701;
+    overflow: auto;
+    @include css3(opacity,0);
+    @include css3(transition,all 0.4s);
+    &.ambassor{
+        .popup-content{
+            padding: 0;
+            width: 748px;
+            height: 640px;
+            margin: -320px 0px 0px -374px;
+            .txtlist{
+                width: 260px;
+                margin-left: 20px;
+                padding: 35px 0 0 0;
+                .txt{
+                    border-bottom: 2px solid #000;
+                }
+                p{
+                    // display: inline-block;
+                    vertical-align: top;
+                    &.nameEng{
+                        font: 500 38px/33px 'adinenuPro-black';
+                    }
+                    &.nameKor{
+                        padding: 0px 0 15px 0;
+                        border-bottom: 0px;
+                    }
+                }
+                .li-dot{
+                    li{
+                        letter-spacing: -0.7px;
+                        p{
+                            display: inline-block;
+                        }
+                        &.group{
+                            p{
+                                span{display: block;width:100%;font:400 13px 'NotoSansKR';}
+                            }
+                        }
+                        &.insta{
+                            padding: 35px 0 0 0;
+                            position: absolute;
+                            right: 30px;
+                            bottom: 35px;
+                            width: 255px;
+                            a{
+                                span{
+                                    padding-left: 50px;
+                                }
+                            }
+                        }
+                    }
+                }
 
+            }
+
+        }
+    }
+    &.on{
+        top:0;
+        @include css3(opacity,1);
+    }
+    &.athlete{
+        .li-dot{
+            li{
+                &.insta{
+                    display: none;
+                }
+            }
+        }
+    }
+    .overlay{
+        width: 100%;
+        height: 100%;
+        z-index: 700;
+        background: #000;
+        opacity: 0.8;
+        -ms-filter: alpha(opacity=80);
+        filter: alpha(opacity=80);
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    .popup-content{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        padding: 35px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background: #fff;
+        z-index: 701;
+        width: 955px;
+        height: 602px;
+        margin: -301px 0px 0px -474px;
+        .close{
+            position: absolute;
+            top: -50px;
+            right: 0;
+            cursor: pointer;
+        }
+        .main{
+            display: inline-block;
+        }
+        .tips{
+            position: absolute;
+            bottom: 35px;
+            right: 50px;
+            p{
+                font:300 12px 'NotoSansKR';
+            }
+        }
+        .txtlist{
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 30px;
+            width: 230px;
+            p{
+                text-transform: uppercase;
+                color:#000;
+                &.nameEng{
+                    font: 500 38px/35px 'adinenuPro-black';
+                }
+                &.nameKor{
+                    font:400 16px 'NotoSansKR';
+                    padding: 2px 0 20px 0;
+                    border-bottom: 2px solid #000;
+                }
+            }
+            .li-dot{
+                margin: 20px 0 0 0;
+                li{
+                    margin: 0 0 5px 0;
+                    .bul{width: 3px;height: 3px;}
+                    font:400 13px 'NotoSansKR';
+                    color:#000;
+                    span{
+                        display: inline-block;
+                        width: 75px;
+                        font:700 13px 'NotoSansKR';
+                    }
+                    &.insta{
+                        padding: 35px 0 0 0;
+                        position: absolute;
+                        right: 30px;
+                        bottom: 146px;
+                        width: 242px;
+                        margin: 0;
+                        background: url('/images/adidas/event/golf/temadidas/insta_btn.png');
+                        background-repeat: no-repeat;
+                        background-position: 0px 97%;
+                        background-size: 100%;
+                        a{
+                            display: block;
+                            span{
+                                padding-left: 46px;
+                                font: 13px/43px 'adinenuPro-light';
+                                text-transform: uppercase;
+                                color: #000;
+                                letter-spacing: 0.4px;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        .thumbnail{
+            margin: 15px 0 0 0;
+            .img{
+                position: relative;
+                display: inline-block;
+                float: left;
+                margin-right: 10px;
+                width: 95px;height: 95px;
+                background: #f4f4f4;
+                cursor: pointer;
+                &:after{
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    left:0;
+                    bottom:0;
+                    width: 100%;
+                    height: 3px;
+                    background: transparent;
+                }
+                &.on{
+                    &:after{
+                        background: #ec0000;
+                    }
+                }
+                &.none{
+                    display: none;
+                    &:after{
+                        background: transparent;
+                    }
+                }
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
 #golf_lookStyling{
 	width: 100%;
 	height: auto;
@@ -375,12 +585,13 @@
 
 			a{
 				margin-top: 35px;
-				font: 300 20px/24px 'adihausDIN-Cond-medium';
+				font: 400 15px/24px 'adihausDIN-Cond-medium';
+				letter-spacing: 0.5px;
 				color: #000;
 				position: absolute;
 
 				&:before, &:after{
-					width: 8px;
+					width: 6px;
 					height: 1px;
 					content: "";
 					background: #000;
@@ -395,14 +606,14 @@
 					transform: rotateZ(45deg);
 					-ms-transform: rotateZ(45deg);
 					-webkit-transform: rotateZ(45deg);
-					margin-top: -5px;
+					margin-top: -3px;
 				}
 
 				&:after{
 					transform: rotateZ(-45deg);
 					-ms-transform: rotateZ(-45deg);
 					-webkit-transform: rotateZ(-45deg);
-					margin-top: 0px;
+					margin-top: 1px;
 				}
 
 				&:hover{
@@ -534,6 +745,138 @@
 		p.en{ color: #c4314b; }
 	}
 }//#golf_lookStyling .slide_wrap_06
+
+#golf_lookStyling .slide_wrap_new01{
+	.slide_bgi{
+		background-image: url('/images/adidas/event/golf/lookStyling/lookStyling_newsec01_bgi.jpg');
+		p.en{ color: #222;}
+	}
+}//#golf_lookStyling .slide_wrap_new01
+
+#golf_lookStyling .slide_wrap_new02{
+	.slide_bgi{
+		background-image: url('/images/adidas/event/golf/lookStyling/lookStyling_newsec02_bgi.jpg');
+		p.en{ color: #c7c8cc; }
+	}
+}//#golf_lookStyling .slide_wrap_new02
+
+#golf_lookStyling .model_profile {
+	width: 100%;
+	height: 510px;
+
+	.pop_cover{
+		width: 1260px;
+		height: 400px;
+
+		div{
+			width: 400px;
+			height: 100%;;
+			float: left;
+			margin-right: 30px;
+			position: relative;
+			opacity: 0;
+
+			&:hover a{
+				opacity: 1;
+			}
+
+			&:last-of-type{ margin-right: 0; }
+
+			img{
+				width: 100%;
+				display: block;
+			}
+
+			a{
+				width: 100%;
+				height: 100%;
+				display: block;
+				background: rgba(0,0,0,0.6);
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all 0.4s;
+				-webkit-transition: all 0.4s;
+
+				span{
+					display: block;
+					text-align: center;
+
+					&:first-of-type{
+						padding: 145px 0 30px;
+						font: 600 25px/30px 'NotoSansKR';
+						color: #fff;
+					}
+
+					&:last-of-type{
+						width: 210px;
+						height: 60px;
+						margin: 0 auto;
+						background: #fff;
+						font: 600 18px/60px 'NotoSansKR';
+						color: #000;
+					}
+				}
+			}
+		}
+	}
+}
+
+#golf_lookStyling #menStyle .model_profile {
+	.pop_cover {
+		margin-left: 100px;
+		div{
+			transform: translateX(80px);
+
+			&:nth-of-type(1){
+				transition: all 0.5s;
+				-webkit-transition: all 0.5s;
+			}
+
+			&:nth-of-type(2){
+				transition: all 0.5s 0.1s;
+				-webkit-transition: all 0.5s 0.1s;
+			}
+		}
+	}
+
+	&.actScroll .pop_cover div{
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+#golf_lookStyling #womenStyle .model_profile {
+
+ .pop_cover{
+		float: right;
+
+		div{
+			transform: translateX(-80px);
+
+			&:nth-of-type(3){
+				transition: all 0.5s;
+				-webkit-transition: all 0.5s;
+			}
+
+			&:nth-of-type(2){
+				transition: all 0.5s 0.1s;
+				-webkit-transition: all 0.5s 0.1s;
+			}
+
+			&:nth-of-type(1){
+				transition: all 0.5s 0.2s;
+				-webkit-transition: all 0.5s 0.2s;
+			}
+		}
+	}
+
+	&.actScroll .pop_cover div{
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
 
 #golf_lookStyling .looks_last{
 	width: 100%;
@@ -843,6 +1186,80 @@
 		.slide_text{ margin-top: 465px; margin-left: 230px; }
 	}//#golf_lookStyling .slide_wrap_06
 
+	#golf_lookStyling .slide_wrap_new01{
+		height: 934px;
+
+		.slide_bgi{
+			width: 640px;
+			margin-left: -60px;
+			p.en{ margin-top: 450px; margin-left: -360px; }
+			p.ko{ margin-bottom: 30px; margin-left: 175px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 49px;
+			margin-left: 169px;
+
+			img{ width: 77%; }
+			li:nth-of-type(1){ margin-top: 100px; margin-left: 252px; }
+			li:nth-of-type(2){ margin-top: 318px; margin-left: 54px; }
+			li:nth-of-type(3){ margin-top: 563px; margin-left: 98px; }
+			li:nth-of-type(4){ margin-top: 667px; margin-left: 300px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 170px; margin-left: 530px; }
+		.slide_text{ margin-top: 450px; margin-left: 180px; }
+	}//#golf_lookStyling .slide_wrap_new01
+
+	#golf_lookStyling .slide_wrap_new02{
+		height: 954px;
+
+		.slide_bgi{
+			width: 620px;
+			margin-right: -90px;
+			p.en{ margin-top: 250px; margin-right: -315px; }
+			p.ko{ margin-bottom: 30px; margin-left: 210px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 67px;
+			margin-right: 30px;
+			li:nth-of-type(1){ margin-top: 41px; margin-left: 143px; }
+			li:nth-of-type(2){ margin-top: 260px; margin-left: 320px; }
+			li:nth-of-type(3){ margin-top: 650px; margin-left: 142px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 140px; margin-right: 505px; }
+		.slide_text{ margin-top: 470px; margin-right: 30px; }
+	}//#golf_lookStyling .slide_wrap_new02
+
+	#golf_lookStyling .model_profile {
+		width: 100%;
+		height: 350px;
+
+		.pop_cover{
+			width: 860px;
+			height: 280px;
+
+			div{
+				width: 280px;
+				margin-right: 10px;
+
+				a span{
+					&:first-of-type{
+						padding: 95px 0 20px;
+						font: 600 20px/30px 'NotoSansKR';
+					}
+
+					&:last-of-type{
+						width: 140px;
+						height: 40px;
+						font: 500 15px/40px 'NotoSansKR';
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (min-width: 1351px) and (max-width: 1540px) {
@@ -1048,6 +1465,82 @@
 		.slide_text{ margin-top: 465px; margin-left: 270px; }
 	}//#golf_lookStyling .slide_wrap_06
 
+	#golf_lookStyling .slide_wrap_new01{
+		height: 934px;
+
+		.slide_bgi{
+			width: 610px;
+			margin-left: -20px;
+
+			p.en{ margin-top: 400px; margin-left: -360px; }
+			p.ko{ margin-bottom: 30px; margin-left: 145px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 23px;
+			margin-left: 195px;
+
+			li:nth-of-type(1){ margin-top: 1000px; margin-left: 272px; }
+			li:nth-of-type(2){ margin-top: 328px; margin-left: 54px; }
+			li:nth-of-type(3){ margin-top: 583px; margin-left: 108px; }
+			li:nth-of-type(4){ margin-top: 692px; margin-left: 305px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 120px; margin-left: 570px; }
+		.slide_text{ margin-top: 500px; margin-left: 200px; }
+	}//#golf_lookStyling .slide_wrap_new01
+
+	#golf_lookStyling .slide_wrap_new02{
+		height: 954px;
+
+		.slide_bgi{
+			width: 600px;
+			margin-right: -40px;
+
+			p.en{ margin-top: 250px; margin-right: -360px; }
+			p.ko{ margin-bottom: 30px; margin-left: 200px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 67px;
+			margin-right: 60px;
+
+			li:nth-of-type(1){ margin-top: 41px; margin-left: 146px; }
+			li:nth-of-type(2){ margin-top: 260px; margin-left: 318px; }
+			li:nth-of-type(3){ margin-top: 643px; margin-left: 143px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 140px; margin-right: 535px; }
+		.slide_text{ margin-top: 470px; margin-right: 75px; }
+	}//#golf_lookStyling .slide_wrap_new02
+
+	#golf_lookStyling .model_profile {
+		width: 100%;
+		height: 450px;
+
+		.pop_cover{
+			width: 1000px;
+			height: 320px;
+
+			div{
+				width: 320px;
+				margin-right: 20px;
+
+				a span{
+					&:first-of-type{
+						padding: 105px 0 30px;
+						font: 600 25px/30px 'NotoSansKR';
+					}
+
+					&:last-of-type{
+						width: 210px;
+						height: 60px;
+						font: 600 18px/60px 'NotoSansKR';
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 1500px){
@@ -1186,7 +1679,6 @@
 			height: 930px;
 
 			p.en{ margin-top: 450px; margin-left: -390px; }
-
 			p.ko{ margin-bottom: 25px; margin-left: 315px; }
 		}//.slide_bgi
 
@@ -1202,6 +1694,51 @@
 
 		.slide_triple{ margin-top: 170px; }
 	}//#golf_lookStyling .slide_wrap_06
+
+	#golf_lookStyling .slide_wrap_new01{
+		height: 1115px;
+
+		.slide_bgi{
+			width: 730px;
+			height: 950px;
+
+			p.en{ margin-top: 450px; margin-left: -390px; }
+			p.ko{ margin-bottom: 25px; margin-left: 150px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 41px;
+
+			li:nth-of-type(1){ margin-top: 152px; margin-left: 355px; }
+			li:nth-of-type(2){ margin-top: 412px; margin-left: 76px; }
+			li:nth-of-type(3){ margin-top: 735px; margin-left: 120px; }
+			li:nth-of-type(4){ margin-top: 863px; margin-left: 390px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 170px; }
+	}//#golf_lookStyling .slide_wrap_new01
+
+	#golf_lookStyling .slide_wrap_new02{
+		height: 1170px;
+
+		.slide_bgi{
+			width: 660px;
+			height: 950px;
+
+			p.en{ margin-top: 450px; margin-right: -360px; }
+			p.ko{ margin-bottom: 25px; margin-left: 300px; }
+		}//.slide_bgi
+
+		.slide_human{
+			margin-top: 97px;
+
+			li:nth-of-type(1){ margin-top: 52px; margin-left: 175px; }
+			li:nth-of-type(2){ margin-top: 342px; margin-left: 406px; }
+			li:nth-of-type(3){ margin-top: 795px; margin-left: 180px; }
+		}//.slide_human
+
+		.slide_triple{ margin-top: 170px; }
+	}//#golf_lookStyling .slide_wrap_new02
 }
 
 @media screen and (min-width: 1541px) and (max-width: 1750px) {
@@ -1302,6 +1839,20 @@
 		.slide_triple{ margin-left: 635px; }
 		.slide_text{ margin-top: 525px; margin-left: 270px; }
 	}//#golf_lookStyling .slide_wrap_06
+
+	#golf_lookStyling .slide_wrap_new01{
+		.slide_bgi{ margin-left: -20px; }
+		.slide_human{ margin-left: 160px; }
+		.slide_triple{ margin-left: 660px; }
+		.slide_text{ margin-top: 550px; margin-left: 200px; }
+	}//#golf_lookStyling .slide_wrap_new01
+
+	#golf_lookStyling .slide_wrap_new02{
+		.slide_bgi{ margin-right: -60px; }
+		.slide_human{ margin-right: 100px; }
+		.slide_triple{ margin-right: 575px; }
+		.slide_text{ margin-top: 560px; margin-right: 75px; }
+	}//#golf_lookStyling .slide_wrap_new02
 }
 
 
@@ -1401,4 +1952,18 @@
 		.slide_triple{ margin-left: 675px; }
 		.slide_text{ margin-top: 545px; margin-left: 270px; }
 	}//#golf_lookStyling .slide_wrap_06
+
+	#golf_lookStyling .slide_wrap_new01{
+		.slide_bgi{ margin-left: 0; }
+		.slide_human{ margin-left: 231px; }
+		.slide_triple{ margin-left: 700px; }
+		.slide_text{ margin-top: 570px; margin-left: 240px; }
+	}//#golf_lookStyling .slide_wrap_new01
+
+	#golf_lookStyling .slide_wrap_new02{
+		.slide_bgi{ margin-right: 80px; }
+		.slide_human{ margin-right: 260px; }
+		.slide_triple{ margin-right: 705px; }
+		.slide_text{ margin-top: 580px; margin-right: 115px; }
+	}//#golf_lookStyling .slide_wrap_new02
 }
