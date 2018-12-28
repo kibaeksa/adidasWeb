@@ -1,0 +1,175 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Author" content="ADIDAS KOREA" />
+<meta name="Keywords" content="ADIDAS,MIRUN" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>아디다스 공식 온라인 스토어</title>
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/event.js"></script>
+
+
+<script type="text/javascript" language="javascript">
+	// 입력정보확인.
+	function checkData() {
+		var applyList = "";
+		var prod = "";
+
+		if (jQuery("#shoes_x").attr("checked")) {
+			prod = "X";
+		}
+		if (jQuery("#shoes_ace").attr("checked")) {
+			prod = "ACE";
+		}
+
+		if (jQuery("#adrList").val() == "") {
+			alert("배송지를 선택해주세요.");
+			jQuery("#adrList").focus();
+			return;
+		}
+		
+		if (prod == "") {
+			alert("제품을 선택해주세요.");
+			jQuery("#shoes_x").focus();
+			return;
+		}
+
+		applyList = jQuery("#adrList").val() + "/" + prod;
+		fn_youthSoccer('2965',applyList,'Ins');
+	}
+	
+	function fn_addrSet(id) {
+		var dispText = "";
+		
+		if (id == "금호고") 				dispText = "광주광역시 서구 금화로 240 광주월드컵경기장 2층 광주FC";
+		if (id == "광양제철고")	 		dispText = "전라남도 광양시 희망 1길 31드래곤즈 클럽하우스";
+		if (id == "포항제철고") 			dispText = "경상북도 포항시 남구 지곡로 212번길 40, 포항제철고등학교";
+		if (id == "울산현대고") 			dispText = "울산광역시 동구 봉수로507 현대스포츠클럽";
+		if (id == "용운고") 				dispText = "경상북도 상주시 계산동 474-1 상주시민운동장 상주시민프로축구단 ";
+		if (id == "개성고") 				dispText = "부산광역시 강서구 체육공원로 43 부산아이파크클럽하우스";
+		if (id == "인천대건고") 			dispText = "인천광역시 중구 참외전로 246 인천축구전용경기장 3층 인천유나이티드";
+		if (id == "매탄고") 				dispText = "경기도 화성시 반월동 420번지 수원삼성축구단";
+		if (id == "서울오산고") 			dispText = "서울특별시 마포구 월드컵로 240 서울월드컵경기장 4층 FC서울 육성팀 ";
+		if (id == "진주고") 				dispText = "경상남도 진주시  상봉동 987번지";
+		if (id == "충남기계공고") 			dispText = "대전광역시 중구 문화동391번지 충남기계공업고등학교 축구부기숙사";
+		if (id == "제주UTD U-18") 		dispText = "제주특별자치도 서귀포시 일주서로 166-31 SK제주유나이티드FC 선수단숙소";
+		if (id == "전주영생고") 			dispText = "전라북도 전주시 덕진구 반월동 763-1 전주월드컵경기장 2층 전북현대 ";
+		if (id == "강릉제일고")			dispText = "강원도 강릉시 화부산로8번길 37 축구부 합숙소";
+		if (id == "현풍고") 				dispText = "대구광역시 달성군 현풍면 비슬로 675 현풍고등학교";
+		if (id == "충주상고") 			dispText = "충청북도 충주시 방아길20 충주상고 축구부 식당";
+		if (id == "안양공고") 			dispText = "경기도 안양시 만안구 양화로28번길 69 안양공업고등학교 축구부 숙소";
+		if (id == "풍생고") 				dispText = "경기도 성남시 분당구 야탑동 486 탄천종합운동장 성남FC";
+		if (id == "고양HiFC U-18")	 	dispText = "경기도 고양시 일산서구 하이파크 3로111, 210동 2203호";
+		if (id == "수원FC U-18") 		dispText = "경기도 수원시 장안구 경수대로 893 수원종합운동장 수원FC ";
+		if (id == "부천FC1995 U-18") 	dispText = "경기도 부천시 원미구 소사로 482 부천종합운동장 부천FC사무실 ";
+		if (id == "안산경찰청FC U-18") 	dispText = "경기도 안산시 단원구 화랑로 260 와~스타디움 3층 안산경찰청프로축구단";
+		if (id == "") 					dispText = "&nbsp;";
+		
+		jQuery('#showDiv').html(dispText);
+	}
+	
+</script>
+
+<style type="text/css">
+	#fd_pop{}
+	#fd_pop .body{background:#242424;}
+	#fd_pop .body table{background:#fff;}
+	#fd_pop .body table th,
+	#fd_pop .body table td{text-align:left;padding:15px 0;border-bottom:1px solid #e0e0e0;color:#242424;}
+	#fd_pop .body table th{padding-left:25px;font-size:11px;font:12px 'NotoSansKR';}
+	*:first-child+html #fd_pop .body table th{font:12px 'Nanum Gothic';}
+	#fd_pop .body table td input.ipttxt{width:300px;height:23px;padding-left:10px;border:1px solid #b8b8b8;}
+	#fd_pop .body table td select{width:310px;height:27px;border:1px solid #b8b8b8;}
+	
+	#fd_pop .body table td .lb_box{display:inline-block;}
+	#fd_pop .body table td .lb_box label{display:block;margin-bottom:10px;}
+</style>
+</head>
+
+<body>
+	<div id="fd_pop">
+	<form id="frmSrch" name="frmSrch" method="post">
+		<input type = "hidden" id="EVENT_ID" name="EVENT_ID" value="2965"/>
+		<input type = "hidden" id="S_COMMAND" name="command" />
+		<input type = "hidden" id="APPLY_LIST" name="APPLY_LIST" />
+		<input type = "hidden" id="REFER_KEY" name="REFER_KEY" value=""/>
+		<input type = "hidden" id="CPON_ID" name="CPON_ID" value="4256"/>
+		<input type = "hidden" id="ATY_EVENT_BTN_NO" name="ATY_EVENT_BTN_NO" value="1"/>
+		<!-- 160406 이미지명 변경 adi_camp_150917_pop1.jpg ==> adi_camp_160406_pop1.jpg -->
+		<div class="visual"><img src="http://image.adidas.co.kr/upload/fckeditor/temp/image/event/web/images/adi_camp_160406_pop1.jpg" alt="" /></div>
+		<div class="body" style="width:545px;padding:0 27px 27px;">
+			<!-- 160406 이미지명 변경 adi_camp_150917_pop2.jpg ==> adi_camp_160406_pop2.jpg -->
+			<p style="padding:30px 0 20px"><img src="http://image.adidas.co.kr/upload/fckeditor/temp/image/event/web/images/adi_camp_160406_pop2.jpg" alt="" /></p>
+			<table cellpadding="0" cellspacing="0" width="545" style="table-layout:fixed;">
+				<colgroup>
+					<col width="100"/>
+				</colgroup>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" class="ipttxt" value="강유진" readonly/></td>
+				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td><input type="text" class="ipttxt" value="010-1234-5678" readonly/></td>
+				</tr>
+				<tr>
+					<th>배송지</th>
+					<td>
+						<select name="adrList" id="adrList" onchange="fn_addrSet(this.value);">
+							<option value="">선택해주세요</option>
+							<option value="금호고">금호고</option>
+							<option value="광양제철고">광양제철고</option>
+							<option value="포항제철고">포항제철고</option>
+							<option value="울산현대고">울산현대고</option>
+							<option value="용운고">용운고</option>
+							<option value="개성고">개성고</option>
+							<option value="인천대건고">인천대건고</option>
+							<option value="매탄고">매탄고</option>
+							<option value="서울오산고">서울오산고</option>
+							<option value="진주고">진주고</option>
+							<option value="충남기계공고">충남기계공고</option>
+							<option value="제주UTD U-18">제주UTD U-18</option>
+							<option value="전주영생고">전주영생고</option>
+							<option value="강릉제일고">강릉제일고</option>
+							<option value="현풍고">현풍고</option>
+							<option value="충주상고">충주상고</option>
+							<option value="안양공고">안양공고</option>
+							<option value="풍생고">풍생고</option>
+							<option value="고양HiFC U-18">고양HiFC U-18</option>
+							<option value="수원FC U-18">수원FC U-18</option>
+							<option value="부천FC1995 U-18">부천FC1995 U-18</option>
+							<option value="안산경찰청FC U-18">안산경찰청FC U-18</option>
+						</select>						
+						<p id="showDiv" style="padding-right:10px;margin-top:10px;">&nbsp;</p>
+					</td>
+				</tr>
+				<tr>
+					<th>제품선택</th>
+					<td>
+						<span style="text-align:center;margin-right:5px;" class="lb_box">
+							<!-- 160406 이미지명 변경 adi_camp_150917_pop3.jpg ==> adi_camp_160406_pop3.jpg -->
+							<label for="shoes_x"><img src="http://image.adidas.co.kr/upload/fckeditor/temp/image/event/web/images/adi_camp_160406_pop3.jpg" alt="" /></label>
+							<input type="radio" id="shoes_x" name="shoes"/>
+						</span>
+						<span style="text-align:center;" class="lb_box">
+							<!-- 160406 이미지명 변경 adi_camp_150917_pop4.jpg ==> adi_camp_160406_pop4.jpg -->
+							<label for="shoes_ace"><img src="http://image.adidas.co.kr/upload/fckeditor/temp/image/event/web/images/adi_camp_160406_pop4.jpg" alt="" /></label>
+							<input type="radio" id="shoes_ace" name="shoes"/>
+						</span>
+					</td>
+				</tr>
+			</table>
+			<p><a href="#" onclick="javascript:checkData(); return false;"><img src="http://image.adidas.co.kr/upload/fckeditor/temp/image/event/web/images/adi_camp_150917_pop5.jpg" alt="" /></a></p>
+		</div>
+	</form>
+	</div>
+</body>
+</html>

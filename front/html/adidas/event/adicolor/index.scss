@@ -1,0 +1,255 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+/* video_layer */
+.video_layer {
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:110
+}
+.video_layer .video {
+	width:100%;
+	height:100%;
+	z-index:6;
+	position:absolute;
+	top:0;
+	left:0
+}
+.video_layer .close {
+	width:45px;
+	height:45px;
+	position:absolute;
+	top:25px;
+	right:25px;
+	z-index:20;
+	display:block;
+	background:url("/images/reebok/event/about/sprite.png") -80px 0 no-repeat;
+	text-indent:-5000px;
+	opacity:0;
+	transition:opacity 0.4s ease-in 0.5s;
+	-webkit-transition:opacity 0.4s ease-in 0.5s;
+	-moz-transition:opacity 0.4s ease-in 0.5s;
+	-o-transition:opacity 0.4s ease-in 0.5s;
+	-ms-transition:opacity 0.4s ease-in 0.5s
+}
+.video_layer .bg {
+	width:100%;
+	height:100%;
+	background:#000;
+	z-index:5;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0;
+	transition:opacity 0.4s;
+	-webkit-transition:opacity 0.4s;
+	-moz-transition:opacity 0.4s;
+	-o-transition:opacity 0.4s;
+	-ms-transition:opacity 0.4s
+}
+.video_layer.loaded .bg {
+	opacity:.6
+}
+.video_layer.loaded .close {
+	opacity:1
+}
+/* video_layer end */
+.video_wrap{
+	position: relative;
+	// height: 850px;
+	padding-bottom: 52.0828%;
+	overflow: hidden;
+	z-index: 2;
+
+	.bg{
+		position: absolute;
+		top:0px;
+		left:50%;
+		margin-left: -960px;
+		z-index: 1;
+	}
+	.player{
+		position: absolute;
+		top:0;
+		// left:50%;
+		// margin-left: -982px;
+		z-index: 5;
+	}
+}
+/* adicolor */
+.adicolor{
+	overflow: hidden;
+	position: relative;
+	background: #fff;	
+	.inner{
+		position: relative;
+		width:950px;
+		margin: 0 auto;
+		padding: 50px 0 100px;
+	}
+	.inner_wrap{
+		min-width: 1280px;
+		overflow: hidden;		
+		.visual_video{
+			position: relative;
+			cursor: pointer;
+			&:hover{
+				.masthead{
+					.play{
+						cursor: pointer;
+						background: none;
+						border:3px solid #fff;
+						&:after{
+							background-position: 100% 0;
+						}
+					}
+				}
+			}
+			.bg{
+				text-align: center;
+				img{
+					width: 100%;
+				}
+			}
+			.masthead{
+				position: absolute;
+				top:50%;
+				left:50%;
+				.play{
+					position: relative;
+					display: inline-block;
+					width:105px;
+					height: 105px;
+					margin-left: -52px;
+					margin-top: -52px;
+					border:3px solid #c1c0c3;
+					border-radius: 100px;
+					background: rgba(0, 0, 0, 0.3);
+					@include css3(transition , all 0.5s);
+					&:after{
+						position: absolute;
+						top:38px;
+						left:43px;
+						content: "";
+						width:25px;
+						height:31px;
+					    display: block;
+						background: url("http://image.adidas.co.kr/images/adidas/event/crazy/btn_arrow_w.png");
+						background-position: 0 0;
+						@include css3(transition , all 0.5s);
+
+					}
+
+				}
+			}
+		}
+		.slider_area{
+			overflow: hidden;
+			position: relative;
+			height: 800px;			
+			.slider_logo{
+				position: relative;
+				height: 100px;
+				text-align: center;
+				>img{
+					position: absolute;
+					top:0;				
+					left: 50%;
+					margin-left: -590px;
+					z-index: 2;
+				}
+				ul{
+					li{
+						position: absolute;
+						top:0;					
+						width: 100%;
+						height: 100px;									
+						opacity: 0;
+						transition: 1s;
+						&.on{							
+							opacity: 1;								
+						}
+						&:nth-child(1){background: #c0122d;}
+						&:nth-child(2){background: #0261cd;}
+						&:nth-child(3){background: #008b5e;}
+						&:nth-child(4){background: #fed130;}
+					}					
+				}				
+			}
+			.slider_wrap{
+				position: absolute;			
+				left: 50%;
+				margin-left: -960px;
+				z-index: 5;
+				.prev-button{
+					position: absolute;
+					top: 50%;
+					left: 20%;
+					margin-top: -32px;
+				}
+				.next-button{
+					position: absolute;
+					top: 50%;
+					right: 20%;
+					margin-top: -32px;
+				}
+				.indicator{
+					display: none;
+					position: absolute;
+					bottom: 40px;
+					left: 50%;
+					margin-left: -113px;
+					a{
+						margin-right: 10px;
+						&:last-child{
+							margin-right: 0;
+						}
+						span{
+							display: inline-block;
+						    width: 10px;
+						    height: 10px;
+						    border-radius: 50%;
+							background: #636363;
+						}
+						&.on{
+							span{
+								background: #fff;
+							}
+						}
+					}
+				}
+			}
+		}		
+		.buy{
+			display: inline-block;
+			width:178px;
+			background: #fff;
+			font:700 17px/58px 'NotosansKR','Nanum Gothic';
+			color:#000;
+			text-align: center;
+			&:hover{
+				em{
+					margin-left: 20px;
+				}
+			}
+			em{
+				display: inline-block;
+				margin-left: 5px;
+			    width: 16px;
+			    height: 16px;
+				background: url("http://image.adidas.co.kr/images/adidas/event/iniki/icon.png");
+				background-position: 0 0;
+				@include css3(transition , all 0.5s);
+			}
+		}	
+	}
+}
+/* End of ultra_boost */
+
+
+/*
+ * For ie old version
+ */

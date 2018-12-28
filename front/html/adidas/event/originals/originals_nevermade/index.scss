@@ -1,0 +1,555 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	filter:alpha(opacity=$value * 100);
+	-ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -webkit-animation-iteration-count:infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -moz-animation-iteration-count:infinite;
+
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    -o-animation-iteration-count:infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+    animation-iteration-count:infinite;
+}
+
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@-webkit-keyframes arrowLoop_left {
+  0% {right: -32px;}
+  50% {right: 0;}
+  100% {right: 32px;}
+}
+
+@keyframes arrowLoop_left {
+  0% {right: -32px;}
+  50% {right: 0;}
+  100% {right: 32px;}
+}
+
+@-webkit-keyframes arrowLoop_right {
+  0% {left: -32px;}
+  50% {left: 0;}
+  100% {left: 32px;}
+}
+
+@keyframes arrowLoop_right {
+  0% {left: -32px;}
+  50% {left: 0;}
+  100% {left: 32px;}
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+$color_1: #fff;
+$color_2: #000;
+$color_3: #0392b0;
+
+html.no_scroll {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.video_layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  .close {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    background-position: 0 -685px;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    transition: opacity 0.4s ease-in 0.2s;
+    -webkit-transition: opacity 0.4s ease-in 0.2s;
+  }
+  .bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    -ms-filter: alpha(opacity = 0);
+    filter: alpha(opacity = 0);
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s;
+    -webkit-transition: opacity 0.4s;
+  }
+  &.loaded {
+    .bg {
+      opacity: 0.6;
+      -ms-filter: alpha(opacity = 60);
+      filter: alpha(opacity = 60);
+    }
+    .close {
+      opacity: 1;
+      -ms-filter: alpha(opacity = 100);
+      filter: alpha(opacity = 100);
+    }
+  }
+  .video {
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+.visual_video{
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 60px;
+  &:hover{
+    .masthead{
+      .play{
+        cursor: pointer;
+        background: none;
+        border:3px solid #fff;
+        &:after{
+          background-position: 100% 0;
+        }
+      }
+    }
+  }
+  .bg{
+    text-align: center;
+    img{
+      width: 100%;
+    }
+  }
+  .masthead{
+    position: absolute;
+    top:50%;
+    left:50%;
+    .play{
+      position: relative;
+      display: inline-block;
+      width:105px;
+      height: 105px;
+      margin-left: -52px;
+      margin-top: -52px;
+      border:3px solid #c1c0c3;
+      border-radius: 100px;
+      background: rgba(0, 0, 0, 0.3);
+      @include css3(transition , all 0.5s);
+      &:after{
+        position: absolute;
+        top:38px;
+        left:43px;
+        content: "";
+        width:25px;
+        height:31px;
+          display: block;
+        background: url("http://image.adidas.co.kr/images/adidas/event/crazy/btn_arrow_w.png");
+        background-position: 0 0;
+        @include css3(transition , all 0.5s);
+
+      }
+
+    }
+  }
+}
+#wrap {
+  min-width: 1050px;
+  overflow: hidden;
+}
+
+#nevermade {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  min-width: 1024px;
+	.button {
+		position: relative;
+		display: block;
+		height: 52px;
+		width: 164px;
+		background-color: #fff;
+		margin-top: 30px;
+		transition: 0.8s;
+		box-sizing: border-box;
+		text-align: center;
+		&.black {
+			background: #000;
+			span{
+				color: #fff;
+			}	
+			em{				
+				background : url('/images/adidas/event/originals/originals_nevermade/btn_arr_b.jpg') 0 0 no-repeat;				
+			}
+		}
+		span {         
+			display: inline-block;
+			height: 52px;
+			font:500 14px/52px 'NotoSansKR','Nanum Gothic';
+			text-align: center;
+			color: #000;
+			text-transform: uppercase;
+		}
+		em{
+			display: inline-block;
+			width: 24px;
+			height: 12px;
+			background : url('/images/adidas/event/originals/originals_nevermade/btn_arr.jpg') 0 0 no-repeat;
+			transition: 0.8s;
+			margin-left: 10px;
+		}
+		&:hover {
+			background: #000;
+			span {
+				color: #fff;
+			}
+			em{
+				background : url('/images/adidas/event/originals/originals_nevermade/btn_arr_b.jpg') 0 0 no-repeat;
+			}
+		}	    
+	}	
+	.button:hover::after {
+		height: 100%;
+	}
+	.visual {
+		height: 752px;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		.bg {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			video{
+				top: -100px;
+				position: absolute;
+			}
+		}
+		.txt{
+			position: absolute;
+			top: 250px;
+			left: 50%;
+			margin-left: -500px;
+			z-index: 1;
+			h2{
+				font: 50px/50px 'adinenuPro-bold';
+				text-transform: uppercase;
+				color: #fff;
+			}
+			p{
+				font: 18px 'NotoSansKR';
+				color: #fff;
+			}
+		}
+		.play-video{
+			position: absolute;
+			top: 60%;
+			left: 50%;
+			margin-left: -27px;
+			display: inline-block;
+			width: 57px;
+			height: 63px;
+			cursor: pointer;
+		}		
+	}
+	.sub_area {
+		position: relative;
+		height: 500px;
+		background: url('/images/adidas/event/originals/originals_nevermade/sub.jpg') center center no-repeat;	
+		&.sub2{
+			background: url('/images/adidas/event/originals/originals_nevermade/sub2.jpg') center center no-repeat;
+			.txt{
+				padding-top: 205px;
+			}
+		}
+		.txt{
+			padding-top: 160px;
+			text-align: center;
+			h2{
+			font: 50px/50px 'adinenuPro-bold';
+			text-transform: uppercase;
+			color: #fff;
+			text-align: center;
+			}
+			p{
+				font: 18px 'NotoSansKR';
+				color: #fff;
+				text-align: center;
+			} 
+			.button{
+				display: inline-block;
+				text-align: center;
+			}
+		}		
+	}  
+	.wrap {
+    width: 100%;
+    height: 706px;
+    position: relative;
+    p.sel_tit {
+		text-align: center;
+		color: #e60325;
+		font: 16px 'adihausDIN-Cond';
+		letter-spacing: 2px;
+    }
+    .slider_wrap {
+		margin: 0 auto;
+		position: relative;
+		width: 1322px;
+		overflow: hidden;		
+		ul.slider {
+			position: relative;
+			width: 8000px;
+			li {
+				width: 1322px;
+				float: left;
+				text-align: center;
+				position: relative;
+				color: #000;				
+				img {
+					width: 100%;
+					display: block;
+				}
+				.txt{
+					text-align: center;
+					padding-top: 55px;
+					h3{
+						font: 25px 'adinenuPro-bold';
+						text-align: center;
+					}
+					.line{
+						display: inline-block;
+						width: 210px;
+						height: 2px;
+						background: #000;
+						text-align: center;
+						margin: 15px 0;
+					}
+					p{
+						font: 18px 'NotoSansKR';
+						text-align: center;
+					}
+					.button{
+						display: inline-block;
+					}
+				}				
+			}
+			&:after {
+				content: '';
+				display: block;
+				width: 0;
+				height: 0;
+				clear: both;
+			}
+		}
+    }
+    .numslider {
+		overflow: hidden;     
+		position: relative;	
+		width: 1322px;
+		height: 5px;
+		margin: 50px auto 0;		
+		color: #000;
+		text-align: center;	
+		ul {
+			width: auto;
+			display: inline-block;
+			li {
+				width: 20px;
+				height: 4px;
+				text-align: center;
+				border-bottom: 1px solid #000;
+				float: left;	
+				margin: 0 5px;	
+				cursor: pointer;			
+				&.on{					
+					background: #000;
+				}        
+			}
+		}
+    }
+    .btn {
+	  position: absolute;
+	  top: 120px;
+	  left: 50%;
+	  width: 1322px;
+	  margin-left: -661px;
+	  z-index: 10;
+      a {
+        width: 17px;
+        height: 25px;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        opacity: 1;
+        filter: alpha(opacity = 50);
+        -ms-filter: alpha(opacity = 50);
+        img {
+          position: relative;
+        }
+        &.next {
+          right: -8px;
+          transition: 0.4s;
+          -webkit-transition: 0.4s;
+          -moz-transition: 0.4s;
+          -o-transition: 0.4s;
+          -ms-transition: 0.4s;          
+        }
+        &.prev {
+          left: -8px;
+          transition: 0.4s;
+          -webkit-transition: 0.4s;
+          -moz-transition: 0.4s;
+          -o-transition: 0.4s;
+          -ms-transition: 0.4s;          
+        }
+      }
+    }
+	}
+	#image-grid{
+		.image-grid{
+			.col{
+				.img2-3{
+					.content_inner{
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						margin-left: -50%;
+						margin-top: -2%;
+						h4{
+							text-align: center;
+							font:50px/40px 'adinenuPro-bold';
+							color: #fff;
+							text-transform: uppercase;
+							span{
+								font:50px/40px 'adinenuPro-light';
+							}
+						}
+						p{
+							color: #fff;
+							text-align: center;
+							font:400 18px 'NotoSansKR';
+							margin-top: 10px;
+						}
+						a.button{
+							z-index: 2;
+							left: 50%;
+							margin-left: -100px;
+							margin-top: 0;
+						}						
+					}
+				}
+			}
+		}
+	}
+}
+
+.ie9 #nevermade .statement {
+  opacity: 1;
+}
+
+@media screen and (max-width: 1400px) {
+  #nevermade .statement {
+    overflow: visible;
+  }
+}
+
+html.no_scroll {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}

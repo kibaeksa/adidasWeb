@@ -1,0 +1,467 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+#preloadPanel {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	@include css3(transition, opacity 0.9s);
+	div {
+		position: relative;
+		font: 50px 'adiBlack';
+		color: #000;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include css3(transform, translate3d(-50%, -50%, 0));
+		&::after {
+			@extend .pseudo-element;
+			position: absolute;
+			top: -110%;
+			left: -210%;
+			width: 200%;
+			height: 100%;
+			background: rgba(255, 255, 255, 0.5);
+			background: linear-gradient( to right, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%);
+			@include opacity(0);
+			@include css3(transform, rotate(30deg));
+			@include animation(1s, 1.2s, shining);
+			transition-property: left, top, opacity;
+			transition-duration: 0.7s, 0.7s, 0.15s;
+			transition-timing-function: ease;
+			-webkit-transition-property: left, top, opacity;
+			-webkit-transition-duration: 0.7s, 0.7s, 0.15s;
+			-webkit-transition-timing-function: ease;
+		}
+	}
+	&.loaded {
+		@include opacity(0);
+	}
+}
+
+.video-viewer {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	.video {
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.close {
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 20;
+		background-position: 0 -685px;
+		@include opacity(0);
+		@include css3(transition, opacity 0.4s ease-in 0.2s);
+	}
+	.bg {
+		width: 100%;
+		height: 100%;
+		background: #000;
+		z-index: 5;
+		position: absolute;
+		top: 0;
+		left: 0;
+		@include opacity(0);
+		@include css3(transition, opacity 0.4s);
+	}
+	&.loaded {
+		.bg {
+			@include opacity(0.6);
+		}
+		.close {
+			@include opacity(1);
+		}
+	}
+}
+
+#parley {
+	position: relative;
+	background: #fff;
+	overflow: hidden;
+	a {
+		&.button {
+			display: block;
+			position: absolute;
+			width: 220px;
+			height: 52px;
+			font:400 16px/48px 'NotoSansKR', 'Nanum Gothic';
+			color: #fff;
+			background: #000;
+			transition: all 0.8s;
+			-webkit-transition: all 0.8s;
+			-moz-transition: all 0.8s;
+			-o-transition: all 0.8s;
+			-ms-transition: all 0.8s;
+			letter-spacing: -1px;
+			text-align: center;
+		}
+		&:hover.button {
+			background: #00a2a4;
+			color: #000;
+			font:400 16px/48px 'NotoSansKR', 'Nanum Gothic';
+		}
+	}
+	.box1 {
+		position: relative;
+		overflow: hidden;
+		height: 640px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+		.txt {
+			position: absolute;
+			top: 185px;
+			right: 50%;
+			margin-right: -565px;
+			z-index: 1;
+			h3{
+				font:700 24px/40px 'NotoSansKR', 'Nanum Gothic';
+				color:#00a2a4;
+				letter-spacing: -0.5px;
+				text-align: center;
+				margin-bottom: 20px;
+				span{
+					font:700 40px/50px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+			p {
+				font:500 18px/34px 'NotoSansKR', 'Nanum Gothic';
+				color: #000;
+				text-align: center;
+			}
+			a {
+				&.button {
+					display: block;
+					position: relative;
+					float: right;
+					margin-top: 35px;
+					width: 261px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #2faf92;
+					background: #2faf92;
+					color: #fff;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+				&:hover.button {
+					color: #2faf92;
+					background: none;
+					border: 2px solid #2faf92;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+		}
+	}
+
+	.box2 {
+		position: relative;
+		overflow: hidden;
+		height: 624px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+		.txt {
+			position: absolute;
+			top: 140px;
+			left: 50%;
+			margin-left: -595px;
+			z-index: 1;
+			h3{
+				font:54px/55px 'adinenuPro-bold';
+				color:#00a2a4;
+				letter-spacing: -0.5px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			p {
+				font:500 18px/34px 'NotoSansKR', 'Nanum Gothic';
+				color: #000;
+				text-align: center;
+			}
+			a {
+				&.button {
+					display: block;
+					position: relative;
+					cursor: default;
+					margin: 35px auto 0;
+					width: 220px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #cecece;
+					background: #cecece;
+					color: #fff;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+			}
+		}
+	}
+
+	.box3 {
+		position: relative;
+		overflow: hidden;
+		height: 699px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+		.txt {
+			position: absolute;
+			top: 210px;
+			right: 50%;
+			margin-right: -455px;
+			z-index: 1;
+			h3{
+				font:54px/55px 'adinenuPro-bold';
+				color:#00a2a4;
+				letter-spacing: -0.5px;
+				text-align: center;
+				margin-bottom: 20px;
+				span{
+					font:700 24px/50px 'NotoSansKR';
+				}
+			}
+			p {
+				font:500 18px/34px 'NotoSansKR', 'Nanum Gothic';
+				color: #000;
+				text-align: center;
+			}
+			a {
+				&.button {
+					display: block;
+					position: relative;
+					margin: 35px auto 0;
+					width: 220px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #000;
+					background: #000;
+					color: #fff;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+				&:hover.button {
+					color: #000;
+					background: none;
+					border: 2px solid #000;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+		}
+	}
+
+	.box4 {
+		position: relative;
+		overflow: hidden;
+		height: 639px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+	}
+
+	.box5 {
+		position: relative;
+		overflow: hidden;
+		height: 681px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+		.txt {
+			position: absolute;
+			top: 280px;
+			left: 50%;
+			margin-left: -475px;
+			z-index: 1;
+			h3{
+				font:700 40px/40px 'NotoSansKR';
+				color:#00a2a4;
+				letter-spacing: -0.5px;
+				text-align: center;
+				margin-bottom: 30px;
+			}
+			p {
+				font:500 18px/34px 'NotoSansKR', 'Nanum Gothic';
+				color: #000;
+				text-align: center;
+			}
+			a {
+				&.button {
+					display: block;
+					position: relative;
+					margin: 35px auto 0;
+					width: 220px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #000;
+					background: #000;
+					color: #fff;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+				&:hover.button {
+					color: #000;
+					background: none;
+					border: 2px solid #000;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+		}
+	}
+
+	.box6 {
+		position: relative;
+		overflow: hidden;
+		height: 708px;
+		img {
+			position: absolute;
+			top: 0;
+			margin-left: -960px;
+			left: 50%;
+		}
+		.txt {
+			position: absolute;
+			top: 220px;
+			right: 50%;
+			margin-right: -500px;
+			z-index: 1;
+			h3{
+				font:700 40px/40px 'NotoSansKR';
+				color:#00a2a4;
+				letter-spacing: -0.5px;
+				text-align: center;
+				margin-bottom: 30px;
+			}
+			p {
+				font:500 18px/34px 'NotoSansKR', 'Nanum Gothic';
+				color: #000;
+				text-align: center;
+			}
+			a {
+				&.button {
+					display: block;
+					position: relative;
+					margin: 35px auto 0;
+					width: 220px;
+					height: 52px;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+					border: 2px solid #000;
+					background: #000;
+					color: #fff;
+					transition: all 0.8s;
+					-webkit-transition: all 0.8s;
+					-moz-transition: all 0.8s;
+					-o-transition: all 0.8s;
+					-ms-transition: all 0.8s;
+					letter-spacing: -1px;
+					text-align: center;
+				}
+				&:hover.button {
+					color: #000;
+					background: none;
+					border: 2px solid #000;
+					font: 16px/48px 'NotoSansKR', 'Nanum Gothic';
+				}
+			}
+		}
+	}
+
+}
+
+@include keyframe(shining) {
+	0% {
+		opacity: 0;
+		top: -110%;
+		left: -210%;
+	}
+	100% {
+		opacity: 1;
+		top: 100%;
+		left: 100%;
+	}
+}
+
+@include keyframe(arrow) {
+	0% {
+		left: 100%;
+	}
+	25% {
+		left: 0%;
+	}
+	50% {
+		left: 0%;
+	}
+	75% {
+		left: 0%;
+	}
+	100% {
+		left: -110%;
+	}
+}
+
+@include keyframe(arrow2) {
+	0% {
+		left: -100%;
+	}
+	25% {
+		left: 0%;
+	}
+	50% {
+		left: 0%;
+	}
+	75% {
+		left: 0%;
+	}
+	100% {
+		left: 110%;
+	}
+}

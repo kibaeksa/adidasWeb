@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>이미지확대</title>
+	<meta http-equiv="content-Type"content="text/html; charset=euc-kr">
+	<link rel="stylesheet"type="text/css"href="css/adidas_hmall.css">
+	<link rel="stylesheet" type="text/css" href="http://www.hyundaihmall.com/static/2008web/css/common.css" />
+	<script rel="javascript"type="text/javascript"src="js/jquery1.6.js"></script>
+	<script rel="javascript"type="text/javascript">
+		$(document).ready(function(){
+			var useragent=navigator.userAgent;
+			if(useragent.indexOf('MSIE 6')>0 || useragent.indexOf('MSIE 7')>0){  //IE6 또는 IE 7일 경우
+				$('div#zoom_image').mouseover(function(){
+					if(useragent.indexOf('MSIE 7')>0){ //IE7일 경우
+						$(this).css('cursor','move');
+					}
+					$(this).mousemove(function(evt){
+						var offsetX=$(this).offset().left;
+						var offsetY=$(this).offset().top;
+						var xx=evt.pageX-offsetX;
+						var yy=evt.pageY-offsetY;
+						$('span>em').text(xx);
+						$('span>em:last').text(yy);
+						var bgX=-xx*1.6+'px';
+						var bgY=-yy*1.72+'px';
+						$('div#zoom_image').css({
+							backgroundPosition:bgX+' '+bgY
+						});;
+					});
+				});
+				$('div#zoom_image').click(function(){
+					$('div#img_hover').show();
+					$(this).fadeOut(300);
+				});
+
+				var imgPath;
+				var imgNum;
+				var absolutePath;
+				$('div.zoom_list li a').mouseover(function(){
+					$('div#img_hover').show();
+					$('div.zoom_list li a').each(function(){
+						$(this).attr('class','');
+					});
+						$(this).attr('class','on');
+						imgPath=$(this).find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						var imgPathDt=imgPath.match(/\d.jpg/);
+						imgNum=imgPath.match(/\d/)
+						imgPathDt=String(imgPathDt).replace(/\d.jpg/,imgNum+'m.jpg');
+						$('div#zoom_image').hide();
+						$('div#zoom_img').css('background','#fff url('+absolutePath+imgPathDt+') 0 0 no-repeat');
+				});
+				$('a.zoomin').click(function(){
+					if(imgPath==undefined){
+						imgPath=$('div.zoom_list li:first a').find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						imgNum=String(bigImagePath).match(/\d/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}else{
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}
+				});
+				$('a.zoomout').click(function(){
+					$('div#img_hover').show();
+					$('div#zoom_image').fadeOut(300);
+					return false;
+				});
+
+
+				$('div#img_hover').mouseover(
+					function(){
+						$(this).find('a').show();
+					});
+				$('div#img_hover').mouseout(
+					function(){
+						$(this).find('a').hide();
+					});
+
+
+				$('div#img_hover>a').click(function(){
+					if(imgPath==undefined){
+						imgPath=$('div.zoom_list li:first a').find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						imgNum=String(bigImagePath).match(/\d/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}else{
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}
+				});							
+			}else{
+				$('div#zoom_image').mouseover(function(){
+					$(this).css('cursor','move');
+					$(this).mousemove(function(evt){
+						var offsetX=$(this).offset().left;
+						var offsetY=$(this).offset().top;
+						var xx=evt.pageX-offsetX;
+						var yy=evt.pageY-offsetY;
+						$('span>em').text(xx);
+						$('span>em:last').text(yy);
+						var bgX=-xx*1.6+'px';
+						var bgY=-yy*1.72+'px';
+						$('div#zoom_image').css({
+							backgroundPosition:bgX+' '+bgY
+						});;
+					});
+				});
+				$('div#zoom_image').click(function(){
+					$('div#img_hover').show();
+					$(this).fadeOut(300);
+				});
+
+				var imgPath;
+				var imgNum;
+				var absolutePath;
+				$('div.zoom_list li a').mouseover(function(){
+					$('div#img_hover').show();
+					$('div.zoom_list li a').each(function(){
+						$(this).attr('class','');
+					});
+						$(this).attr('class','on');
+						imgPath=$(this).find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						var imgPathDt=imgPath.match(/\d.jpg/);
+						imgNum=imgPath.match(/\d/)
+						imgPathDt=String(imgPathDt).replace(/\d.jpg/,imgNum+'m.jpg');
+						$('div#zoom_image').hide();
+						$('div#zoom_img').css('background','#fff url('+absolutePath+imgPathDt+') 0 0 no-repeat');
+				});
+				$('a.zoomin').click(function(){
+					if(imgPath==undefined){
+						imgPath=$('div.zoom_list li:first a').find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						imgNum=String(bigImagePath).match(/\d/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}else{
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}
+				});
+				$('a.zoomout').click(function(){
+					$('div#img_hover').show();
+					$('div#zoom_image').fadeOut(300);
+					return false;
+				});
+
+
+				$('div#img_hover').mouseover(
+					function(){
+						$('div#zoom_layer').show();
+						$(this).find('a').show();
+					});
+				$('div#img_hover').mouseout(
+					function(){
+						$('div#zoom_layer').hide();
+						$(this).find('a').hide();
+					});
+
+
+				$('div#img_hover>a').click(function(){
+					if(imgPath==undefined){
+						imgPath=$('div.zoom_list li:first a').find('img').attr('src');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						imgNum=String(bigImagePath).match(/\d/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}else{
+						$('div#img_hover').hide();
+						var zoomImage=$('div#zoom_image');
+						absolutePath=imgPath.replace(/\w\.jpg/,'');
+						var bigImagePath=imgPath.match(/\d.jpg/);
+						bigImagePath=String(bigImagePath).replace(/\d.jpg/,imgNum+'b.jpg');
+						zoomImage.css('background','#fff url('+absolutePath+bigImagePath+') 0 0 no-repeat');
+						zoomImage.fadeIn(300);
+						return false;
+					}
+				});			
+			}
+
+		});
+	</script>
+	<style type="text/css">
+		div.zoom_area{width:700px;overflow:hidden;margin:10px 0 10px 0;}
+		div.zoom_header{height:43px;padding:0 15px 0 20px;background:url(images/temp/bg_zoomHeader.gif) 0 0 repeat-x;}
+		div.zoom_header h1{float:left;font-family:dotum;font-size:18px;color:#fff;font-weight:bold;line-height:43px;}
+		div.zoom_header div.zoom_control{float:right;margin-top:12px;}
+		div.zoom_header div.zoom_control a{display:block;width:20px;height:20px;float:left;text-indent:-5000px;}
+		div.zoom_header div.zoom_control a.zoomin{background:url(images/temp/btn_zoomin.gif) 0 0 no-repeat;margin-right:5px;}
+		div.zoom_header div.zoom_control a.zoomout{background:url(images/temp/btn_zoomout.gif) 0 0 no-repeat;}
+		div.zoom_header div.zoom_control a.zoomin:hover{background:url(images/temp/btn_zoomin_h.gif) 0 0 no-repeat;}
+		div.zoom_header div.zoom_control a.zoomout:hover{background:url(images/temp/btn_zoomout_h.gif) 0 0 no-repeat;}
+		div.zoom_contents{width:698px;height:608px;padding-top:90px;position:relative;border:1px solid  #ccc;border-top:none;background-color:#fff;*zoom:1}
+		div.zoom_list{position:absolute;bottom:20px;left:127px;z-index:10005;}
+		div.zoom_list li{float:left;margin-right:5px;}
+		div.zoom_list li a{display:block;width:59px;height:59px;border:1px solid #dddddd;}
+		div.zoom_list li a:hover,div.zoom_list li a.on{border:1px solid #666;}
+		div#zoom_img{width:445px;height:445px;position:relative;margin:0 auto;background:url(images/temp/1m.jpg) 0 0 no-repeat;}
+		div#zoom_img div#img_hover{width:445px;height:445px;position:absolute;top:0;left:0;z-index:10005;}
+		div#zoom_img a{position:absolute;top:48%;left:170px;opacity:.99;display:none;z-index:10010;}
+		div#zoom_image{width:698px;height:698px;position:absolute;top:0;left:0;display:none;}
+		div#zoom_layer{width:698px;height:698px;position:absolute;top:0;left:0;background:#e6e6e6;opacity:0.3;z-index:10000;display:none;-ms-filter: alpha(opacity=30);filter:alpha(opacity=30);}
+		
+		div.adi_detailWrap{width:700px;padding-left:11px;}
+
+		div.adi_detailProd{width:700px;margin:0 0 10px 0;background:#6b6c6d;}
+
+		div.adi_dtTab{height:30px;background:url(images/temp/bg_tab_border.gif) 0 bottom repeat-x;}
+		div.adi_dtTab a{display:block;width:113px;height:30px;float:left;}
+		div.adi_dtTab a.adi_dtTab1{background:url(images/temp/temp.jpg) 0 0 no-repeat;text-indent:-5000px;}
+		div.adi_dtTab a.adi_dtTab2{background:url(images/temp/temp.jpg) -113px 0 no-repeat;text-indent:-5000px;}
+
+		div.adi_dtContents{width:698px;overflow:hidden;border:1px solid #4e4e4e;border-top:none;}
+		div.adi_dtTable{width:660px;padding:0 19px;margin-bottom:10px;background:url(images/temp/bg_gridx_dt.gif) 0 bottom repeat-x;}
+		div.adi_dtTable h2{padding:26px 0 13px 0;font-size:14px;font-weight:bold;color:#fff;}
+		div.adi_dtTable table{width:660px;margin:0 auto;}
+		div.adi_dtTable table th{text-align:left;}
+		div.adi_dtTable table th img{margin-left:6px;}
+		div.adi_dtTable table td{font-size:12px;color:#d3d3d3;}
+		div.adi_dtTable table td p{color:#d3d3d3;}
+		div.adi_dtTable table td,div.adi_dtTable table th{height:27px;border-bottom:1px solid #888;}
+		div.adi_dtTable table th.last{border-bottom:none;vertical-align:top;padding:10px 0 20px 0;}
+		div.adi_dtTable table td.last{border-bottom:none;padding:6px 0 15px 0;}
+		div.adi_dtTable table td p{line-height:16px;}
+
+		div.adi_dtImage{text-align:center;padding-bottom:8px;}
+
+
+
+	</style>
+ </head>
+
+ <body>
+<div id="wrap" style="width:992px;overflow:hidden;margin:0 auto;">
+	<div class="top"><img src="images/temp/top.jpg"></div>
+	<div class="contents">
+		<div class="left"style="width:720px;float:left;margin-right:13px;">
+			<div class="bottom1"><img src="images/temp/bottom1.jpg" border="0" usemap="#map2">
+				<map name="map2"><area shape="rect" coords="541,84,697,114" href="http://shop.adidas.co.kr"target="_blank"></map>
+			</div>
+			<div class="adi_detailWrap">
+				<div class="zoom_area">
+					<div class="zoom_header">
+						<h1>클라이마쿨 라이드 </h1>
+						<div class="zoom_control">
+							<a href="#"class="zoomin">이미지확대</a><a href="#"class="zoomout">이미지축소</a>
+						</div>
+					</div>
+					<div class="zoom_contents">
+						<div id="zoom_img"><div id="img_hover"><a href="#"><img src="images/temp/btn_zoomLarger.gif"alt="크게보기"/></a></div></div>
+						<div class="zoom_list">
+							<ul>
+								<li><a href="#" class="on"><img src="images/temp/1.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/2.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/3.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/4.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/5.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/6.jpg"alt=""/></a></li>
+								<li><a href="#"><img src="images/temp/7.jpg"alt=""/></a></li>
+							</ul>
+						</div>
+						<div id="zoom_image"></div>
+						<div id="zoom_layer"></div>
+					</div><!--zoom_contents-->
+				</div><!--zoom_area-->
+				<div class="adi_detailProd">
+					<div class="adi_dtTab">
+						<a href="#" class="adi_dtTab1">제품정보</a><a href="#"class="adi_dtTab2">사이즈</a>
+					</div>
+					<div class="adi_dtContents">
+						<div class="adi_dtTable">
+							<h2>[Women's Running] 슈퍼노바 시퀀스 4</h2>
+							<table cellspacing="0"cellpadding="0"summary="제품정보">
+								<colgroup>
+									<col width="70px">
+									<col width="590px">
+								</colgroup>
+								<tr>
+									<th><img src="images/temp/tit_prodcode.gif"alt="제품코드"/></th>
+									<td>G42256</td>
+								</tr>
+								<tr>
+									<th><img src="images/temp/tit_produse.gif"alt="용도"/></th>
+									<td>러닝화</td>
+								</tr>
+								<tr>
+									<th><img src="images/temp/tit_prodmate.gif"alt="소재"/></th>
+									<td>메쉬/합성가죽/특수배합 합성고무</td>
+								</tr>
+								<tr>
+									<th class="last"><img src="images/temp/tit_prodchar.gif"alt="특징"/></th>
+									<td class="last">
+										<p>1.2011년 새로운 모습으로 태어난 클라이마쿨 라이드</p>
+										<p>2.컬러풀하면서도 신축성이 뛰어나 젊은 소비자들에게 인기 있는 제품</p>
+										<p>3.클라이마쿨의 360도 통풍 시스템으로 더운 여름에 시원하게 신을 수 있는 스타일</p>
+										<p>1.2011년 새로운 모습으로 태어난 클라이마쿨 라이드</p>
+										<p>2.컬러풀하면서도 신축성이 뛰어나 젊은 소비자들에게 인기 있는 제품</p>
+										<p>3.클라이마쿨의 360도 통풍 시스템으로 더운 여름에 시원하게 신을 수 있는 스타일</p>
+										<p>1.2011년 새로운 모습으로 태어난 클라이마쿨 라이드</p>
+										<p>2.컬러풀하면서도 신축성이 뛰어나 젊은 소비자들에게 인기 있는 제품</p>
+										<p>3.클라이마쿨의 360도 통풍 시스템으로 더운 여름에 시원하게 신을 수 있는 스타일</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="adi_dtImage"><img src="images/temp/prodImg.jpg"alt="슈퍼노바"/></div>
+					</div>					
+				<div class="adi_dtImage2">
+					<img src="images/temp/deliv.jpg"alt="" border="0" usemap="#map1"/>
+					<map name="map1"><area shape="rect" coords="554,16,689,43" href="http://shop.adidas.co.kr"target="_blank"></map>
+				</div>
+			</div>
+				<div class="bottom2"><img src="images/temp/bottom.jpg"></div>
+			</div>
+			</div>
+			<div class="right"style="width:180px;float:left;"><img src="images/temp/right.jpg"></div>
+		</div>
+	</div>
+
+ </body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta property="og:title" content="아디다스 공식 온라인 스토어" />
+<meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" />
+<meta property="og:url" content="http://shop.adidas.co.kr"/>
+<title>아디다스 공식 온라인 스토어</title>
+
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/adidas/common.js"></script>
+<script type="text/javascript" src="/js/comCode.js"></script>
+<script type="text/javascript" src="/js/validatorUtil.js"></script>
+<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+<script type="text/javascript">
+
+	/*160929*/
+	(function($){
+		$(document).ready(function(){
+			setProdinfoPosition($(document));
+			$(document).bind('scroll',function(){
+				setProdinfoPosition($(this));
+			});
+
+			$('.payment-main .prods_info .deliv_tooltip .spt_bg').hover(function(){
+				$(this).siblings('.tooltip-layer').show();
+			},function(){
+				$(this).siblings('.tooltip-layer').hide();
+			});
+
+			function setProdinfoPosition(obj){
+				var endPos = $('#footer_r').offset().top - ($('.prods_info').outerHeight() + 120);
+				if( $('.payment-main .contents').offset().top + 58 < obj.scrollTop() && endPos > obj.scrollTop() ){
+					$('.payment-main .contents .prods_info').css({
+						top : 0
+					}).addClass('fixed');
+				}else if(endPos <= obj.scrollTop()){
+					if($('.payment-main .contents .prods_info').hasClass('fixed')){
+						$('.payment-main .contents .prods_info').removeClass('fixed').css({
+							top : ($('#footer_r').offset().top - $('.prods_info').outerHeight())-260
+						});
+					}
+				}else{
+					$('.payment-main .contents .prods_info').css({
+						top : 58
+					}).removeClass('fixed');
+				}
+			}
+
+			// 비회원 시, 로그인/비회원구매 선택 라디오버튼
+			$('.delivery_info .for_guest>.box>.box_form .input-ctm').ctmInputSetCallback({
+				before : function(){
+					if(this.hasClass('checked')){
+						return false;
+					}
+				},
+				after : function(){
+					if(this.find('input').attr('id') == 'guest_payment1'){
+						$('.delivery_info .for_guest>.deliv_form_wrap').hide()
+						$('.delivery_info .for_guest>.login_form').show();
+					}else{
+						$('.delivery_info .for_guest>.login_form').hide();
+						$('.delivery_info .for_guest>.deliv_form_wrap').show()
+
+					}
+				}
+			});
+
+			// 결제수단 선택하는 라디오버튼
+			$('.payment_info .payment_options .input-ctm').ctmInputSetCallback({
+				before: function(){
+					if(this.hasClass('checked')){
+						return false;
+					}
+				},
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					$('.payment_contents>div').hide();
+					$('#'+elemId+'_payment').show();
+
+					setProdinfoPosition($(document));
+
+				}
+			});
+
+
+			// 무통장입금 신청하기/신청안함 라디오버튼
+			$('#vbank_payment #select_vbank_recpt_yn .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'VBANK_CASH_RECPT_APPLY_Y'){
+						$('#vbank_payment #desc_vbank').show();
+						$('#vbank_payment #select_vbank_recpt_prpos').show();
+					}else{
+						$('#vbank_payment #desc_vbank').hide();
+						$('#vbank_payment #select_vbank_recpt_prpos').hide();
+					}
+				}
+			});
+
+			// 무통장입금 개인소득공제/사업자증빙 라디오버튼
+			$('#vbank_payment #select_vbank_recpt_prpos .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'VBANK_CASH_RECPT_PUBL_PRPOS_01'){
+						$('#vbank_payment #vbank_escrw_business').hide();
+						$('#vbank_payment #vbank_escrw_personal').show();
+					}else{
+						$('#vbank_payment #vbank_escrw_personal').hide();
+						$('#vbank_payment #vbank_escrw_business').show();
+					}
+				}
+			});
+
+			// 실시간계좌이체 신청하기/신청안함 라디오버튼
+			$('#account_payment #select_account_recpt_yn .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+
+					if(elemId == 'CASH_RECPT_APPLY_Y'){
+						$('#account_payment #desc_account').show();
+						$('#account_payment #select_account_recpt_prpos').show();
+					}else{
+						$('#account_payment #desc_account').hide();
+						$('#account_payment #select_account_recpt_prpos').hide();
+					}
+				}
+			});
+
+			// 실시간계좌이체 개인소득공제/사업자증빙 라디오버튼
+			$('#account_payment #select_account_recpt_prpos .input-ctm').ctmInputSetCallback({
+				after : function(){
+					var elemId = this.find('input').attr('id');
+					if(elemId == 'CASH_RECPT_PUBL_PRPOS_01'){
+						$('#account_payment #account_escrw_business').hide();
+						$('#account_payment #account_escrw_personal').show();
+					}else{
+						$('#account_payment #account_escrw_personal').hide();
+						$('#account_payment #account_escrw_business').show();
+					}
+				}
+			});
+
+			$('.address_util .selectbox-ctm').ctmSelectSetCallback({
+				after : function(){
+					if(this.attr('data-option-value') == 'addr_option1'){
+						$('.delivery_info #address_infomation2').hide();
+						$('.delivery_info #address_infomation1').show();
+					}else{
+						$('.delivery_info #address_infomation1').hide();
+						$('.delivery_info #address_infomation2').show();
+					}
+				}
+			});
+
+			// 161116 SMS 스크립트
+			$('.sms .input-radio-ctm').ctmInputSetCallback({
+				after : function(){
+					if(this.find('input').val() == 'Y'){
+						$('.noti_sms').hide();
+					}else{
+						$('.noti_sms').show();
+					}
+				}
+			});
+
+
+			$('.view_card_benefit').bind('click',function(){
+				$('.card_benefit_layer').openModalPopup();
+			});
+
+
+			// 161213 약관동의 start
+			$('#input_inicis_agree_all').ctmSelectSetCallback({
+				after : function(){
+					var elemInputs = $('#agreebox_inicis .input-check-ctm');
+					var i = 0;
+					var isChecked = this.find('input[type="checkbox"]').attr('checked');
+
+					for(; i < elemInputs.length; i++){
+						if(isChecked){
+							if(!$(elemInputs[i]).hasClass('checked')){
+								$(elemInputs[i]).trigger('click');
+							}
+						}else{
+							if($(elemInputs[i]).hasClass('checked')){
+								$(elemInputs[i]).trigger('click');
+							}
+						}
+					}
+
+					// 161219 start
+					$('.sub_agreements').fadeIn();
+				}
+			});
+
+			$('#agreebox_inicis .input-check-ctm:not(#input_inicis_agree_all)').ctmSelectSetCallback({
+				after : function(){
+					var obj = $('#agreebox_inicis .input-check-ctm');
+					var isAllChecked = (function(){
+						var length = obj.length-1;
+						var count = 0;
+						obj.each(function(index){
+							if(index == 0){
+								return;
+							}
+
+							if($(this).find('input[type="checkbox"]').attr('checked')){
+								count += 1;
+							}
+						});
+
+						if(count == length){
+							return true;
+						}else{
+							return false;
+						}
+					})();
+
+					if(isAllChecked){
+						$('#input_inicis_agree_all').addClass('checked');
+						$('#input_inicis_agree_all').find('input[type="checkbox"]').attr('checked',true);
+					}else{
+						$('#input_inicis_agree_all').removeClass('checked');
+						$('#input_inicis_agree_all').find('input[type="checkbox"]').attr('checked',false);
+					}
+
+				}
+			});
+			// 161213 end
+
+			$('.test-zippop').bind('click',function(){
+				$('.layerpopup_findzip').openModalPopup();
+			});
+
+
+		});
+
+	})(jQuery);
+	/* //160929 */
+
+</script>
+
+</head>
+<body>
+
+<div id="wrap">
+
+	<div class="findzip_pop">
+		<!-- 170419 h2태그에 스타일 추가 -->
+		<h2 style="margin-bottom:0;border-bottom-width:0;">주소 찾기</h2>
+		<div class="zip_result">
+			<ul class="zip_list">
+				<li>
+					<a href="#">
+						<strong class="num">06449</strong>
+						<div class="address_box">
+							<div>
+								<div class="label">도로명</div>
+								서울 서초구 강남대로 253 (아웃백스테이크하우스)
+							</div>
+							<div>
+								<div class="label">지번</div>
+								서울 서초구 서초동 1362-26
+							</div>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+		<!-- //zip_result -->
+
+		<!-- 170419 상세주소 넣기 -->
+		<div class="search_zip" style="width: 540px;padding-top: 30px;">
+			<div class="input_box" style="padding: 0;margin: 0;">
+				<input type="text" placeholder="상세 주소를 입력해 주세요." style="padding-left:10px;font:13px/43px 'NotoSansKRRegular','Nanum Gothic'">
+			</div>
+
+			<div style="padding-top: 20px;overflow: hidden;">
+				<a href="#" class="btn-ctm btn-blue arrow" style="width: 380px;height: 55px;float: left;margin-right: 10px;position: relative;">
+					<span style="height: 55px;line-height:55px;">확인<span class="spt_bg"></span></span>
+				</a>
+				<a href="#" class="btn-ctm btn-gray" style="width: 150px;height: 55px;float:left;position: relative;background: #aaa;">
+					<span style="height: 55px;line-height:55px;">주소 재검색</span>
+				</a>
+			</div>
+		</div>
+		<!-- //170419 -->
+
+	</div>
+	<!-- //findzip_pop -->
+</div>
+<!-- //wrap -->
+
+
+</body>
+</html>

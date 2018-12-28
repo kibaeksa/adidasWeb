@@ -1,0 +1,308 @@
+@import './app/css/adidas/scss/common/mixin.scss';
+@import './app/css/adidas/scss/common/common.scss';
+
+#falcon{
+	position: relative;
+
+	/***공통***/
+	/*일반 버튼*/
+	.btn {
+		display: inline-block;
+		margin: 0 10px;
+	}
+
+	.btn-adi-dft {
+		position: relative;
+		padding: 0 30px;
+		width: fit-content;
+		height: 50px;
+		background: #fff;
+		text-align: center;
+		z-index: 5;
+		transition: .6s;
+		a {
+			display: inline-block;
+			font: bold 16px/50px 'NotoSansKR';
+			color: #000;
+			span.btn-arrow {
+				display: inline-block;
+				position: relative;
+				top: 5px;
+				width: 26px;
+				height: 24px;
+				background: url('/images/adidas/event/yung96/btn-arrow.png') top left no-repeat;
+				background-size: 24px auto;
+				margin-left: 20px;
+			}
+		}
+		&::after {
+			content: '';
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border: 1px solid #fff;
+			transform: translate(3px, 3px);
+			transition: .6s;
+			z-index: -1;
+		}
+		&:hover {
+			opacity: 0.8;
+			transform: translate(3px, 3px);
+			&::after {
+			transform: translate(0px, 0);
+			}
+		}
+		&.bl{
+			background: #000;
+			a {			
+				color: #fff;
+				span.btn-arrow {
+					display: inline-block;
+					position: relative;
+					top: 5px;
+					width: 26px;
+					height: 24px;
+					background: url('/images/adidas/event/yung96/btn-arrow-w.png') top left no-repeat;
+					background-size: 24px auto;
+					margin-left: 20px;
+				}				
+			}
+			&::after {			
+				border: 1px solid #000;
+			}
+		}
+	}
+	
+	.main{
+		position: relative;
+		height: 970px;
+		&.on{
+			.content{
+				p{
+					left:0;
+					@include css3(opacity,1);
+
+				}
+				.btn{
+					left:0;
+					@include css3(opacity,1);
+				}
+			}
+		}
+		.bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left: -960px;
+		}
+		.content{
+			position: relative;
+			padding: 396px 0 0 0;
+			width: 1190px;
+			margin: 0 auto;
+			text-align: center;
+			z-index: 2;
+			p{
+				position: relative;
+				left:-50px;
+				padding: 0 0 30px 0;
+				text-align: center;
+				font:500 32px/32px 'NotoSansKR';
+				color:#fff;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.5s);
+				transition-delay: 0.4s;
+
+				&.tle{
+					font: 90px/90px 'adihaus-medium';
+					letter-spacing: 10px;
+					padding-bottom: 20px;
+				}
+			}
+			.btn{
+				position: relative;
+				@include css3(opacity,0);
+				@include css3(transition, all 1s);
+				transition-delay: 0.8s;
+			}
+		}
+	}
+
+	.box1{
+		position: relative;
+		padding: 20px 0;
+		text-align: center;
+		&.on{
+			p{
+				@include css3(opacity,1);
+				bottom: 0;
+				transition: all .5s ease-out;
+			}
+		}
+		&::before, &::after{
+			content: "";
+			display: inline-block;
+			width: 110px;
+			height: 10px;
+			margin: 30px 0;
+			background: #be0022;
+		}
+		p{
+			font: 700 20px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+			@include css3(opacity,0);
+			position: relative;
+			bottom:-10px;			
+		}	
+	}
+	
+	.box2{
+		position: relative;
+		overflow: hidden;
+		width:100%;
+		margin: 0 auto;
+		&.on{
+			.tg{
+				opacity: 1;
+				td{
+					animation: scale 1s 1;
+				}
+			}
+		}
+		.tg {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			opacity: 0;
+			transition: all .5s ease-out;
+			td {
+				height: 260px;
+				transition: all 0.5s;
+				> div {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					overflow: hidden;
+					img {
+						width: 100%;
+						display: block;
+						transition: all ease-in-out 4s;
+					}
+					&:hover{
+						img{
+							transform: scale(1.2);
+						}
+					}
+				}
+				.item {
+					border-color: inherit;
+					text-align: left;
+					vertical-align: top;
+					background: #000;
+				}				
+			}
+		}
+
+		@keyframes scale {
+			0% {
+				transform: scale(0);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+	}	
+
+	.video{
+		position: relative;
+		height: 970px;
+		.bg{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		.video_cont{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			img{
+				display: inline-block;
+				width: 120px;
+			}
+			p{
+				font: 700 46px 'NotoSansKR';
+				color:#fff;
+				padding-top: 20px;
+			}
+		}
+	}
+
+	.bottom{
+		position: relative;
+		.hash{	
+			padding: 100px 0 100px 0;
+			font:400 32px 'NotoSansKR';
+			color:#000;
+			text-align: center;	
+		}
+		.prds_box{
+			overflow: hidden;
+			width: 960px;
+			margin: 0 auto;
+			li{
+				float: left;
+				padding: 10px 5px;
+				a{
+					display: inline-block;
+					transition: 0.4s ease-out;
+    				-webkit-transition: 0.4s ease-out;
+					img{
+						display: block;
+					}
+					&:hover{
+						box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+					}
+				}
+			}
+		}
+	}
+
+	.collection{
+		position: relative;
+		height: 120px;
+		padding: 40px 0;
+		text-align: center;
+		&.on{
+			p{
+				left:0;
+				@include css3(opacity,1);
+
+			}
+			.btn{
+				@include css3(opacity,1);
+			}
+		}		
+		p{
+			display: block;
+			position: relative;
+			left:-50px;
+			text-align: center;
+			font: 500 42px 'adinenuPro-bold';
+			text-transform: uppercase;
+			color:#000;
+			@include css3(opacity,0);
+			@include css3(transition, all 0.5s);
+		}
+		.btn {
+			margin-top: 17px;
+		}
+	}
+}

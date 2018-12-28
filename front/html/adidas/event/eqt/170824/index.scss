@@ -1,0 +1,471 @@
+/*
+	break width
+ */
+$break-small: 1000px;
+$break-large: 1400px;
+$width320:320px;
+$width400:400px;
+$width480:480px;
+$width600:600px;
+/*
+	@@ mixin
+ */
+@mixin box-sizing($value){
+			box-sizing: $value;
+	-webkit-box-sizing: $value;
+}
+
+@mixin prefix-css3($prop,$value){
+	#{$prop} :$value;
+	-webkit-#{$prop} :$value;
+	-moz-#{$prop}:$value;
+	-o-#{$prop} :$value;
+	-ms-#{$prop} :$value;
+}
+
+@mixin transition($prop , $duration , $easing , $delay){
+	transition :$prop $duration $easing $delay;
+	-webkit-transition :$prop $duration $easing $delay;
+	-moz-transition:$prop $duration $easing $delay;
+	-o-transition :$prop $duration $easing $delay;
+}
+
+@mixin opacity($value){
+	opacity : $value;
+	// filter:alpha(opacity=$value * 100);
+	// -ms-filter:alpha(opacity=$value * 100);
+}
+
+@mixin transform($value){
+	transform:$value;
+	-webkit-transform:$value;
+	-moz-transform:$value;
+	-o-transform:$value;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@media screen and (max-width: 320px) {
+	html{
+		font-size: 10px;
+	}
+}
+@media screen and (min-width: 800px) {
+	html{
+		font-size: 12px;
+	}
+}
+
+#eqt{
+	overflow: hidden;
+	min-width: 950px;
+	.btn{
+		position: relative;
+		display: inline-block;
+	    margin-left: 30px;
+		background: #93cbcd;
+		transition: all 0.5s;
+		@media screen and (max-width: 1280px) {
+			width: 150px;
+			a{
+				em{
+					display: none !important;
+				}
+			}
+		}
+		&:hover{
+			background: #85babc;
+			a{
+
+			}
+		}
+		a{
+			display: inline-block;
+			height: 70px;
+			width: 275px;
+			font:500 16px/70px 'NotoSansKR';
+			color: #000;
+			span{
+				padding: 0 5px 0 25px;
+				font:16px 'Decima Mono';
+			}
+			em{
+				position: absolute;
+				right:30px;
+				background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/arrow.png') no-repeat;
+				display: inline-block;
+				width: 15px;
+			    height: 10px;
+			    top: 50%;
+			    margin-top: -5px;
+			}
+		}
+	}
+	.eqt_nav{
+		position: fixed;
+	    top: 80px;
+		width: 100%;
+		padding: 25px 0;
+		background: #fff;
+		z-index: 1;
+		transition: all 0.2s;
+		&.fixed{
+			// position: fixed;
+			top:0;
+			z-index: 1;
+			padding: 20px 0;
+			min-width: 950px;
+		}
+		h2{
+			position: absolute;
+		    top: 30px;
+		    left: 50px;
+		}
+		.ct1190{
+			@media screen and (max-width: 1280px) {
+				width: 950px;
+			}
+			@media screen and (max-width: 1190px) {
+				width: 750px;
+			}
+		}
+		.nav_inn{
+			float: right;
+			>*{
+				font:16px 'Decima Mono';
+				text-transform: uppercase;
+				color:#000;
+				@media screen and (max-width: 1280px) {
+					font-size: 12px;
+				}
+			}
+			>p{
+				display: inline-block;
+				float: left;
+			    padding-top: 10px;
+				font-weight: bold;
+			}
+			ul{
+				float: left;
+				padding-top: 10px;
+				li{
+					float: left;
+					width: 110px;
+					margin-left: 30px;
+					cursor: pointer;
+					overflow: hidden;
+					@media screen and (max-width: 1280px) {
+						margin-left: 15px;
+					}
+					&:hover{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					&:active{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					&.on{
+						p{
+							em{
+								left:-35px;
+							}
+						}
+					}
+					span{
+						display: inline-block;
+					    width: 30px;
+					    height: 45px;
+					    vertical-align: middle;
+					    color: #93cbcd;
+					}
+					p{
+						position: relative;
+						display: inline-block;
+						line-height: 24px;
+						em{
+							display: block;
+						    position: absolute;
+						    top: 50%;
+						    left: -140px;
+						    width: 106px;
+						    height: 1px;
+						    background: #177dc6;
+							@include prefix-css3(transition, all 0.5s);
+						}
+					}
+				}
+			}
+			.btn{
+				float: left;
+			}
+		}
+	}
+	.eqt_content{
+		position: relative;
+		&.scrollevent{
+			// top:0;
+			opacity: 0;
+			-webkit-opacity: 0;
+			transition: all 0.8s;
+			-webkit-transition: all 0.8s;
+		}
+		&.type2{
+			.artist{
+				.tit{
+					float: left;
+					.inn{
+						float: right;
+						>*{
+							text-align: right;
+						}
+					}
+				}
+				.box{
+					float: right;
+				}
+			}
+			.text_area{
+				width: 50%;
+			}
+			.video{
+				p{
+					right: -119px;
+				    left: inherit;
+				}
+			}
+		}
+		&.on{
+			// top:500px;
+			opacity: 1;
+			-webkit-opacity: 1;
+		}
+		.main_visual{
+			position: relative;
+			padding: 15px 0 0 0;
+			margin-left: 50px;
+			.box{
+				float: left;
+				width: 200px;
+				span{
+					position: absolute;
+					&.scroll{
+						bottom:200px;
+					}
+					&.logo{
+						bottom:0;
+					}
+				}
+				&.left{
+					@media screen and (max-width: 1280px) {
+						width: 18%;
+						img{
+							width: 100%;
+						}
+						span{
+							width: 18%;
+							img{
+								width: auto;
+							}
+						}
+					}
+					span{
+						left:0;
+					}
+				}
+				&.right{
+					width: 80%;
+					float: right;
+					img{
+						width: 100%;
+					}
+				}
+
+			}
+		}
+		.text_area{
+			position: relative;
+			left: 50px;
+			float: right;
+			padding: 100px 0;
+			width: 80%;
+			p{
+				color:#000;
+				&.title{
+					padding: 0 0 70px 0;
+					font:16px 'Decima Mono';
+					font-weight: bold;
+					text-transform: uppercase;
+				}
+				font:15px/26px 'NotoSansKR';
+			}
+		}
+		.artist{
+			position: relative;
+			.box{
+				display: inline-block;
+				width: 70%;
+
+				&.thumb{
+					img{
+						width: 100%;
+					}
+				}
+			}
+			.tit{
+				float: right;
+				width: 26%;
+				>*{
+					font:16px 'Decima Mono';
+					color:#000;
+				}
+				.num{
+					display: inline-block;
+				    width: 100%;
+				    height: 50px;
+				    vertical-align: middle;
+				    color: #93cbcd;
+				}
+				p{
+					margin-bottom: 20px;
+					span{
+						font:400 16px 'NotoSansKR';
+					}
+				}
+
+			}
+		}
+		.video{
+			position: relative;
+			left: 50px;
+			float: right;
+			width: 80%;
+			cursor: pointer;
+			span{
+				position: relative;
+			}
+			p{
+				position: absolute;
+				bottom:0;
+				left:-130px;
+				font: 16px 'Decima Mono';
+				color:#000;
+				em{
+    				font-style: italic;
+				}
+			}
+			@media screen and (max-width: 1280px) {
+				img{
+					width: 80%;
+				}
+				p{
+					// left:800px;
+				}
+			}
+		}
+	}
+	.player_wrap{
+		width: 850px;
+		margin: 0 auto 188px;
+		h3{
+			padding: 0 0 40px 0;
+			font:24px 'adinenuPro-bold';
+			color:#000;
+			text-align: center;
+		}
+		.audioplayer{
+			position: relative;
+			text-align: right;
+			width: 100%;
+			height: 55px;
+			border-bottom:1px solid #dedede;
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			p{
+				position: absolute;
+				left: 50px;
+				top: 18px;
+				font:16px 'adinenuPro-regular';
+				text-transform: uppercase;
+				color:#000;
+				strong{
+					font-family: 'adinenuPro-bold'
+				}
+			}
+			&.active{
+				background: #f4f4f4;
+			}
+			button{
+				position: absolute;
+				right: 30px;
+				top: 0;
+				height:60px;
+				width: 60px;
+				border: none;
+				float:left;
+				outline:none;
+				cursor: pointer;
+				&.play{
+					background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/eqt_btn_play.png');
+					background-size: 50% 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+				&.pause{
+					background: url('http://image.adidas.co.kr/images/adidas/event/eqt/170824/eqt_btn_stop.png');
+					background-size: 50% 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+			}
+			.timeline{
+				display: inline-block;
+				width: 280px;
+				height: 4px;
+				margin-top: 27px;
+				margin-right: 100px;
+				border-radius: 15px;
+				-webkit-border-radius: 15px;
+				background: rgba(0,0,0,.3);
+			}
+			.playhead{
+				width: 9px;
+				height: 9px;
+				border-radius: 50%;
+				margin-top: -3px;
+				background: rgba(0, 0, 0,1);
+			}
+		}
+		.txt{
+			padding: 80px 0 0 0;
+			p{
+				padding: 0 0 20px 0;
+				font:700 16px/24px 'NotoSansKR';
+				color:#000;
+				text-transform: uppercase;
+				text-align: center;
+				&.adihaus{
+					font:16px 'adinenuPro-regular';
+					color:#000;
+					a{
+						color:#000;
+					}
+				}
+			}
+		}
+	}
+}
+#footer{
+	background: #fff;
+}
