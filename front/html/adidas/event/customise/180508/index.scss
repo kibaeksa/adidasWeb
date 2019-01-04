@@ -306,13 +306,19 @@ $width600:600px;
 		width: 100%;
 		height: 800px;
 		position: relative;
-
 		.background_img{
 			position: absolute;
 			top: 0;
 			left: 50%;
 			margin-left: -960px;
+			top:50px;
+			@include css3(opacity,0);
+			@include css3(transition, all 0.8s);
+			&.on{
+				top:0;
+				@include css3(opacity,1);
 
+			}
 			img{
 				// width: 100%;
 			}
