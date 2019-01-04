@@ -1,6 +1,6 @@
 var express = require('express');
 var server =require('gulp-express');
-var app = express();
+var front = express();
 var fs = require('fs');
 var path = require('path');
 
@@ -51,13 +51,13 @@ var handleSassInject  = function(_path){
 };
 
 // gulp.task('sass', function () {
-//     gulp.src('./app/css/adidas/scss/campaign.scss')
+//     gulp.src('./front/css/adidas/scss/campaign.scss')
 //          .pipe(sass().on('error',sass.logError))
-//          .pipe(gulp.dest('./app/css/adidas/event/'))
+//          .pipe(gulp.dest('./front/css/adidas/event/'))
 // });
 //
 // gulp.task('sass-inline',function(){
-//     gulp.src('./app/html/adidas/event/**/*.scss',{base : './'})
+//     gulp.src('./front/html/adidas/event/**/*.scss',{base : './'})
 //         .pipe(sass({ outputStyle : 'compressed'}).on('error',sass.logError))
 //         .pipe(gulp.dest(function(file){
 //             sassInject.path = path.join(path.dirname(file.path) , '');
@@ -89,35 +89,35 @@ gulp.task('sass-inline:inject',function(){
 
 gulp.task('server',function(){
     // connect.server({
-    //     root : './app',
+    //     root : './front',
     //     port : 2000,
     //     livereload : true
     // });
-    server.run(['app.js']);
+    server.run(['front.js']);
 });
 
 gulp.task('watch',function(){
-    // gulp.watch('./app/html/adidas/event/**/*.scss',['sass-inline']);
-    // gulp.watch('./app/html/adidas/event/**/*.html',['sass-inline']);
-    gulp.watch('./app/html/adidas/event/**/*.scss').on('change',function(file){
+    // gulp.watch('./front/html/adidas/event/**/*.scss',['sass-inline']);
+    // gulp.watch('./front/html/adidas/event/**/*.html',['sass-inline']);
+    gulp.watch('./front/html/adidas/event/**/*.scss').on('change',function(file){
         if(!file.path.match(/\\build\\?/)){
             handleSassInject(file.path);
         }
     });
 
-    gulp.watch('./app/html/adidas/event/**/*.html').on('change',function(file){
+    gulp.watch('./front/html/adidas/event/**/*.html').on('change',function(file){
         if(!file.path.match(/\\build\\?/)){
             handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss'));
         }
     });
 
-    gulp.watch('./app/html/reebok/event/about/campaign/**/*.scss').on('change',function(file){
+    gulp.watch('./front/html/reebok/event/about/campaign/**/*.scss').on('change',function(file){
         if(!file.path.match(/\\build\\?/)){
             handleSassInject(file.path , 'reebok');
         }
     });
 
-    gulp.watch('./app/html/reebok/event/about/campaign/**/*.html').on('change',function(file){
+    gulp.watch('./front/html/reebok/event/about/campaign/**/*.html').on('change',function(file){
         if(!file.path.match(/\\build\\?/)){
             handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
         }
@@ -125,13 +125,13 @@ gulp.task('watch',function(){
 
     /* 180518 프로모션 리뉴얼 이창욱 01046582731 전화주세요 */
 
-    // gulp.watch('./app/html/reebok/campaign/**/*.scss').on('change',function(file){
+    // gulp.watch('./front/html/reebok/campaign/**/*.scss').on('change',function(file){
     //     if(!file.path.match(/\\build\\?/)){
     //         handleSassInject(file.path , 'reebok');
     //     }
     // });
     //
-    // gulp.watch('./app/html/reebok/campaign/**/*.html').on('change',function(file){
+    // gulp.watch('./front/html/reebok/campaign/**/*.html').on('change',function(file){
     //     if(!file.path.match(/\\build\\?/)){
     //         handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
     //     }
@@ -140,10 +140,10 @@ gulp.task('watch',function(){
     /* 180518 프로모션 리뉴얼 END*/
 
 
-    gulp.watch('./app/css/adidas/scss/campaign.scss',['sass']);
+    gulp.watch('./front/css/adidas/scss/campaign.scss',['sass']);
 });
 
 
 gulp.task('default',['server','watch'],function(){
-    // appJs.init();
+    // frontJs.init();
 });
