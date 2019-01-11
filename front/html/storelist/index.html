@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>매장리스트</title>
+
+    <link rel="stylesheet" href="http://image.adidas.co.kr/css/adidas/adidas_r.css">
+
+    <script type="text/javascript" src="http://image.reebok.co.kr/js/jquery/jquery-1.4.2.js"></script>
+
+    <style type="text/css">
+
+        #wrap{
+            width: 800px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        #wrap h1{
+            padding: 15px 0;
+            font:700 20px/20px 'asd','NotoSansKR','Nanum Gothic';
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        #wrap .filter{
+            position: relative;
+            height: 30px;
+            padding: 10px;
+            background: #ccc;
+        }
+
+        #wrap .filter .search{
+            position: absolute;
+            top: 6px;
+            right: 10px;
+        }
+
+        #wrap .filter .search input{
+            width: 180px;
+            height: 35px;
+            padding-left: 10px;
+            font:500 13px/35px 'NotoSansKR';
+            color: #000;
+        }
+
+        #wrap .filter .selecbox_custom{
+            position: relative;
+            width: 160px;
+            height: 30px;
+            background: #fff;
+        }
+
+        #wrap .filter .selecbox_custom select{
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 30px;
+            opacity: 0;
+            font:500 13px 'NotoSansKR','Nanum Gothic';
+            color: #000;
+        }
+
+        #wrap .filter .selecbox_custom a{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            font:500 13px 'NotoSansKR','Nanum Gothic';
+            padding: 5px;
+            color: #000;
+        }
+
+        #wrap .filter .selecbox_custom a strong{
+            font-weight: normal;
+        }
+
+        #wrap .filter .selecbox_custom a .spt_bg{
+            width: 14px;
+            height: 10px;
+            background-position:-240px -39px;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        #wrap .store_list{
+            border-top: 1px solid  #ccc;
+        }
+
+        #wrap .store_list li{
+            position: relative;
+            padding: 10px 0;
+            border-bottom: 1px solid  #ccc;
+        }
+
+        #wrap .store_list li>*{
+            margin-bottom: 5px;
+            color: #000;
+            font:500 13px 'NotoSansKR','Nanum Gothic';
+        }
+
+        #wrap .store_list li .name{
+            margin-bottom: 10px;
+            font:700 15px 'NotoSansKR','Nanum Gothic';
+        }
+
+        #wrap .store_list li .name .keyword,
+        #wrap .store_list li .address .keyword{
+            background:yellow;
+            color: #000;
+            font-weight: 700;
+        }
+
+        #wrap .store_list li .phone{
+            margin-bottom: 0;
+            color: blue;
+        }
+
+        #wrap .nodata{
+            padding:60px 0;
+            font:300 22px 'NotoSansKR';
+            text-align:center;
+            color:#000;
+        }
+
+        #wrap .store_list li .map{
+            position: absolute;
+            top: 30px;
+            right: 10px;
+        }
+
+        #wrap .store_list li .map a{
+            color: blue;
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 760px){
+            #wrap{
+                width: 100%;
+                padding-bottom: 0;
+            }
+
+            #wrap h1{
+                padding:25px 10px 10px;
+            }
+
+            #wrap .store_list li{
+                padding: 10px;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            #wrap .store_list li .name{
+                font-size: 13px;
+            }
+
+            #wrap .store_list li .address{
+                margin-bottom: 7px;
+                line-height: 17px;
+            }
+
+            #wrap .store_list li .phone{
+                color:blue;
+            }
+
+            #wrap .filter{
+                height: auto;
+            }
+
+            #wrap .filter .selecbox_custom{
+                width: 100%;
+                height: 40px;
+                margin-bottom: 10px;
+            }
+
+            #wrap .filter .selecbox_custom a{
+                width: 100%;
+                height: 40px;
+                padding-top: 10px;
+                padding-left: 10px;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #wrap .filter .selecbox_custom select{
+                height: 100%;
+            }
+
+            #wrap .filter .search{
+                width: 100%;
+                position: relative;
+                top: 0;
+                left: 0;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            #wrap .filter .search input{
+                width: 100%;
+                height: 40px;
+                list-style: 40px;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                border-width: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+
+    </div>
+
+    <script type="text/javascript">
+        /* Global city data */
+        var paramName;
+        var cityObj;
+        var categoryList;
+        var currentCityName;
+        var currentCityKey;
+        var title;
+        var searchModule;
+
+        (function(){
+            paramName = window.location.href.split('?');
+            if(paramName.length <= 1){
+                loadPage('매장 데이터가 없습니다.');
+            }else{
+                paramName = paramName[paramName.length-1];
+                loadPage();
+            }
+
+        })();
+
+        function loadPage(msg){
+            if(msg !== undefined){
+                $('#wrap').html('<div class="nodata">'+msg+'</div>');
+                return;
+            }
+
+            $.ajax({
+                url: './json/'+paramName+'.json',
+                dataType : 'json',
+                beforeSend : function(){
+                    $('body').append('<div id="loading" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;background:rgba(255,255,255,0.7)"><span style="position:absolute;top:50%;left:50%;width:100px;height:30px;font-size:12px;line-height:30px;margin:-15px 0 0 -50px;text-align:center;">Loading...</span></div>')
+                },
+                success:function(result){
+                    $('#loading').remove();
+                    cityObj = result.addressList;
+                    categoryList = result.categoryList;
+                    categoryList.unshift({
+                        en : 'all',
+                        kor : '전체'
+                    });
+
+                    currentCityName = '전체';
+                    currentCityKey = 'all';
+                    title = result.title;
+                    initStoreList();
+                    // searchModule();
+                    $('#search_box').bind('keyup',function(event){
+                        searchModule.bindEvent(event);
+                    });
+
+                },
+                error:function(e){
+                   console.log(e);
+                    $('#wrap').html('<div class="nodata">데이터를 로드 할 수 없습니다.</div>');
+                    $('#loading').remove();
+                }
+            });
+        }
+
+
+        function render(data){
+
+            var htmlString = '<h1>'+title+'</h1>';
+            htmlString += '<div class="filter">';
+            if(categoryList.length >= 2){
+            htmlString += '    <div class="selecbox_custom">';
+                htmlString += '    <a href="javascript:void(0)"><strong>'+currentCityName+'</strong><span class="spt_bg"></span></a>';
+            htmlString += '        <select name="selectCity" id="selectCity">';
+            for(var i = 0; i < categoryList.length; i++){
+                if(categoryList[i].kor == currentCityName){
+                    htmlString += '            <option selected value="'+categoryList[i].en+'">'+categoryList[i].kor+'</option>';
+                }else{
+                    htmlString += '            <option value="'+categoryList[i].en+'">'+categoryList[i].kor+'</option>';
+                }
+            }
+            htmlString += '        </select>';
+            htmlString += '    </div>';
+            }
+            htmlString += '    <div class="search"><input type="text" id="search_box" placeholder="주소 검색"/></div>';
+            htmlString += '</div>'
+            htmlString += '<div id="storeList"></div>';
+
+            $('#wrap').html(htmlString);
+            renderStore(data);
+
+            $('#selectCity').bind('change',function(){
+                currentCityName = $(this).find('option:selected').text();
+                currentCityKey = $(this).find('option:selected').val();
+                $(this).siblings('a').find('strong').text(currentCityName);
+                initStoreListByCityName($(this).val());
+                $('#search_box').val('');
+            });
+        }
+
+        function renderStore(data){
+            var htmlString = '<ul class="store_list">';
+            for(var i = 0; i < data.length; i++){
+                htmlString += '<li>';
+                for(cityInfo in data[i]){
+                    if(cityInfo == 'map'){
+                        if(data[i][cityInfo].toLowerCase() == 'o'){
+                            htmlString += '<p class="'+cityInfo+'"><a href="http://map.naver.com/?query='+(data[i]['address'].replace(/\<span\sclass="keyword">|<\/span>/g,''))+'" target="_blank">지도보기</a></p>';
+                        }
+
+                    }else{
+                    htmlString += '<p class="'+cityInfo+'">'+data[i][cityInfo]+'</p>'
+                }
+                }
+                htmlString += '</li>';
+            }
+
+            htmlString += '</ul>';
+
+            $('#storeList').html(htmlString);
+        }
+
+        function initStoreListByCityName(cityName){
+            var data = cityObj[cityName];
+            renderStore(data);
+        }
+
+        function initStoreList(){
+            // var data = getAllAddress();
+            render(cityObj['all']);
+        }
+
+        function getAllAddress(){
+            var newArray = [];
+
+            for(var city in cityObj){
+                for(var i = 0; i < cityObj[city].length; i++){
+                    newArray.push(cityObj[city][i]);
+                }
+            }
+
+            return newArray;
+        }
+
+
+        (function(){
+            searchModule = {
+                init : function(keyword){
+                    var allData = cityObj['all'];
+                    var resultArray = [];
+
+                    function searchInit(keyword){
+                        var findCtgrLength = 2;
+                        var newArray = [];
+                        var i = 0;
+                        var count = 0;
+
+                        if(keyword == ''){
+                            if(currentCityKey == 'all'){
+                                newArray = allData;
+                            }else{
+                                newArray = cityObj[currentCityKey];
+                            }
+
+                        }else{
+                            for(; i < allData.length; i++){
+                                var nameKeyword = searchKeyword(allData[i].name,keyword);
+                                var addrKeyword = searchKeyword(allData[i].address,keyword);
+
+                                if(nameKeyword || addrKeyword){
+                                    nameKeyword = !nameKeyword ? allData[i].name : nameKeyword;
+                                    addrKeyword = !addrKeyword ? allData[i].address : addrKeyword;
+
+                                    newArray.push({
+                                        name :nameKeyword,
+                                        address : addrKeyword,
+                                        phone : allData[i].phone
+                                    });
+
+                                    if(allData[i].map){
+                                        newArray[newArray.length-1].map = allData[i].map;
+                                    }
+                                }
+                            }
+                        }
+
+
+                        return newArray;
+                    }
+                    /* searchInit function END */
+
+                    function searchKeyword(targetStr , keywordStr){
+                        var keywordArray = keywordStr.split('');
+                        var targetArray = targetStr.split('');
+                        var index = 0;
+                        var length = keywordArray.length;
+                        var counter = 0;
+                        var resultIndexArray = [];
+
+                        for(; index < targetArray.length; index++){
+                            if(targetArray[index] == keywordArray[counter]){
+                                counter += 1;
+                                resultIndexArray.push(index);
+
+                                if(counter == length){
+                                    if(keywordStr.length > 1){
+                                        targetArray[resultIndexArray[0]] = '<span class="keyword">'+targetArray[resultIndexArray[0]];
+                                        targetArray[resultIndexArray[resultIndexArray.length-1]] = targetArray[resultIndexArray[resultIndexArray.length-1]]+'</span>';
+                                    }else{
+                                        targetArray[resultIndexArray[0]] = '<span class="keyword">'+targetArray[resultIndexArray[0]]+'</span>';
+                                    }
+
+                                    return targetArray.join('');
+                                }
+                            }else{
+                                counter = 0;
+                                resultIndexArray = [];
+                            }
+                        }
+
+                        return false;
+                    }
+                    /* searchKeyword function END */
+
+                    var newArr = searchInit(keyword);
+
+                    if(newArr.length > 0){
+                        renderStore(newArr);
+                    }else{
+                        $('#storeList').html('<div class="nodata">검색 결과가 없습니다.</div>');
+                    }
+                },
+                timer : '',
+                bindEvent : function(event){
+                    var init = this.init;
+                    var keyword = $(event.currentTarget).val();
+                    this.keyword = $(event.currentTarget).val();
+                    clearTimeout(this.timer);
+                    this.timer = setTimeout(function(){
+                        init(keyword);
+                    },200);
+                }
+            }
+
+
+
+
+        })();
+
+
+    </script>
+</body>
+</html>
