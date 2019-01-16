@@ -7,12 +7,20 @@
   <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css"/>
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
 
-  <script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script>
-  <script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script>
-  <script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script>
-  <script src="/designjs/common/modalPopup.min.js"></script>
-  <script src="/designjs/common/customForm.js"></script>
-  <script src="/designjs/adidas/adidas.js"></script>
+
+
+    <script type="text/javascript" src="http://image.adidas.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="http://image.adidas.co.kr/js/jquery/jquery-1.7.2.custom.js"></script>
+    <script type="text/javascript" src="http://image.adidas.co.kr/js/modalPopup.min.js?v=170607"></script>
+    <script type="text/javascript" src="http://image.adidas.co.kr/js/customForm.js"></script>
+    <script type="text/javascript" src="http://image.adidas.co.kr/js/adidas/adidas.js"></script>
+
+    <!-- <script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script> -->
+    <!-- <script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script> -->
+    <!-- <script src="/designjs/common/modalPopup.min.js"></script> -->
+    <!-- <script src="/designjs/common/customForm.js"></script> -->
+    <!-- <script src="/designjs/adidas/adidas.js"></script> -->
 
   <script type="text/javascript">
   	// 160822
@@ -22,6 +30,7 @@
   				function initProductThumbnails(){
 	  				var player;
 					jQuery('.imgscut_box .thumbnails a').bind('mouseover',function(event){
+
 		  				if(jQuery(this).hasClass('cut-video-button')){
 		  					return;
 		  				}
@@ -53,6 +62,11 @@
 						// console.log(imgSrc);
 						// console.log(imgUrl);
 						jQuery('.renew180306').find('.bg').css('border-image-source', imgUrl);
+
+                        // 190116 prd3d zoom_area
+                        jQuery('.imgscut_box .zoom_area a iframe').remove();
+                        jQuery('.imgscut_box .zoom_area').removeClass('prd3d_vrism_active');
+
 		  			});
 
 		  			jQuery('.imgscut_box .thumbnails a.cut-video-button').bind('click',function(){
@@ -105,6 +119,22 @@
 						// jQuery('.renew180306').append('<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
 
 		  			});
+
+                    // 190116 prd3d btn event
+                    jQuery('.imgscut_box .thumbnails a.cut-prd3d_vrism-button').bind('click',function(){
+                        jQuery('.imgscut_box .zoom_area a iframe').remove();
+                        if(!jQuery(this).hasClass('on')){
+                            jQuery(this).addClass('on');
+                        }
+                        var prd3d_vrism = jQuery(this).attr('dataurl');
+                        var prd3d_content = '<iframe id="main-api-frame" class="centeralign" style="position:absolute;" src="'+prd3d_vrism+'" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>';
+                        setTimeout(function(){
+                            jQuery('.imgscut_box .zoom_area').addClass('prd3d_vrism_active');
+                        },500);
+
+                        jQuery('.imgscut_box .zoom_area a').append(prd3d_content);
+                    });
+                    // 190116 prd3d btn event end
 	  			}
 
 	  			initProductThumbnails();
@@ -3078,6 +3108,16 @@
 								</div>
 								<!-- //cut -->
 
+                                <!-- 190116 3d css -->
+                                <style>
+                                    .product-main .product-infomation.renew180306 .imgscut_box .cut.prd3d_vrism_active a img{
+                                    	position: absolute;
+                                    	opacity: 0;
+                                    	transition: opacity 0.5s;
+                                    }
+                                </style>
+                                <!-- 190116 3d css end-->
+
 								<div class="thumbnails cut_thumbnails_wrap">
 									<div id="cut_slider">
 										<a class="on" href="javascript:void(0)" data-img720="http://image.adidas.co.kr/upload/prod/basic/720/AH5104-1_720X720.jpg"><img src="http://image.adidas.co.kr/upload/prod/basic/60/AH5104-1_60X60.jpg" alt="" /></a>
@@ -3097,6 +3137,9 @@
 												<img src="http://s7g10.scene7.com/is/image/adidasMedia?&amp;src=B48878_product_video" alt="">
 											</div>
 										</a>
+                                        <a href="javascript:void(0)" class="cut-prd3d_vrism-button" dataurl="http://3d.vrism.net/vrism_rel00/products/ADIDAS/AD01/AD01.html?cs=2&ShopUI=0&bID=0&autoload=1&brandlogo=0">
+                                            <img src="/images/adidas/common/btn_play.png" alt="">
+                                        </a>
 									</div>
 									<div class="btn-prev cut_slider_btn">
 										<button class="prev" data-btn="0"><img src="http://image.adidas.co.kr/images/adidas/common/arrow-up.png" alt=""></button>
@@ -3651,19 +3694,18 @@
                                     <div class="prd3d_vrism_test">
                                         <style>
                                             #main-api-frame{
-                                             height:100%;
-                                             width:100%;
-                                             border:0}
+                                                 height:100%;
+                                                 width:100%;
+                                                 border:0;
+                                             }
 
                                              .centeralign{
-                                              display: block;
-                                              margin-left: auto;
-                                              margin-right: auto;
-                                              margin-top: auto;
-                                              margin-bottom: auto;
-                                              width: 500px;
-                                              margin: 50px auto;
-
+                                                  display: block;
+                                                  margin-left: auto;
+                                                  margin-right: auto;
+                                                  margin-top: auto;
+                                                  margin-bottom: auto;
+                                                  width: 500px;
                                               }
                                               .wrapper {
                                                 width: 100%;
@@ -3693,7 +3735,7 @@
                                         <div class="centeralign">
                                           <div class="wrapper">
                                             <div class="main">
-                                              <iframe  id="main-api-frame" class="centeralign" src="http://3d.vrism.net/vrism_rel00/products/ADIDAS/AD01/AD01.html?cs=2&ShopUI=0&bID=0&autoload=1&brandlogo=0" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>
+                                              <iframe id="main-api-frame" class="centeralign" src="http://3d.vrism.net/vrism_rel00/products/ADIDAS/AD01/AD01.html?cs=2&ShopUI=0&bID=0&autoload=1&brandlogo=0" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>
                                             </div>
                                           </div>
                                         </div>
@@ -3701,6 +3743,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="prd3d_vrism_wrap" style="position:relative; width:950px;margin:50px auto;padding-bottom:30%;">
+                            <iframe id="main-api-frame" class="centeralign" style="position:absolute;" src="http://3d.vrism.net/vrism_rel00/products/ADIDAS/AD01/AD01.html?cs=2&ShopUI=0&bID=0&autoload=1&brandlogo=0" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>
+                        </div>
+
                         <button class="modal-popup-click" data-modalpop-click="default-popup" style="margin:0 auto">제품 3D 브리즘 테스트 팝업</button>
                     </div>
                     <!-- 제품 3D 브리즘 테스트 END-->
