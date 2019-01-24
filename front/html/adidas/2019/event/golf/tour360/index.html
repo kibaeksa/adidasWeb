@@ -1010,10 +1010,14 @@
 			<div id="tour360">
 
 				<div class="main">
-					<div class="bg"><img src="/images/adidas/2019/event/golf/tour360/main.jpg" alt=""></div>
-					<div class="inn">
-						<div class="play" onclick="openModalVideoViewer('jiiE0P3vYkU')"><img src="/images/adidas/2019/event/golf/tour360/play.png" alt=""></div>
-						<h2><img src="/images/adidas/2019/event/golf/tour360/logo.png" alt=""></h2>	
+					<div class="bg">
+						<video autoplay="" loop="" class="loaded">
+							<source src="/images/adidas/2019/event/golf/tour360/video_tour360.mp4" type="video/mp4">
+						</video>
+					</div>
+					<div class="masthead">
+						<a class="play play-video" onclick="openModalVideoViewer('jiiE0P3vYkU')"></a>
+						<h2><img src="/images/adidas/2019/event/golf/tour360/logo.png" alt=""></h2>
 					</div>
 				</div>
 
@@ -1070,10 +1074,9 @@
 				</div>
 
 				<div class="video_area scrollevent">
-					<img src="/images/adidas/2019/event/golf/tour360/video.jpg" onclick="openModalVideoViewer('-7OtJEjwRFo')" alt="">
-					<div class="inn">
-						<div class="play" onclick="openModalVideoViewer('ni8Ch4NNcsE')"><img src="/images/adidas/2019/event/golf/tour360/play.png"
-							 alt=""></div>
+					<img src="/images/adidas/2019/event/golf/tour360/video.jpg" alt="">
+					<div class="masthead">
+						<a class="play play-video" onclick="openModalVideoViewer('ni8Ch4NNcsE')"></a>						
 					</div>
 				</div>
 
@@ -1117,7 +1120,11 @@
 				<script type="text/javascript">
 					(function($){
 
-						 $(window).ready(function () {
+						setTimeout(function(){
+							$('.main .masthead h2').addClass('on');
+						},600);
+
+						$(window).ready(function () {
 							var scrollArray = [];
 							var scrollContents = document.querySelectorAll('.scrollevent');
 
