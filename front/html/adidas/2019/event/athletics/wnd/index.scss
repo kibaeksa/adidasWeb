@@ -9,12 +9,15 @@
 		&:hover{
 			a{
 				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
 				transition: all .5s;
 				opacity: .9;
 			}
 			.bg{
 				&::after{
 					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
 				}
 			}
 		}
@@ -35,6 +38,7 @@
 			position:absolute;
 			top:100px;
 			left: 50%;
+			-webkit-transform: translateX(-50%);
 			transform: translateX(-50%);
 			h1{
 				text-align: center;
@@ -99,32 +103,48 @@
 	.vid{
 		position: relative;
 		height: 1091px;
-		background: #000;
 		#sliders{
 			position: absolute;
 			top: 0;
 			left: 50%;
+			-webkit-transform : translateX(-50%);
 			transform: translateX(-50%);
+			background: #fff;
+			&.on{
+				background: #000;
+				transition: all 1s;
+			}
 			ul{
 				li{
 					.blk{
 						position: relative;
-						.bg{
+						height: 1091px;
+						&.on{
+							.lines{
+								top:0;
+								transition: all 1s ease-in;
+								transition-delay: .6s;
+								opacity: 1;
+							}
+						}
+						.lines{
 							position: absolute;
-							top:0;
-							left: 50%;
-							transform: translateX(-50%);
+						    top: -333px;
+						    left: 50%;
+						    -webkit-transform: translateX(33%);
+						    transform: translateX(33%);
+							opacity: 0;
 						}
 						.cut1{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 40px;
 						    margin-left: -505px;
 						}
 						.cut2{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 201px;
 					    	margin-left: 44px;
@@ -133,50 +153,61 @@
 							position: absolute;
 							bottom: 50%;
 						    left: 50%;
-						    margin-bottom: -1008px;
+						    margin-bottom: -469px;
 						    margin-left: -75px;
 						}
 						.cut4{
 							position: absolute;
 							bottom: 50%;
 						    left: 50%;
-						    margin-bottom: -951px;
+						    margin-bottom: -413px;
 						    margin-left: -600px;
 							cursor: pointer;
 						}
 					}
 					.wht{
 							position: relative;
-						.bg{
+							height: 1091px;
+							&.on{
+								.lines{
+									bottom:0;
+									transition: all 1s;
+									transition-delay: .6s;
+									opacity: 1;
+								}
+							}
+						.lines{
 							position: absolute;
-							top:0;
+							bottom:-333px;
 							left: 50%;
-							transform: translateX(-50%);
+							-webkit-transform : translateX(35%);
+							transform: translateX(35%);
+							opacity: 0;
 						}
 						.cut1{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 60px;
 							margin-left: 43px;
 						}
 						.cut2{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 606px;
 							margin-left: 43px;
 						}
 						.cut3{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 474px;
 			    			margin-left: -621px;
 						}
 						.cut4{
 							position: absolute;
-							top:50%;
+							top:0;
 							left:50%;
 							margin-top: 110px;
 							margin-left: -490px;
@@ -205,7 +236,9 @@
 				img{
 					width: 100%;
 					&:hover{
+						-webkit-transform:scale(1.1);
 						transform:scale(1.1);
+						-webkit-transition: all 5s;
 						transition: all 5s;
 					}
 				}
@@ -219,7 +252,9 @@
 						img{
 							width:100%;
 							&:hover{
+								-webkit-transform:scale(1.1);
 								transform:scale(1.1);
+								-webkit-transition: all 5s;
 								transition: all 5s;
 							}
 						}
@@ -232,7 +267,9 @@
 						img{
 							width:100%;
 							&:hover{
+								-webkit-transform:scale(1.1);
 								transform:scale(1.1);
+								-webkit-transition: all 5s;
 								transition: all 5s;
 							}
 						}
@@ -240,6 +277,7 @@
 							position: absolute;
 							top:50%;
 							left: 50%;
+							-webkit-transform: translate(-50%,-50%);
 							transform: translate(-50%,-50%);
 							text-align: center;
 							h1{
