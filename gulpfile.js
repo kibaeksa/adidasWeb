@@ -117,7 +117,6 @@ gulp.task('watch',function(){
             handleSassInject(file.path);
         }
     });
-
     gulp.watch('./front/html/adidas/**/event/**/*.html').on('change',function(file){
         if(!file.path.match(/\\build\\?/)){
             handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss'));
@@ -137,13 +136,13 @@ gulp.task('watch',function(){
     })
 
     // 년도 관리 경로 추가
-    gulp.watch('./front/html/reebok/**/event/about/campaign/**/*.scss').on('change', function (file) {
+    gulp.watch('./front/html/reebok/**/event/**/*.scss').on('change', function (file) {
         if (!file.path.match(/\\build\\?/)) {
             handleSassInject(file.path, 'reebok');
         }
     });
 
-    gulp.watch('./front/html/reebok/**/event/about/campaign/**/*.html').on('change', function (file) {
+    gulp.watch('./front/html/reebok/**/event/**/*.html').on('change', function (file) {
         if (!file.path.match(/\\build\\?/)) {
             handleSassInject(file.path.replace(/(\W+|\w+)\.html/, 'index.scss'), 'reebok');
         }

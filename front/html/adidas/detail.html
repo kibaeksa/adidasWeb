@@ -63,9 +63,11 @@
 						// console.log(imgUrl);
 						jQuery('.renew180306').find('.bg').css('border-image-source', imgUrl);
 
-                        // 190116 prd3d zoom_area
+                        // 190130 prd3d zoom_area
                         jQuery('.imgscut_box .zoom_area a iframe').remove();
                         jQuery('.imgscut_box .zoom_area').removeClass('prd3d_vrism_active');
+                        jQuery('.product-infomation.renew180306 .bg').removeClass('prd3d_vrism_bg');
+                        // 190130 prd3d zoom_area end
 
 		  			});
 
@@ -120,7 +122,7 @@
 
 		  			});
 
-                    // 190116 prd3d btn event
+                    // 190130 prd3d btn event
                     jQuery('.imgscut_box .thumbnails a.cut-prd3d_vrism-button').bind('click',function(){
                         jQuery('.imgscut_box .zoom_area a iframe').remove();
                         if(!jQuery(this).hasClass('on')){
@@ -130,11 +132,12 @@
                         var prd3d_content = '<iframe id="main-api-frame" class="centeralign" style="position:absolute;" src="'+prd3d_vrism+'" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>';
                         setTimeout(function(){
                             jQuery('.imgscut_box .zoom_area').addClass('prd3d_vrism_active');
+                            jQuery('.product-infomation.renew180306 .bg').addClass('prd3d_vrism_bg');
                         },500);
 
                         jQuery('.imgscut_box .zoom_area a').append(prd3d_content);
                     });
-                    // 190116 prd3d btn event end
+                    // 190130 prd3d btn event end
 	  			}
 
 	  			initProductThumbnails();
@@ -3166,9 +3169,11 @@
 												<img src="http://s7g10.scene7.com/is/image/adidasMedia?&amp;src=B48878_product_video" alt="">
 											</div>
 										</a>
-                                        <a href="javascript:void(0)" class="cut-prd3d_vrism-button" dataurl="http://3d.vrism.net/vrism_rel00/products/ADIDAS/AD01/AD01.html?cs=2&ShopUI=0&bID=0&autoload=1&brandlogo=0">
-                                            <img src="/images/adidas/common/btn_play.png" alt="">
+                                        <!-- 190130 VRISM-->
+                                        <a href="javascript:void(0)" class="cut-prd3d_vrism-button" dataurl="http://vrism.styleship.com/data/content/19FS5AD005">
+                                            <img src="/images/adidas/2019/1901_a_vrism_icon.png" alt="">
                                         </a>
+                                        <!--// 190130 VRISM-->
 									</div>
 									<div class="btn-prev cut_slider_btn">
 										<button class="prev" data-btn="0"><img src="http://image.adidas.co.kr/images/adidas/common/arrow-up.png" alt=""></button>
@@ -3254,7 +3259,7 @@
 
 									<div class="prd_title">
 										<p class="ctgr">Men's Originals</p>
-										<h2>수퍼스타 파운데이션</h2>
+										<h2>울트라 부스트</h2>
 									</div>
 
 									<div class="price">
@@ -3722,20 +3727,6 @@
                                 <div class="popup-contents">
                                     <div class="prd3d_vrism_test">
                                         <style>
-                                            #main-api-frame{
-                                                 height:100%;
-                                                 width:100%;
-                                                 border:0;
-                                             }
-
-                                             .centeralign{
-                                                  display: block;
-                                                  margin-left: auto;
-                                                  margin-right: auto;
-                                                  margin-top: auto;
-                                                  margin-bottom: auto;
-                                                  width: 500px;
-                                              }
                                               .prd3d_vrism_test_wrap .wrapper {
                                                 width: 100%;
                                                 display: inline-block;
@@ -3755,7 +3746,6 @@
                                                 background-color: white;
                                                 color: white;
                                               }
-
                                           </style>
                                         <div class="centeralign">
                                           <div class="wrapper">
