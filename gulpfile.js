@@ -123,17 +123,17 @@ gulp.task('watch',function(){
         }
     });
 
-    gulp.watch('./front/html/reebok/event/about/campaign/**/*.scss').on('change',function(file){
-        if(!file.path.match(/\\build\\?/)){
-            handleSassInject(file.path , 'reebok');
-        }
-    });
-
-    gulp.watch('./front/html/reebok/event/about/campaign/**/*.html').on('change',function(file){
-        if(!file.path.match(/\\build\\?/)){
-            handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
-        }
-    })
+    // gulp.watch('./front/html/reebok/event/about/campaign/**/*.scss').on('change',function(file){
+    //     if(!file.path.match(/\\build\\?/)){
+    //         handleSassInject(file.path , 'reebok');
+    //     }
+    // });
+    //
+    // gulp.watch('./front/html/reebok/event/about/campaign/**/*.html').on('change',function(file){
+    //     if(!file.path.match(/\\build\\?/)){
+    //         handleSassInject(file.path.replace(/(\W+|\w+)\.html/,'index.scss') , 'reebok');
+    //     }
+    // })
 
     // 년도 관리 경로 추가
     gulp.watch('./front/html/reebok/**/event/**/*.scss').on('change', function (file) {
