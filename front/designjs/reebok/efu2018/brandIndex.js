@@ -48,7 +48,7 @@
 		var totalWidth = 0;
 		$listBody.find(".section").each(function(){
 			var numW = parseInt($(this).find("a").css("width")) + sectionEmpty;
-			$(this).width(numW);
+			$(this).width(numW - sectionEmpty);
 			$(this).attr("data", numW);
 			totalWidth = totalWidth + numW; 
 		});
