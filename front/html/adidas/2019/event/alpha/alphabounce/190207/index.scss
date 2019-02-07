@@ -1,0 +1,187 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+#alphabounce{
+	position: relative;
+	//common
+	.button_area_v2{
+		margin-top: 25px;
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:140px;
+			font: 700 14px/48px 'NotoSansKR';
+			letter-spacing: 1px;
+		}
+	}
+
+	//main
+	.main{
+		position: relative;
+		.img{
+			position: absolute;
+			top:200px;
+			left:50%;
+			transform: translateX(-50%);
+			z-index: 1;
+			@include css3(opacity,0);
+			@include css3(transition, all 1s);
+			&.on{
+				@include css3(opacity,1);
+				top:120px;
+			}
+			img{
+				width:100%;
+			}
+		}
+		.content{
+			.wrap{
+				position: relative;
+				overflow: hidden;
+				.grids{
+					float: left;
+					overflow: hidden;
+					// &:hover{
+					// 	img{
+					// 		@include css3(transform,scale(1.1));
+					// 		@include css3(transition,all 5s);
+					// 	}
+					// }
+					img{
+						width:100%;
+					}
+					&.grid1,
+					&.grid2,
+					&.grid_btm1,
+					&.grid_btm2,
+					{
+						width:50%;
+					}
+				}
+				.inner{
+					float: left;
+					width:50%;
+					.grids{
+						&.grid3{
+							width:39.5%;
+						}
+						&.grid4{
+							width:60.5%;
+							position: relative;
+							img{
+								width:100%;
+							}
+							.txt{
+								position: absolute;
+								bottom:50%;
+								left:50%;
+								width:100%;
+								transform: translate(-50%,95%);
+								text-align: center;
+								p{
+									font: 500 .94vw/.94vw 'NotoSansKR';
+									color:#000;
+									text-align: center;
+								}
+							}
+						}
+						&.grid5{
+							width:53.5%;
+						}
+						&.grid6{
+							width:46.5%;
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	//aside
+	.aside{
+		position: relative;
+		text-align: center;
+		padding: 45px 0;
+		.img{
+			text-align: center;
+		}
+		.btn{
+			display: inline-block;
+			margin-top:20px;
+			&:hover{
+				box-shadow: 0 0 10px rgba(0,0,0,0.3);
+				transition: all 0.4s ease-out;
+				-webkit-transition: all 0.4s ease-out;
+			}
+			a{
+				display: block;
+				font: 700 14px/45px 'NotoSansKR';
+				color:#000;
+				padding:0 20px;
+				border:1px solid #000;
+				img{
+					margin-left:20px;
+				}
+			}
+		}
+	}
+
+	//section
+	.section{
+		position: relative;
+		height: 470px;
+		.bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+		}
+		.wrap{
+			position: relative;
+			width: 1190px;
+			margin: 0 auto;
+			z-index: 2;
+			text-align: center;
+			padding: 115px 0 105px 0;
+			.desc{
+				display: inline-block;
+				text-align: center;
+				margin:0 63px;
+				&:first-child{
+					margin-left:0;
+				}
+				&:last-child{
+					margin-right:0;
+				}
+				img{
+					margin-bottom:20px;
+				}
+				p{
+					text-align: center;
+					font: 700 20px/20px 'NotoSansKR';
+					color:#000;
+				}
+				span{
+					font: 700 16px/36px 'adihausDIN-Cond-medium';
+					color:#333;
+				}
+			}
+		}
+	}
+}
