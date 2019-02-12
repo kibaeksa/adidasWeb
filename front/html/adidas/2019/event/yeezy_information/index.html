@@ -1051,7 +1051,25 @@
 				</div>
 			</div>
 		
-		
+			<script>
+				(function ($) {
+
+					$(document).ready(function () {
+
+						//이미지의 높이값을 부모의 높이값으로 대입하는 스크립트
+						$("img").each(function () {
+							$(this).load(function () {
+								var mainImgHeight = $('.visual .bg').find('img').height();
+								// console.log(mainImgHeight);
+
+								$('.visual').css('height', mainImgHeight);
+							});
+						});
+
+					});
+
+				})(jQuery);
+			</script>
 		
 		</div>
 
