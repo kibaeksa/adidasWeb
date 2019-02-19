@@ -1,9 +1,19 @@
 @import './front/css/adidas/scss/common/mixin.scss';
 @import './front/css/adidas/scss/common/common.scss';
 
-#footer_r{
+#footer{
 	position: relative;
-	z-index: 21;;
+    z-index: 21;
+    background: #fff;
+}
+.ie{
+	#nite_jogger{
+		.clock_wrap{
+			.glow{
+				color:#fff;
+			}
+		}
+	}
 }
 #nite_jogger{
 	position: relative;
@@ -61,7 +71,7 @@
 		}
 	}
 	.clock_wrap{
-		position: fixed;
+		position: absolute;
 	    top: 368px;
 		left: 120px;
 	    width: 47px;
@@ -129,21 +139,27 @@
 				position: fixed;
 				top:0;
 			}
+			.left_area{
+				.clock_wrap{
+					position: fixed;
+
+				}
+			}
 			.content_area{
 				margin-top: 150px;
 				@media screen and (max-width:1620px){
 					margin-left: 400px;
 					.content_area_left{
-						left: 251px !important;
+						// left: 251px !important;
 					}
 				}
 				.content_area_left{
-					position: fixed;
-					top:100px;
-					left:290px;
-					background: url('/images/adidas/2019/event/jogger/prd_cut_inn_bg.jpg') no-repeat;
-					background-size: 100% 100%;
-					background-position: top center;
+					// position: fixed;
+					// top:100px;
+					// left:290px;
+					// background: url('/images/adidas/2019/event/jogger/prd_cut_inn_bg.jpg') no-repeat;
+					// background-size: 100% 100%;
+					// background-position: top center;
 				}
 			}
 		}
@@ -209,9 +225,17 @@
 			border-right:1px solid #333;
 			z-index: 1;
 			@include css3(transition, all 0.5s);
-
 			@media screen and (max-width:1620px){
 				width: 250px;
+			}
+			.clock_wrap{
+				@include css3(opacity,1);
+				@include css3(transition, all 0.5s);
+
+
+				&.opacity{
+					@include css3(opacity,0)
+				}
 			}
 		}
 		.content_area{
@@ -254,6 +278,9 @@
 						display:block;
 						text-transform: uppercase;
 						letter-spacing: 0.7px;
+					}
+					&.second{
+						top: 1093px;
 					}
 				}
 
@@ -298,13 +325,18 @@
 						&.top{
 							img{
 								left: 123px !important;
-								top: 46px !important;
+								top: 31px !important;
 							}
 						}
 						&.bottom{
 							img{
 								left: -160px !important;
 							}
+						}
+					}
+					p{
+						&.txt_title{
+							left: 35px;
 						}
 					}
 					.line_wrap{
@@ -356,7 +388,7 @@
 					@media screen and (max-width:1620px){
 						left:200px;
 						img{
-							width:400px;
+							width:500px;
 						}
 					}
 					&.top{
@@ -378,10 +410,11 @@
 						}
 					}
 				}
+
 				p{
 					position: absolute;
 					top:547px;
-					left: -12px;
+					left: 35px;
 					font: 70px/65px 'adihaus';
 					text-transform: uppercase;
 					color:#fff;
@@ -390,28 +423,21 @@
 					@include css3(transition, all 0.8s);
 					&.txt_prc{
 						top: 628px;
-						left: -7px;
+						left: 25px;
 						font: 110px/65px 'adihaus';
 						color: transparent;
-						text-stroke: 1px #838484;
+						// text-stroke: 1px #838484;
 						-webkit-text-stroke: 1px #838484;
+						-ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=0, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=0, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=-1, Color=#000000)progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=1, Color=#000000)";
+						@include css3(transition, all 0.8s);
+
 					}
 				}
 				&.collection_wrap{
 					width:1440px;
 					background:url(/images/adidas/2019/event/jogger/coll_bg.jpg) no-repeat;
 					background-size:100% 100%;
-					// p{
-					// 	width:100%;
-					// 	&.txt_prc{
-					// 		left:-1500px;
-					// 	}
-					// 	&.on{
-					// 		&.txt_prc{
-					// 			left:1600px;
-					// 		}
-					// 	}
-					// }
+
 					.coll_slide{
 						position: relative;
 						top:70px;
@@ -492,9 +518,6 @@
 			top:0;
 			left:50%;
 			margin-left:-960px;
-		}
-		img{
-			padding:310px 0 0 0;
 		}
 	}
 	.bottom_wrap{
