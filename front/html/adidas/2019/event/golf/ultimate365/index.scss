@@ -3,6 +3,11 @@
 html,body{
 	height: 100%;
 }
+#wrap{
+	// overflow-x: scroll;
+	overflow: hidden;
+    min-width: 1190px;
+}
 #ultimate365 {
 	position: relative;
 	// common
@@ -26,15 +31,13 @@ html,body{
 		h3{
 			font:500 22px/22px 'NotoSansKR';
 		}
+		@include css3(opacity,0);
+		@include css3(transition, all 1s ease-in);
 		&.on{
-			.products-slide-wrapper{
 			@include css3(opacity,1);
-			}
 		}
 		.products-slide-wrapper{
 			height: 368px;
-			@include css3(opacity,0);
-			@include css3(transition, all 1s ease-in);
 			.products-list{
 				li{
 					height:368px;
@@ -46,7 +49,24 @@ html,body{
 		}
 	}
 
-
+	// &.on{
+	// 	.products-slide-wrapper{
+	// 	@include css3(opacity,1);
+	// 	}
+	// }
+	// .products-slide-wrapper{
+	// 	height: 368px;
+	// 	@include css3(opacity,0);
+	// 	@include css3(transition, all 1s ease-in);
+	// 	.products-list{
+	// 		li{
+	// 			height:368px;
+	// 			.img{
+	// 				height:368px;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 
 	// 메인
