@@ -9,16 +9,45 @@ html,body{
 	h1{
 		font:28px/45px 'adihausDIN-Cond-medium';
 		color:#1a1514;
+		letter-spacing: .1px;
 	}
 	p{
 		font:18px/23px 'NotoSansKR';
 		color:#1a1514;
+		letter-spacing: .1px;
 	}
 	.imgs, .txts{
 		position: absolute;
 		@include css3(opacity,0);
 		@include css3(transition, all 1s ease-in);
 	}
+	.fav-products{
+		padding:0;
+		h3{
+			font:500 22px/22px 'NotoSansKR';
+		}
+		&.on{
+			.products-slide-wrapper{
+			@include css3(opacity,1);
+			}
+		}
+		.products-slide-wrapper{
+			height: 368px;
+			@include css3(opacity,0);
+			@include css3(transition, all 1s ease-in);
+			.products-list{
+				li{
+					height:368px;
+					.img{
+						height:368px;
+					}
+				}
+			}
+		}
+	}
+
+
+
 
 	// 메인
 	.visual_main{
@@ -165,29 +194,27 @@ html,body{
 			}
 		}
 		.wrap4{
-			&.on{
-				.products-slide-wrapper{
-				@include css3(opacity,1);
-				}
-			}
+			margin: 160px auto 150px auto;
 			.products-slide-wrapper{
-				height: 368px;
-				@include css3(opacity,0);
-				@include css3(transition, all 1s ease-in);
+				.prev{
+					display: none;
+				}
+				.next{
+					display: none;
+				}
+				.num{
+					display: none;
+				}
 				.products-list{
 					li{
-						height:368px;
-						&:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8){
-							img{
-								width:0;
-							}
-							&:hover{
-								box-shadow: none;
-							}
-						}
-						.img{
-							height:368px;
-						}
+						// &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8){
+						// 	img{
+						// 		width:0;
+						// 	}
+						// 	&:hover{
+						// 		box-shadow: none;
+						// 	}
+						// }
 					}
 				}
 			}
@@ -358,34 +385,21 @@ html,body{
 					}
 				}
 			}
-			.wrap5{
-				&.on{
-					.products-slide-wrapper{
-					@include css3(opacity,1);
-					}
+		}
+		.wrap5{
+			margin: 160px auto 0 auto;
+			.products-slide-wrapper{
+				.prev{
+					display: none;
 				}
-				.products-slide-wrapper{
-					height: 368px;
-					@include css3(opacity,0);
-					@include css3(transition, all 1s ease-in);
-					.products-list{
-						li{
-							height:368px;
-							&:nth-child(2), &:nth-child(3),
-							&:nth-child(4), &:nth-child(5),
-							&:nth-child(6), &:nth-child(7),
-							&:nth-child(8){
-								img{
-									width:0;
-								}
-								&:hover{
-									box-shadow: none;
-								}
-							}
-							.img{
-								height:368px;
-							}
-						}
+				.next{
+					display: none;
+				}
+				.num{
+					display: none;
+				}
+				.products-list{
+					li{
 					}
 				}
 			}
@@ -546,6 +560,24 @@ html,body{
 				}
 			}
 		}
+		.wrap6{
+			margin: 160px auto 0 auto;
+			.products-slide-wrapper{
+				.prev{
+					display: none;
+				}
+				.next{
+					display: none;
+				}
+				.num{
+					display: none;
+				}
+				.products-list{
+					li{
+					}
+				}
+			}
+		}
 	}
 
 	// 섹션4
@@ -618,6 +650,24 @@ html,body{
 						h1{
 							margin-right:20px;
 						}
+					}
+				}
+			}
+		}
+		.wrap3{
+			margin: 130px auto 175px auto;
+			.products-slide-wrapper{
+				.prev{
+					// display: none;
+				}
+				.next{
+					// display: none;
+				}
+				.num{
+					// display: none;
+				}
+				.products-list{
+					li{
 					}
 				}
 			}
