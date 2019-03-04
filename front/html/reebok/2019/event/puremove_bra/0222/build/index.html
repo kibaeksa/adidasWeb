@@ -687,10 +687,9 @@
 
 					<div class="main_visual">
 						<div class="bg">
-							<!-- <video playsinline="" autoplay="" muted="" loop="">
-								<source src="/images/reebok/2019/event/puremove_bra/0222/visual_video.mp4" type="video/mp4">
-							</video> -->
-							<img src="/images/reebok/2019/event/puremove_bra/0222/visual_bg.jpg" alt="">
+							<video playsinline="" autoplay="" muted="" loop="" poster="/images/reebok/2019/event/puremove_bra/0222/visual_bg.jpg">
+								<source src="https://www.adidas.com/5280/campaigns/FW18_Women's_Brand/masthead_h3.mp4" type="video/mp4">
+							</video>
 						</div>	
 						<div class="inn">
 							<h1>HERE’S TO THE<br>WOMEN MAKING CHANGE.</h1>
@@ -843,7 +842,9 @@
 			<script type="text/javascript">
 				(function ($) {
 
-					setTimeout(function(){
+					$(document).ready(function(){
+
+						setTimeout(function(){
 						$('.main_visual').addClass('on');
 					},600);
 					
@@ -855,6 +856,7 @@
 						var mypos = scrollSelectors[i].offsetTop;
 						scrollArray.push(mypos - overlayHeight);
 					};
+					
 					$(window).scroll(function () {
 						var thisPosOrigin = $(this).scrollTop();
 						console.log(thisPosOrigin);
@@ -1025,6 +1027,9 @@
 					$('.indicator a').bind('click',function(){
 						sliders.move($(this).index());
 					});
+
+					});
+					
 
 
 				})(jQuery);
