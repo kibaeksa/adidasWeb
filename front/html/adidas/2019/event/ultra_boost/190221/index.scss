@@ -2,37 +2,349 @@
 @import './front/css/adidas/scss/common/common.scss';
 
 
-#adicolor{
+$color_1: #fff;
+$color_2: #000;
+
+.pseudo-element {
+	content: '';
+	display: block;
+}
+#ultraboost {
 	position: relative;
-	//common
-	.button_area_v2{
+	background: #2f313b;
+	z-index: -1;
+	.button_area_v2 {
 		display: inline-block;
-		&:hover{
-			a{
+		&:hover {
+			a {
 				-webkit-transform: translate(3px,3px);
 				transform: translate(3px,3px);
 				-webkit-transition: all .5s;
 				transition: all .5s;
 				opacity: .9;
 			}
-			.bg{
-				&::after{
+			.bg {
+				&::after {
 					-webkit-transform: translate(0px,0px);
 					transform: translate(0px,0px);
 				}
 			}
 		}
-		a{
-			width:initial;
+		a {
+			width: initial;
 			font: 700 14px/48px 'NotoSansKR';
 			letter-spacing: .5px;
 			padding: 0 20px;
 		}
 	}
-
-	//시작
-	.main{
+	.main {
 		position: relative;
+		height: 1080px;
+		.vid {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: -1;
+		}
+		.layer {
+			position: absolute;
+			width: 65%;
+			height: 100%;
+			z-index: -1;
+		}
+		.txt {
+			width: 1200px;
+			margin: 0 auto;
+			padding-top: 350px;
+			z-index: 1;
+			opacity: 0;
+			-webkit-opacity: 0;
+			-moz-opacity: 0;
+			-o-opacity: 0;
+			-ms-opacity: 0;
+			transition: all 2s;
+			-webkit-transition: all 2s;
+			-moz-transition: all 2s;
+			-o-transition: all 2s;
+			-ms-transition: all 2s;
+			h1 {
+				font: 700 30px/32px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+				margin: 15px 0;
+			}
+			p {
+				font: 400 16px/25px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+				margin-bottom: 30px;
+			}
+			>div {
+				margin-bottom: 17px;
+			}
+		}
+		.txt.on {
+			opacity: 1;
+			-webkit-opacity: 1;
+			-moz-opacity: 1;
+			-o-opacity: 1;
+			-ms-opacity: 1;
+			top: 120px;
+		}
 	}
-
+	.section {
+		position: relative;
+		height: 800px;
+		z-index: -2;
+		.img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: -1;
+		}
+		.txt {
+			width: 1200px;
+			margin: 0 auto;
+			padding-top: 330px;
+			z-index: 1;
+			position: relative;
+			top: 100px;
+			opacity: 0;
+			-webkit-opacity: 0;
+			-moz-opacity: 0;
+			-o-opacity: 0;
+			-ms-opacity: 0;
+			transition: all 1s ease-out;
+			-webkit-transition: all 1s ease-out;
+			-moz-transition: all 1s ease-out;
+			-o-transition: all 1s ease-out;
+			-ms-transition: all 1s ease-out;
+			h1 {
+				text-align: right;
+				font: 700 30px/38px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+			}
+			p {
+				z-index: 1;
+				text-align: right;
+				font: 400 16px/23px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+				margin: 15px 0;
+			}
+		}
+	}
+	.section.on {
+		.txt {
+			opacity: 1;
+			-webkit-opacity: 1;
+			-moz-opacity: 1;
+			-o-opacity: 1;
+			-ms-opacity: 1;
+			top: 0;
+		}
+	}
+	.aside {
+		padding: 50px 0 100px;
+		.txt {
+			text-align: center;
+			position: relative;
+			top: 100px;
+			opacity: 0;
+			-webkit-opacity: 0;
+			-moz-opacity: 0;
+			-o-opacity: 0;
+			-ms-opacity: 0;
+			transition: all 1s;
+			-webkit-transition: all 1s;
+			-moz-transition: all 1s;
+			-o-transition: all 1s;
+			-ms-transition: all 1s;
+			h1 {
+				text-align: center;
+				font: 700 30px/32px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+			}
+			p {
+				text-align: center;
+				font: 400 16px/23px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+				margin: 20px 0;
+			}
+		}
+	}
+	.aside.on {
+		.txt {
+			opacity: 1;
+			-webkit-opacity: 1;
+			-moz-opacity: 1;
+			-o-opacity: 1;
+			-ms-opacity: 1;
+			top: 0;
+		}
+	}
+	.tile_container {
+		position: relative;
+		.wrap {
+			margin: 0 5px;
+			&::after {
+				display: block;
+				content: '';
+				clear: both;
+			}
+			&:last-child {
+				padding: 30px 5px;
+			}
+			.inn_btn {
+				position: absolute;
+				bottom: 38px;
+				left: 50%;
+				transform: translateX(-50%);
+				a {
+					position: relative;
+					text-align: center;
+					font: 700 16px/20px 'NotoSansKR';
+					color: $color_1;
+					letter-spacing: .5px;
+					&::after {
+						display: block;
+						content: '';
+						clear: both;
+						border-bottom: 1px solid #fff;
+						position: absolute;
+						bottom: 2px;
+						left: 0;
+						right: 0;
+					}
+				}
+				&:hover {
+					background: #fff;
+					line-height: 22px;
+					text-align: center;
+					padding: 1px;
+					a {
+						color: $color_2;
+						&::after {
+							border-bottom: 1px solid #000;
+						}
+					}
+				}
+			}
+			.tile {
+				position: relative;
+				width: 25%;
+				box-sizing: border-box;
+				text-align: center;
+				float: left;
+				img {
+					width: 95%;
+					object-fit: cover;
+					height: 95%;
+				}
+			}
+			.tile_bottom {
+				width: 50%;
+				text-align: center;
+				position: relative;
+				float: left;
+				img {
+					width: 97.5%;
+				}
+			}
+		}
+	}
+	.video {
+		position: relative;
+		height: 800px;
+		.img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: -1;
+		}
+		.play {
+			text-align: center;
+			padding-top: 370px;
+		}
+		p {
+			z-index: 1;
+			width: 1200px;
+			margin: 0 auto;
+			padding-top: 280px;
+			font: 700 30px/32px 'NotoSansKR';
+			color: $color_1;
+			letter-spacing: 2.5px;
+		}
+	}
+	.runners_teaser {
+		position: relative;
+		height: 480px;
+		.img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			z-index: -1;
+		}
+		.txt {
+			z-index: 1;
+			width: 1200px;
+			margin: 0 auto;
+			text-align: center;
+			padding-top: 350px;
+			p {
+				font: 500 18px/18px 'NotoSansKR';
+				color: $color_1;
+				letter-spacing: .5px;
+				text-align: center;
+				margin-bottom: 23px;
+			}
+		}
+	}
+	.grid_container {
+		position: relative;
+		padding: 52px 39px 80px;
+		&::after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+		.txt {
+			position: absolute;
+			top: 6%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			p {
+				font: 38px/38px 'adinenuPro-bold';
+				color: $color_1;
+				letter-spacing: 3px;
+				padding-bottom: 15px;
+			}
+		}
+		.wrap {
+			width: 20%;
+			text-align: center;
+			float: left;
+			img {
+				width: 93%;
+				padding-bottom: 7%;
+			}
+			&:nth-child(3) {
+				padding-top: 11.5%;
+			}
+			&:nth-child(4) {
+				padding-top: 11.5%;
+			}
+			&:nth-child(5) {
+				padding-top: 11.5%;
+			}
+		}
+	}
 }
