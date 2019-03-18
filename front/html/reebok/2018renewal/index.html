@@ -37,125 +37,171 @@ var jquery_1_11 = $.noConflict(true);
 <script type="text/javascript" src="/designjs/reebok/efu2018/mainVisual.js"></script>
 
 <script>
-    jQuery(function(){
-    	//온라인 제품
-    	jQuery("#productListWrap ul").cycle({
-    		fx : 'scrollLeft',
-    		visible :4,
-    		prev: '.onlineProduct .btnPrev',
-    		next: '.onlineProduct .btnNext',
-    		timeout: 0
-    	});
 
-    	//인스타그램
-    	jQuery(".mainSection07 .instagramCont")
-    	.after('<div id="instagramNav">')
-    	.cycle({
-    		fx:     'scrollLeft',
-    		pager:  '#instagramNav' ,
-    		timeout: 0,
-    	});
-
-    	//store 마우스오버
-    	jQuery(".mainSection06>div").bind("mouseenter focusin", function(){
-    		jQuery(this).find(".detailBox").fadeIn();
-    	})
-    	.bind("mouseleave focusout" , function(){
-    		jQuery(this).find(".detailBox").fadeOut();
-    	});
-    	//TREND MAGAZINE
-    	var boxSlideState = true;
-    	jQuery('.trendListWrap li:eq(0)').addClass("on");
-    	// 2018-07-09 수정
-    	if(jQuery('.trendListWrap li:eq(0)').attr("data-background")) {
-    		jQuery("#trendMagazineArea").attr("style", "background:url(" + jQuery('.trendListWrap li:eq(0)').attr("data-background") + ") no-repeat center center");
-    	} else {
-    		jQuery("#trendMagazineArea").attr("style", "");
-    	}
-    	var trendListSlide = jQuery('.trendListWrap').bxSlider({
-    		mode: 'vertical',// 세로 방향 수평 슬라이드
-    		speed: 500,        // 이동 속도를 설정
-    		pause: 2000,
-    		pager: true,      // 현재 위치 페이징 표시 여부 설정
-    		moveSlides: 1,     // 슬라이드 이동시 개수
-    		minSlides: 3,      // 최소 노출 개수
-    		maxSlides: 3,      // 최대 노출 개수
-    		controls: true,    // 이전 다음 버튼 노출 여부
-    		onSlideBefore : function(idx){
-    			boxSlideState = false;
-    			var idx = idx.index();
-    			//20170327 수정
-    			var $slideOn = jQuery('.trendListWrap li:eq('+ idx +')');
-    			jQuery('.trendListWrap li.on').removeClass("on");
-    			$slideOn.addClass("on");
-    			// 2018-07-09 수정
-    			if($slideOn.attr("data-background")) {
-    				jQuery("#trendMagazineArea").attr("style", "background:url(" + $slideOn.attr("data-background") + ") no-repeat center center;background-size:cover;");
-    			} else {
-    				jQuery("#trendMagazineArea").attr("style", "");
-    			}
-
-    // 			if($slideOn.attr("id") == "vm1") {
-    // 				jQuery("#trendMagazineArea").addClass("vm1Bg");
-    // 				jQuery("#trendMagazineArea").removeClass("vm2Bg");
-    // 			} else if($slideOn.attr("id") == "vm2") {
-    // 				jQuery("#trendMagazineArea").addClass("vm2Bg");
-    // 				jQuery("#trendMagazineArea").removeClass("vm1Bg");
-    // 			} else {
-    // 				jQuery("#trendMagazineArea").removeClass("vm1Bg").removeClass("vm2Bg");
-    // 			}
-    		},
-    		onSlideAfter: function() {
-    			boxSlideState = true;
-    		}
-
-    	});
-
-    	jQuery("#visualArea").scrollEvent({
-    		id : "trendList",
-    		func : moveAction
-    	});
-
-    	function moveAction(txt){
-    		if (boxSlideState) {
-    			boxSlideState = false;
-    			if (txt == "down") {
-    				trendListSlide.goToNextSlide();
-    			} else {
-    				trendListSlide.goToPrevSlide();
-    			}
-    		}
-    	}
-
-    	//매거진 20170327추가
-    	jQuery(".trendList li#vm1").click(function(){
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.men").addClass("on");
-    		return false;
-    	});
-    	jQuery(".trendList li#vm2").click(function(){
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.women").addClass("on");
-    		return false;
-    	});
-
-    	jQuery(".mainSection04 .vmWrap .vmClose").click(function(){
-    		jQuery(this).parents(".mainSection04").find(".vmWrap").removeClass("on");
-    		return false;
-    	});
-
-    	jQuery(".men .smallBtn").click(function(){
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.women").addClass("on");
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.men").removeClass("on");
-    		return false;
-    	});
-
-    	jQuery(".women .smallBtn").click(function(){
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.men").addClass("on");
-    		jQuery(this).parents(".mainSection04").find(".vmWrap.women").removeClass("on");
-    		return false;
-    	});
-
-    });
-</script>
+	jQuery(function(){
+		//매거진
+		//men
+		jQuery(".vmWrap.men .womenBtn").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.women").css('z-index','2').addClass("on");
+			jQuery(this).parents(".mainSection04").find(".vmWrap.men").css('z-index', '1').removeClass("on");
+			 return false;
+		});
+		jQuery(".vmWrap.men .menBtn").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.men").addClass("on");
+			 return false;
+		});
+	
+		//women
+		jQuery(".vmWrap.women .menBtn").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.men").css('z-index','2').addClass("on");
+			jQuery(this).parents(".mainSection04").find(".vmWrap.women").css('z-index', '1').removeClass("on");
+			 return false;
+		});
+		jQuery(".vmWrap.women .womenBtn").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.women").addClass("on");
+			 return false;
+		});
+		
+		
+		//온라인 제품
+		jQuery("#productListWrap ul").cycle({
+			fx : 'scrollLeft',
+			visible :4,
+			prev: '.onlineProduct .btnPrev', 
+			next: '.onlineProduct .btnNext', 
+			timeout: 0	
+		})
+		//인스타그램
+		jQuery(".mainSection07 .instagramCont") 
+		.after('<div id="instagramNav">') 
+		.cycle({ 
+			fx:     'scrollLeft', 
+			pager:  '#instagramNav' ,
+			timeout: 0, 
+		});
+		
+		//store 마우스오버
+		jQuery(".mainSection06>div").bind("mouseenter focusin", function(){
+			jQuery(this).find(".detailBox").fadeIn();
+		})
+		.bind("mouseleave focusout" , function(){
+			jQuery(this).find(".detailBox").fadeOut();
+		});
+		 //TREND MAGAZINE
+		var boxSlideState = true;
+		jQuery('.trendListWrap li:eq(0)').addClass("on");
+		
+		   var  trendListSlide = jquery_1_11('.trendListWrap').bxSlider({
+				 mode: 'vertical',// 세로 방향 수평 슬라이드
+				 speed: 500,        // 이동 속도를 설정
+				 pause: 2000,
+				 pager: true,      // 현재 위치 페이징 표시 여부 설정
+				 moveSlides: 1,     // 슬라이드 이동시 개수
+				 minSlides: 3,      // 최소 노출 개수
+				 maxSlides: 3,      // 최대 노출 개수
+				 controls: true,    // 이전 다음 버튼 노출 여부
+				 onSlideBefore : function(idx){
+				   boxSlideState = false;
+				   var idx = idx.index();
+				   //20170327 수정
+				   var $slideOn = jquery_1_11('.trendListWrap li:eq('+ idx +')');
+				   jquery_1_11('.trendListWrap li.on').removeClass("on");
+				   $slideOn.addClass("on");
+				   
+			   
+				   if($slideOn.attr("id") == "vm1") {
+					   jQuery("#trendMagazineArea").addClass("vm1Bg");
+					   jQuery("#trendMagazineArea").removeClass("vm2Bg");
+				   } else if($slideOn.attr("id") == "vm2") {
+					   jQuery("#trendMagazineArea").addClass("vm2Bg");
+					   jQuery("#trendMagazineArea").removeClass("vm1Bg");
+				   } else {
+					   jQuery("#trendMagazineArea").removeClass("vm1Bg").removeClass("vm2Bg");
+				   }
+				 },
+				onSlideAfter: function() {
+					boxSlideState = true;
+				}	
+				
+		   });
+	   
+		jQuery("#visualArea").scrollEvent({
+			id : "trendList",
+			func : moveAction 
+		});
+		function moveAction(txt){
+			   if(boxSlideState){
+				   boxSlideState = false;
+					if(txt == "down"){
+						trendListSlide.goToNextSlide();
+					} else {
+						trendListSlide.goToPrevSlide(); 
+					}
+			   }
+			}  
+	
+		//매거진 20170327추가
+		
+		/* jQuery(".trendList li#vm1").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.men").addClass("on");
+			 return false;
+		});
+		jQuery(".trendList li#vm2").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap.women").addClass("on");
+			 return false;
+		});
+		
+		jQuery(".mainSection04 .vmWrap .vmClose").click(function(){
+			jQuery(this).parents(".mainSection04").find(".vmWrap").removeClass("on");
+			 return false;
+		}); */
+		
+	});
+	
+	//mainPopup
+	jQuery(function(){
+		popOpen();
+		
+	});	
+	
+	function popOpen(){
+		if ( getCookie( "popup" ) != "done" ){
+			jQuery("#mainPopup").show();
+		}
+	}
+	
+	function setCookie( name, value, expiredays ) {
+		var todayDate = new Date();
+			todayDate.setDate( todayDate.getDate() + expiredays );
+			document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+		}
+	
+	function getCookie(name){
+		var nameOfCookie = name + "=";
+		var x = 0;
+		while ( x <= document.cookie.length ) {
+			var y = (x+nameOfCookie.length);
+			if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+				if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) {
+					endOfCookie = document.cookie.length;
+				}
+				return unescape( document.cookie.substring( y, endOfCookie ) );
+			}
+			x = document.cookie.indexOf( " ", x ) + 1;
+			if ( x == 0 ) {
+				break;
+			}
+		}
+			return "";
+	}
+	
+	function closeWin(){
+		setCookie( "popup", "done" , 1);
+		//self.close();
+		jQuery("#mainPopup").css("display", "none");
+		//jQuery(".layer").hide();
+	}
+	</script>
 
 <!-- <script type="text/javascript" src="/js/common.js?v=160817"></script> -->
 
@@ -166,250 +212,250 @@ var jquery_1_11 = $.noConflict(true);
 
 <body id="efu_mainWrap" class="efu_main">
 	<div id="wrapper">
-
-        <div id="efu_headerWrap">
-	<div id="header">
-		<div class="utilArea">
-			<h1><a href="/index.jsp">Reebok</a></h1><!-- 20180329 수정 -->
-			<ul class="util">
-				<li class="util1 searchBtn"><a href="javascript:;" onclick="goSearch();">검색</a></li>
-				<!-- 20180326 수정 -->
-				<li class="util2"><a href="#">회원</a>
-					<div class="utilBox">
-						<ul>
-							<li><a href="https://shop.reebok.co.kr:444/RPF0608011.action?checkbtn=myPage">로그인</a></li><!-- 로그인시 로그아웃으로 변경 -->
-							<li><a href="https://shop.reebok.co.kr:444/RPF0601001.action">회원가입</a></li><!-- 로그인시 마이페이지로 변경 -->
+		<!-- <%@ include file="/include/header.jsp" %> -->
+		<div id="efu_headerWrap">
+				<div id="header">
+					<div class="utilArea">
+						<h1><a href="/index.jsp">Reebok</a></h1><!-- 20180329 수정 -->
+						<ul class="util">
+							<li class="util1 searchBtn"><a href="javascript:;" onclick="goSearch();">검색</a></li>
+							<!-- 20180326 수정 -->
+							<li class="util2"><a href="#">회원</a>
+								<div class="utilBox">
+									<ul>
+										<li><a href="https://shop.reebok.co.kr:444/RPF0608011.action?checkbtn=myPage">로그인</a></li><!-- 로그인시 로그아웃으로 변경 -->
+										<li><a href="https://shop.reebok.co.kr:444/RPF0601001.action">회원가입</a></li><!-- 로그인시 마이페이지로 변경 -->
+									</ul>
+								</div>
+							</li>
+							<li class="util3"><a href="http://shop.reebok.co.kr/RPF030101.action"><span>22</span></a></li>
+							<!-- //20180326 수정 -->
 						</ul>
+						<div class="searchArea">
+							<input type="text">
+						</div>
 					</div>
-				</li>
-				<li class="util3"><a href="http://shop.reebok.co.kr/RPF030101.action"><span>22</span></a></li>
-				<!-- //20180326 수정 -->
-			</ul>
-			<div class="searchArea">
-				<input type="text">
+					<div id="gnb">
+						<ul>
+							<li><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=MEN&LEVEL=1">MEN</a>
+								<div class="subMenu">
+									<div class="subMenuCont">
+										<div class="menuArea">
+											<div class="bgArea">
+												<h2><a href="">MEN</a></h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=3&S_CTGR_CD=02001">신상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=3&S_CTGR_CD=02001">인기상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02001">할인상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02001">아울렛</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF070801.action?S_CTGR_CD=02001&pageNo=209&S_ORDER_BY=1">스피드 배송</a></li>
+													<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR 스토어</a></li> -->
+												</ul>
+											</div>
+											<div>
+												<h2>CATEGORY</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001001">신발</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001002">의류</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001003">용품</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>SPORTS</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006">트레이닝</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003">러닝</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001008">스윔</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001005">아웃도어</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>BRAND</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001">피트니스</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001">클래식</a></li>
+												</ul>
+											</div>
+			
+										</div>
+										<div class="bannerArea">
+											<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209"><img src="/images/reebok/efu2018/common/subMenuStyle0101.jpg" alt="" />
+												<!-- <p>SPEEDY DELIVERY<span>온라인 단독상품 당일배송 서비스 런칭!</span></p> 20180326 수정-->
+											</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=WOMEN&LEVEL=1">WOMEN</a>
+								<div class="subMenu">
+									<div class="subMenuCont">
+										<div class="menuArea">
+											<div class="bgArea">
+												<h2><a href="">WOMEN</a></h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=4&S_CTGR_CD=02002">신상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=4&S_CTGR_CD=02002">인기상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02002">할인상품</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02002">아울렛</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF070801.action?S_CTGR_CD=02002&pageNo=209&S_ORDER_BY=1">스피드 배송</a></li>
+													<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR 스토어</a></li> -->
+												</ul>
+											</div>
+											<div>
+												<h2>CATEGORY</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002001">신발</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002002">의류</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002003">용품</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>SPORTS</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006">트레이닝</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003">러닝</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002008">스윔</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002005">아웃도어</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>BRAND</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002">피트니스</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002">클래식</a></li>
+												</ul>
+											</div>
+			
+										</div>
+										<div class="bannerArea">
+											<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=237"><img src="/images/reebok/efu2018/common/subMenuStyle0102.jpg" alt="" />
+												<!-- <p>CLUB C<span>-Back to the 90’s</span></p> 20180326 수정-->
+											</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02003001 ">KIDS</a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF020901.action?GUBUN=FITNESS">FITNESS</a>
+								<div class="subMenu fitnessArea">
+									<div class="subMenuCont">
+										<ul class="fitness">
+											<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006">TRAINING<span>트레이닝</span></a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003">RUNNING<span>러닝</span></a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003001">CROSSFIT<span>크로스핏</span></a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011001">STUDIO<span>스튜디오</span></a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006012001">COMBAT<span>컴뱃</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li><a href="http://shop.reebok.co.kr/RPF020901.action?GUBUN=CLASSIC ">CLASSIC</a>
+								<div class="subMenu">
+									<div class="subMenuCont">
+										<div class="menuArea classicArea">
+											<div class="bgArea">
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=7&S_CTGR_CD=02005">NEW</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=7&S_CTGR_CD=02005">BEST</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=7&S_CTGR_CD=02005">SALE</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>MEN</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001">전체보기</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>WOMEN</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002">전체보기</a></li>
+												</ul>
+											</div>
+											<div>
+												<h2>COLLECTION</h2>
+												<ul>
+													<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009">퓨리컬렉션</a></li>
+													<li><a href="http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=FURYLITE">퓨리라이트</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="bannerArea">
+											<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209"><img src="/images/reebok/efu2018/common/subMenuStyle0101.jpg" alt="" />
+												<!-- <p>SPEEDY DELIVERY<span>온라인 단독상품 당일배송 서비스 런칭!</span></p> 20180326 수정-->
+											</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							<!-- <li><a href="http://shop.reebok.co.kr/RPF010102.action">New</a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010103.action">Best</a></li>
+							<li><a href="http://shop.reebok.co.kr/RPF010104.action" class="sale">Sale</a>
+								<div class="subMenu">
+									<div class="subMenuCont">
+										<ul class="sale">
+											<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02001">MEN</a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=4&S_CTGR_CD=02002">WOMEN</a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=5&S_CTGR_CD=02003">KIDS</a></li>
+											<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02001" class="color">OUTLET</a></li>
+										</ul>
+			
+									</div>
+								</div>
+							</li>-->
+							<li><a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209">ONLINE ONLY</a></li>
+							<li><a href="/brand/index.jsp">BRAND</a><!-- 20180329 수정 -->
+								<div class="subMenu">
+			
+									<div class="subMenuCont brandMenu">
+										<div class="brand">
+											<h2>FITNESS</h2>
+											<a href="/brand/fitness/training.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand01.jpg" alt="" /></a>
+										</div>
+										<div class="brand">
+											<h2>CLASSIC</h2>
+											<a href="/brand/classic/index.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand02.jpg" alt="" /></a>
+										</div>
+										<div class="brand">
+											<h2>REECLUB</h2>
+											<a href="/brand/reeclub.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand03.jpg" alt="" /></a>
+										</div>
+										<div class="brand brandType2">
+											<h2><a href="/brand/campaign.jsp">CAMPAIGN</a></h2>
+											<h2><a href="/brand/promotion.jsp">PROMOTION</a></h2>
+										</div>
+									</div>
+			
+								</div>
+							</li>
+							<!-- 190318 VR메뉴 숨김 -->
+							<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR STORE</a></li> -->
+						</ul>
+						<span id="gnbOverBar" ></span>
+					</div>
+				</div>
+				<!-- 20180627 수정 -->
+				<!-- topBar
+				<div class="oneday_bars" id="speeds">
+					<div class="ct950">
+						<div class="bar b1">
+							<span class="spt_bg"></span>
+							<a href="javascript:void(0)" data-modalpop-click="modalpop-notice1" class="modal-popup-click">스피드 배송 안내</a>
+							<a href="#" onclick="showPopupLayer('/popup/efu/delivery.jsp', '430'); return false; return false;" class="bltQuestion">스피드 배송 안내</a>
+						</div>
+						<div class="bar b2">
+							<span class="spt_bg"></span>
+							<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209">온라인 한정상품을 만나보세요</a>
+						</div>
+						<div class="bar b3">
+							<span class="spt_bg"></span>
+							<a href="javascript:void(0)" data-modalpop-click="modalpop-notice2" class="modal-popup-click">교환, 환불은 이렇게</a
+							<a href="#"  onclick="showPopupLayer('/popup/efu/exchangeNote.jsp', '230'); return false;" class="bltQuestion">교환, 환불은 이렇게</a>
+						</div>
+					</div>
+				</div>-->
+				<!-- //20180627 수정 -->
 			</div>
-		</div>
-		<div id="gnb">
-			<ul>
-				<li><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=MEN&LEVEL=1">MEN</a>
-					<div class="subMenu">
-						<div class="subMenuCont">
-							<div class="menuArea">
-								<div class="bgArea">
-									<h2><a href="">MEN</a></h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=3&S_CTGR_CD=02001">신상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=3&S_CTGR_CD=02001">인기상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02001">할인상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02001">아울렛</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF070801.action?S_CTGR_CD=02001&pageNo=209&S_ORDER_BY=1">스피드 배송</a></li>
-										<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR 스토어</a></li> -->
-									</ul>
-								</div>
-								<div>
-									<h2>CATEGORY</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001001">신발</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001002">의류</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02001003">용품</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>SPORTS</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006">트레이닝</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003">러닝</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001008">스윔</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001005">아웃도어</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>BRAND</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001">피트니스</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001">클래식</a></li>
-									</ul>
-								</div>
-
-							</div>
-							<div class="bannerArea">
-								<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209"><img src="/images/reebok/efu2018/common/subMenuStyle0101.jpg" alt="" />
-									<!-- <p>SPEEDY DELIVERY<span>온라인 단독상품 당일배송 서비스 런칭!</span></p> 20180326 수정-->
-								</a>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li><a href="http://shop.reebok.co.kr/RPF020101.action?GUBUN=WOMEN&LEVEL=1">WOMEN</a>
-					<div class="subMenu">
-						<div class="subMenuCont">
-							<div class="menuArea">
-								<div class="bgArea">
-									<h2><a href="">WOMEN</a></h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=4&S_CTGR_CD=02002">신상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=4&S_CTGR_CD=02002">인기상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02002">할인상품</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02002">아울렛</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF070801.action?S_CTGR_CD=02002&pageNo=209&S_ORDER_BY=1">스피드 배송</a></li>
-										<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR 스토어</a></li> -->
-									</ul>
-								</div>
-								<div>
-									<h2>CATEGORY</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002001">신발</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002002">의류</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02002003">용품</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>SPORTS</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002006">트레이닝</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002003">러닝</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002008">스윔</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002005">아웃도어</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>BRAND</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004002">피트니스</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002">클래식</a></li>
-									</ul>
-								</div>
-
-							</div>
-							<div class="bannerArea">
-								<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=237"><img src="/images/reebok/efu2018/common/subMenuStyle0102.jpg" alt="" />
-									<!-- <p>CLUB C<span>-Back to the 90’s</span></p> 20180326 수정-->
-								</a>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02003001 ">KIDS</a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF020901.action?GUBUN=FITNESS">FITNESS</a>
-					<div class="subMenu fitnessArea">
-						<div class="subMenuCont">
-							<ul class="fitness">
-								<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001006">TRAINING<span>트레이닝</span></a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02004001003">RUNNING<span>러닝</span></a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006003001">CROSSFIT<span>크로스핏</span></a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006011001">STUDIO<span>스튜디오</span></a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006012001">COMBAT<span>컴뱃</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li><a href="http://shop.reebok.co.kr/RPF020901.action?GUBUN=CLASSIC ">CLASSIC</a>
-					<div class="subMenu">
-						<div class="subMenuCont">
-							<div class="menuArea classicArea">
-								<div class="bgArea">
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF010102.action?S_LEVEL=7&S_CTGR_CD=02005">NEW</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010103.action?S_LEVEL=7&S_CTGR_CD=02005">BEST</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=7&S_CTGR_CD=02005">SALE</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>MEN</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005001">전체보기</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>WOMEN</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02005002">전체보기</a></li>
-									</ul>
-								</div>
-								<div>
-									<h2>COLLECTION</h2>
-									<ul>
-										<li><a href="http://shop.reebok.co.kr/RPF020201.action?S_CTGR_CD=02006009">퓨리컬렉션</a></li>
-										<li><a href="http://shop.reebok.co.kr/RPF050101.action?S_PROD_NM=FURYLITE">퓨리라이트</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="bannerArea">
-								<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209"><img src="/images/reebok/efu2018/common/subMenuStyle0101.jpg" alt="" />
-									<!-- <p>SPEEDY DELIVERY<span>온라인 단독상품 당일배송 서비스 런칭!</span></p> 20180326 수정-->
-								</a>
-							</div>
-						</div>
-					</div>
-				</li>
-				<!-- <li><a href="http://shop.reebok.co.kr/RPF010102.action">New</a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF010103.action">Best</a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF010104.action" class="sale">Sale</a>
-					<div class="subMenu">
-						<div class="subMenuCont">
-							<ul class="sale">
-								<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=3&S_CTGR_CD=02001">MEN</a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=4&S_CTGR_CD=02002">WOMEN</a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF010104.action?S_LEVEL=5&S_CTGR_CD=02003">KIDS</a></li>
-								<li><a href="http://shop.reebok.co.kr/RPF020801.action?S_CTGR_CD=02001" class="color">OUTLET</a></li>
-							</ul>
-
-						</div>
-					</div>
-				</li>-->
-				<li><a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209">ONLINE ONLY</a></li>
-				<li><a href="/brand/index.jsp">BRAND</a><!-- 20180329 수정 -->
-					<div class="subMenu">
-
-						<div class="subMenuCont brandMenu">
-							<div class="brand">
-								<h2>FITNESS</h2>
-								<a href="/brand/fitness/training.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand01.jpg" alt="" /></a>
-							</div>
-							<div class="brand">
-								<h2>CLASSIC</h2>
-								<a href="/brand/classic/index.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand02.jpg" alt="" /></a>
-							</div>
-							<div class="brand">
-								<h2>REECLUB</h2>
-								<a href="/brand/reeclub.jsp"><img src="/images/reebok/efu2018/common/subMenu_brand03.jpg" alt="" /></a>
-							</div>
-							<div class="brand brandType2">
-								<h2><a href="/brand/campaign.jsp">CAMPAIGN</a></h2>
-								<h2><a href="/brand/promotion.jsp">PROMOTION</a></h2>
-							</div>
-						</div>
-
-					</div>
-				</li>
-				<!-- 190318 VR메뉴 숨김 -->
-				<!-- <li><a href="http://shop.reebok.co.kr/vr/RCS_GB/web/index.html">VR STORE</a></li> -->
-			</ul>
-			<span id="gnbOverBar" ></span>
-		</div>
-	</div>
-	<!-- 20180627 수정 -->
-	<!-- topBar
-	<div class="oneday_bars" id="speeds">
-		<div class="ct950">
-			<div class="bar b1">
-				<span class="spt_bg"></span>
-				<a href="javascript:void(0)" data-modalpop-click="modalpop-notice1" class="modal-popup-click">스피드 배송 안내</a>
-				<a href="#" onclick="showPopupLayer('/popup/efu/delivery.jsp', '430'); return false; return false;" class="bltQuestion">스피드 배송 안내</a>
-			</div>
-			<div class="bar b2">
-				<span class="spt_bg"></span>
-				<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209">온라인 한정상품을 만나보세요</a>
-			</div>
-			<div class="bar b3">
-				<span class="spt_bg"></span>
-				<a href="javascript:void(0)" data-modalpop-click="modalpop-notice2" class="modal-popup-click">교환, 환불은 이렇게</a
-				<a href="#"  onclick="showPopupLayer('/popup/efu/exchangeNote.jsp', '230'); return false;" class="bltQuestion">교환, 환불은 이렇게</a>
-			</div>
-		</div>
-	</div>-->
-	<!-- //20180627 수정 -->
-</div>
 
 		<!-- mainPopup -->
 		<div id="mainPopup" class="mainPopup">
@@ -430,558 +476,18 @@ var jquery_1_11 = $.noConflict(true);
 			<a href="" class="closeBtn" onclick="jQuery('#mainPopup').hide(); return false;"><img src="/images/reebok/efu2018/common/popClose.png" alt="딛기"/></a>
 		</div>
 		<!-- //mainPopup -->
-
+		
 		<div id="visualArea" class="mainVisual">
-			<!-- 동영상 있을 시 -->
-			<!-- <div id="section1" class="section">
-				<canvas id="visualCanvas1" width="2000" height="1000" data="/images/reebok/efu2018/main/visual9.jpg" ></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual9.jpg">
-					<source src="/images/reebok/efu2018/main/visual9.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				관련 제품 영역
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>리복 크로스핏 나노 8</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>리복 크로스핏 나노 8</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>리복 크로스핏 나노 8</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>리복 크로스핏 나노 8</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul>//visualProArea
-				//관련 제품 영역
-			</div>
-			//동영상 있을 시
-			<div id="section2" class="section">
-				<canvas id="visualCanvas2" width="2000" height="1000" data="/images/reebok/efu2018/main/visual2.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual2.jpg">
-					<source src="/images/reebok/efu2018/main/visual2.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>222222222</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>22222222222</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING</span>
-						<strong>222222222222</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul>//visualProArea
-			</div> -->
-
-			<!-- 동영상 있을 시
-			<div id="section3" class="section">
-				<canvas id="visualCanvas3" width="2000" height="1000" data="/images/reebok/efu2018/main/visual3.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual3.jpg">
-					<source src="/images/reebok/efu2018/main/visual3.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea
-			</div>
-			<!-- //동영상 있을 시 -->
-
-			<!-- 동영상 있을 시
-			<div id="section4" class="section">
-				<canvas id="visualCanvas4" width="2000" height="1000" data="/images/reebok/efu2018/main/visual4.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual4.jpg">
-					<source src="/images/reebok/efu2018/main/visual4.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea
-			</div>
-			<!-- //동영상 있을 시 -->
-
-			<!-- 동영상 있을 시 -->
-			<!-- <div id="section5" class="section">
-				<canvas id="visualCanvas5" width="2000" height="1000" data="/images/reebok/efu2018/main/visual5.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual5.jpg">
-					<source src="/images/reebok/efu2018/main/visual5.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul>//visualProArea
-			</div>  -->
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시
-			<div id="section6" class="section">
-				<canvas id="visualCanvas6" width="2000" height="1000" data="/images/reebok/efu2018/main/visual6.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual6.jpg">
-					<source src="/images/reebok/efu2018/main/visual6.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시
-			<div id="section7" class="section">
-				<canvas id="visualCanvas7" width="2000" height="1000" data="/images/reebok/efu2018/main/visual7.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual7.jpg">
-					<source src="/images/reebok/efu2018/main/visual7.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시
-			<div id="section8" class="section">
-				<canvas id="visualCanvas8" width="2000" height="1000" data="/images/reebok/efu2018/main/visual8.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual8.jpg">
-					<source src="/images/reebok/efu2018/main/visual8.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea
-			</div>
-			<!-- //동영상 있을 시 -->
-
-			<!-- 동영상 있을 시 -->
-			<div id="section9" class="section">
-				<canvas id="visualCanvas9" width="2000" height="1000" data="/images/reebok/efu2018/main/visual9.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual9.jpg">
-					<source src="/images/reebok/efu2018/main/visual9.mp4" type='video/mp4' />
-				</video>
-                <!-- 추가된 링크영역 start -->
-                <a href="#" class="view_link_area" onclick="javascript:alert('추가된 VIEW 클릭 영역1')">추가된 VIEW 클릭 영역(해당 텍스트는 삭제)</a>
-                <div class="btnArea">
-                    <a href="#">VIEW</a>
-                    <a href="#">BUY</a>
-                </div>
-                <!-- 추가된 링크영역 end -->
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-
-			<!-- 동영상 있을 시 -->
-			<div id="section10" class="section">
-				<canvas id="visualCanvas10" width="2000" height="1000" data="/images/reebok/efu2018/main/visual10.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual10.jpg">
-					<source src="/images/reebok/efu2018/main/visual10.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시 -->
-			<div id="section11" class="section">
-				<canvas id="visualCanvas11" width="2000" height="1000" data="/images/reebok/efu2018/main/visual11.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual11.jpg">
-					<source src="/images/reebok/efu2018/main/visual11.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시 -->
-			<div id="section12" class="section">
-				<canvas id="visualCanvas12" width="2000" height="1000" data="/images/reebok/efu2018/main/visual12.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual12.jpg">
-					<source src="/images/reebok/efu2018/main/visual12.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시 -->
-			<div id="section13" class="section">
-				<canvas id="visualCanvas13" width="2000" height="1000" data="/images/reebok/efu2018/main/visual13.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual13.jpg">
-					<source src="/images/reebok/efu2018/main/visual13.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시 -->
-			<div id="section14" class="section">
-				<canvas id="visualCanvas14" width="2000" height="1000" data="/images/reebok/efu2018/main/visual14.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual14.jpg">
-					<source src="/images/reebok/efu2018/main/visual14.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
-			<!-- 동영상 있을 시 -->
-			<div id="section15" class="section">
-				<canvas id="visualCanvas15" width="2000" height="1000" data="/images/reebok/efu2018/main/visual15.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual15.jpg">
-					<source src="/images/reebok/efu2018/main/visual15.mp4" type='video/mp4' />
-				</video>
-				<div class="btnArea">
-					<a href="#">VIEW</a>
-					<a href="#">BUY</a>
-				</div>
-				<ul class="visualProArea">
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 3333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING333</span>
-						<strong>리복 크로스핏 나노 333338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-					<li><a href="#">
-						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
-						<span>MEN'S TRAINING3333</span>
-						<strong>리복 크로스핏 나노 33338</strong>
-						<p class="cost"><b>159,000</b> 원</p>
-						<p class="txt">DETAIL VIEW</p>
-					</a></li>
-				</ul><!-- //visualProArea -->
-			</div>
-			<!-- //동영상 있을 시 -->
 			<!-- 동영상 있을 시 -->
 			<div id="section16" class="section">
 				<canvas id="visualCanvas16" width="2000" height="1000" data="/images/reebok/efu2018/main/visual16.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual16.jpg">
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual16.jpg" muted="muted"> 
 					<source src="/images/reebok/efu2018/main/visual16.mp4" type='video/mp4' />
 				</video>
 				<div class="btnArea">
 					<a href="#">VIEW</a>
 					<a href="#">BUY</a>
-				</div>
+				</div> 
 				<ul class="visualProArea">
 					<li><a href="#">
 						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
@@ -1005,18 +511,18 @@ var jquery_1_11 = $.noConflict(true);
 						<p class="txt">DETAIL VIEW</p>
 					</a></li>
 				</ul><!-- //visualProArea -->
-			</div>
+			</div> 
 			<!-- //동영상 있을 시 -->
 			<!-- 동영상 있을 시 -->
 			<div id="section17" class="section">
 				<canvas id="visualCanvas17" width="2000" height="1000" data="/images/reebok/efu2018/main/visual17.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual17.jpg">
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual17.jpg" muted="muted"> 
 					<source src="/images/reebok/efu2018/main/visual17.mp4" type='video/mp4' />
 				</video>
 				<div class="btnArea">
 					<a href="#">VIEW</a>
 					<a href="#">BUY</a>
-				</div>
+				</div> 
 				<ul class="visualProArea">
 					<li><a href="#">
 						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
@@ -1040,18 +546,18 @@ var jquery_1_11 = $.noConflict(true);
 						<p class="txt">DETAIL VIEW</p>
 					</a></li>
 				</ul><!-- //visualProArea -->
-			</div>
+			</div> 
 			<!-- //동영상 있을 시 -->
 			<!-- 동영상 있을 시 -->
 			<div id="section18" class="section">
 				<canvas id="visualCanvas18" width="2000" height="1000" data="/images/reebok/efu2018/main/visual18.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual18.jpg">
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual18.jpg" muted="muted"> 
 					<source src="/images/reebok/efu2018/main/visual18.mp4" type='video/mp4' />
 				</video>
 				<div class="btnArea">
 					<a href="#">VIEW</a>
 					<a href="#">BUY</a>
-				</div>
+				</div> 
 				<ul class="visualProArea">
 					<li><a href="#">
 						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
@@ -1075,31 +581,232 @@ var jquery_1_11 = $.noConflict(true);
 						<p class="txt">DETAIL VIEW</p>
 					</a></li>
 				</ul><!-- //visualProArea -->
-			</div>
+			</div> 
 			<!-- //동영상 있을 시 -->
-
+			<!-- 동영상 있을 시 -->
+			<div id="section19" class="section">
+				<canvas id="visualCanvas19" width="2000" height="1000" data="/images/reebok/efu2018/main/visual19.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual19.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual19.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			<!-- 동영상 있을 시 -->
+			<div id="section20" class="section">
+				<canvas id="visualCanvas20" width="2000" height="1000" data="/images/reebok/efu2018/main/visual20.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual20.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual20.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			<!-- 동영상 있을 시 -->
+			<div id="section21" class="section">
+				<canvas id="visualCanvas21" width="2000" height="1000" data="/images/reebok/efu2018/main/visual21.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual21.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual21.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p> 
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			<!-- 동영상 있을 시 -->
+			<div id="section22" class="section">
+				<canvas id="visualCanvas22" width="2000" height="1000" data="/images/reebok/efu2018/main/visual22.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual22.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual22.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			<!-- 동영상 있을 시 -->
+			<div id="section23" class="section">
+				<canvas id="visualCanvas23" width="2000" height="1000" data="/images/reebok/efu2018/main/visual23.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual23.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual23.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			<!-- 동영상 있을 시 -->
+			<div id="section24" class="section">
+				<canvas id="visualCanvas24" width="2000" height="1000" data="/images/reebok/efu2018/main/visual24.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual24.jpg" muted="muted"> 
+					<source src="/images/reebok/efu2018/main/visual24.mp4" type='video/mp4' />
+				</video>
+				<div class="btnArea">
+					<a href="#">VIEW</a>
+					<a href="#">BUY</a>
+				</div> 
+				<ul class="visualProArea">
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 3333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING333</span>
+						<strong>리복 크로스핏 나노 333338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+					<li><a href="#">
+						<img src="http://image.reebok.co.kr/upload/prod/etc/500/BD5861-2_500X500.jpg" alt="" class="thum">
+						<span>MEN'S TRAINING3333</span>
+						<strong>리복 크로스핏 나노 33338</strong>
+						<p class="cost"><b>159,000</b> 원</p>
+						<p class="txt">DETAIL VIEW</p>
+					</a></li>
+				</ul><!-- //visualProArea -->
+			</div> 
+			<!-- //동영상 있을 시 -->
+			
 			<ul id="visualPaging">
-				<!-- <li><a href="#" data="1"><img src="/images/reebok/efu2018/main/visual9.jpg" alt=""></a></li>
-				<li><a href="#" data="2"><img src="/images/reebok/efu2018/main/visual2.jpg" alt=""></a></li>
-				<li><a href="#" data="3"><img src="/images/reebok/efu2018/main/visual3.jpg" alt=""></a></li>
-				<li><a href="#" data="4"><img src="/images/reebok/efu2018/main/visual4.jpg" alt=""></a></li>
-				<li><a href="#" data="5"><img src="/images/reebok/efu2018/main/visual5.jpg" alt=""></a></li>
-				<li><a href="#" data="6"><img src="/images/reebok/efu2018/main/visual6.jpg" alt=""></a></li>
-				<li><a href="#" data="7"><img src="/images/reebok/efu2018/main/visual7.jpg" alt=""></a></li>
-				<li><a href="#" data="8"><img src="/images/reebok/efu2018/main/visual8.jpg" alt=""></a></li>-->
-				<li><a href="#" data="9"><img src="/images/reebok/efu2018/main/visual9.jpg" alt=""></a></li>
-				<li><a href="#" data="10"><img src="/images/reebok/efu2018/main/visual10.jpg" alt=""></a></li>
-				<li><a href="#" data="11"><img src="/images/reebok/efu2018/main/visual11.jpg" alt=""></a></li>
-				<li><a href="#" data="12"><img src="/images/reebok/efu2018/main/visual12.jpg" alt=""></a></li>
-				<li><a href="#" data="13"><img src="/images/reebok/efu2018/main/visual13.jpg" alt=""></a></li>
-				<li><a href="#" data="14"><img src="/images/reebok/efu2018/main/visual14.jpg" alt=""></a></li>
-				<li><a href="#" data="15"><img src="/images/reebok/efu2018/main/visual15.jpg" alt=""></a></li>
-				<li><a href="#" data="16"><img src="/images/reebok/efu2018/main/visual16.jpg" alt=""></a></li>
-				<li><a href="#" data="17"><img src="/images/reebok/efu2018/main/visual17.jpg" alt=""></a></li>
-				<li><a href="#" data="18"><img src="/images/reebok/efu2018/main/visual18.jpg" alt=""></a></li>
-			</ul>
+				<li><a href="#" data="16"><img src="/images/reebok/efu2018/main/visual16.jpg" alt=""></a></li>  
+				<li><a href="#" data="17"><img src="/images/reebok/efu2018/main/visual17.jpg" alt=""></a></li>  
+				<li><a href="#" data="18"><img src="/images/reebok/efu2018/main/visual18.jpg" alt=""></a></li>  
+				<li><a href="#" data="19"><img src="/images/reebok/efu2018/main/visual19.jpg" alt=""></a></li>  
+				<li><a href="#" data="20"><img src="/images/reebok/efu2018/main/visual20.jpg" alt=""></a></li>  
+				<li><a href="#" data="21"><img src="/images/reebok/efu2018/main/visual21.jpg" alt=""></a></li>  
+				<li><a href="#" data="22"><img src="/images/reebok/efu2018/main/visual22.jpg" alt=""></a></li>  
+				<li><a href="#" data="23"><img src="/images/reebok/efu2018/main/visual23.jpg" alt=""></a></li>  
+				<li><a href="#" data="24"><img src="/images/reebok/efu2018/main/visual24.jpg" alt=""></a></li>  
+			</ul> 
 		</div><!-- //visualArea -->
-		<!-- new reebok -->
+		<!-- new reebok --> 
 		<div class="mainSection">
 			<div class="newReebok">
 				<h2>NOW REEBOK</h2>
@@ -1113,7 +820,7 @@ var jquery_1_11 = $.noConflict(true);
 			</div>
 		</div>
 		<!-- //new reebok -->
-
+		
 		<!-- fitness, classic -->
 		<div class="mainSection mainSection02">
 			<!-- 20180327 수정 -->
@@ -1130,7 +837,7 @@ var jquery_1_11 = $.noConflict(true);
 			<!-- //20180327 수정 -->
 		</div>
 		<!-- //fitness, classic -->
-
+		
 		<!-- new best -->
 		<div class="mainSection mainSection03">
 			<ul>
@@ -1146,47 +853,12 @@ var jquery_1_11 = $.noConflict(true);
 				<li class="best"><a href=""><img src="/images/reebok/efu2018/main/best09.jpg" alt=""/></a></li><!-- new제품인 경우 class="best" 추가 -->
 			</ul>
 		</div>
-		<!-- //new best -->
+		<!-- //new best --> 
 
 		<!-- trend magazine -->
-		<!-- 20180508 수정 -->
+		<!-- 20180920 수정-->
 		<div id="trendMagazineArea" class="mainSection mainSection04 vm1Bg">
-			<h2>TREND MAGAZINE</h2>
-			<div class="trendList" id="trendList">
-				<ul class="trendListWrap">
-					<li id="vm1"><a href="#">
-						<span class="sTxt">MEN’S HOT SUMMER FITNESS STYLING</span>
-						<span class="txt"><span class="color">블루 컬러의 엑티브칠 슬리브리스</span>로 쿨한 피트니스 룩을 완성해보세요.</span></a>
-					</li>
-					<li id="vm2"><a href="#">
-						<span class="sTxt">WOMEN’S HOT SUMMER FITNESS STYLING</span>
-						<span class="txt"><span class="color">핑크 컬러의 브라탑과 화려한 타이즈</span>로 시원한 스타일링을 시도해보세요.</span></a>
-					</li>
-					<li><a href="https://blog.naver.com/reebokkr/221248377641" target="_blank">
-						<span class="sTxt">LUIS BADILLO’S SPEED TRAINING</span>
-						<span class="txt">세상에서 가장 빠른 발의 소유자가 알려주는 <span class="color">스피드 훈련</span></span></a>
-					</li>
-					<li><a href="https://blog.naver.com/reebokkr/221231987417" target="_blank">
-						<span class="sTxt">SPORTS COUTURE BY REEBOK & VOGUE</span>
-						<span class="txt">여자들의 로망, <span class="color">드레스와 펌프슈프림의 만남</span></span></a>
-					</li>
-					<li><a href="https://blog.naver.com/reebokkr/221218034248" target="_blank">
-						<span class="sTxt">HOW TO CHOOSE THE RIGHT MUSIC FOR RUNNING</span>
-						<span class="txt"><span class="color">에너지 넘치는 러닝을 위해</span> 좋은 음악을 고르는 방법</span></a>
-					</li>
-					<li><a href="https://blog.naver.com/reebokkr/221216759510" target="_blank">
-						<span class="sTxt">5 ESSENTIAL RUNNING TIPS FOR BEGINNERS</span>
-						<span class="txt">초보 러너를 위한 <span class="color">5가지 필수 팁</span></span></a>
-					</li>
-					<li><a href="https://blog.naver.com/reebokkr/221214114048" target="_blank">
-						<span class="sTxt">HARLEY’S 5 THINGS FOR YOUR HEALTHIEST LIFE</span>
-						<span class="txt">할리 파스테르나크가 공개하는, <span class="color">연예인을 위한 5가지 운동원칙</span></span></a>
-					</li>
-				</ul>
-
-			</div>
-			<!-- 20180508 수정 -->
-			<!-- 모델있을경우 -->
+			<!-- 모델있을경우
 			<div class="vmWrap men">
 				<div class="vmCont">
 					<img src="/images/reebok/efu2018/main/vmMen.jpg" alt="" usemap="#map" />
@@ -1214,46 +886,52 @@ var jquery_1_11 = $.noConflict(true);
 				<a href="" class="vmClose"><img src="/images/reebok/efu2018/btn/btn_close4.png" alt="닫기" /></a>
 			</div>
 			<!-- //모델있을경우 -->
+			
+			<!-- 모델없을 경우 -->
 
-			<!-- 모델없을 경우
-			<div class="vmWrap men vmWrapStyle2">
-				<div class="vmWrapBg">
+			<!-- 190308 VM작업 -->
+			<div class="vmWrap men vmWrapStyle2 on">
+				<div class="vmWrapBg1">
 					<div class="vmCont">
 						<img src="/images/reebok/efu2018/main/vmMen.jpg" alt="" usemap="#map" />
-						<map name="map">
-							<area shape="rect" coords="298, 84, 478, 320" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=D93802" target="_blank" alt="바지"/>
-							<area shape="rect" coords="560, 160, 753, 274" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CN1760" target="_blank" alt="운동화" />
-							<area shape="rect" coords="462, 326, 669, 405" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CN1759" target="_blank" alt="운동화"/>
-							<area shape="rect" coords="757, 247, 970, 574" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CF7867" target="_blank" alt="티셔츠" />
-							 <area shape="rect" coords="1014, 195, 1157, 339" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=D68166" target="_blank" alt="소품" />
-							<area shape="rect" coords="1000, 378, 1164, 531" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CF7484" target="_blank" alt="모자"/>
+						<map id="map" name="map">
+							<area shape="rect" coords="0,214,223,511" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=EC5780" alt="아우터" target="_blank"/>
+							<area shape="rect" coords="270,147,409,260" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DU7520" alt="모자" target="_blank"/>
+							<area shape="rect" coords="241,271,440,545" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DZ2440" alt="스웨터" target="_blank"/>
+							<area shape="rect" coords="451,156,583,553" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=EC5785" alt="바지" target="_blank"/>
+							<area shape="rect" coords="599,240,816,347" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DU7202" alt="힙색" target="_blank"/>
+							<area shape="rect" coords="588,362,805,469" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DV3900" alt="신발" target="_blank"/>
 						</map>
 					</div>
 				</div>
-				<a href="" class="smallBtn"><img src="/images/reebok/efu2018/main/vmWomen_s2.png" alt="women" /></a>
-				<a href="" class="vmClose"><img src="/images/reebok/efu2018/btn/btn_close5.png" alt="닫기" /></a>
+				<a href="#" class="smallBtn menBtn">MEN STYLING</a>
+				<a href="#" class="smallBtn womenBtn">WOMEN STYLING</a>
+				<!-- <a href="" class="vmClose"><img src="/images/reebok/efu2018/btn/btn_close5.png" alt="닫기" /></a> -->
 			</div>
 			<div class="vmWrap women vmWrapStyle2">
-				<div class="vmWrapBg">
+				<div class="vmWrapBg2">
 					<div class="vmCont">
 						<img src="/images/reebok/efu2018/main/vmWomen.jpg" alt=""  usemap="#map2"  />
-						<map name="map2">
-							<area shape="rect" coords="327, 68, 488, 319" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=D93872" target="_blank" alt="티셔츠"/>
-							<area shape="rect" coords="565, 161, 753, 273" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CN1763" target="_blank" alt="운동화"/>
-							<area shape="rect" coords="456, 329, 669, 410" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CN1762" target="_blank" alt="운동화"/>
-							<area shape="rect" coords="760, 270, 958, 479" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CY2612" target="_blank" alt="바지"/>
-							<area shape="rect" coords="993, 160, 1182, 348" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CY8136" target="_blank" alt="트레이닝복"/>
-							<area shape="rect" coords="982, 383, 1168, 522" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=CD7240" target="_blank" alt="모자"/>
+						<map id="map2" name="map2">
+							<area shape="rect" coords="0,214,223,511" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DJ1948" alt="아우터" target="_blank"/>
+							<area shape="rect" coords="270,147,409,260" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DU7519" alt="모자" target="_blank"/>
+							<area shape="rect" coords="241,271,440,545" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DX3818" alt="반팔티" target="_blank"/>
+							<area shape="rect" coords="451,156,583,553" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DZ6270" alt="바지" target="_blank"/>
+							<area shape="rect" coords="599,240,816,347" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DU7201" alt="힙색" target="_blank"/>
+							<area shape="rect" coords="588,362,805,469" href="http://shop.reebok.co.kr/RPF020401.action?PROD_CD=DV3900" alt="신발" target="_blank"/>			
 						</map>
 					</div>
 				</div>
-				<a href="" class="smallBtn"><img src="/images/reebok/efu2018/main/vmMen_s2.png" alt="men" /></a>
-				<a href="" class="vmClose"><img src="/images/reebok/efu2018/btn/btn_close5.png" alt="닫기" /></a>
+				<a href="#" class="smallBtn menBtn">MEN STYLING</a>
+				<a href="#" class="smallBtn womenBtn">WOMEN STYLING</a>
+				<!-- <a href="" class="vmClose"><img src="/images/reebok/efu2018/btn/btn_close5.png" alt="닫기" /></a> -->
 			</div>
-		 //모델없을 경우 -->
+			<!-- 190308 VM작업 -->
+
+		 <!-- //모델없을 경우 -->
 			<!-- //20180508 수정 -->
 		</div>
-		<!-- //20180327 수정 -->
+		<!-- //20180920 수정--> 
 		<!-- //trend magazine -->
 
 		<!-- online only -->
@@ -1359,13 +1037,13 @@ var jquery_1_11 = $.noConflict(true);
 				</div>
 				<!-- //20180327 -->
 			</div>
-
+			
 			<div class="onlineInfoWrap">
 				<div class="onlineInfo">
 					<!-- 20180327 수정 -->
 					<div>
 						<p class="infoTit">SPEEDY<br/>DELIVERY</p>
-						<p class="infoTxt">표시 제품 구매 시<br/>당일 배송 서비스<a href="#" onclick="showPopupLayer('/popup/efu/delivery.jsp', '430'); return false;" class="bltQuestion"><img src="/images/reebok/efu2018/blt/blt_question.png" alt="물음표"/></a></p>
+						<p class="infoTxt">표시 제품 구매 시<br/>당일 배송 서비스<a href="#" onclick="showPopupLayer('/popup/efu/delivery.jsp', '430'); return false;" class="bltQuestion"><img src="/images/reebok/efu2018/blt/blt_question.png" alt="물음표"/></a></p>		
 					</div>
 					<div>
 						<a href="http://shop.reebok.co.kr/RPF070801.action?pageNo=209">
@@ -1373,16 +1051,16 @@ var jquery_1_11 = $.noConflict(true);
 						<p class="infoTxt">온라인에서 만나볼 수 있는<br/>스페셜 에디션</p>
 						</a>
 					</div>
-					<div>
+					<div>			
 						<p class="infoTit">EXCHANGE<br/>REFUND</p>
-						<p class="infoTxt">교환, 환불 시<br />유의사항<a href="#" onclick="showPopupLayer('/popup/efu/exchangeNote.jsp', '230'); return false;" class="bltQuestion"><img src="/images/reebok/efu2018/blt/blt_question.png" alt="물음표"></a></p>
+						<p class="infoTxt">교환, 환불 시<br />유의사항<a href="#" onclick="showPopupLayer('/popup/efu/exchangeNote.jsp', '230'); return false;" class="bltQuestion"><img src="/images/reebok/efu2018/blt/blt_question.png" alt="물음표"></a></p>					
 					</div>
 					<!-- //20180327 수정 -->
-				</div>
+				</div>			
 			</div>
 		</div>
 		<!-- //online only -->
-
+		
 		<!-- story, reeclub -->
 		<div class="mainSection mainSection06">
 			<div class="storyWrap">
@@ -1403,10 +1081,10 @@ var jquery_1_11 = $.noConflict(true);
 					</div>
 				</div>
 			</div>
-
+			
 		</div>
 		<!-- //online only -->
-
+		
 		<!-- instagram -->
 		<div class="mainSection mainSection07">
 			<h2>INSTAGRAM</h2>
@@ -1442,230 +1120,7 @@ var jquery_1_11 = $.noConflict(true);
 			</ul>
 		</div>
 		<!-- //instagram -->
-
-<script>
-jQuery(function(){
-	jQuery("#footer_wrap_170919 .sns .sns_box").bind("mouseenter focusin", function(){
-		jQuery(this).find(".layer").addClass('active');
-	})
-	.bind("mouseleave focusout" , function(){
-		jQuery(this).find(".layer").removeClass("active");
-	});
-});
-</script>
-<!-- efusioni 에서 작업한 footer -->
-<!-- <div id="efu_footerArea">
-	<div class="footerMenu">
-		20180403 수정
-		<ul class="menu">
-			<li><a href="https://shop.reebok.co.kr:444/RPF0608011.action?checkbtn=myPage">주문배송</a></li>
-			20180329 수정
-			<li><a href="/brand/reeclub.jsp">리클럽</a></li>
-			<li><a href="http://reebok.efusioni.com/brand/blog.jsp">리북블로그</a></li>
-			//20180329 수정
-			<li><a href="http://shop.reebok.co.kr/RPF080201.action">공지사항</a></li>
-			<li><a href="https://shop.reebok.co.kr:444/RPF110101.action?brand_nm=reebok">매장안내</a></li>
-			<li class="center"><a href="https://shop.reebok.co.kr:444/RPF080301.action">고객센터</a></li>
-		</ul>
-		<ul class="footSns">
-			<li><a href="">페이스북</a>
-				<div class="boxArea">
-				 	<p>FACEBOOK</p>
-			 		<ul>
-			 			<li><a href="https://www.facebook.com/Reebokkr/" target="_blank">FITNESS</a></li>
-			 			<li><a href="https://www.facebook.com/rbk.classic/" target="_blank">CLASSIC</a></li>
-			 		</ul>
-				</div>
-			</li>
-			<li><a href="">인스타그램</a>
-				<div class="boxArea">
-				 	<p>INSTAGRAM</p>
-			 		<ul>
-			 			<li><a href="https://www.instagram.com/reebokkorea/" target="_blank">FITNESS</a></li>
-			 			<li><a href="https://www.instagram.com/reebokclassickorea/" target="_blank">CLASSIC</a></li>
-			 		</ul>
-				</div>
-			</li>
-			<li><a href="https://blog.naver.com/reebokkr?proxyReferer=http%3A%2F%2Fshop.reebok.co.kr%2FreeMain.action">블로그</a></li>
-			<li><a href="https://www.youtube.com/channel/UCFrW9Ojay5Pk7s-4-KD0M6w">유뷰브</a></li>
-			<li><a href="https://pf.kakao.com/_hGnYz">카카오톡</a></li>
-		</ul>
-		//20180403 수정
-	</div>
-	<div class="footAddressWrap">
-		<div class="footAddress">
-			<div class="address">
-				<p>리복 공식 온라인 스토어 (아디다스코리아)<span>서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층(06620)</span><br/>
-				대표이사 : 에드워드 닉슨<span>사업자 등록번호 : 214-81-07412</span>통신판매업신고 : 2007-서울서초-10391<br/>
-				개인정보 보호책임자 : 김동일<span>고객센터(심의/수선문의 포함) : 1588-7324</span></p>
-				<p class="copyRight">© adidas Korea LLC. All Rights Reserved</p>
-			</div>
-			20180403 수정
-			<ul class="footAgreeMenu">
-				<li><a href="https://shop.reebok.co.kr:444/RPF010107.action?gubn=1">구매 이용약관</a></li>
-				<li><a href="https://shop.reebok.co.kr:444/RPF010107.action?gubn=2">개인정보 처리방침</a></li>
-				<li><a href="https://shop.reebok.co.kr:444/RPF010107.action?gubn=3">리클럽 이용약관</a></li>
-				<li><a href="#" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=2148107412&apv_perm_no','','width=680,height=500');return false;" >사업자정보확인</a></li>
-				<li><a href="#" onclick="window.open('http://shop.reebok.co.kr/html/reebok/popup_justice_bns.html','','width=680,height=500');return false;" >공정거래 자율준수</a></li>
-				<li><a href="#"  onclick="window.open('https://shop.reebok.co.kr:444/jsp/reebok/CertifiedInfoPop.jsp','','width=680,height=500');return false;">채무지급보증안내</a></li>
-			</ul>
-			//20180403 수정
-			<div class="emailNewsLetter">
-				<p class="tit">이메일 뉴스레터 구독</p>
-				<div class="emailBox">
-					<input type="text" placeholder="Email" class="email">
-					<a href="#" class="mailBtn"></a>
-				</div>
-				<p class="emailAgree"><input type="checkbox" id="agree" checked><label for="agree">마케팅 수신동의</label></p>
-			</div>
-		</div>
-	</div>
-</div> -->
-
-<!-- 기존 reebok footer -->
-<div id="footer_wrap_170919">
-	<div class="top">
-		<div class="ct890">
-			<ul class="f_menu clfix">
-				<!-- 170329 구매이용약관 , 리클럽 이용약관 strong 태그 추가 -->
-				<li><a href="javascript:fn_logIn(1);" onmousedown="javascript:fn_trkClickTrace('^풋터^주문배송');"><strong>주문배송</strong></a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF080101.action?GUBN=1" onmousedown="javascript:fn_trkClickTrace('^풋터^리클럽');"><strong>리클럽</strong></a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF080201.action" onmousedown="javascript:fn_trkClickTrace('^풋터^공지사항');"><strong>공지사항</strong></a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF110101.action?brand_nm=reebok" onmousedown="javascript:fn_trkClickTrace('^풋터^매장안내');"><strong>매장안내</strong></a></li>
-				<!-- 181226 채용정보 추가 -->
-				<li><a href="https://careers.adidas-group.com/?brand=reebok">채용정보</a></li>
-				<li><a href="http://shop.reebok.co.kr/RPF080301.action" onmousedown="javascript:fn_trkClickTrace('^풋터^고객센터');">고객센터</a></li>
-			</ul>
-			<div class="sns">
-				<div class="sns_box fb">
-					<a href="javascript:void(0)" class="spt_bg"></a>
-					<div class="layer">
-						<dl>
-							<dt>FACEBOOK</dt>
-							<dd>
-								<ul>
-									<li><a href="https://www.facebook.com/Reebokkr/" target="_blank">FITNESS</a></li>
-									<li class="last"><a href="https://www.facebook.com/rbk.classic/" target="_blank">CLASSIC</a></li>
-								</ul>
-							</dd>
-						</dl>
-						<div class="spt_bg arw"></div>
-					</div>
-				</div>
-				<div class="sns_box insta">
-					<a href="javascript:void(0)" class="spt_bg"></a>
-					<div class="layer">
-						<dl>
-							<dt>INSTAGRAM</dt>
-							<dd>
-								<ul>
-									<li><a href="https://www.instagram.com/reebokkorea/" target="_blank">FITNESS</a></li>
-									<li class="last"><a href="https://www.instagram.com/reebokclassickorea/" target="_blank">CLASSIC</a></li>
-								</ul>
-							</dd>
-						</dl>
-						<div class="spt_bg arw"></div>
-					</div>
-				</div>
-				<div class="sns_box blog">
-					<a href="http://blog.naver.com/reebokkr" class="spt_bg" target="_blank"></a>
-				</div>
-				<div class="sns_box ytb">
-					<a href="https://www.youtube.com/channel/UCFrW9Ojay5Pk7s-4-KD0M6w" class="spt_bg" target="_blank"></a>
-				</div>
-				<div class="sns_box kakao last">
-					<a href="http://plus.kakao.com/home/@리복" class="spt_bg" target="_blank"></a>
-				</div>
-			</div>
-		</div>
-	</div>
-		<div class="address">
-			<div class="ct890 clfix">
-				<!-- 180913  -->
-				<div class="cont_left">
-					<p>리복 공식 온라인 스토어 (아디다스코리아)&nbsp;&nbsp;서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층(06620)</p>
-					<p>대표이사 : 에드워드 닉슨&nbsp;&nbsp;사업자등록번호 : 214-81-07412&nbsp;&nbsp;통신판매업신고 : 2007-서울서초-10391&nbsp;&nbsp;개인정보관리책임자 : 김동일&nbsp;&nbsp;</p>
-                    <p>고객센터 : 1588-7324&nbsp;&nbsp;이메일 : reeclub_korea@reebok.com&nbsp;&nbsp;호스팅서비스사업자 : 아디다스코리아(유)</p>
-					<p class="last">© adidas Korea LLC. All Rights Reserved </p>
-					<div class="logo spt_bg">Reebok</div>
-					<div>
-						<ul class="inner_menu clfix">
-							<li><a href="RPF010107.action?gubn=1"><strong>구매 이용약관</strong></a></li>
-							<li><a href="/RPF010107.action?gubn=2"><strong>개인정보 처리방침</strong></a></li>
-							<li><a href="/RPF010107.action?gubn=3"><strong>리클럽 이용약관</strong></a></li>
-							<li><a href="javascript:void(0);" alt="공정거래 위원회 사업자 신원정보 확인" onclick="window.open('http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=2148107412', 'communicationViewPopup','width=750,height=700;');return false;">사업자정보확인</a></li>
-							<li><a href="javascript:void(0);" onclick="window.open('http://shop.reebok.co.kr/html/reebok/popup_justice_bns.html','','width=680,height=500');return false;" onmousedown="javascript:fn_trkClickTrace('^풋터^공정거래 자율준수');">공정거래 자율준수</a></li>
-							<li><a href="javascript:void(0);" onclick="javascript:fn_certifiedInfoPopRbk();return false" alt="한국 스탠다드차타드은행 채무지급보증 안내 , 서비스 가입사실 확인" title="새창">채무지급보증안내</a></li>
-						</ul>
-					</div>
-				</div>
-                <!-- 180913  end -->
-
-				<div class="cont_right">
-<!-- 					<form method="post" name="eComFooterEmailForm-IMPORTANT" action="https://s780143993.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form33 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form33" class="elq-form" > -->
-					<form method="post" name="eComFooterEmailForm-IMPORTANT" action="https://s780143993.t.eloqua.com/e/f2" id="form33" class="elq-form">
-						<input value="eComFooterEmailForm-IMPORTANT" type="hidden" name="elqFormName">
-						<input value="780143993" type="hidden" name="elqSiteId">
-						<input name="elqCampaignId" type="hidden">
-
-						<h4>이메일 뉴스레터 구독</h4>
-						<div class="input_box">
-							<input type="text" id="field0" name="emailAddress" placeholder="Email" class="email" onkeypress="return KeyDownSpa()">
-							<a href="javascript:void(0)" class="mail_button newsletter_mail_button"></a>
-<!-- 							<input type="submit" value="Submit" class="submit-button"> -->
-						</div>
-
-						<div class="input-ctm input-check-ctm checked" data-init="true">
-							<input type="checkbox" id="agree" name="mail_agree" value="Y" checked="checked">
-							<label for="agree">
-								<a class="ctm-box" href="javascript:void(0)">
-									<span class=" spt_bg"></span>
-								</a>
-							</label>
-						</div>
-						<a href="#" class="marketing" onclick="window.open('http://tribe.reebok.co.kr/emailnewsterms','','width=800,height=600,left=150,top=100,scrollbars=yes');return false;">마케팅 수신동의</a>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-    <!-- 180911 추석 배송지연 팝업 -->
-    <div class="modal-popup-wrapper"
-         data-modalpop=""
-         data-modalpop-name="chuseok-popup"
-         data-modalpop-width="380"
-         data-modalpop-height="320"
-         data-modalpop-fade=""
-         data-modalpop-autoopen=""
-    >
-        <div class="overlay"></div>
-        <div class="popup" style="background:none;">
-            <div class="popup-header" style="background:none;border-bottom:0;padding: 20px 30px;">
-                <a href="javascript:void(0)" class="close" style="width:20px;height:20px;right:0;">
-                    <span class="spt_bg" style="    background-image: url(/images/reebok/common/reebok_sprite.png); background-position: -134px -2230px; width:20px;height:20px;margin:0;"></span>
-                </a>
-            </div>
-            <div class="popup-contents" style="padding:0;">
-                <img src="http://image.reebok.co.kr//images/reebok/popup/1809_chuseok_popup_reebok_DT.jpg" width="100%" alt="">
-            </div>
-            <div class="onlytoday" style="margin: 15px 0 0 0;text-align: right;">
-                <div class="input-ctm input-check-ctm ctm-check-gray" data-init="">
-                    <input type="checkbox" id="chuseok">
-                    <label for="chuseok">
-                        <p style="font: 300 16px/26px 'NotoSansKR';color: #fff;padding-right: 34px;">오늘 하루 보지 않기</p>
-                        <a class="ctm-box" href="javascript:void(0)" style="left:auto;right:0;">
-                            <span class=" spt_bg"></span>
-                        </a>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 180911 추석 배송지연 팝업 END -->
-
-
+		<%@ include file="/include/footer.jsp" %>
 	</div>
 </body>
 </html>
