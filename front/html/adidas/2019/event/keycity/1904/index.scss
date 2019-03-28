@@ -1,0 +1,684 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+html,body{
+	height:100%;
+}
+#keycity{
+	position: relative;
+	z-index: -1;
+	//common
+	.button_area_v2{
+		display: inline-block;
+		padding-left: 15px;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:initial;
+			font: 700 14px/50px 'NotoSansKR';
+			letter-spacing: .5px;
+			padding: 0 20px;
+		}
+	}
+
+
+	.inner1{
+		h1{
+			font:500 50px/50px 'NotoSansKR';
+			color:#fff;
+			text-align: center;
+			letter-spacing: 5px;
+		}
+		p{
+			color:#fff;
+			font:23px/80px 'adinenuPro-bold';
+			text-align: center;
+			letter-spacing: 2px;
+		}
+	}
+
+
+
+	// slide
+	.layout_cmn{
+		position:relative;
+		height:1850px;
+		background:#000;
+		&.active{
+			.anchors{
+				position: fixed;
+				top:0;
+				width:100%;
+			}
+		}
+		&.on{
+			.inner1{
+				.deco{
+					@include css3(opacity,1);
+				}
+				.txt{
+					@include css3(opacity,1);
+					transition-delay: .5s;
+				}
+			}
+			.inner2{
+				.square{
+					@include css3(opacity,1);
+				}
+				.bg{
+					@include css3(opacity,1);
+					transition-delay: .5s;
+				}
+				.main{
+					@include css3(opacity,1);
+					transition-delay: 1s;
+				}
+			}
+		}
+
+		.inner1{
+			position: relative;
+			height:509px;
+			.deco{
+				position: absolute;
+				top:120px;
+				left:50%;
+				transform:translateX(-50%);
+				@include css3(opacity,0);
+				@include css3(transition,all 1s ease-in);	
+				animation:sibal 1s;
+				animation-iteration-count: infinite;
+				
+				@keyframes sibal {
+				    0% { transform:translateX(-15px) ;}
+				    50% { transform:translateX(15px) ;}
+				    100% { transform:translateX(-15px) ;}
+				} 	 
+			}
+			.txt{
+				position: absolute;
+				width:950px;
+				top:230px;
+				left:50%;
+				transform:translateX(-50%);
+				z-index: 1;
+				@include css3(opacity,0);
+				@include css3(transition,all 1.5s ease-in);	
+				.wrap{
+					text-align: right;
+				}
+			}
+		}
+		.inner2{
+			position: relative;
+			height: 420px;
+			padding-top:220px;
+			.square{
+				width:100%;
+				height:190px;
+				@include css3(opacity,0);
+				@include css3(transition,all 1.5s);	
+			}
+			.bg{
+				position: absolute;
+				top:148px;
+				left:50%;
+				transform:translateX(-50%);
+				@include css3(opacity,0);
+				@include css3(transition,all 1.5s);		
+			}
+			.main{
+				position: absolute;
+				top:0;
+				left:50%;
+				transform:translateX(-50%);		
+				z-index: 1;
+				@include css3(opacity,0);
+				@include css3(transition,all 1.5s ease-in);	
+			}
+			.txt{
+				position: absolute;
+				top:50%;
+				left:50%;
+				margin-top: -25px;
+				margin-left: 265px;
+				z-index: 1;
+				@include css3(opacity,0);
+				@include css3(transition,all 1.5s);	
+				&.txt1{
+					span{
+						&::after{
+							background: #00d8ff;
+						}
+					}
+				}
+				&.txt2{
+					margin-top: -25px;
+					margin-left: -585px;
+					span{
+						&::after{
+							background: #d51c12;
+							left:-95px;
+							right:-35px;
+						}
+					}
+				}
+				&.txt3{
+				margin-left: 373px;
+					span{
+						&::after{
+							background: #00da1e;
+
+						}
+					}
+				}
+				&.txt4{
+					margin-left: -770px;
+						span{
+							&::after{
+								background: #ff0582;
+								left:-25px;	
+								right:-50px;
+							}
+						}
+						em{
+							position: relative;
+							display: block;
+							font: 20px/20px 'adihausDIN-Cond-bold';						
+							letter-spacing: 5px;
+							color:#fff;
+							vertical-align: middle;
+							margin-top: 13px;
+							&::after{
+								background: #ff0582;
+								left: -90px;
+								right: 120px;
+								content: '';
+								display: block;
+								clear: both;
+								position: absolute;
+								top: -2px;
+								height: 22px;
+								z-index: -1;
+							}
+						}
+					}
+				span{
+					font: 700 40px/40px 'NotoSansKR';
+					letter-spacing: .5px;
+					color:#fff;
+					&::after{
+						left:-35px;
+						right:-15px;
+						content:'';
+						display: block;
+						clear:both;
+						position: absolute;
+						top:10px;
+						height: 22px;
+						z-index: -1;
+					}
+					em{
+						font: 20px/20px 'adihausDIN-Cond-bold';						
+						letter-spacing: 5px;
+						color:#fff;
+						vertical-align: middle;
+					}
+				}
+			}
+		}
+		.slide_container{
+			position: relative;
+			height: 630px;
+			padding-top: 70px;
+			.outer{
+				height: 441px;
+				.sliders{
+					margin: 0 auto;
+					overflow: visible !important;
+					ul{
+						padding-top:20px;
+						li{
+							img{}
+						}
+					}
+				}
+			}
+			.prev-button{
+				position:absolute;
+				top:50%;
+				left:50%;
+				margin-top: 220px;
+				margin-left: -360px;
+				z-index: 5;
+				width: 50px;
+				height: 50px;
+				img{padding-top: 20px;}
+			}
+			.next-button{
+				position:absolute;
+				top:50%;
+				left:50%;
+				margin-top: 220px;
+				margin-left: 330px;
+				z-index: 5;
+				width: 50px;
+				height: 50px;
+				img{padding-top: 20px;}
+			}
+			.indicator{
+				text-align: center;
+				padding: 25px 0;
+				position: relative;
+				top:-15px;
+				&.indi1{
+					a{
+						&.on{
+							background:#2effff;
+						}
+					}
+				}
+				&.indi2{
+					a{
+						&.on{
+							background:#e20e00;
+						}
+					}
+				}
+				&.indi3{
+					a{
+						&.on{
+							background:#19a429;
+						}
+					}
+				}
+				&.indi4{
+					a{
+						&.on{
+							background:#ff2fb4;
+						}
+					}
+				}
+				a{
+					background:#808080;
+					margin:0 2px;
+					width:15px;
+					height:3px;
+					display: inline-block;
+					&.on{
+						width:43px;
+					}
+				}
+			}
+			.subt{
+				position: absolute;
+				bottom:70px;
+				left: 50%;
+				transform: translateX(-50%);
+				h1{
+					font:500 24px/45px 'NotoSansKR';
+					letter-spacing: 1px;
+					color:#fff;
+					text-align: center;
+				}
+				p{
+					font: 14px/14px 'adihausDIN-Cond-medium';
+					letter-spacing: 10px;
+					color:#fff;
+					text-align: center;
+				}
+			}
+		}
+		&.sec1{
+			.inner1{
+			}
+			.inner2{
+				.square{
+					background:#032f2d;
+				}
+			}
+			.outer{
+				background:url('/images/adidas/2019/event/keycity/1904/1904_keycity_slidebg01.jpg');
+				height:441px;
+			}
+		}
+		&.sec2{
+			.inner1{
+				.deco{
+					top:160px;
+				}
+				.txt{
+					top:265px;
+					p{
+						text-align: right;
+						right: -140px;
+						letter-spacing: 11px;
+						position: relative;
+					}
+				}
+			}
+			.inner2{
+				.square{
+					background:#1f0200;
+				}
+			}
+			.outer{
+				background:url('/images/adidas/2019/event/keycity/1904/1904_keycity_slidebg02.jpg');
+			}
+		}
+		&.sec3{
+			.inner1{
+				.deco{
+					// top:160px;
+				}
+				.txt{
+					top:230px;
+					p{
+						color: #fff;
+						font: 23px/25px 'adinenuPro-bold';
+						text-align: left;
+						letter-spacing: 12px;
+						position: relative;
+						left: 291px;
+						top: 20px;
+					}
+				}
+				.wrap{
+					text-align: right;
+					position: relative;
+					top: -45px;
+					left: -320px;
+				}
+			}
+			.inner2{
+				.square{
+					background:#072209;
+					z-index: -1;
+				}
+			}
+			.outer{
+				background:url('/images/adidas/2019/event/keycity/1904/1904_keycity_slidebg03.jpg');
+			}
+		}
+		&.sec4{
+			.inner1{
+				.deco{
+					top: 75px;
+				}
+				.txt{
+					top:230px;
+					p{
+						color: #fff;
+						font: 23px/25px 'adinenuPro-bold';
+						text-align: left;
+						letter-spacing: 12px;
+						position: relative;
+						left: 385px;
+						top: 20px;
+					}
+				}
+			}
+			.inner2{
+				.square{
+					background:#330015;
+				}
+			}
+			.outer{
+			background:url('/images/adidas/2019/event/keycity/1904/1904_keycity_slidebg04.jpg');
+			}
+		}
+	}
+
+
+
+
+
+	//시작
+	.visual_main{
+		position: relative;
+		height: 480px;
+		background:#fff;
+		padding-top:60px;
+		video{
+			display: block;
+			width:100%;
+			height:100%;
+		}
+	}
+
+
+	// 탭
+	.anchors{
+		position: absolute;
+		top:0;
+		height: 57px;
+		z-index: 9;
+		padding:10px 0;
+		background:#fff;
+		width:100%;
+		.wrap{
+			text-align: center;
+			position: absolute;
+			top:10px;
+			left:50%;
+			margin-left:-401.5px;
+			.tab{
+				display: inline-block;
+				padding:8px 60px;
+				text-align: center;
+				a{
+					font: 18px/18px 'adinenuPro-bold';
+					color:#000;
+					padding:10px 0;
+					display: block;
+					text-align: center;
+				}
+				&.tab1{
+					text-align: center;
+					&.on{
+						background:#000;
+						a{
+							color:#fff;
+						}
+					}
+				}
+				&.tab2{
+					text-align: center;
+					&.on{
+						background:#000;
+						a{
+							color:#fff;
+						}
+					}
+				}
+				&.tab3{
+					text-align: center;
+					&.on{
+						background:#000;						
+						a{
+							color:#fff;
+						}
+					}
+				}
+				&.tab4{
+					text-align: center;
+					&.on{
+						background:#000;
+						a{
+							color:#fff;
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	.btm{
+		position: relative;
+		height: 724px;
+		background:#000;
+		&.on{
+			.bg{
+				@include css3(opacity,1);
+			}
+			img{
+				&:first-child{
+					@include css3(opacity,1);
+					transition-delay: .6s;
+				}
+				&:nth-child(2){
+					@include css3(opacity,1);
+					transition-delay: .8s;
+				}
+				&:nth-child(3){
+					@include css3(opacity,1);
+					transition-delay: 1s;
+				}
+				&:nth-child(4){
+					@include css3(opacity,1);
+					transition-delay: 1.2s;
+				}
+				&:nth-child(5){
+					@include css3(opacity,1);
+					transition-delay: 1.4s;
+				}
+				&:nth-child(6){
+					@include css3(opacity,1);
+					transition-delay: 1.6s;
+				}
+				&:nth-child(7){
+					@include css3(opacity,1);
+					transition-delay: 1.8s;
+				}
+				&:nth-child(8){
+					@include css3(opacity,1);
+					transition-delay: 2s;
+				}
+				&:last-child{
+					@include css3(opacity,1);
+					transition-delay: 2.2s;
+				}
+			}
+			.txt{
+				@include css3(opacity,1);
+				transition-delay: 3s;
+			}
+		}
+		.bg{
+			position: absolute;
+			top: 310px;
+			left:50%;
+			transform: translateX(-50%);
+			@include css3(opacity,0);
+			@include css3(transition,all 1.5s);	
+			// z-index: -1;
+		}
+		.img{
+			position: relative;
+			width:1190px;
+			height: 580px;
+			margin:0 auto;
+			top:40px;
+			img{
+				position: absolute;
+				@include css3(opacity,0);
+				@include css3(transition,all 1s);
+				&:first-child{
+					bottom:0;
+					right:80px;
+				}
+				&:nth-child(2){
+					top:0;
+					left:20px;
+				}
+				&:nth-child(3){
+					bottom:50px;
+					left:40px;
+				}
+				&:nth-child(4){
+					top:140px;
+					left:200px;
+				}
+				&:nth-child(5){
+					top:0;
+					right:0;
+				}
+				&:nth-child(6){
+					bottom:105px;
+					right:305px;
+				}
+				&:nth-child(7){
+					top:80px;
+					right:175px;
+				}
+				&:nth-child(8){
+					top:15px;
+					right:370px;
+				}
+				&:last-child{
+					top:115px;
+					left:50%;
+					transform: translateX(-50%);
+				}
+
+			}
+		}
+		.txt{
+			position: absolute;
+			top:250px;
+			left:50%;
+			transform: translateX(-50%);
+			text-align: center;
+			@include css3(opacity,0);
+			@include css3(transition,all 1s);			
+			span{
+				color:#fff;
+				font:30px/30px 'adinenuPro-bold';
+				letter-spacing: 2px;
+
+			}
+			h1{
+				position: relative;
+				color:#fff;
+				font:90px/90px 'adinenuPro-bold';
+				text-align: center;
+				letter-spacing: 5px;
+				margin:20px 0 10px 0;
+				&::after{
+					background: #000;
+					top: 17px;
+					height: 38px;
+					left: -69px;
+					right: -74px;
+					content: '';
+					display: block;
+					clear: both;
+					position: absolute;
+					z-index: -1;
+				}
+			}
+
+		}
+	}
+	
+	
+
+
+
+}
+
+
