@@ -889,6 +889,16 @@
 				<script type="text/javascript">
 					(function ($) {
 
+						var agent = navigator.userAgent.toLowerCase();
+						if ( (navigator.appName == 'Netscape' && agent.indexOf('trident') != -1) || (agent.indexOf("msie") != -1)) {
+								// ie일 경우
+							$('.tabs .tab:first-child').css({'padding-right':21+'px'});
+							$('.tabs .tab:first-child').css({'padding-left':21+'px'});
+
+						}
+
+
+
 					var sliders = $('#sliders').Swipers({
 						width: 960,
 						height: 600,
