@@ -1,0 +1,349 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+#marvel{
+	position: relative;
+	//common
+	.button_area_v2{
+		margin-top: 25px;
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:140px;
+			font: 700 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+		}
+	}
+
+	//main
+	.main{
+		position: relative;
+		height: 870px;
+		>.bg{
+			width: 1920px;
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			img{
+				width:100%;
+			}
+		}
+		.h_box{
+			position: relative;
+			width: 1200px;
+			margin: 0 auto;
+			>div{
+				position: absolute;
+			}
+			.h_box_hero{
+				top: 56px;
+				left: 0;
+			}
+			.h_box_ball{
+				top: -50px;
+				right: 120px;
+				-webkit-animation: rotateInfi 3s infinite;
+				animation: rotateInfi 3s infinite;
+			}
+			@-webkit-keyframes rotateInfi {
+				0%, 100% { -webkit-transform: rotate(-15deg); }
+				50% { -webkit-transform: rotate(15deg); }
+			}
+		}
+		.b_box{
+			width: 960px;
+			position: absolute;
+			top:30px;
+			left:50%;
+			transform: translateX(-50%);
+			text-align: left;
+			p{
+				font: 300 16px 'NotoSansKR';
+				color: #000;
+				text-align: left;
+
+				transition: all .4s;
+				opacity: 0;
+			}
+			h3{
+				margin: 180px 0 10px 28px;
+				font: 500 18px 'NotoSansKR';
+				color: #000;
+				text-align: left;
+
+				transition: all .4s;
+				transition-delay: 0.4s;
+				opacity: 0;
+			}
+			h1{
+				font: 38px 'adinenuPro-bold';
+				color: #000;
+				text-align: left;
+				letter-spacing: 3px;
+
+				transition: all .4s;
+				transition-delay: 0.8s;
+				opacity: 0;
+			}
+			.button_area_v2{
+				transition: all .4s;
+				transition-delay: 1s;
+				opacity: 0;
+				a{
+					width: auto;
+					padding: 0 30px;
+					letter-spacing: 2px;
+				}
+			}
+		}
+		&.on{
+			.b_box{
+				>*{
+					opacity: 1;
+				}
+				.button_area_v2{
+					a{
+						span{
+							margin-left: 1rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//lookbook
+	.lookbook{
+		position: relative;
+		height: 906px;
+		.bg{
+			width: 1920px;
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			img{
+				width:100%;
+			}
+		}
+		.inner{
+			width: 960px;
+			margin: 0 auto;
+
+			.sec_taps{
+				padding: 60px 0 10px;
+				position: relative;
+				width: 960px;
+				overflow: hidden;
+				a{
+					float: left;
+					width: 234px;
+					height: 234px;
+					box-sizing: border-box;
+					text-align: center;
+					margin-right: 8px;
+					&:last-child{
+						margin: 0;
+					}
+					&.tab_h1{
+						background: url('/images/adidas/2019/event/marvel/look_tab_1.jpg') center center no-repeat;
+						transition: all 0.4s;
+						&.on {
+							border: 8px solid #eb1c24;
+							background: url('/images/adidas/2019/event/marvel/look_tab_1_on.jpg') center center no-repeat;
+						}
+					}
+					&.tab_h2{
+						background: url('/images/adidas/2019/event/marvel/look_tab_2.jpg') center center no-repeat;
+						transition: all 0.4s;
+						&.on {
+							border: 8px solid #eb1c24;
+							background: url('/images/adidas/2019/event/marvel/look_tab_2_on.jpg') center center no-repeat;
+						}
+					}
+					&.tab_h3{
+						background: url('/images/adidas/2019/event/marvel/look_tab_3.jpg') center center no-repeat;
+						transition: all 0.4s;
+						&.on {
+							border: 8px solid #eb1c24;
+							background: url('/images/adidas/2019/event/marvel/look_tab_3_on.jpg') center center no-repeat;
+						}
+					}
+					&.tab_h4{
+						background: url('/images/adidas/2019/event/marvel/look_tab_4.jpg') center center no-repeat;
+						transition: all 0.4s;
+						&.on {
+							border: 8px solid #eb1c24;
+							background: url('/images/adidas/2019/event/marvel/look_tab_4_on.jpg') center center no-repeat;
+						}
+					}
+					&:hover{
+						border: 2px solid #eb1c24;
+					}
+				}
+			}
+			
+			.sec{
+				position: relative;
+				width: 100%;
+				box-sizing: border-box;
+				.sec_con{
+					display: none;
+					position: relative;
+					left:0;
+					top:0;
+					width: 100%;
+					box-sizing: border-box;
+					&.active{
+						display: block;
+					}
+				}
+			}
+
+			.lb_slider{
+				.prev-button{
+					position:absolute;
+					top:50%;
+					left:50%;
+					margin-top: -20px;
+					margin-left: -450px;
+					transition: ease-in-out 0.3s;
+					transition-delay: 0.4s;
+					opacity: 1;
+					img{}
+				}
+				.next-button{
+					position:absolute;
+					top:50%;
+					left:50%;
+					margin-top: -20px;
+					margin-left: 415px;
+					transition: ease-in-out 0.3s;
+					transition-delay: 0.4s;
+					opacity: 1;
+					img{}
+				}
+				.indicator{
+					text-align: center;
+					position: relative;
+					padding-top: 15px;
+					a{
+						border-radius: 50%;
+						margin:0 2px;
+						width:12px;
+						height:12px;
+						display: inline-block;
+						background: #fff;
+						&.on{
+							background:#eb1c24;
+						}
+					}
+				}
+			}
+		}
+		&.on{
+			.lb_slider{
+				.prev-button{
+					margin-left: -530px;
+					opacity: 1;
+				}	
+				.next-button{
+					margin-left: 495px;
+					opacity: 1;
+				}	
+			}
+		}
+	}
+
+	//prds
+	.prds{
+		position: relative;
+		background: #fff;
+		.inner{
+			width: 1200px;
+			margin: 90px auto 120px;
+			ul{
+				// overflow: hidden;
+				li{
+					float: left;
+					margin-right: 10px;
+					transition: ease-out 0.4s;
+					opacity: 0;
+					&:nth-child(2n){
+						margin-top: -30px;
+					}
+					&:nth-child(2n-1){
+						margin-top: 30px;
+					}
+					&:last-child{
+						margin-right: 0;
+					}
+					img{
+						display: block;
+					}
+				}
+			}
+			.b_box{
+				text-align: center;
+				.button_area_v2{
+					margin: 50px 0 100px;
+					transition: all .4s;
+					transition-delay: 0.4s;
+					opacity: 0;
+					a{
+						width: auto;
+						padding: 0 30px;
+						letter-spacing: 2px;
+					}
+				}
+				p{
+					font: 300 16px 'NotoSansKR';
+					color: #000;
+					text-align: center;
+					transition: all .4s;
+					transition-delay: 0.8s;
+					opacity: 0;
+				}	
+			}
+		}
+		&.on{
+			.inner{
+				ul{
+					li{
+						opacity: 1;
+						&:nth-child(2n){
+							margin-top: 0;
+						}
+						&:nth-child(2n-1){
+							margin-top: 0;
+						}
+					}
+				}
+			}
+			.b_box{
+				.button_area_v2{
+					opacity: 1;
+				}
+				p{
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
