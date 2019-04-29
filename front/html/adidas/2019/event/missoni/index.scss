@@ -1,0 +1,376 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+// #wrap{
+// 	overflow: hidden;
+// 	min-width: 1480px;;
+// }
+#missoni{
+	position: relative;
+	background:#000;
+	// common
+	.button_area_v2{
+		display: inline-block;
+		// padding-left: 15px;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width: initial;
+			font: 700 16px/49px 'NotoSansKR';
+			letter-spacing: .5px;
+			padding: 0px 18px;
+			height: 49px;
+		}
+	}
+
+	// modal pop
+    .modal-popup-wrapper{
+        .overlay{
+            background: rgba(0, 0, 0, 0.9);
+		}
+		.popup{
+			background:none;
+			.popup-contents{
+				padding: 0;
+				background:none;
+				width: 100%;
+				height: 100%;
+				.close{
+					display: inline-block;
+					position: absolute;
+					top: -170px;
+					right: -60px;
+					width: 60px;
+					height: 60px;
+					padding: 0 10px;
+					box-sizing: border-box;
+					img{
+						width: 40px;
+						height: 40px;
+					}
+				}
+				.slider{
+					position: relative;
+					width: 100%;
+					height: 100%;                
+					ul{
+						position: relative;
+						width: 100%;
+						height: 100%;
+						&:after{
+							content: '';
+							display: block;
+							clear: both;
+						}
+						li{
+							position: absolute;
+							display: none;
+							&.on{
+								display: block;
+							}
+							&:first-child{
+								top:50%;
+								left:50%;
+								margin-top:-370px;
+								margin-left:-270px;
+							}
+							&:nth-child(2),
+							&:nth-child(3),
+							&:nth-child(4),
+							&:nth-child(5),
+							&:nth-child(6),
+							&:nth-child(7),
+							&:nth-child(8),
+							&:nth-child(9),
+							&:last-child{
+								top:50%;
+								left:50%;
+								margin-top:-260px;
+								margin-left:-390px;
+							}
+						}
+					}
+				}
+				a{
+					display: inline-block;
+					position: absolute;
+					top: 250px;
+					display: inline-block;
+					width: 60px;
+					height: 60px;
+					// text-indent: -3000px;
+					&.prev{
+						left: -85px;
+						background: url('/images/adidas/2019/event/missoni/1904_a_missoni_prev_DT.png') 0 0 no-repeat;
+					}
+					&.next{
+						right: -105px;
+						background: url('/images/adidas/2019/event/missoni/1904_a_missoni_next_DT.png') 0 0 no-repeat;
+					}
+				}
+				// .dot{
+				// 	position: absolute;
+				// 	bottom:-155px;
+				// 	left:50%;
+				// 	transform: translateX(-50%);
+				// 	text-align:center;
+				// 	span{
+				// 		display:inline-block;
+				// 		height:3px;
+				// 		width:15px;
+				// 		background:#ccc;
+				// 		margin:0 2px;
+				// 		transition: all .5s ease-out;
+				// 		&.on{
+				// 			background: red;
+				// 			width:43px;
+				// 		}
+				// 	}
+				// }
+			}
+		}
+	}
+
+	// main
+	.visual_main{
+		position: relative;
+		height: 810px;
+		&.on{
+			.img{
+				opacity: 1;
+				// -webkit-animation: blur 1s;
+			}
+			.wrap{
+				opacity: 1;
+			}
+		}
+		.img{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			z-index: 0;
+			opacity: 0;
+			transition: all 2s;
+		}
+		.wrap{
+			position: relative;
+			width:1150px;
+			margin:0 auto;
+			z-index: 1;
+			opacity: 0;
+			transition: all 1.5s ease-out;			
+			transition-delay: 1s;
+			.txt{
+				display: inline-block;
+				padding: 90px 45px 45px 45px;
+				h1{
+					font: 54px/54px 'adinenuPro-bold';
+					color:#fff;
+					
+					span{
+						font: 54px/54px 'adihaus';
+						color:#fff;
+					}
+				}
+				p{
+					font: 400 21px/21px 'NotoSansKR';
+					color:#fff;
+					// letter-spacing: 1px;
+					padding:20px 0 40px 0;
+				}
+			}
+		}
+	}
+
+	//grid
+	.grid_cont{
+		position: relative;
+		background:#000;
+		&::after{
+			display: block;
+			content:'';
+			clear:both;
+		}
+		&.on{
+			.img{
+				img{
+					opacity: 1;
+				}
+			}
+			.zoom{
+				img{
+					opacity: 1;
+					transition-delay: .6s;
+					-webkit-animation: rotates 3s; /* Safari 4.0 - 8.0 */
+					animation: rotates 3s;
+					animation-timing-function: ease-out;
+				}
+			}
+		}
+		img{
+			width:100%;
+			opacity: 0;
+			transition: all 2s;
+		}
+		.grids{
+			position: relative;
+			overflow: hidden;
+			.zoom{
+				position: absolute;
+				top: 30px;
+				right:30px;
+				z-index: 2;
+				&:hover{
+					-webkit-animation: rotates 3s infinite; /* Safari 4.0 - 8.0 */
+					animation: rotates 3s infinite;
+					animation-timing-function: ease-out;
+				}
+			}
+			.img{
+				img{
+					&:hover{
+						transform: scale(1.05);
+						transition: all 5s;
+					}
+				}
+			}
+		}
+		.sec1{
+			width:25%;
+			float:left;
+		}
+		.sec2{
+			width:75%;
+			float: left;
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			.grid2,.grid3,.grid4,.grid5{
+				width:33.3%;
+				float: left;
+			}
+			.grid6{
+				width:66.7%;
+				float: left;
+			}
+		}
+		.sec3{
+			float: left;
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			.grids{
+				width:25%;
+				float: left;
+			}
+		}
+	}
+	// @-webkit-keyframes blur {
+	// 	0%, 100%  { -webkit-filter: blur(0px); }
+	// 	50% { -webkit-filter: blur(10px); }
+	// }
+	@-webkit-keyframes rotates {
+		to {transform: rotate(0deg)}
+		from {transform: rotate(180deg)}
+	}
+	@-webkit-keyframes effect {
+		0% {
+			transform: rotate(0deg)
+		}
+		25% {
+			transform: rotate(3.3deg)
+		}
+		50% {
+			transform: rotate(0deg)
+		}
+		75% {
+			transform: rotate(-3.3deg)
+		}
+		100% {
+			transform: rotate(0deg)
+		}
+	}
+
+
+	//video
+	.video{
+		position: relative;
+		height: 750px;
+		&.on{
+			.img{
+				opacity:1;
+			}
+			a{
+				opacity: 1;
+				img{
+					-webkit-animation: effect 1s; /* Safari 4.0 - 8.0 */
+					animation: effect 1s;
+					animation-timing-function: ease-out;
+					animation-delay: 1s; 
+				}
+			}
+		}
+		.img{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			video{
+				width:100%;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transform: none;
+			}
+		}
+		a{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+			opacity: 0;
+			transition: all 1s;
+			transition-delay: .7s;
+			img{
+				&:hover{
+					-webkit-animation: effect 1s infinite; /* Safari 4.0 - 8.0 */
+					animation: effect 1s infinite;
+					animation-timing-function: ease-out;
+				}
+			}
+		}
+	}
+
+	.footer{
+		position: relative;
+		height:290px;
+		.img{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+		}
+	}
+}
