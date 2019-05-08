@@ -1,0 +1,166 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#climacool_cp{
+	position: relative;
+	//common
+	.button_area_v2{
+		margin-top: 25px;
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:148px;
+			font: 700 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+		}
+	}
+	.main_visual{
+		position: relative;
+		height:800px;
+		background: #f2f2f2;
+		.main_bg{
+			position: absolute;
+			top:0;
+			left: 50%;
+			margin-left: -960px;
+			img{
+				position: absolute;
+				top:0;
+				left:0;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.5s ease-in);
+				&.on{
+					@include css3(opacity,1);
+
+				}
+			}
+		}
+		.inn_main{
+			width: 1190px;
+			margin:0 auto;
+			text-align: center;
+			.button_area_v2{
+				margin-top:630px;
+			}
+		}
+	}
+
+	.usp_section{
+		position: relative;
+		height:835px;
+		background: url('/images/adidas/2019/event/clima/usp_bg.png') no-repeat;
+		h2{
+			position: relative;
+			z-index: 2;
+			text-align: center;
+			padding: 58px 0 53px;
+			overflow: hidden;
+		}
+		.bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left: -960px;
+			&.inner{
+				top:150px;
+			}
+		}
+		&.on{
+			.inn{
+				.shoes_left{
+					left:-250px;
+					@include css3(opacity,1);
+
+				}
+				.usp1{
+					top:5px;
+					@include css3(opacity,1);
+				}
+				.usp2{
+					bottom: 5px;
+					@include css3(opacity,1);
+				}
+				.usp3{
+					top:5px;
+					@include css3(opacity,1);
+				}
+			}
+			@media screen and (max-width:1480px){
+				.inn{
+					.shoes_left{
+						left:-100px;
+	
+					}
+					.usp1{
+						left:130px;
+					}
+					.usp3{
+						right: 30px;
+					}
+				}
+			}
+		}
+
+		.inn{
+			position: relative;
+			// top:150px;
+			height:540px;
+
+			width:1190px;
+			margin:0 auto;
+			img{
+
+			}
+			.shoes_left{
+				position: absolute;
+				top:5px;
+				left:-100px;
+				z-index: 2;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.45s ease-in);
+			}
+			.usp1{
+				position: absolute;
+				top:-15px;
+				left:94px;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.2s ease-out);
+				transition-delay: 1s;
+			}
+			.usp2{
+				position: absolute;
+				bottom: -10px;
+				left: 253px;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.2s ease-out);
+				transition-delay: 1.3s;
+			}
+			.usp3{
+				position: absolute;
+				top:-10px;
+				right:-76px;
+				@include css3(opacity,0);
+				@include css3(transition, all 0.2s ease-out);
+				transition-delay: 1.5s;
+			}
+		}
+	}
+}
