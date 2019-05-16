@@ -1,0 +1,293 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+#football{
+	position: relative;
+
+	//common
+	.button_area_v2{
+		margin-top: 18px;
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:140px;
+			font: 700 14px/50px 'NotoSansKR';
+			letter-spacing: 1px;
+		}
+	}
+
+	//main
+	.visual_main{
+		position: relative;
+		height: 800px;
+		.img{
+			@include css3(transition,all 1s);
+			&.on{
+				@include css3(opacity,1);
+			}
+		}
+		.img{
+			position: absolute;
+			top:0;
+			left: 50%;
+			transform: translateX(-50%);
+			@include css3(opacity,0);
+			z-index: -1;
+			video{
+				// width: 100%;
+			}
+		}
+		.head{
+			margin: 260px auto 0;
+			padding-top: 12px;
+			width: 1140px;
+			height: 75px;
+			background: #fff;
+			z-index: 1;
+			h1{
+				text-align: center;
+ 				font:30px/30px 'adihaus-bold';
+				color:#000;
+			}
+		}
+		.txt{
+			width:960px;
+			margin:0 auto;
+			padding-top:310px;
+			z-index: 1;
+			h1{
+				font: 600 38px/38px 'NotoSansKR';
+				color:#fff;
+			}
+			p{
+				font: 300 18px/23px 'NotoSansKR';
+				color:#fff;
+				margin:15px 0 30px;
+			}
+		}
+	}
+
+	//tabs
+	.tabs{
+		position: relative;
+		width: 1920px;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		background: url('/images/adidas/2019/event/football/0515/tab_bg.jpg') 0 0 no-repeat;
+		.wrap{
+			background: #ebedee;
+			width:1065px;
+			margin: 0 auto;
+			text-align: center;
+			span{
+				display: inline-block;
+				padding:20px 42px;
+				font:16px/12px 'adihaus';
+				color:#000;
+				cursor:pointer;
+				em{
+					display: block;
+					opacity: 0;
+					border:1px solid #757677;
+					&.on{
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+
+	//contents
+	.contents{
+		position: relative;
+		height: 4781px;
+		background: #000;
+		.cont{
+			position: absolute;
+			// display: none;
+			@include css3(opacity,0);
+			@include css3(transition,all 1s);
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			z-index: 1;
+			&.on{
+				// display: block;
+			@include css3(opacity,1);
+			}
+			.wrapper{
+				position: relative;
+				>div{
+					position: relative;
+					>.img{
+						// position: absolute;
+						// top: 0;
+						// left: 50%;
+						// margin-left: -50%;
+						width: 1920px;
+						margin: 0 auto;
+						img{
+							width: 100%;
+						}
+					}
+					>.inner{
+						width: 960px;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						>.txt{
+							h1{
+								font: 600 30px/30px 'adinenuPro-bold';
+								color:#fff;
+							}
+							p{
+								font: 300 16px/28px 'NotoSansKR';
+								color:#fff;
+								margin: 10px 0 20px 0;
+							}
+						}
+					}
+				}
+				.cont_1{
+					>.inner{
+						width: 960px;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						>.txt{
+							h1{
+								font: 600 30px/30px 'adinenuPro-bold';
+								color:#fff;
+								text-align: center;
+							}
+							p{
+								font: 300 16px/28px 'NotoSansKR';
+								color:#fff;
+								margin: 20px 0;
+								text-align: center;
+							}
+						}
+					}
+				}
+				.cont_2{
+					&.football_x{
+						
+					}
+					&.football_predator{
+
+					}
+					&.football_nemeziz{
+						
+					}
+					&.football_copa{
+						
+					}
+				}
+				.cont_3{
+					>.inner{
+						width: 960px;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(18%, -50%);
+						>.txt{
+							
+						}
+					}
+				}
+				.cont_4{}
+				.cont_video{
+					overflow: hidden;
+					height: 860px;
+					a{
+						display: block;
+					}
+				}
+			}
+		}
+	}
+
+	.banner{
+		width:1300px;
+		margin:0 auto;
+		padding-top: 100px;
+		// margin-bottom: 150px;
+		position: relative;
+		height: 700px;
+		z-index: 2;
+		.bg{
+			ul{
+				li{
+					position: absolute;
+					top:0;
+					left:50%;
+					transform: translateX(-50%);
+					@include css3(opacity,0);
+					z-index: -1;
+					img{
+						display: none;
+					}
+					&.on{
+					@include css3(opacity,1);
+					}
+				}
+			}
+		}
+		.wrap{
+			&.wrap1{
+				.inner{
+					margin: 0 10px 20px;
+					&:nth-child(2n-1){
+						margin-left:0;
+					}
+					&:nth-child(2n){
+						margin-right: 0;						
+					}
+				}
+			}
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			.inner{
+				position: relative;
+				float:left;
+				.img{
+					img{
+						width:100%;
+					}
+				}
+				.txt{
+					position:absolute;
+					bottom:20px;
+					left:50%;
+					transform: translateX(-50%);
+					text-align: center;
+					h1{
+						font: 600 20px/30px 'NotoSansKR';
+						color:#fff;
+						letter-spacing: 1px;
+					}
+				}
+			}
+		}
+	}
+}
