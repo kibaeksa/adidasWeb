@@ -749,7 +749,8 @@
 									<img src="/images/reebok/2019/event/boston/1905_r_bostontrackclub_section_DT.jpg" alt="">
 								</div>
 								<div class="play center">
-									<a href="javascript:void(0)" id="ready_v" class="play-video" data-video-id="BABKH7plMMQ">
+									<!-- <a href="javascript:void(0)"onclick="openModalVideoViewer('BABKH7plMMQ')"> -->
+											<a href="javascript:void(0)" id="ready_v" class="play-video" data-video-id="BABKH7plMMQ">
 										<img src="/images/reebok/2019/event/boston/1905_r_bostontrackclub_play_DT.png" alt="">
 									</a>
 								</div>
@@ -997,48 +998,6 @@
 							});
 							return false;
 						}
-						
-						function initVideo(targetId , videoSrc){
-						if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
-							$('.visual_video .video_bg').hide();
-							$('.visual_video .bg').animate({
-								opacity : 1
-							});
-							$('.visual_video .masthead').animate({
-								opacity:1
-							});
-						}
-						
-						var elemVideo = document.createElement('video');
-						var elemSource = document.createElement('source');
-						var targetElem = document.getElementById(targetId);
-						
-						elemVideo.autoplay = true;
-						elemVideo.loop = true;
-						elemVideo.muted = true;
-						
-						elemSource.src = videoSrc;
-						elemSource.type = 'video/mp4';
-						elemVideo.appendChild(elemSource);
-						
-						elemVideo.onloadstart = function(){
-							targetElem.appendChild(elemVideo);
-							setTimeout(function(){
-								elemVideo.setAttribute('class','loaded');
-								setTimeout(function(){
-									elemVideo.play();
-									$('.visual_video .masthead').addClass('active');
-								},100)
-							},500);
-						
-						}
-						
-						elemVideo.onended = function(){
-							this.parentNode.parentNode.removeChild(this.parentNode);
-							}
-						}
-						// 짤방영상
-						initVideo('video-background' , '/images/reebok/event/about/insta_pury/video.mp4');
 
 					})(jQuery);
 				</script>
