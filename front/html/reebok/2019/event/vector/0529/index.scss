@@ -1,0 +1,81 @@
+@import "./front/css/reebok/scss/about.scss";
+#wrap{
+    overflow: hidden;
+    min-width: 980px;
+}
+#contents_wrap{padding: 0;}
+html,body{
+    height: 100%;
+}
+.campaign_zico{
+    // common_btn
+    .visual_main{
+        background:url('/images/reebok/2019/event/vector/0529/1905_r_vectorcity_bg_DT.jpg') 100% 100% no-repeat;
+        background-size: cover;
+        position: relative;
+        height: 1478px;
+        &.on{
+            .img{
+                @include opacity(1);
+                top:260px;
+            }
+            .txt{
+                @include opacity(1);
+            }
+        }
+        .txt, .img{
+            position: absolute;
+            left:50%;
+            transform: translateX(-50%);
+        }
+        .txt{
+            top:55px;
+            text-align: center;
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            @include prefix-css3(transition-delay,.8s);
+            h1,p,span,em{
+                color:#fff;
+                text-align: center;
+            }
+            h1{
+                font:70px/70px 'PFDinMonoPro-Bold';
+                letter-spacing: 5px;
+            }
+            p{
+                font:400 30px/30px 'NotoSansKR';
+                letter-spacing: 2px;
+                margin: 10px 0 30px;
+            }
+            span{
+                font:400 18px/18px 'NotoSansKR';
+                position: relative;
+                z-index: 1;
+                letter-spacing: 1px;
+                em{
+                font:21px/21px 'PFDinMonoPro-Bold';
+
+                }
+                &::after{
+                    display: block;
+                    content:'';
+                    clear:both;
+                    position: absolute;
+                    top:-5px;
+                    bottom:-5px;
+                    left:-45px;
+                    right:-45px;
+                    background:rgba(0,0,0,0.59);
+                    z-index: -1;
+                }
+            }
+        }
+        .img{
+            @include opacity(0);
+            // @include prefix-css3(transition ,opacity 1s ease-in);
+            @include prefix-css3(transition, all 1s ease-out);
+            top:290px;
+        }
+    }
+}
+//end
