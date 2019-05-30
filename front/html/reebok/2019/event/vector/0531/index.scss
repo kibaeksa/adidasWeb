@@ -1,0 +1,406 @@
+@import "./front/css/reebok/scss/about.scss";
+#wrap{
+    overflow: hidden;
+    min-width: 980px;
+}
+#contents_wrap{padding: 0;}
+html,body{
+    height: 100%;
+}
+.campaign_zico{
+    // common_btn
+    background:#000;
+    span{
+        display: inline-block;
+    }
+    .txt{
+        text-align: center;
+        position: absolute;
+        left:50%;
+        top:50%;
+    }
+    .img{
+        img{
+            width:100%;
+            position: relative;
+            height: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    .btn{
+        text-align: center;
+        a{
+            font: 700 14px/47px 'NotoSansKR';
+            color:#fff;
+            padding:0 20px;
+            border:2.5px solid #fff;
+            display: inline-block;
+            letter-spacing: 2px;
+            img{
+                padding-left:20px;
+            }
+        }
+    }
+    .masthead{
+        text-align: center;
+        .play-video{
+            left: 50%;
+            transform: translateX(-50%);
+            border:0;
+            background:url('/images/reebok/2019/event/vector/0531/1905_r_vectorcity_play_DT.png') 100% 100% no-repeat;
+            border-radius: 0;
+            &::after{
+                border:0;
+            }
+        }
+    }
+
+    .visual_main{
+        position: relative;
+        // height: 1070px;
+        &.on{
+            .vid{
+                @include opacity(1);
+            }
+            .txt{
+                @include opacity(1);
+                margin-top: -113px;
+            }
+        }
+        .vid{
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            video{
+                width:100%;
+                position: relative;
+                height: auto;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+        .txt{
+            margin-left: -324.5px;
+            margin-top: -80px;
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            @include prefix-css3(transition-delay,.8s);
+            h1{
+                font: 90px/90px 'PFDinMonoPro-Bold';
+                color:#fff;
+                letter-spacing: 5px;
+                text-shadow: 4px 4px 1px #000;
+            }
+            span{
+                font: 30px/30px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 2px;
+                text-shadow: 4px 4px 1px #000;
+                margin: 5px 0 30px;
+            }
+        }
+    }
+    .aside{
+        position: relative;
+        height: auto;
+        &.on{
+            .img{
+                @include opacity(1);
+            }
+            .txt{
+                @include opacity(1);
+                margin-top: -83px;
+            }
+        }
+        .img{
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+        }
+        .txt{
+            position: absolute;
+            margin-left: -352px;
+            margin-top: -50px;
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            @include prefix-css3(transition-delay,.8s);
+            span{
+                font: 500 18px/18px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 3px;
+            }
+            h2{
+                font: 500 46px/46px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 3px;
+                margin: 20px 0 30px 0;
+            }
+        }
+    }
+    .sliders_wrap{
+        position: relative;
+        @include opacity(0);
+        @include prefix-css3(transition, all 1s ease-out);
+        &.on{
+            @include opacity(1);
+        }
+        #sliders{
+            margin: 0 auto;
+            padding-top: 45px;
+        }
+        .navi{
+            width:634px;
+            height:92px;
+            margin:0 auto;
+            text-align: center;
+            &::after{
+                display: block;
+                content:'';
+                clear:both;
+            }
+            p{
+                text-align: center;
+                font: 30px/30px 'PFDinMonoPro-Bold';
+                color:#fff;
+                letter-spacing: 5px;
+                display: inline-block;
+                padding:30px 0;
+                em{
+                    color:#9353c6;
+                }
+                span{
+                    color:#fff;
+                }
+            }
+            .prev-button{
+                float: left;
+                padding:32px 0;
+            }
+            .next-button{
+                float:right;
+                padding:32px 0;
+            }
+        }
+        .indicator{
+            position: relative;
+            display: block;
+            text-align: center;
+            margin-top: 35px;
+            a{
+                display: inline-block;
+                width:10px;
+                height:10px;
+                background:#666670;
+                border-radius: 50%;
+                margin:0 2px;
+                &.on{
+                    background:#fff;
+                }
+            }
+        }
+        &.sliders01{
+            background:url('/images/reebok/2019/event/vector/0531/1905_r_vectorcity_bg01_DT.jpg') no-repeat;
+            background-size: 100% 100%;
+            height: 1160px;
+            .bg{
+                position: relative;
+                img{
+                    position: absolute;
+                    @include opacity(0);
+                    @include prefix-css3(transition, all 1s ease-out);
+                    // @include prefix-css3(transition-delay,.8s);
+                    &:first-child{
+                        top:150px;
+                        left:50%;
+                        margin-left: -730px;
+                    }
+                    &:nth-child(2){
+                        top:150px;
+                        left:50%;
+                        margin-left: -730px;
+                    }
+                    &:last-child{
+                        top:150px;
+                        left:50%;
+                        margin-left: -500px;
+                    }
+
+                    &.on{
+                    @include opacity(1);
+                    }
+                }
+            }
+            #sliders{
+                ul{
+                    li{
+                        position: relative;
+                        >img{
+                            position: absolute;
+                            z-index: 2;
+                        }
+                    }
+                }
+            }
+            .btn_wrap{
+                .btn{
+                    position: absolute;
+                    left:50%;
+                    z-index:3;
+                    background:rgba(0,0,0,0.61);
+                    @include opacity(0);
+                    @include prefix-css3(transition, all 1s ease-out);
+                    &.on{
+                        @include opacity(1);
+                    }
+                    &:first-child{
+                        bottom: 187px;
+                        margin-left:373px;
+                    }
+                    &:nth-child(2){
+                        bottom: 195px;
+                        margin-left: 272px;
+                    }
+                    &:last-child{
+                        bottom: 400px;
+                        margin-left: -360px;
+                    }
+                }
+            }
+        }
+        &.sliders02{
+            background:url('/images/reebok/2019/event/vector/0531/1905_r_vectorcity_bg02_DT.jpg') no-repeat;
+            background-size: 100% 100%;
+            height: 1101px;
+            #sliders{
+                position: absolute;
+                top:45px;
+                left:50%;
+                margin-left: -600px;
+                padding-top: 0;
+            }
+            .txt{
+                position: absolute;
+                margin-top: -100px;
+                margin-left: 320px;
+                h4{
+                    font: 30px/40px 'PFDinMonoPro-Bold';
+                    color:#fff;
+                    letter-spacing: 5px;
+                    text-shadow: 4px 4px 1px #000;
+                }
+                .btn{
+                    text-align: left;
+                    margin:30px 0 60px 0;
+                }
+                .indicator{
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .midvid{
+        position: relative;
+        &.on{
+            .video_bg{
+                @include opacity(1);
+            }
+            .txt{
+                @include opacity(1);
+                margin-top: -80.5px;
+            }
+        }
+        .video_bg{
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            video{
+                width:100%;
+                position: relative;
+                height: auto;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+        .txt{
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            @include prefix-css3(transition-delay,.8s);
+            margin-left: -180px;
+            margin-top: -30.5px;
+            h3{
+                font: 30px/40px 'PFDinMonoPro-Bold';
+                color:#fff;
+                letter-spacing: 2px;
+                text-shadow: 4px 4px 1px #000;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .btm{
+        position: relative;
+        height: 580px;
+        background:#00dacd;
+        &.on{
+            .btm_img{
+                @include opacity(1);
+            }
+            .txt{
+                @include opacity(1);
+                transform: translateY(-34%);
+            }
+        }
+        .btm_img{
+            position: absolute;
+            top:0;
+            left:50%;
+            transform: translateX(-50%);
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+           img{
+                // width: initial!important;
+                // position: static;
+                // height: auto;
+                // top: initial;
+                // right: initial;
+                // bottom: initial;
+                // left: initial;
+           }
+        }
+        .txt{
+            margin-left: -28px;
+            transform: translateY(0);
+            text-align: left;
+            @include opacity(0);
+            @include prefix-css3(transition, all 1s ease-out);
+            @include prefix-css3(transition-delay,.8s);
+            h5{
+                font: 900 50px/50px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 3px;
+                em{
+                    font: 900 50px/50px 'NotoSansKR';
+                    color:#98ffff;
+                    letter-spacing: 3px;
+                    margin:15px 0;
+                }
+            }
+            span{
+                font: 900 21px/21px 'NotoSansKR';
+                color:#fff;
+                letter-spacing: 3px;
+                margin: 20px 0 30px 0;
+            }
+            .btn{
+                text-align: left;
+            }
+        }
+    }
+}
+//end
