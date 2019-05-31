@@ -1603,15 +1603,6 @@
 			</div>
 
 			<script>
-				// brand 팝업
-				$('.btn_pop_adi').on('click',function(){
-					$('.brand_popup_adidas').addClass('open');
-				});
-				$('.btn_pop_ree').on('click',function(){
-					$('.brand_popup_reebok').addClass('open');
-				});
-				
-
 				// thumb 슬라이드
 				var sliders = $('#sliders').Swipers({
 					width: 960,
@@ -1632,6 +1623,18 @@
 
 				$('.indicator a').bind('click', function () {
 					sliders.move($(this).index());
+				});
+
+				$('document').ready(function () {
+					// brand 팝업
+					$('.btn_pop_adi').on('click', function () {
+						// $('window').on('mousewheel', function (e) { e.preventDefault() });
+						// $('window').on('mousewheel', false);
+						$('.brand_popup_adidas').addClass('open');
+					});
+					$('.btn_pop_ree').on('click', function () {
+						$('.brand_popup_reebok').addClass('open');
+					});
 				});
 
 				//스크롤 이벤트
