@@ -1,0 +1,241 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2 div{position: relative;}
+.button_area_v2 div div.bg{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transform: translate(3px,3px);
+	-webkit-transform: translate(3px,3px);
+	box-shadow: inset 0 0 0 1px #000;
+	-webkit-box-shadow: inset 0 0 0 1px #000;
+}
+.button_area_v2 div.white div.bg{
+	box-shadow: inset 0 0 0 1px #fff;
+	-webkit-box-shadow: inset 0 0 0 1px #fff;
+}
+.button_area_v2 div a{
+	position: relative;
+	display: block;
+    text-align: center;
+    height: 50px;
+    font: 500 15px/49px 'NotoSansKR';
+    color: #fff;
+    background: #000;
+	z-index: 2;
+}
+.button_area_v2 div.white a{color: #000;background: #fff;}
+.button_area_v2 div a span.arrow{
+	position: relative;
+	top:-1px;
+	display: inline-block;
+	margin-left: 20px;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    vertical-align: middle;
+}
+.button_area_v2 div.white a span.arrow{background: #000;}
+.button_area_v2 div a span.arrow em{
+	position: absolute;
+    right: 0;
+    width: 8px;
+    height: 3px;
+    background: #fff;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.button_area_v2 div.white a span.arrow em{background: #000;}
+.button_area_v2 div a span.arrow em.top{top:-3px;}
+.button_area_v2 div a span.arrow em.bottom{bottom: -3px;transform: rotate(-45deg);-webkit-transform: rotate(-45deg);}
+.ie8 .button_area_v2 div a span.arrow em.top{
+	top:-5px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=-0.70710678, M21=0.70710678, M22=0.70710678,sizingMethod='auto expand')";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=-0.70710678, M21=0.70710678, M22=0.70710678,sizingMethod='auto expand');
+}
+.ie8 .button_area_v2 div a span.arrow em.bottom{
+	bottom:-1px;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678,sizingMethod='auto expand')";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678,sizingMethod='auto expand');
+}
+
+.nano_cp{
+    .button_area_v2{
+        display: inline-block;
+        width:142px;
+    }
+
+    .main{
+        position: relative;
+        height: 849px;
+        overflow: hidden;
+        
+        .inn{
+            padding:745px 0 0 0;
+            text-align: center;
+        }
+        .imgbg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+    }
+
+    .gif_section{
+        position: relative;
+        // height: 734px;
+        img{
+            width:100%;
+            // position: absolute;
+            // top:0;
+            // left:50%;
+            // margin-left: -960px;
+        }
+    }
+
+    .slide_lineup{
+        position: relative;
+        width: 100%;
+        background: #f2f4f7;
+        text-align: center;
+        h1{
+            position: relative;
+            text-align: center;
+            padding: 70px 0 35px 0;
+            span{
+                position: absolute;
+                left: 50%;
+                margin-left: -961px;
+                top: 72px;
+                display: inline-block;
+                width: 836px;
+                height: 42px;
+                background: #ffe72c;
+            }
+        }
+        .wrap{
+            position: relative;
+            padding:40px 0 0 0;
+            text-align: center;
+            .btm_logo{
+                padding:50px 0;
+                text-align: center;
+            }
+            .imgbg{
+                position: absolute;
+                bottom:0;right:0;
+            }
+        }
+
+        .wide-slider-wrapper{
+            position: relative;
+            width: 100%;
+            height:544px;
+            left: inherit;
+            margin-left:inherit;
+            z-index: 1;
+            overflow: hidden;
+            .arrow-prev{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-top: -13px;
+                margin-left: -496px;
+                background-position: -125px -80px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            .arrow-next{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-top: -13px;
+                margin-left:488px;
+                background-position: -125px -125px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            ul{
+                position: absolute;
+                top:0;
+                width: 100%;
+                height: 550px;
+                li{
+                    width: 962px;
+                    position: relative;
+                    float: left;
+                    text-align: center;
+                    @include opacity(1);
+                    @include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+                    img{
+                        display: inline-block;
+                        width:99%;
+                    }
+                }
+                li.active{
+                    @include opacity(1);
+                    @include prefix-css3(transition ,ease-in 0.3s);
+                    &::after{
+                        content: '';
+                        display: none;
+                    }
+                }
+            }
+        }
+        .indicator{
+            padding: 33px 0;
+            text-align: center;
+            a{
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border:2px solid #000;
+                margin: 0 2px;
+                &.on{
+                    background: #000;
+                }
+            }
+        }
+        .btn_wrap{
+            width:510px;
+            margin:0 auto;
+            text-align: center;
+            padding-bottom:60px;
+            .btn{
+                display: inline-block;
+                border:1px solid #fff;
+                margin:0 8px;
+                a{
+                    display: block;
+                    font: 700 17px/55px 'NotoSansKR';
+                    color:#fff;
+                    padding: 0 60px;
+                    letter-spacing: 1px;
+                    img{
+                        padding-left: 13px;
+                    }
+                }
+                &:nth-of-type(2){
+                    a{
+                        padding: 0 38px;
+                    }
+                }
+            }
+        }
+    }
+
+}
