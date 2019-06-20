@@ -1,0 +1,189 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+#ozweego{
+	position: relative;
+
+	.button_area_v2{
+		cursor: pointer;
+	}
+
+	.main{
+		position: relative;
+		height: 794px;
+		video{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	.statement{
+		position: relative;
+		background : #cfdc00;
+		.inner{
+			width: 1200px;
+			margin: 0 auto;
+			padding: 40px 0 50px;
+			color: #000;
+			text-align: center;
+			h2{
+				font:38px 'adinenuPro-bold';
+				letter-spacing: 2px;
+				text-align: center;
+			}
+			p{
+				font:16px 'NotoSansKR';
+				text-align: center;
+			}
+			.button_area_v2{
+				display: inline-block;
+				margin-top: 20px;
+				a{
+					padding: 0 20px;
+				}
+			}
+		}
+	}
+
+	.box1{
+		position: relative;
+		padding: 0 0 60px;
+		background : #cfdc00;
+		&.on{
+			ul{
+				li{
+					img{
+						margin-left: 0;
+						@include css3(opacity,1);
+					}
+				}
+			}
+			p{
+				@include css3(opacity,1);
+			}
+		}
+		ul{
+			overflow: hidden;
+			width: 1200px;
+			margin: 0 auto;
+			li{
+				overflow: hidden;
+				float: left;
+				width: 24%;
+				margin-right: 1.3333%;
+				&:last-child{
+					margin-right: 0;
+				}
+				&:nth-child(1) img{}
+				&:nth-child(2) img{transition-delay: .1s;}
+				&:nth-child(3) img{transition-delay: .2s;}
+				&:nth-child(4) img{transition-delay: .3s;}
+				img{
+					margin-left: -100%;
+					display: block;
+					width: 100%;
+					transition: all .3s;
+					
+				}
+			}
+		}
+		p{
+			padding-top: 60px;
+			font: 600 22px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+			@include css3(opacity,0);
+			transition : ease-in .4s;
+			transition-delay: .5s;
+		}
+	}
+
+	.box2{
+		position: relative;
+		height: 733px;
+		background: url("/images/adidas/2019/event/originals/ozweego/tech_bg.jpg") center 100% no-repeat; 
+		&.on{
+			.tech_con{
+				ul{
+					li{
+						@include css3(opacity,1);
+					}
+				}
+			}
+		}
+		.tech_con{
+			width: 1200px;
+			height: 653px;
+			margin: 0 auto;
+			background: url("/images/adidas/2019/event/originals/ozweego/tech_bg_con.jpg") center 100% no-repeat;
+			text-align: center;
+			ul{
+				display: inline-block;
+				width: 800px;
+				li{
+					float: left;
+					transition: .4s;
+					opacity: 0;
+					&:nth-child(1){transition-delay: .2s;}
+					&:nth-child(2){transition-delay: .4s;}
+					&:nth-child(3){transition-delay: .6s;}
+					img{
+						display: inline-block;
+					}
+				}
+			} 
+		}
+	}
+
+	.bot{
+		position: relative;
+		height: 1000px;
+		&.on{
+			.inner{
+				.buy_box{
+					padding-top: 400px;
+					@include css3(opacity,1);
+				}
+			}
+		}
+		.bg_img{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: -1;
+		}
+		.inner{
+			width: 1200px;
+			margin: 0 auto;
+			padding: 40px 0 50px;
+			color: #000;
+			text-align: left;
+			.buy_box{
+				padding-top: 430px;
+				transition: .4s;
+				transition-delay: .6s;
+				opacity: 0;
+				h2{
+					font:38px 'adinenuPro-bold';
+					letter-spacing: 2px;
+					text-align: left;
+				}
+				p{
+					font:16px 'NotoSansKR';
+					text-align: left;
+				}
+				.button_area_v2{
+					display: inline-block;
+					margin-top: 20px;
+					a{
+						padding: 0 20px;
+					}
+				}
+			}
+		}
+	}
+}
