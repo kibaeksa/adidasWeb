@@ -14,6 +14,7 @@ var sass = require('gulp-sass');
 var inject = require('gulp-inject-string');
 var nodeSass = require('node-sass');
 var rename = require('gulp-rename');
+var fileinclude = require('gulp-file-include');
 
 // for parameter from CLI
 var args = require('yargs').argv;
@@ -171,4 +172,13 @@ gulp.task('watch',function(){
 
 gulp.task('default',['server','watch'],function(){
     // frontJs.init();
+});
+
+gulp.task('fileinclude', function () {
+    gulp.src(['./front/html/adidas/*.html'], { base: './' })
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(gulp.dest('./'));
 });
