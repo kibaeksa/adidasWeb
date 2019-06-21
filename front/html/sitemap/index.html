@@ -1,0 +1,190 @@
+<html>
+    <head>
+        <title>Something</title>
+        <meta charset='utf-8' />
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    </head>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+
+        a{
+            text-decoration: none;
+        }
+        ul,li{
+            list-style: none;
+        }
+        body {
+            background-color: #2c3e50;
+        }
+        .btn {
+            cursor: pointer;
+        }
+        .clicked {
+            color: #7f8c8d;
+        }
+        body h1.powered{
+            position: absolute;
+            bottom:25px;
+            right:25px;
+            font:700 15px/15px 'Noto Sans KR', sans-serif;
+            color:#fff;            
+        }
+        .layer{
+            background: rgba(0,0,0,.2);
+            position: relative;
+            width:100%;
+            height:100%;
+        }
+        .contents{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: calc(-735px/2);
+            margin-left: calc(-864px/2);
+
+        }
+        .js-clock{
+         color: #fff;
+         font-size:3rem;
+        }
+        .js-clock h1,.js-form,.js-toDoForm,.greetings{
+            text-align: center;
+        }
+        .greetings{
+            font:700 25px/25px 'Noto Sans KR', sans-serif;
+            padding:1rem 0;
+            color:#fff;
+        }
+        .js-toDoForm{
+            padding-bottom: 1rem;
+        }
+        .js-toDoList button{
+            border:0;
+            background:none;
+            color:rgb(189, 11, 11);
+        }
+        .js-toDoList li{
+            padding-left: 6.5rem;
+        }
+        .js-toDoList span{
+            color: #fff;
+            font: 700 20px/20px 'Noto Sans KR', sans-serif;
+        }
+        .form,
+        .greetings {
+            display: none;
+        }
+        .showing {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .bgImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .top_momentum{
+            position:relative;
+            height:500px;
+        }
+        .top_momentum .inner_cont{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: calc(-165px/2);
+            margin-left: calc(-384.09px/2);
+        }
+
+        .nav{width:800px;margin:0 auto;background: rgba(0,0,0,.7);padding: 2rem;}
+        ul.outer{display: flex;justify-content: space-around;}
+        ul.outer::after{display: block;content:'';clear:both;}
+        ul.outer>li{float:left;padding-left: 3.5rem!important;}
+        ul.outer>li a{font: 700 15px/15px 'Noto Sans KR', sans-serif;color:#fff;display: inline-block;padding-bottom: 1rem;letter-spacing: 2px;}
+        ul.outer>li a:hover,ul.outer>li ul li:hover a{color:tomato;}
+    </style>
+
+     <body>
+        <h1 class="powered">SANTEL</h1>
+        <!-- made by SYG -->
+        <div class="layer"></div>
+        <div class="contents">
+            <div class="top_momentum">
+                <div class="inner_cont">
+                    <div class="js-clock">
+                        <h1>00:00</h1>
+                    </div>
+                    <form class="js-form form">
+                        <input type="text" placeholder="이름을 적어주세요." />
+                        <!-- <input type="text" placeholder="What is your name?" /> -->
+                    </form>
+                    <h4 class="js-greetings greetings"></h4>
+                    <form class="js-toDoForm">
+                        <input type="text" placeholder="오늘 뭐 할거에요?" />
+                        <!-- <input type="text" placeholder="Write a to do" /> -->
+                    </form>
+                    <ul class="js-toDoList"></ul>
+                </div>
+            </div>
+            <div class="nav">
+                <ul class="outer">
+                    <li>
+                        <a href="https://shop.adidas.co.kr/adiMain.action">아디다스 KR</a>
+                        <ul>
+                            <li><a href="https://www.adidas.co.uk/">아디다스 UK</a></li>
+                            <li><a href="https://shop.adidas.jp/">아디다스 JP</a></li>
+                            <li><a href="https://www.adidas.com.cn/">아디다스 CN</a></li>
+                            <li><a href="https://www.adidas.com/us">아디다스 US</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://shop.reebok.co.kr/reeMain.action">리복 KR</a>
+                        <ul>
+                            <li><a href="https://www.reebok.com/us">리복 US</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="http://bos.adidas.co.kr/main.action">백오피스</a>
+                        <ul>
+                            <li><a href="https://dab.adidas.com/App">DAB</a></li>
+                            <li><a href="https://marvin.adidas-group.com/">마빈</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://docs.google.com/spreadsheets/d/1cd8B677YzPA3F63PrDl74ssvHMf6rrSUJORkscAT5jQ/edit?ts=56123bb9#gid=0">샌텔 구글시트</a>
+                        <ul>
+                            <li><a href="https://docs.google.com/spreadsheets/d/1mznRJAvogBsS5__q1nWFMxrx-K59DAHRxW8R0b4LifI/edit#gid=0">아디다스 구글시트</a></li>
+                            <li><a href="https://trello.com/">트렐로</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="js/clock.js"></script>
+        <script src="js/greeting.js"></script>
+        <script src="js/todo.js"></script>
+        <script src="js/bg.js"></script>
+        
+        <script type="text/javascript">
+            $("a").attr("target","_blank");
+        </script>
+     </body>
+</html>
+     
+    
