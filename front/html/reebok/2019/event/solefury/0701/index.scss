@@ -1,0 +1,376 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+#contents_wrap{padding: 0;}
+
+.btn{
+	display: inline-block;
+	a,.arrow{
+		transition: all .5s ease-out;
+		em{
+			transition: all 1s ease-out;
+		}
+	}
+	a{
+		display: block;
+		font: 700 14px/47px 'NotoSansKR';
+		color:#000;
+		width:140px;
+		border:1px solid #000;
+		text-align: center;
+	}
+	&:hover{
+		background:#000;
+		a{
+			color:#fff;
+		}
+		.arrow{
+			background: #fff;
+			em{
+				background: #fff;
+			}
+		}
+	}
+	.arrow{
+		position: relative;
+		top: -1px;
+		display: inline-block;
+		margin-left: 20px;
+		width: 25px;
+		height: 2px;
+		background: #000;
+		vertical-align: middle;
+		em{
+			position: absolute;
+			right: 0;
+			width: 8px;
+			height: 3px;
+			background: #000;
+			transform: rotate(45deg);
+			-webkit-transform: rotate(45deg);
+			&.top{
+				top: -3px;
+			}
+			&.bottom{
+				bottom: -3px;
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+			}
+		}
+	}
+}
+h1{
+	font:63px/63px 'DINWebPro-CondBold';
+	color:#000;
+}
+.solefury{
+	.main{
+		position: relative;
+		height: 800px;
+		&.on{
+			img, .txt{
+				@include opacity(1);
+			}
+		}
+		img{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left:calc(-1920px/2);
+			@include opacity(0);
+			@include prefix-css3(transition, all 1s ease-out);
+		}
+		.txt{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -171px;
+			margin-left: -601px;
+			@include opacity(0);
+			@include prefix-css3(transition, all 1s ease-out);
+			@include prefix-css3(transition-delay,1s);
+			h1{
+			}
+			p{
+				font: 17px/28px 'NotoSansKR';
+				color: #000;
+				margin: 10px 0 27px 0;
+			}
+		}
+	}
+	.vid_cont{
+		position: relative;
+		height:800px;
+		@include opacity(0);
+		@include prefix-css3(transition, all 1s ease-out);
+		@include prefix-css3(transition-delay,.5s);
+		&.on{
+			@include opacity(1);
+		}
+		>img{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left:calc(-1920px/2);
+		}
+		.txt{
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top:calc(-76px/2);
+			margin-left:calc(-68px/2);
+			.masthead{
+				a{
+					border:0;
+					margin: 0 auto;
+					img{
+						&:hover{
+							-webkit-animation: effect 1s infinite; /* Safari 4.0 - 8.0 */
+							animation: effect 1s infinite;
+							animation-timing-function: ease-out;
+						}
+					}
+					&::after{
+						border:0;
+					}
+				}
+			}
+		}
+	}
+	@-webkit-keyframes effect {
+		0% {
+			transform: rotate(0deg)
+		}
+		25% {
+			transform: rotate(3.5deg)
+		}
+		50% {
+			transform: rotate(0deg)
+		}
+		75% {
+			transform: rotate(-3.5deg)
+		}
+		100% {
+			transform: rotate(0deg)
+		}
+	}
+	.aside{
+		position:relative;
+		height:190px;
+		padding-top:70px;
+		@include opacity(0);
+		@include prefix-css3(transition, all 1s ease-out);
+		@include prefix-css3(transition-delay,.5s);
+		&.on{
+			@include opacity(1);
+		}
+		h1{
+			text-align: center;
+		}
+		p{
+			font: 18px/28px 'NotoSansKR';
+			color: #000;
+			text-align: center;
+		}
+	}
+	.sliders_wrap{
+		position: relative;
+		height: 800px;
+		background:url('/images/reebok/2019/event/solefury/0701/1907_r_solefury_slideBg01_DT.jpg') no-repeat;
+		background-size: 100% 100%;
+		@include opacity(0);
+		@include prefix-css3(transition, all 1s ease-out);
+		@include prefix-css3(transition-delay,.5s);
+		&.on{
+			@include opacity(1);
+		}
+		&.slide02{
+			background:#171994;
+			height:840px;
+			h1{
+				padding-top: 50px;
+				text-align: center;
+				font:65px/65px 'DINWebPro-CondBold';
+				color:#ebfa07;
+				text-align: center;
+			}
+			.slide_cont{
+				margin-top: calc(-548px/2);
+				margin-left: calc(-962px/2);
+				#sliders{
+					// overflow:unset!important;
+					ul{
+						li{
+						}
+					}
+				}
+				.indicator{
+					padding: 20px 0;
+					text-align: center;
+					a{
+						// display: inline-block;
+						// width: 10px;
+						// height: 10px;
+						// border-radius: 10px;
+						// -webkit-border-radius: 10px;
+						border:2px solid #ebfa07;
+						// margin: 0 2px;
+						&.on{
+							background: #ebfa07;
+						}
+					}
+				}
+			}
+			.prev-button{
+				position: absolute;
+				top:50%;
+				left:50%;
+				margin-top: -13px;
+				margin-left: -515px;
+				background-position: -125px -80px;
+				z-index: 2;
+				width: 22px;
+				height: 42px;
+			}
+			.next-button{
+				position: absolute;
+				top:50%;
+				left:50%;
+				margin-top: -13px;
+				margin-left:490px;
+				background-position: -125px -125px;
+				z-index: 2;
+				width: 22px;
+				height: 42px;
+			}
+		}
+		.indicator{
+			text-align: center;
+			position: relative;
+			top: 18px;
+			a{
+				display: inline-block;
+				width:10px;
+				height:10px;
+				border-radius: 50%;
+				border:1.5px solid #000;
+				margin:0 2px;
+				&.on{
+					background:#000;
+				}
+			}
+		}
+		.slide_cont{
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top: calc(-628px/2);
+			margin-left: calc(-1198px/2);
+			z-index:2;
+			#sliders{
+				// overflow:unset!important;
+				ul{
+					li{
+						// margin: 0 10px;
+					}
+				}
+			}
+		}
+	}
+	.slide_lineup{
+		position:relative;
+		height:840px;
+		background:#171994;
+		@include opacity(0);
+		@include prefix-css3(transition, all 1s ease-out);
+		@include prefix-css3(transition-delay,.5s);
+		&.on{
+			@include opacity(1);
+		}
+		h1{
+			padding: 65px 0 50px 0;
+			text-align: center;
+			font:70px/70px 'DINWebPro-CondBold';
+			color:#ebfa07;
+			text-align: center;
+		}
+		.wide-slider-wrapper{
+            position: relative;
+            width: 100%;
+            height:544px;
+            left: inherit;
+            margin-left:inherit;
+            z-index: 1;
+            overflow: hidden;
+            .arrow-prev{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-top: -13px;
+                margin-left: -496px;
+                background-position: -125px -80px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            .arrow-next{
+                position: absolute;
+                top:50%;
+                left:50%;
+                margin-top: -13px;
+                margin-left:488px;
+                background-position: -125px -125px;
+                z-index: 2;
+                width: 22px;
+                height: 42px;
+            }
+            ul{
+                position: absolute;
+                top:0;
+                width: 100%;
+                height: 550px;
+                li{
+                    width: 962px;
+                    position: relative;
+                    float: left;
+                    text-align: center;
+                    @include opacity(1);
+                    @include prefix-css3(transition ,opacity 0.4s ease-in 0.3s);
+                    img{
+                        display: inline-block;
+                        width:99%;
+                    }
+                }
+                li.active{
+                    @include opacity(1);
+                    @include prefix-css3(transition ,ease-in 0.3s);
+                    &::after{
+                        content: '';
+                        display: none;
+                    }
+                }
+            }
+        }
+        .indicator{
+            padding: 33px 0;
+            text-align: center;
+            a{
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border:2px solid #ebfa07;
+                margin: 0 2px;
+                &.on{
+                    background: #ebfa07;
+                }
+            }
+        }
+	}
+
+}
