@@ -2,7 +2,7 @@ doctype
 html(lang='en')
     head
         meta(charset='utf-8')
-        title HTML CODING LIST
+        title HTML WEB CODING LIST
         link(rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css')
         style(type='text/css').
             @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -13,6 +13,7 @@ html(lang='en')
 
             .wrapper{
                 width: 100%;
+                background: #2a2a2a;
             }
 
             .utilbox{
@@ -21,7 +22,7 @@ html(lang='en')
                 position: absolute;
                 top: 0;
                 left: 0;
-                background:rgba(255,255,255,0.9);
+                background:#2a2a2a;
             }
 
             .utilbox.fixed{
@@ -31,7 +32,7 @@ html(lang='en')
             .utilbox .button_area{
                 display:none;
                 padding: 0 10px 10px;
-                text-align: center;
+                text-align: right;
             }
             
             .utilbox.fixed .button_area{
@@ -39,11 +40,14 @@ html(lang='en')
 
             .button_area .btn-ctm{
                 height:auto;
-                padding:13px 15px;
+                padding:8px 13px;
                 margin: 0 5px;
                 display: inline-block;
-                background:#ddd;
+                background: none;
                 font:13px 'Noto Sans Kr';
+                color: #7fdbad;
+                border: 1px solid #7fdbad;
+                border-radius: 4px;
                 text-decoration:none;
             }
             
@@ -89,7 +93,7 @@ html(lang='en')
                 width: 28px;
                 height: 32px;
                 position: absolute;
-                top: 16px;
+                top: 17px;
                 left: 20px;
                 background:url('//image.adidas.co.kr/images/adidas/common/adidas_spirite.png') -110px -1250px;
             }
@@ -101,31 +105,33 @@ html(lang='en')
                 font: 500 13px/35px 'NotoSansKR';
                 color: #000;
                 box-sizing: border-box;
+                border-radius: 4px;
                 -webkit-box-sizing: border-box;
             }
 
             .wrapper .title{
                 padding: 15px 0;
                 text-align: center;
-                background: #ccc;
+                background: #1b1b1b;
                 font:700 13px 'Noto Sans KR';
+                color: #a477d2;
             }
 
             .wrapper .col_box{
                 padding:10px;
-                border-bottom: 1px dashed  #ddd;
+                border-bottom: 1px dashed  #757575;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
             }
             
             .wrapper .col_box.on{
-                background:#ccc;
+                background:#686868;
             }
 
             .wrapper .col_box.dir_col{
                 padding: 5px 10px;
-                border-bottom:1px solid #ddd;
-                background: #eee;
+                border-bottom:1px solid #757575;
+                background: #555;
             }
 
             .wrapper .col_box:last-child{
@@ -160,7 +166,8 @@ html(lang='en')
             }
 
             .wrapper .col_box ul li.name a{
-                color: #1313af;
+                color: #7fdbad;
+                text-decoration: none;
             }
 
             .wrapper .col_box ul li.name a:hover{
@@ -168,9 +175,10 @@ html(lang='en')
             }
 
             .wrapper .col_box ul li.desc{
+                padding-left: 1rem;
                 width: 100%;
-                font:700 12px/17px 'Noto Sans KR';
-                color: #222;
+                font:500 12px/17px 'Noto Sans KR';
+                color: #ddd;
             }
 
             .wrapper .col_box ul li.modify{
@@ -210,18 +218,22 @@ html(lang='en')
                 top: 0;
                 left: 0;
                 z-index: 100;
-                overflow: auto;
+                /*overflow: auto;*/
+                overflow-y: scroll;
+                overflow-x: hidden;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
+                background: #2a2a2a;
             }
 
             #wrapper #right-area{
                 width: 100%;
                 height: 100%;
                 position: relative;
-                padding-left: 360px;
+                padding-left: 359px;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
+                background: #2a2a2a;
             }
 
             #wrapper #right-area .inner{
@@ -304,6 +316,10 @@ html(lang='en')
                 animation: loading 2s linear infinite;
                 -webkit-animation: loading 2s linear infinite;
             }
+
+            #left-area::-webkit-scrollbar-track{background-color: #2a2a2a;border: 1px solid #555; box-sizing: border-box;}
+            #left-area::-webkit-scrollbar{width: 8px; background-color: #000; }
+            #left-area::-webkit-scrollbar-thumb{/*border-radius: 5px;*/ background-color: #555;}
             
             @keyframes loading{
                 0% { transform: rotate(0deg); }
@@ -330,7 +346,7 @@ html(lang='en')
                 div.wrapper
                     div.utilbox
                         div.search_area
-                            input#search-html(type='text' placeholder="검색")
+                            input#search-html(type='text' placeholder="Search")
                         div.button_area
                             a#toggle-mode.btn-ctm(href='javascript:void(0)')
                                 span EDIT MODE
@@ -850,7 +866,7 @@ html(lang='en')
                         }else{
                             $('.utilbox').addClass('fixed');
                             document.getElementById('coding-list').innerHTML = `
-                                <div class="nodata" style="text-align: center;font: 700 16px 'NotoSansKR';color: #000;">검색 결과가 없습니다.</div>
+                                <div class="nodata" style="text-align: center;font: 700 16px 'NotoSansKR';color: #ddd;">검색 결과가 없습니다.</div>
                             `;
                         }
                     },
