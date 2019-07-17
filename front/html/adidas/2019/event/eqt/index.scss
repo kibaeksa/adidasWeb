@@ -1,0 +1,238 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+#eqt{
+	position: relative;
+	z-index: -1;
+	//common
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:initial;
+			font: 700 14px/50px 'NotoSansKR';
+			letter-spacing: .5px;
+			padding: 0 20px;
+		}
+	}
+
+	h1{
+		font:30px/30px 'adinenuPro-bold';
+		color:#000;
+	}
+	p{
+		text-align: center;
+		font: 500 19px/30px 'NotoSansKR';
+		color:#000;
+
+	}
+	.scroll{
+		@include opacity(0);
+		transition: all 1s ease-in;
+		&.on{
+			@include opacity(1);			
+		}		
+	}
+	//시작
+	.top_cont{
+		position: relative;
+		height: 841px;
+		.img{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+		}
+		.txt{
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top:-100px;
+			margin-left:-546px;
+			>img{
+				display: block;
+				margin-bottom:25px;
+			}
+		}
+	}
+	.aside{
+		position: relative;
+		p{
+			padding:80px 0;
+		}
+	}
+	.slide_cont{
+		position: relative;
+		height:700px;
+		background:url('/images/adidas/2019/event/eqt/1907_a_EQTgazelle_bg_DT.jpg') 100% 100% no-repeat;
+		background-position: top;
+		background-size: cover;
+		#sliders{
+			margin: 0 auto;
+			top: 50px;
+		}
+		.prev-button{
+			position: absolute;
+			top: 180px;
+			left: 50%;
+			margin-left: -605px;
+			display: inline-block;
+		}
+		.next-button{
+			position: absolute;
+			top: 180px;
+			left: 50%;
+			margin-left: 550px;
+			display: inline-block;
+		}
+		.indicator{
+			text-align: center;
+			position: relative;
+			bottom: -80px;
+			a{
+				display: inline-block;
+				width:34px;
+				height:3px;
+				background:#d1d1d3;
+				&.on{
+					background:#fff;
+				}
+			}
+		}
+		.txt{
+			text-align: center;
+			position: relative;
+			bottom:-120px;
+			>div{margin:0 0 25px 0;}
+			.wrap{
+				text-align:center;
+				p{
+					position: relative;
+					z-index:1;
+					display:inline-block;
+					&::after{
+						display: block;
+						position: absolute;
+						clear: both;
+						content: '';
+						left: -5px;
+						right: -5px;
+						height: 12px;
+						bottom: 0;
+						background: #fff;
+						z-index: -1;
+					}
+				}
+			}
+		}
+	}
+	.grid_cont{
+		position: relative;
+		padding:3.5rem;
+		&::after{
+			display: block;
+			content:'';
+			clear:both;
+		}
+		.w100{
+			width:100%!important;
+		}
+		img{
+			width:100%;
+		}
+		.wrap{
+			width:50%;
+			float:left;
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			.img{
+				width:50%;
+				float:left;
+				overflow: hidden;
+				img{
+					&:hover{
+						transform: scale(1.1);
+						transition: all 5s;
+					}
+				}
+			}
+			.inner{
+				width:50%;
+				float: left;
+				.img{
+					float:none;
+					width:100%;
+				}
+			}
+		}
+	}
+	.prd_cont{
+		position: relative;
+		height:695px;
+		>img{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			z-index: -1;
+		}
+		.outer{
+			padding:100px 0 87px;
+			.inner{
+				text-align: center;
+				p{
+					letter-spacing: 1px;
+					color: #fff;
+					position: relative;
+					display: inline-block;
+					z-index: 1;
+					&::after{
+						display: block;
+						position: absolute;
+						clear: both;
+						content: '';
+						left: -5px;
+						right: -5px;
+						height: 21px;
+						bottom: 4px;
+						background: rgba(0,0,0,0.7);
+						z-index: -1;
+					}
+				}
+			}
+		}
+		.wrap{
+			background:#fff;
+			padding: 70px 0 0;
+			width:1390px;
+			margin: 0 auto;
+			text-align: center;
+			img{
+				margin:0 4px;
+			}
+		}
+	}
+	.btm{
+		img{
+			width:100%;
+		}
+	}
+}
