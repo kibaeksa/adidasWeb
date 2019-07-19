@@ -54,12 +54,12 @@
 						var imgUrl = 'url(' + imgSrc + ')';
 						// console.log(imgSrc);
 						// console.log(imgUrl);
-						jQuery('.renew180306').find('.bg').css('border-image-source', imgUrl);
+						jQuery('.product-infomation').find('.bg').css('border-image-source', imgUrl);
 
                         // 190130 prd3d zoom_area
                         jQuery('.imgscut_box .zoom_area a iframe').remove();
                         jQuery('.imgscut_box .zoom_area').removeClass('prd3d_vrism_active');
-                        jQuery('.product-infomation.renew180306 .bg').removeClass('prd3d_vrism_bg');
+                        jQuery('.product-infomation .bg').removeClass('prd3d_vrism_bg');
                         // 190130 prd3d zoom_area end
 
 		  			});
@@ -111,7 +111,7 @@
 							$('.video_layer').remove();
 						});
 						return false;
-						// jQuery('.renew180306').append('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+						// jQuery('.product-infomation').append('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
 
 		  			});
 
@@ -126,7 +126,7 @@
                         var prd3d_content = '<iframe id="main-api-frame" class="centeralign" style="position:absolute;" src="'+prd3d_vrism+'" allowfullscreen  mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe>';
                         setTimeout(function(){
                             jQuery('.imgscut_box .zoom_area').addClass('prd3d_vrism_active');
-                            jQuery('.product-infomation.renew180306 .bg').addClass('prd3d_vrism_bg');
+                            jQuery('.product-infomation .bg').addClass('prd3d_vrism_bg');
                         },500);
 
                         jQuery('.imgscut_box .zoom_area a').append(prd3d_content);
@@ -654,2137 +654,2207 @@
  </head>
 
  <body>
+	<!-- 팝업 일일히 접기 힘들어서 감싼 div -->
+	<div id="popup-all-wrapper">
 
-    <!-- 180117 스피드 배송 안내 팝업 -->
-    <div
-        class="modal-popup-wrapper modal-popup-oneday_notice"
-        data-modalpop=""
-        data-modalpop-width="600"
-        data-modalpop-name="modalpop-notice1"
-        data-modalpop-fade=""
-    >
-	    <div class="overlay"></div>
-        <div class="popup">
-            <div class="popup-header">
-                <h2>스피드 배송 서비스 안내</h2>
-                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-            </div>
-            <div class="popup-contents">
-				<div class="desc" style="margin-bottom: 20px;font: 400 15px/24px 'NotoSansKR','Nanum Gothic';color: #000;">
-					SPEEDY DELIVERY (스피드 배송)란?<br>
-					상품상세 페이지에 <span class="spt_bg ico_car"></span>표시가 된 상품을 저녁 6시부터<br>
-					다음 날 오전 9시까지 주문 후 결제 완료된 <span class="spt_bg ico_car"></span>상품에 한하여 다음날 또는<br>
-					당일까지 빠르게 배송해 드리는 서비스 입니다.
+		<!-- 180117 스피드 배송 안내 팝업 -->
+		<div
+			class="modal-popup-wrapper modal-popup-oneday_notice"
+			data-modalpop=""
+			data-modalpop-width="600"
+			data-modalpop-name="modalpop-notice1"
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>스피드 배송 서비스 안내</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
 				</div>
-				<ul class="li-dot">
-					<li>
-						<div class="bul"></div>
-						배송지 기준으로 서울 및 수도권 인근지역(일부지역 제외)에 한하여 진행 됩니다.
-					</li>
-					<li>
-						<div class="bul"></div>
-						빠르고 안전한 배송을 위해 박스 규격은 가로/세로/높이의 합이 80cm 이내이며, <br>
-						총 주문 수량은 3개로 제한 됩니다. (단, 신발은 2개만 가능)
-					</li>
-					<li>
-						<div class="bul"></div>
-						기타 SPEEDY DELIVERY 관련 자세한 안내는 FAQ를 참고해주시기 바랍니다.
-					</li>
-				</ul>
+				<div class="popup-contents">
+					<div class="desc" style="margin-bottom: 20px;font: 400 15px/24px 'NotoSansKR','Nanum Gothic';color: #000;">
+						SPEEDY DELIVERY (스피드 배송)란?<br>
+						상품상세 페이지에 <span class="spt_bg ico_car"></span>표시가 된 상품을 저녁 6시부터<br>
+						다음 날 오전 9시까지 주문 후 결제 완료된 <span class="spt_bg ico_car"></span>상품에 한하여 다음날 또는<br>
+						당일까지 빠르게 배송해 드리는 서비스 입니다.
+					</div>
+					<ul class="li-dot">
+						<li>
+							<div class="bul"></div>
+							배송지 기준으로 서울 및 수도권 인근지역(일부지역 제외)에 한하여 진행 됩니다.
+						</li>
+						<li>
+							<div class="bul"></div>
+							빠르고 안전한 배송을 위해 박스 규격은 가로/세로/높이의 합이 80cm 이내이며, <br>
+							총 주문 수량은 3개로 제한 됩니다. (단, 신발은 2개만 가능)
+						</li>
+						<li>
+							<div class="bul"></div>
+							기타 SPEEDY DELIVERY 관련 자세한 안내는 FAQ를 참고해주시기 바랍니다.
+						</li>
+					</ul>
 
-				<div style="overflow: hidden; margin-top:30px;">
-					<a href="https://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009" class="btn-ctm arrow" style="width: 240px;float: left;margin-right: 20px;">
-		                <span style="font-size:15px;">스피드 배송 제품보기<span class="spt_bg"></span></span>
-		            </a>
+					<div style="overflow: hidden; margin-top:30px;">
+						<a href="https://shop.adidas.co.kr/PF020205.action?S_CTGR_CD=01006009" class="btn-ctm arrow" style="width: 240px;float: left;margin-right: 20px;">
+							<span style="font-size:15px;">스피드 배송 제품보기<span class="spt_bg"></span></span>
+						</a>
 
-					<a href="/PF080301.action?FAQ_DIVI=03&FAQ_DIVI_DTL=05" class="btn-ctm btn-blue arrow" style="width:110px;float: left;background: none;">
-		                <span style="font-size:15px;margin-left:-20px !important;color:#000;">FAQ 바로가기 <span><img src="https://image.adidas.co.kr/images/adidas/common/icon_btn_black_14x14.png" alt=""></span></span>
-		            </a>
-					<!-- <a href="#" class="btn-ctm btn-blue arrow" style="width: 240px;float: left;">
-		                <span style="font-size:15px;margin-left:-20px !important;">회원가입<span class="spt_bg"></span></span>
-		            </a> -->
-				</div>
-            </div>
-        </div>
-	</div>
-    <!-- //180117 스피드 배송 안내  팝업 END -->
-
-    <!-- 190129 설 연휴 배송 지연 안내 팝업 -->
-    <div
-        class="modal-popup-wrapper modal-popup-oneday_notice"
-        data-modalpop=""
-        data-modalpop-width="470"
-        data-modalpop-height="200"
-        data-modalpop-name="modalpop-holiday-delay"
-        data-modalpop-fade=""
-    >
-        <div class="overlay"></div>
-        <div class="popup">
-            <div class="popup-header">
-                <h2><img src="/images/adidas/2019/ico_truck.png" alt="">설 연휴 <strong>배송 지연</strong> 안내</h2>
-                <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-            </div>
-            <div class="popup-contents">
-                <div class="desc">
-                    1월 29일(화) 이후 주문 건은<br>
-                    2월 7일(목) 부터 순차적으로 배송됩니다.<br>
-                    이점 양해 부탁 드립니다.
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //190129 설 연휴 배송 지연 안내  팝업 END -->
-
-	<!-- 190129 교환, 환불 안내 팝업 -->
-    <div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice2"
-        data-modalpop=""
-        data-modalpop-width="600"
-        data-modalpop-height=""
-        data-modalpop-name="modalpop-notice2"
-        data-modalpop-fade=""
-    >
-       <div class="overlay"></div>
-       <div class="popup">
-           <div class="popup-header">
-               <h2>교환, 환불은 이렇게</h2>
-               <a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-           </div>
-
-           <div class="popup-contents">
-                <p class="desc">교환, 반품은 배송완료일로부터 7일 이내에 신청이 가능합니다.<br/>단, 포장을 개봉하였거나 포장이 훼손되어( 상품의 Tag분리/분실, 비닐포장 훼손,<br/>신발박스 훼손 등) 상품가치가 현저히 감소한 경우 교환, 반품 불가 합니다.</p>
-                <p>교환, 반품 관련 자세한 문의는 아디다스 고객센터 1588-8241로 해주시기 바랍니다.</p>
-           </div>
-       </div>
-   </div>
-   <!--// 190129 교환,환불 안내 팝업 -->
-
-	<!-- 190222 설 연휴 배송 지연 안내 팝업 -->
-	<div class="modal-popup-wrapper modal-popup-blackout" 
-		data-modalpop="" 
-		data-modalpop-width="570"
-		data-modalpop-height="320" 
-		data-modalpop-name="modalpop-blackout" 
-		data-modalpop-fade=""
-	>
-		<div class="overlay"></div>
-		<div class="popup">
-			<div class="popup-header">
-				<h2><img src="/images/adidas/common/ico_pop_alert.png" alt="" style="height:27px; top:4px;">아디다스 공식 스토어 일시 중단 안내</h2>
-				<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-			</div>
-			<div class="popup-contents">
-				<div class="desc">
-					2019.3.4 00시 ~ 3.5 00시(24시간)<br><br>
-					아디다스 공식 스토어 및 멤버십 시스템 업그레이드를 진행하게 되어<br>
-					점검 기간동안 공식몰 이용이 불가하며,<br>
-					오프라인 매장 이용 시 일부 아디클럽 서비스가 제한됩니다.<br><br>
-					고객님의 양해 부탁 드립니다.
+						<a href="/PF080301.action?FAQ_DIVI=03&FAQ_DIVI_DTL=05" class="btn-ctm btn-blue arrow" style="width:110px;float: left;background: none;">
+							<span style="font-size:15px;margin-left:-20px !important;color:#000;">FAQ 바로가기 <span><img src="https://image.adidas.co.kr/images/adidas/common/icon_btn_black_14x14.png" alt=""></span></span>
+						</a>
+						<!-- <a href="#" class="btn-ctm btn-blue arrow" style="width: 240px;float: left;">
+							<span style="font-size:15px;margin-left:-20px !important;">회원가입<span class="spt_bg"></span></span>
+						</a> -->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- //190222 설 연휴 배송 지연 안내  팝업 END -->
+		<!-- //180117 스피드 배송 안내  팝업 END -->
 
-	<!-- 190611 사이즈차트 팝업 -->
-	<!-- 사이즈차트 남성 -->
-	<div class="modal-popup-wrapper size_chart_layer size_chart_men" 
-		data-modalpop="" 
-		data-modalpop-width="920"
-		data-modalpop-height="680" 
-		data-modalpop-name="size_chart_men" 
-		data-modalpop-fade=""
-	>
-		<div class="overlay"></div>
-		<div class="popup">
-			<div class="popup-header">
-				<h2>남성 의류 사이즈 가이드</h2>
-				<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+		<!-- 190129 설 연휴 배송 지연 안내 팝업 -->
+		<div
+			class="modal-popup-wrapper modal-popup-oneday_notice"
+			data-modalpop=""
+			data-modalpop-width="470"
+			data-modalpop-height="200"
+			data-modalpop-name="modalpop-holiday-delay"
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2><img src="/images/adidas/2019/ico_truck.png" alt="">설 연휴 <strong>배송 지연</strong> 안내</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents">
+					<div class="desc">
+						1월 29일(화) 이후 주문 건은<br>
+						2월 7일(목) 부터 순차적으로 배송됩니다.<br>
+						이점 양해 부탁 드립니다.
+					</div>
+				</div>
 			</div>
-			<div class="popup-contents" style="height:600px; overflow-y: scroll;">
-				
-				<div class="size_charth_rp" id="size_chart_men">
-					<div class="size_chart_sect">
-						<h3>상의 : tops</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈</li>
-									<li>일반 상의 표시</li>
-									<li>가슴둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items scr_none">
-										<tr>
-											<td class="item">3xs</td>
-											<td class="item">2xs</td>
-											<td class="item">xs</td>
-											<td class="item">s</td>
-											<td class="item">m</td>
-											<td class="item">l</td>
-											<td class="item">xl</td>
-											<td class="item">2xl</td>
-											<td class="item">3xl</td>
-											<td class="item">4xl</td>
-										</tr>
-										<tr>
-											<td class="item">075</td>
-											<td class="item">080</td>
-											<td class="item">085</td>
-											<td class="item">090</td>
-											<td class="item">095</td>
-											<td class="item">100</td>
-											<td class="item">105</td>
-											<td class="item">110</td>
-											<td class="item">115</td>
-											<td class="item">120</td>
-										</tr>
-										<tr>
-											<td class="item">75</td>
-											<td class="item">80</td>
-											<td class="item">85</td>
-											<td class="item">90</td>
-											<td class="item">95</td>
-											<td class="item">100</td>
-											<td class="item">105</td>
-											<td class="item">110</td>
-											<td class="item">115</td>
-											<td class="item">120</td>
-										</tr>
-										<tr>
-											<td class="item">153</td>
-											<td class="item">158</td>
-											<td class="item">163</td>
-											<td class="item">168</td>
-											<td class="item">173</td>
-											<td class="item">178</td>
-											<td class="item">183</td>
-											<td class="item">188</td>
-											<td class="item">193</td>
-											<td class="item">198</td>
-										</tr>
-									</table>
-								</div>
-							</div>
+		</div>
+		<!-- //190129 설 연휴 배송 지연 안내  팝업 END -->
+
+		<!-- 190129 교환, 환불 안내 팝업 -->
+		<div class="modal-popup-wrapper modal-popup-oneday_notice modal-popup-oneday_notice2"
+			data-modalpop=""
+			data-modalpop-width="600"
+			data-modalpop-height=""
+			data-modalpop-name="modalpop-notice2"
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>교환, 환불은 이렇게</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+
+				<div class="popup-contents">
+						<p class="desc">교환, 반품은 배송완료일로부터 7일 이내에 신청이 가능합니다.<br/>단, 포장을 개봉하였거나 포장이 훼손되어( 상품의 Tag분리/분실, 비닐포장 훼손,<br/>신발박스 훼손 등) 상품가치가 현저히 감소한 경우 교환, 반품 불가 합니다.</p>
+						<p>교환, 반품 관련 자세한 문의는 아디다스 고객센터 1588-8241로 해주시기 바랍니다.</p>
+				</div>
+			</div>
+		</div>
+		<!--// 190129 교환,환불 안내 팝업 -->
+
+		<!-- 190717 사이즈 통계 팝업 -->
+		<div class="modal-popup-wrapper modal-popup-size-statistics"
+			data-modalpop=""
+			data-modalpop-width="auto"
+			data-modalpop-height=""
+			data-modalpop-name="modal-popup-size-statistics"
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>사이즈 통계</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+
+				<div class="popup-contents">
+					<div class="rating_percantage clfix">
+						<div class="top">
+							<div class="tit">사이즈 리뷰 통계 <span>적당해요 75%</span></div>
+							<div class="total">4명 평가</div>
 						</div>
-				
-					</div>
-				
-					<div class="size_chart_sect">
-						<h3>하의 : pants</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈</li>
-									<li>허리둘레 (inch)</li>
-									<li>허리둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items scr_none">
-										<tr>
-											<td class="item">3xs</td>
-											<td class="item">2xs</td>
-											<td class="item">xs</td>
-											<td class="item">s</td>
-											<td class="item">m</td>
-											<td class="item">l</td>
-											<td class="item">xl</td>
-											<td class="item">2xl</td>
-											<td class="item">3xl</td>
-											<td class="item">4xl</td>
-										</tr>
-										<tr>
-											<td class="item">25</td>
-											<td class="item">26</td>
-											<td class="item">27</td>
-											<td class="item">28</td>
-											<td class="item">30</td>
-											<td class="item">32</td>
-											<td class="item">34</td>
-											<td class="item">36</td>
-											<td class="item">38</td>
-											<td class="item">40</td>
-										</tr>
-										<tr>
-											<td class="item">68</td>
-											<td class="item">71</td>
-											<td class="item">74</td>
-											<td class="item">76</td>
-											<td class="item">80</td>
-											<td class="item">84</td>
-											<td class="item">88</td>
-											<td class="item">92</td>
-											<td class="item">96</td>
-											<td class="item">100</td>
-										</tr>
-										<tr>
-											<td class="item">153</td>
-											<td class="item">158</td>
-											<td class="item">163</td>
-											<td class="item">168</td>
-											<td class="item">173</td>
-											<td class="item">178</td>
-											<td class="item">183</td>
-											<td class="item">188</td>
-											<td class="item">193</td>
-											<td class="item">198</td>
-										</tr>
-									</table>
+						<div class="rating_wrap">
+					
+							<div class="box">
+								<div class="label">매우 작아요</div>
+								<div class="bar_wrap">
+									<div style="width:25%;"></div>
 								</div>
+								<div class="num">1</div>
 							</div>
-						</div>				
-					</div>
-				
-					<div class="size_chart_sect">
-						<h3>사이즈 측정 방법</h3>
-						<div class="size_measurement">
-							<ul>
-								<li>									
-									<img src="/images/adidas/common/sizechart_men_01.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_men_02.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div class="size_alert">
-							<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
-							<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
+							<div class="box">
+								<div class="label">작아요</div>
+								<div class="bar_wrap">
+									<div style="width:0%;"></div>
+								</div>
+								<div class="num">0</div>
+							</div>
+							<div class="box">
+								<div class="label">적당해요</div>
+								<div class="bar_wrap">
+									<div style="width:75%;"></div>
+								</div>
+								<div class="num">3</div>
+							</div>
+							<div class="box">
+								<div class="label">커요</div>
+								<div class="bar_wrap">
+									<div style="width:0%;"></div>
+								</div>
+								<div class="num">0</div>
+							</div>
+							<div class="box">
+								<div class="label">매우 커요</div>
+								<div class="bar_wrap">
+									<div style="width:0%;"></div>
+								</div>
+								<div class="num">0</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
-	</div>
-	<!-- 사이즈차트 남성 End -->
+		<!--// 190129 사이즈 통계 팝업 -->
 
-	<!-- 사이즈차트 여성 -->
-	<div class="modal-popup-wrapper size_chart_layer size_chart_women"
-		data-modalpop="" 
-		data-modalpop-width="920"
-		data-modalpop-height="680" 
-		data-modalpop-name="size_chart_women" 
-		data-modalpop-fade=""
-	>
-		<div class="overlay"></div>
-		<div class="popup">
-			<div class="popup-header">
-				<h2>여성 의류 사이즈 가이드</h2>
-				<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-			</div>
-			<div class="popup-contents" style="height:600px; overflow-y: scroll;">
-
-				
-				<div class="size_charth_rp" id="size_chart_women">
-					<div class="size_chart_sect">
-						<h3>상의 : tops / dress</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈</li>
-									<li>일반 상의 표시</li>
-									<li>가슴둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items scr_none">
-										<tr>
-											<td class="item">3xs</td>
-											<td class="item">2xs</td>
-											<td class="item">xs</td>
-											<td class="item">s</td>
-											<td class="item">m</td>
-											<td class="item">l</td>
-											<td class="item">xl</td>
-											<td class="item">2xl</td>
-										</tr>
-										<tr>
-											<td class="item">075</td>
-											<td class="item">080</td>
-											<td class="item">085</td>
-											<td class="item">090</td>
-											<td class="item">095</td>
-											<td class="item">100</td>
-											<td class="item">105</td>
-											<td class="item">110</td>
-										</tr>
-										<tr>
-											<td class="item">78</td>
-											<td class="item">82</td>
-											<td class="item">86</td>
-											<td class="item">90</td>
-											<td class="item">94</td>
-											<td class="item">98</td>
-											<td class="item">102</td>
-											<td class="item">106</td>
-										</tr>
-										<tr>
-											<td class="item">153</td>
-											<td class="item">158</td>
-											<td class="item">163</td>
-											<td class="item">168</td>
-											<td class="item">173</td>
-											<td class="item">178</td>
-											<td class="item">183</td>
-											<td class="item">188</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>하의 : pants / skirt</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈</li>
-									<li>허리둘레 (inch)</li>
-									<li>허리둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items scr_none">
-										<tr>
-											<td class="item">3xs</td>
-											<td class="item">2xs</td>
-											<td class="item">xs</td>
-											<td class="item">s</td>
-											<td class="item">m</td>
-											<td class="item">l</td>
-											<td class="item">xl</td>
-											<td class="item">2xl</td>
-										</tr>
-										<tr>
-											<td class="item">24</td>
-											<td class="item">25</td>
-											<td class="item">26</td>
-											<td class="item">27</td>
-											<td class="item">28</td>
-											<td class="item">29</td>
-											<td class="item">30</td>
-											<td class="item">31</td>
-										</tr>
-										<tr>
-											<td class="item">59</td>
-											<td class="item">62</td>
-											<td class="item">65</td>
-											<td class="item">68</td>
-											<td class="item">71</td>
-											<td class="item">74</td>
-											<td class="item">77</td>
-											<td class="item">80</td>
-										</tr>
-										<tr>
-											<td class="item">153</td>
-											<td class="item">158</td>
-											<td class="item">163</td>
-											<td class="item">168</td>
-											<td class="item">173</td>
-											<td class="item">178</td>
-											<td class="item">183</td>
-											<td class="item">188</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>스포츠 브라 : sports bras</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈</li>
-									<li>아디다스 상의 사이즈 기준</li>
-									<li>밑 가슴둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item">70a</td>
-											<td class="item">70b</td>
-											<td class="item">70c</td>
-											<td class="item">70d</td>
-											<td class="item">75a</td>
-											<td class="item">75b</td>
-											<td class="item">75c</td>
-											<td class="item">75d</td>
-											<td class="item">80a</td>
-											<td class="item">80b</td>
-											<td class="item">80c</td>
-											<td class="item">80d</td>
-											<td class="item">85a</td>
-											<td class="item">85b</td>
-											<td class="item">85c</td>
-											<td class="item">85d</td>
-										</tr>
-										<tr>
-											<td class="item">xs</td>
-											<td class="item">xs</td>
-											<td class="item">xs</td>
-											<td class="item">s</td>
-											<td class="item">s</td>
-											<td class="item">s</td>
-											<td class="item">s</td>
-											<td class="item">m</td>
-											<td class="item">m</td>
-											<td class="item">m</td>
-											<td class="item">m</td>
-											<td class="item">l</td>
-											<td class="item">l</td>
-											<td class="item">l</td>
-											<td class="item">xl</td>
-											<td class="item">xl</td>
-										</tr>
-										<tr>
-											<td class="item">66</td>
-											<td class="item">66</td>
-											<td class="item">66</td>
-											<td class="item">66</td>
-											<td class="item">71</td>
-											<td class="item">71</td>
-											<td class="item">71</td>
-											<td class="item">71</td>
-											<td class="item">76</td>
-											<td class="item">76</td>
-											<td class="item">76</td>
-											<td class="item">76</td>
-											<td class="item">81</td>
-											<td class="item">81</td>
-											<td class="item">81</td>
-											<td class="item">81</td>
-										</tr>
-										<tr>
-											<td class="item">158</td>
-											<td class="item">158</td>
-											<td class="item">158</td>
-											<td class="item">158</td>
-											<td class="item">163</td>
-											<td class="item">163</td>
-											<td class="item">163</td>
-											<td class="item">163</td>
-											<td class="item">168</td>
-											<td class="item">168</td>
-											<td class="item">168</td>
-											<td class="item">168</td>
-											<td class="item">173</td>
-											<td class="item">173</td>
-											<td class="item">173</td>
-											<td class="item">173</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>사이즈 측정 방법</h3>
-						<div class="size_measurement">
-							<ul>
-								<li>									
-									<img src="/images/adidas/common/sizechart_women_01.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_women_02.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_women_03.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div class="size_alert">
-							<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
-							<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
-						</div>
+		<!-- 190222 설 연휴 배송 지연 안내 팝업 -->
+		<div class="modal-popup-wrapper modal-popup-blackout" 
+			data-modalpop="" 
+			data-modalpop-width="570"
+			data-modalpop-height="320" 
+			data-modalpop-name="modalpop-blackout" 
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2><img src="/images/adidas/common/ico_pop_alert.png" alt="" style="height:27px; top:4px;">아디다스 공식 스토어 일시 중단 안내</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents">
+					<div class="desc">
+						2019.3.4 00시 ~ 3.5 00시(24시간)<br><br>
+						아디다스 공식 스토어 및 멤버십 시스템 업그레이드를 진행하게 되어<br>
+						점검 기간동안 공식몰 이용이 불가하며,<br>
+						오프라인 매장 이용 시 일부 아디클럽 서비스가 제한됩니다.<br><br>
+						고객님의 양해 부탁 드립니다.
 					</div>
 				</div>
-				
-
 			</div>
 		</div>
-	</div>
-	<!-- 사이즈차트 여성 End -->
+		<!-- //190222 설 연휴 배송 지연 안내  팝업 END -->
 
-	<!-- 사이즈차트 키즈 -->
-	<div class="modal-popup-wrapper size_chart_layer size_chart_kids"
-		data-modalpop="" 
-		data-modalpop-width="920"
-		data-modalpop-height="680" 
-		data-modalpop-name="size_chart_kids" 
-		data-modalpop-fade=""		
-	>
-		<div class="overlay"></div>
-		<div class="popup">
-			<div class="popup-header">
-				<h2>키즈 의류 사이즈 가이드</h2>
-				<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-			</div>
-			<div class="popup-contents" style="height:600px; overflow-y: scroll;">
-
-				
-				<div class="size_charth_rp" id="size_chart_kids">
-					<div class="size_chart_sect">
-						<h3>상의 : tops / dress</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>연령별</li>
-									<li>사용연령</li>
-									<li>아디다스 사이즈</li>
-									<li>참고 개월 수 (month)</li>
-									<li>참고 몸무게 (kg)</li>
-									<li>가슴둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item" colspan="5">infant</td>
-											<td class="item" colspan="5">toddler</td>
-											<td class="item" colspan="5">junior</td>
-										</tr>
-										<tr>
-											<td class="item" colspan="5">36개월 미만</td>
-											<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
-										</tr>
-										<tr>
-											<td class="item">065</td>
-											<td class="item">070</td>
-											<td class="item">075</td>
-											<td class="item">080</td>
-											<td class="item">085</td>
-											<td class="item">090</td>
-											<td class="item">095</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-										<tr>
-											<td class="item">006</td>
-											<td class="item">009</td>
-											<td class="item">012</td>
-											<td class="item">018</td>
-											<td class="item">024</td>
-											<td class="item">036</td>
-											<td class="item">048</td>
-											<td class="item">052</td>
-											<td class="item">055</td>
-											<td class="item">058</td>
-											<td class="item">061</td>
-											<td class="item">067</td>
-											<td class="item">073</td>
-											<td class="item">079</td>
-											<td class="item">082</td>
-										</tr>
-										<tr>
-											<td class="item">5.8</td>
-											<td class="item">7.7</td>
-											<td class="item">10.0</td>
-											<td class="item">11.3</td>
-											<td class="item">12.7</td>
-											<td class="item">15.0</td>
-											<td class="item">15.0</td>
-											<td class="item" colspan="2">17.2</td>
-											<td class="item" colspan="2">24.5</td>
-											<td class="item" colspan="5">&nbsp;</td>											
-										</tr>
-										<tr>
-											<td class="item">38</td>
-											<td class="item">42</td>
-											<td class="item">45</td>
-											<td class="item">47</td>
-											<td class="item">48</td>
-											<td class="item">50</td>
-											<td class="item">51</td>
-											<td class="item">52</td>
-											<td class="item">55</td>
-											<td class="item">58</td>
-											<td class="item">61</td>
-											<td class="item">67</td>
-											<td class="item">73</td>
-											<td class="item">79</td>
-											<td class="item">82</td>
-										</tr>
-										<tr>
-											<td class="item">64</td>
-											<td class="item">69</td>
-											<td class="item">75</td>
-											<td class="item">78</td>
-											<td class="item">84</td>
-											<td class="item">92</td>
-											<td class="item">95</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>하의 : pants / skirt</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>연령별</li>
-									<li>사용연령</li>
-									<li>아디다스 사이즈</li>
-									<li>참고 개월 수 (month)</li>
-									<li>참고 몸무게 (kg)</li>
-									<li>허리둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item" colspan="5">infant</td>
-											<td class="item" colspan="5">toddler</td>
-											<td class="item" colspan="5">junior</td>
-										</tr>
-										<tr>
-											<td class="item" colspan="5">36개월 미만</td>
-											<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
-										</tr>
-										<tr>
-											<td class="item">065</td>
-											<td class="item">070</td>
-											<td class="item">075</td>
-											<td class="item">080</td>
-											<td class="item">085</td>
-											<td class="item">090</td>
-											<td class="item">095</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-										<tr>
-											<td class="item">006</td>
-											<td class="item">009</td>
-											<td class="item">012</td>
-											<td class="item">018</td>
-											<td class="item">024</td>
-											<td class="item">036</td>
-											<td class="item">048</td>
-											<td class="item">052</td>
-											<td class="item">055</td>
-											<td class="item">058</td>
-											<td class="item">061</td>
-											<td class="item">067</td>
-											<td class="item">073</td>
-											<td class="item">079</td>
-											<td class="item">082</td>
-										</tr>
-										<tr>
-											<td class="item">5.8</td>
-											<td class="item">7.7</td>
-											<td class="item">10.0</td>
-											<td class="item">11.3</td>
-											<td class="item">12.7</td>
-											<td class="item">15.0</td>
-											<td class="item">15.0</td>
-											<td class="item" colspan="2">17.2</td>
-											<td class="item" colspan="2">24.5</td>
-											<td class="item" colspan="5">&nbsp;</td>
-										</tr>
-										<tr>
-											<td class="item">42</td>
-											<td class="item">43</td>
-											<td class="item">44</td>
-											<td class="item">45</td>
-											<td class="item">46</td>
-											<td class="item">47</td>
-											<td class="item">48</td>
-											<td class="item">49</td>
-											<td class="item">51</td>
-											<td class="item">54</td>
-											<td class="item">57</td>
-											<td class="item">60</td>
-											<td class="item">64</td>
-											<td class="item">67</td>
-											<td class="item">70</td>
-										</tr>
-										<tr>
-											<td class="item">64</td>
-											<td class="item">69</td>
-											<td class="item">75</td>
-											<td class="item">78</td>
-											<td class="item">84</td>
-											<td class="item">92</td>
-											<td class="item">95</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>상하의 세트 : top & pants set</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>연령별</li>
-									<li>사용연령</li>
-									<li>아디다스 사이즈</li>
-									<li>참고 개월 수 (month)</li>
-									<li>참고 몸무게 (kg)</li>
-									<li>가슴둘레 (cm)</li>
-									<li>허리둘레 (cm)</li>
-									<li>신장 (cm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item" colspan="5">infant</td>
-											<td class="item" colspan="5">toddler</td>
-											<td class="item" colspan="5">junior</td>
-										</tr>
-										<tr>
-											<td class="item" colspan="5">36개월 미만</td>
-											<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
-										</tr>
-										<tr>
-											<td class="item">065</td>
-											<td class="item">070</td>
-											<td class="item">075</td>
-											<td class="item">080</td>
-											<td class="item">085</td>
-											<td class="item">090</td>
-											<td class="item">095</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-										<tr>
-											<td class="item">006</td>
-											<td class="item">009</td>
-											<td class="item">012</td>
-											<td class="item">018</td>
-											<td class="item">024</td>
-											<td class="item">036</td>
-											<td class="item">048</td>
-											<td class="item">052</td>
-											<td class="item">055</td>
-											<td class="item">058</td>
-											<td class="item">061</td>
-											<td class="item">067</td>
-											<td class="item">073</td>
-											<td class="item">079</td>
-											<td class="item">082</td>
-										</tr>
-										<tr>
-											<td class="item">5.8</td>
-											<td class="item">7.7</td>
-											<td class="item">10.0</td>
-											<td class="item">11.3</td>
-											<td class="item">12.7</td>
-											<td class="item">15.0</td>
-											<td class="item">15.0</td>
-											<td class="item" colspan="2">17.2</td>
-											<td class="item" colspan="2">24.5</td>
-											<td class="item" colspan="5">&nbsp;</td>
-										</tr>
-										<tr>
-											<td class="item">38</td>
-											<td class="item">42</td>
-											<td class="item">45</td>
-											<td class="item">47</td>
-											<td class="item">48</td>
-											<td class="item">50</td>
-											<td class="item">51</td>
-											<td class="item">52</td>
-											<td class="item">55</td>
-											<td class="item">58</td>
-											<td class="item">61</td>
-											<td class="item">67</td>
-											<td class="item">73</td>
-											<td class="item">79</td>
-											<td class="item">82</td>
-										</tr>
-										<tr>
-											<td class="item">42</td>
-											<td class="item">43</td>
-											<td class="item">44</td>
-											<td class="item">45</td>
-											<td class="item">46</td>
-											<td class="item">47</td>
-											<td class="item">48</td>
-											<td class="item">49</td>
-											<td class="item">51</td>
-											<td class="item">54</td>
-											<td class="item">57</td>
-											<td class="item">60</td>
-											<td class="item">64</td>
-											<td class="item">67</td>
-											<td class="item">70</td>
-										</tr>
-										<tr>
-											<td class="item">64</td>
-											<td class="item">69</td>
-											<td class="item">75</td>
-											<td class="item">78</td>
-											<td class="item">84</td>
-											<td class="item">92</td>
-											<td class="item">95</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>사이즈 측정 방법</h3>
-						<div class="size_measurement">
-							<ul>
-								<li>									
-									<img src="/images/adidas/common/sizechart_kids_01.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_kids_02.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_kids_03.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div class="size_alert">
-							<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
-							<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
-						</div>
-					</div>
+		<!-- 190611 사이즈차트 팝업 -->
+		<!-- 사이즈차트 남성 -->
+		<div class="modal-popup-wrapper size_chart_layer size_chart_men" 
+			data-modalpop="" 
+			data-modalpop-width="920"
+			data-modalpop-height="680" 
+			data-modalpop-name="size_chart_men" 
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>남성 의류 사이즈 가이드</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
 				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- 사이즈차트 키즈 End -->
-
-	<!-- 사이즈차트 신발 -->
-	<div class="modal-popup-wrapper size_chart_layer size_chart_shoes" 
-		data-modalpop="" 
-		data-modalpop-width="920"
-		data-modalpop-height="680" 
-		data-modalpop-name="size_chart_shoes" 
-		data-modalpop-fade=""
-	>
-		<div class="overlay"></div>
-		<div class="popup">
-			<div class="popup-header">
-				<h2>신발 사이즈 가이드</h2>
-				<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
-			</div>
-			<div class="popup-contents" style="height:600px; overflow-y: scroll;">
-				
-				<div class="size_charth_rp" id="size_chart_women">
-					<div class="size_chart_sect">
-						<h3>남성</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈 (JP표기)</li>
-									<li>미국 남성 사이즈</li>
-									<li>발길이 (mm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-											<td class="item">250</td>
-											<td class="item">255</td>
-											<td class="item">260</td>
-											<td class="item">265</td>
-											<td class="item">270</td>
-											<td class="item">275</td>
-											<td class="item">280</td>
-											<td class="item">285</td>
-											<td class="item">290</td>
-											<td class="item">295</td>
-											<td class="item">300</td>
-										</tr>
-										<tr>
-											<td class="item">5</td>
-											<td class="item">5.5</td>
-											<td class="item">6</td>
-											<td class="item">6.5</td>
-											<td class="item">7</td>
-											<td class="item">7.5</td>
-											<td class="item">8</td>
-											<td class="item">8.5</td>
-											<td class="item">9</td>
-											<td class="item">9.5</td>
-											<td class="item">10</td>
-											<td class="item">10.5</td>
-											<td class="item">11</td>
-											<td class="item">11.5</td>
-											<td class="item">12</td>
-										</tr>
-										<tr>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-											<td class="item">250</td>
-											<td class="item">255</td>
-											<td class="item">260</td>
-											<td class="item">265</td>
-											<td class="item">270</td>
-											<td class="item">275</td>
-											<td class="item">280</td>
-											<td class="item">285</td>
-											<td class="item">290</td>
-											<td class="item">295</td>
-											<td class="item">300</td>
-										</tr>
-									</table>
+				<div class="popup-contents" style="height:600px; overflow-y: scroll;">
+					
+					<div class="size_charth_rp" id="size_chart_men">
+						<div class="size_chart_sect">
+							<h3>상의 : tops</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈</li>
+										<li>일반 상의 표시</li>
+										<li>가슴둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items scr_none">
+											<tr>
+												<td class="item">3xs</td>
+												<td class="item">2xs</td>
+												<td class="item">xs</td>
+												<td class="item">s</td>
+												<td class="item">m</td>
+												<td class="item">l</td>
+												<td class="item">xl</td>
+												<td class="item">2xl</td>
+												<td class="item">3xl</td>
+												<td class="item">4xl</td>
+											</tr>
+											<tr>
+												<td class="item">075</td>
+												<td class="item">080</td>
+												<td class="item">085</td>
+												<td class="item">090</td>
+												<td class="item">095</td>
+												<td class="item">100</td>
+												<td class="item">105</td>
+												<td class="item">110</td>
+												<td class="item">115</td>
+												<td class="item">120</td>
+											</tr>
+											<tr>
+												<td class="item">75</td>
+												<td class="item">80</td>
+												<td class="item">85</td>
+												<td class="item">90</td>
+												<td class="item">95</td>
+												<td class="item">100</td>
+												<td class="item">105</td>
+												<td class="item">110</td>
+												<td class="item">115</td>
+												<td class="item">120</td>
+											</tr>
+											<tr>
+												<td class="item">153</td>
+												<td class="item">158</td>
+												<td class="item">163</td>
+												<td class="item">168</td>
+												<td class="item">173</td>
+												<td class="item">178</td>
+												<td class="item">183</td>
+												<td class="item">188</td>
+												<td class="item">193</td>
+												<td class="item">198</td>
+											</tr>
+										</table>
+									</div>
 								</div>
 							</div>
+					
 						</div>
 					
-					</div>
+						<div class="size_chart_sect">
+							<h3>하의 : pants</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈</li>
+										<li>허리둘레 (inch)</li>
+										<li>허리둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items scr_none">
+											<tr>
+												<td class="item">3xs</td>
+												<td class="item">2xs</td>
+												<td class="item">xs</td>
+												<td class="item">s</td>
+												<td class="item">m</td>
+												<td class="item">l</td>
+												<td class="item">xl</td>
+												<td class="item">2xl</td>
+												<td class="item">3xl</td>
+												<td class="item">4xl</td>
+											</tr>
+											<tr>
+												<td class="item">25</td>
+												<td class="item">26</td>
+												<td class="item">27</td>
+												<td class="item">28</td>
+												<td class="item">30</td>
+												<td class="item">32</td>
+												<td class="item">34</td>
+												<td class="item">36</td>
+												<td class="item">38</td>
+												<td class="item">40</td>
+											</tr>
+											<tr>
+												<td class="item">68</td>
+												<td class="item">71</td>
+												<td class="item">74</td>
+												<td class="item">76</td>
+												<td class="item">80</td>
+												<td class="item">84</td>
+												<td class="item">88</td>
+												<td class="item">92</td>
+												<td class="item">96</td>
+												<td class="item">100</td>
+											</tr>
+											<tr>
+												<td class="item">153</td>
+												<td class="item">158</td>
+												<td class="item">163</td>
+												<td class="item">168</td>
+												<td class="item">173</td>
+												<td class="item">178</td>
+												<td class="item">183</td>
+												<td class="item">188</td>
+												<td class="item">193</td>
+												<td class="item">198</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>				
+						</div>
 					
-					<div class="size_chart_sect">
-						<h3>여성</h3>
-						<div class="size_chart">
-							<div class="schart_head">
+						<div class="size_chart_sect">
+							<h3>사이즈 측정 방법</h3>
+							<div class="size_measurement">
 								<ul>
-									<li>아디다스 사이즈 (JP표기)</li>
-									<li>미국 여성 사이즈</li>
-									<li>발길이 (mm)</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_men_01.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_men_02.jpg" alt="">
+									</li>
 								</ul>
 							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items scr_none">
-										<tr>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-											<td class="item">250</td>
-											<td class="item">255</td>
-											<td class="item">260</td>											
-										</tr>
-										<tr>
-											<td class="item">6</td>
-											<td class="item">6.5</td>
-											<td class="item">7</td>
-											<td class="item">7.5</td>
-											<td class="item">8</td>
-											<td class="item">8.5</td>
-											<td class="item">9</td>											
-										</tr>
-										<tr>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-											<td class="item">250</td>
-											<td class="item">255</td>
-											<td class="item">260</td>										
-										</tr>
-									</table>
-								</div>
+							<div class="size_alert">
+								<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
+								<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
 							</div>
 						</div>
-					
 					</div>
 					
-					<div class="size_chart_sect">
-						<h3>키즈</h3>
-						<div class="size_chart">
-							<div class="schart_head">
-								<ul>
-									<li>아디다스 사이즈 (JP표기)</li>
-									<li>사용 연령</li>
-									<li>발길이 (mm)</li>
-								</ul>
-							</div>
-							<div class="schart_body">
-								<div class="schart-item main">
-									<table class="items">
-										<tr>
-											<td class="item">70</td>
-											<td class="item">80</td>
-											<td class="item">90</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>											
-											<td class="item">170</td>
-											<td class="item">180</td>
-											<td class="item">190</td>
-											<td class="item">200</td>
-											<td class="item">210</td>
-											<td class="item">215</td>
-											<td class="item">220</td>
-											<td class="item">225</td>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-										</tr>
-										<tr>
-											<td class="item" colspan="10">36개월 미만</td>
-											<td class="item" colspan="12">36개월 이상 ~ 만13세 이하</td>
-										</tr>
-										<tr>
-											<td class="item">70</td>
-											<td class="item">80</td>
-											<td class="item">90</td>
-											<td class="item">100</td>
-											<td class="item">110</td>
-											<td class="item">120</td>
-											<td class="item">130</td>
-											<td class="item">140</td>
-											<td class="item">150</td>
-											<td class="item">160</td>
-											<td class="item">170</td>
-											<td class="item">180</td>
-											<td class="item">190</td>
-											<td class="item">200</td>
-											<td class="item">210</td>
-											<td class="item">215</td>
-											<td class="item">220</td>
-											<td class="item">225</td>
-											<td class="item">230</td>
-											<td class="item">235</td>
-											<td class="item">240</td>
-											<td class="item">245</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					<div class="size_chart_sect">
-						<h3>사이즈 측정 방법</h3>
-						<div class="size_measurement">
-							<ul>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_01.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_02.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_03.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div class="size_alert">
-							<p>*보다 정확한 사이즈를 위해 아침보다는 저녁에 측정하는것이 좋습니다.</p>
-						</div>
-					</div>
-
-					<div class="size_chart_sect">
-						<h3>키즈 사이즈 측정 방법</h3>
-						<div class="size_measurement">
-							<ul>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_04.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_05.jpg" alt="">
-								</li>
-								<li>									
-									<img src="/images/adidas/common/sizechart_shoes_06.jpg" alt="">
-								</li>
-							</ul>
-						</div>
-						<div class="size_alert">
-							<p>*기존의 아디다스 키즈 신발을 가지고 계신경우 신발깔창을 사용해서 측정하실 수 있습니다.</p>
-							<p>*아이들은 빠르게 성장하므로 정기적으로 사이즈를 측정하는것이 좋습니다.</p>
-							<p>*아디다스 코리아에서 수입하는 신발 제품은 JAPAN(JP) 사이즈와 동일합니다.</p>
-							<p>*소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
-						</div>
-					</div>
 				</div>
-
 			</div>
 		</div>
-	</div>
-	<!-- 사이즈차트 신발 End -->
+		<!-- 사이즈차트 남성 End -->
 
-	<script>
-		$(document).ready(function () {
+		<!-- 사이즈차트 여성 -->
+		<div class="modal-popup-wrapper size_chart_layer size_chart_women"
+			data-modalpop="" 
+			data-modalpop-width="920"
+			data-modalpop-height="680" 
+			data-modalpop-name="size_chart_women" 
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>여성 의류 사이즈 가이드</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents" style="height:600px; overflow-y: scroll;">
 
-			var dragChart = $('.items');
-
-			dragChart.each(function () {
-				var $this = $(this);
-				var isDown = false;
-				var startX;
-				var scrollLeft;
-
-				// 마우스 버튼을 누를때
-				$this.on('mousedown', function (e) {
-					isDown = true;
-					$(this).addClass('active');
-					startX = e.pageX - $(this).offset().left;
-					scrollLeft = $(this).scrollLeft();
-				});
-				// 마우스가 영역 밖으로 나갔을때
-				$this.on('mouseleave', function () {
-					isDown = false;
-					$(this).removeClass('active');
-				});
-				// 마우스 버튼을 땠을때
-				$this.on('mouseup', function () {
-					isDown = false;
-					$(this).removeClass('active');
-				});
-				// 마우스가 움직일때
-				$this.on('mousemove', function (e) {
-					console.log(!isDown);
-
-					if (!isDown) return;
-					e.preventDefault();
-					var x = e.pageX - $(this).offset().left;
-					var walk = (x - startX) * 1; //scroll-fast
-					var scrollLtValue = scrollLeft - walk;
-
-					$this.scrollLeft(scrollLtValue);
-				
-					console.log(e.pageX);
-					console.log($(this).offset().left);
-					console.log("클릭한 커서좌표 : " + x);
-					console.log("현재스크롤위치 : " + scrollLeft);
-					console.log("startX : " + startX);
-					console.log("walk : " + walk);
-					console.log("이동거리 : " + scrollLtValue);
-				});
-
-			})
-
-		});
-	</script>
-	<!-- //190611 사이즈차트  팝업 END -->
-
-	<!-- 160825 입고알림 -->
-	<div class="modal_pop_layer" id="modalpop_prod_alert">
- 		<div class="overlay"></div>
- 		<div class="popup prod_alert">
- 			<a href="javascript:void(0)" class="spt_bg close"></a>
- 			<h1>입고알림 서비스 신청</h1>
- 			<table class="prod_info">
- 				<colgroup>
- 					<col width="75px"/>
- 					<col width="*"/>
- 				</colgroup>
- 				<tr>
- 					<th>상품명</th>
- 					<td>[UNISEX NEO][입고알림 신청]클레멘테스</td>
- 				</tr>
- 				<tr>
- 					<th>모델명</th>
- 					<td>F98799</td>
- 				</tr>
- 				<tr class="last">
- 					<th>COLOR</th>
- 					<td>WHITE/BLACK</td>
- 				</tr>
- 			</table>
-
- 			<table class="phone">
- 				<colgroup>
- 					<col width="95px"/>
- 					<col width="*"/>
- 				</colgroup>
- 				<tr>
- 					<th>휴대폰번호</th>
- 					<td>
- 						<div>
- 							<div class="selectbox_layer">
-	 							<a href="javascript:void(0)">010<span class="spt_bg btn"></span></a>
-	 							<ul>
-	 								<li class="on"><a href="#">010</a></li>
-	 								<li><a href="#">011</a></li>
-	 								<li><a href="#">016</a></li>
-	 								<li class="last"><a href="#">019</a></li>
-	 							</ul>
-	 						</div>
-	 						<span class="pfx">-</span>
-	 						<input type="text" />
-	 						<span class="pfx">-</span>
-	 						<input type="text" />
- 						</div>
- 					</td>
- 				</tr>
- 			</table>
-
- 			<div class="agr_box">
- 				<input type="checkbox" id="agree_alert"/>
- 				<label for="agree_alert">개인정보 수집 및 이용 약관에 동의합니다.</label>
- 			</div>
-			<div class="term_btn">
-				<a href="#">자세히 보기<span class="spt_bg arw"></span></a>
-			</div>
- 			<div class="alert_term">
- 				<p style="padding-left:135px;"><span class="label">개인정보의 수집이용목적 : </span>아디다스 제품 입고 알림</p>
-				<p style="padding-left:100px;"><span class="label">수집되는 개인정보 : </span>휴대전화번호, 이메일주소</p>
-				<p style="padding-left:55px;"><span class="label">보유기간 : </span>입고알림 이후 30일 까지<br/>(본 보유기간은 아디클럽 회원이 아닌 경우에 한함)</p>
-				<ul>
-					<li>- 아래 동의를 거부할 수 있습니다. 다만 그러한 경우, 아디다스 제품이 입고되는 시점에 대한 정보를 우선적으로 전달받으실 수 없습니다. 단, “통신사 및 이메일서버 사정으로 인한 발송, 수신오류, 고객휴대폰의 스팸등록 및 고객이메일의 용량초과 등으로 인해 SMS 및 이메일이 전달되지 않을 수 있으며 이러한 경우 아디다스코리아가 책임지지 않습니다.”</li>
-					<li>- 입력해주신 휴대폰번호 또는 이메일주소 중 자사의 사정에 따라 한가지 방법으로 안내하겠습니다.</li>
-				</ul>
- 			</div>
-			<a href="#" class="submit">입고알림 서비스 신청</a>
- 		</div>
- 	</div>
- 	<!-- //160411 -->
-
- 	<div class="modal_pop_layer warning_layer">
-		<div class="overlay"></div>
-		<div class="popup">
-			<a href="javascript:void(0)" class="spt_bg close"></a>
-			<dl style="overflow:hidden;padding:15px;border:1px solid #e0e0e0;">
-				<dt style="width:150px;float:left;text-align:center;padding-top:17px;color:#707070;font:bold 12px 'Gulim',Gulim;">유의사항</dt>
-				<dd style="width:580px;float:left;">
-					<p style="margin-bottom:4px;color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">- 본 사이트 상의 모든 컨텐츠에 대한 권리는 아디다스코리아㈜에 있으며,</p>
-					<p style="padding-left:7px;margin-bottom:4px;color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">이에 대한 무단 사용 행위는 저작권법에 근거 5천만원 이하의 벌금 또는 5년 이하의 징역에 처해질 수 있습니다.</p>
-					<p style="color:#ff0000;font:11px 'Dotum',dotum;letter-spacing:-1px;">- 상품의 컬러는 고객의 모니터 환경 및 설정에 따라 실제 컬러와 다르게 보일 수 있습니다</p>
-				</dd>
-			</dl>
-		</div>
-	</div>
-
-	<!-- 190315 PDP as 안내 수정 -->
-	<div class="modal_pop_layer as_layer prod_as_layer">
-		<div class="overlay"></div>
-		<div class="popup">
-			<a href="javascript:void(0)" class="spt_bg close"></a>
-			<div class="tit">품질 보증 및 AS정보</div>
-			<div class="asbox">
-				<dl>
-					<dt>품질보증</dt>
-					<dd>
-						<!-- <img src="https://image.adidas.co.kr/images/adidas/common/bg_prod_as_clothes.jpg" alt="품질보증"> -->
-						<div>
-							<h5>품질보증표시</h5>							
-							<ul>
-								<li>본 제품은 공정거래 위원회가 고시한 소비자 분쟁 해결기준에 의거 정당한 소비자 피해에 대해 수리, 교환 환불해 드립니다.</li>								
-							</ul>
-							<div summary="품질보증표시 정보">
-								<p>보증기간 : 판매일로부터 1일</p>
-								<p>교환장소 : 구입점</p>
-								<p>수입자 : 아디다스코리아(유)</p>
-								<p>주소 : 서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층</p>
-								<p>대표전화 : 1588-8241</p>
+					
+					<div class="size_charth_rp" id="size_chart_women">
+						<div class="size_chart_sect">
+							<h3>상의 : tops / dress</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈</li>
+										<li>일반 상의 표시</li>
+										<li>가슴둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items scr_none">
+											<tr>
+												<td class="item">3xs</td>
+												<td class="item">2xs</td>
+												<td class="item">xs</td>
+												<td class="item">s</td>
+												<td class="item">m</td>
+												<td class="item">l</td>
+												<td class="item">xl</td>
+												<td class="item">2xl</td>
+											</tr>
+											<tr>
+												<td class="item">075</td>
+												<td class="item">080</td>
+												<td class="item">085</td>
+												<td class="item">090</td>
+												<td class="item">095</td>
+												<td class="item">100</td>
+												<td class="item">105</td>
+												<td class="item">110</td>
+											</tr>
+											<tr>
+												<td class="item">78</td>
+												<td class="item">82</td>
+												<td class="item">86</td>
+												<td class="item">90</td>
+												<td class="item">94</td>
+												<td class="item">98</td>
+												<td class="item">102</td>
+												<td class="item">106</td>
+											</tr>
+											<tr>
+												<td class="item">153</td>
+												<td class="item">158</td>
+												<td class="item">163</td>
+												<td class="item">168</td>
+												<td class="item">173</td>
+												<td class="item">178</td>
+												<td class="item">183</td>
+												<td class="item">188</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>하의 : pants / skirt</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈</li>
+										<li>허리둘레 (inch)</li>
+										<li>허리둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items scr_none">
+											<tr>
+												<td class="item">3xs</td>
+												<td class="item">2xs</td>
+												<td class="item">xs</td>
+												<td class="item">s</td>
+												<td class="item">m</td>
+												<td class="item">l</td>
+												<td class="item">xl</td>
+												<td class="item">2xl</td>
+											</tr>
+											<tr>
+												<td class="item">24</td>
+												<td class="item">25</td>
+												<td class="item">26</td>
+												<td class="item">27</td>
+												<td class="item">28</td>
+												<td class="item">29</td>
+												<td class="item">30</td>
+												<td class="item">31</td>
+											</tr>
+											<tr>
+												<td class="item">59</td>
+												<td class="item">62</td>
+												<td class="item">65</td>
+												<td class="item">68</td>
+												<td class="item">71</td>
+												<td class="item">74</td>
+												<td class="item">77</td>
+												<td class="item">80</td>
+											</tr>
+											<tr>
+												<td class="item">153</td>
+												<td class="item">158</td>
+												<td class="item">163</td>
+												<td class="item">168</td>
+												<td class="item">173</td>
+												<td class="item">178</td>
+												<td class="item">183</td>
+												<td class="item">188</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>스포츠 브라 : sports bras</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈</li>
+										<li>아디다스 상의 사이즈 기준</li>
+										<li>밑 가슴둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item">70a</td>
+												<td class="item">70b</td>
+												<td class="item">70c</td>
+												<td class="item">70d</td>
+												<td class="item">75a</td>
+												<td class="item">75b</td>
+												<td class="item">75c</td>
+												<td class="item">75d</td>
+												<td class="item">80a</td>
+												<td class="item">80b</td>
+												<td class="item">80c</td>
+												<td class="item">80d</td>
+												<td class="item">85a</td>
+												<td class="item">85b</td>
+												<td class="item">85c</td>
+												<td class="item">85d</td>
+											</tr>
+											<tr>
+												<td class="item">xs</td>
+												<td class="item">xs</td>
+												<td class="item">xs</td>
+												<td class="item">s</td>
+												<td class="item">s</td>
+												<td class="item">s</td>
+												<td class="item">s</td>
+												<td class="item">m</td>
+												<td class="item">m</td>
+												<td class="item">m</td>
+												<td class="item">m</td>
+												<td class="item">l</td>
+												<td class="item">l</td>
+												<td class="item">l</td>
+												<td class="item">xl</td>
+												<td class="item">xl</td>
+											</tr>
+											<tr>
+												<td class="item">66</td>
+												<td class="item">66</td>
+												<td class="item">66</td>
+												<td class="item">66</td>
+												<td class="item">71</td>
+												<td class="item">71</td>
+												<td class="item">71</td>
+												<td class="item">71</td>
+												<td class="item">76</td>
+												<td class="item">76</td>
+												<td class="item">76</td>
+												<td class="item">76</td>
+												<td class="item">81</td>
+												<td class="item">81</td>
+												<td class="item">81</td>
+												<td class="item">81</td>
+											</tr>
+											<tr>
+												<td class="item">158</td>
+												<td class="item">158</td>
+												<td class="item">158</td>
+												<td class="item">158</td>
+												<td class="item">163</td>
+												<td class="item">163</td>
+												<td class="item">163</td>
+												<td class="item">163</td>
+												<td class="item">168</td>
+												<td class="item">168</td>
+												<td class="item">168</td>
+												<td class="item">168</td>
+												<td class="item">173</td>
+												<td class="item">173</td>
+												<td class="item">173</td>
+												<td class="item">173</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>사이즈 측정 방법</h3>
+							<div class="size_measurement">
+								<ul>
+									<li>									
+										<img src="/images/adidas/common/sizechart_women_01.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_women_02.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_women_03.jpg" alt="">
+									</li>
+								</ul>
+							</div>
+							<div class="size_alert">
+								<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
+								<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
 							</div>
 						</div>
+					</div>
+					
+
+				</div>
+			</div>
+		</div>
+		<!-- 사이즈차트 여성 End -->
+
+		<!-- 사이즈차트 키즈 -->
+		<div class="modal-popup-wrapper size_chart_layer size_chart_kids"
+			data-modalpop="" 
+			data-modalpop-width="920"
+			data-modalpop-height="680" 
+			data-modalpop-name="size_chart_kids" 
+			data-modalpop-fade=""		
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>키즈 의류 사이즈 가이드</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents" style="height:600px; overflow-y: scroll;">
+
+					
+					<div class="size_charth_rp" id="size_chart_kids">
+						<div class="size_chart_sect">
+							<h3>상의 : tops / dress</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>연령별</li>
+										<li>사용연령</li>
+										<li>아디다스 사이즈</li>
+										<li>참고 개월 수 (month)</li>
+										<li>참고 몸무게 (kg)</li>
+										<li>가슴둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item" colspan="5">infant</td>
+												<td class="item" colspan="5">toddler</td>
+												<td class="item" colspan="5">junior</td>
+											</tr>
+											<tr>
+												<td class="item" colspan="5">36개월 미만</td>
+												<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
+											</tr>
+											<tr>
+												<td class="item">065</td>
+												<td class="item">070</td>
+												<td class="item">075</td>
+												<td class="item">080</td>
+												<td class="item">085</td>
+												<td class="item">090</td>
+												<td class="item">095</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+											<tr>
+												<td class="item">006</td>
+												<td class="item">009</td>
+												<td class="item">012</td>
+												<td class="item">018</td>
+												<td class="item">024</td>
+												<td class="item">036</td>
+												<td class="item">048</td>
+												<td class="item">052</td>
+												<td class="item">055</td>
+												<td class="item">058</td>
+												<td class="item">061</td>
+												<td class="item">067</td>
+												<td class="item">073</td>
+												<td class="item">079</td>
+												<td class="item">082</td>
+											</tr>
+											<tr>
+												<td class="item">5.8</td>
+												<td class="item">7.7</td>
+												<td class="item">10.0</td>
+												<td class="item">11.3</td>
+												<td class="item">12.7</td>
+												<td class="item">15.0</td>
+												<td class="item">15.0</td>
+												<td class="item" colspan="2">17.2</td>
+												<td class="item" colspan="2">24.5</td>
+												<td class="item" colspan="5">&nbsp;</td>											
+											</tr>
+											<tr>
+												<td class="item">38</td>
+												<td class="item">42</td>
+												<td class="item">45</td>
+												<td class="item">47</td>
+												<td class="item">48</td>
+												<td class="item">50</td>
+												<td class="item">51</td>
+												<td class="item">52</td>
+												<td class="item">55</td>
+												<td class="item">58</td>
+												<td class="item">61</td>
+												<td class="item">67</td>
+												<td class="item">73</td>
+												<td class="item">79</td>
+												<td class="item">82</td>
+											</tr>
+											<tr>
+												<td class="item">64</td>
+												<td class="item">69</td>
+												<td class="item">75</td>
+												<td class="item">78</td>
+												<td class="item">84</td>
+												<td class="item">92</td>
+												<td class="item">95</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>하의 : pants / skirt</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>연령별</li>
+										<li>사용연령</li>
+										<li>아디다스 사이즈</li>
+										<li>참고 개월 수 (month)</li>
+										<li>참고 몸무게 (kg)</li>
+										<li>허리둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item" colspan="5">infant</td>
+												<td class="item" colspan="5">toddler</td>
+												<td class="item" colspan="5">junior</td>
+											</tr>
+											<tr>
+												<td class="item" colspan="5">36개월 미만</td>
+												<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
+											</tr>
+											<tr>
+												<td class="item">065</td>
+												<td class="item">070</td>
+												<td class="item">075</td>
+												<td class="item">080</td>
+												<td class="item">085</td>
+												<td class="item">090</td>
+												<td class="item">095</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+											<tr>
+												<td class="item">006</td>
+												<td class="item">009</td>
+												<td class="item">012</td>
+												<td class="item">018</td>
+												<td class="item">024</td>
+												<td class="item">036</td>
+												<td class="item">048</td>
+												<td class="item">052</td>
+												<td class="item">055</td>
+												<td class="item">058</td>
+												<td class="item">061</td>
+												<td class="item">067</td>
+												<td class="item">073</td>
+												<td class="item">079</td>
+												<td class="item">082</td>
+											</tr>
+											<tr>
+												<td class="item">5.8</td>
+												<td class="item">7.7</td>
+												<td class="item">10.0</td>
+												<td class="item">11.3</td>
+												<td class="item">12.7</td>
+												<td class="item">15.0</td>
+												<td class="item">15.0</td>
+												<td class="item" colspan="2">17.2</td>
+												<td class="item" colspan="2">24.5</td>
+												<td class="item" colspan="5">&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="item">42</td>
+												<td class="item">43</td>
+												<td class="item">44</td>
+												<td class="item">45</td>
+												<td class="item">46</td>
+												<td class="item">47</td>
+												<td class="item">48</td>
+												<td class="item">49</td>
+												<td class="item">51</td>
+												<td class="item">54</td>
+												<td class="item">57</td>
+												<td class="item">60</td>
+												<td class="item">64</td>
+												<td class="item">67</td>
+												<td class="item">70</td>
+											</tr>
+											<tr>
+												<td class="item">64</td>
+												<td class="item">69</td>
+												<td class="item">75</td>
+												<td class="item">78</td>
+												<td class="item">84</td>
+												<td class="item">92</td>
+												<td class="item">95</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>상하의 세트 : top & pants set</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>연령별</li>
+										<li>사용연령</li>
+										<li>아디다스 사이즈</li>
+										<li>참고 개월 수 (month)</li>
+										<li>참고 몸무게 (kg)</li>
+										<li>가슴둘레 (cm)</li>
+										<li>허리둘레 (cm)</li>
+										<li>신장 (cm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item" colspan="5">infant</td>
+												<td class="item" colspan="5">toddler</td>
+												<td class="item" colspan="5">junior</td>
+											</tr>
+											<tr>
+												<td class="item" colspan="5">36개월 미만</td>
+												<td class="item" colspan="10">36개월 이상 ~ 만13세 이하</td>
+											</tr>
+											<tr>
+												<td class="item">065</td>
+												<td class="item">070</td>
+												<td class="item">075</td>
+												<td class="item">080</td>
+												<td class="item">085</td>
+												<td class="item">090</td>
+												<td class="item">095</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+											<tr>
+												<td class="item">006</td>
+												<td class="item">009</td>
+												<td class="item">012</td>
+												<td class="item">018</td>
+												<td class="item">024</td>
+												<td class="item">036</td>
+												<td class="item">048</td>
+												<td class="item">052</td>
+												<td class="item">055</td>
+												<td class="item">058</td>
+												<td class="item">061</td>
+												<td class="item">067</td>
+												<td class="item">073</td>
+												<td class="item">079</td>
+												<td class="item">082</td>
+											</tr>
+											<tr>
+												<td class="item">5.8</td>
+												<td class="item">7.7</td>
+												<td class="item">10.0</td>
+												<td class="item">11.3</td>
+												<td class="item">12.7</td>
+												<td class="item">15.0</td>
+												<td class="item">15.0</td>
+												<td class="item" colspan="2">17.2</td>
+												<td class="item" colspan="2">24.5</td>
+												<td class="item" colspan="5">&nbsp;</td>
+											</tr>
+											<tr>
+												<td class="item">38</td>
+												<td class="item">42</td>
+												<td class="item">45</td>
+												<td class="item">47</td>
+												<td class="item">48</td>
+												<td class="item">50</td>
+												<td class="item">51</td>
+												<td class="item">52</td>
+												<td class="item">55</td>
+												<td class="item">58</td>
+												<td class="item">61</td>
+												<td class="item">67</td>
+												<td class="item">73</td>
+												<td class="item">79</td>
+												<td class="item">82</td>
+											</tr>
+											<tr>
+												<td class="item">42</td>
+												<td class="item">43</td>
+												<td class="item">44</td>
+												<td class="item">45</td>
+												<td class="item">46</td>
+												<td class="item">47</td>
+												<td class="item">48</td>
+												<td class="item">49</td>
+												<td class="item">51</td>
+												<td class="item">54</td>
+												<td class="item">57</td>
+												<td class="item">60</td>
+												<td class="item">64</td>
+												<td class="item">67</td>
+												<td class="item">70</td>
+											</tr>
+											<tr>
+												<td class="item">64</td>
+												<td class="item">69</td>
+												<td class="item">75</td>
+												<td class="item">78</td>
+												<td class="item">84</td>
+												<td class="item">92</td>
+												<td class="item">95</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>사이즈 측정 방법</h3>
+							<div class="size_measurement">
+								<ul>
+									<li>									
+										<img src="/images/adidas/common/sizechart_kids_01.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_kids_02.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_kids_03.jpg" alt="">
+									</li>
+								</ul>
+							</div>
+							<div class="size_alert">
+								<p>*유의사항 : 소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
+								<p>아디다스 사이즈 기준은 제품 선택을 위한 참고용입니다.</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- 사이즈차트 키즈 End -->
+
+		<!-- 사이즈차트 신발 -->
+		<div class="modal-popup-wrapper size_chart_layer size_chart_shoes" 
+			data-modalpop="" 
+			data-modalpop-width="920"
+			data-modalpop-height="680" 
+			data-modalpop-name="size_chart_shoes" 
+			data-modalpop-fade=""
+		>
+			<div class="overlay"></div>
+			<div class="popup">
+				<div class="popup-header">
+					<h2>신발 사이즈 가이드</h2>
+					<a href="javascript:void(0)" class="close"><span class="spt_bg"></span></a>
+				</div>
+				<div class="popup-contents" style="height:600px; overflow-y: scroll;">
+					
+					<div class="size_charth_rp" id="size_chart_women">
+						<div class="size_chart_sect">
+							<h3>남성</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈 (JP표기)</li>
+										<li>미국 남성 사이즈</li>
+										<li>발길이 (mm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+												<td class="item">250</td>
+												<td class="item">255</td>
+												<td class="item">260</td>
+												<td class="item">265</td>
+												<td class="item">270</td>
+												<td class="item">275</td>
+												<td class="item">280</td>
+												<td class="item">285</td>
+												<td class="item">290</td>
+												<td class="item">295</td>
+												<td class="item">300</td>
+											</tr>
+											<tr>
+												<td class="item">5</td>
+												<td class="item">5.5</td>
+												<td class="item">6</td>
+												<td class="item">6.5</td>
+												<td class="item">7</td>
+												<td class="item">7.5</td>
+												<td class="item">8</td>
+												<td class="item">8.5</td>
+												<td class="item">9</td>
+												<td class="item">9.5</td>
+												<td class="item">10</td>
+												<td class="item">10.5</td>
+												<td class="item">11</td>
+												<td class="item">11.5</td>
+												<td class="item">12</td>
+											</tr>
+											<tr>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+												<td class="item">250</td>
+												<td class="item">255</td>
+												<td class="item">260</td>
+												<td class="item">265</td>
+												<td class="item">270</td>
+												<td class="item">275</td>
+												<td class="item">280</td>
+												<td class="item">285</td>
+												<td class="item">290</td>
+												<td class="item">295</td>
+												<td class="item">300</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>여성</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈 (JP표기)</li>
+										<li>미국 여성 사이즈</li>
+										<li>발길이 (mm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items scr_none">
+											<tr>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+												<td class="item">250</td>
+												<td class="item">255</td>
+												<td class="item">260</td>											
+											</tr>
+											<tr>
+												<td class="item">6</td>
+												<td class="item">6.5</td>
+												<td class="item">7</td>
+												<td class="item">7.5</td>
+												<td class="item">8</td>
+												<td class="item">8.5</td>
+												<td class="item">9</td>											
+											</tr>
+											<tr>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+												<td class="item">250</td>
+												<td class="item">255</td>
+												<td class="item">260</td>										
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>키즈</h3>
+							<div class="size_chart">
+								<div class="schart_head">
+									<ul>
+										<li>아디다스 사이즈 (JP표기)</li>
+										<li>사용 연령</li>
+										<li>발길이 (mm)</li>
+									</ul>
+								</div>
+								<div class="schart_body">
+									<div class="schart-item main">
+										<table class="items">
+											<tr>
+												<td class="item">70</td>
+												<td class="item">80</td>
+												<td class="item">90</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>											
+												<td class="item">170</td>
+												<td class="item">180</td>
+												<td class="item">190</td>
+												<td class="item">200</td>
+												<td class="item">210</td>
+												<td class="item">215</td>
+												<td class="item">220</td>
+												<td class="item">225</td>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+											</tr>
+											<tr>
+												<td class="item" colspan="10">36개월 미만</td>
+												<td class="item" colspan="12">36개월 이상 ~ 만13세 이하</td>
+											</tr>
+											<tr>
+												<td class="item">70</td>
+												<td class="item">80</td>
+												<td class="item">90</td>
+												<td class="item">100</td>
+												<td class="item">110</td>
+												<td class="item">120</td>
+												<td class="item">130</td>
+												<td class="item">140</td>
+												<td class="item">150</td>
+												<td class="item">160</td>
+												<td class="item">170</td>
+												<td class="item">180</td>
+												<td class="item">190</td>
+												<td class="item">200</td>
+												<td class="item">210</td>
+												<td class="item">215</td>
+												<td class="item">220</td>
+												<td class="item">225</td>
+												<td class="item">230</td>
+												<td class="item">235</td>
+												<td class="item">240</td>
+												<td class="item">245</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="size_chart_sect">
+							<h3>사이즈 측정 방법</h3>
+							<div class="size_measurement">
+								<ul>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_01.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_02.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_03.jpg" alt="">
+									</li>
+								</ul>
+							</div>
+							<div class="size_alert">
+								<p>*보다 정확한 사이즈를 위해 아침보다는 저녁에 측정하는것이 좋습니다.</p>
+							</div>
+						</div>
+
+						<div class="size_chart_sect">
+							<h3>키즈 사이즈 측정 방법</h3>
+							<div class="size_measurement">
+								<ul>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_04.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_05.jpg" alt="">
+									</li>
+									<li>									
+										<img src="/images/adidas/common/sizechart_shoes_06.jpg" alt="">
+									</li>
+								</ul>
+							</div>
+							<div class="size_alert">
+								<p>*기존의 아디다스 키즈 신발을 가지고 계신경우 신발깔창을 사용해서 측정하실 수 있습니다.</p>
+								<p>*아이들은 빠르게 성장하므로 정기적으로 사이즈를 측정하는것이 좋습니다.</p>
+								<p>*아디다스 코리아에서 수입하는 신발 제품은 JAPAN(JP) 사이즈와 동일합니다.</p>
+								<p>*소재와 디자인 특성상 약간의 오차는 있을 수 있습니다.</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- 사이즈차트 신발 End -->
+
+		<script>
+			$(document).ready(function () {
+
+				var dragChart = $('.items');
+
+				dragChart.each(function () {
+					var $this = $(this);
+					var isDown = false;
+					var startX;
+					var scrollLeft;
+
+					// 마우스 버튼을 누를때
+					$this.on('mousedown', function (e) {
+						isDown = true;
+						$(this).addClass('active');
+						startX = e.pageX - $(this).offset().left;
+						scrollLeft = $(this).scrollLeft();
+					});
+					// 마우스가 영역 밖으로 나갔을때
+					$this.on('mouseleave', function () {
+						isDown = false;
+						$(this).removeClass('active');
+					});
+					// 마우스 버튼을 땠을때
+					$this.on('mouseup', function () {
+						isDown = false;
+						$(this).removeClass('active');
+					});
+					// 마우스가 움직일때
+					$this.on('mousemove', function (e) {
+						console.log(!isDown);
+
+						if (!isDown) return;
+						e.preventDefault();
+						var x = e.pageX - $(this).offset().left;
+						var walk = (x - startX) * 1; //scroll-fast
+						var scrollLtValue = scrollLeft - walk;
+
+						$this.scrollLeft(scrollLtValue);
+					
+						console.log(e.pageX);
+						console.log($(this).offset().left);
+						console.log("클릭한 커서좌표 : " + x);
+						console.log("현재스크롤위치 : " + scrollLeft);
+						console.log("startX : " + startX);
+						console.log("walk : " + walk);
+						console.log("이동거리 : " + scrollLtValue);
+					});
+
+				})
+
+			});
+		</script>
+		<!-- //190611 사이즈차트  팝업 END -->
+
+		<!-- 160825 입고알림 -->
+		<div class="modal_pop_layer" id="modalpop_prod_alert">
+			<div class="overlay"></div>
+			<div class="popup prod_alert">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<h1>입고알림 서비스 신청</h1>
+				<table class="prod_info">
+					<colgroup>
+						<col width="75px"/>
+						<col width="*"/>
+					</colgroup>
+					<tr>
+						<th>상품명</th>
+						<td>[UNISEX NEO][입고알림 신청]클레멘테스</td>
+					</tr>
+					<tr>
+						<th>모델명</th>
+						<td>F98799</td>
+					</tr>
+					<tr class="last">
+						<th>COLOR</th>
+						<td>WHITE/BLACK</td>
+					</tr>
+				</table>
+
+				<table class="phone">
+					<colgroup>
+						<col width="95px"/>
+						<col width="*"/>
+					</colgroup>
+					<tr>
+						<th>휴대폰번호</th>
+						<td>
+							<div>
+								<div class="selectbox_layer">
+									<a href="javascript:void(0)">010<span class="spt_bg btn"></span></a>
+									<ul>
+										<li class="on"><a href="#">010</a></li>
+										<li><a href="#">011</a></li>
+										<li><a href="#">016</a></li>
+										<li class="last"><a href="#">019</a></li>
+									</ul>
+								</div>
+								<span class="pfx">-</span>
+								<input type="text" />
+								<span class="pfx">-</span>
+								<input type="text" />
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<div class="agr_box">
+					<input type="checkbox" id="agree_alert"/>
+					<label for="agree_alert">개인정보 수집 및 이용 약관에 동의합니다.</label>
+				</div>
+				<div class="term_btn">
+					<a href="#">자세히 보기<span class="spt_bg arw"></span></a>
+				</div>
+				<div class="alert_term">
+					<p style="padding-left:135px;"><span class="label">개인정보의 수집이용목적 : </span>아디다스 제품 입고 알림</p>
+					<p style="padding-left:100px;"><span class="label">수집되는 개인정보 : </span>휴대전화번호, 이메일주소</p>
+					<p style="padding-left:55px;"><span class="label">보유기간 : </span>입고알림 이후 30일 까지<br/>(본 보유기간은 아디클럽 회원이 아닌 경우에 한함)</p>
+					<ul>
+						<li>- 아래 동의를 거부할 수 있습니다. 다만 그러한 경우, 아디다스 제품이 입고되는 시점에 대한 정보를 우선적으로 전달받으실 수 없습니다. 단, “통신사 및 이메일서버 사정으로 인한 발송, 수신오류, 고객휴대폰의 스팸등록 및 고객이메일의 용량초과 등으로 인해 SMS 및 이메일이 전달되지 않을 수 있으며 이러한 경우 아디다스코리아가 책임지지 않습니다.”</li>
+						<li>- 입력해주신 휴대폰번호 또는 이메일주소 중 자사의 사정에 따라 한가지 방법으로 안내하겠습니다.</li>
+					</ul>
+				</div>
+				<a href="#" class="submit">입고알림 서비스 신청</a>
+			</div>
+		</div>
+		<!-- //160411 -->
+
+		<div class="modal_pop_layer warning_layer">
+			<div class="overlay"></div>
+			<div class="popup">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<dl style="overflow:hidden;padding:15px;border:1px solid #e0e0e0;">
+					<dt style="width:150px;float:left;text-align:center;padding-top:17px;color:#707070;font:bold 12px 'Gulim',Gulim;">유의사항</dt>
+					<dd style="width:580px;float:left;">
+						<p style="margin-bottom:4px;color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">- 본 사이트 상의 모든 컨텐츠에 대한 권리는 아디다스코리아㈜에 있으며,</p>
+						<p style="padding-left:7px;margin-bottom:4px;color:#aaa;font:11px 'Dotum',dotum;letter-spacing:-1px;">이에 대한 무단 사용 행위는 저작권법에 근거 5천만원 이하의 벌금 또는 5년 이하의 징역에 처해질 수 있습니다.</p>
+						<p style="color:#ff0000;font:11px 'Dotum',dotum;letter-spacing:-1px;">- 상품의 컬러는 고객의 모니터 환경 및 설정에 따라 실제 컬러와 다르게 보일 수 있습니다</p>
 					</dd>
-		   		</dl>
+				</dl>
 			</div>
-			<div class="asbox" style="border-bottom-width:0;">
-				<dl>
-					<dt>A/S 정책안내</dt>
-					<dd>
-						<!-- <img src="https://image.adidas.co.kr/images/adidas/common/bg_prod_aspolicy.jpg" alt="AS 정책안내"> -->						
-						<div>
-							<p>아디다스 공식 온라인 스토어에서 구매한 제품은<br />
-							가까운 매장 방문 접수를 통하여 아디다스 A/S 정책에 따른 서비스를 제공 받을 수 있습니다.</p>
+		</div>
 
-							<h5 style="margin: 20px 0;">수선 접수 및 심의 프로세스</h5>
-							<div style="margin-bottom: 20px;">
-								<p>1. 수선 및 심의 접수 : 가까운 매장 방문 접수</p>								
-								<p>2. 수선 및 심의 진행처 : A/S 센터에서 심의 판정 및 수선</p>								
-								<p>3. 제품 배송 :접수 매장으로 수선 제품 도착 시 고객에게 안내</p>								
-								<p>4. 수선 및 심의 결과 상담 : 아디다스 고객만족센터 1588-8241(ARS (6))</p>								
+		<!-- 190315 PDP as 안내 수정 -->
+		<div class="modal_pop_layer as_layer prod_as_layer">
+			<div class="overlay"></div>
+			<div class="popup">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<div class="tit">품질 보증 및 AS정보</div>
+				<div class="asbox">
+					<dl>
+						<dt>품질보증</dt>
+						<dd>
+							<!-- <img src="https://image.adidas.co.kr/images/adidas/common/bg_prod_as_clothes.jpg" alt="품질보증"> -->
+							<div>
+								<h5>품질보증표시</h5>							
+								<ul>
+									<li>본 제품은 공정거래 위원회가 고시한 소비자 분쟁 해결기준에 의거 정당한 소비자 피해에 대해 수리, 교환 환불해 드립니다.</li>								
+								</ul>
+								<div summary="품질보증표시 정보">
+									<p>보증기간 : 판매일로부터 1일</p>
+									<p>교환장소 : 구입점</p>
+									<p>수입자 : 아디다스코리아(유)</p>
+									<p>주소 : 서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층</p>
+									<p>대표전화 : 1588-8241</p>
+								</div>
 							</div>
-							
-							<p>
-								판정 결과는 품질보증기간 및 내용 연수 경과 여부, 제품 하자 또는 소비자 과실 여부에 따라 결정 됩니다.<br/>
-								판정 결과에 따라 수선 비용이 부가 될 수 있으며 제품 수선이 불가능 할 경우에는 반송이 이루어 집니다.<br />
-								<strong class="as_noti">교환 판정 시, 회수 택배비는 무료이며, 소비자과실로 판정되는 경우 배송비는 소비자 부담입니다.</strong></p>
+						</dd>
+					</dl>
+				</div>
+				<div class="asbox" style="border-bottom-width:0;">
+					<dl>
+						<dt>A/S 정책안내</dt>
+						<dd>
+							<!-- <img src="https://image.adidas.co.kr/images/adidas/common/bg_prod_aspolicy.jpg" alt="AS 정책안내"> -->						
+							<div>
+								<p>아디다스 공식 온라인 스토어에서 구매한 제품은<br />
+								가까운 매장 방문 접수를 통하여 아디다스 A/S 정책에 따른 서비스를 제공 받을 수 있습니다.</p>
 
-							<table summary="판정기준 및 결과">
-								<caption>판정기준 및 결과</caption>
-								<colgrourp>
-									<col width="17%">
-									<col width="18%">
-									<col width="20%">
-									<col width="15%">
-									<col width="15%">
-									<col width="15%">
-								</colgrourp>
+								<h5 style="margin: 20px 0;">수선 접수 및 심의 프로세스</h5>
+								<div style="margin-bottom: 20px;">
+									<p>1. 수선 및 심의 접수 : 가까운 매장 방문 접수</p>								
+									<p>2. 수선 및 심의 진행처 : A/S 센터에서 심의 판정 및 수선</p>								
+									<p>3. 제품 배송 :접수 매장으로 수선 제품 도착 시 고객에게 안내</p>								
+									<p>4. 수선 및 심의 결과 상담 : 아디다스 고객만족센터 1588-8241(ARS (6))</p>								
+								</div>
+								
+								<p>
+									판정 결과는 품질보증기간 및 내용 연수 경과 여부, 제품 하자 또는 소비자 과실 여부에 따라 결정 됩니다.<br/>
+									판정 결과에 따라 수선 비용이 부가 될 수 있으며 제품 수선이 불가능 할 경우에는 반송이 이루어 집니다.<br />
+									<strong class="as_noti">교환 판정 시, 회수 택배비는 무료이며, 소비자과실로 판정되는 경우 배송비는 소비자 부담입니다.</strong></p>
+
+								<table summary="판정기준 및 결과">
+									<caption>판정기준 및 결과</caption>
+									<colgrourp>
+										<col width="17%">
+										<col width="18%">
+										<col width="20%">
+										<col width="15%">
+										<col width="15%">
+										<col width="15%">
+									</colgrourp>
+									<thead>
+										<tr height="26">
+											<th rowspan="3" colspan="2" scope="col" style="font-weight: bold;">기준</th>
+											<th colspan="4" scope="colgroup" style="font-weight: bold;">판정결과</th>
+										</tr>
+										<tr height=26>
+											<th colspan="2" scope="colgroup">수선 가능 시</th>
+											<th colspan="2" scope="colgroup">수선 불가시</th>
+										</tr>
+										<tr height="26">
+											<th scope="col">수선비용</th>
+											<th scope="col">배송비용</th>
+											<th scope="col">수선비용</th>
+											<th scope="col">배송비용</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr height="46">
+											<th scope="rowgroup" rowspan="2" class="tl">품질보증<br>기간이내</th>
+											<th scope="row">제품 하자 시</th>
+											<td class="tl">무상수선</td>
+											<td>회사부담</td>
+											<td>교환</td>
+											<td>회사부담</td>
+										</tr>
+										<tr height="46">
+											<th scope="row">소비자 과실 시</th>
+											<td class="tl">유상수선<br>(일부품목 제외)</td>
+											<td>고객부담</td>
+											<td>반송</td>
+											<td>고객부담</td>
+										</tr>
+
+										<tr height="46">
+											<th scope="rowgroup" rowspan="2" class="tl">품질보증<br>기간경과 및<br>내용연수 경과</th>
+											<th scope="row">제품 하자 시</th>
+											<td class="tl">유상수선<br>(일부품목 제외)</td>
+											<td>회사부담</td>
+											<td>반송</td>
+											<td>회사부담</td>
+										</tr>
+										<tr height="46">
+											<th scope="row">소비자 과실 시</th>
+											<td class="tl">유상수선<br>(일부품목 제외)</td>
+											<td>고객부담</td>
+											<td>반송</td>
+											<td>고객부담</td>
+										</tr>
+
+									</tbody>
+								</table>
+								<ul>
+									<li>유상 수선 판정 시 고객님으로부터 수선비 결제가 완료된 후 제품이 발송됩니다.</li>
+									<li>수선된 제품은 제품의 수령 가능일로부터 1개월 이내에 수령하셔야하며, 기간이 초과된 경우 제품의 분실이나 훼손 등에 대하여<br>
+									당사는 책임을 지지 않습니다.</li>
+								</ul>
+							</div>
+							<!-- 접근성 end -->
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<!-- //190315 PDP as 안내 수정 -->
+
+		<!-- 160824 세탁 및 취급 주의사항 레이어 -->
+		<div class="modal_pop_layer clean_guide_layer">
+			<div class="overlay"></div>
+			<div class="popup">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<div class="tit">세탁 및 취급 시 주의사항</div>
+				<div class="safewarning">
+					<div class="safe_depth1">
+						<ul>
+							<li class="tmap1"><a href="#" class="on" onclick="toggleSafeCont(1);return false">신발</a></li>
+							<li class="tmap1"><a href="#" onclick="toggleSafeCont(2);return false">의류</a></li>
+							<li class="tmap1"><a href="#" onclick="toggleSafeCont(3);return false">용품</a></li>
+						</ul>
+					</div>
+					<div class="safe_depth2">
+						<!-- 신발 -->
+						<div class="safemenu" id="safebox1" style="display:block;">
+							<div class="safe_depth2_menu">
+								<ul>
+									<li><a href="#" class="on">천연가죽</a></li>
+									<li><a href="#">섬유제품 또는 합성제품</a></li>
+									<li><a href="#">금속 스터드(징) 사용제품</a></li>
+								</ul>
+							</div>
+							<div class="safe_depth2_cont">
+								<ol class="cont1" style="display:block;">
+									<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
+									<li>2. 젖었을 때에는 직사일광이나 불로 건조 시키지 마십시오.</li>
+									<li>3. 오염시 부드러운 솔로 닦고, 슈크리너를 사용하십시오.</li>
+									<li>4. 보존시에는 적정한 온도와 습도에서 보관하십시오.</li>
+									<li>5. 본제품은 세탁이 불가합니다.</li>
+									<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
+									<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
+									<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
+								</ol>
+								<ol class="cont2">
+									<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
+									<li>2. 기름기가 있는 장소에서의 사용은 피하십시오.</li>
+									<li>3. 불옆에 놓으면 변화하거나 변형이 발생할 수 있으니 주의 하십시오.</li>
+									<li>4. 표면의 오염 발생시 비눗물을 적신 천을 사용하고, 구두약등의 보혁유를 사용할 필요는 없습니다.</li>
+									<li>5. 본제품은 세탁이 불가합니다.</li>
+									<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
+									<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
+									<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
+								</ol>
+								<ol class="cont3">
+									<li>1. 천연잔디용이므로 맨땅에서 착화시 스터드(징) 파손 및 부상의 위험이 있습니다.</li>
+									<li>2. 사용전 스터드(징) 나사를 단단히 조이지 않으면 부상의 위험이 있습니다.</li>
+									<li><strong>*  주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+									<li><strong>*  주의! 신발이 에스컬레이트 등에 낄 수 있습니다.</strong></li>
+								</ol>
+							</div>
+						</div>
+						<!-- //신발 -->
+
+						<!-- 의류 -->
+						<div class="safemenu" id="safebox2">
+							<div class="safe_depth2_menu">
+								<ul>
+									<li><a href="#" class="on">100% 면</a></li>
+									<li><a href="#">100% 폴리에스터 (니트)<br>100% 나일론 (니트)</a></li>
+									<li><a href="#">100% 폴리에스터 (우븐)<br>100% 나일론 (우븐)</a></li>
+									<li><a href="#">울</a></li>
+									<li><a href="#">패딩</a></li>
+									<li><a href="#">다운</a></li>
+									<li><a href="#">구스다운</a></li>
+									<li><a href="#">스판덱스</a></li>
+								</ul>
+							</div>
+							<div class="safe_depth2_cont">
+								<ol class="cont1" style="display:block;">
+									<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+									<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+									<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+									<li>6. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
+									<li style="padding-left:11px;">주십시오.</li>
+									<li>7. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+									<li>8. 면이 함유된 제품은 세탁후 약간의 수축현상이 생길수있으니 유의바랍니다.</li>
+									<li>9. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>10. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>11. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+								</ol>
+								<ol class="cont2">
+									<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+									<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+									<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+									<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+									<li>7. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>8. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>9. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>10. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>11. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+								</ol>
+								<ol class="cont3">
+									<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+									<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+									<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+									<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+									<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
+									<li>8. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
+									<li style="padding-left:11px;">주십시오.</li>
+									<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>11. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+								</ol>
+								<ol class="cont4">
+									<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 물세탁을</li>
+									<li style="padding-left:11px;">삼가해 주십시오.</li>
+									<li>2. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+									<li>3. 반드시 드라이크리닝을 하십시오.</li>
+									<li>4. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+								</ol>
+								<ol class="cont5">
+									<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
+									<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+									<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+									<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
+									<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
+									<li>8. 다림질을 할때는 약간 들은 상태에서 다림질을 해야 보온력이 원상태로 유지됩니다</li>
+									<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>11. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>12. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+								</ol>
+								<ol class="cont6">
+									<li>1. 세탁은 가능한 물세탁을 권장합니다.</li>
+									<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
+									<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
+									<li>6. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>7. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>8. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>9. 세제는 완전히 빠지도록 여러차레 행굽니다.  세제가 남아 있으면 건조후 얼룩이 생깁니다.</li>
+									<li>10. 탈수기를 이용하여 탈수하고 단 시간내에 옷걸이를 사용하여 건조시켜 주십시오.</li>
+									<li>11. 지퍼나 단추는 잠근상태에서 뒤집어 세탁하십시오.</li>
+									<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+								</ol>
+								<ol class="cont7">
+									<li>1. 거위털(DOWN)의 특성이 저하되는 것을 막기 위하여 물세탁을 권장합니다.</li>
+									<li>2. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
+									<li>3. 세탁후 얼룩이 발생되면 대부분 헹굼이 부족한 것이오니 헹굼을(3~4회)를 하십시요</li>
+									<li>4. 습한곳이나 폴리백 상태에서 장시간 보관을 절대 금합니다.</li>
+									<li>5. 건조시 건조대를 사용하여 통풍이 잘되는 곳에서 뉘어서 빠른시간내 건조하십시요</li>
+									<li>6. 코팅된 원단은 뒤집어서 탈수하여 주십시요</li>
+									<li>7. 만약 냄새가 나는 경우에는 통풍이 잘되고 햇빛이 양호한곳에서 1~2시간 정도 건조시키면</li>
+									<li style="padding-left:11px;">냄새가 제거되고 불륨감이 좋아집니다.</li>
+									<li>8. 건조후 가볍게 두들겨 주시면 볼륨감이 살아 납니다.</li>
+									<li>9. 세탁시 지퍼나 단추는 잠근상태에서 뒤집어 세탁하여야 지퍼가손상되지 않습니다.</li>
+									<li>10. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하시고 부착된 장신구 등은 강한 충격에</li>
+									<li style="padding-left:11px;">의하여 파손될 수 있으니 유의하십시요</li>
+									<li>11. 기계건조(열건조)는 손상이 되므로 삼가하여 주십시요</li>
+									<li>12. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+								</ol>
+								<ol class="cont8">
+									<li>1. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
+									<li>2. 세탁기 및 탈수기는 사용하지 마십시오.</li>
+									<li>3. 신축성이 강한 폴리우레탄 원단은 마찰에 민감하므로 미끄럼등 심한 마찰을 피해 주십시오.</li>
+									<li>4. 생고무등은 오일이 묻은후 오래 방치하여 두면 손상될 우려가 있으니 즉시 세탁하여 주십시오.</li>
+									<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
+									<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
+									<li>8. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>9.불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
+								</ol>
+								<div class="safe_warning_desc">
+									<h6>공통 유의사항</h6>
+									<ul>
+										<li>*  건조시에는 강한햇볕을 피하고 통풍이 잘되는 그늘에서 건조하십시오.</li>
+										<li><strong>*  주의!  작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+										<li>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</li>
+										<li style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- //의류 -->
+						<div class="safemenu" id="safebox3">
+							<div class="safe_depth2_menu">
+								<ul>
+									<li><a href="#" class="on">모자</a></li>
+									<li><a href="#">가방</a></li>
+									<li><a href="#">밴드류 워머</a></li>
+									<li><a href="#">요가 매트</a></li>
+									<li><a href="#">니트 글러브</a></li>
+									<li><a href="#">양말</a></li>
+									<li><a href="#">가죽 제품류</a></li>
+									<li><a href="#">마이 코치</a></li>
+								</ul>
+							</div>
+							<div class="safe_depth2_cont">
+								<ol class="cont1" style="display:block;">
+									<li>1. 세제를 사용한 물에 제품을 담근 후 30분 이내에 세탁하십시오.</li>
+									<li>2. 모자의 챙 부분은 세탁후 구기거나, 비비지 마십시오.</li>
+									<li>3. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
+									<li>4. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
+									<li>5. 세탁후 응달에서 건조하십시오.</li>
+									<li>6. 불옆에 놓으면 변화하거나 챙이 변형되는 일이 있으므로 유의하십시오.</li>
+									<li>7. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+								</ol>
+								<ol class="cont2">
+									<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
+									<li>2. 오염된 부분만 세탁하십시오. 만약 전체 세탁이 필요할시에는 물에 장기간 담가두지 마십시오.</li>
+									<li>3. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
+									<li>4. 젖었을때는 직사일광 또는 불로 건조 시키지 마십시오.</li>
+									<li>5. 세탁후 응달에서 건조하십시오.</li>
+									<li>6. 기름기가 있는 세제는 사용하지 마십시오.</li>
+									<li>7. 보존시에는 온도나 습도가 높은 곳을 피하십시오.</li>
+									<li>8. 화기옆에 놓으면 상태, 색상이 변할 수 있으니 유의하십시오.</li>
+									<li>9. 가방의 끈이 걸리거나 끼지 않도록 유의하십시오.</li>
+									<li>10. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>11. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하십시요.</li>
+									<li>12. 부착된 장신구 등은 강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
+									<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+								</ol>
+								<ol class="cont3">
+									<li>1. 이염 될 우려가 있으므로 별도로 세탁 하십시오.</li>
+									<li>2. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
+									<li>3. 거친 표면에서 심하게 마찰 시키지 마십시오.</li>
+									<li>4. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+									<li>5. 원단 특성상 마찰시 보풀이 일수 있으니 주의 하십시오.</li>
+									<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어 날 수 있으니 유의하십시오.</li>
+									<li>7. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의 하십시오.</li>
+									<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+								</ol>
+								<ol class="cont4">
+									<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
+									<li>2. 건조하고 통풍이 잘되는 곳에 보관하십시오.</li>
+									<li>3. 세탁기 사용은 절대로 하지 마십시오.</li>
+									<li>4. 정상적인 착용으로 발생하는 파손은 교환 사유가 되지 않음을 알려 드립니다.</li>
+									<li>5. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오. </li>
+									<li>7. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+								</ol>
+								<ol class="cont5">
+									<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 </li>
+									<li style="padding-left:11px;">울전용세제를 사용하십시오.</li>
+									<li>2. 표백제 및 강력효소세제는 절대 사용하지 마십시오.</li>
+									<li>3. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
+									<li>4. 짙은 색상은 다른것과 구별하여 세탁하십시오.</li>
+									<li>5. 표면이 거친 장소에서 심하게 마찰시키지 마십시오.</li>
+									<li>6. 세탁후 물기를 가볍게 닦고 손으로 펴서 그늘에서 말리십시오.</li>
+									<li>7. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>8. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오. </li>
+									<li>9. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+								</ol>
+								<ol class="cont6">
+									<li>1. 미지근한물(40℃)에 중성세제를 사용하여 세탁하십시오.</li>
+									<li>2. 충분히 헹군후 발목부분을 위로하여 말리십시오.</li>
+									<li>3. 염소계 표백제는 사용하지 마십시오.</li>
+									<li>4. 삶아 빨지 마십시오.</li>
+									<li>5. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
+								</ol>
+								<ol class="cont7">
+									<li>1. 세탁은 반드시 가죽전문점에 맡겨 주십시오.</li>
+									<li>2. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
+									<li>3. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
+									<li>4. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
+									<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
+								</ol>
+								<div class="cont8">
+									<ul>
+										<li>이 제품은 레크레이션 용도를 위한 것으로, 의학적 목적으로 사용할 수 없습니다!</li>
+										<li>일반 운동 프로그램을 시작하기 전에 의사와 상담하실 것을 권장합니다.</li>
+										<li>마이코치 제품은 어린이들의 손에 닿지 않는 곳에 보관하십시오!</li>
+									</ul>
+									<h6 style="margin-top:35px;">권장사항/사용자 책임</h6>
+									<p>운동에는 어느 정도의 위험이 따를 수 있습니다. 운동 프로그램을 시작하기 전에 의사와 상담해야 합니다. 운동을 시작하기 전에 준비 운동과 스트레칭을 할 것을 권장합니다. 통증이 있거나 현기증, 어지러움 또는 숨가쁨을 느끼는 경우, 즉시 운동을 중지하십시오.<br>운동의 강도, 복용 약, 혈압, 천식, 카페인, 알코올, 니코틴, 기타 요소등이 심박 속도에 영향을 줄 수 있음에 유의하십시오.</p>
+									<h6>심박조정기, 제세동기 또는 기타 이식한 전자 장치 사용자를 위한 안내</h6>
+									<p>이 스포츠 전자 장치 사용을 시작하기 전에 의사의 감독 하에 운동 테스트를 실시하여 인체에 이식한 장치와 이 장치를 동시 사용할 경우의 안전과 신뢰성에 대해 확인할 것을 권장합니다.<br>본 제품의 이용에 따른 위험은 사용자의 책임입니다.<br>이어폰의 볼륨을 크게 하여 사용할 경우 영구적인 청력 손실이 발생할 수 있습니다.<br>볼륨을 안전한 레벨로 설정하십시오.</p>
+									<h6>기타 상세 정보</h6>
+									<p style="margin-bottom:10px;">배터리 교체, 서비스 및 지원, 요령 및 문제해결, 안전 및 세척은 adidas.com/micoach를 방문하십시오.</p>
+								</div>
+								<div class="safe_warning_desc">
+									<h6>공통 유의사항</h6>
+									<p>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</p>
+									<p style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- //safe_depth2 -->
+				</div>
+				<!-- //safewarning -->
+				<script type="text/javascript">
+					jQuery(document).ready(function(){
+						// 세탁 및 취급 유의사항
+						jQuery('.safe_depth2_menu li').mouseover(function(){
+							var leftmenu=jQuery(this).parent('ul');
+							var par=jQuery(this).parent('ul').parent('div').siblings('div.safe_depth2_cont');
+							var boxid=par.parent('div').attr('id');
+							var idx=jQuery(this).index();
+							leftmenu.find('li').each(function(){
+								jQuery(this).find('a').removeClass('on');
+							});
+							jQuery(this).find('a').addClass('on');
+							par.find('ol').hide();
+							if(boxid=='safebox3'){
+								par.find('.cont8').hide();
+							}
+							par.find('.cont'+(idx+1)).show();
+						});
+						jQuery('.safe_depth2_menu li').click(function(){
+							return false;
+						});
+					});
+					function toggleSafeCont(num){
+						for(var i=1;i<4;i++){
+							jQuery('#safebox'+i).hide();
+						}
+						jQuery('.safe_depth1 li').each(function(){
+							jQuery(this).find('a').removeClass('on');
+						});
+						jQuery('#safebox'+num).show();
+						jQuery('.safe_depth1 li').eq(num-1).find('a').addClass('on');
+
+					}
+				</script>
+			</div>
+		</div>
+
+		<!-- 160824 카트혜택 레이어 -->
+		<div class="modal_pop_layer card_benefit_layer">
+			<div class="overlay"></div>
+			<div class="popup">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<div class="top">
+					<div class="tit">지금 할인되는 카드 프로모션</div>
+				</div>
+				<div class="body">
+					<div class="box">
+						<h3>카드사 무이자 할부안내</h3>
+						<div class="info">
+							<table cellpadding="0" cellspacing="0" width="100%">
+								<colgroup>
+									<col width="95">
+									<col width="120">
+									<col width="140">
+									<col>
+								</colgroup>
 								<thead>
-									<tr height="26">
-										<th rowspan="3" colspan="2" scope="col" style="font-weight: bold;">기준</th>
-										<th colspan="4" scope="colgroup" style="font-weight: bold;">판정결과</th>
-									</tr>
-									<tr height=26>
-										<th colspan="2" scope="colgroup">수선 가능 시</th>
-										<th colspan="2" scope="colgroup">수선 불가시</th>
-									</tr>
-									<tr height="26">
-										<th scope="col">수선비용</th>
-										<th scope="col">배송비용</th>
-										<th scope="col">수선비용</th>
-										<th scope="col">배송비용</th>
+									<tr>
+										<th>카드사</th>
+										<th>기간</th>
+										<th>내용</th>
+										<th>할부개월</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr height="46">
-										<th scope="rowgroup" rowspan="2" class="tl">품질보증<br>기간이내</th>
-										<th scope="row">제품 하자 시</th>
-										<td class="tl">무상수선</td>
-										<td>회사부담</td>
-										<td>교환</td>
-										<td>회사부담</td>
-									</tr>
-									<tr height="46">
-										<th scope="row">소비자 과실 시</th>
-										<td class="tl">유상수선<br>(일부품목 제외)</td>
-										<td>고객부담</td>
-										<td>반송</td>
-										<td>고객부담</td>
+									<tr>
+										<td>롯데</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
 									</tr>
 
-									<tr height="46">
-										<th scope="rowgroup" rowspan="2" class="tl">품질보증<br>기간경과 및<br>내용연수 경과</th>
-										<th scope="row">제품 하자 시</th>
-										<td class="tl">유상수선<br>(일부품목 제외)</td>
-										<td>회사부담</td>
-										<td>반송</td>
-										<td>회사부담</td>
+
+
+									<tr>
+										<td>현대</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
 									</tr>
-									<tr height="46">
-										<th scope="row">소비자 과실 시</th>
-										<td class="tl">유상수선<br>(일부품목 제외)</td>
-										<td>고객부담</td>
-										<td>반송</td>
-										<td>고객부담</td>
+
+
+
+									<tr>
+										<td>국민</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
 									</tr>
+
+
+
+									<tr>
+										<td>BC</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
+									</tr>
+
+
+
+									<tr>
+										<td>삼성</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
+									</tr>
+
+
+
+									<tr>
+										<td>신한</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
+									</tr>
+
+
+
+									<tr>
+										<td>씨티</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~3개월</td>
+									</tr>
+
+
+
+									<tr>
+										<td>NH</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
+									</tr>
+
+
+
+									<tr>
+										<td>하나SK</td>
+										<td>08.01~08.31</td>
+										<td>
+											5만원 이상 구매시
+
+										</td>
+										<td>2~5개월</td>
+									</tr>
+
 
 								</tbody>
 							</table>
-							<ul>
-								<li>유상 수선 판정 시 고객님으로부터 수선비 결제가 완료된 후 제품이 발송됩니다.</li>
-								<li>수선된 제품은 제품의 수령 가능일로부터 1개월 이내에 수령하셔야하며, 기간이 초과된 경우 제품의 분실이나 훼손 등에 대하여<br>
-								당사는 책임을 지지 않습니다.</li>
-							</ul>
 						</div>
-						<!-- 접근성 end -->
-					</dd>
-				</dl>
+						<ul class="desc">
+							<li>- 법인/체크/선불/기프트/은행계열카드 제외</li>
+							<li>- 무이자할부 결제 시 포인트, 마일리지 적립 제외</li>
+							<li>- 직계약 가맹점, 상점부담 무이자 가맹점, 특별제휴 가맹점, 오프라인 가맹점, 신규 가맹점 등<br>&nbsp;&nbsp;일부 제외</li>
+							<li>- 카드사의 사정으로 변경 또는 종료될 수 있으니, 이니시스 결제창의 무이자 안내를 확인하세요.</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- //190315 PDP as 안내 수정 -->
 
- 	<!-- 160824 세탁 및 취급 주의사항 레이어 -->
- 	<div class="modal_pop_layer clean_guide_layer">
-		<div class="overlay"></div>
-		<div class="popup">
-			<a href="javascript:void(0)" class="spt_bg close"></a>
-			<div class="tit">세탁 및 취급 시 주의사항</div>
-			<div class="safewarning">
-				<div class="safe_depth1">
-					<ul>
-						<li class="tmap1"><a href="#" class="on" onclick="toggleSafeCont(1);return false">신발</a></li>
-						<li class="tmap1"><a href="#" onclick="toggleSafeCont(2);return false">의류</a></li>
-						<li class="tmap1"><a href="#" onclick="toggleSafeCont(3);return false">용품</a></li>
+		<!-- 160824 배송/반품/교환 안내 레이어 -->
+		<div class="modal_pop_layer as_layer delev_layer">
+			<div class="overlay"></div>
+			<div class="popup">
+				<a href="javascript:void(0)" class="spt_bg close"></a>
+				<div class="tit">배송/반품</div>
+				<div class="delivery_desc">
+					<p>아디다스 온라인 스토어에서는 고객서비스를 지속적으로 향상시키는데 도움이 되는 여러분의 모든 의견을 소중히 합니다.<br>주문/배송등에 문제가 있으신 경우에는 아래 고객센터로 연락 주시면 성심껏 답변을 드리겠습니다.</p>
+					<ul class="arial">
+						<li>고객센터 : 1588-8241 (평일 09:00 ~ 18:00 , 점심시간 12:00 ~ 13:00) , 본사로 반품 불가 (교환 및 반품은 고객센터 문의)</li>
+						<li>이메일 : adiCLUB_Korea@adidas.com</li>
+						<li>사이트 : shop.adidas.co.kr</li>
 					</ul>
 				</div>
-				<div class="safe_depth2">
-					<!-- 신발 -->
-					<div class="safemenu" id="safebox1" style="display:block;">
-						<div class="safe_depth2_menu">
+				<div class="delivery_desc2">
+					<dl>
+						<dt>배송안내</dt>
+						<dd>
 							<ul>
-								<li><a href="#" class="on">천연가죽</a></li>
-								<li><a href="#">섬유제품 또는 합성제품</a></li>
-								<li><a href="#">금속 스터드(징) 사용제품</a></li>
+								<li>배송은 구매자께서 선택하신 배송지주소에서 <strong>가까운 오프라인매장</strong>에서 배송됩니다.</li>
+								<li>상품에 따라 품절 또는 재고부족(제품하자)등의 사유로 배송이 지연되거나 배송이 불가 할 수 있습니다.</li>
+								<!-- 181010 -->
+								<li>매장에서 택배 송장을 출력한 경우 주문취소가 불가 할 수 있습니다.</li>
+								<!-- 181010 end-->
+								<li>복수의 상품을 한번에 결제하신 경우 빠른 배송을 위해 각각의 상품이 따로 배송될 수 있습니다.<br>따로 배송되는 경우에도 배송비는 추가되지 않습니다.</li>
+								<li>배송은 입금확인일로부터 주중에는 <strong>5일 이내에 배송</strong>해 드립니다.<br>단, 주말/공휴일의 경우 또는 <strong>도서산간지역의 경우 1-2일 더 소요</strong>될 수 있습니다.</li>
+								<li>구매금액이 <strong>5만원 이상인 경우 무료로 배송</strong>해 드리며 5만원 미만 주문 시에는 <strong>배송료 2,500원이 별도 부과</strong>됩니다.<br>단, 도서/산간 지역은 배송비가 추가 될 수 있습니다</li>
+								<li>배송진행상황은 <strong>[마이페이지 &gt; 주문배송조회]</strong>에서 확인하실 수 있습니다.</li>
 							</ul>
-						</div>
-						<div class="safe_depth2_cont">
-							<ol class="cont1" style="display:block;">
-								<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
-								<li>2. 젖었을 때에는 직사일광이나 불로 건조 시키지 마십시오.</li>
-								<li>3. 오염시 부드러운 솔로 닦고, 슈크리너를 사용하십시오.</li>
-								<li>4. 보존시에는 적정한 온도와 습도에서 보관하십시오.</li>
-								<li>5. 본제품은 세탁이 불가합니다.</li>
-								<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
-								<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
-								<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
-							</ol>
-							<ol class="cont2">
-								<li>1. 건조시킬 때에는 응달에서 말려주십시오.</li>
-								<li>2. 기름기가 있는 장소에서의 사용은 피하십시오.</li>
-								<li>3. 불옆에 놓으면 변화하거나 변형이 발생할 수 있으니 주의 하십시오.</li>
-								<li>4. 표면의 오염 발생시 비눗물을 적신 천을 사용하고, 구두약등의 보혁유를 사용할 필요는 없습니다.</li>
-								<li>5. 본제품은 세탁이 불가합니다.</li>
-								<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의해 주십시오.</li>
-								<li>7. 신발 뒷꿈치를 꺾어 신지 마십시오.</li>
-								<li>8. 제품의 수명 연장을 위해 사용 용도를 주의해 주십시오.</li>
-							</ol>
-							<ol class="cont3">
-								<li>1. 천연잔디용이므로 맨땅에서 착화시 스터드(징) 파손 및 부상의 위험이 있습니다.</li>
-								<li>2. 사용전 스터드(징) 나사를 단단히 조이지 않으면 부상의 위험이 있습니다.</li>
-								<li><strong>*  주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
-								<li><strong>*  주의! 신발이 에스컬레이트 등에 낄 수 있습니다.</strong></li>
-							</ol>
-						</div>
-					</div>
-					<!-- //신발 -->
-
-					<!-- 의류 -->
-					<div class="safemenu" id="safebox2">
-						<div class="safe_depth2_menu">
+						</dd>
+					</dl>
+					<dl>
+						<dt>반품안내</dt>
+						<dd>
+							<p style="margin-bottom:20px;">반품은 배송완료일로부터 7일 이내에 신청해 주십시오.<br>단, 다음과 같은 경우 반품신청이 불가능 할 수 있습니다.</p>
 							<ul>
-								<li><a href="#" class="on">100% 면</a></li>
-								<li><a href="#">100% 폴리에스터 (니트)<br>100% 나일론 (니트)</a></li>
-								<li><a href="#">100% 폴리에스터 (우븐)<br>100% 나일론 (우븐)</a></li>
-								<li><a href="#">울</a></li>
-								<li><a href="#">패딩</a></li>
-								<li><a href="#">다운</a></li>
-								<li><a href="#">구스다운</a></li>
-								<li><a href="#">스판덱스</a></li>
+								<li>반품요청기간이 지난 경우</li>
+								<li>포장을 개봉하였거나 포장이 훼손되어(상품의 Tag분리/분실, 비닐포장 훼손, 신발박스 훼손 등) 상품가치가 현저히 감소한 경우 </li>
+								<li>액세서리, 전자제품의 포장을 개봉 하였으나 단순 변심으로 교환,반품 원하는 경우 </li>
+								<li>구매자의 책임있는 사유로 상품 등이 멸실 또는 훼손된 경우 </li>
+								<li>구매자의 사용 또는 일부 소비에 의하여 상품가치가 현저히 감소한 경우 </li>
+								<li>기간의 경과에 의하여 재판매가 곤란할 정도로 상품가치가 현저히 감소한 경우</li>
+								<li>주문확인 후 상품제작에 들어가는 주문제작 상품인 경우 </li>
+								<li>복제가 가능한 상품 등의 포장을 훼손한 경우 </li>
+								<li style="margin-bottom:15px;">단, 재화 등의 내용이 표시 (이미지 또는 기능을 포함) 및 광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급 받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약 철회 등을 할 수 있습니다.</li>
 							</ul>
-						</div>
-						<div class="safe_depth2_cont">
-							<ol class="cont1" style="display:block;">
-								<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
-								<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
-								<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
-								<li>6. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
-								<li style="padding-left:11px;">주십시오.</li>
-								<li>7. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
-								<li>8. 면이 함유된 제품은 세탁후 약간의 수축현상이 생길수있으니 유의바랍니다.</li>
-								<li>9. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>10. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>11. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
-							</ol>
-							<ol class="cont2">
-								<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
-								<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
-								<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
-								<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
-								<li>7. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>8. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>9. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>10. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>11. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
-							</ol>
-							<ol class="cont3">
-								<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
-								<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
-								<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
-								<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
-								<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
-								<li>8. 물에 오래 담가 두거나 세탁후 그대로 놓아두면 탈색이나 이염이 될수있으니 곧 탈수하여</li>
-								<li style="padding-left:11px;">주십시오.</li>
-								<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>11. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
-							</ol>
-							<ol class="cont4">
-								<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 물세탁을</li>
-								<li style="padding-left:11px;">삼가해 주십시오.</li>
-								<li>2. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
-								<li>3. 반드시 드라이크리닝을 하십시오.</li>
-								<li>4. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-							</ol>
-							<ol class="cont5">
-								<li>1. 땀을  많이 흘렸을  경우 즉시 세탁하십시오.</li>
-								<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
-								<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
-								<li>6. 나염이 들어간 제품은 나염에 손상이 가지않도록 뒤집어서 세탁 하십시오.</li>
-								<li>7. 지퍼나 단추는 잠근상태에서 세탁하십시오.</li>
-								<li>8. 다림질을 할때는 약간 들은 상태에서 다림질을 해야 보온력이 원상태로 유지됩니다</li>
-								<li>9. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>10. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>11. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>12. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
-							</ol>
-							<ol class="cont6">
-								<li>1. 세탁은 가능한 물세탁을 권장합니다.</li>
-								<li>2. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>3. 립이나 밴드 부분은 뜨거운 물에서 변형되므로 특히 유의 하십시오.</li>
-								<li>4. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>5. 흰옷과 유색옷은 이염될수있으므로 구분하여 세탁하십시오.</li>
-								<li>6. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>7. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>8. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>9. 세제는 완전히 빠지도록 여러차레 행굽니다.  세제가 남아 있으면 건조후 얼룩이 생깁니다.</li>
-								<li>10. 탈수기를 이용하여 탈수하고 단 시간내에 옷걸이를 사용하여 건조시켜 주십시오.</li>
-								<li>11. 지퍼나 단추는 잠근상태에서 뒤집어 세탁하십시오.</li>
-								<li>12. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-							</ol>
-							<ol class="cont7">
-								<li>1. 거위털(DOWN)의 특성이 저하되는 것을 막기 위하여 물세탁을 권장합니다.</li>
-								<li>2. 세제를 먼저 물에 풀어 충분히 용해시킨후 세탁하십시오.</li>
-								<li>3. 세탁후 얼룩이 발생되면 대부분 헹굼이 부족한 것이오니 헹굼을(3~4회)를 하십시요</li>
-								<li>4. 습한곳이나 폴리백 상태에서 장시간 보관을 절대 금합니다.</li>
-								<li>5. 건조시 건조대를 사용하여 통풍이 잘되는 곳에서 뉘어서 빠른시간내 건조하십시요</li>
-								<li>6. 코팅된 원단은 뒤집어서 탈수하여 주십시요</li>
-								<li>7. 만약 냄새가 나는 경우에는 통풍이 잘되고 햇빛이 양호한곳에서 1~2시간 정도 건조시키면</li>
-								<li style="padding-left:11px;">냄새가 제거되고 불륨감이 좋아집니다.</li>
-								<li>8. 건조후 가볍게 두들겨 주시면 볼륨감이 살아 납니다.</li>
-								<li>9. 세탁시 지퍼나 단추는 잠근상태에서 뒤집어 세탁하여야 지퍼가손상되지 않습니다.</li>
-								<li>10. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하시고 부착된 장신구 등은 강한 충격에</li>
-								<li style="padding-left:11px;">의하여 파손될 수 있으니 유의하십시요</li>
-								<li>11. 기계건조(열건조)는 손상이 되므로 삼가하여 주십시요</li>
-								<li>12. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-							</ol>
-							<ol class="cont8">
-								<li>1. 염소 표백제 및 강력효소세제는 절대사용하지 마십시오.</li>
-								<li>2. 세탁기 및 탈수기는 사용하지 마십시오.</li>
-								<li>3. 신축성이 강한 폴리우레탄 원단은 마찰에 민감하므로 미끄럼등 심한 마찰을 피해 주십시오.</li>
-								<li>4. 생고무등은 오일이 묻은후 오래 방치하여 두면 손상될 우려가 있으니 즉시 세탁하여 주십시오.</li>
-								<li>5. 본 제품에 부착된 원부자재를 어린아이가 삼키지 않도록 주의하시고 부착된 장신구 등은</li>
-								<li style="padding-left:11px;">강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>7. 심한마찰은 보풀이 발생할수 있습니다.</li>
-								<li>8. 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>9.불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다</li>
-							</ol>
-							<div class="safe_warning_desc">
-								<h6>공통 유의사항</h6>
-								<ul>
-									<li>*  건조시에는 강한햇볕을 피하고 통풍이 잘되는 그늘에서 건조하십시오.</li>
-									<li><strong>*  주의!  작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
-									<li>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</li>
-									<li style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- //의류 -->
-					<div class="safemenu" id="safebox3">
-						<div class="safe_depth2_menu">
+							<p style="margin-bottom:20px;">반품은 아래 방법으로 진행해 주셔야 빠른 환불처리가 가능합니다.</p>
 							<ul>
-								<li><a href="#" class="on">모자</a></li>
-								<li><a href="#">가방</a></li>
-								<li><a href="#">밴드류 워머</a></li>
-								<li><a href="#">요가 매트</a></li>
-								<li><a href="#">니트 글러브</a></li>
-								<li><a href="#">양말</a></li>
-								<li><a href="#">가죽 제품류</a></li>
-								<li><a href="#">마이 코치</a></li>
+								<li><strong>[로그인 &gt; 마이페이지 &gt; 나의 쇼핑내역 &gt; 취소/반품 조회]</strong> 페이지에서 신청해 주셔야 합니다.</li>
+								<li><strong>고객 단순변심</strong>에 의한 반품 시 <strong>왕복 배송비</strong>를 부담하셔야 합니다.</li>
+								<li>상품불량/오배송 으로 인한 반품시 택배비는 <strong>아디다스</strong>에서 부담하며 반드시 한진 택배를 이용하셔야 합니다. </li>
+								<li>반송하실 상품은 배송된 <strong>오프라인매장</strong>으로 반품해 주셔야 합니다. 오프라인매장주소는 배송박스를 참조해 주십시오. <br>
+									반품 회수 택배사는 <strong>한진 택배</strong>이며, 다른 택배회사를 이용하여 반품하는 경우 환불이 지연될 수 있습니다. <br>
+									다른 택배 회사를 통해 반품시 <strong>고객센터(1588-8241)</strong>로 통화 후에 택배비 고객 부담으로 진행해주셔야 합니다.</li>
+								<li>기타 다른 방법으로 반품하시는 경우 환불처리가 지연될 수 있습니다.</li>
+								<li>부분 반품을 하는 경우, 반품하지 않는 상품의 금액이 5만원 이상이면 반품 배송비만 부담하시면 됩니다. <br>
+									상품 금액이 <strong>5만원 미만</strong>일 경우에는 <strong>왕복 배송비를 부담</strong>해주셔야 합니다.</li>
+								<li>환불은 반품완료된 날로부터 3영업일 이내에 환불이 됩니다.</li>
 							</ul>
-						</div>
-						<div class="safe_depth2_cont">
-							<ol class="cont1" style="display:block;">
-								<li>1. 세제를 사용한 물에 제품을 담근 후 30분 이내에 세탁하십시오.</li>
-								<li>2. 모자의 챙 부분은 세탁후 구기거나, 비비지 마십시오.</li>
-								<li>3. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
-								<li>4. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
-								<li>5. 세탁후 응달에서 건조하십시오.</li>
-								<li>6. 불옆에 놓으면 변화하거나 챙이 변형되는 일이 있으므로 유의하십시오.</li>
-								<li>7. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
-							</ol>
-							<ol class="cont2">
-								<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
-								<li>2. 오염된 부분만 세탁하십시오. 만약 전체 세탁이 필요할시에는 물에 장기간 담가두지 마십시오.</li>
-								<li>3. 표백제나 표백성분이 있는 세제는 사용하지 마십시오.</li>
-								<li>4. 젖었을때는 직사일광 또는 불로 건조 시키지 마십시오.</li>
-								<li>5. 세탁후 응달에서 건조하십시오.</li>
-								<li>6. 기름기가 있는 세제는 사용하지 마십시오.</li>
-								<li>7. 보존시에는 온도나 습도가 높은 곳을 피하십시오.</li>
-								<li>8. 화기옆에 놓으면 상태, 색상이 변할 수 있으니 유의하십시오.</li>
-								<li>9. 가방의 끈이 걸리거나 끼지 않도록 유의하십시오.</li>
-								<li>10. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>11. 본 제품에 부착된 원부자재를 삼키지 않도록 주의하십시요.</li>
-								<li>12. 부착된 장신구 등은 강한 충격에 의하여 파손될 수 있으니 유의하십시오.</li>
-								<li>13. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
-							</ol>
-							<ol class="cont3">
-								<li>1. 이염 될 우려가 있으므로 별도로 세탁 하십시오.</li>
-								<li>2. 장시간 착용으로 땀을 흘렸을 경우 즉시 세탁하십시오.</li>
-								<li>3. 거친 표면에서 심하게 마찰 시키지 마십시오.</li>
-								<li>4. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
-								<li>5. 원단 특성상 마찰시 보풀이 일수 있으니 주의 하십시오.</li>
-								<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어 날 수 있으니 유의하십시오.</li>
-								<li>7. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의 하십시오.</li>
-								<li>8. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
-							</ol>
-							<ol class="cont4">
-								<li>1. 30℃ 이하의 물에서 스폰지나 솔로 세탁하십시오.</li>
-								<li>2. 건조하고 통풍이 잘되는 곳에 보관하십시오.</li>
-								<li>3. 세탁기 사용은 절대로 하지 마십시오.</li>
-								<li>4. 정상적인 착용으로 발생하는 파손은 교환 사유가 되지 않음을 알려 드립니다.</li>
-								<li>5. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>6. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오. </li>
-								<li>7. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
-							</ol>
-							<ol class="cont5">
-								<li>1. 세탁시에 수축현상 및 심한 마찰로 인한 보풀이 생기는 경우가 있으므로 </li>
-								<li style="padding-left:11px;">울전용세제를 사용하십시오.</li>
-								<li>2. 표백제 및 강력효소세제는 절대 사용하지 마십시오.</li>
-								<li>3. 좀, 곰팡이에 약하므로 보관에 유의하시기 바랍니다.</li>
-								<li>4. 짙은 색상은 다른것과 구별하여 세탁하십시오.</li>
-								<li>5. 표면이 거친 장소에서 심하게 마찰시키지 마십시오.</li>
-								<li>6. 세탁후 물기를 가볍게 닦고 손으로 펴서 그늘에서 말리십시오.</li>
-								<li>7. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>8. 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오. </li>
-								<li>9. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
-							</ol>
-							<ol class="cont6">
-								<li>1. 미지근한물(40℃)에 중성세제를 사용하여 세탁하십시오.</li>
-								<li>2. 충분히 헹군후 발목부분을 위로하여 말리십시오.</li>
-								<li>3. 염소계 표백제는 사용하지 마십시오.</li>
-								<li>4. 삶아 빨지 마십시오.</li>
-								<li>5. 제품에 따라 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>6. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다. </strong></li>
-							</ol>
-							<ol class="cont7">
-								<li>1. 세탁은 반드시 가죽전문점에 맡겨 주십시오.</li>
-								<li>2. 민감한 피부를 가지신 분은 알레르기 반응이 일어날 수 있으니 유의하십시오.</li>
-								<li>3. 본 제품은 열에 약하므로 화기 및 강한 마찰에 의한 화상의 위험이 있으니 유의하십시오.</li>
-								<li>4. 불꽃 접근시 불길이 옮겨 붙을 가능성이 있으니 주의바랍니다.</li>
-								<li><strong>* 주의! 작은 부품이 탈락되면 삼킬 수 있습니다.</strong></li>
-							</ol>
-							<div class="cont8">
-								<ul>
-									<li>이 제품은 레크레이션 용도를 위한 것으로, 의학적 목적으로 사용할 수 없습니다!</li>
-									<li>일반 운동 프로그램을 시작하기 전에 의사와 상담하실 것을 권장합니다.</li>
-									<li>마이코치 제품은 어린이들의 손에 닿지 않는 곳에 보관하십시오!</li>
-								</ul>
-								<h6 style="margin-top:35px;">권장사항/사용자 책임</h6>
-								<p>운동에는 어느 정도의 위험이 따를 수 있습니다. 운동 프로그램을 시작하기 전에 의사와 상담해야 합니다. 운동을 시작하기 전에 준비 운동과 스트레칭을 할 것을 권장합니다. 통증이 있거나 현기증, 어지러움 또는 숨가쁨을 느끼는 경우, 즉시 운동을 중지하십시오.<br>운동의 강도, 복용 약, 혈압, 천식, 카페인, 알코올, 니코틴, 기타 요소등이 심박 속도에 영향을 줄 수 있음에 유의하십시오.</p>
-								<h6>심박조정기, 제세동기 또는 기타 이식한 전자 장치 사용자를 위한 안내</h6>
-								<p>이 스포츠 전자 장치 사용을 시작하기 전에 의사의 감독 하에 운동 테스트를 실시하여 인체에 이식한 장치와 이 장치를 동시 사용할 경우의 안전과 신뢰성에 대해 확인할 것을 권장합니다.<br>본 제품의 이용에 따른 위험은 사용자의 책임입니다.<br>이어폰의 볼륨을 크게 하여 사용할 경우 영구적인 청력 손실이 발생할 수 있습니다.<br>볼륨을 안전한 레벨로 설정하십시오.</p>
-								<h6>기타 상세 정보</h6>
-								<p style="margin-bottom:10px;">배터리 교체, 서비스 및 지원, 요령 및 문제해결, 안전 및 세척은 adidas.com/micoach를 방문하십시오.</p>
-							</div>
-							<div class="safe_warning_desc">
-								<h6>공통 유의사항</h6>
-								<p>*  제품 혼용율에 따라 세탁 및 취급 유의 사항이 변경될 수 있으므로  반드시 부착되어 있는</p>
-								<p style="padding-left:8px;">케어라벨 내용을 확인하신 후 세탁하시기 바랍니다.</p>
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<!-- //safe_depth2 -->
-			</div>
-			<!-- //safewarning -->
-			<script type="text/javascript">
-				jQuery(document).ready(function(){
-					// 세탁 및 취급 유의사항
-					jQuery('.safe_depth2_menu li').mouseover(function(){
-						var leftmenu=jQuery(this).parent('ul');
-						var par=jQuery(this).parent('ul').parent('div').siblings('div.safe_depth2_cont');
-						var boxid=par.parent('div').attr('id');
-						var idx=jQuery(this).index();
-						leftmenu.find('li').each(function(){
-							jQuery(this).find('a').removeClass('on');
-						});
-						jQuery(this).find('a').addClass('on');
-						par.find('ol').hide();
-						if(boxid=='safebox3'){
-							par.find('.cont8').hide();
-						}
-						par.find('.cont'+(idx+1)).show();
-					});
-					jQuery('.safe_depth2_menu li').click(function(){
-						return false;
-					});
-				});
-				function toggleSafeCont(num){
-					for(var i=1;i<4;i++){
-						jQuery('#safebox'+i).hide();
-					}
-					jQuery('.safe_depth1 li').each(function(){
-						jQuery(this).find('a').removeClass('on');
-					});
-					jQuery('#safebox'+num).show();
-					jQuery('.safe_depth1 li').eq(num-1).find('a').addClass('on');
-
-				}
-			</script>
-		</div>
-	</div>
-
-	<!-- 160824 카트혜택 레이어 -->
-	<div class="modal_pop_layer card_benefit_layer">
-		<div class="overlay"></div>
-		<div class="popup">
-			<a href="javascript:void(0)" class="spt_bg close"></a>
-			<div class="top">
-				<div class="tit">지금 할인되는 카드 프로모션</div>
-			</div>
-			<div class="body">
-				<div class="box">
-					<h3>카드사 무이자 할부안내</h3>
-					<div class="info">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<colgroup>
-								<col width="95">
-								<col width="120">
-								<col width="140">
-								<col>
-							</colgroup>
-							<thead>
-								<tr>
-									<th>카드사</th>
-									<th>기간</th>
-									<th>내용</th>
-									<th>할부개월</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>롯데</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>현대</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>국민</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>BC</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>삼성</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>신한</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>씨티</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~3개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>NH</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-
-								<tr>
-									<td>하나SK</td>
-									<td>08.01~08.31</td>
-									<td>
-										5만원 이상 구매시
-
-									</td>
-									<td>2~5개월</td>
-								</tr>
-
-
-							</tbody>
-						</table>
-					</div>
-					<ul class="desc">
-						<li>- 법인/체크/선불/기프트/은행계열카드 제외</li>
-						<li>- 무이자할부 결제 시 포인트, 마일리지 적립 제외</li>
-						<li>- 직계약 가맹점, 상점부담 무이자 가맹점, 특별제휴 가맹점, 오프라인 가맹점, 신규 가맹점 등<br>&nbsp;&nbsp;일부 제외</li>
-						<li>- 카드사의 사정으로 변경 또는 종료될 수 있으니, 이니시스 결제창의 무이자 안내를 확인하세요.</li>
-					</ul>
+						</dd>
+					</dl>
+					<dl>
+						<dt>교환안내</dt>
+						<dd>
+							<p style="width:700px">
+								아디다스 공식 온라인 스토어에서는 구매자가 선택한 배송지 주소에서 가까운 오프라인 매장에서 배송하므로,<br>
+								교환은 배송완료 후 7일 이내에 해당상품을 반품하신 후 재주문 하여야 합니다.<br>
+								교환의 경우 사이즈 교환 건만 해당되며, 배송한 매장에 동일한 상품 재고 보유 시 가능합니다.<br><br>
+								교환 진행 시 교환 배송비는 고객님이 부담하셔야 합니다. (단, 상품하자는 제외됩니다.)<br>
+								주문 상품 교환하실 경우 배송된 매장별로 사이즈 교환 시 배송비는 각각 왕복 배송비 부담하셔야 합니다.
+							</p>
+								<div>
+									<h6 style="margin-top:15px;font-size:13px;margin-bottom:10px;color:#333;">피해유형에 따른 보상기준 (의류,신발,용품)</h6>
+									<table cellpadding="0" cellspacing="0" style="width:815px;">
+										<colgroup>
+											<col width="320">
+											<col width="130">
+											<col width="*">
+										</colgroup>
+										<tbody><tr>
+											<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">피해유형</th>
+											<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">보상기준</th>
+											<th style="height:25px;text-align:center;border:1px solid #d4d4d4;background:#f1f1f1;">비고</th>
+										</tr>
+										<tr>
+											<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;">
+												<p style="font-weight:normal;margin-bottom:6px;">-봉제불량</p>
+												<p style="font-weight:normal;margin-bottom:6px;">-B2원단불량 (제작불량, 세탁 후 변색, 탈색, 수축 등)</p>
+												<p style="font-weight:normal;margin-bottom:6px;">-부자재 불량(단추, 지퍼 등)</p>
+												<p style="font-weight:normal;margin-bottom:6px;">-치수(사이즈)의 부정확</p>
+												<p style="font-weight:normal;">-부당표시(미표시 및 부실 표시) 및 소재구성</p>
+												<p style="font-weight:normal;margin-bottom:6px;padding-left:8px;">부정합으로 인한 세탁사고)</p>
+												<p style="font-weight:normal;margin-bottom:6px;">-접착불량</p>
+												<p style="font-weight:normal;margin-bottom:6px;">-염색불량</p>
+											</td>
+											<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;text-align:center;">수리→교환→환급</td>
+											<td style="padding:15px;border:1px solid #d4d4d4;">
+												<dl style="margin:0;clear:none;">
+													<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+													<dd style="margin-bottom:10px;float:none;width:auto;">동일가격 , 동일제품교환을 원칙으로 함.</dd>
+													<dt style="margin-bottom:5px;float:none;width:auto;">보상순위</dt>
+													<dd style="margin-bottom:10px;float:none;width:auto;">보상은 무상수리, 유상수리, 교환, 환급의 순으로 함</dd>
+													<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+													<dd style="float:none;width:auto;">교환 또는 환급은 구입가격기준을 원칙으로 함.<br>단, 품질보증기간이내 제품은 구입가 환급, 품질보증기간 경과 제품은 감가함. (세탁업배상 비율표 적용)<br>표시가격 변동시의 구입 및 특수매장 구입여부를 불문하고, 구입처 교환을 원칙으로 함.</dd>
+												</dl>
+											</td>
+										</tr>
+										<tr>
+											<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;">
+												<p style="font-weight:normal;">-치수(사이즈)가 맞지 않거나 디자인, 색상에 불만</p>
+											</td>
+											<td style="text-align:center;border:1px solid #d4d4d4;border-right-width:0;">교환→환급</td>
+											<td style="padding:15px;border:1px solid #d4d4d4;">
+												<dl style="margin:0;clear:none;">
+													<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
+													<dd style="float:none;width:auto;">구입 후 7일이내로서 제품에 손상이 없는 경우.<br>단, 맞는 치수(사이즈)가 없을 시 환급가능</dd>
+												</dl>
+											</td>
+										</tr>
+									</tbody></table>
+								</div>
+						</dd>
+					</dl>
+					<dl style="margin-bottom:0;">
+						<dt>주의사항</dt>
+						<dd>
+							<p>미성년자가 상품을 구매하시는 경우 법정대리인이 동의하지 않으면<br>미성년자 본인 또는 법정대리인이 구매를 취소할 수 있습니다. </p>
+						</dd>
+					</dl>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- 160824 배송/반품/교환 안내 레이어 -->
-	<div class="modal_pop_layer as_layer delev_layer">
-		<div class="overlay"></div>
-		<div class="popup">
-			<a href="javascript:void(0)" class="spt_bg close"></a>
-			<div class="tit">배송/반품</div>
-			<div class="delivery_desc">
-				<p>아디다스 온라인 스토어에서는 고객서비스를 지속적으로 향상시키는데 도움이 되는 여러분의 모든 의견을 소중히 합니다.<br>주문/배송등에 문제가 있으신 경우에는 아래 고객센터로 연락 주시면 성심껏 답변을 드리겠습니다.</p>
-				<ul class="arial">
-					<li>고객센터 : 1588-8241 (평일 09:00 ~ 18:00 , 점심시간 12:00 ~ 13:00) , 본사로 반품 불가 (교환 및 반품은 고객센터 문의)</li>
-					<li>이메일 : adiCLUB_Korea@adidas.com</li>
-					<li>사이트 : shop.adidas.co.kr</li>
-				</ul>
-			</div>
-			<div class="delivery_desc2">
-				<dl>
-					<dt>배송안내</dt>
-					<dd>
-						<ul>
-							<li>배송은 구매자께서 선택하신 배송지주소에서 <strong>가까운 오프라인매장</strong>에서 배송됩니다.</li>
-                            <li>상품에 따라 품절 또는 재고부족(제품하자)등의 사유로 배송이 지연되거나 배송이 불가 할 수 있습니다.</li>
-                            <!-- 181010 -->
-							<li>매장에서 택배 송장을 출력한 경우 주문취소가 불가 할 수 있습니다.</li>
-                            <!-- 181010 end-->
-							<li>복수의 상품을 한번에 결제하신 경우 빠른 배송을 위해 각각의 상품이 따로 배송될 수 있습니다.<br>따로 배송되는 경우에도 배송비는 추가되지 않습니다.</li>
-							<li>배송은 입금확인일로부터 주중에는 <strong>5일 이내에 배송</strong>해 드립니다.<br>단, 주말/공휴일의 경우 또는 <strong>도서산간지역의 경우 1-2일 더 소요</strong>될 수 있습니다.</li>
-							<li>구매금액이 <strong>5만원 이상인 경우 무료로 배송</strong>해 드리며 5만원 미만 주문 시에는 <strong>배송료 2,500원이 별도 부과</strong>됩니다.<br>단, 도서/산간 지역은 배송비가 추가 될 수 있습니다</li>
-							<li>배송진행상황은 <strong>[마이페이지 &gt; 주문배송조회]</strong>에서 확인하실 수 있습니다.</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl>
-					<dt>반품안내</dt>
-					<dd>
-						<p style="margin-bottom:20px;">반품은 배송완료일로부터 7일 이내에 신청해 주십시오.<br>단, 다음과 같은 경우 반품신청이 불가능 할 수 있습니다.</p>
-						<ul>
-							<li>반품요청기간이 지난 경우</li>
-							<li>포장을 개봉하였거나 포장이 훼손되어(상품의 Tag분리/분실, 비닐포장 훼손, 신발박스 훼손 등) 상품가치가 현저히 감소한 경우 </li>
-							<li>액세서리, 전자제품의 포장을 개봉 하였으나 단순 변심으로 교환,반품 원하는 경우 </li>
-							<li>구매자의 책임있는 사유로 상품 등이 멸실 또는 훼손된 경우 </li>
-							<li>구매자의 사용 또는 일부 소비에 의하여 상품가치가 현저히 감소한 경우 </li>
-							<li>기간의 경과에 의하여 재판매가 곤란할 정도로 상품가치가 현저히 감소한 경우</li>
-							<li>주문확인 후 상품제작에 들어가는 주문제작 상품인 경우 </li>
-							<li>복제가 가능한 상품 등의 포장을 훼손한 경우 </li>
-							<li style="margin-bottom:15px;">단, 재화 등의 내용이 표시 (이미지 또는 기능을 포함) 및 광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급 받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약 철회 등을 할 수 있습니다.</li>
-						</ul>
-						<p style="margin-bottom:20px;">반품은 아래 방법으로 진행해 주셔야 빠른 환불처리가 가능합니다.</p>
-						<ul>
-							<li><strong>[로그인 &gt; 마이페이지 &gt; 나의 쇼핑내역 &gt; 취소/반품 조회]</strong> 페이지에서 신청해 주셔야 합니다.</li>
-							<li><strong>고객 단순변심</strong>에 의한 반품 시 <strong>왕복 배송비</strong>를 부담하셔야 합니다.</li>
-							<li>상품불량/오배송 으로 인한 반품시 택배비는 <strong>아디다스</strong>에서 부담하며 반드시 한진 택배를 이용하셔야 합니다. </li>
-							<li>반송하실 상품은 배송된 <strong>오프라인매장</strong>으로 반품해 주셔야 합니다. 오프라인매장주소는 배송박스를 참조해 주십시오. <br>
-							    반품 회수 택배사는 <strong>한진 택배</strong>이며, 다른 택배회사를 이용하여 반품하는 경우 환불이 지연될 수 있습니다. <br>
-							    다른 택배 회사를 통해 반품시 <strong>고객센터(1588-8241)</strong>로 통화 후에 택배비 고객 부담으로 진행해주셔야 합니다.</li>
-							<li>기타 다른 방법으로 반품하시는 경우 환불처리가 지연될 수 있습니다.</li>
-							<li>부분 반품을 하는 경우, 반품하지 않는 상품의 금액이 5만원 이상이면 반품 배송비만 부담하시면 됩니다. <br>
-							    상품 금액이 <strong>5만원 미만</strong>일 경우에는 <strong>왕복 배송비를 부담</strong>해주셔야 합니다.</li>
-							<li>환불은 반품완료된 날로부터 3영업일 이내에 환불이 됩니다.</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl>
-					<dt>교환안내</dt>
-					<dd>
-						<p style="width:700px">
-							아디다스 공식 온라인 스토어에서는 구매자가 선택한 배송지 주소에서 가까운 오프라인 매장에서 배송하므로,<br>
-							교환은 배송완료 후 7일 이내에 해당상품을 반품하신 후 재주문 하여야 합니다.<br>
-							교환의 경우 사이즈 교환 건만 해당되며, 배송한 매장에 동일한 상품 재고 보유 시 가능합니다.<br><br>
-							교환 진행 시 교환 배송비는 고객님이 부담하셔야 합니다. (단, 상품하자는 제외됩니다.)<br>
-							주문 상품 교환하실 경우 배송된 매장별로 사이즈 교환 시 배송비는 각각 왕복 배송비 부담하셔야 합니다.
-						</p>
-							<div>
-								<h6 style="margin-top:15px;font-size:13px;margin-bottom:10px;color:#333;">피해유형에 따른 보상기준 (의류,신발,용품)</h6>
-								<table cellpadding="0" cellspacing="0" style="width:815px;">
-									<colgroup>
-										<col width="320">
-										<col width="130">
-										<col width="*">
-									</colgroup>
-									<tbody><tr>
-										<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">피해유형</th>
-										<th style="height:25px;text-align:center;border:1px solid #d4d4d4;border-right-width:0;background:#f1f1f1;">보상기준</th>
-										<th style="height:25px;text-align:center;border:1px solid #d4d4d4;background:#f1f1f1;">비고</th>
-									</tr>
-									<tr>
-										<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;">
-											<p style="font-weight:normal;margin-bottom:6px;">-봉제불량</p>
-											<p style="font-weight:normal;margin-bottom:6px;">-B2원단불량 (제작불량, 세탁 후 변색, 탈색, 수축 등)</p>
-											<p style="font-weight:normal;margin-bottom:6px;">-부자재 불량(단추, 지퍼 등)</p>
-											<p style="font-weight:normal;margin-bottom:6px;">-치수(사이즈)의 부정확</p>
-											<p style="font-weight:normal;">-부당표시(미표시 및 부실 표시) 및 소재구성</p>
-											<p style="font-weight:normal;margin-bottom:6px;padding-left:8px;">부정합으로 인한 세탁사고)</p>
-											<p style="font-weight:normal;margin-bottom:6px;">-접착불량</p>
-											<p style="font-weight:normal;margin-bottom:6px;">-염색불량</p>
-										</td>
-										<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;text-align:center;">수리→교환→환급</td>
-										<td style="padding:15px;border:1px solid #d4d4d4;">
-											<dl style="margin:0;clear:none;">
-												<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
-												<dd style="margin-bottom:10px;float:none;width:auto;">동일가격 , 동일제품교환을 원칙으로 함.</dd>
-												<dt style="margin-bottom:5px;float:none;width:auto;">보상순위</dt>
-												<dd style="margin-bottom:10px;float:none;width:auto;">보상은 무상수리, 유상수리, 교환, 환급의 순으로 함</dd>
-												<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
-												<dd style="float:none;width:auto;">교환 또는 환급은 구입가격기준을 원칙으로 함.<br>단, 품질보증기간이내 제품은 구입가 환급, 품질보증기간 경과 제품은 감가함. (세탁업배상 비율표 적용)<br>표시가격 변동시의 구입 및 특수매장 구입여부를 불문하고, 구입처 교환을 원칙으로 함.</dd>
-											</dl>
-										</td>
-									</tr>
-									<tr>
-										<td style="padding:15px;border:1px solid #d4d4d4;border-right-width:0;">
-											<p style="font-weight:normal;">-치수(사이즈)가 맞지 않거나 디자인, 색상에 불만</p>
-										</td>
-										<td style="text-align:center;border:1px solid #d4d4d4;border-right-width:0;">교환→환급</td>
-										<td style="padding:15px;border:1px solid #d4d4d4;">
-											<dl style="margin:0;clear:none;">
-												<dt style="margin-bottom:5px;float:none;width:auto;">교환</dt>
-												<dd style="float:none;width:auto;">구입 후 7일이내로서 제품에 손상이 없는 경우.<br>단, 맞는 치수(사이즈)가 없을 시 환급가능</dd>
-											</dl>
-										</td>
-									</tr>
-								</tbody></table>
-							</div>
-					</dd>
-				</dl>
-				<dl style="margin-bottom:0;">
-					<dt>주의사항</dt>
-					<dd>
-						<p>미성년자가 상품을 구매하시는 경우 법정대리인이 동의하지 않으면<br>미성년자 본인 또는 법정대리인이 구매를 취소할 수 있습니다. </p>
-					</dd>
-				</dl>
-			</div>
-		</div>
 	</div>
+	<!-- 팝업 일일히 접기 힘들어서 감싼 div END -->
 
 	<div class="quickview_layer" id="quickview">
 		<div class="leftarea">
@@ -4122,8 +4192,8 @@
 
 
 				<div class="product-main product-main-update">
-					<!-- 180306 start -->
-					<div class="product-infomation renew180306">
+					
+					<div class="product-infomation">
 						<div class="bg"></div>
 						<div class="bg2"></div>
 						<div class="ct1190 clfix">
@@ -4155,7 +4225,7 @@
 
                                 <!-- 190116 3d css -->
                                 <style>
-                                    .product-main .product-infomation.renew180306 .imgscut_box .cut.prd3d_vrism_active a img{
+                                    .product-main .product-infomation .imgscut_box .cut.prd3d_vrism_active a img{
                                     	position: absolute;
                                     	opacity: 0;
                                     	transition: opacity 0.5s;
@@ -4254,6 +4324,7 @@
 							</div>
 							<!-- //imgscut_box -->
 
+							<!-- 190717 buy_box 리뉴얼 -->
 							<div class="buy_box">
 								<div class="inner">
 									<div class="rating">
@@ -4262,11 +4333,10 @@
 												<div class="star-point" style="width:50%;"><img src="/images/adidas/common/ico_rating.png" alt="" /></div>
 												<div class="star-bg"><img src="/images/adidas/common/ico_rating_empty.png" alt="" /></div>
 											</div>
-											<div class="star-count">4.5/5</div>
 										</div>
 										<!-- //rating-star -->
 
-										<a href="#" class="review_link">상품평 전체보기</a>
+										<a href="#" class="review_link" onclick="fn_tab_move();">상품평 전체보기</a>
 									</div>
 									<!-- //rating -->
 
@@ -4278,448 +4348,109 @@
 									<div class="price">
 										<div class="price-container">
 											<span class="prc">249,000<span class="won">원</span></span>
-											<!--
-											<span class="prc line">249,000<span class="won">원</span></span>
-											<span class="prc sale">127,200<span class="won">원</span></span>
-											-->
+											
+											<!-- <span class="prc line">249,000<span class="won">원</span></span>
+											<span class="prc sale">127,200<span class="won">원</span></span> -->											
 										</div>
-										<span class="point">예상포인트<strong>5,540 (5%)</strong></span>
-
-										<div id="presale_price" class="sale_info">
-											<span class="btn">이전판매가격</span>
-											<div class="cont">
-												<h6>이전 판매가격 정보</h6>
-												<dl>
-													<dt>최초 출시가</dt>
-													<dd id="pn_price">369,000원</dd>
-												</dl>
-												<dl>
-													<dt>이전 할인 판매가</dt>
-													<dd id="pps_price">295,200원</dd>
-												</dl>
-												<dl class="result">
-													<dt>현재 판매가</dt>
-													<dd id="ps_price"><strong>147,600원<strong></strong></strong></dd>
-												</dl>
-											</div>
-										</div>
-
 									</div>
 									<!-- //price -->
 
-									<div class="super_week_ban" style="margin-bottom: 25px;">
-										<a href="https://shop.adidas.co.kr/PF070401.action"><img src="https://image.adidas.co.kr/images/adidas/order/1711_a_superweekend_prod_detail.jpg" alt=""></a>
-									</div>
-
 									<div class="other_color">
-										<p>Color Black [AA5106]</p>
+										<p id="colorsize">BLACK / WHITE</p>
 										<div class="thumbnails clfix">
 											<a class="on" href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
 											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
 											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
 											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-											<a class="last" href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
-											<a href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>
+											<a class="last" href="javascript:void(0)"><img src="https://image.adidas.co.kr/upload/prod/basic/50/AH5104-1_50X50.jpg" alt="" /></a>											
 										</div>
 									</div>
 
 									<div class="size_box">
-
-										<!-- 사이즈차트 임시버튼 : 이 영역은 확인만을 위한 임시 버튼으로 추후 삭제되어야합니다. -->
-										<ul class="temp_size_call">
-											<li><a href="javascript:alert('이 버튼은 확인만을 위한 임시 버튼으로 추후 삭제되어야합니다.')" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_men">남성</a></li>
-											<li><a href="javascript:alert('이 버튼은 확인만을 위한 임시 버튼으로 추후 삭제되어야합니다.')" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_women">여성</a></li>
-											<li><a href="javascript:alert('이 버튼은 확인만을 위한 임시 버튼으로 추후 삭제되어야합니다.')" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_kids">키즈</a></li>
-											<li><a href="javascript:alert('이 버튼은 확인만을 위한 임시 버튼으로 추후 삭제되어야합니다.')" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_shoes">신발</a></li>
-										</ul>
-										<!-- 사이즈차트 임시버튼 END -->
-
-										<p class="clfix">
+										<p class="size_box_tit clfix">											
+											<span><img src="/images/adidas/common/ico_sizechart.png" alt=""></span>
 											<a href="javascript:void(0)" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_men">사이즈 차트 보기</a>
-											<a href="javascript:void(0)" class="view_stock_alarm">입고알림 신청하기</a>
+											<em>/</em>
+											<a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="modal-popup-size-statistics">사이즈 통계</a>
 										</p>
+
 										<div class="select_box clfix">
 
 											<div class="select_size">
-												<!-- <div class="selectbox-ctm size_shoes">
-													<a href="javascript:void(0)">사이즈 선택</a>
-													<div class="arrow spt_bg"></div>
-													<div class="select-contents option-list">
-														<ul>
-															<li class="selected" data-option-value="230"><a href="javascript:void(0)">230</a></li>
-															<li data-option-value="235"><a href="javascript:void(0)">235</a></li>
-															<li data-option-value="240" class="disable"><a href="javascript:void(0)">240</a></li>
-															<li data-option-value="245" class="disable"><a href="javascript:void(0)">245</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-															<li data-option-value="250"><a href="javascript:void(0)">250</a></li>
-														</ul>
-													</div>
-												</div> -->
-												<!-- //selectbox-ctm -->
-
-												<div class="selectbox-ctm size_clothes">
-													<a href="javascript:void(0)">사이즈 선택</a>
-													<div class="arrow spt_bg"></div>
-													<div class="select-contents option-list">
-														<ul class="clfix">
-															<li data-option-value="230" data-option-text="85">
-																<a href="javascript:void(0)">
-																	<span class="num">085</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="90">
-																<a href="javascript:void(0)">
-																	<span class="num">090</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="95">
-																<a href="javascript:void(0)">
-																	<span class="num">095</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-
-															<li data-option-value="230" data-option-text="100">
-																<a href="javascript:void(0)">
-																	<span class="num">100</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="105">
-																<a href="javascript:void(0)">
-																	<span class="num">105</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li class="disable" data-option-value="230" data-option-text="110">
-																<a href="javascript:void(0)">
-																	<span class="num">110</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="115">
-																<a href="javascript:void(0)">
-																	<span class="num">115</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="120">
-																<a href="javascript:void(0)">
-																	<span class="num">120</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="125">
-																<a href="javascript:void(0)">
-																	<span class="num">125</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-															<li data-option-value="230" data-option-text="130">
-																<a href="javascript:void(0)">
-																	<span class="num">130</span>
-																	<span>신장 </span>
-																	<span class="size">160~165cm</span>
-																	<span>가슴둘레</span>
-																	<span class="size">86cm</span>
-																</a>
-															</li>
-														</ul>
-
-														<div class="rating_percantage">
-															<div class="top">
-																<div class="tit">사이즈 리뷰 통계 <span>매우 작아요 80%</span></div>
-																<div class="total">205명 평가</div>
-															</div>
-															<div class="rating_wrap">
-
-																<div class="box">
-																	<div class="label">매우 작아요</div>
-																	<div class="bar_wrap">
-																		<div style="width:20%;"></div>
-																	</div>
-																	<div class="num">24</div>
-																</div>
-
-																<div class="box">
-																	<div class="label">작아요</div>
-																	<div class="bar_wrap">
-																		<div style="width:60%;"></div>
-																	</div>
-																	<div class="num">24</div>
-																</div>
-
-																<div class="box">
-																	<div class="label">적당해요</div>
-																	<div class="bar_wrap">
-																		<div style="width:100%;"></div>
-																	</div>
-																	<div class="num">24</div>
-																</div>
-
-																<div class="box">
-																	<div class="label">커요</div>
-																	<div class="bar_wrap">
-																		<div style="width:10%;"></div>
-																	</div>
-																	<div class="num">24</div>
-																</div>
-
-																<div class="box">
-																	<div class="label">매우 커요</div>
-																	<div class="bar_wrap">
-																		<div></div>
-																	</div>
-																	<div class="num">24</div>
-																</div>
-
-															</div>
-														</div>
-
-													</div>
-												</div>
-
+												<ul id="buybox_select_size">
+													<li class="on">220</lic>
+													<li>225</li>
+													<li>230</li>
+													<li>235</li>
+													<li>240</li>
+													<li>245</li>
+													<li>250</li>
+													<li>255</li>
+													<li>260</li>
+												</ul>
 											</div>
 
 											<div class="select_amount">
-												<div class="selectbox-ctm">
-													<a href="javascript:void(0)">수량 선택</a>
-													<div class="arrow spt_bg"></div>
-													<div class="select-contents option-list">
-														<ul>
-															<li data-option-value="1" class="disable"><a href="javascript:void(0)">1</a></li>
-															<li data-option-value="2"><a href="javascript:void(0)">2</a></li>
-															<li data-option-value="3"><a href="javascript:void(0)">3</a></li>
-															<li data-option-value="4"><a href="javascript:void(0)">4</a></li>
-															<li data-option-value="5"><a href="javascript:void(0)">5</a></li>
-															<li data-option-value="6"><a href="javascript:void(0)">6</a></li>
-															<li data-option-value="7"><a href="javascript:void(0)">7</a></li>
-															<li data-option-value="8"><a href="javascript:void(0)">8</a></li>
-															<li data-option-value="9"><a href="javascript:void(0)">9</a></li>
-															<li data-option-value="10"><a href="javascript:void(0)">10</a></li>
-														</ul>
-													</div>
-												</div>
-												<!-- //selectbox-ctm -->
+												<a href="javascript:void(0)" id="decQuantity"><img src="/images/adidas/common/ico_decQ_disabled.png" alt=""></a>
+												<span id="numQuantity">1</span>
+												<a href="javascript:void(0)" id="incQuantity"><img src="/images/adidas/common/ico_incQ.png" alt=""></a>
 											</div>
-											<!-- //select_amount -->
 
 											<div class="size_alert">
 												<span class="spt_bg"></span>사이즈와 수량을 선택해 주세요.
 											</div>
 
-											<div id="fitanalytics__button"><img src="//integrations.fitanalytics.com/assets/button/fit-finder-pdp.svg" style="height: 18px; display: inline-block; margin-right: 5px; vertical-align: top; margin-top: -3px;"><a class="fitanalytics__button-text" style="display: inline-block; white-space: nowrap; vertical-align: top; line-height: 14px; font-family: &quot;ITC Avant Garde Gothic W04&quot;, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 11px; color: rgb(0, 0, 0);">고객님께 꼭 맞는 사이즈를 찾아보세요!</a></div>
+											<script>
+												$(document).ready(function () {
 
-											<!-- 190207 fitfinder 유의사항 추가 -->
-											<div id="fit_note">단, FIT FINDER는 실측 사이즈가 아닌 추천 사이즈이므로 구입 시 참고 바랍니다.</div>
+													//사이즈 선택
+													var sltSizeBtn = $('#buybox_select_size').find('li');
 
+													sltSizeBtn.on('click', function () {
+
+														sltSizeBtn.removeClass();
+														$(this).addClass('on');
+													})
+
+
+													//수량 증감
+													
+													$('#decQuantity').click(function (e) {
+														e.preventDefault();
+														var stat = $('#numQuantity').text();
+														var num = parseInt(stat, 10);
+														num--;
+														if (num <= 1) {
+															num = 1;
+															$('#decQuantity').children().attr('src','/images/adidas/common/ico_decQ_disabled.png');
+														}
+														$('#numQuantity').text(num);
+													});
+
+													$('#incQuantity').click(function (e) {
+														e.preventDefault();
+														var stat = $('#numQuantity').text();
+														var num = parseInt(stat, 10);
+														num++;
+
+														if (num >= 0) {
+															$('#decQuantity').children().attr('src','/images/adidas/common/ico_decQ.png');
+														}
+														$('#numQuantity').text(num);
+													});													
+
+												});
+											</script>
 										</div>
 										<!-- //select_box -->
 									</div>
 									<!-- //size_box -->
 
-									<div class="oneday_deliv_info">
-										<div class="ico_car spt_bg"></div>
-										<div>
-											도착예정일 - 2월 27일 월요일
-											
-											<div class="spt_bg">
-												<div class="tooltip-layer">
-													<div class="tooltip-contents">
-														<p class="tit">SPEEDY DELIVERY(스피드 배송)란? </p>
-														<ul class="li-dot">
-															<li>
-																<div class="bul"></div>
-																SPEEDY DELIVERY(스피드 배송)란?<br/>
-																주문하신 다음날 주문 상품을 받아볼 수 있으며, <br/>
-																배송지 주소 기준으로 서울 및 수도권 <br/>
-																인근지역(일부 지역 제외) 에 한하여 <br/>
-																배송 가능한 서비스 입니다.
-															</li>
-															<!-- 190610 문구추가 -->
-															<li>
-																<div class="bul"></div>
-																SPEEDY DELIVERY 적용 가능한 주문 시간은<br />
-																전일 오후 06:00 ~ 당일 오전 09:00 까지<br />
-																주문 건에 한해 적용됩니다.<br />
-																위 시간 내 주문 건이 아닐 경우 당일 배송 불가 합니다.
-															</li>
-															<!-- 190610 문구추가 END -->
-															<li>
-																<div class="bul"></div>
-																상품을 받으실 지역을 선택하여 <br/>
-																SPEEDY DELIVERY(스피드 배송) 가능여부를  <br/>
-																확인해 볼 수 있습니다.
-															</li>
-															<li>
-																<div class="bul"></div>
-																배송박스의 규격이 가로/세로/높이 80cm<br/>
-																제한되어 있어, 각 주문 건당 신발 2개, <br/>
-																의류 3개, 기타 용품 3개주문이 가능하며 <br/>
-																총 주문 개는 3개를 초과할 수 없습니다.
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="desc">지금 주문 시, 서울 서초구 기준</div>
-										<a href="javascript:void(0)" class="btn_change_addr" onclick="window.open('/html/adidas/find_zip_oneday.html','','width=650px,height=290px,status=no,titlebar=no')">지역변경</a>
-									</div>
-
-									<div class="etc_info">
-										<dl class="clfix">
-											<dt>배송비</dt>
-											<dd>5만원 이상 구매시 무료배송 (도서 산간 지역은 추가 배송비 발생)</dd>
-										</dl>
-
-										<!-- 171110 이벤트 부분 추가 -->
-										<!-- <dl class="clfix">
-											<dt>이벤트</dt>
-											<dd><a href="https://shop.adidas.co.kr/PF020611.action?pn=thanks10th">아디클럽 10주년 EVENT - 스타벅스 기프티콘 2매 증정</a></dd>
-										</dl> -->
-										<!-- 171110 이 라인 삭제 -->
-
-										<!-- 171219 이벤트 부분 추가 -->
-										<!-- <dl class="clfix">
-											<dt>이벤트</dt>
-											<dd><a href="https://shop.adidas.co.kr/PF020611.action?pn=AdiHoliday201712">20만원 이상 구매 시 선물 증정 (~2017.12.31)</a></dd>
-										</dl> -->
-										<!-- 171219 이벤트 부분 끝 -->
-
-										<!-- 180109 Npay 삭제 START -->
-										<!-- <dl class="clfix">
-											<dd class="pay_info_detail">
-												<ul class="clfix">
-													<li>
-														<a href="javascript:void(0)" class="modal-popup-click" data-modalpop-click="naverpay-eventpopup">
-															<img src="/images/adidas/common/naverpay_btn.gif" alt="네이버페이" class="naverpay_btn">
-															오픈! 네이버페이로 첫 결제 시 무조건 2000원
-														</a>
-													</li>
-													<li>
-														카드 무이자 안내
-														<span class="ico spt_bg view_card_benefit"></span>
-													</li>
-												</ul>
-											</dd>
-										</dl> -->
-										<!-- 180109 Npay 삭제 END -->
-
-                                        <!-- 181126 자세히 보기 수정 START-->
-										<dl class="clfix">
-											<dd class="pay_info_detail nobar">
-												<ul class="clfix">
-													<li>
-														<a href="javascript:void(0)" class="tit view_card_benefit">
-															카드 무이자 안내
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)" class="detail view_card_benefit">
-															자세히보기
-														</a>
-													</li>
-												</ul>
-											</dd>
-										</dl>
-                                        <!-- 181126 자세히 보기 수정 START-->
-
-                                        <!-- 181126 씨티카드 안내 START-->
-                                        <dl class="clfix">
-											<dd class="pay_info_detail nobar">
-												<ul class="clfix">
-                                                    <a href="#"></a>
-													<li>
-														<a href="javascript:void(0)" class="tit">
-															씨티카드 5만원 캐시백 혜택 안내
-														</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)" class="detail">
-															자세히보기
-														</a>
-													</li>
-												</ul>
-											</dd>
-										</dl>
-                                        <!-- // 181126 씨티카드 안내 END-->
-
-                                        <!-- 190110 카카오페이 PDP START-->
-                                        <dl class="clfix">
-                                            <dd class="pay_info_detail nobar">
-                                                <ul class="clfix">
-                                                    <li>
-                                                        <a href="" class="tit">
-                                                            카카오페이머니 결제 혜택 안내
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)" class="detail">
-                                                            자세히보기
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </dd>
-                                        </dl>
-                                        <!-- 190110 카카오페이 PDP END -->
-
-									</div>
-
-									<div class="button_wrap clfix col3">
-										<a href="#" class="btn-ctm btn-blue btn_buy"><span>구매하기</span></a>
-										<a href="#" class="btn-ctm btn-gray btn_cart"><span>장바구니</span></a>
-									<!-- 190607 재입고알림 팝업 -->
-										<!-- 재고 없을 때 Class "on" 부여하여 재입고알림 활성화 -->
-										<a href="#" class="btn-ctm btn_restock on"><span>재입고 알림</span></a>
-									<!-- //190607 재입고알림 팝업 -->
+									<div class="button_wrap clfix on">
+										<a href="#" class="btn-ctm btn_buy"><span>구매하기</span></a>
+										<a href="#" class="btn-ctm btn_cart"><span>장바구니</span></a>
 										<a href="#" class="btn_npay"><img src="/images/adidas/common/btn_buy_npay.jpg" alt="NPay 결제" /></a>
-
+									
 										<div class="alert_addedcart">
 											<a href="javascript:void(0)" class="close">
 												<span class="spt_bg"></span>
@@ -4730,23 +4461,39 @@
 											</div>
 										</div>
 									</div>
-									<!-- 180409 A/B 테스트 -->
-									<div>
-										<!-- <a href="#"><img src="/images/adidas/common/bg_miadi_bnn.gif" alt="오직 하나뿐인 당신만의 스타일을 만들어보세요!"/></a> -->
-										<a href="#"><img src="/images/adidas/common/bg_miadi_bnn2.jpg" alt="오직 하나뿐인 당신만의 스타일을 만들어보세요!"/></a>
+
+									<div class="button_wrap clfix">
+										<a href="#" class="btn-ctm btn_restock"><span>재입고 알림</span></a>
 									</div>
 
-									<div class="sns clfix">
-										<a href="#" class="fb"><span class="ico spt_bg"></span></a>
-										<a href="#" class="twt"><span class="ico spt_bg"></span></a>
+									<div class="etc_info">
+										<dl class="clfix">
+											<dt><img src="/images/adidas/common/ico_delivery.jpg" alt="배송비"></dt>
+											<dd>5만원 이상 구매시 무료배송 (도서 산간 지역은 추가 배송비 발생)</dd>
+										</dl>
 									</div>
+
+									<div class="fitanlytics">
+										<div id="fitanalytics__button"><img src="//integrations.fitanalytics.com/assets/button/fit-finder-pdp.svg"
+											style="height: 18px; display: inline-block; margin-right: 5px; vertical-align: top; margin-top: -3px;"><a
+											class="fitanalytics__button-text"
+											style="display: inline-block; white-space: nowrap; vertical-align: top; line-height: 14px; font-family: &quot;ITC Avant Garde Gothic W04&quot;, &quot;Helvetica Neue&quot;, Helvetica, Helvetica, Arial, sans-serif; font-size: 11px; color: rgb(0, 0, 0);">고객님께
+											꼭 맞는 사이즈를 찾아보세요!</a></div>
+										<div id="fit_note">단, 실측 사이즈가 아닌 추천 사이즈이므로 구입 시 참고바랍니다.</div>
+									</div>
+
+									<!-- <div class="super_week_ban">
+										<a href="https://shop.adidas.co.kr/PF070401.action"><img
+											src="https://image.adidas.co.kr/images/adidas/order/1711_a_superweekend_prod_detail.jpg" alt=""></a>
+									</div> -->
+
 								</div>
 							</div>
-							<!-- //buy_box -->
+							<!-- // 190717 buy_box 리뉴얼 End -->
 						</div>
 					</div>
 					<!-- //product-infomation -->
-					<!-- 180306 END -->
+					
 
                     <!-- 제품 3D 브리즘 테스트 START : 테스트 종료시 삭제-->
                     <div class="prd3d_vrism_test_wrap" style="text-align:center;">
@@ -4805,7 +4552,12 @@
                     </div>
                     <!-- 제품 3D 브리즘 테스트 END-->
 
-					<!-- PDP 순서변경 START -->
+					<!-- 190717 변경된 배너자리 -->
+					<div class="super_week_ban">
+						<a href="https://shop.adidas.co.kr/PF070401.action"><img src="/images/adidas/order/pdp_bann_test.jpg" alt=""></a>
+					</div>
+					<!-- 190717 변경된 배너자리 End -->
+					
 					<div class="product-description">
 						<div class="ct950">
 							<div class="prd_title">
@@ -5148,14 +4900,6 @@
 
 								</div> -->
 								<!-- //filter_box -->
-
-								<!-- 190718 pdp_rainy -->
-								<div class="pdp_inner_cp" style="position:relative;text-align:center;">
-									<img src="http://image.adidas.co.kr/images/adidas/2019/event/rainy/1907_a_rainy_PDP_DT.jpg" alt="">
-									<img class="gif"src="http://image.adidas.co.kr/images/adidas/2019/event/rainy/GIF_224X336.gif" alt="">
-								</div>
-								<!-- //190718 pdp_rainy-->
-
 
                                 <!--170201 제목 추가  -->
                                 <h3>상품평</h3>
