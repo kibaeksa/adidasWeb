@@ -1602,7 +1602,7 @@
 				</div>
 			</div>
 
-			<script>
+			<script type="text/javascript">
 				// thumb 슬라이드
 				var sliders = $('#sliders').Swipers({
 					width: 960,
@@ -1626,15 +1626,20 @@
 				});
 
 				$('document').ready(function () {
-					// brand 팝업
-					// $('.btn_pop_adi').click(function(){
-					// 	$('.brand_popup_adidas').addClass('open');
-					// });
-					// $('.btn_pop_ree').click(function(){
-					// 	$('.brand_popup_reebok').addClass('open');
-					// });
-				});
 
+				});
+				ModalPopup.bind({
+					onopen : function(obj){
+						$('body').css({
+							'overflow':'hidden'
+						})
+					},
+					onclose : function(obj){
+						$('body').css({
+							'overflow':'auto'
+						})
+					}
+				});
 				//스크롤 이벤트
 				var scrollArray = [];
 				var scrollContent = document.querySelectorAll('.scroll');
@@ -1646,7 +1651,7 @@
 
 				$(window).scroll(function () {
 					var thispos = $(this).scrollTop() + $(window).height() - 200;
-					console.log(thispos);
+					// console.log(thispos);
 					for (var pos = 0; pos < scrollArray.length; pos++) {
 						if (thispos > scrollArray[pos]) {
 							$('.scroll').eq(pos).addClass('on');
@@ -1872,7 +1877,7 @@
 			 data-modalpop=""
 			 data-modalpop-name="brand_popup_adidas"
 			 data-modalpop-width="950"
-			 data-modalpop-height="800"
+			 data-modalpop-height="600"
 		>
 			<div class="overlay"></div>
 			<div class="popup">

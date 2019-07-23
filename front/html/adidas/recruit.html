@@ -1557,19 +1557,6 @@
 					$(this).toggleClass('on');
 				});
 							
-				// OUR PEOPLE 팝업
-				// $('.popup_interview01').on('click',function(){
-				// 	$('.popup_interview01').addClass('open');
-				// });
-				// $('.popup_interview02').on('click',function(){
-				// 	$('.popup_interview02').addClass('open');
-				// });
-				// $('.popup_interview03').on('click',function(){
-				// 	$('.popup_interview03').addClass('open');
-				// });
-				// $('.popup_interview04').on('click',function(){
-				// 	$('.popup_interview04').addClass('open');
-				// });
 
 				// thumb 슬라이드
 				var sliders = $('#sliders').Swipers({
@@ -1593,6 +1580,19 @@
 					sliders.move($(this).index());
 				});
 
+				ModalPopup.bind({
+					onopen : function(obj){
+						$('body').css({
+							'overflow':'hidden'
+						})
+					},
+					onclose : function(obj){
+						$('body').css({
+							'overflow':'auto'
+						})
+					}
+				});
+
 				//스크롤 이벤트
 				var scrollArray = [];
 				var scrollContent = document.querySelectorAll('.scroll');
@@ -1600,7 +1600,7 @@
 					var mypos = scrollContent[i].offsetTop;
 					scrollArray.push(mypos)
 				}
-				console.log(scrollArray);				
+				// console.log(scrollArray);				
 
 				$(window).scroll(function () {
 					var thispos = $(this).scrollTop() + $(window).height() - 200;
@@ -1833,7 +1833,7 @@
 			data-modalpop=""
 			data-modalpop-name="popup_interview01"
 			data-modalpop-width="950"
-			data-modalpop-height="800"
+			data-modalpop-height="600"
 		>
 			<div class="overlay"></div>
 			<div class="popup">
@@ -2082,7 +2082,7 @@
 			 data-modalpop=""
 			 data-modalpop-name="popup_interview02"
 			 data-modalpop-width="950"
-			 data-modalpop-height="800"
+			 data-modalpop-height="600"
 		>
 			<div class="overlay"></div>
 			<div class="popup">
@@ -2303,7 +2303,7 @@
 		<!-- popup_interview02 end -->
 		<!-- popup_interview03 -->
 		<div class="modal-popup-wrapper brand_popup_adidas popup_interview popup_interview03" data-modalpop=""
-			data-modalpop-name="popup_interview03" data-modalpop-width="950" data-modalpop-height="800">
+			data-modalpop-name="popup_interview03" data-modalpop-width="950" data-modalpop-height="600">
 			<div class="overlay"></div>
 			<div class="popup">
 				<div class="popup-header">
@@ -2482,7 +2482,7 @@
 			data-modalpop=""
 			data-modalpop-name="popup_interview04"
 			data-modalpop-width="950"
-			data-modalpop-height="800"
+			data-modalpop-height="600"
 		>
 			<div class="overlay"></div>
 			<div class="popup">

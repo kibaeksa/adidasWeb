@@ -377,58 +377,78 @@
 		</div>
 	</div>
 
-		<script type="text/javascript">
-			// thumb 슬라이드
-			var sliders = $('#sliders').Swipers({
-				width: 960,
-				height: 640,
-				duration: 600,
-				callback: function (index, prevIdx) {
-					$('.indicator a').removeClass('on').eq(index).addClass('on');
-				}
-			});
-
-			$('.prev-button').bind('click', function () {
-				sliders.prev();
-			});
-
-			$('.next-button').bind('click', function () {
-				sliders.next();
-			});
-
-			$('.indicator a').bind('click', function () {
-				sliders.move($(this).index());
-			});
-
-			$('document').ready(function () {
-				// brand 팝업
-				// $('.btn_pop_adi').click(function(){
-				// 	$('.brand_popup_adidas').addClass('open');
-				// });
-				// $('.btn_pop_ree').click(function(){
-				// 	$('.brand_popup_reebok').addClass('open');
-				// });
-			});
-
-			//스크롤 이벤트
-			var scrollArray = [];
-			var scrollContent = document.querySelectorAll('.scroll');
-			for (var i = 0; i < scrollContent.length; i++) {
-				var mypos = scrollContent[i].offsetTop;
-				scrollArray.push(mypos)
+	<script type="text/javascript">
+		// thumb 슬라이드
+		var sliders = $('#sliders').Swipers({
+			width: 960,
+			height: 640,
+			duration: 600,
+			callback: function (index, prevIdx) {
+				$('.indicator a').removeClass('on').eq(index).addClass('on');
 			}
-			console.log(scrollArray);				
+		});
 
-			$(window).scroll(function () {
-				var thispos = $(this).scrollTop() + $(window).height() - 200;
-				// console.log(thispos);
-				for (var pos = 0; pos < scrollArray.length; pos++) {
-					if (thispos > scrollArray[pos]) {
-						$('.scroll').eq(pos).addClass('on');
-					}
+		$('.prev-button').bind('click', function () {
+			sliders.prev();
+		});
+
+		$('.next-button').bind('click', function () {
+			sliders.next();
+		});
+
+		$('.indicator a').bind('click', function () {
+			sliders.move($(this).index());
+		});
+
+		$('document').ready(function () {
+			// brand 팝업
+			// $('.btn_pop_adi').click(function(){
+			// 	$('.brand_popup_adidas').addClass('open');
+			// });
+			// $('.btn_pop_ree').click(function(){
+			// 	$('.brand_popup_reebok').addClass('open');
+			// });
+			if($('.modal-popup-wrapper').hasClass('open')){
+				$(body,html).css({
+					'overflow':'hidden'
+				})
+			}else{
+				$(body,html).css({
+					'overflow':'auto'
+				})
+			}
+		});
+		ModalPopup.bind({
+			onopen : function(obj){
+				$('body').css({
+					'overflow':'hidden'
+				})
+			},
+			onclose : function(obj){
+				$('body').css({
+					'overflow':'auto'
+				})
+			}
+		});
+		//스크롤 이벤트
+		var scrollArray = [];
+		var scrollContent = document.querySelectorAll('.scroll');
+		for (var i = 0; i < scrollContent.length; i++) {
+			var mypos = scrollContent[i].offsetTop;
+			scrollArray.push(mypos)
+		}
+		console.log(scrollArray);				
+
+		$(window).scroll(function () {
+			var thispos = $(this).scrollTop() + $(window).height() - 200;
+			// console.log(thispos);
+			for (var pos = 0; pos < scrollArray.length; pos++) {
+				if (thispos > scrollArray[pos]) {
+					$('.scroll').eq(pos).addClass('on');
 				}
-			});
-		</script>
+			}
+		});
+	</script>
 	
 	
 				</div>
@@ -437,7 +457,7 @@
 		data-modalpop=""
 		data-modalpop-name="brand_popup_adidas"
 		data-modalpop-width="950"
-		data-modalpop-height="800"
+		data-modalpop-height="600"
    >
 	   <div class="overlay"></div>
 	   <div class="popup">
