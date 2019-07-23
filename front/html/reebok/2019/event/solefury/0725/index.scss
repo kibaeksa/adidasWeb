@@ -1,0 +1,300 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+#contents_wrap{padding: 0;}
+.btn{
+	display: inline-block;
+	>div{
+		position: relative;
+		&::before{
+            border-bottom: 1px solid #fff;
+            border-left: 1px solid #fff;
+            bottom: -4px;
+            height: 3px;
+            left: 2px;
+            width: calc(100% + 1px);
+            content: "";
+            display: block;
+            position: absolute;
+		}
+		&::after{
+            border-right: 1px solid #fff;
+            border-top: 1px solid #fff;
+            height: calc(100% + 1px);
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            content: "";
+            display: block;
+            position: absolute;
+        }
+		a{
+			width: 140px;
+			font: 700 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			color: #fff;
+			background:transparent;
+			z-index: 2;
+			border: 1px solid #fff;
+			.arrow{
+				position: relative;
+				top: -1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+				em{
+					position: absolute;
+					right: 0;
+					width: 8px;
+					height: 3px;
+					background: #fff;
+					transform: rotate(45deg);
+					-webkit-transform: rotate(45deg);
+					&.top{
+						top: -3px;
+					}
+					&.bottom{
+						bottom: -3px;
+						-webkit-transform: rotate(-45deg);
+					}
+				}
+			}
+		}
+	}
+}
+.solefury{
+	background:#000;
+	.vid_cont{
+		position: relative;
+		height:810px;
+		&.on{
+			.txt{
+				@include opacity(1);
+			}
+		}
+		.video_bg{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left:calc(-1920px/2);
+		}
+		.txt{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+			text-align: center;
+			@include opacity(0);
+			@include prefix-css3(transition, all 1s ease-out);
+			.masthead{
+				margin:25px 0 37px 0;
+				a{
+					border:0;
+					margin: 0 auto;
+					img{
+						position: relative;
+						&:hover{
+							-webkit-animation: effect 1s infinite; /* Safari 4.0 - 8.0 */
+							animation: effect 1s infinite;
+							animation-timing-function: ease-out;
+						}
+					}
+					&::after{
+						border:0;
+					}
+				}
+			}
+			h1{
+				font: 700 60px/60px 'NotoSansKR';
+				color:#fff;
+				letter-spacing: 5px;
+				text-align: center;
+			}
+			p{
+				font: 400 18px/30px 'NotoSansKR';
+				color:#fff;
+				letter-spacing: 1px;
+				text-align: center;
+			}
+			.btn{
+				margin: 30px 0 0 0;
+			}
+		}
+
+		@-webkit-keyframes effect {
+			0% {
+				transform: rotate(0deg)
+			}
+			25% {
+				transform: rotate(3.5deg)
+			}
+			50% {
+				transform: rotate(0deg)
+			}
+			75% {
+				transform: rotate(-3.5deg)
+			}
+			100% {
+				transform: rotate(0deg)
+			}
+		}
+	}
+	.section{
+		position: relative;
+		height:878px;
+		background:#009278;
+		&.on{
+			img{
+				&:nth-child(5){
+					margin-left: -575px;
+					@include opacity(1);
+				}
+				&:last-child{
+					margin-left: 160px;
+					@include opacity(1);
+				}
+			}
+		}
+		img{
+			position: absolute;
+			top:50%;
+			left:50%;
+			&:first-child{
+				margin-top: -330px;
+				margin-left: -820px;
+			}
+			&:nth-child(2){
+				margin-top: -264px;
+				margin-left: -72px;
+			}
+			&:nth-child(3){
+				margin-top: 126px;
+				margin-left: -386px;
+			}
+			&:nth-child(4){
+				margin-left: 82px;
+				margin-top: -439px;
+			}
+			&:nth-child(5){
+				@include opacity(0);
+				@include prefix-css3(transition, all 1s ease-out);
+				margin-top: -370px;
+				margin-left: -700px;			
+			}
+			&:last-child{
+				@include opacity(0);
+				@include prefix-css3(transition, all 1s ease-out);
+				margin-top: 285px;
+				margin-left: 220px;
+				@include prefix-css3(transition-delay,.7s);
+			}
+		}
+	}
+	.aside{
+		position: relative;
+		height: 513px;
+		background:url('/images/reebok/2019/event/solefury/0725/1907_r_solefury_asideBg_DT.jpg') no-repeat;
+		background-position: top;
+		background-size:100% 100%;
+		z-index:2;
+		&.on{
+			.txt{
+				@include opacity(1);
+			}
+		}
+		.img{
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left:-600px;
+		}
+		.txt{
+			position: absolute;
+			top:50%;
+			left:50%;
+			text-align: center;
+			margin-top: -60px;
+			margin-left: 75px;
+			@include opacity(0);
+			@include prefix-css3(transition, all 1s ease-out);
+			h1{
+				font:700 50px/100px 'neueplak-ext';
+				color:#fff;
+			}
+		}
+	}
+	.sliders_wrap{
+		position: relative;
+		height: 1026px;
+		background:url('/images/reebok/2019/event/solefury/0725/1907_r_solefury_slideBg_DT.jpg') no-repeat;
+		background-size: 100% 100%;
+		&.on{
+			.slide_cont{
+				.deco{
+					img{
+						@include opacity(1);
+					}
+				}
+			}
+		}
+		.indicator{
+			text-align: center;
+			position: relative;
+			top: 30px;
+			a{
+				display: inline-block;
+				width:10px;
+				height:10px;
+				border-radius: 50%;
+				border:1.5px solid #000;
+				margin:0 2px;
+				&.on{
+					background:#000;
+				}
+			}
+		}
+		.slide_cont{
+			#sliders{
+				padding: 212px 0 0 0;
+				margin:0 auto;
+				ul{
+					li{
+					}
+				}
+			}
+		}
+		.deco{
+			position: relative;
+			img{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				&:first-child{
+					margin-top: -420px;
+					margin-left: -730px;
+					@include opacity(0);
+					@include prefix-css3(transition, all 1s ease-out);
+				}
+				&:last-child{
+					margin-top: -473px;
+					margin-left: 644px;
+					@include opacity(0);
+					@include prefix-css3(transition, all 1s ease-out);
+					@include prefix-css3(transition-delay,.5s);
+				}
+			}
+		}
+	}
+
+}
