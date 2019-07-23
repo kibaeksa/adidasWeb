@@ -401,20 +401,33 @@
 		});
 
 		$('document').ready(function () {
+			$('.modal-popup-click').click(function(){
+
+				if($('.modal-popup-wrapper').hasClass('open')){
+					$('body').css({
+						'overflow':'hidden'
+					})
+					console.log('a')
+				}else{
+					$('body').css({
+						'overflow':'auto'
+					})
+				}
+				$('.modal-popup-wrapper .popup .close').click(function(){
+					$('body').css({
+						'overflow':'auto'
+					})
+				});
+				$('.modal-popup-wrapper .overlay').click(function(){
+						$('body').css({
+							'overflow':'auto'
+						})
+					});
+			});
 			
 		});
-		ModalPopup.bind({
-			onopen : function(obj){
-				$('body').css({
-					'overflow':'hidden'
-				})
-			},
-			onclose : function(obj){
-				$('body').css({
-					'overflow':'auto'
-				})
-			}
-		});
+		console.log('a.')
+
 		//스크롤 이벤트
 		var scrollArray = [];
 		var scrollContent = document.querySelectorAll('.scroll');
