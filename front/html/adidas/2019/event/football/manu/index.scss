@@ -1,0 +1,220 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+#wrap{
+	overflow: hidden;
+	min-width: 1190px;
+}
+//common
+.button_area_v2{
+	margin-top: 15px;
+	display: inline-block;
+	&:hover{
+		a{
+			-webkit-transform: translate(3px,3px);
+			transform: translate(3px,3px);
+			-webkit-transition: all .5s;
+			transition: all .5s;
+			opacity: .9;
+		}
+		.bg{
+			&::after{
+				-webkit-transform: translate(0px,0px);
+				transform: translate(0px,0px);
+			}
+		}
+	}
+	a{
+		width:140px;
+		font: 700 14px/48px 'NotoSansKR';
+		letter-spacing: 0;
+	}
+}
+#manu_cp{
+	position: relative;
+	background:#000;
+	.top_cont{
+		position: relative;
+		height:871px;
+		background:url('/images/adidas/2019/event/football/manu/1907_manU_topCont_DT.jpg') no-repeat;
+		background-position:center;
+		background-size: cover;
+		&.on{
+			img,.txt{
+				@include opacity(1);
+			}
+		}
+		>img{
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top: -155px;
+			margin-left: -593px;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			&:nth-child(2){
+				margin-top: -324px;
+				margin-left: 21px;
+				transition-delay: .5s;
+			}
+			&:nth-child(3){
+				margin-top: -420px;
+				margin-left: -221px;
+				transition-delay: 1s;
+			}
+		}
+		.txt{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -367px;
+			margin-left: -595px;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			transition-delay: 1.5s;
+			img{
+				display:block;
+			}
+		}
+	}
+	.aside{
+		position: relative;
+		height:calc(449px - 150px);
+		background:url('/images/adidas/2019/event/football/manu/1907_manU_aside_DT.jpg') no-repeat;
+		background-position:center;
+		background-size: cover;
+		text-align: center;
+		padding: 150px 0 0 0;
+		&.on{
+			h1,p{
+				@include opacity(1);
+			}
+		}
+		h1{
+			font:700 24px/24px 'NotoSansKR';
+			color:#000;
+			position: relative;
+			display: inline-block;
+			z-index: 1;
+			margin: 0 0 11px 0;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			em{
+				font:100 24px/24px 'NotoSansKR';
+			}
+			span{
+				font:400 24px/24px 'NotoSansKR';
+			}
+			&::after{
+				position: absolute;
+				top:-1px;
+				bottom:-1px;
+				left:-2px;
+				right:-2px;
+				display: block;
+				content:'';
+				clear:both;
+				background:#fff;
+				z-index: -1;
+			}
+		}
+		p{
+			text-align: center;
+			font:300 17px/25px 'NotoSansKR';
+			color:#fff;
+			letter-spacing: 1px;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			transition-delay: .5s;
+			span{
+				color: #fff;
+				font: 400 19px/24px 'adihausDIN-Cond';
+				margin: 6px 0 0 0;
+				display: inline-block;
+				text-align: center;
+			}
+		}
+	}
+	.grid_cont{
+		position: relative;
+		height:900px;
+		background:url('/images/adidas/2019/event/football/manu/1907_manU_gridCont_DT.jpg') no-repeat;
+		background-position:center;
+		background-size: cover;
+		&.on{
+			img{
+				@include opacity(1);
+			}
+		}
+		img{
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top: -395px;
+			margin-left: -717px;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			&:nth-child(2){
+				margin-top: -398px;
+				margin-left: -176px;
+				transition-delay: .3s;
+			}
+			&:nth-child(3){
+				margin-top: -362px;
+				margin-left: 244px;
+				transition-delay: .7s;
+			}
+			&:nth-child(4){
+				margin-top: -44px;
+				margin-left: -177px;
+				transition-delay: .9s;
+			}
+			&:last-child{
+				margin-top: -40px;
+				margin-left: 245px;
+				transition-delay: .5s;
+			}
+		}
+	}
+	.btm{
+		position: relative;
+		height: 315px;
+		text-align: center;
+		@-webkit-keyframes brightness {
+			0%, 100%  { -webkit-filter: brightness(none); }
+			50% { -webkit-filter: brightness(4); }
+		}
+
+		&.on{
+			.txt{
+				@include opacity(1);
+			}
+			img{
+				-webkit-animation: brightness 1.5s;
+				animation: brightness 1.5s;
+				-webkit-animation-delay: .5s;
+				animation-delay: .5s;
+			}
+		}
+		.txt{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+			text-align: center;
+			@include opacity(0);
+			transition : all 1s ease-out;
+			p{
+				font: 700 28px/28px 'adihausDIN-Cond';
+				color: #fff;
+				text-align: center;
+				letter-spacing: 3px;
+				em{
+					font: 200 28px/28px 'adinenuPro-light';
+				}
+			}
+		}
+	}
+
+
+}
