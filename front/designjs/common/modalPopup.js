@@ -144,7 +144,7 @@
     function bindDefaultEvent(popupKey){
 
         if(!modalPopupContainer[setPopupName(popupKey)].disableClose){
-            $(modalPopupContainer[setPopupName(popupKey)].element).find('.popup-header .close').bind('click',function(){
+            $(modalPopupContainer[setPopupName(popupKey)].element).find('.close').bind('click',function(){
                 closePopup(popupKey);
 
                 if(!!modalPopupContainer[setPopupName(popupKey)].onclose){
