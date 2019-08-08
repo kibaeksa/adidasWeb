@@ -33,7 +33,7 @@
 	//main
 	.main{
 		position: relative;
-		height: 784px;
+		height: 832px;
 		background: #000;
 		border-bottom: 3px solid #e09853;
 		>.bg{
@@ -74,7 +74,7 @@
 				}
 			}
 			p{
-				padding-top: 70px;
+				padding-top: 40px;
 				font: 500 18px/30px 'NotoSansKR';
 				color: #fff;
 				text-align: center;
@@ -113,33 +113,10 @@
 	
 	//section
 	.section{
-		height: 2250px;
+		height: auto;
 		background: #fff;
 		border-top: 10px solid #000;
 		border-bottom: 10px solid #000;
-		&.sec2{
-			height: 1130px;
-			.inner{
-				.sect_prds{
-					ul{
-						overflow: hidden;
-						li{
-							float: left;
-							width: 20%;
-							margin-right: 3px;
-							&:nth-child(1){width: 235px;}
-							&:nth-child(2){width: 298px;}
-							&:nth-child(3){width: 235px;}
-							&:nth-child(4){width: 235px;}
-							&:nth-child(5){
-								margin-right: 0;
-								width: 235px;
-							}
-						}
-					}
-				}
-			}
-		}
 		.inner{
 			overflow: hidden;
 			// width: 1920px;
@@ -164,102 +141,135 @@
 				}
 			}
 			.sect_stylist{
-				padding: 50px 0 25px;
+				position: relative;
+				height: 272px;
+				margin: 60px auto;
 				text-align: center;
-				ul{
-					position: relative;
-					height: 240px;
-					li{
-						position: absolute;
-						left: 50%;
-						&:nth-child(1){
-							top: 0;
-							transform: translateX(-391px);
+				span{
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					&.ss_tit{
+						transform: translate(-350px, -50%);
+						font: 500 22px/63px 'adinenuPro-bold';
+						color: #fff;
+						letter-spacing: 2px;
+					}
+					&.ss_circle{
+						transform: translate(-50%, -50%);
+						display: inline-block;
+						width: 240px;
+						height: 240px;
+						border: 15px solid #000;
+						border-radius: 50%;
+
+						transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+						img{
+							// display: inline-block;
+							transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
 						}
-						&:nth-child(2){
-							height: 147px;
-							top: 50%;
-							transform: translate(-106px, -50%);
-							font: 600 40px 'NotoSansKR';
-							color: #000;
-							letter-spacing: 7px;
-						}
-						&:nth-child(3){
-							top: 50%;
-							transform: translateY(-50%);
-							.sect_sl_line{
-								display: inline-block;
-								width: 1px;
-								height: 134px;
-								background: #000;
+						&:hover{
+							border-width: 8px;
+							img{
+								transform: scale(1.1);
 							}
 						}
-						&:nth-child(4){
-							top: 50%;
-							transform: translate( 45px, -51%);
-							font: 500 16px/28px 'NotoSansKR';
-							color: #000;
-						}
+					}
+					&.ss_name{
+						transform: translate(180px, -50%);
+						font: 500 24px/63px 'NotoSansKR';
+						color: #fff;
+						letter-spacing: 2px;
+
+						transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);
+						transition-delay: 0.4s;
+						opacity: 0;
 					}
 				}
-				>p{
-					padding-top: 30px;
-					font: 500 20px/20px 'NotoSansKR';
-					color: #000;
-					text-align: center;
-					em{
-						padding: 0 3px;
-						font: 500 28px/20px 'adihaus-medium';
-						vertical-align: middle;
+				&::before{
+					display: inline-block;
+					content: '';
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 1920px;
+					height: 0;
+					transform: translate(-50%, -50%);
+					background: #000;
+
+					transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+				&.on{
+					.ss_name{
+						transform: translate(150px, -50%);
+						opacity: 1;
+					}
+					&::before{
+						height: 60px;
 					}
 				}
 			}
 			.sect_prdbox{
-				#sliders{
-					overflow: visible !important;
-					ul{
-						margin: 0 auto;
-						li{
-							margin: 0 20px;
-							img{
-								display: block;
-								width: 100%;
+				margin: 0 auto;
+				width: 1070px;
+				text-align: center;
+				.slide_nav{
+					padding-top: 40px;
+					overflow: hidden;
+					>*{
+						float: left;
+					}
+					.slide_txt{
+						width: 868px;
+						text-align: center;
+						transition: .4s;
+						h4{
+							font: 500 22px/24px 'adinenuPro-black';
+							color: #000;
+							letter-spacing: 2px;
+							text-align: center;
+							text-transform: uppercase;
+						}
+						p{
+							padding-top: 10px;
+							font: 500 18px 'NotoSansKR';
+							color: #000;
+							letter-spacing: normal;
+							text-align: center;
+							em{
+								padding: 0 3px;
+								font: 500 28px/20px 'adihaus-medium';
+								vertical-align: middle;
 							}
 						}
 					}
+					.prev-button{
+						margin: 30px 0 20px 30px;
+					}
+					.next-button{
+						margin: 30px 30px 20px 0;
+					}
 				}
-			}
-			.sect_prds{
-				ul{
-					overflow: hidden;
-					li{
-						float: left;
-						width: 20%;
-						margin-right: 3px;
-						&:nth-child(1){width: 298px;}
-						&:nth-child(2){width: 235px;}
-						&:nth-child(3){width: 235px;}
-						&:nth-child(4){width: 235px;}
-						&:nth-child(5){
-							margin-right: 0;
-							width: 235px;
-						}
-						div.item{
-							margin-bottom: 3px;
+				.indicator{
+					width: 1070px;
+					margin: 30px auto;
+					text-align: center;
+					a{
+						margin: 0 4px;
+						display: inline-block;
+						width: 14px;
+						height: 14px;
+						border: 2px solid #000;
+						border-radius: 50%;
+						box-sizing: border-box;
+						&.on{
 							background: #000;
-							img{
-								display: block;
-								width: 100%;
-							}
-							&:last-child{
-								margin-bottom: 0;
-							}
 						}
 					}
 				}
 			}
 			.sect_buybox{
-				padding: 40px 0 5px;
+				padding: 0 0 5px;
 				text-align: center;
 				h2{
 					font: 500 22px/22px 'adinenuPro-black';
@@ -268,7 +278,7 @@
 					letter-spacing: 2px;
 				}
 				.button_area_v2{
-
+					margin: 40px 0 60px;
 				}
 			}
 		}
