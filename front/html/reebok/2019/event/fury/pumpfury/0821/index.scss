@@ -1,0 +1,210 @@
+@import "./front/css/reebok/scss/about.scss";
+#wrap{
+    overflow: hidden;
+    min-width: 980px;
+}
+#contents_wrap{padding: 0;}
+.campaign_fury{
+    .btn{
+        display: inline-block;
+        >div{
+            position: relative;
+            &::before{
+                border-bottom: 1px solid #000;
+                border-left: 1px solid #000;
+                bottom: -4px;
+                height: 3px;
+                left: 3px;
+                width: calc(100%);
+                content: "";
+                display: block;
+                position: absolute;
+            }
+            &::after{
+                border-right: 1px solid #000;
+                border-top: 1px solid #000;
+                height: calc(100%);
+                right: -4px;
+                top: 3px;
+                width: 3px;
+                content: "";
+                display: block;
+                position: absolute;
+            }
+            a{
+                width: 140px;
+                font: 600 14px/48px 'NotoSansKR';
+                letter-spacing: 0;
+                position: relative;
+                display: block;
+                text-align: center;
+                height: 50px;
+                color: #fff;
+                // background:transparent;
+                background: #000;
+                z-index: 2;
+                border: 1px solid #000;
+                transition: .4s;
+                .arrow{
+                    margin-left: 17px;
+                    vertical-align: middle;
+                }
+            }
+        }
+        &:hover{
+            a{
+                transform: translate(3px, 3px);
+            }
+        }
+    }
+
+    .main_visual{
+        position: relative;
+        height:700px;
+        overflow: hidden;
+        >.bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+        .txt{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-480px, -50%);
+            z-index: 2;
+            >*{
+                transform: translateX(20px);
+                transition: .6s;
+                opacity: 0;
+            }
+            h2{ 
+                transition-delay: 0;
+                img{
+                    display: inline-block;
+                }
+            }
+            p{
+                padding: 20px 0 30px;
+                font: 400 18px 'NotoSansKR';
+                color: #000;
+                transition-delay: .4s;
+            }
+            .btn{
+                display: inline-block;
+                transition-delay: .8s;
+            }
+        }
+        &.on{
+            .txt{
+                >*{
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+    
+    .sect_look{
+        position: relative;
+        height: 1675px;
+        >.bg{
+            position: absolute;
+            top:0;
+            left:50%;
+            margin-left: -960px;
+        }
+        .slide_area{
+            position: absolute;
+            &.slide_women{
+                top: 50px;
+                left: 50%;
+                margin-left: -580px;
+            }
+            &.slide_man{
+                top: 733px;
+                left: 50%;
+                margin-left: 100px;
+            }
+            &.slide_together{
+                top: 960px;
+                left: 50%;
+                margin-left: -580px;
+            }
+            .indicator{
+                text-align: center;
+                float: none;
+                padding: 10px 0;
+                a{
+                    margin: 0 4px;
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    border: 2px solid #fff;
+                    border-radius: 50%;
+                    &.on{
+                        background:#fff;
+                    }
+                }
+            }
+        }
+        .deco{
+            position: absolute;
+            top: 435px;
+            left: 50%;
+            margin-left: 734px;
+
+            transform: translateY(-20px);
+            transition: .6s;
+            transition-delay: .6s;
+            opacity: 0;
+        }
+        &.on{
+            .deco{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .statement{
+        position: relative;
+        padding: 80px 0;
+        background: #fff;
+        .txt{
+            text-align: center;
+            >*{
+                transform: translateY(20px);
+                transition: .6s;
+                opacity: 0;
+            }
+            h2{
+                text-align: center;
+                transition-delay: 0;
+                img{
+                    display: inline-block;
+                }
+            }
+            p{ 
+                padding: 20px 0 30px;
+                font: 400 18px 'NotoSansKR';
+                color: #000;
+                text-align: center;
+                transition-delay: .4s;
+            }
+            .btn{
+                display: inline-block;
+                transition-delay: .8s;
+            }
+        }
+        &.on{
+            .txt{
+                >*{
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+}
