@@ -1215,7 +1215,7 @@ function blurAction(obj,moveId,dir,obj2){
 				var that = $(this);
 				itemTimer = setTimeout(function(){
 					that.addClass('hover');
-				},500);
+				},0); //500
 			});
 
 			$('.plp-wrapper .plp-contents .plp-products .plp-grid .item').bind('mouseleave',function(){
