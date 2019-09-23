@@ -1318,82 +1318,82 @@
 			<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 			<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 			<script type="text/javascript" src="/designjs/common/slick/slick.js" charset="UTF-8"></script>
-			<script type="text/javascript">
+				<script type="text/javascript">
 
-				$(window).ready(function(){
-					
+					$(window).ready(function(){
+						
 
-					$('.mov_slider').slick({
-						dots: true,
-						infinite: true,
-						slidesToShow: 5,
-						slidesToScroll: 5,
-						autoplay:true,
-					});
+						$('.mov_slider').slick({
+							dots: true,
+							infinite: true,
+							slidesToShow: 5,
+							slidesToScroll: 5,
+							autoplay:true,
+						});
 
-					setTimeout(function(){
-						$('#ultrasboost_cp .main').addClass('on');
-					},500);
+						setTimeout(function(){
+							$('#ultrasboost_cp .main').addClass('on');
+						},500);
 
-					var scrollArray = [];
-					var scrollContent = document.querySelectorAll('.scroll');
-					for(var i = 0; i<scrollContent.length; i++){
-							var mypos = scrollContent[i].offsetTop;
-							scrollArray.push(mypos)
-					}
-					
-					$(window).scroll(function(){
-						var thispos = $(this).scrollTop() + $(window).height() -500;
-						for(var pos = 0; pos<scrollArray.length; pos++){
-							if(thispos>scrollArray[pos]){
-								$('#ultrasboost_cp .scroll').eq(pos).addClass('on');
+						var scrollArray = [];
+						var scrollContent = document.querySelectorAll('.scroll');
+						for(var i = 0; i<scrollContent.length; i++){
+							 var mypos = scrollContent[i].offsetTop;
+							 scrollArray.push(mypos)
+						}
+						
+						$(window).scroll(function(){
+							var thispos = $(this).scrollTop() + $(window).height() -500;
+							for(var pos = 0; pos<scrollArray.length; pos++){
+								if(thispos>scrollArray[pos]){
+									$('#ultrasboost_cp .scroll').eq(pos).addClass('on');
+								}
 							}
-						}
+						});
+
+						// section 01
+						var sliders1 = $('#sliders1').Swipers({
+							width: 1030,
+							height: 335,
+							duration: 600,
+							easing: true,
+							loop: true,
+							auto: true,
+							autoTime: 5000,
+							callback: function (index, prevIdx) {
+								$('.sliders1 .indicator a').removeClass('on').eq(index).addClass('on');
+							}
+						});
+
+						$('.sliders1 .prev-button').bind('click', function () {
+							sliders1.prev();
+						});
+
+						$('.sliders1 .next-button').bind('click', function () {
+							sliders1.next();
+						});
+
+						$('.sliders1 .indicator a').bind('click', function () {
+							sliders1.move($(this).index());
+							console.log(index);
+						});
+
+
+						// test
+						var imgEl = $('img');
+
+						imgEl.each(function(index, item){
+							console.log($(this).attr('src'));
+
+							var imgPath = $(this).attr('src') + "?v=" + Date.now();
+							console.log(imgPath);
+
+							$(this).attr('src', imgPath);
+						})
+
 					});
 
-					// section 01
-					var sliders1 = $('#sliders1').Swipers({
-						width: 1030,
-						height: 335,
-						duration: 600,
-						easing: true,
-						loop: true,
-						auto: true,
-						autoTime: 5000,
-						callback: function (index, prevIdx) {
-							$('.sliders1 .indicator a').removeClass('on').eq(index).addClass('on');
-						}
-					});
-
-					$('.sliders1 .prev-button').bind('click', function () {
-						sliders1.prev();
-					});
-
-					$('.sliders1 .next-button').bind('click', function () {
-						sliders1.next();
-					});
-
-					$('.sliders1 .indicator a').bind('click', function () {
-						sliders1.move($(this).index());
-						console.log(index);
-					});
-
-
-					// test
-					var imgEl = $('img');
-
-					imgEl.each(function(index, item){
-						console.log($(this).attr('src'));
-
-						var imgPath = $(this).attr('src') + "?v=" + Date.now();
-						console.log(imgPath);
-
-						$(this).attr('src', imgPath);
-					})
-
-				});
-
-			</script>
+				</script>
 
 
 			</div>
