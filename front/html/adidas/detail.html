@@ -4146,7 +4146,7 @@
 							1. buy_box 단일 클래스 사용시 default 모드
 							2. buy_box 클래스에 buy_box_restock 클래스가 붙을 경우 출시예정/품절 모드로 변경
 							-->
-							<!-- <div class="buy_box"> -->
+
 							<div class="buy_box buy_box_restock">
 								<div class="inner">
 									<div class="rating">
@@ -4225,7 +4225,7 @@
 					
 											<div class="select_size">
 												<ul id="buybox_select_size">
-													<li class="on">220</lic>
+													<li>220</li>
 													<li>225</li>
 													<li>230</li>
 													<li>235</li>
@@ -4256,6 +4256,8 @@
 											</div>
 					
 											<script>
+												// 190917 아래 작성한 스크립트(사이즈선택, 수량증감)
+												// 는 모두 리뉴얼과 함께 작성한 코드로 리뉴얼시 포함되어야합니다.
 												$(document).ready(function () {
 
 													//사이즈 선택
@@ -4270,17 +4272,6 @@
 														sltSizeBtn.removeClass();
 														$(this).addClass('on');
 													})
-
-													if (buyBox.hasClass('buy_box_restock')) {
-														alert("재입고 모드!");
-														sltSizeBtn.removeClass('on');
-														$('.etc_info').css('display', 'none');
-														$('.fitanlytics').css('display', 'none');
-														$('.super_week_ban').css('display', 'none');
-														$('.btn_default_view').css('display', 'none');
-														$('.btn_restock_view').css('display', 'block');
-														$('#inQuantity').children().attr('src', '/images/adidas/common/ico_inQ_disabled.png');
-													}
 
 													//수량 증감
 
@@ -4349,6 +4340,7 @@
 											<span><img src="/images/adidas/common/ico_restock.png" alt=""></span>
 											<a href="javascript:void(0)">입고 알림 신청</a>
 										</p>
+										<!-- 190917 아래 버튼은 상태에 따라 둘중하나만 표시되도록 부탁드립니다. -->
 										<a href="#" class="btn-ctm btn_scheduled"><span>출시예정</span></a>
 										<a href="#" class="btn-ctm btn_soldout"><span>품절</span></a>
 									</div>
