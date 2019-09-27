@@ -1,0 +1,608 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+html,body{
+	height: 100%;
+}
+#wrap{
+	overflow: hidden;
+	min-width: 1280px;
+}
+/* Slider */
+
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.dragging {
+        cursor: pointer;
+        cursor: hand;
+    }
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+.slick-track {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+}
+.slick-slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    [dir="rtl"] & {
+        float: right;
+    }
+    img {
+        display: block;
+    }
+    &.slick-loading img {
+        display: none;
+    }
+
+    display: none;
+
+    &.dragging img {
+        pointer-events: none;
+    }
+
+    .slick-initialized & {
+        display: block;
+    }
+
+    .slick-loading & {
+        visibility: hidden;
+    }
+
+    .slick-vertical & {
+        display: block;
+        height: auto;
+        border: 1px solid transparent;
+    }
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+
+
+#supercourt{
+	position: relative;
+	background: #d3d0cb;
+	border: 13px solid #318ace;
+	border-bottom:0;
+	//common
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			padding:0 15px;
+			font: 500 14px/48px 'NotoSansKR';
+			letter-spacing: 0.7px;
+		}
+	}
+
+	//start
+	.main{
+		background:url('/images/adidas/2019/event/originals/supercourt/1908_a_supercourt_topCont_DT.jpg') no-repeat;
+		background-position: center;
+		background-size: 100% 100%;
+		.main_img{
+			position: relative;
+			top:25px;
+			.img{
+				position: relative;
+				text-align: left;
+				margin-left:30px;
+				img{
+					width:97%;
+					height: 100%;
+				}
+			}
+		}
+		.main_txt{
+			position: relative;
+			height: 581px;
+			.txt{
+				position: absolute;
+				bottom:140px;
+				left:50%;
+				transform: translateX(-50%);
+				h1,p,.btn_wrap{
+					text-align: center;
+				}
+				h1{
+					font: 68px/68px 'adinenuPro-bold';
+					color:#000;
+					letter-spacing: 2px;
+				}
+				p{
+					font: 400 22px/30px 'NotoSansKR';
+					color: #000;
+					margin: 4px 0 55px 0;
+					letter-spacing: 1px;
+				}
+				.btn_wrap{
+					.button_area_v2{
+						&:first-child{
+							margin-right:20px;
+						}
+						&:last-child{
+							a{
+								background:#333333;
+							}
+						}
+				}
+			}
+			}
+		}
+	}
+
+	.evt{
+		position:relative;
+		video{
+			width:100%;
+			height:auto;
+		}
+		a{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+		}
+	}
+
+	.mov{
+		position: relative;
+		margin: 60px 0 70px 0;
+		>img{
+			text-align: center;
+			width:100%;
+			margin:0 auto;
+		}
+		.title{
+			margin:0 0 55px 0;
+			p{
+				padding: 0 0 5px 0;
+				text-align: center;
+				font:600 24px/24px 'NotoSansKR';
+				color:#000;
+				letter-spacing: 2px;
+				em{
+					position: relative;
+					top: 4px;
+					margin-right: 5px;
+					display: inline-block;
+					width:18px;
+					height:24px;
+					background: url('/images/adidas/2019/event/originals/supercourt/0919/ico_ping.png') no-repeat;
+				}
+			}
+		}
+		.contatiner{
+			width: 97%;
+			margin:0 auto;
+			.mov_slider{
+				padding: 60px 0 0 0;
+				.slick-arrow{
+					border: 0;
+					text-indent: -9999px;
+					background: transparent;
+					width: 66px;
+					height: 18px;
+					position: absolute;
+					top: 0;
+					z-index: 1;
+					left:50%;
+					outline: none;
+					&.slick-prev{
+						margin-left: -471px;
+						background: url('/images/adidas/2019/event/originals/supercourt/0919/arrow_prev.png') no-repeat;
+					}
+					&.slick-next{
+						margin-left: 408px;
+						background: url('/images/adidas/2019/event/originals/supercourt/0919/arrow_next.png') no-repeat;
+					}
+				}
+				.slick_box{
+					width: 96% !important;
+					img{
+						width:100%;
+					}
+				}
+			}
+			
+			.slick-dots{
+				position: absolute;
+				top:10px;
+				width:100%;
+				overflow: hidden;
+				text-align: center;
+				li{
+					display: inline-block;
+					margin:0 5px;
+					border: 0;
+					text-indent: -9999px;
+					background: transparent;
+					width:35px;
+					height:5px;
+					background: #b3b3b3;
+					transition: all 0.3s;
+					&.slick-active{
+						background: #ddf653;	
+					}
+				}
+			}
+		}
+	}
+	.aside{
+		position: relative;
+		height: 545px;
+		padding: 65px 0 0 0;
+		.img{
+			text-align: center;
+		}
+		.txt{
+			width: 950px;
+			margin:0 auto;
+			padding: 35px 0 0;
+			h3{
+				font: 32px/32px 'adinenuPro-bold';
+				color:#000;
+				text-align: center;
+			}
+			p{
+				font: 400 18px/30px 'NotoSansKR';
+				color: #000;
+				text-align: center;
+			}
+
+		}
+	}
+
+	.vid{
+		position: relative;
+		padding: 100px 0 130px 0;
+		.inner{
+			text-align: center;
+			video{
+				object-fit: cover;
+				width:1191px;
+				height:702px;
+			}
+			.txt{
+				position: absolute;
+				bottom: 195px;
+				left:50%;
+				transform: translateX(-50%);
+				text-align: center;
+				>div{
+					position: relative;
+					>a{
+						display: inline-block;
+						position: absolute;
+						top:50%;
+						left:50%;
+						margin-top:-230px;
+						margin-left:-32px;
+					}
+				}
+
+				h4{
+					font: 32px/40px 'adinenuPro-bold';
+					color:#fff;
+					text-align: center;
+				}
+				p{
+					font: 500 18px/30px 'NotoSansKR';
+					color: #fff;
+					text-align: center;
+					margin: 0 0 26px 0;
+				}
+
+			}
+		}
+
+	}
+
+	.grid_cont{
+		position: relative;
+		padding: 0 90px 72px;;
+		// grid common
+		img{
+			width:100%;
+		}
+		.button_area_v2{
+			display: inline-block;
+			position: absolute;
+			bottom:30px;
+			left:50%;
+			transform: translateX(-50%);
+			&:hover{
+				a{
+					-webkit-transform: translate(3px,3px);
+					transform: translate(3px,3px);
+					-webkit-transition: all .5s;
+					transition: all .5s;
+					opacity: .9;
+				}
+				.bg{
+					&::after{
+						-webkit-transform: translate(0px,0px);
+						transform: translate(0px,0px);
+					}
+				}
+			}
+			a{
+				padding:0 17px;
+				font:500 14px/48px 'NotoSansKR';
+				letter-spacing: 0.7px;
+				line-height: 48px;
+			}
+		}
+		.grids{
+			overflow: hidden;
+			position: relative;
+			display: inline-block;
+			&:hover{
+				img{
+					transform: scale(1.1);
+					transition: all 5s ease-in-out;
+				}
+			}
+		}
+
+		
+		//grid section start
+		.top{
+			&::after{
+				clear: both;
+				display: block;
+				content:'';
+			}
+			.inner{
+				width:50%;
+				float:left;
+				&::after{
+					clear: both;
+					display: block;
+					content:'';
+				}
+				.grids{
+					width:50%;
+					float:left;
+				}
+				&.lt{
+					.grids{
+						&:last-child{
+							clear: both;
+							width:100%;
+						}
+					}
+				}
+				&.rt{
+					.grids{
+						&:first-child{
+							clear: both;
+							width:100%;
+						}
+						&:nth-child(3){
+							float: right;
+						}
+					}
+				}
+			}
+		}
+		.mid{
+			&::after{
+				clear: both;
+				display: block;
+				content:'';
+			}
+			.grids{
+				width:25%;
+				float: left;
+				&:nth-child(2){
+					width:50%;
+				}
+			}
+		}
+		.btm{
+			&::after{
+				clear: both;
+				display: block;
+				content:'';
+			}
+			.grids{
+				width:50%;
+				float: left;
+			}
+		}
+	}
+	.slide_cont{
+		background: url('/images/adidas/2019/event/originals/supercourt/1908_a_supercourt_slideBg_DT.jpg') no-repeat;
+		background-position: center;
+		background-size: auto 100%;
+		height: 920px;
+		.sliders1{
+			margin: 0 auto;
+			width: 1050px;
+			text-align: center;
+			position: relative;
+			top: 135px;
+			#sliders1{
+				overflow:unset!important;
+				ul{
+					li{
+						text-align: center;
+						img{
+	
+						}
+					}
+				}
+			}
+			.slide_nav{
+				padding-top: 40px;
+				overflow: hidden;
+				>*{
+					float: left;
+				}
+				.prev-button{
+					position: absolute;
+					top: 144px;
+					left: 50%;
+					margin-left: -555px;
+				}
+				.next-button{
+					position: absolute;
+					top: 144px;
+					left: 50%;
+					margin-left: 455px;
+					transform: rotate(-180deg);
+				}
+			}
+			.txt{
+				text-align: center;
+				h5{
+					position: relative;
+					height: 50px;
+					display: inline-block;
+					font: 28px/28px 'adinenuPro-bold';
+					color:#000;
+					&::after{
+						display: block;
+						content:'';
+						clear:both;
+						border-bottom:3px solid #000;
+						height: 3px;
+						bottom:0;
+						position: absolute;
+						width: 100%;
+					}
+				}
+				p{
+					font:500 18px/27px 'NotoSansKR';
+					color:#000;
+					text-align: center;
+					margin:25px 0;
+				}
+			}
+			.button_area_v2{
+				margin: 0 0 45px 0;
+			}
+			.indicator{
+				width: 1050px;
+				padding: 40px 0 65px 0;
+				text-align: center;
+				a{
+					margin: 0 5.5px;
+					display: inline-block;
+					width: 36px;
+					height: 2px;
+					border: 2px solid #000;
+					box-sizing: border-box;
+					&.on{
+						height: 8px;
+						background: #000;
+					}
+				}
+			}
+		}
+	}
+	//end
+
+}
+@media screen and (max-width:1550px) {
+	#supercourt{
+		.grid_cont{
+			.button_area_v2{
+				a{
+					padding: 0 17px;
+					font: 500 12px/48px 'NotoSansKR'!important;
+					letter-spacing: 0;
+					line-height: 48px;
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width:1400px) {
+	#supercourt{
+		.grid_cont{
+			.button_area_v2{
+				a{
+					font: 500 10px/48px 'NotoSansKR'!important;
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width:1300px) {
+	#supercourt{
+		.grid_cont{
+			.button_area_v2{
+				a{
+					padding: 0 12px;
+					font: 500 10px/48px 'NotoSansKR'!important;
+				}
+			}
+		}
+	}
+}
