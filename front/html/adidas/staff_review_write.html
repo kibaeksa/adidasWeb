@@ -1387,7 +1387,7 @@
 									<td>
 										<div class="staff_ctgr_box items_wrap clfix" style="padding-top:7px;">
 								
-											<div class="input-ctm input-radio-ctm" data-init="true" style="margin-right:20px;">
+											<div class="input-ctm input-radio-ctm" style="margin-right:20px;">
 												<input type="radio" id="staff_ctgr_clothes" name="staff_ctgr" value="scco_01" checked="">
 												<label for="staff_ctgr_clothes">
 													<a class="ctm-box spt_bg" href="javascript:void(0)">
@@ -1396,7 +1396,7 @@
 													의류
 												</label>
 											</div>
-											<div class="input-ctm input-radio-ctm" data-init="true" style="margin-right:20px;">
+											<div class="input-ctm input-radio-ctm" style="margin-right:20px;">
 												<input type="radio" id="staff_ctgr_shoes" name="staff_ctgr" value="scco_02">
 												<label for="staff_ctgr_shoes">
 													<a class="ctm-box spt_bg" href="javascript:void(0)">
@@ -1405,7 +1405,7 @@
 													신발
 												</label>
 											</div>
-											<div class="input-ctm input-radio-ctm" data-init="true">
+											<div class="input-ctm input-radio-ctm">
 												<input type="radio" id="staff_ctgr_goods" name="staff_ctgr" value="scco_03">
 												<label for="staff_ctgr_goods">
 													<a class="ctm-box spt_bg" href="javascript:void(0)">
@@ -1724,12 +1724,13 @@
                    
                     $(document).ready(function(){
 
-						var staffCtgrClick = $('.staff_ctgr_box').find('label').siblings('input');
+						// 190925 카테고리 라디오버튼 의류 스크립트입니다 추가해주세요
+						var staffCtgrClick = $('.staff_ctgr_box').find('label');
 
 						staffCtgrClick.on('click', function () {
-							console.log($(this).val());
+							// console.log($(this).siblings('input').val());
 							
-							if ($(this).val() == 'scco_01') {
+							if ($(this).siblings('input').val() == 'scco_01') {
 								$('#clothes_option_box').fadeIn();
 							} else {
 								$('#clothes_option_box').fadeOut();
