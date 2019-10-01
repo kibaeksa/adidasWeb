@@ -1,0 +1,296 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+
+#winter{
+	position: relative;
+	//common
+	.button_area_v2{
+		margin-top: 25px;
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:140px;
+			font: 700 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+		}
+	}
+
+	//main
+	.main{
+		position: relative;
+		height: 933px;
+		>.bg{
+			width: 1920px;
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			img{
+				width:100%;
+			}
+		}
+		#slideshow{
+			position: absolute;
+			top: 165px;
+			left: 50%;
+			transform: translateX(-50%); 
+			width: 1920px;
+			height: 792px;
+			z-index: 1;
+			>div{
+				position: absolute;
+			}
+		}
+		.indi{
+			position: absolute;
+			bottom: 130px;
+			left: 50%;
+			transform: translateX(-50%);
+			a{
+				margin: 0 4px;
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				border: 2px solid #000;
+				text-indent: -9000px;
+				&.on{
+					background: #000;
+				}
+			}
+		}
+		.b_box{
+			width: 1190px;
+			position: absolute;
+			top:0;
+			left:50%;
+			margin-left: -595px;
+			text-align: left;
+			h3{
+				padding: 28px 0 10px;
+				font: 300 50px/50px 'NotoSansKR';
+				color: #000;
+			}
+			h1{
+				transition: all .4s;
+				opacity: 0;
+				img{
+					display: block;
+				}
+			}
+			.button_area_v2{
+				margin-top: 20px;
+				transition: all .4s;
+				transition-delay: .8s;
+				opacity: 0;
+				a{
+					width: auto;
+					padding: 0 30px;
+					letter-spacing: 2px;
+				}
+			}
+		}
+		&.on{
+			.b_box{
+				>*{
+					opacity: 1;
+				}
+				.button_area_v2{
+					a{
+						span{
+							margin-left: 1rem;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//section
+	.section{
+		position: relative;
+		.sect_img{
+			position: absolute;
+			width: 1920px;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			img{
+				display: block;
+				width: 100%;
+			}
+		}
+		.inner{
+			overflow: hidden;
+			width: 1190px;
+			margin: 0 auto;
+		}
+		.sect_buybox{
+			overflow: hidden;
+			position: absolute;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			z-index: 3;
+			.btn_txt{
+				float: left;
+				margin-right: 10px;
+				h2{
+					font: 24px/28px 'adinenuPro-black';
+					color: #000;
+					text-align: center;
+					letter-spacing: 5px;
+					text-align: right;
+				}
+				h3{
+					font: 24px/28px 'adinenuPro-light';
+					color: #000;
+					text-align: center;
+					letter-spacing: 5px;
+					text-align: right;
+				}
+			}
+			.button_area_v2{
+				float:left;
+				margin: 0;
+			}
+			&.type1{
+				padding: 23px 0 0 50px;
+				top: 1045px;
+				left: 50%;
+				width: 503px;
+				height: 97px;
+				background: rgba(255,255,255,.4);
+				transform: translateX(-50%);
+				text-align: center;
+
+				transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+				transition-delay: 1s;
+				opacity: 0;
+
+				&::after{
+					display: inline-block;
+					content: '';
+					position: absolute;
+					top: 0;
+					left: -80px;
+					height: 97px;
+					width: 80px;
+					background: url('/images/adidas/2019/event/originals/winter/ssg2.png') left top no-repeat;
+					z-index: -1;
+				}
+
+				&:hover{
+					&::after{
+						// animation: btnEft .6s cubic-bezier(1, 0, 0, 1);
+					}
+				}
+			}
+			&.type2{
+				padding: 22px 0;
+				bottom: 2%;
+				left: 50%;
+				width: 1920px;
+				height: 95px;
+				background: none;
+				transform: translateX(-50%);
+				.inn{
+					width: 800px;
+					margin: 0 auto;
+				}
+				.btn_txt{
+					margin-right: 35px;
+					h2{
+						padding-right: 25px;
+						float: left;
+						font: 30px/58px 'adinenuPro-black';
+						color: #000;
+						letter-spacing: 8px;
+					}
+					h3{
+						float: left;
+						font: 30px/58px 'adinenuPro-light';
+						color: #000;
+						letter-spacing: 8px;						
+					}
+				}
+			}
+		}
+		&.sec1{
+			height: 1970px;
+			&.on{
+				.sect_buybox.type1{
+					opacity: 1;
+					top: 995px;
+				}
+			}
+		}
+		&.sec2{
+			height: 3508px;
+			&.on{
+				.sect_buybox.type1{
+					opacity: 1;
+					top: 971px;	
+				}
+			}
+			.sect_buybox{
+				.btn_txt{
+					h2{
+						color: #fff;
+					}
+					h3{
+						color: #fff;
+					}
+				}
+				.button_area_v2{
+					float:left;
+					margin: 0;
+				}
+				&.type1{
+					top: 1021px;			
+					background: rgba(0,0,0,.4);
+					&::after{
+						background: url('/images/adidas/2019/event/originals/winter/ssg2-bl.png') left top no-repeat;
+					}
+				}
+				&.type2{
+					bottom: 0;
+					background: rgba(0,0,0,.4);
+					.btn_txt{
+						h2{
+							color: #fff;
+						}
+						h3{
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes btnEft {
+	0% {
+		left: 0;
+	}
+	50% {
+		right: 50%;
+	}
+	100%{
+		left: 100%;
+	}
+}
