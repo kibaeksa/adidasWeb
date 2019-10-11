@@ -4226,7 +4226,8 @@
 											<div class="select_size">
 												<ul id="buybox_select_size">
 													<li>220</li>
-													<li>225</li>
+													<!-- 191011 size_sold_out (개별사이즈품절) 클래스 입니다. -->
+													<li class="size_sold_out">225</li>
 													<li>230</li>
 													<li>235</li>
 													<li>240</li>
@@ -4260,16 +4261,16 @@
 												// 는 모두 리뉴얼과 함께 작성한 코드로 리뉴얼시 포함되어야합니다.
 												$(document).ready(function () {
 
-													//사이즈 선택
+													// 191011 사이즈 선택 (스크립트 수정있습니다.)
 													var buyBox = $('.buy_box');
 													var buyBoxRst = $('.buy_box.buy_box_restock');
 													var sltSizeBtn = $('#buybox_select_size').find('li');
 
 													sltSizeBtn.on('click', function () {
-														if (buyBox.hasClass('buy_box_restock')) {															
-															return false;
-														}
-														sltSizeBtn.removeClass();
+														// if (buyBox.hasClass('buy_box_restock')) {															
+														// 	return false;
+														// }
+														sltSizeBtn.removeClass('on'); // 제거할 클래스 on을 명시해야합니다.
 														$(this).addClass('on');
 													})
 
