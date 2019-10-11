@@ -4267,9 +4267,9 @@
 													var sltSizeBtn = $('#buybox_select_size').find('li');
 
 													sltSizeBtn.on('click', function () {
-														// if (buyBox.hasClass('buy_box_restock')) {															
-														// 	return false;
-														// }
+														if (buyBox.hasClass('buy_box_restock') || $(this).hasClass('size_sold_out')) {
+															return false;
+														}
 														sltSizeBtn.removeClass('on'); // 제거할 클래스 on을 명시해야합니다.
 														$(this).addClass('on');
 													})
