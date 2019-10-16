@@ -1,7 +1,9 @@
 @import './front/css/adidas/scss/common/mixin.scss';
 @import './front/css/adidas/scss/common/common.scss';
 
-
+body, html{
+	height:100%;
+}
 #jkoo{
 	position: relative;
 	//common start
@@ -43,7 +45,6 @@
 		transform: translateX(-50%);
 	}
 	//common end
-
 
 	.main{
 		height: 808px;
@@ -105,56 +106,95 @@
 				width:93%;
 				margin: 0 auto;
 				position: relative;
-				padding: 40px 0;
-			}
-			.lookbook-wrapper-txt{
-				width:42%;
-				position: relative;
+				padding: 3% 0;
 				text-align: right;
-				float: left;
-				.inner{
-					border:1px solid #e1ada8;
+				&::after{
+					display: block;
+					content:'';
+					clear:both;
+				}
+				.lookbook-wrapper-txt{
+					float: initial;
+					position: absolute;
+					top: 50%;
+					// left: 18%;
+					transform: translate(-50%,-50%);
+					text-align: right;
+					width: 40%;
+					.inner{
+						border:1.5px solid #e1ada8;
+						display: inline-block;
+						padding: 3% 4%;
+						p{
+							font: 400 17px/30px 'NotoSansKR';
+							color:#e1ada8;
+						}
+					}
+				}
+				.lookbook-wrapper-img{
+					width:57%;
 					display: inline-block;
-					padding: 3% 4%;
-					margin: 20% 8% 0 0;
-					p{
-						font: 400 16px/30px 'NotoSansKR';
-						color:#e1ada8;
+					img{
+						width:100%;
 					}
 				}
 			}
-			.lookbook-wrapper-img{
-				width:57%;
-				display: inline-block;
-				img{
-					width:100%;
+			&:nth-child(1){
+				.lookbook-wrapper-txt{
+					left:19%;
+				}
+			}
+			&:nth-child(2){
+				.lookbook-wrapper-txt{
+					left:82%;
+				}
+			}
+			&:nth-child(3){
+				.lookbook-wrapper-txt{
+					left:18%;
+				}
+			}
+			&:nth-child(4){
+				.lookbook-wrapper-txt{
+					left:82%;
+				}
+			}
+			&:nth-child(5){
+				.lookbook-wrapper-txt{
+					left:16.5%;
+				}
+			}
+			&:nth-child(6){
+				.lookbook-wrapper-txt{
+					left:82%;
 				}
 			}
 			&.pink{
 				background:#e1ada8;
-
 				.ct1680{
+					text-align: left;
 					.lookbook-wrapper-txt{
-						width:42%;
-						position: relative;
+						// float: initial;
+						// position: absolute;
+						// top: 50%;
+						// left: 80%;
+						// transform: translate(-50%,-50%);
 						text-align: left;
-						float: right;
+						// width: 42%;
 						.inner{
-							border: 1px solid #fff;
-							display: inline-block;
-							padding: 3% 4%;
-							margin: 20% 0 0 8%;
+							border: 1.5px solid #fff;
+							// display: inline-block;
+							// padding: 3% 4%;
 							p{
-								font: 400 16px/30px 'NotoSansKR';
 								color:#fff;
 							}
 						}
 					}
 					.lookbook-wrapper-img{
-						width:57%;
-						display: inline-block;
+						// width:57%;
+						// display: inline-block;
 						img{
-							width:100%;
+							// width:100%;
 						}
 					}
 				}
@@ -163,7 +203,6 @@
 
 	}
 	
-
 	.slide{
 		height:977px;
 		text-align: center;
@@ -221,35 +260,3 @@
 		}
 	}
 }
-
-
-// @media screen and (max-width: 1400px) {
-// 	#jkoo{
-// 		.lookbook{
-// 			.lookbook-wrapper{
-// 				height:initial;
-// 				.lookbook-wrapper-txt{
-// 					.inner{
-// 						margin: 15% 8% 0 0;
-// 					}
-// 					&.pink{
-// 						background:#e1ada8;
-// 						.ct1680{
-// 							.lookbook-wrapper-txt{
-// 								.inner{
-// 									padding: 3% 4%;
-// 									margin: 15% 0 0 8%!important;
-// 									p{
-// 										font: 400 16px/30px 'NotoSansKR';
-// 										color:#fff;
-// 									}
-// 								}
-// 							}
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
