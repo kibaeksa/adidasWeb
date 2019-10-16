@@ -1120,11 +1120,12 @@
 						</div>
 						<!-- 161121 end -->
 
-						<div class="row id_check">
+						<div class="row">
+						<!-- <div class="row id_check"> -->
 							<div class="col">
-								<input type="text" value="아이디*" class="id_input">
+								<input type="text" id="MEM_ID" name="MEM_ID" class="id_input" value="" maxlength="15" autocomplete="off" placeholder="아이디(필수)">
 							</div>
-							<a href="#" class="btn-ctm btn-lgray anim"><span>중복확인<span class=" spt_bg"></span></span></a>
+							<!-- <a href="#" class="btn-ctm btn-lgray anim"><span>중복확인<span class=" spt_bg"></span></span></a> -->
 						</div>
 						<div class="row data_guide" id="id_input_guide">
 							<strong>띄어쓰기 불가/영문소문자,숫자포함/ 6~15자</strong>
@@ -1132,17 +1133,27 @@
 
 						<div class="row">
 							<div class="col pwd_text_wrap">
-								<input type="password" class="pwd_text">
-								<div class="fake_input">비밀번호*</div>
+								<input type="password" id="MEM_PW" name="MEM_PW" class="pwd_text" maxlength="15" value=""
+									autocomplete="new-password">
+								<div class="fake_input pwFakeInput" style="display: block;">비밀번호(필수)</div>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col pwd_text_wrap">
-								<input type="password" class="pwd_text">
-								<div class="fake_input">비밀번호 확인*</div>
+								<input type="password" id="CHECK_MEM_PW" name="CHECK_MEM_PW" class="pwd_text" maxlength="15" value="">
+								<div class="fake_input txtPwFakeInput" style="display: block;">비밀번호 확인(필수)</div>
 							</div>
 						</div>
+
+						<div class="row kko_phone">
+							<div class="col">
+								<input type="text" id="MOBL" name="MOBL" value="" class="phone_input hp_auto_check" maxlength="11"
+									placeholder="휴대폰번호(필수)">
+							</div>
+						</div>
+
+						<div class="row kko_line"></div>
 
 						<div class="row email clfix">
 							<div class="col box1">
@@ -1180,12 +1191,6 @@
 							<!-- //selectbox-ctm -->
 						</div>
 						<!-- //email -->
-
-						<div class="row phone">
-							<div class="col">
-								<input type="text" value="010-1234-5678" disabled="">
-							</div>
-						</div>
 
 						<div class="row clfix birth">
 							<div class="col">
@@ -1277,58 +1282,7 @@
 								<!-- //selectbox-ctm -->
 							</div>
 						</div>
-						<!-- 180214 -->
-						<!--
-						170220 기존 부분 삭제
-						<div class="row check_area mkt_agr clfix">
-							<dl>
-								<dt>마케팅 수신동의</dt>
-								<dd>
-									<div class="input-ctm input-check-ctm" id="id4">
-										<input type="checkbox" id="custom_chk1"/>
-										<label for="custom_chk1">
-											<a class="ctm-box" href="javascript:void(0)">
-												<span class=" spt_bg"></span>
-											</a>
-											SMS
-										</label>
-									</div>
-
-									<div class="input-ctm input-check-ctm" id="id4">
-										<input type="checkbox" id="custom_chk1"/>
-										<label for="custom_chk1">
-											<a class="ctm-box" href="javascript:void(0)">
-												<span class=" spt_bg"></span>
-											</a>
-											e-Mail
-										</label>
-									</div>
-
-								</dd>
-							</dl>
-						</div>
-
-						<div class="row check_area terms_agr clfix">
-							<dl>
-								<dt>이용약관*</dt>
-								<dd>
-									<div class="input-ctm input-check-ctm" id="id4">
-										<input type="checkbox" id="custom_chk1"/>
-										<label for="custom_chk1">
-											<a class="ctm-box" href="javascript:void(0)">
-												<span class=" spt_bg"></span>
-											</a>
-											모든 약관에 동의함
-										</label>
-									</div>
-
-									170220 삭제
-									<a href="#" class="btn-ctm btn-lgray anim"><span>약관 전체보기<span class=" spt_bg"></span></span></a>
-
-								</dd>
-							</dl>
-						</div>
-						-->
+						<!-- 180214 -->						
 
 						<!-- 170220 추가 -->
 						<div class="agr_box">
@@ -1358,7 +1312,10 @@
 												(필수) 구매이용약관동의
 											</label>
 										</div>
-										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/01_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+										<a href="javascript:void(0)" 
+											class="view_more_term" 
+											name="agree1"
+											onclick="window.open('/html/adidas/registerTerms.html','','width=680,height=580')">자세히보기 <span class="spt_bg"></span></a>
 									</div>
 									<div class="box">
 										<div class="input-ctm input-check-ctm small">
@@ -1370,7 +1327,7 @@
 												(필수) 개인정보 수집 이용동의
 											</label>
 										</div>
-										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/02_Information.html','inicisTerm','width=450,height=580')">자세히보기 <span class="spt_bg"></span></a>
+										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('/html/adidas/registerTerms.html','','width=680,height=580')">자세히보기 <span class="spt_bg"></span></a>
 									</div>
 
 									<div class="box">
@@ -1380,43 +1337,40 @@
 												<a class="ctm-box spt_bg" href="javascript:void(0)">
 													<span class=" spt_bg"></span>
 												</a>
-												(필수) 아디클럽 이용약관
+												<!-- 191015 아래 텍스트수정 -->
+												(필수) 아디클럽 이용약관동의
 											</label>
 										</div>
-										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/03_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+										<a href="javascript:void(0)" class="view_more_term" onclick="window.open('/html/adidas/registerTerms.html','','width=680,height=580')">자세히보기 <span class="spt_bg"></span></a>
 									</div>
 
-								</div>
-
-								<div class="box">
-									<div class="input-ctm input-check-ctm small">
-										<input type="checkbox" id="agree_inicis_terms04">
-										<label for="agree_inicis_terms04">
-											<a class="ctm-box spt_bg" href="javascript:void(0)">
-												<span class=" spt_bg"></span>
-											</a>
-											<!--
-												170915
-												개인정보 취급 위탁동의 (선택) ==> (필수)
-												(구매 및 배송 관련) ==> (구매 및 배송 등 관련)
-											-->
-											(필수) 개인정보 취급 위탁동의 (구매 및 배송 등 관련)
-										</label>
+									<div class="box">
+										<div class="input-ctm input-check-ctm small">
+											<input type="checkbox" id="agree_inicis_terms04">
+											<label for="agree_inicis_terms04">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												<!-- 191015 아래 텍스트수정 -->
+												(필수) 개인정보 처리위탁 동의 (구매 및 배송 등 관련)
+											</label>
+										</div>
+										<a href="javascript:void(0)" class="view_more_term"
+											onclick="window.open('/html/adidas/registerTerms.html','','width=680,height=580')">자세히보기 <span
+												class="spt_bg"></span></a>
 									</div>
-									<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/04_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
 								</div>
-
 
 								<div class="box sns">
 									<span>(선택) 쿠폰 발급, 회원전용 이벤트 등 안내 수신동의</span>
-									<a href="javascript:void(0)" class="view_more_term" onclick="window.open('https://plugin.inicis.com/html60/main/04_Information.html','inicisTerm','width=980,height=580')">자세히보기 <span class="spt_bg"></span></a>
+									<a href="javascript:void(0)" class="view_more_term" onclick="window.open('/html/adidas/registerTerms.html','','width=680,height=580')">자세히보기 <span class="spt_bg"></span></a>
 								</div>
 
 								<div class="box" style="border-top-width:0;padding-top: 0;">
 									<div class="subscribe_details">
 										<div class="input-ctm input-check-ctm small" style="margin-right:15px;">
-											<input type="checkbox" id="agree_inicis_terms04">
-											<label for="agree_inicis_terms04">
+											<input type="checkbox" id="agree_info_terms01">
+											<label for="agree_info_terms01">
 												<a class="ctm-box spt_bg" href="javascript:void(0)">
 													<span class=" spt_bg"></span>
 												</a>
@@ -1425,8 +1379,8 @@
 										</div>
 
 										<div class="input-ctm input-check-ctm small" style="margin-right:0;">
-											<input type="checkbox" id="agree_inicis_terms04">
-											<label for="agree_inicis_terms04">
+											<input type="checkbox" id="agree_info_terms02">
+											<label for="agree_info_terms02">
 												<a class="ctm-box spt_bg" href="javascript:void(0)">
 													<span class=" spt_bg"></span>
 												</a>
@@ -1476,11 +1430,56 @@
 								</div>
 
 								<ul class="privacy_keep_notice li-dot">
-									<li><span class="bul"></span> 해당 기간 서비스 미사용 시 휴면계정전환</li>
-									<li><span class="bul"></span> 별도로 선택하지 않는 경우, 기본 1년간 보관</li>
+									<li><span class="bul"></span> 해당 기간 서비스 미사용 시 휴면계정 전환되어 분리보관</li>
+									<li><span class="bul"></span> 기간 선택하지 않는 경우, 기본 1년 후 휴면계정 전환</li>
 								</ul>
 								<!-- 171106 개인정보 보호기간 추가 END -->
 
+
+								<!-- 191015 선택약관 동의 추가 start -->
+								<div class="box choice_agree_all">
+									<div class="input-ctm input-check-ctm small">
+										<input type="checkbox" id="agree_advertise_all">
+										<label for="agree_advertise_all">
+											<a class="ctm-box spt_bg" href="javascript:void(0)">
+												<span class=" spt_bg"></span>
+											</a>
+											(선택) 맞춤형 광고 수신을 위한 행태정보의 수집 및 이용에 대한 동의
+										</label>
+									</div>
+									<a href="javascript:void(0)" class="view_more_term"
+										onclick="window.open('/html/adidas/registerTerms2.html','','width=680,height=580')">자세히보기
+										<span class="spt_bg"></span></a>
+								</div>
+
+								<div class="box choice_agree" style="border-top-width:0;padding-top: 0;">
+									<div class="subscribe_details">
+										<div class="input-ctm input-check-ctm small" style="margin-right:15px;">
+											<input type="checkbox" id="agree_advertise_terms01" name="agree_advertise_terms">
+											<label for="agree_advertise_terms01">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												(선택) 개인정보 처리위탁 동의 (맞춤형 광고 수신 관련)
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="box choice_agree" style="border-top-width:0;padding-top: 0;">
+									<div class="subscribe_details">
+										<div class="input-ctm input-check-ctm small" style="margin-right:15px;">
+											<input type="checkbox" id="agree_advertise_terms02" name="agree_advertise_terms">
+											<label for="agree_advertise_terms02">
+												<a class="ctm-box spt_bg" href="javascript:void(0)">
+													<span class=" spt_bg"></span>
+												</a>
+												(선택) 개인정보 국외이전 동의 (맞춤형 광고 수신 관련)
+											</label>
+										</div>
+									</div>
+								</div>
+								<!-- 191015 선택약관 동의 추가 end -->
 							</div>
 						</div>
 						<!-- //170220 -->
@@ -1496,10 +1495,11 @@
 
 					<div class="register_desc">
 						<ul>
-							<li><span class="spt_bg"></span>고객님의 개인정보를 신중히 취급하며,<br/>동의없이 정보가 공개되지 않습니다.</li>
-							<li><span class="spt_bg"></span>아디다스 공식 온라인 쇼핑몰에 가입하시면,<br/>아디클럽 회원으로 자동 가입됩니다.</li>
-							<li><span class="spt_bg"></span>매장에서 가입하신 고객은 웹 회원가입 과정을 거쳐야,<br/>정식 아이디/패스워드가 등록됩니다. </li>
-							<li class="last"><span class="spt_bg"></span>가입 후 휴대전화로 전송해 드린 아디클럽 회원증을 <br/>다운로드 하시면, 오프라인 매장에서도 상품 구매 후 <br/>포인트 적립이 가능합니다.</li>
+							<li><span class="spt_bg"></span>회원가입은 14세 이상 고객만 가능합니다.</li>
+							<li><span class="spt_bg"></span>고객님의 개인정보를 신중히 취급하며,<br>동의없이 정보가 공개되지 않습니다.</li>
+							<li><span class="spt_bg"></span>매장에서 가입하신 고객은 웹 회원가입 과정을 거쳐야,<br> 정식 아이디/패스워드가 등록됩니다.</li>
+							<li><span class="spt_bg"></span>가입 후 휴대전화로 전송해 드린 아디클럽 회원증을 <br>다운로드 하시면, 오프라인 매장에서도 상품 구매 후 <br>포인트 적립이 가능합니다.</li>
+							<li class="last"><span class="spt_bg"></span>마케팅 수신동의 하시면,<br>할인쿠폰 및 이벤트 등의 소식을 받으실 수 있습니다.</li>
 						</ul>
 					</div>
 					<!-- //register_desc -->
@@ -1513,6 +1513,19 @@
 			<script type="text/javascript">
 				// 170220 start
 				(function($){
+					// var choiceAgreeAll = $('.choice_agree_all').find('label');
+					// var choiceAgreeLb = $('.choice_agree').find('label');
+					// var choiceAgreeInput = $('.choice_agree .input-check-ctm');
+
+					// choiceAgreeAll.on('click', function () {
+
+					// 	if ($("input:checkbox[id='agree_advertise_all']").is(":checked") == true) {
+					// 		choiceAgreeInput.removeClass('checked');
+					// 	} else {
+					// 		choiceAgreeInput.addClass('checked')
+					// 	}
+					// });
+					
 					$('#check_agree_all').ctmSelectSetCallback({
 						after : function(){
 							var elemInputs = $('.sub_agreements .agree_items .input-check-ctm');

@@ -12,17 +12,14 @@
 <link rel="shortcut icon" href="/images/adidas/favicon.ico" />
 <link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
-<script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script>
-<script type="text/javascript" src="/js/customForm.js"></script>
-<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
-<script type="text/javascript" src="/js/adidas/common.js"></script>
-<script type="text/javascript" src="/js/comCode.js"></script>
-<script type="text/javascript" src="/js/validatorUtil.js"></script>
-<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" />
+
+<script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script>
+<script src="/designjs/common/modalPopup.min.js"></script>
+<script src="/designjs/common/customForm.js"></script>
+<script src="/designjs/adidas/adidas.js"></script>
 <script type="text/javascript">
 
 	/*160929*/
@@ -66,18 +63,17 @@
 					}
 				},
 				after : function(){
-					//170303 스크립트 추가
 					if(this.find('input').attr('id') == 'guest_payment1'){
-						$('.delivery_info .for_guest>.deliv_form_wrap').hide();
+						$('.delivery_info .for_guest>.deliv_form').hide();
 						$('.delivery_info .for_guest>.login_naver').hide();
 						$('.delivery_info .for_guest>.login_form').show();
 					}else if(this.find('input').attr('id') == 'guest_payment2'){
 						$('.delivery_info .for_guest>.login_form').hide();
 						$('.delivery_info .for_guest>.login_naver').hide();
-						$('.delivery_info .for_guest>.deliv_form_wrap').show();
+						$('.delivery_info .for_guest>.deliv_form').show();
 					}else{
 						$('.delivery_info .for_guest>.login_form').hide();
-						$('.delivery_info .for_guest>.deliv_form_wrap').hide();
+						$('.delivery_info .for_guest>.deliv_form').hide();
 						$('.delivery_info .for_guest>.login_naver').show();
 					}
 				}
@@ -202,7 +198,7 @@
 		<div class="top_bnn" id="div_top_banner" style="display:none; height:0; background: rgb(224, 224, 224);"><img src="http://shop.adidas.co.kr/upload/banner/1f7f977720964eeebd4b31211e6f4102_0324170535.gif" alt="아디클럽 신규회원 가입 시, 아디클럽 1만원 쿠폰 증정!하드웨어 기획전)" border="0" usemap="#topbnn"><map name="topbnn" id="topbnn"><area onclick="fn_closeBanner();return false" href="#" coords="931,0,950,19" shape="rect" onmousedown="fn_trkClickTrace('^탑배너^아디클럽 1만원 쿠폰^닫기')" alt="닫기">   <area shape="poly" coords="741,0,625,120,0,120,0,0" href="http://shop.adidas.co.kr/PF020701.action?PROD_CD=15005987_M">  <area shape="poly" coords="743,0,950,0,950,120,626,120" href="http://shop.adidas.co.kr/PF080101.action"></map></div>
 
 
-	<!-- 160324 start -->
+	
 	<div id="header-20160315">
 		<a href="#" class="topbnn_toggle spt_bg"></a>
 		<div class="util_box">
@@ -1179,9 +1175,6 @@
 		</div>
 		<!-- //gnb_menu -->
 	</div>
-	<!-- 160324 end -->
-
-
 
 
 	<div id="container_r" style="background: #fff;">
@@ -1229,10 +1222,6 @@
 												비회원 주문
 											</label>
 										</div>
-
-
-
-
 									</div>
 									<!-- //box_form -->
 								</div>
@@ -1248,21 +1237,176 @@
 								</div>
 								<!-- //login_form -->
 
-								<div class="box deliv_form_wrap" style="padding-top:0;display: none;">
-									<a href="#" class="btn-ctm btn-blue "><span>본인인증</span></a>
+								<div class="box deliv_form">
+									<div class="row clfix">
+										<div class="col_head">수취인 이름*</div>
+										<div class="col_body">
+											<div class="col_row clfix">
+												<div class="col clf"><input type="text" name="RCIVR_NM" id="RCIVR_NM"
+														onkeyup="javascript:fn_checkSpclCh(this);" maxlength="20"></div>
+											</div>
+										</div>
+									</div>
+								
+									<div class="row phone clfix">
+										<div class="col_head">휴대전화 1*</div>
+										<div class="col_body col_body1">
+											<div class="col">
+												<input type="text" name="RCIVR_MOBL" id="RCIVR_MOBL" maxlength="12"
+													onkeyup="javascript:fn_checkSpclCh(this);" onkeydown="fn_onlyFigureKey()" value="">
+											</div>
+										</div>
+								
+										<div class="col_head col_head2">휴대전화 2</div>
+										<div class="col_body col_body2">
+											<div class="col">
+												<input type="text" id="RCIVR_TELNO" name="RCIVR_TELNO" onkeyup="javascript:fn_checkSpclCh(this);"
+													onkeydown="fn_onlyFigureKey()" maxlength="12">
+											</div>
+										</div>
+									</div>
+								
+									<div class="row email clfix">
+										<div class="col_head">이메일 주소*</div>
+										<div class="col_body">
+											<div class="col b1">
+												<input type="text" name="MEM_EMAIL1" id="MEM_EMAIL1" onkeyup="javascript:fn_checkSpclCh(this);"
+													maxlength="150">
+											</div>
+											<div class="col a b2">@</div>
+											<div class="col b3">
+												<input type="text" id="VIEW_MEM_EMAIL2" maxlength="100"
+													onkeyup="javascript:cfn_setCodeJmFld(this);fn_checkSpclCh(this);">
+												<input type="hidden" name="MEM_EMAIL2" id="MEM_EMAIL2" maxlength="100">
+											</div>
+											<div class="col b4">
+												<div class="selectbox-ctm size_shoes mail_field" data-value="">
+													<a href="javascript:void(0)">직접입력</a>
+													<div class="arrow spt_bg"></div>
+													<div class="select-contents option-list">
+														<ul>
+															<li data-option-value="" class="selected"><a href="javascript:void(0)">직접입력</a></li>
+															<li data-option-value="naver.com"><a href="javascript:void(0)">naver.com</a></li>
+															<li data-option-value="hanmail.net"><a href="javascript:void(0)">hanmail.net</a></li>
+															<li data-option-value="gmail.com"><a href="javascript:void(0)">gmail.com</a></li>
+															<li data-option-value="nate.com"><a href="javascript:void(0)">nate.com</a></li>
+															<li data-option-value="hotmail.com"><a href="javascript:void(0)">hotmail.com</a></li>
+														</ul>
+													</div>
+													<input type="hidden" id="MEM_EMAIL3" name="MEM_EMAIL3">
+												</div>
+												<!-- //selectbox-ctm -->
+											</div>
+										</div>
+									</div>
+								
+									<div class="row addr clfix">
+										<div class="col_head">주소*</div>
+										<div class="col_body">
+											<div class="col_row clfix">
+												<div class="col b1">
+													<input type="text" name="VIEW_DLIVY_POST_NO" id="VIEW_DLIVY_POST_NO" value="" disabled="">
+													<input type="hidden" name="DLIVY_POST_NO" id="DLIVY_POST_NO" value="">
+												</div>
+												<div class="col b2">
+													<a href="javascript:fn_zipPop('fn_zipSearchSetting');"
+														class="btn-ctm btn-lgray"><span>주소찾기</span></a>
+												</div>
+											</div>
+											<div class="col_row clfix">
+												<div class="col">
+													<div class="addrbox disabled non">
+														<span>(도로명)</span>
+														<input type="text" id="VIEW_DLIVY_ADDR" value="" disabled="">
+														<input type="hidden" name="DLIVY_ADDR" id="DLIVY_ADDR" value="">
+													</div>
+												</div>
+											</div>
+											<div class="col_row clfix">
+												<div class="col">
+													<div class="addrbox disabled non">
+														<span>(지번)</span>
+														<input type="text" id="VIEW_DLIVY_ADDR_JI" value="" disabled="">
+														<input type="hidden" name="DLIVY_ADDR_JI" id="DLIVY_ADDR_JI" value="">
+													</div>
+												</div>
+											</div>
+											<div class="col_row clfix" style="margin-bottom: 0;">
+												<div class="col">
+													<input type="text" name="DLIVY_DTL_ADDR" id="DLIVY_DTL_ADDR" value="" readonly=""
+														style="background-color:#ebebeb;">
+													<input type="hidden" name="H_DLIVY_DTL_ADDR" id="H_DLIVY_DTL_ADDR" value="">
+													<input type="hidden" name="SIDO" id="SIDO" value="">
+													<input type="hidden" name="GUN" id="GUN" value="">
+													<input type="hidden" name="DONG" id="DONG" value="">
+													<input type="hidden" name="DELVYA" id="DELVYA" value="">
+													<input type="hidden" name="NM_DORO" id="NM_DORO" value="">
+													<input type="hidden" name="NUM_BLDG" id="NUM_BLDG" value="">
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									<div class="row sms clfix">
+										<div class="col_head">SMS 정보수신</div>
+										<div class="col_body">
+											<div class="col">
+												<div class="input-ctm input-radio-ctm checked">
+													<input type="radio" id="SMS_RET_Y" name="SMS_RET" value="Y" checked="">
+													<label for="SMS_RET_Y"><span class="ctm-box spt_bg"><span class="spt_bg"></span></span>예</label>
+												</div>
+												<div class="input-ctm input-radio-ctm">
+													<input type="radio" id="SMS_RET_N" name="SMS_RET" value="N">
+													<label for="SMS_RET_N"><span class="ctm-box spt_bg"><span class="spt_bg"></span></span>아니오</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									<!-- 161116 SMS 문구 -->
+									<div class="noti_sms"
+										style="display: none;padding-left: 90px;font: 12px/12px 'NotoSansKR','Nanum Gothic';color: #027dbf;margin-bottom: 20px;margin-top: -10px;">
+										<p>개인정보보호정책에 따라 주문정보 관련 내용은 주문자에게 알림성으로 고지됩니다 </p>
+									</div>
+								
+									<div class="row msg clfix">
+										<div class="col_head">배송 요청 사항*</div>
+										<div class="col_body">
+											<div class="col_row">
+												<div class="col clf">
+													<div class="selectbox-ctm size_shoes delvContent" data-value="D">
+														<a href="javascript:void(0)">배송 전 연락바랍니다.</a>
+														<div class="arrow spt_bg"></div>
+														<div class="select-contents option-list">
+															<ul>
+																<li data-option-value=""><a href="javascript:void(0)">직접입력</a></li>
+																<li data-option-value="A"><a href="javascript:void(0)">부재시 경비실에 맡겨주세요.</a></li>
+																<li data-option-value="B"><a href="javascript:void(0)">빠른 배송 부탁드립니다.</a></li>
+																<li data-option-value="C"><a href="javascript:void(0)">부재시 핸드폰으로 연락바랍니다.</a></li>
+																<li data-option-value="D" class="selected"><a href="javascript:void(0)">배송 전 연락바랍니다.</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<!-- //selectbox-ctm -->
+												</div>
+											</div>
+											<div class="col_row" id="dlivyView" style="margin-bottom: 0; display: none;">
+												<div class="col clf">
+													<input type="text" name="DLIVY_MEMO" id="DLIVY_MEMO" onkeyup="javascript:fn_checkSpclCh(this);"
+														maxlength="40">
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
-								<!-- //deliv_form_wrap -->
-
-								<!-- 170303 네이버로그인 -->
-								<!-- 180222 카카오 추가 -->
+								<!-- //deliv_form -->
+							
 								<div class="box login_naver" style="padding-top:0;display: none;">
 									<a href="#" class="btn-ctm sns_btn nvr"><span>네이버</span></a>
 									<a href="#" class="btn-ctm sns_btn kko"><span>카카오</span></a>
-								<!-- 180222 카카오 추가 END-->
 
-
-
-									 <!-- 170317 네이버 툴팁박스 -->
+									<!-- 170317 네이버 툴팁박스 -->
  									<!-- <span class="naver_tooltipbox">
  										<span class="spt_bg"></span>
  										<span class="tooltip-layer">
@@ -1277,11 +1421,7 @@
  										</span>
  									</span> -->
  									<!-- 170317 END -->
-
-
-
 								</div>
-								<!-- 170303 네이버로그인 ENd -->
 							</div>
 							<!-- //for_guest -->
 
@@ -1528,7 +1668,10 @@
 											</label>
 										</div>
 
-										<a href="#" class="view_term">약관 전문 보기
+										<!-- 191015 우선은 내용업데이트된 문서인 registerTerms_nomember.html 팝업으로 해두었습니다. -->
+										<a href="#" class="view_term" 
+											onclick="window.open('/html/adidas/registerTerms_nomember.html','','width=680,height=580')">
+											약관 전문 보기
 											<span class="spt_bg"></span>
 										</a>
 									</div>
