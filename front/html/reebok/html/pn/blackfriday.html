@@ -85,73 +85,75 @@
 
 		<script type="text/javascript">
 
-			(function ($) {		
+			(function ($) {	
+				
+				function CountDownTimer(dt, id) {
+
+					var end = new Date(dt);
+					var _second = 1000;
+					var _minute = _second * 60;
+					var _hour = _minute * 60;
+					var _day = _hour * 24;
+					var timer;
+
+					var days_txt = document.querySelector(".days_txt");
+					var hours_txt = document.querySelector(".hours_txt");
+					var minutes_txt = document.querySelector(".minutes_txt");
+					var seconds_txt = document.querySelector(".seconds_txt");
+
+					function showRemaining() {
+
+						var now = new Date();
+
+
+						var distance = end - now;
+
+						// timeover
+						if (distance < 0) {
+							clearInterval(timer);
+							//document.getElementById(id).innerHTML = '<h2>OPEN!</h2>';
+							// setTimeout(function() {
+							// 	// 1. url 그대로 : 새로고침 이슈, 개발자도구로 url 노출됨
+							// 	$('.campaign_bf').css('display','none');
+							// 	$('.campaign_bf_01').css('display','block');
+
+							// 	// 2. url 나뉨 : url을 나눌수 있는가 외에는 이슈 없음
+							// 	// window.location.href = 'https://shop.adidas.co.kr/PF020620.action?pn=BlackFriday';
+							// }, 0);
+							return;
+						}
+
+
+
+						var days = Math.floor(distance / _day);
+						var hours = Math.floor((distance % _day) / _hour);
+						var minutes = Math.floor((distance % _hour) / _minute);
+						var seconds = Math.floor((distance % _minute) / _second);
+
+						days_txt.innerHTML = days;
+						hours_txt.innerHTML = hours;
+						minutes_txt.innerHTML = minutes;
+						seconds_txt.innerHTML = seconds;
+
+						// document.getElementById(id).innerHTML = days + '일 ';
+						// document.getElementById(id).innerHTML += hours + '시간 ';
+						// document.getElementById(id).innerHTML += minutes + '분 ';
+						// document.getElementById(id).innerHTML += seconds + '초';
+
+						
+					}
+
+					timer = setInterval(showRemaining, 1000);
+					}
+
+				CountDownTimer('11/04/2019 09:00 AM', 'countdown');	
 
 				$(document).ready(function(){
 
 					// CountDownTimer('11/04/2019 10:00 AM', 'countdown');
 					
 
-					function CountDownTimer(dt, id) {
 
-						var end = new Date(dt);
-						var _second = 1000;
-						var _minute = _second * 60;
-						var _hour = _minute * 60;
-						var _day = _hour * 24;
-						var timer;
-
-						function showRemaining() {
-
-							var now = new Date();
-
-							
-							var days_txt = document.querySelector(".days_txt");
-							var hours_txt = document.querySelector(".hours_txt");
-							var minutes_txt = document.querySelector(".minutes_txt");
-							var seconds_txt = document.querySelector(".seconds_txt");
-
-							var distance = end - now;
-
-							// timeover
-							if (distance < 0) {
-								clearInterval(timer);
-								document.getElementById(id).innerHTML = '<h2>OPEN!</h2>';
-								// setTimeout(function() {
-								// 	// 1. url 그대로 : 새로고침 이슈, 개발자도구로 url 노출됨
-								// 	$('.campaign_bf').css('display','none');
-								// 	$('.campaign_bf_01').css('display','block');
-
-								// 	// 2. url 나뉨 : url을 나눌수 있는가 외에는 이슈 없음
-								// 	// window.location.href = 'https://shop.adidas.co.kr/PF020620.action?pn=BlackFriday';
-								// }, 0);
-								return;
-							}
-
-
-
-							var days = Math.floor(distance / _day);
-							var hours = Math.floor((distance % _day) / _hour);
-							var minutes = Math.floor((distance % _hour) / _minute);
-							var seconds = Math.floor((distance % _minute) / _second);
-
-							days_txt.innerHTML = days;
-							hours_txt.innerHTML = hours;
-							minutes_txt.innerHTML = minutes;
-							seconds_txt.innerHTML = seconds;
-
-							// document.getElementById(id).innerHTML = days + '일 ';
-							// document.getElementById(id).innerHTML += hours + '시간 ';
-							// document.getElementById(id).innerHTML += minutes + '분 ';
-							// document.getElementById(id).innerHTML += seconds + '초';
-
-							
-						}
-
-						timer = setInterval(showRemaining, 1000);
-					}
-
-					CountDownTimer('11/04/2019 09:00 AM', 'countdown');
 
 					// 스크롤 이벤트
 					var scrollArray = [];
