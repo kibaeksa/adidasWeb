@@ -1552,6 +1552,8 @@
 					<div class="masterhead__wrapper__wallpaper">
 						<img src="/images/adidas/common/renewal_temp/main_banner04_DT.jpg" alt="">
 					</div>
+					<h1></h1>
+					<p></p>
 					<div class="masterhead__wrapper__texts">
 						<div class="masterhead__wrapper__btns">
 							<div class="wrap">
@@ -2417,6 +2419,10 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- 111 -->
+						<div class="fuck"></div>
+						<div class="fuck">123</div>
 					
 						<div class="box choice_agree" style="border-top-width:0;padding-top: 0;">
 							<div class="subscribe_details">
@@ -2445,6 +2451,60 @@
 
 		<script type="text/javascript">
 			(function($){
+				// 191031 메인리뉴얼 마스터헤드 제목없을때 버튼 위치 이동
+				// var scrollArray = [];
+				// var remove = $('.masterhead__wrapper .masterhead__wrapper__texts h1').text()=='';
+				// var scrollContent = document.querySelectorAll('.masterhead__wrapper .masterhead__wrapper__texts h1');
+				// for(var i = 0; i<scrollContent.length; i++){
+				// 		var mypos = scrollContent[i];
+				// 		scrollArray.push(mypos)
+				// }
+				// console.log(scrollArray);
+
+				// window.onload=function(){
+				// 	var test = jQuery.inArray('',scrollArray);
+				// 	console.log(test);
+
+				// 		if(scrollArray[i].text !==''){
+				// 			alert();
+				// 		}else if(scrollArray[i].text ==''){
+				// 			scrollArray[i].parent().css({'top':65+'%'});
+				// 		}
+				// };
+
+				// var changeText1 = '';
+
+				// $('.masterhead__wrapper .masterhead__wrapper__texts h1').each(function() {
+				// 	var text = $(this).text();
+				// 	if (text == changeText1) {
+				// 		alert();
+				// 	}
+				// });
+						// $(this).parent().css({'top':65+'%'});
+
+
+				$('.fuck').each(function(){
+					var fuck = $('.fuck').val();
+
+					
+					if(fuck === undefined){
+						console.log('비었음');
+					}
+				});
+
+
+					var Array=[];
+
+					$(".masterhead__wrapper .masterhead__wrapper__texts h1").each(function(){
+						Array.push($(this).val()); 
+						});
+					if($.inArray('',Array)>=0){
+						console.log(this);
+						var test = $(this).val()==''
+						$(this).parent().css({'top':65+'%'});						
+					}else{
+						alert();
+					}
 				// item_sliders
 				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
 				$.fn.productsSlider('.related-products .products-list-wrapper'); 
