@@ -514,173 +514,170 @@
 
 		<script type="text/javascript">
 
-			(function ($) {		
+			$(document).ready(function(){
 
-				$(document).ready(function(){
+				$('.bf-coupon-popup .popup-contents .close').on('click',function(){
+					$('.bf-coupon-popup').removeClass('open');
+					closePopup();
+				})
 
-					$('.close').on('click',function(){
-						closePopup();
-					})
+				setTimeout(function () {
+					$('.visual_main').addClass('on');
+				}, 400);
 
-					setTimeout(function () {
-						$('.visual_main').addClass('on');
-					}, 400);
+				// slide_price Arr
+					// 매일 수정 영역
+				var price1 = [
+					'99,000<em>원</em>',
+					'159,000<em>원</em>',
+					'109,000<em>원</em>',
+				]
 
-					// slide_price Arr
-						// 매일 수정 영역
-					var price1 = [
-						'99,000<em>원</em>',
-						'159,000<em>원</em>',
-						'109,000<em>원</em>',
-					]
+					// 매일 수정 영역
+				var price2 = [
+					'39,600<em>원</em>',
+					'47,700<em>원</em>',
+					'32,700<em>원</em>',
+				]
 
-						// 매일 수정 영역
-					var price2 = [
-						'39,600<em>원</em>',
-						'47,700<em>원</em>',
-						'32,700<em>원</em>',
-					]
+				// slide_btn (PDP)
+					// 매일 수정 영역
+				var btnPdpLink = [
+					'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=DV5372',
+					'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=DZ2448',
+					'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=EC4588',
+				]
 
-					// slide_btn (PDP)
-						// 매일 수정 영역
-					var btnPdpLink = [
-						'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=DV5372',
-						'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=DZ2448',
-						'https://shop.reebok.co.kr/RPF020401.action?PROD_CD=EC4588',
-					]
+				// sliderSale
+				var windowWidth = $(window).width();
+				var indi = $('.section_cont .indicator');
+				var indiWidth = $('.section_cont .indicator a').width();
+				var indiLen = $('.section_cont .indicator a').length;
 
-					// sliderSale
-					var windowWidth = $(window).width();
-					var indi = $('.section_cont .indicator');
-					var indiWidth = $('.section_cont .indicator a').width();
-					var indiLen = $('.section_cont .indicator a').length;
+				var indiTotalWidth = indiWidth * indiLen;
+				var indiInitLeft = (windowWidth / 2) - (indiTotalWidth / 2);
 
-					var indiTotalWidth = indiWidth * indiLen;
-					var indiInitLeft = (windowWidth / 2) - (indiTotalWidth / 2);
-
-					var sliderSale = $('#sliderSale').Swipers({
-						width: 920,
-						height: 505,
-						duration: 600,
-						easing: true,
-						// loop: true,
-						// auto: false,
-						// autoTime: 5000,
-						callback: function (index, prevIdx) {
-							var dataIndex = $(this).attr('data-index');
-
-							$('.section_cont .indicator a').removeClass('on').eq(index).addClass('on');
-							$('.section_cont .slide_price').find('.price_1').html(price1[index]);
-							$('.section_cont .slide_price').find('.price_2').html(price2[index]);
-							$('.section_cont  #btn_prds').find('a').attr('href', btnPdpLink[index]);
-							console.log(dataIndex);
-							
-							if (indiLen % 2 == 0) {
-								indi.stop().animate({ 'left': -indiWidth * dataIndex + (indiInitLeft + (indiWidth / 2)) + 'px' }, 400);
-							} else {
-								indi.stop().animate({ 'left': -indiWidth * dataIndex + indiInitLeft + 'px' }, 400);
-							}
-							// indi.stop().animate({ 'left': -indiWidth * dataIndex + indiInitLeft + 'px' }, 400);
-						}
-					});
-
-					var sliderSale_idx = $('#sliderSale li').index();
-					if (sliderSale_idx === 0) {
-						// 매일 수정 영역
-						sliderSale.move(1);
-					}
-
-					if (indiLen % 2 == 0) {
-						indi.css({
-							'width': indiTotalWidth,
-							'left': indiInitLeft + indiWidth / 2 + 'px'   // 가운데중 짝수 인덱스에 해당하는 위치
-						});
-					}else{
-						indi.css({
-							'width': indiTotalWidth,
-							'left': indiInitLeft + 'px'
-						});
-					}
-					
-
-					$('.section_cont .prev-button').bind('click', function () {
-						sliderSale.prev();
-					});
-
-					$('.section_cont .next-button').bind('click', function () {
-						sliderSale.next();
-					});
-
-					$('.section_cont .indicator a').bind('click', function () {
-						sliderSale.move($(this).index());
-						// var index = $(this).index();
-
+				var sliderSale = $('#sliderSale').Swipers({
+					width: 920,
+					height: 505,
+					duration: 600,
+					easing: true,
+					// loop: true,
+					// auto: false,
+					// autoTime: 5000,
+					callback: function (index, prevIdx) {
 						var dataIndex = $(this).attr('data-index');
+
+						$('.section_cont .indicator a').removeClass('on').eq(index).addClass('on');
+						$('.section_cont .slide_price').find('.price_1').html(price1[index]);
+						$('.section_cont .slide_price').find('.price_2').html(price2[index]);
+						$('.section_cont  #btn_prds').find('a').attr('href', btnPdpLink[index]);
+						console.log(dataIndex);
 						
 						if (indiLen % 2 == 0) {
 							indi.stop().animate({ 'left': -indiWidth * dataIndex + (indiInitLeft + (indiWidth / 2)) + 'px' }, 400);
 						} else {
 							indi.stop().animate({ 'left': -indiWidth * dataIndex + indiInitLeft + 'px' }, 400);
-						}						
-						console.log(-indiWidth * dataIndex + indiInitLeft);
-					});
-					
-					// scroll event
-					var scrollArray = [];
-					var scrollSelectors = document.querySelectorAll('.scrollbox');
-
-					for (var i = 0; i < scrollSelectors.length; i++) {
-						var mypos = scrollSelectors[i].offsetTop;
-						scrollArray.push(mypos);
-					};
-
-					$(window).scroll(function () {
-
-						var thisPos = $(this).scrollTop() + $(window).height() - 200;
-
-						console.log(thisPos);
-						console.log(scrollArray);						
-
-						for (var pos = 0; pos < scrollArray.length; pos++) {
-							if (thisPos > scrollArray[pos]) {
-								$('.scrollbox').eq(pos).addClass('on');
-							}
 						}
-					});
-
-					// video
-					$('.btn-play').bind('click', function () {
-						var videoId = $(this).attr('data-video-id');
-						viewVideo(videoId);
-						return false;
-					});
-
-					function viewVideo(videoId) {
-						var $this = $(this);
-						var videoLayerElem = $(
-							'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
-						);
-						$('html').addClass('no_scroll');
-						$('body').append(videoLayerElem);
-						setTimeout(function () {
-							$('.video_layer').addClass('loaded');
-							setTimeout(function () {
-								$('.video_layer').find('.video').append(
-									'<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' + videoId +
-									'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-							}, 20);
-						}, 300);
-
-						$('.video_layer .close').bind('click', function () {
-							$('html').removeClass('no_scroll');
-							$('.video_layer').remove();
-						});
-						return false;
+						// indi.stop().animate({ 'left': -indiWidth * dataIndex + indiInitLeft + 'px' }, 400);
 					}
-
 				});
 
-			})(jQuery);
+				var sliderSale_idx = $('#sliderSale li').index();
+				if (sliderSale_idx === 0) {
+					// 매일 수정 영역
+					sliderSale.move(1);
+				}
+
+				if (indiLen % 2 == 0) {
+					indi.css({
+						'width': indiTotalWidth,
+						'left': indiInitLeft + indiWidth / 2 + 'px'   // 가운데중 짝수 인덱스에 해당하는 위치
+					});
+				}else{
+					indi.css({
+						'width': indiTotalWidth,
+						'left': indiInitLeft + 'px'
+					});
+				}
+				
+
+				$('.section_cont .prev-button').bind('click', function () {
+					sliderSale.prev();
+				});
+
+				$('.section_cont .next-button').bind('click', function () {
+					sliderSale.next();
+				});
+
+				$('.section_cont .indicator a').bind('click', function () {
+					sliderSale.move($(this).index());
+					// var index = $(this).index();
+
+					var dataIndex = $(this).attr('data-index');
+					
+					if (indiLen % 2 == 0) {
+						indi.stop().animate({ 'left': -indiWidth * dataIndex + (indiInitLeft + (indiWidth / 2)) + 'px' }, 400);
+					} else {
+						indi.stop().animate({ 'left': -indiWidth * dataIndex + indiInitLeft + 'px' }, 400);
+					}						
+					console.log(-indiWidth * dataIndex + indiInitLeft);
+				});
+				
+				// scroll event
+				var scrollArray = [];
+				var scrollSelectors = document.querySelectorAll('.scrollbox');
+
+				for (var i = 0; i < scrollSelectors.length; i++) {
+					var mypos = scrollSelectors[i].offsetTop;
+					scrollArray.push(mypos);
+				};
+
+				$(window).scroll(function () {
+
+					var thisPos = $(this).scrollTop() + $(window).height() - 200;
+
+					console.log(thisPos);
+					console.log(scrollArray);						
+
+					for (var pos = 0; pos < scrollArray.length; pos++) {
+						if (thisPos > scrollArray[pos]) {
+							$('.scrollbox').eq(pos).addClass('on');
+						}
+					}
+				});
+
+				// video
+				$('.btn-play').bind('click', function () {
+					var videoId = $(this).attr('data-video-id');
+					viewVideo(videoId);
+					return false;
+				});
+
+				function viewVideo(videoId) {
+					var $this = $(this);
+					var videoLayerElem = $(
+						'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
+					);
+					$('html').addClass('no_scroll');
+					$('body').append(videoLayerElem);
+					setTimeout(function () {
+						$('.video_layer').addClass('loaded');
+						setTimeout(function () {
+							$('.video_layer').find('.video').append(
+								'<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' + videoId +
+								'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
+						}, 20);
+					}, 300);
+
+					$('.video_layer .close').bind('click', function () {
+						$('html').removeClass('no_scroll');
+						$('.video_layer').remove();
+					});
+					return false;
+				}
+
+			});
 	
 		</script>
 		
