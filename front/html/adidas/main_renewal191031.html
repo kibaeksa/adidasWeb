@@ -1547,14 +1547,14 @@
 				<!-- features end -->
 
 				<!-- masterhead start -->
-				<!-- C타입 - 제목 텍스트 없을시 transformed 클래스 부여 -->
-				<div class="masterhead__wrapper transformed">
+				<!-- C타입 - 제목 텍스트 없을시 -->
+				<div class="masterhead__wrapper">
 					<div class="masterhead__wrapper__wallpaper">
 						<img src="/images/adidas/common/renewal_temp/main_banner04_DT.jpg" alt="">
 					</div>
-					<h1></h1>
-					<p></p>
 					<div class="masterhead__wrapper__texts">
+						<h1></h1>
+						<p></p>
 						<div class="masterhead__wrapper__btns">
 							<div class="wrap">
 								<div class="button_area_v2" style="">
@@ -2483,28 +2483,39 @@
 						// $(this).parent().css({'top':65+'%'});
 
 
-				$('.fuck').each(function(){
-					var fuck = $('.fuck').val();
+				// $('.fuck').each(function(){
+				// 	var fuck = $('.fuck').val();
 
 					
-					if(fuck === undefined){
-						console.log('비었음');
-					}
-				});
-
-
-					var Array=[];
-
-					$(".masterhead__wrapper .masterhead__wrapper__texts h1").each(function(){
-						Array.push($(this).val()); 
-						});
-					if($.inArray('',Array)>=0){
-						console.log(this);
-						var test = $(this).val()==''
-						$(this).parent().css({'top':65+'%'});						
+				// 	if(fuck === undefined){
+				// 		console.log('비었음');
+				// 	}
+				// });
+				setInterval(function(){
+					// alert();
+					$(".masterhead__wrapper__texts h1").each(function(){
+					if($(this).text()==""){
+						$(this).parent().css("top",65+"%");
 					}else{
-						alert();
+						$(this).not().parent().css("top",50+"%")
 					}
+
+
+				})
+				},100);
+
+					// var Array=[];
+
+					// $(".masterhead__wrapper .masterhead__wrapper__texts h1").each(function(){
+					// 	Array.push($(this).val()); 
+					// 	});
+					// if($.inArray('',Array)>=0){
+					// 	console.log(this);
+					// 	var test = $(this).val()==''
+					// 	$(this).parent().css({'top':65+'%'});						
+					// }else{
+					// 	alert();
+					// }
 				// item_sliders
 				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
 				$.fn.productsSlider('.related-products .products-list-wrapper'); 
