@@ -1,0 +1,456 @@
+@import "./front/css/adidas/scss/common/mixin.scss";
+@import "./front/css/adidas/scss/common/common.scss";
+
+#wrap {
+	min-width: 1190px;
+	overflow: hidden;
+}
+#blackfriday {
+	position: relative;
+
+	.button_area_v2 {
+		&:hover {
+			div {
+				.bg {
+					box-shadow: inset 0 0 0 1px #000;
+					-webkit-box-shadow: inset 0 0 0 1px #000;
+					@include css3(transition, all 0.5s);
+				}
+				a {
+					color: #fff;
+					background: #000;
+					@include css3(transition, all 0.5s);
+
+					span {
+						background: #fff;
+						@include css3(transition, all 0.5s);
+						em {
+							background: #fff;
+							@include css3(transition, all 0.5s);
+						}
+					}
+				}
+			}
+		}
+		a {
+			letter-spacing: 1px;
+		}
+	}
+
+	> div {
+		position: relative;
+		> .bg_wrap {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+		}
+	}
+
+	.main {
+		height: 540px;
+		&.on {
+			.inn {
+				> * {
+					&::before {
+						height: 0;
+					}
+				}
+			}
+		}
+	}
+
+	.sect_benefit {
+		height: 284px;
+	}
+
+	.sect_coupon {
+		height: 670px;
+	}
+
+	.section_cont {
+		position: relative;
+		height: 1524px;
+		padding: 110px 0 0;
+		box-sizing: border-box;
+		text-align: center;
+		.inner {
+			width: 1280px;
+			margin: 0 auto;
+			box-sizing: border-box;
+			> h3 {
+				font: 900 60px/60px "NotoSansKR";
+				color: #0c0f27;
+				text-align: center;
+				letter-spacing: -1px;
+			}
+			> p {
+				padding-top: 25px;
+				font: 400 20px/20px "neueplak-ext", "NotoSansKR";
+				color: #a9a9a9;
+				letter-spacing: 1px;
+				text-align: center;
+			}
+			#sect_week {
+				margin-top: 80px;
+				overflow: hidden;
+				li {
+					position: relative;
+					margin-right: 15px;
+					float: left;
+					width: 170px;
+					height: 338px;
+					text-align: center;
+					&:last-child {
+						margin-right: 0;
+					}
+					&.on {
+						a {
+							display: inline-block;
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							bottom: 0;
+							z-index: 10;
+						}
+						.days_date {
+							font-weight: 600;
+							color: #292d53;
+						}
+						.days_tit {
+							font-weight: 600;
+							color: #292d53;
+						}
+						.today {
+							background: #292d53;
+						}
+						&::after {
+							background: url("/images/adidas/2019/event/blackfriday/LC/days_img_buy.png")
+								left top no-repeat;
+						}
+					}
+					&.coming {
+						&::after {
+							background: url("/images/adidas/2019/event/blackfriday/LC/days_img_coming.png")
+								left top no-repeat;
+						}
+					}
+					> a {
+						display: none;
+					}
+					> img {
+						display: block;
+						width: 100%;
+					}
+					.days_date {
+						padding: 15px 0 10px;
+						font: 400 24px/24px "adinenuPro-black";
+						color: #a9a9a9;
+						letter-spacing: 1px;
+						text-align: center;
+					}
+					.days_tit {
+						font: 400 30px/30px "adihausDIN-Cond";
+						color: #a9a9a9;
+						text-align: center;
+						text-transform: uppercase;
+						letter-spacing: normal;
+					}
+					.today {
+						display: inline-block;
+						margin-bottom: 10px;
+						width: 150px;
+						height: 2px;
+						background: #aaa;
+					}
+					&::after {
+						display: inline-block;
+						content: "";
+						width: 100%;
+						height: 100%;
+						position: absolute;
+						top: 0;
+						right: 0;
+						background: url("/images/adidas/2019/event/blackfriday/LC/days_img_close.png")
+							left top no-repeat;
+						z-index: 5;
+					}
+				}
+			}
+		}
+		.slider_wrap {
+			margin: 70px auto 0;
+			width: 1070px;
+			text-align: center;
+			position: relative;
+			.slide_title {
+				display: none;
+				padding: 85px 0;
+				p {
+					font: 600 22px/22px "neueplak-ext";
+					color: #000;
+					text-align: center;
+					padding-bottom: 20px;
+				}
+				h3 {
+					font: 900 38px/38px "NotoSansKR";
+					color: #000;
+					text-align: center;
+					letter-spacing: 2px;
+				}
+			}
+			.slidermember{
+				.slick-slide{
+					&.slick-current{
+						a{
+							img{
+								opacity: 1;
+								&.slide_frame{
+									margin-left: 0;
+								}
+								&.slide_prd{
+									transform: translate(-50%, 0);
+								}
+							}
+						}
+					}
+					a{
+						display: block;
+						height: 500px;
+						img {
+							transition: .4s ease-in-out;
+							opacity: 0;
+							&.slide_frame{
+								padding-top: 30px;
+								margin-left: -100px;
+							}
+							&.slide_prd{
+								position: absolute;
+								top: 0;
+								left: 50%;
+								transform: translate(-50%, -10px);
+								transition-delay: 0.4s;
+							}
+						}
+					}
+				}
+			}
+			#sliderSale {
+				display: none;
+				// overflow: visible !important;
+				ul {
+					li {
+						position: relative;
+						&.on{
+							a{
+								img{
+									opacity: 1;
+
+									&:first-child{
+										left: 0;
+									}
+									&:last-child{
+										transform: translateX(-50%);
+									}
+								}
+							}
+						}
+						a{
+							display: block;
+							img {
+								position: absolute;
+								
+								transition: .6s ease-in-out;
+								transition-delay: .4s;
+								opacity: 0;
+								&:first-child{
+									top: 0;
+									left: -100px;
+								}
+								&:last-child{
+									top: 0;
+									left: 50%;
+									transform: translateX(-100%);
+								}
+							}
+						}
+					}
+				}
+			}
+			.slide_nav {
+				// display: none;
+				padding-top: 40px;
+				overflow: hidden;
+				> * {
+					float: left;
+				}
+				.prev-button {
+					position: absolute;
+					top: 35%;
+					left: 50%;
+					margin-left: -641px;
+				}
+				.next-button {
+					position: absolute;
+					top: 35%;
+					left: 50%;
+					margin-left: 604px;
+				}
+			}
+		}
+		.slide_prds_tit {
+			h2 {
+				font: 700 24px/30px "NotoSansKR";
+				color: #000;
+				text-align: center;
+				strong{
+					font: 700 24px/30px "NotoSansKR";
+					color: #fe614e;
+					padding-right: 10px;
+				}
+				em{
+					font: 700 26px/30px "adihaus-bold";
+				}
+			}
+			h3{
+				font: 500 40px/40px "NotoSansKR";
+				color: #000;
+				text-align: center;
+				transform: translateY(-20px);
+				strong{
+					font-weight: 800;
+				}
+			}
+		}
+		.slide_line {
+			position: relative;
+			width: 100%;
+			padding: 20px 0;
+			text-align: center;
+			span {
+				display: inline-block;
+				width: 100px;
+				height: 2px;
+				background: #000;
+			}
+		}
+		.indicator {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			padding: 40px 0 0;
+			text-align: center;
+			a {
+				float: left;
+				display: inline-block;
+				width: 340px;
+				font: 22px/30px "NotoSansKR";
+				color: #ababab;
+				text-align: center;
+				em {
+					font: 500 24px/30px "adihaus-bold", "NotoSansKR";
+				}
+				&.on {
+					font-weight: 900;
+					color: #000;
+					em {
+						font-weight: 700;
+					}
+				}
+			}
+		}
+		.slide_price {
+			position: relative;
+			width: 100%;
+			text-align: center;
+			p {
+				display: inline-block;
+				font: 700 18px/18px "adihaus-bold";
+				color: #000;
+				text-align: center;
+				em {
+					font-family: "NotoSansKR";
+					font-weight: bold;
+					font-size: 0.8em;
+					line-height: 18px;
+					padding-left: 2px;
+				}
+				&.price_1 {
+					color: #aaa;
+					text-decoration: line-through;
+					margin-right: 5px;
+				}
+				&.price_2 {
+					font-size: 24px;
+					color: #aa2128;
+				}
+			}
+		}
+		.button_area_v2 {
+			display: inline-block;
+			margin: 30px auto;
+			width: auto;
+			> div {
+				&::before {
+					border-color: #000;
+				}
+				&::after {
+					border-color: #000;
+				}
+				a {
+					padding: 0 20px;
+					width: auto;
+					background: #000;
+					border-color: #000;
+					color: #fff;
+					.arrow {
+						margin-left: 24px;
+					}
+				}
+			}
+			&.btn_slide_day{
+				display: none;
+				transform: translateY(-20px);
+			}
+		}
+	}
+
+	.sect_scdeal {
+		height: 1575px;
+	}
+
+	.sect_bottom {
+		height: 514px;
+	}
+}
+
+.modal-popup-wrapper {
+	&.bf-coupon-popup {
+		.overlay {
+			display: block;
+		}
+		.popup {
+			margin-top: -500px;
+			height: auto;
+			// overflow-y: scroll;
+			.popup-header {
+				display: none;
+			}
+			.popup-contents {
+				padding: 0;
+				height: auto;
+				.close {
+					display: inline-block;
+					width: 41px;
+					height: 41px;
+					position: absolute;
+					top: 0;
+					right: 0;
+					z-index: 10;
+					background: url("/images/reebok/2019/event/blackfriday/LC/btn_close.jpg");
+				}
+			}
+		}
+	}
+}
