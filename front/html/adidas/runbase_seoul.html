@@ -22,55 +22,55 @@
 <script src="/designjs/adidas/adidas.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		jQuery('.visual_inner_wrap').adislider({
-			slidewrap:'.visual_slide',
-			slideBox:'.visual_box',
-			useArrow:false,
-			autoRolling:true,
-			controlWrap:'.visual_util .control',
-			controlObj:'.slide_control a.visual_btn',
-			moveValue:'1920',
-			loopStyle:false,
-			/*
-				170224 speed 값 변경
-				speed:2000 ==> speed:4000,
-			*/
-			speed:4000,
-			easing:'easeOutCubic',
-			autoControl:'.control>a',
-			loopStyle:true,
-			titleList:[
-				'메인 비주얼 제목1',
-				'메인 비주얼 제목2',
-				'메인 비주얼 제목3'
-			],
-			titleElement:'.visual_inner_wrap .visual_util h3'
-		});
+		// jQuery('.visual_inner_wrap').adislider({
+		// 	slidewrap:'.visual_slide',
+		// 	slideBox:'.visual_box',
+		// 	useArrow:false,
+		// 	autoRolling:true,
+		// 	controlWrap:'.visual_util .control',
+		// 	controlObj:'.slide_control a.visual_btn',
+		// 	moveValue:'1920',
+		// 	loopStyle:false,
+		// 	/*
+		// 		170224 speed 값 변경
+		// 		speed:2000 ==> speed:4000,
+		// 	*/
+		// 	speed:4000,
+		// 	easing:'easeOutCubic',
+		// 	autoControl:'.control>a',
+		// 	loopStyle:true,
+		// 	titleList:[
+		// 		'메인 비주얼 제목1',
+		// 		'메인 비주얼 제목2',
+		// 		'메인 비주얼 제목3'
+		// 	],
+		// 	titleElement:'.visual_inner_wrap .visual_util h3'
+		// });
 
-		jQuery('#new_prodlist .banner_list').adislider({
-			slidewrap:'.banner_slide',
-			slideBox:'.banner_box',
-			useArrow:true,
-			autoRolling:true,
-			controlWrap:'.banner_control',
-			controlObj:'a',
-			moveValue:'960',
-			loopStyle:false,
-			leftMove:'.arrow_left',
-			rightMove:'.arrow_right',
-			speed:1000,
-			easing:'easeOutCubic',
-			autoControl:false,
-			loopStyle:true,
-			titleList:[
-				'Men\'s best products',
-				'Women\'s best products',
-				'Men\'s new arrivals',
-				'Women\'s new arrivals'
-			],
-			titleElement:'#new_prodlist .banner_header h4'
+		// jQuery('#new_prodlist .banner_list').adislider({
+		// 	slidewrap:'.banner_slide',
+		// 	slideBox:'.banner_box',
+		// 	useArrow:true,
+		// 	autoRolling:true,
+		// 	controlWrap:'.banner_control',
+		// 	controlObj:'a',
+		// 	moveValue:'960',
+		// 	loopStyle:false,
+		// 	leftMove:'.arrow_left',
+		// 	rightMove:'.arrow_right',
+		// 	speed:1000,
+		// 	easing:'easeOutCubic',
+		// 	autoControl:false,
+		// 	loopStyle:true,
+		// 	titleList:[
+		// 		'Men\'s best products',
+		// 		'Women\'s best products',
+		// 		'Men\'s new arrivals',
+		// 		'Women\'s new arrivals'
+		// 	],
+		// 	titleElement:'#new_prodlist .banner_header h4'
 
-		});
+		// });
 
 		jQuery('#new_prodlist li').hover(function(){
 			jQuery(this).find('.type').find('.view_quick').stop();
@@ -166,8 +166,9 @@
 	});
 	/* //150513 */
 </script>
-<!-- 20170529 runbase naver 지도 추가 서비스 실제 운영시 키값 : ErPahvwIWR-->
-<script src="https://openapi.map.naver.com/openapi/v2/maps.js?clientId=1KG6a0e2Hj9na72OD3D6"></script>
+
+<!-- nmap remove 171221 runbase naver 지도 api v3 -->
+<!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=1KG6a0e2Hj9na72OD3D6"></script> -->
 </head>
 <body>
 
@@ -1404,6 +1405,48 @@
 
 		<!-- 170425 -->
 		<div id="container_r">
+			<!-- 191126 google map script -->
+			<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBuQROSv5OwnhsPf0SBYsOt7l3olStXdEo" ></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					var myLatlng = new google.maps.LatLng(37.5455919,127.0402492); // 위치값 위도 경도
+					var Y_point			= 37.5455919;		// Y 좌표
+					var X_point			= 127.0402492;		// X 좌표
+					var zoomLevel		= 18;				// 지도의 확대 레벨 : 숫자가 클수록 확대정도가 큼
+					var markerTitle		= "런베이스 서울";		// 현재 위치 마커에 마우스를 오버을때 나타나는 정보
+					var markerMaxWidth	= 300;				// 마커를 클릭했을때 나타나는 말풍선의 최대 크기
+				
+					// 말풍선 내용
+					var contentString	= '<div>' +
+					'<h2>런베이스 서울</h2>'+
+					'<p>안녕하세요. 런베이스 위치입니다.</p>' +
+					
+					'</div>';
+					var myLatlng = new google.maps.LatLng(Y_point, X_point);
+					var mapOptions = {
+										zoom: zoomLevel,
+										center: myLatlng,
+										mapTypeId: google.maps.MapTypeId.ROADMAP
+									}
+					var map = new google.maps.Map(document.getElementById('map_ma'), mapOptions);
+					var marker = new google.maps.Marker({
+															position: myLatlng,
+															map: map,
+															title: markerTitle
+					});
+					var infowindow = new google.maps.InfoWindow(
+																{
+																	content: contentString,
+																	maxWizzzdth: markerMaxWidth
+																}
+							);
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.open(map, marker);
+					});
+				});
+			</script>
+			<!-- 191126 google map script end -->	
+
 			<!-- 170523 -->
 			<div id="runbase">
 				<div id="runbase_header">
@@ -1639,23 +1682,48 @@
 										<h3>05</h3>
 										<p>RUNBASE SEOUL LOCATION</p>
 									</div>
-									<div id="nmap" style="width:764px; height:303px; margin:0 auto 30px;"></div>
+
+									<!-- 191126 google map html -->
+									<div id="map_ma" style="width:100%;margin:0 auto 30px; height:400px; clear:both; "></div>
+									<!-- 191126 google map html end -->
+
+									<!-- nmap remove -->
+									<!-- <div id="nmap" style="width:764px; height:303px; margin:0 auto 30px;"></div> -->
+									<!-- <div id="map"></div>
 									<script type="text/javascript">
 
-
-										var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
-										var oMap = new nhn.api.map.Map('nmap', {
-											center : nPoint,
-											zoom : 100
+										// var nPoint = new nhn.api.map.LatLng(37.5405867, 126.9946487);
+										// var oMap = new nhn.api.map.Map('nmap', {
+										// 	center : nPoint,
+										// 	zoom : 100
+										// });
+										//
+										// // 마커로 사용할 이미지 정의
+										// var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
+										// var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
+										// oMap.addOverlay(marker);
+		
+										var runbaseLC = new naver.maps.LatLng(37.545627, 127.042434);
+										var map = new naver.maps.Map('map', {
+											center: new naver.maps.LatLng(37.545627, 127.042434),
+											zoom: 10
 										});
-
+		
 										// 마커로 사용할 이미지 정의
-										var marker_icon = new nhn.api.map.Icon('/images/adidas/club/runbase/nhn_marker.png', new nhn.api.map.Size(32, 46), new nhn.api.map.Size(16, 46));
-										var marker = new nhn.api.map.Marker(marker_icon, {point:nPoint});
-										oMap.addOverlay(marker);
-
-
-									</script>
+										var markerOptions = {
+											position: runbaseLC,
+											icon: {
+												url: 'http://static.naver.net/maps/v3/pin_default.png',
+												size: new naver.maps.Size(22, 35),
+												anchor: new naver.maps.Point(11, 35)
+											}
+										};
+										var marker = new naver.maps.Marker(markerOptions);
+		
+										marker.setMap(map); // 추가
+		
+									</script> -->
+									
 									<div style="text-align:center; margin-bottom:90px;">
 										<img src="http://image.adidas.co.kr/images/adidas/club/runbase/about_map_info.png" alt="" >
 									</div>
@@ -1668,10 +1736,11 @@
 								</div>
 							</div>
 						</div>
-
+						
 					</div>
 				</div>
 				<!-- runbase_container end-->
+
 
 
 				<script>
@@ -1776,6 +1845,8 @@
 		</div>
 		<!-- container_r end -->
 
+
+		
 		<div id="footer">
 
 			<div class="f_menu">
@@ -1985,7 +2056,9 @@
 		</div>
 		<!-- footer end -->
 
+
 		<script type="text/javascript">
+		
 			(function($){
 				// item_sliders
 				$.fn.productsSlider('.fav-products .products-list-wrapper'); 
