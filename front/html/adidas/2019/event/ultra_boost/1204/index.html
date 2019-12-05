@@ -1163,57 +1163,57 @@
 				<script type="text/javascript">
 
 					function openVideoPopup(ytId, width, height){
-						var videoWidth = width == undefined ? '100%' : width;
-						var videoHeight = height == undefined ? '100%' : height;
+	var videoWidth = width == undefined ? '100%' : width;
+	var videoHeight = height == undefined ? '100%' : height;
 
-						var htmlStringReady = '<div class="overlay-ready">';
-							htmlStringReady += 	'<div class="overlay-ready-top"></div>';
-							htmlStringReady += 	'<div class="overlay-ready-bottom"></div>';
-							htmlString += '</div>';
+	var htmlStringReady = '<div class="overlay-ready">';
+		htmlStringReady += 	'<div class="overlay-ready-top"></div>';
+		htmlStringReady += 	'<div class="overlay-ready-bottom"></div>';
+		htmlString += '</div>';
 
-						var htmlString = '<div id="video-modal-popup">';
-							htmlString += '	<div class="overlay"></div>';
-							htmlString += '	<div class="popup" style="">';
-							htmlString += '		<a href="javascript:void(0)" class="close spt_bg"></a>';
-							htmlString += '	</div>';
-							htmlString += '</div">';
-						
-							$('body').prepend(htmlString);
-							$('body').append(htmlStringReady);
+	var htmlString = '<div id="video-modal-popup">';
+		htmlString += '	<div class="overlay"></div>';
+		htmlString += '	<div class="popup" style="">';
+		htmlString += '		<a href="javascript:void(0)" class="close spt_bg"></a>';
+		htmlString += '	</div>';
+		htmlString += '</div">';
 
-							$('#video-modal-popup .close').click(function(){
-								$('.overlay-ready').removeClass('loaded');
-								$('.overlay-ready').removeClass('hide');
-								setTimeout(function(){
-									$('#video-modal-popup').remove();
-									setTimeout(function(){
-										$('.overlay-ready').remove();
-									},500)
-								},1000)
-							});
-						
-						// video show
-						function afterLoaded(){
-							$('#video-modal-popup').addClass('loaded');
-							$('#video-modal-popup .popup').append(
-								'<iframe class="video" id="main_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="'+videoWidth+'" height="'+videoHeight+'" src="https://www.youtube.com/embed/'+ytId+'?rel=0&autoplay=1"></iframe>');
-							setTimeout(function(){
-								return afterLoaded2();
-							},100);
-						}
+	function videoCallback (callback) {
+		callback();
+	};
 
-						function afterLoaded2(){
-							setTimeout(function(){
-								$('.overlay-ready').addClass('loaded');
-								setTimeout(function(){
-									$('.overlay-ready').addClass('hide');
-								},1000)
-							},1000)
-						}
-						
-						afterLoaded()
-	
-					}
+	videoCallback(loadedVideo);
+
+	function loadedVideo(){
+		// video load
+		$('body').prepend(htmlString);
+		$('body').append(htmlStringReady);
+		$('#video-modal-popup').addClass('loaded');
+		$('#video-modal-popup .popup').append(
+			'<iframe class="video" id="main_video" frameborder="0" allowfullscreen="1" title="YouTube video player" width="'+videoWidth+'" height="'+videoHeight+'" src="https://www.youtube.com/embed/'+ytId+'?rel=0&autoplay=1"></iframe>');
+		$('#video-modal-popup .close').click(function(){
+			$('.overlay-ready').removeClass('loaded');
+			$('.overlay-ready').removeClass('hide');
+			setTimeout(function(){
+				$('#video-modal-popup').remove();
+				setTimeout(function(){
+					$('.overlay-ready').remove();
+				},500)
+			},1000)
+		});	
+		videoCallback(readyLayer);
+	};
+
+	function readyLayer(){
+		// readyLayer show
+		setTimeout(function(){
+			$('.overlay-ready').addClass('loaded');
+			setTimeout(function(){
+				$('.overlay-ready').addClass('hide');
+			},1000)
+		},1000);
+	};
+};
 
 				</script>
 
