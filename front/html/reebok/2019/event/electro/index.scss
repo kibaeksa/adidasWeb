@@ -5,6 +5,9 @@
     overflow: hidden;
     min-width: 1160px;
 }
+html,body{
+	height:100%;
+}
 #contents_wrap{padding: 0;}
 .btn{
 	display: inline-block;
@@ -155,10 +158,14 @@
 			}
 			.cont_img{
 				padding-top: 22px;
-				position: relative;
-				widows: 100%;
+				// position: relative;
+				// width: 100%;
 				text-align: center;
 				z-index: 3;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
 				img{
 					padding-left: 70px;
 					display: inline-block;
@@ -194,7 +201,19 @@
 			}
 		}
 		.cont_2{
-			height: 690px;
+			// height: 690px;
+			.cont_bg02{
+				padding-bottom:1.5rem;
+				&::after{
+					display: block;
+					content:'';
+					clear:both;
+				}
+				img{
+					float: left;
+					width:50%;
+				}
+			}
 		}
 	}
 }
