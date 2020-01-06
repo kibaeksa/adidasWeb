@@ -716,6 +716,23 @@
 
 	<div class="campaign_wrap campaign_bt21">
 		<h3><img src="/images/reebok/2019/event/classic/bt21/1226/logo.jpg" alt="bt21"></h3>
+		<div class="members">
+			<div class="video">
+				<video src="https://shop.reebok.co.kr/upload/design_temp/video/2019/r/classic/BT21_INSTA_1227.mp4" autoplay loop muted></video>
+			</div>
+			<p class="title">리복 멤버십에 가입하고 최신 소식을 받아보세요.</p>
+			<p>
+				이메일/SMS 수신동의하셔야 뉴스레터 수신이 가능합니다.
+			</p>
+			<div class="btn">
+				<div>
+					<a href="https://shop.reebok.co.kr/RPF0608011.action?checkbtn=fromTop&returnURL=https://shop.reebok.co.kr/RPF060100.action" campaign-label="뉴스 구독">
+						뉴스 구독
+						<span class="arrow"></span>
+					</a>
+				</div>
+			</div>
+		</div>
 		<div class="characters-box-wrap">
 			<div class="character-box"><img src="/images/reebok/2019/event/classic/bt21/1226/ts_1.jpg" alt="ts_1"></div>
 			<div class="character-box"><img src="/images/reebok/2019/event/classic/bt21/1226/ts_2.jpg" alt="ts_1"></div>
@@ -735,25 +752,19 @@
 		</a>
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.7.0/polyfill.js"></script>
 	<script type="text/javascript">
 		(function ($) {
 
-			const randomTimeArray = [];
-			const characterBoxs = document.querySelectorAll('.character-box');
-			
-			for ( var r = 1; r < characterBoxs.length+1; r ++){
-				const randomTime = (Math.floor(Math.random()*10 + 1))* 100;
-				randomTimeArray.push(randomTime)
-			}
+			const boxs = document.querySelectorAll('.character-box');
+			var _slicedToArray=function(){return function(r,t){if(Array.isArray(r))return r;if(Symbol.iterator in Object(r))return function(r,t){var n=[],e=!0,a=!1,o=void 0;try{for(var i,l=r[Symbol.iterator]();!(e=(i=l.next()).done)&&(n.push(i.value),!t||n.length!==t);e=!0);}catch(r){a=!0,o=r}finally{try{!e&&l.return&&l.return()}finally{if(a)throw o}}return n}(r,t);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_map=function(r){var t=[],n=!0,e=!1,a=void 0;try{for(var o,i=r[Symbol.iterator]();!(n=(o=i.next()).done);n=!0){var l=o.value;t.push(l)}}catch(r){e=!0,a=r}finally{try{!n&&i.return&&i.return()}finally{if(e)throw a}}return t},_time=function(r){var t=[],n=!0,e=!1,a=void 0;try{for(var o,i=r.entries()[Symbol.iterator]();!(n=(o=i.next()).done);n=!0){var l=_slicedToArray(o.value,2),u=(l[0],l[1],100*Math.floor(10*Math.random()+1));t.push(u)}}catch(r){e=!0,a=r}finally{try{!n&&i.return&&i.return()}finally{if(e)throw a}}return t},effect=function(){var r=!0,t=!1,n=void 0;try{for(var e,a=_map(boxs).entries()[Symbol.iterator]();!(r=(e=a.next()).done);r=!0){var o=_slicedToArray(e.value,2),i=o[0];o[1];!function(r){setTimeout(function(){_map(boxs)[r].classList.add("show")},_time(boxs)[r])}(i)}}catch(r){t=!0,n=r}finally{try{!r&&a.return&&a.return()}finally{if(t)throw n}}};
 
-			for ( var i = 0; i < randomTimeArray.length; i++) {
-				(function(ii){
-					setTimeout(function(){
-						characterBoxs[ii].classList.add('show')
-					}, randomTimeArray[ii])
-				})(i)
-			}
-
+			$(window).scroll(function(){
+				var thisPos = $(this).scrollTop();
+				if(thisPos> 1000) {
+					effect();
+				}
+			});
 
 		})(jQuery);
 	</script>
