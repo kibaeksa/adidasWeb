@@ -1,0 +1,225 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.btn{
+	display: inline-block;
+	>div{
+		position: relative;
+		&::before{
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            bottom: -4px;
+            height: 3px;
+            left: 2px;
+            width: calc(100% + 1px);
+            content: "";
+            display: block;
+            position: absolute;
+		}
+		&::after{
+            border-right: 1px solid #000;
+            border-top: 1px solid #000;
+            height: calc(100% + 1px);
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            content: "";
+            display: block;
+            position: absolute;
+        }
+		a{
+			width: 136px;
+			font: 700 14px/46px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 48px;
+			color: #fff;
+			background:#000;
+			z-index: 2;
+			border: 1px solid #000;
+			.arrow{
+				margin-left: 17px;
+				vertical-align: middle;
+			}
+		}
+	}
+	&.white{
+		>div{
+			&::before{
+				border-bottom: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
+			&::after{
+				border-right: 1px solid #fff;
+				border-top: 1px solid #fff;
+			}
+			a{
+				color: #000;
+				background:#fff;
+				border: 1px solid #fff;
+				.arrow{
+				}
+			}
+		}
+	}
+}
+
+.electro{
+	.main{
+		position: relative;
+		&.on{
+			.main_deco{
+				img{
+					transform: translateX(0);
+				}
+				.main_deco_box{
+					transform: translateX(100%);
+				}
+			}
+		}
+		>img{
+			display: block;
+			width: 100%;
+		}
+		.main_deco{
+			overflow: hidden;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			margin-left: 18%;
+			height: 84.1463%;
+			img{
+				display: block;
+				height: 100%;
+				transform: translateX(-100%);
+				transition: 1s;
+				// transition-delay: 0.1s;
+			}
+			.main_deco_box{
+				display: block;
+				position: absolute;
+				top: 0; left: 0; right: 0; bottom: 0;
+				background: rgba(191, 247, 193, 1);
+				transform: translateX(-100%);
+				transition: 1s;
+			}
+		}
+		.main_titbox{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-580px, -50%);
+			// margin-left: -580px;
+			z-index: 2;
+			h2{
+				font: 700 52px/52px 'neueplak';
+				text-transform: uppercase;
+				text-align: left;
+				transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+				color:#fff;
+			}
+			.btn{
+				margin-top: 50px;
+			}
+		}
+		// a.btn-play{
+		// 	position: absolute;
+		// 	top: 50%;
+		// 	left: 50%;
+		// 	transform: translate(-50%, -50%);
+		// 	z-index: 3;
+		// }
+	}
+	
+	.section{
+		position: relative;
+		&.sect_state{
+			background: #000;
+			&.on{
+				.inn{
+					.txt_wrap{
+						>*{
+							transform: translateY(0);
+						}
+					}
+				}
+			}
+			.inn{
+				padding: 80px 0;
+				text-align: center;
+				color: #fff;
+				.txt_wrap{
+					overflow: hidden;
+					>*{
+						transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+						transform: translateY(30px);
+					}
+					h2{
+						font: 700 34px/34px 'neueplak';
+						text-align: center;
+						letter-spacing: 1px;
+						transition-delay: 0.2s;
+					}
+					p{
+						font: 400 26px/34px 'NotoSansKR';
+						text-align: center;
+						transition-delay: 0.4s;
+					}
+					h4{
+						font: 300 20px 'NotoSansKR';
+						font-style: italic;
+						text-align: center;
+						transition-delay: 0.6s;
+					}
+				}
+			}
+		}
+	}
+
+	.sect_cont{
+		background: #000;
+		>div{
+			position: relative;
+			margin: 0 auto;
+			>img{
+				display: block;
+				width: 100%;
+			}
+			.cont_buybox{
+				position: absolute;
+				bottom: 15%;
+				left: 50%;
+				margin-left: 13.7%;
+				z-index: 2;
+			}
+		}
+		.cont_5{
+			padding-bottom: 10px;
+		}
+	}
+}
+
+
+@media screen and (max-width: 1200px) { 
+	.electro{
+		.sect_cont{
+			div{
+				.cont_img{
+					img{
+						padding-left:0;
+					}
+				}
+			}
+		}
+	}
+}
