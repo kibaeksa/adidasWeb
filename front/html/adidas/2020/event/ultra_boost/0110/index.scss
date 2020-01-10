@@ -1,0 +1,255 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#ub20 {
+	.rel{
+		position: relative;
+		height:800px;
+	}
+	.ct{
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+	}
+	html,body{
+		height:100%;
+	}
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			div{
+				.bg{
+					box-shadow: inset 0 0 0 1px #000;
+    				-webkit-box-shadow: inset 0 0 0 1px #000;
+					@include css3(transition, all 0.5s);
+				}
+				a{
+					color: #767677;
+				    background: #000;
+					span{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		a{
+			letter-spacing: 1px;
+			padding:0 20px;
+		}
+	}
+	// modal pop
+    .modal-popup-wrapper{
+        .overlay{
+            background: rgba(0, 0, 0, 0.99)!important;
+		}
+		.popup{
+			background:none;
+			.popup-contents{
+				padding: 0;
+				background:none;
+				width: 100%;
+				height: 100%;
+				.close{
+					display: inline-block;
+					position: absolute;
+					top: -120px;
+					right: -60px;
+					width: 60px;
+					height: 60px;
+					padding: 0 10px;
+					box-sizing: border-box;
+					img{
+						width: 40px;
+						height: 40px;
+					}
+				}
+				.slider{
+					position: relative;
+					width: 100%;
+					height: 100%;                
+					ul{
+						position: relative;
+						width: 100%;
+						height: 100%;
+						&:after{
+							content: '';
+							display: block;
+							clear: both;
+						}
+						li{
+							position: absolute;
+							display: none;
+							&.on{
+								display: block;
+							}
+							top:50%;
+							left:50%;
+							transform: translate(-50%,-50%);
+							&:nth-child(5),
+							&:nth-child(11),
+							&:nth-child(12),
+							&:nth-child(18){
+								// top:50%;
+								// left:50%;
+								// transform: translate(-50%,-50%);
+
+								// margin-top:-260px;
+								// margin-left:-390px;
+							}
+						}
+					}
+				}
+				a{
+					display: inline-block;
+					position: absolute;
+					top: 250px;
+					display: inline-block;
+					width: 60px;
+					height: 60px;
+					// text-indent: -3000px;
+					&.prev{
+						left: -85px;
+						transform:rotate(-180deg);
+						background: url('/images/adidas/2020/event/ultra_boost/0110/ub20_next_DT.png') 0 0 no-repeat;
+					}
+					&.next{
+						right: -105px;
+						background: url('/images/adidas/2020/event/ultra_boost/0110/ub20_next_DT.png') 0 0 no-repeat;
+					}
+				}
+				.dot{
+					position: absolute;
+					bottom:-145px;
+					left:50%;
+					transform: translateX(-50%);
+					text-align:center;
+					span{
+						display:inline-block;
+						transition: all .5s ease-out;
+						font: 20px/20px 'adihaus-bold';
+						color:#fff;	
+					}
+				}
+			}
+		}
+		&:nth-child(5),
+		&:nth-child(11),
+		&:nth-child(12),
+		&:nth-child(18){
+			.popup{
+				.popup-contents{
+					.dot{
+						bottom:-35px;
+					}
+				}
+			}
+		}
+	}
+
+	.main__wrapper{
+		height:800px;
+		.main__wrapper__img{
+		}
+		.main__wrapper__txt{
+			position: absolute;
+			top:320px;
+			left: 29%;
+			transform: translateX(-50%);
+			h1{
+				font: 52px/52px 'adinenuPro-bold';
+				color:#000;
+			}
+			p{
+				font: 400 20px/20px 'NotoSansKR';
+				color:#000;
+				margin:15px 0 0 0;
+			}
+			.button_area_v2{
+				margin:25px 0 0 0;
+			}
+		}
+	}
+	.section__wrapper{
+		width:100%;
+		.section__wrapper__inner{
+			padding: 1rem;
+			.wrap{
+				border-bottom:1.5px solid #fff;
+				&:last-child{
+					border:0;
+				}
+				&::after{
+					display: block;
+					content:'';
+					clear:both;
+				}
+				//conts
+				>div{
+					float: left;
+					// width:calc((100%+7.5px)/6);
+					width:16.666666666666666666666666666667%;
+					border-right:1.5px solid #fff;
+					box-sizing: border-box;
+					&:last-child{
+						border:0;
+					}
+					a{
+						position: relative;
+						display: block;
+						&:hover{
+							.hover{
+								opacity: 1;
+								width:100%;
+								height: 100%;
+								background:rgba(255,255,255,0.55);
+								img{
+								}
+							}
+						}
+					}
+					.hover{
+						opacity: 0;
+						position: absolute;
+						// top:50%;
+						// left:50%;
+						// transform: translate(-50%,-50%);
+						height: 100%;
+						div{
+							position: relative;
+							height: 100%;						
+							img{
+								width: 10%;
+								position: absolute;
+								top: 50%;
+								left: 50%;
+								transform: translate(-50%,-50%);
+							}
+						}
+					}
+					img{
+						width:100%;
+					}
+				}
+			}
+		}
+	}
+	.video__wrapper{
+		a{
+			z-index: 1;
+			img{
+				width:75%;
+			}
+		}
+		>img{
+			z-index: 0;
+		}
+	}
+}
