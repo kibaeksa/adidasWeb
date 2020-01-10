@@ -1,0 +1,270 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.btn{
+	display: inline-block;
+	>div{
+		position: relative;
+		&::before{
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            bottom: -4px;
+            height: 3px;
+            left: 2px;
+            width: calc(100% + 1px);
+            content: "";
+            display: block;
+            position: absolute;
+		}
+		&::after{
+            border-right: 1px solid #000;
+            border-top: 1px solid #000;
+            height: calc(100% + 1px);
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            content: "";
+            display: block;
+            position: absolute;
+        }
+		a{
+			width: 136px;
+			font: 700 14px/46px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 48px;
+			color: #fff;
+			background:#000;
+			z-index: 2;
+			border: 1px solid #000;
+			.arrow{
+				margin-left: 17px;
+				vertical-align: middle;
+			}
+		}
+	}
+	&.white{
+		>div{
+			&::before{
+				border-bottom: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
+			&::after{
+				border-right: 1px solid #fff;
+				border-top: 1px solid #fff;
+			}
+			a{
+				color: #000;
+				background:#fff;
+				border: 1px solid #fff;
+				.arrow{
+				}
+			}
+		}
+	}
+}
+
+.electro{
+	.main{
+		position: relative;
+		height: 820px;
+		video{
+			position: absolute;
+			top:0;
+			left:50%;
+			transform: translateX(-50%);
+			z-index: 0;
+		}
+		a.btn-play{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+		}
+	}
+	
+	.section{
+		position: relative;
+		&.sect_state{
+			&:hover {
+				h2{
+					text-shadow:               
+					0 1px 1px #c0c0c0,
+					0 2px 0 #a8a7a6, 
+					0 3px 0 #8b8a89, 
+					0 4px 0 #7d7b7a,
+					0 5px 0 #686766,
+					0 6px 3px #5f5e5d;
+				}
+			}
+			.inn{
+				padding: 60px 0;
+				text-align: center;
+				color: #000;
+				h2{
+					font: 700 52px/52px 'neueplak';
+					text-align: center;
+					transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+					img{
+						display: inline-block;
+					}
+				}
+				p{
+					padding: 25px 0 10px;
+					font: 400 26px/26px 'NotoSansKR';
+					text-align: center;
+				}
+				h4{
+					font: 700 30px/30px 'neueplak-ext';
+					text-align: center;
+					text-transform: uppercase;
+					img{
+						display: inline-block;
+					}
+				}
+				.btn{
+					margin-top: 35px;
+				}
+			}
+		}
+	}
+
+	.sect_cont{
+		background: #eee;
+		>div{
+			position: relative;
+			margin: 0 auto;
+			.cont_bg{
+				position: absolute;
+				width: 1920px;
+				top: 0;
+				left: 50%;
+				margin-left: -960px;
+				z-index: 0;
+				img{
+					float: left;
+				}
+			}
+			.cont_img{
+				padding-top: 22px;
+				// position: relative;
+				// width: 100%;
+				text-align: center;
+				z-index: 3;
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				img{
+					padding-left: 70px;
+					display: inline-block;
+				}
+			}
+			.cont_deco{
+				position: absolute;
+				width: auto;
+				z-index: 2;
+			}
+		}
+		.cont_1{
+			height: 986px;
+			.cont_deco{
+				&.deco1{
+					display: inline-block;
+					width: 327px;
+					height: 401px;
+					top: 0;
+					left: 50%;
+					margin-left: -960px;
+					animation: repeatleft infinite 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+				&.deco2{
+					display: inline-block;
+					width: 274px;
+					height: 432px;
+					bottom: 0;
+					left: 50%;
+					margin-left: calc(960px - 274px);
+					animation: repeatright infinite 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+			}
+		}
+		.cont_2{
+			// height: 690px;
+			.cont_bg02{
+				padding-bottom:1.5rem;
+				&::after{
+					display: block;
+					content:'';
+					clear:both;
+				}
+				img{
+					float: left;
+					width:50%;
+				}
+			}
+		}
+	}
+}
+
+@keyframes repeatleft {
+	0% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco01-1.png') 0 0 no-repeat;
+	}
+	25% {		
+		background: url('/images/reebok/2019/event/electro/cont_1_deco01-2.png') 0 0 no-repeat;	
+	}
+	50% {	
+		background: url('/images/reebok/2019/event/electro/cont_1_deco01-3.png') 0 0 no-repeat;
+	}
+	75% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco01-2.png') 0 0 no-repeat;	
+	}
+	100% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco01-1.png') 0 0 no-repeat;
+	}
+}
+
+@keyframes repeatright {
+	0% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco02-1.png') 0 0 no-repeat;
+	}
+	25% {		
+		background: url('/images/reebok/2019/event/electro/cont_1_deco02-2.png') 0 0 no-repeat;	
+	}
+	50% {	
+		background: url('/images/reebok/2019/event/electro/cont_1_deco02-3.png') 0 0 no-repeat;
+	}
+	75% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco02-2.png') 0 0 no-repeat;	
+	}
+	100% {
+		background: url('/images/reebok/2019/event/electro/cont_1_deco02-1.png') 0 0 no-repeat;
+	}
+}
+
+
+@media screen and (max-width: 1200px) { 
+	.electro{
+		.sect_cont{
+			div{
+				.cont_img{
+					img{
+						padding-left:0;
+					}
+				}
+			}
+		}
+	}
+}

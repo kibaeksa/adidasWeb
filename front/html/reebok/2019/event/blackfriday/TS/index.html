@@ -304,6 +304,7 @@
 		
 			<div class="campaign_wrap campaign_bf">
 
+				
 				<div class="visual_main">
 					<div class="bg_wrap">
 						<img src="/images/reebok/2019/event/blackfriday/TS/visual_main.jpg" alt="">
@@ -316,11 +317,30 @@
 					</div>
 
 					<div class="count_wrap">
-						<div id="countdown"></div>
+						<div id="countdown">
+							<ul>
+								<li>
+									<h3 class="days_txt"></h3>
+									<p>days</p>
+								</li>
+								<li>
+									<h3 class="hours_txt"></h3>
+									<p>hours</p>
+								</li>
+								<li>
+									<h3 class="minutes_txt"></h3>
+									<p>min</p>
+								</li>
+								<li>
+									<h3 class="seconds_txt"></h3>
+									<p>sec</p>
+								</li>
+							</ul>
+						</div>
 					</div>					
 				</div>
 				
-				<div class="section_state scrollbox">
+				<div class="section_state scrollbox on">
 					<div class="bg_wrap">
 						<img src="/images/reebok/2019/event/blackfriday/TS/sect_state_bg.jpg" alt="">
 					</div>
@@ -345,7 +365,7 @@
 					</div>
 				</div>
 			
-				<div class="section_join scrollbox">
+				<div class="section_join scrollbox on">
 					<div class="bg_wrap">
 						<video id="video" poster="/images/reebok/2019/event/blackfriday/TS/sect_join.jpg" loop muted autoplay playsinline>
 							<source src="https://image.reebok.co.kr/upload/design_temp/video/2019/r/blackfriday/TS/bf_TS_DT.mp4" type="video/mp4">
@@ -385,13 +405,13 @@
 
 		<script type="text/javascript">
 
-			(function ($) {		
+			(function ($) {	
+				
 
 				$(document).ready(function(){
 
 					// CountDownTimer('11/04/2019 10:00 AM', 'countdown');
-					CountDownTimer('11/04/2019 09:00 AM', 'countdown');
-
+					
 					function CountDownTimer(dt, id) {
 
 						var end = new Date(dt);
@@ -401,17 +421,22 @@
 						var _day = _hour * 24;
 						var timer;
 
+						var days_txt = document.querySelector(".days_txt");
+						var hours_txt = document.querySelector(".hours_txt");
+						var minutes_txt = document.querySelector(".minutes_txt");
+						var seconds_txt = document.querySelector(".seconds_txt");
+
 						function showRemaining() {
 
 							var now = new Date();
-							// console.log(now)
-							// console.log(end)
+
+
 							var distance = end - now;
 
 							// timeover
 							if (distance < 0) {
 								clearInterval(timer);
-								document.getElementById(id).innerHTML = '<h2>OPEN!</h2>';
+								//document.getElementById(id).innerHTML = '<h2>OPEN!</h2>';
 								// setTimeout(function() {
 								// 	// 1. url 그대로 : 새로고침 이슈, 개발자도구로 url 노출됨
 								// 	$('.campaign_bf').css('display','none');
@@ -423,39 +448,32 @@
 								return;
 							}
 
+
+
 							var days = Math.floor(distance / _day);
 							var hours = Math.floor((distance % _day) / _hour);
 							var minutes = Math.floor((distance % _hour) / _minute);
 							var seconds = Math.floor((distance % _minute) / _second);
+
+							days_txt.innerHTML = days;
+							hours_txt.innerHTML = hours;
+							minutes_txt.innerHTML = minutes;
+							seconds_txt.innerHTML = seconds;
 
 							// document.getElementById(id).innerHTML = days + '일 ';
 							// document.getElementById(id).innerHTML += hours + '시간 ';
 							// document.getElementById(id).innerHTML += minutes + '분 ';
 							// document.getElementById(id).innerHTML += seconds + '초';
 
-							document.getElementById(id).innerHTML = 
-							`<ul>
-								<li>
-									<h3>${days}</h3>
-									<p>days</p>
-								</li>
-								<li>
-									<h3>${hours}</h3>
-									<p>hours</p>
-								</li>
-								<li>
-									<h3>${minutes}</h3>
-									<p>min</p>
-								</li>
-								<li>
-									<h3>${seconds}</h3>
-									<p>sec</p>
-								</li>
-							</ul>`;
+							
 						}
 
 						timer = setInterval(showRemaining, 1000);
-					}
+						}
+
+						CountDownTimer('11/04/2019 09:00 AM', 'countdown');	
+
+
 
 					// 스크롤 이벤트
 					var scrollArray = [];
