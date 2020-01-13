@@ -11,65 +11,76 @@ html,body{
 #contents_wrap{padding: 0;}
 .btn{
 	display: inline-block;
-	>div{
-		position: relative;
-		&::before{
-            border-bottom: 1px solid #000;
-            border-left: 1px solid #000;
-            bottom: -4px;
-            height: 3px;
-            left: 2px;
-            width: calc(100% + 1px);
-            content: "";
-            display: block;
-            position: absolute;
-		}
-		&::after{
-            border-right: 1px solid #000;
-            border-top: 1px solid #000;
-            height: calc(100% + 1px);
-            right: -4px;
-            top: 2px;
-            width: 3px;
-            content: "";
-            display: block;
-            position: absolute;
-        }
-		a{
-			width: 136px;
-			font: 700 14px/42px 'NotoSansKR';
-			letter-spacing: 0;
-			position: relative;
-			display: block;
-			text-align: center;
-			height: 48px;
-			color: #fff;
-			background:#000;
-			z-index: 2;
-			border: 1px solid #000;
-			.arrow{
-				margin-left: 17px;
-				vertical-align: middle;
+	&.sold{
+		>div{
+			a{
+				border: 1px solid #bbb;
+				background: #bbb;
+
+			}
+			&:before{
+				border-bottom: 1px solid #bbb;
+				border-left: 1px solid #bbb;
+
+			}
+			&::after{
+				border-right: 1px solid #bbb;
+				border-top: 1px solid #bbb;
 			}
 		}
 	}
-	&.white{
-		>div{
-			&::before{
-				border-bottom: 1px solid #fff;
-				border-left: 1px solid #fff;
+	>div{
+		position: relative;
+		&::before{
+			border-bottom: 1px solid #000;
+			border-left: 1px solid #000;
+			bottom: -4px;
+			height: 3px;
+			left: 3px;
+			width: calc(100%);
+			content: "";
+			display: block;
+			position: absolute;
+		}
+		&::after{
+			border-right: 1px solid #000;
+			border-top: 1px solid #000;
+			height: calc(100%);
+			right: -4px;
+			top: 3px;
+			width: 3px;
+			content: "";
+			display: block;
+			position: absolute;
+		}
+		a{
+			width: auto;
+			font: 500 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			padding: 0 20px;
+			text-align: center;
+			height: 50px;
+			color: #fff;
+			// background:transparent;
+			background: #000;
+			z-index: 2;
+			border: 1px solid #000;
+			letter-spacing: 0.7px;
+			transition: .4s;
+			.arrow{
+				display: inline-block;
+				width: 24px;
+				height: 11px;
+				margin-left: 25px;
+				background: url(/images/reebok/2019/event/interval_og/arrow_w.png) no-repeat;
 			}
-			&::after{
-				border-right: 1px solid #fff;
-				border-top: 1px solid #fff;
-			}
-			a{
-				color: #000;
-				background:#fff;
-				border: 1px solid #fff;
-				.arrow{
-				}
-			}
+		}
+	}
+	&:hover{
+		a{
+			transform: translate(3px, 3px);
 		}
 	}
 }
