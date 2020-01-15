@@ -1,0 +1,342 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.btn{
+	display: inline-block;
+	>div{
+		position: relative;
+		&::before{
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            bottom: -4px;
+            height: 3px;
+            left: 2px;
+            width: calc(100% + 1px);
+            content: "";
+            display: block;
+            position: absolute;
+		}
+		&::after{
+            border-right: 1px solid #000;
+            border-top: 1px solid #000;
+            height: calc(100% + 1px);
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            content: "";
+            display: block;
+            position: absolute;
+        }
+		a{
+			width: 136px;
+			font: 700 14px/46px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 48px;
+			color: #fff;
+			background:#000;
+			z-index: 2;
+			border: 1px solid #000;
+			.arrow{
+				margin-left: 17px;
+				vertical-align: middle;
+			}
+		}
+	}
+	&.white{
+		>div{
+			&::before{
+				border-bottom: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
+			&::after{
+				border-right: 1px solid #fff;
+				border-top: 1px solid #fff;
+			}
+			a{
+				color: #000;
+				background:#fff;
+				border: 1px solid #fff;
+				.arrow{
+				}
+			}
+		}
+	}
+}
+
+.electro{
+	.loading{
+		position: absolute;
+		background: #fff;
+		top: 0;
+		left: 50%;
+		width: 1920px;
+		height: 850px;
+		margin-left: -960px;
+		transition: 1.4s;
+		opacity: 0;
+		z-index: 10;
+		&.on{
+			opacity: 1;
+		}
+		.inn{
+			position: relative;
+			width: 1200px;
+			height: 100%;
+			margin: 0 auto;
+			&.on{
+				img{
+					&.load_top{
+						left: 0;
+						top: 0;
+						margin: 0;
+					}
+					&.load_bot{
+						right: 0;
+						bottom: 0;
+						margin: 0;
+					}
+				}
+			}
+			img{
+				transition: 1s;
+				&.load_top{
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					margin: -68px 0 0 -324px;
+				}
+				&.load_bot{
+					position: absolute;
+					right: 50%;
+					bottom: 50%;
+					margin: 0 -324px -68px 0;
+				}
+			}	
+		}
+	}
+
+	.main{
+		position: relative;
+		height: 850px;
+		&.on{
+			.main_deco{
+				img{
+					transform: translateX(0);
+				}
+				.main_deco_box{
+					transform: translateX(100%);
+				}
+			}
+		}
+		.bg_center{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 1920px;
+			margin-left: -960px;
+			img{
+				display: block;
+				
+			}
+		}
+		.main_slide{
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 1200px;
+			margin-left: -600px;
+			z-index: 2;
+			.slick-slide{
+				outline: none;
+			}
+			.slick-dots{
+				position: absolute;
+				bottom: 40px;
+				left: 120px;
+				z-index: 3;
+				li{
+					display: inline-block;
+					margin: 0 4px;
+					width: 14px;
+					height: 14px;
+					border: 1px solid #000;
+					border-radius: 50%;
+					text-indent: -9999px;
+					cursor: pointer;
+					&.slick-active{
+						background: #000;
+					}
+				}
+			}
+		}
+		
+		.main_titbox{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 960px;
+			margin-left: -480px;
+			z-index: 3;
+			h2{
+				margin-top: 320px;
+				font: 700 52px/52px 'neueplak';
+				text-transform: uppercase;
+				text-align: left;
+				transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+				color:#fff;
+			}
+			.btn{
+				margin-top: 30px;
+			}
+		}
+	}
+	
+	.section{
+		&.sect_state{
+			position: relative;
+			background: #fff;
+			.inn{
+				padding: 80px 0;
+				text-align: center;
+				color: #000;
+				h2{
+					font: 400 34px/34px 'NotoSansKR';
+					text-align: center;
+					letter-spacing: 8px;
+					transition-delay: 0.2s;
+				}
+			}
+		}
+	}
+
+	.sect_cont{
+		.cont_1{
+			position: relative;
+			height: 820px;
+			padding: 45px 0;
+			background: url('/images/reebok/2020/event/fusium/cont_sld_mbg.jpg') 0 0 no-repeat;
+			text-align: center;
+			box-sizing: border-box;
+			transition: 0.4s;
+			h3{
+				margin-bottom: 45px;
+				font: 700 30px/30px 'neueplak';
+				color: #fff;
+				text-transform: uppercase;
+				text-align: center;
+				letter-spacing: 6px;
+			}
+			.cont_slide{
+				// overflow: hidden;
+				position: relative;
+				top: 0;
+				left: 50%;
+				width: 960px;
+				margin-left: -480px;
+				z-index: 2;
+				.slick-slide{
+					outline: none;
+				}
+				.slick-arrow{
+					position: absolute;
+					top: 50%;
+					width: 23px;
+					height: 40px;
+					margin-top: -20px;
+					text-indent: -9999px;
+					border: 0 none;
+					outline: none;
+					cursor: pointer;
+					&.slick-prev{
+						left: -63px;
+						background: url('/images/reebok/2020/event/fusium/prev.png') 0 0 no-repeat;
+					}
+					&.slick-next{
+						right: -63px;
+						background: url('/images/reebok/2020/event/fusium/next.png') 0 0 no-repeat;
+					}
+				}
+				.slick-dots{
+					position: absolute;
+					bottom: -50px;
+					left: 50%;
+					margin-left: -72px;
+					z-index: 3;
+					li{
+						display: inline-block;
+						margin: 0 4px;
+						width: 14px;
+						height: 14px;
+						border: 1px solid #fff;
+						border-radius: 50%;
+						text-indent: -9999px;
+						cursor: pointer;
+						&.slick-active{
+							background: #fff;
+						}
+					}
+				}
+			}
+		}
+		.cont_2{
+			position: relative;
+			height: 840px;
+			.bg_center{
+				position: absolute;
+				top: 0;
+				left: 50%;
+				width: 1920px;
+				margin-left: -960px;
+				z-index: 1;
+				img{
+					display: block;
+					
+				}
+			}
+		}
+		.cont_3{
+			position: relative;
+			padding: 50px 0 60px;
+			.inn{
+				text-align: center;
+				h2{
+					font: 700 30px/30px 'neueplak';
+					color: #000;
+					text-transform: uppercase;
+					text-align: center;
+					letter-spacing: 6px;
+				}
+				.btn{
+					margin-top: 30px;
+				}
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 1200px) { 
+	.electro{
+		.sect_cont{
+			div{
+				.cont_img{
+					img{
+						padding-left:0;
+					}
+				}
+			}
+		}
+	}
+}
