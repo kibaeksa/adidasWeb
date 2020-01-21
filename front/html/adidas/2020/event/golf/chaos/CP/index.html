@@ -1056,9 +1056,12 @@
 							<div class="bg02">
 								<img src="/images/adidas/2020/event/golf/chaos/CP/video_person01.png" alt="">
 							</div>
-							<div class="cont_video_wrap">								
-								<video class="cont_video on" poster="" loop muted autoplay playsinline>
-									<source src="http://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/4video.mp4"
+							<div class="cont_video_wrap">	
+								<a href="javascript:void(0)" onclick="" campaign-label="비디오1" class="playBtn on">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/chaos_play_DT.png" alt="">
+								</a>							
+								<video class="cont_video on" poster="" muted playsinline>
+									<source src="https://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/4video_DT.mp4"
 										type="video/mp4">
 								</video>								
 							</div>							
@@ -1130,11 +1133,15 @@
 							<div class="bg02">
 								<img src="/images/adidas/2020/event/golf/chaos/CP/video_person02.png" alt="">
 							</div>
-							<div class="cont_video1_wrap">
-								<video class="cont_video1 on" poster="" loop muted autoplay playsinline>
-									<source src="http://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/4video.mp4" type="video/mp4">
-								</video>
-							</div>					
+							<div class="cont_video1_wrap">	
+								<a href="javascript:void(0)" onclick="" campaign-label="비디오1" class="playBtn1 on">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/chaos_play_DT.png" alt="">
+								</a>							
+								<video class="cont_video1 on" poster="" muted playsinline>
+									<source src="https://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/4video_DT.mp4"
+										type="video/mp4">
+								</video>								
+							</div>						
 							
 						</div>
 						<div class="shoe_area">
@@ -1181,6 +1188,12 @@
 					</div>
 				</div>
 
+				<div class="cur_btn_area">
+					<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1107&NFN_ST=Y" class="cur_btn">
+						코드케이오스 전 제품 보기
+					</a>
+				</div>
+
 				<!-- <div class="bott">
 					<div class="slider_wrapper">
 						<div class="slider_inn_wrap01">
@@ -1217,13 +1230,40 @@
 
 							}
 						});
+
 						
+
+
+						$('.playBtn').click(function(){							
+							var video_01 = $('.cont_video');
+							video_01[0].play();
+							if(video_01.hasClass('on')){
+								$('.playBtn').removeClass('on');
+							} else{
+								video_01[0].play();
+								$('.playBtn').addClass('on');								
+							}
+							
+						})
+
+						$('.playBtn1').click(function(){							
+							var video_02 = $('.cont_video1');
+							video_02[0].play();
+							if(video_02.hasClass('on')){
+								$('.playBtn1').removeClass('on');
+							} else{
+								video_02[0].play();
+								$('.playBtn1').addClass('on');								
+							}
+							
+						})
 
 						// navi
 						$('.navi .inn_box').click(function () {
 							var toppos = $('.cont_wrap').offset().top;
 							var index = $(this).index();
 							if (index == (2)) {
+								alert('Coming soon');
 								return false;
 							} else {
 								$('.navi .inn_box').removeClass('on').eq(index).addClass('on');
@@ -1235,10 +1275,16 @@
 								var video02 = $('.cont_video1')
 								video01[0].currentTime = 0;
 								video02[0].currentTime = 0;
+								video01[0].pause();
+								video02[0].pause();
+								$('.playBtn').css('on');		
+								$('.playBtn1').addClass('on');	
 								
 							
 							}
 						});
+
+						
 						
 
 						//슬라이드
