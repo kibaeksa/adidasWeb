@@ -1,853 +1,260 @@
 <div id="container_r" class="campaign-content">
-	<style type="text/css">
-		.pseudo-element {
-			content: '';
-			display: block
-		}
-
-		#wrap {
-			min-width: 1190px;
-			overflow: hidden
-		}
-
-		#chaos {
-			position: relative
-		}
-
-		#chaos .main {
-			position: relative;
-			height: 1025px;
-			background-color: #000
-		}
-
-		#chaos .main .tit {
-			position: absolute;
-			top: 230px;
-			left: 50%;
-			margin-left: -562px;
-			z-index: 10;
-			text-align: center
-		}
-
-		#chaos .main .obj {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: -30px;
-			z-index: 5
-		}
-
-		#chaos .main .bg {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: -960px
-		}
-
-		#chaos .video {
-			position: relative;
-			height: 675px;
-			background-color: #000;
-			padding-bottom: 152px
-		}
-
-		#chaos .video #video {
-			position: absolute;
-			height: 675px;
-			top: 0;
-			left: 50%;
-			margin-left: -600px
-		}
-
-		#chaos .count {
-			position: relative;
-			height: 1742px;
-			background-color: #000
-		}
-
-		#chaos .count>.bg {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: -960px
-		}
-
-		#chaos .navi {
-			position: relative;
-			overflow: hidden;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/tab_bg.jpg") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi.fixed {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			z-index: 10
-		}
-
-		#chaos .navi .inn_box {
-			width: 33%;
-			height: 75px;
-			float: left;
-			box-sizing: border-box
-		}
-
-		#chaos .navi .inn_box.on.tab01 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab01_on.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi .inn_box.on.tab02 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab02_on.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi .inn_box.on.tab03 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab03_on.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi .inn_box.tab01 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab01.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi .inn_box.tab02 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab02.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .navi .inn_box.tab03 {
-			background: url("/images/adidas/2020/event/golf/chaos/CP/tab03.png") no-repeat;
-			background-position: center
-		}
-
-		#chaos .cont_wrap {
-			position: relative;
-			height: 4115px
-		}
-
-		#chaos .cont_wrap .cont01 {
-			display: none
-		}
-
-		#chaos .cont_wrap .cont01 .video_area {
-			position: relative;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/video_area_bg.jpg") no-repeat;
-			background-position: center;
-			height: 1415px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont01_tit {
-			position: absolute;
-			top: 195px;
-			left: 50%;
-			margin-left: -289px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont01_tit .button_area_v2 {
-			width: 140px;
-			margin: 50px auto
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .bg01 {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: -960px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .bg02 {
-			position: absolute;
-			top: 80px;
-			left: 50%;
-			margin-left: 270px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_wrap {
-			position: relative;
-			width: 1200px;
-			height: 675px;
-			top: 625px;
-			left: 50%;
-			margin-left: -600px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_wrap #playBtn {
-			display: none
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video {
-			display: none;
-			position: absolute;
-			width: 100%
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video.on {
-			display: block
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav {
-			position: absolute;
-			bottom: 68px;
-			left: 50%;
-			margin-left: -600px;
-			width: 1200px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a {
-			display: inline-block;
-			width: 297px;
-			color: #999999;
-			font: 600 18px/32px "NotoSansKR";
-			text-align: center;
-			letter-spacing: 5px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.no {
-			font: 20px 'adihausDIN-Cond-bold';
-			margin-right: 20px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			margin-bottom: 10px
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line2 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 0.6s
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line3 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 11s
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line4 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 0.6s
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a.on {
-			color: #75a900;
-			font: 600 18px/32px "NotoSansKR"
-		}
-
-		#chaos .cont_wrap .cont01 .video_area .cont_video_nav a.on span.line {
-			width: 297px;
-			transition: all 11s
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area {
-			position: relative;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/cont01_bg.jpg") no-repeat;
-			background-position: center;
-			height: 2700px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_img {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: 300px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt {
-			position: absolute;
-			top: 390px;
-			left: 50%;
-			margin-left: -310px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: 60px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_img {
-			position: absolute;
-			top: 840px;
-			left: 50%;
-			margin-left: -591px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt {
-			position: absolute;
-			top: 1450px;
-			left: 50%;
-			margin-left: 160px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: -75px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_img {
-			position: absolute;
-			top: 1890px;
-			left: 50%;
-			margin-left: 80px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt {
-			position: absolute;
-			top: 2170px;
-			left: 50%;
-			margin-left: -470px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: 60px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont01 .shoe_area .shoe_tit {
-			position: absolute;
-			top: 1730px;
-			left: 50%;
-			margin-left: -357px
-		}
-
-		#chaos .cont_wrap .cont02 {
-			display: none
-		}
-
-		#chaos .cont_wrap .cont02 .video_area {
-			position: relative;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/video_area_bg.jpg") no-repeat;
-			background-position: center;
-			height: 1415px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont01_tit {
-			position: absolute;
-			top: 195px;
-			left: 50%;
-			margin-left: -325px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont01_tit .button_area_v2 {
-			width: 140px;
-			margin: 50px auto
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .bg01 {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			margin-left: -960px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .bg02 {
-			position: absolute;
-			top: 80px;
-			left: 50%;
-			margin-left: 270px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_wrap {
-			position: relative;
-			width: 1200px;
-			height: 675px;
-			top: 625px;
-			left: 50%;
-			margin-left: -600px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_wrap #playBtn1 {
-			display: none
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1 {
-			display: none;
-			position: absolute;
-			width: 100%
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1.on {
-			display: block
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav {
-			position: absolute;
-			bottom: 68px;
-			left: 50%;
-			margin-left: -600px;
-			width: 1200px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a {
-			display: inline-block;
-			width: 297px;
-			color: #999999;
-			font: 600 18px/32px "NotoSansKR";
-			text-align: center;
-			letter-spacing: 5px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.no {
-			font: 20px 'adihausDIN-Cond-bold';
-			margin-right: 20px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			margin-bottom: 10px
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line2 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 0.6s
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line3 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 11s
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line4 {
-			display: block;
-			width: 0;
-			height: 4px;
-			background: #75a900;
-			transition: all 0.6s
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a.on {
-			color: #75a900;
-			font: 600 18px/32px "NotoSansKR"
-		}
-
-		#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a.on span.line {
-			width: 297px;
-			transition: all 11s
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area {
-			position: relative;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/cont01_bg.jpg") no-repeat;
-			background-position: center;
-			height: 2700px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_img {
-			position: absolute;
-			top: 80px;
-			left: 50%;
-			margin-left: 170px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt {
-			position: absolute;
-			top: 390px;
-			left: 50%;
-			margin-left: -310px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: 60px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_img {
-			position: absolute;
-			top: 840px;
-			left: 50%;
-			margin-left: -591px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt {
-			position: absolute;
-			top: 1370px;
-			left: 50%;
-			margin-left: 120px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: -75px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_img {
-			position: absolute;
-			top: 1840px;
-			left: 50%;
-			margin-left: 80px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt {
-			position: absolute;
-			top: 2120px;
-			left: 50%;
-			margin-left: -470px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt h4 {
-			text-align: center
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt p {
-			font: 400 22px/34px "NotoSansKR";
-			color: #000;
-			margin-left: 60px;
-			margin-top: 20px
-		}
-
-		#chaos .cont_wrap .cont02 .shoe_area .shoe_tit {
-			position: absolute;
-			top: 1700px;
-			left: 50%;
-			margin-left: -400px
-		}
-
-		#chaos .cont_wrap .on {
-			display: block
-		}
-
-		#chaos .bott {
-			position: relative;
-			background: #ccc url("/images/adidas/2020/event/golf/chaos/CP/bottom_bg.jpg") no-repeat;
-			background-position: center;
-			height: 2064px
-		}
-
-		#chaos .bott .slider_wrapper {
-			position: relative;
-			height: 359px
-		}
-
-		#chaos .bott .slider_wrapper .slider_inn_wrap01 {
-			position: absolute;
-			top: 120px;
-			left: 50%;
-			margin-left: 180px
-		}
-
-		#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn {
-			position: absolute;
-			top: 62%;
-			z-index: 2;
-			left: 50%
-		}
-
-		#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn.prev-button {
-			margin-left: -150px
-		}
-
-		#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn.next-button {
-			margin-left: 150px
-		}
+	<style type="text/css">.pseudo-element{content:'';display:block}#wrap{min-width:1190px;overflow:hidden}#chaos{position:relative}#chaos .main{position:relative;height:1025px;background-color:#000}#chaos .main .tit{position:absolute;top:230px;left:50%;margin-left:-562px;z-index:10;text-align:center}#chaos .main .obj{position:absolute;top:0;left:50%;margin-left:-30px;z-index:5}#chaos .main .bg{position:absolute;top:0;left:50%;margin-left:-960px}#chaos .video{position:relative;height:675px;background-color:#000;padding-bottom:152px}#chaos .video #video{position:absolute;height:675px;top:0;left:50%;margin-left:-600px}#chaos .count{position:relative;height:1742px;background-color:#000}#chaos .count>.bg{position:absolute;top:0;left:50%;margin-left:-960px}#chaos .navi{position:relative;overflow:hidden;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/tab_bg.jpg") no-repeat;background-position:center}#chaos .navi.fixed{position:fixed;top:0;left:0;width:100%;z-index:10}#chaos .navi .inn_box{width:33%;height:75px;float:left;box-sizing:border-box}#chaos .navi .inn_box.on.tab01{background:url("/images/adidas/2020/event/golf/chaos/CP/tab01_on.png") no-repeat;background-position:center}#chaos .navi .inn_box.on.tab02{background:url("/images/adidas/2020/event/golf/chaos/CP/tab02_on.png") no-repeat;background-position:center}#chaos .navi .inn_box.on.tab03{background:url("/images/adidas/2020/event/golf/chaos/CP/tab03_on.png") no-repeat;background-position:center}#chaos .navi .inn_box.tab01{background:url("/images/adidas/2020/event/golf/chaos/CP/tab01.png") no-repeat;background-position:center}#chaos .navi .inn_box.tab02{background:url("/images/adidas/2020/event/golf/chaos/CP/tab02.png") no-repeat;background-position:center}#chaos .navi .inn_box.tab03{background:url("/images/adidas/2020/event/golf/chaos/CP/tab03.png") no-repeat;background-position:center}#chaos .cont_wrap{position:relative;height:4115px}#chaos .cont_wrap .cont01{display:none}#chaos .cont_wrap .cont01 .video_area{position:relative;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/video_area_bg.jpg") no-repeat;background-position:center;height:1415px}#chaos .cont_wrap .cont01 .video_area .cont01_tit{position:absolute;top:195px;left:50%;margin-left:-289px}#chaos .cont_wrap .cont01 .video_area .cont01_tit .button_area_v2{width:140px;margin:50px auto}#chaos .cont_wrap .cont01 .video_area .bg01{position:absolute;top:0;left:50%;margin-left:-960px}#chaos .cont_wrap .cont01 .video_area .bg02{position:absolute;top:80px;left:50%;margin-left:270px}#chaos .cont_wrap .cont01 .video_area .cont_video_wrap{position:relative;width:1200px;height:675px;top:625px;left:50%;margin-left:-600px}#chaos .cont_wrap .cont01 .video_area .cont_video_wrap #playBtn{display:none}#chaos .cont_wrap .cont01 .video_area .cont_video{display:none;position:absolute;width:100%}#chaos .cont_wrap .cont01 .video_area .cont_video.on{display:block}#chaos .cont_wrap .cont01 .video_area .cont_video_nav{position:absolute;bottom:68px;left:50%;margin-left:-600px;width:1200px}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a{display:inline-block;width:297px;color:#999999;font:600 18px/32px "NotoSansKR";text-align:center;letter-spacing:5px}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.no{font:20px 'adihausDIN-Cond-bold';margin-right:20px}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line{display:block;width:0;height:4px;background:#75a900;margin-bottom:10px}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line2{display:block;width:0;height:4px;background:#75a900;transition:all 0.6s}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line3{display:block;width:0;height:4px;background:#75a900;transition:all 11s}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a span.line4{display:block;width:0;height:4px;background:#75a900;transition:all 0.6s}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a.on{color:#75a900;font:600 18px/32px "NotoSansKR"}#chaos .cont_wrap .cont01 .video_area .cont_video_nav a.on span.line{width:297px;transition:all 11s}#chaos .cont_wrap .cont01 .shoe_area{position:relative;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/cont01_bg.jpg") no-repeat;background-position:center;height:2700px}#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_img{position:absolute;top:0;left:50%;margin-left:300px}#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt{position:absolute;top:390px;left:50%;margin-left:-310px}#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont01 .shoe_area .shoe01 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:60px;margin-top:20px}#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_img{position:absolute;top:840px;left:50%;margin-left:-591px}#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt{position:absolute;top:1450px;left:50%;margin-left:160px}#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont01 .shoe_area .shoe02 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:-75px;margin-top:20px}#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_img{position:absolute;top:1890px;left:50%;margin-left:80px}#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt{position:absolute;top:2170px;left:50%;margin-left:-470px}#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont01 .shoe_area .shoe03 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:60px;margin-top:20px}#chaos .cont_wrap .cont01 .shoe_area .shoe_tit{position:absolute;top:1730px;left:50%;margin-left:-357px}#chaos .cont_wrap .cont02{display:none}#chaos .cont_wrap .cont02 .video_area{position:relative;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/video_area_bg.jpg") no-repeat;background-position:center;height:1415px}#chaos .cont_wrap .cont02 .video_area .cont01_tit{position:absolute;top:195px;left:50%;margin-left:-325px}#chaos .cont_wrap .cont02 .video_area .cont01_tit .button_area_v2{width:140px;margin:50px auto}#chaos .cont_wrap .cont02 .video_area .bg01{position:absolute;top:0;left:50%;margin-left:-960px}#chaos .cont_wrap .cont02 .video_area .bg02{position:absolute;top:80px;left:50%;margin-left:270px}#chaos .cont_wrap .cont02 .video_area .cont_video1_wrap{position:relative;width:1200px;height:675px;top:625px;left:50%;margin-left:-600px}#chaos .cont_wrap .cont02 .video_area .cont_video1_wrap #playBtn1{display:none}#chaos .cont_wrap .cont02 .video_area .cont_video1{display:none;position:absolute;width:100%}#chaos .cont_wrap .cont02 .video_area .cont_video1.on{display:block}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav{position:absolute;bottom:68px;left:50%;margin-left:-600px;width:1200px}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a{display:inline-block;width:297px;color:#999999;font:600 18px/32px "NotoSansKR";text-align:center;letter-spacing:5px}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.no{font:20px 'adihausDIN-Cond-bold';margin-right:20px}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line{display:block;width:0;height:4px;background:#75a900;margin-bottom:10px}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line2{display:block;width:0;height:4px;background:#75a900;transition:all 0.6s}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line3{display:block;width:0;height:4px;background:#75a900;transition:all 11s}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a span.line4{display:block;width:0;height:4px;background:#75a900;transition:all 0.6s}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a.on{color:#75a900;font:600 18px/32px "NotoSansKR"}#chaos .cont_wrap .cont02 .video_area .cont_video1_nav a.on span.line{width:297px;transition:all 11s}#chaos .cont_wrap .cont02 .shoe_area{position:relative;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/cont01_bg.jpg") no-repeat;background-position:center;height:2700px}#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_img{position:absolute;top:80px;left:50%;margin-left:170px}#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt{position:absolute;top:390px;left:50%;margin-left:-310px}#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont02 .shoe_area .shoe01 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:60px;margin-top:20px}#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_img{position:absolute;top:840px;left:50%;margin-left:-591px}#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt{position:absolute;top:1370px;left:50%;margin-left:120px}#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont02 .shoe_area .shoe02 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:-75px;margin-top:20px}#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_img{position:absolute;top:1840px;left:50%;margin-left:80px}#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt{position:absolute;top:2120px;left:50%;margin-left:-470px}#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt h4{text-align:center}#chaos .cont_wrap .cont02 .shoe_area .shoe03 .shoe_txt p{font:400 22px/34px "NotoSansKR";color:#000;margin-left:60px;margin-top:20px}#chaos .cont_wrap .cont02 .shoe_area .shoe_tit{position:absolute;top:1700px;left:50%;margin-left:-400px}#chaos .cont_wrap .on{display:block}#chaos .bott{position:relative;background:#ccc url("/images/adidas/2020/event/golf/chaos/CP/bottom_bg.jpg") no-repeat;background-position:center;height:2064px}#chaos .bott .slider_wrapper{position:relative;height:359px}#chaos .bott .slider_wrapper .slider_inn_wrap01{position:absolute;top:120px;left:50%;margin-left:180px}#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn{position:absolute;top:62%;z-index:2;left:50%}#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn.prev-button{margin-left:-150px}#chaos .bott .slider_wrapper .slider_inn_wrap01 .navi_btn.next-button{margin-left:150px}
 	</style>
-
-	<div id="chaos">
-
-		<div class="main">
-			<div class="tit">
-				<img src="/images/adidas/2020/event/golf/chaos/CP/top_tit.png" alt="">
-			</div>
-			<div class="obj">
-				<img src="/images/adidas/2020/event/golf/chaos/CP/top_obj.png" alt="">
-			</div>
-			<div class="bg">
-				<img src="/images/adidas/2020/event/golf/chaos/CP/top_bg.jpg" alt="">
-			</div>
-		</div>
-		<div class="video">
-			<video id="video" poster="/images/adidas/2020/event/golf/chaos/video_bg.jpg" loop muted autoplay
-				playsinline>
-				<source
-					src="http://imagem.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/TEASER_10_LORES_PP.mp4"
-					type="video/mp4">
-			</video>
-		</div>
-
-		<div class="navi">
-			<div class="inn_box tab01 on"></div>
-			<div class="inn_box tab02 "></div>
-			<div class="inn_box tab03 "></div>
-		</div>
-
-		<div class="cont_wrap">
-			<div class="cont01 cont_wrapper on" id="top_pos1">
-				<div class="video_area">
-					<div class="cont01_tit">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit01.png" alt="">
-						<div class="button_area_v2" style="">
-							<div class="">
-								<div class="bg"></div>
-								<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1107&NFN_ST=Y">
-									구매하기
-									<span class="arrow">
-										<em class="top"></em>
-										<em class="bottom"></em>
-									</span>
-								</a>
-							</div>
+	
+				<div id="chaos"> 
+	
+					<div class="main">
+						<div class="tit">						
+								<img src="/images/adidas/2020/event/golf/chaos/CP/top_tit.png" alt="">						
+						</div>
+						<div class="obj">
+							<img src="/images/adidas/2020/event/golf/chaos/CP/top_obj.png" alt="">
+						</div>
+						<div class="bg">
+							<img src="/images/adidas/2020/event/golf/chaos/CP/top_bg.jpg" alt="">
 						</div>
 					</div>
-					<div class="bg01">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe01.png" alt="">
-					</div>
-					<div class="bg02">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_person01.png" alt="">
-					</div>
-					<div class="cont_video_wrap">
-						<video class="cont_video on" poster="" loop muted autoplay playsinline>
-							<source src="/images/adidas/2020/event/golf/chaos/CP/4video.mp4" type="video/mp4">
+					<div class="video">
+						<video id="video" poster="/images/adidas/2020/event/golf/chaos/video_bg.jpg" loop muted autoplay playsinline>
+							<source src="http://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/teaser.mp4"
+								type="video/mp4">
 						</video>
+					</div>				
+					
+					<div class="navi">
+						<div class="inn_box tab01 on"></div>
+						<div class="inn_box tab02 "></div>
+						<div class="inn_box tab03 "></div>
 					</div>
-
-				</div>
-				<div class="shoe_area">
-					<div class="shoe01">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe01.png" alt="">
+	
+					<div class="cont_wrap">
+						<div class="cont01 cont_wrapper on" id="top_pos1">
+							<div class="video_area">
+								<div class="cont01_tit">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit01.png" alt="">
+									<div class="button_area_v2" style="">
+										<div class="">
+											<div class="bg"></div>
+											<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1107&NFN_ST=Y">
+												구매하기
+												<span class="arrow">
+													<em class="top"></em>
+													<em class="bottom"></em>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="bg01">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe01.png" alt="">
+								</div>
+								<div class="bg02">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_person01.png" alt="">
+								</div>
+								<div class="cont_video_wrap">								
+									<video class="cont_video on" poster="" loop muted autoplay playsinline>
+										<source src="http://image.adidas.co.kr/upload/design_temp/video/2020/a/golf/chaos/FO/4video.mp4"
+											type="video/mp4">
+									</video>								
+								</div>							
+								
+							</div>
+							<div class="shoe_area">
+								<div class="shoe01">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe01.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t01.jpg" alt=""></h4>
+										<p>스파이크를 대체할 새로운 트랙션과<br />
+											트위스트그립 테크놀로지는<br />
+											궁극의 접지력을 선사합니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe02">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe02.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t02.jpg" alt=""></h4>
+										<p>밑창 전체에 부스트가 들어가 있어<br />
+										언제 어디서나 최고의 에너지 리턴을 제공하여<br />
+										최상의 퍼포먼스를 도와줍니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe03">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe03.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t03.jpg" alt=""></h4>
+										<p>발수 테크놀로지와 통풍이 가능한 소재가<br />
+										신발 갑피부분 전체를 구성하고 있어<br />
+										최적의 착화감을 제공합니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe_tit">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit01.png" alt="">
+								</div>
+							</div>						
 						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t01.jpg" alt=""></h4>
-							<p>스파이크를 대체할 새로운 트랙션과<br />
-								트위스트그립 테크놀로지는<br />
-								궁극의 접지력을 선사합니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe02">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe02.png" alt="">
-						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t02.jpg" alt=""></h4>
-							<p>밑창 전체에 부스트가 들어가 있어<br />
-								언제 어디서나 최고의 에너지 리턴을 제공하여<br />
-								최상의 퍼포먼스를 도와줍니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe03">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont01_shoe03.png" alt="">
-						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t03.jpg" alt=""></h4>
-							<p>발수 테크놀로지와 통풍이 가능한 소재가<br />
-								신발 갑피부분 전체를 구성하고 있어<br />
-								최적의 착화감을 제공합니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe_tit">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit01.png" alt="">
-					</div>
-				</div>
-			</div>
-
-			<div class="cont02 cont_wrapper" id="top_pos2">
-				<div class="video_area">
-					<div class="cont01_tit">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit02.png" alt="">
-						<div class="button_area_v2" style="">
-							<div class="">
-								<div class="bg"></div>
-								<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1107&NFN_ST=Y">
-									구매하기
-									<span class="arrow">
-										<em class="top"></em>
-										<em class="bottom"></em>
-									</span>
-								</a>
+	
+						<div class="cont02 cont_wrapper" id="top_pos2">
+							<div class="video_area">
+								<div class="cont01_tit">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit02.png" alt="">
+									<div class="button_area_v2" style="">
+										<div class="">
+											<div class="bg"></div>
+											<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1107&NFN_ST=Y">
+												구매하기
+												<span class="arrow">
+													<em class="top"></em>
+													<em class="bottom"></em>
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="bg01">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe02.png" alt="">
+								</div>
+								<div class="bg02">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/video_person02.png" alt="">
+								</div>
+								<div class="cont_video1_wrap">
+									<video class="cont_video1 on" poster="" loop muted autoplay playsinline>
+										<source src="/images/adidas/2020/event/golf/chaos/CP/4video.mp4" type="video/mp4">
+									</video>
+								</div>					
+								
+							</div>
+							<div class="shoe_area">
+								<div class="shoe01">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe01.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t01.jpg" alt=""></h4>
+										<p>스파이크를 대체할 새로운 트랙션과<br />
+											트위스트그립 테크놀로지는<br />
+											궁극의 접지력을 선사합니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe02">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe02.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t02.jpg" alt=""></h4>
+										<p>밑창 전체에 부스트가 들어가 있어<br />
+											언제 어디서나 최고의 에너지 리턴을 제공하여<br />
+											최상의 퍼포먼스를 도와줍니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe03">
+									<div class="shoe_img">
+										<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe03.png" alt="">
+									</div>
+									<div class="shoe_txt">
+										<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t03.jpg" alt=""></h4>
+										<p>발수 테크놀로지와 통풍이 가능한 소재가<br />
+											신발 갑피부분 전체를 구성하고 있어<br />
+											최적의 착화감을 제공합니다.
+										</p>
+									</div>
+								</div>
+								<div class="shoe_tit">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit02.png" alt="">
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="bg01">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe02.png" alt="">
-					</div>
-					<div class="bg02">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/video_person02.png" alt="">
-					</div>
-					<div class="cont_video1_wrap">
-						<video class="cont_video1 on" poster="" loop muted autoplay playsinline>
-							<source src="/images/adidas/2020/event/golf/chaos/CP/4video.mp4" type="video/mp4">
-						</video>
-					</div>
-
-				</div>
-				<div class="shoe_area">
-					<div class="shoe01">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe01.png" alt="">
-						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t01.jpg" alt=""></h4>
-							<p>스파이크를 대체할 새로운 트랙션과<br />
-								트위스트그립 테크놀로지는<br />
-								궁극의 접지력을 선사합니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe02">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe02.png" alt="">
-						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t02.jpg" alt=""></h4>
-							<p>밑창 전체에 부스트가 들어가 있어<br />
-								언제 어디서나 최고의 에너지 리턴을 제공하여<br />
-								최상의 퍼포먼스를 도와줍니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe03">
-						<div class="shoe_img">
-							<img src="/images/adidas/2020/event/golf/chaos/CP/cont02_shoe03.png" alt="">
-						</div>
-						<div class="shoe_txt">
-							<h4><img src="/images/adidas/2020/event/golf/chaos/CP/cont01_t03.jpg" alt=""></h4>
-							<p>발수 테크놀로지와 통풍이 가능한 소재가<br />
-								신발 갑피부분 전체를 구성하고 있어<br />
-								최적의 착화감을 제공합니다.
-							</p>
-						</div>
-					</div>
-					<div class="shoe_tit">
-						<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit02.png" alt="">
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- <div class="bott">
-					<div class="slider_wrapper">
-						<div class="slider_inn_wrap01">
-							<div id="sliders01">
-								<ul>
-									<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_01.jpg" alt=""></li>
-									<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_02.jpg" alt=""></li>
-									<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_03.jpg" alt=""></li>
-									<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_04.jpg" alt=""></li>									
-								</ul>
+	
+					<!-- <div class="bott">
+						<div class="slider_wrapper">
+							<div class="slider_inn_wrap01">
+								<div id="sliders01">
+									<ul>
+										<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_01.jpg" alt=""></li>
+										<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_02.jpg" alt=""></li>
+										<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_03.jpg" alt=""></li>
+										<li><img src="/images/adidas/2020/event/golf/chaos/CP/slide1_04.jpg" alt=""></li>									
+									</ul>
+								</div>
+					
+							<a class="prev-button navi_btn" href="javascript:void(0)"><img
+									src="/images/adidas/2020/event/golf/chaos/CP/btn_prev.png" alt=""></a>
+							<a class="next-button navi_btn" href="javascript:void(0)"><img
+									src="/images/adidas/2020/event/golf/chaos/CP/btn_next.png" alt=""></a>
 							</div>
-				
-						<a class="prev-button navi_btn" href="javascript:void(0)"><img
-								src="/images/adidas/2020/event/golf/chaos/CP/btn_prev.png" alt=""></a>
-						<a class="next-button navi_btn" href="javascript:void(0)"><img
-								src="/images/adidas/2020/event/golf/chaos/CP/btn_next.png" alt=""></a>
-						</div>
-					 </div>
-				</div> -->
-		<!-- //chaos -->
-	</div>
-
-	<script type="text/javascript">
-		(function ($) {
-
-			var navipos = $('.navi').offset().top;
-			$(window).scroll(function () {
-				var thispos = $(this).scrollTop();
-
-				if (thispos > navipos) {
-					$('.navi').addClass('fixed');
-				} else {
-					$('.navi').removeClass('fixed');
-
-				}
-			});
-
-
-			// navi
-			$('.navi .inn_box').click(function () {
-				var toppos = $('.cont_wrap').offset().top;
-				var index = $(this).index();
-				if (index == (2)) {
-					return false;
-				} else {
-					$('.navi .inn_box').removeClass('on').eq(index).addClass('on');
-					$('.cont_wrapper').removeClass('on').eq(index).addClass('on');
-					$('html,body').animate({
-						scrollTop: toppos - '100'
-					}, 500)
-					var video01 = $('.cont_video')
-					var video02 = $('.cont_video1')
-					video01[0].currentTime = 0;
-					video02[0].currentTime = 0;
-
-
-				}
-			});
-
-
-			//슬라이드
-			var sliders01 = $('#sliders01').Swipers({
-				width: 300,
-				height: 365,
-				duration: 700,
-				item: 2,
-				auto: false,
-			});
-
-			$('.prev-button').bind('click', function () {
-				sliders01.prev();
-			});
-
-			$('.next-button').bind('click', function () {
-				sliders01.next();
-			});
-
-		})(jQuery);
-	</script>
-
-</div>
+						 </div>
+					</div> -->
+					<!-- //chaos -->
+				</div>
+	
+					<script type="text/javascript">
+						(function ($) {
+	
+							var navipos = $('.navi').offset().top;
+							$(window).scroll(function () {
+								var thispos = $(this).scrollTop();
+	
+								if (thispos > navipos) {
+									$('.navi').addClass('fixed');
+								} else {
+									$('.navi').removeClass('fixed');
+	
+								}
+							});
+							
+	
+							// navi
+							$('.navi .inn_box').click(function () {
+								var toppos = $('.cont_wrap').offset().top;
+								var index = $(this).index();
+								if (index == (2)) {
+									return false;
+								} else {
+									$('.navi .inn_box').removeClass('on').eq(index).addClass('on');
+									$('.cont_wrapper').removeClass('on').eq(index).addClass('on');
+									$('html,body').animate({
+										scrollTop: toppos-'100'
+									}, 500)
+									var video01 = $('.cont_video')
+									var video02 = $('.cont_video1')
+									video01[0].currentTime = 0;
+									video02[0].currentTime = 0;
+									
+								
+								}
+							});
+							
+	
+							//슬라이드
+							var sliders01 = $('#sliders01').Swipers({
+								width: 300,
+								height: 365,
+								duration: 700,
+								item: 2,
+								auto: false,							
+							});
+	
+							$('.prev-button').bind('click', function () {
+								sliders01.prev();
+							});
+	
+							$('.next-button').bind('click', function () {
+								sliders01.next();
+							});
+	
+						})(jQuery);
+					</script>
+	
+			</div>
