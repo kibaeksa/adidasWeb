@@ -1012,7 +1012,7 @@
 
 				<div class="main">
 					<div class="tit">						
-							<img src="/images/adidas/2020/event/golf/chaos/CP/top_tit.png" alt="">						
+							<img src="/images/adidas/2020/event/golf/chaos/CP/top_tit_ani.gif" alt="">						
 					</div>
 					<div class="obj">
 						<img src="/images/adidas/2020/event/golf/chaos/CP/top_obj.png" alt="">
@@ -1038,7 +1038,7 @@
 					<div class="cont01 cont_wrapper on" id="top_pos1">
 						<div class="video_area">
 							<div class="cont01_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit01.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit01_ani.gif" alt="">
 								<div class="button_area_v2" style="">
 									<div class="">
 										<div class="bg"></div>
@@ -1052,10 +1052,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="bg01">
+							<div class="bg01 on">
 								<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe01.png" alt="">
 							</div>
-							<div class="bg02">
+							<div class="bg02 on">
 								<img src="/images/adidas/2020/event/golf/chaos/CP/video_person01.png" alt="">
 							</div>
 							<div class="ptab_cont ptab_1_cont on">
@@ -1114,7 +1114,7 @@
 								</div>
 							</div>
 							<div class="shoe_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit01.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit01_ani.gif" alt=""> 
 							</div>
 						</div>						
 					</div>
@@ -1122,7 +1122,7 @@
 					<div class="cont02 cont_wrapper" id="top_pos2">
 						<div class="video_area">
 							<div class="cont01_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit02.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit02_ani.gif" alt="">
 								<div class="button_area_v2" style="">
 									<div class="">
 										<div class="bg"></div>
@@ -1198,7 +1198,7 @@
 								</div>
 							</div>
 							<div class="shoe_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit02.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit02_ani.gif" alt="">
 							</div>
 						</div>
 					</div>
@@ -1206,7 +1206,7 @@
 					<div class="cont03 cont_wrapper" id="top_pos3">
 						<div class="video_area">
 							<div class="cont01_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit03.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/video_tit03_ani.gif" alt="">
 								<div class="button_area_v2" style="">
 									<div class="">
 										<div class="bg"></div>
@@ -1220,7 +1220,12 @@
 									</div>
 								</div>
 							</div>
-							
+							<div class="bg01">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/video_shoe03.png" alt="">
+							</div>
+							<div class="bg02">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/video_person03.png" alt="">
+							</div>
 							<div class="ptab_cont ptab_3_cont">
 								<div class="video-wrapper">
 									<div class="video-area video-area3">
@@ -1276,7 +1281,7 @@
 								</div>
 							</div>
 							<div class="shoe_tit">
-								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit03.png" alt="">
+								<img src="/images/adidas/2020/event/golf/chaos/CP/shoe_tit03_ani.gif" alt="">
 							</div>
 						</div>
 					</div>
@@ -1293,7 +1298,7 @@
 						<div class="sliderlook" id="slider01">
 							<div>
 								<a href="https://shop.adidas.co.kr/PF020401.action?PROD_CD=EE9105">
-									<img src="/images/adidas/2020/event/golf/chaos/CP/slide1_01.jpg" alt="">
+									<img src="/images/adidas/2020/event/golf/chaos/CP/slide1_01.jpg" alt="" >
 									<div class="slide_txt">
 										<h5>코드케이오스 보아</h5>
 										<p>240,000<span>원</span></p>
@@ -1707,11 +1712,38 @@
 			ptabIndex = $(this).index();
 			var toppos = $('.cont_wrap').offset().top;
 
+
+
 			$('.navi .inn_box').removeClass('on').eq(ptabIndex).addClass('on');
-				$('.cont_wrapper').removeClass('on').eq(ptabIndex).addClass('on');
+				$('.cont_wrapper').removeClass('on').eq(ptabIndex).addClass('on');		
 				$('html,body').animate({
 					scrollTop: toppos-'100'
 				}, 500)	
+
+				console.log(ptabIndex);
+
+				if (ptabIndex == 1) {
+				$('.cont01 .bg01').removeClass('on');
+				$('.cont03 .bg01').removeClass('on');
+				$('.cont02 .bg01').addClass('on');
+				$('.cont01 .bg02').removeClass('on');
+				$('.cont03 .bg02').removeClass('on');
+				$('.cont02 .bg02').addClass('on');
+				} else if (ptabIndex == 2) {
+					$('.cont01 .bg01').removeClass('on');
+					$('.cont02 .bg01').removeClass('on');
+					$('.cont03 .bg01').addClass('on');
+					$('.cont01 .bg02').removeClass('on');
+					$('.cont02 .bg02').removeClass('on');
+					$('.cont03 .bg02').addClass('on');
+				} else {
+					$('.cont02 .bg01').removeClass('on');
+					$('.cont03 .bg01').removeClass('on');
+					$('.cont01 .bg01').addClass('on');
+					$('.cont02 .bg02').removeClass('on');
+					$('.cont03 .bg02').removeClass('on');
+					$('.cont01 .bg02').addClass('on');
+				}
 
 			// $('.ptab li').removeClass('active').eq(ptabIndex).addClass('active');
 
