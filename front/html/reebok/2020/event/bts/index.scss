@@ -9,70 +9,6 @@ html,body{
 	height:100%;
 }
 #contents_wrap{padding: 0;}
-// .btn{
-// 	display: inline-block;
-// 	>div{
-// 		position: relative;
-// 		&::before{
-//             border-bottom: 1px solid #000;
-//             border-left: 1px solid #000;
-//             bottom: -4px;
-//             height: 3px;
-//             left: 2px;
-//             width: calc(100% + 1px);
-//             content: "";
-//             display: block;
-//             position: absolute;
-// 		}
-// 		&::after{
-//             border-right: 1px solid #000;
-//             border-top: 1px solid #000;
-//             height: calc(100% + 1px);
-//             right: -4px;
-//             top: 2px;
-//             width: 3px;
-//             content: "";
-//             display: block;
-//             position: absolute;
-//         }
-// 		a{
-// 			width: 136px;
-// 			font: 700 14px/46px 'NotoSansKR';
-// 			letter-spacing: 0;
-// 			position: relative;
-// 			display: block;
-// 			text-align: center;
-// 			height: 48px;
-// 			color: #fff;
-// 			background:#000;
-// 			z-index: 2;
-// 			border: 1px solid #000;
-// 			.arrow{
-// 				margin-left: 17px;
-// 				vertical-align: middle;
-// 			}
-// 		}
-// 	}
-// 	&.white{
-// 		>div{
-// 			&::before{
-// 				border-bottom: 1px solid #fff;
-// 				border-left: 1px solid #fff;
-// 			}
-// 			&::after{
-// 				border-right: 1px solid #fff;
-// 				border-top: 1px solid #fff;
-// 			}
-// 			a{
-// 				color: #000;
-// 				background:#fff;
-// 				border: 1px solid #fff;
-// 				.arrow{
-// 				}
-// 			}
-// 		}
-// 	}
-// }
 .btn{
 	a{
 		text-align: center;
@@ -118,28 +54,23 @@ html,body{
 		}
 		.title__wrapper{
 			border-bottom: 3px solid #000;
-			overflow: hidden;
-			padding: 2rem 0 1rem 0;
-			// padding: 0 1.5rem;/*삭제*/
+			padding: 3rem 0;
+			width: 100%;
 			.title__wrapper__inner{
-				// padding: 2rem;
-				// overflow: hidden;/*삭제*/
-				// >div{/*div삭제*/
-					padding-bottom:10%;
-					position: relative;
-					div{
-						position: absolute;
-						animation:scroll 30s linear 0s infinite;
-						&:nth-child(2){
-							// left: 2560px;
-							left:131%;
-							width:100%;
-						}
-						img{
-							width:130%;
-						}
+				position: relative;
+				width: 270%;
+				animation: scroll 25s linear 0s infinite;
+				overflow: hidden;
+				div{
+					float: left;
+					width: 50%;
+					&:nth-child(2){
+						left:131%;
 					}
-				// }
+					img{
+						width:100%;
+					}
+				}
 
 			}
 		}
@@ -260,6 +191,9 @@ html,body{
 								}
 								&.grid01{
 									width:100%;
+									img{
+										width:99.5%;
+									}
 									.btn{
 										width:38%;
 										left: 26%;
@@ -272,10 +206,16 @@ html,body{
 							&:nth-child(2){
 								.grid03{
 									width:50%;
-									margin:0  0 0.6% 0;
+									padding:0  0 0.6% 0;
+									img{
+										width:98.9%;
+									}
 								}
 								.grid04{
 									width:50%;
+									img{
+										width:98.9%;
+									}
 								}
 							}
 						}
@@ -304,6 +244,7 @@ html,body{
 			background:url('/images/reebok/2020/event/bts/2002_ree_BTS_bg_DT.png') no-repeat;
 			background-position: 0 25%;
 			background-size: 100% auto;
+			transition: all 2s;
 			.tabs__wrapper{
 				&::after{
 					display:block;
@@ -340,10 +281,8 @@ html,body{
 			.tabs__contents{
 				display: none;
 				position: relative;
-				// opacity: 0;
 				&.active{
 					display: block;
-					// opacity: 1;
 					z-index:2;
 				}
 				&::after{
@@ -361,20 +300,19 @@ html,body{
 					}
 				}
 				.tabs__contents__wrapper{
-					// text-align: center;
-					// padding-bottom: 19%;
 					text-align: center;
 					padding-bottom: 19%;
-					padding-left: 1%;
-					padding-right: 1%;
 					.col{
-						width: 29.5%;
+						width: 30.5%;
 						display: inline-block;
 						text-align: center;
 						margin: 0 auto;
 						.tabs__contents__card{
-							margin-bottom: 8%;
+							margin-bottom: 7%;
 							position: relative;
+							&:hover{
+								animation:contentsHover 2s linear 0s infinite;
+							}
 							&:nth-child(2){
 								margin: 0;
 							}
@@ -395,7 +333,7 @@ html,body{
 							transform: translateY(18%);
 						}
 						&:nth-child(2){
-							margin: 0 3%;
+							margin: 0px 2%;
 						}
 						&:nth-child(3){
 							position: relative;
@@ -420,14 +358,12 @@ html,body{
 					height:60px;
 					text-align: center;
 					position: absolute;
-					// bottom:1100px;
-					bottom:60%;
+					bottom:67%;
 					opacity: 0;
 					transition: all 1s;
 					cursor:pointer;
 					&.active{
 						opacity: 1;
-						// bottom:1300px;
 						bottom:70%;
 					}
 				}
@@ -492,11 +428,23 @@ html,body{
 	}
 	@keyframes scroll {
 		from{
-			transform:translate(0,0)
+			// transform:translate(0,0)
+			left:0;
 		}
 		to{
-			// transform:translate(-2500px,0);
-			transform:translate(-135%,0);
+			left:-135%;
+			// transform:translate(-135%,0);
+		}
+	}
+	@keyframes contentsHover {
+		0% {
+			bottom:0;
+		}
+		50% {
+			bottom:-20px;
+		}
+		100%{
+			bottom:0;
 		}
 	}
 }
