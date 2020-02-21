@@ -74,24 +74,104 @@
 		}
 
 		&.ytb_wrap {
+			overflow: hidden;
 			text-align: center;
+			height: 1436px;
+			background: url('/images/adidas/2020/event/athletics/0221/ytb_bg.jpg') left top no-repeat;
+			color: #fff;
 			h3{
-				font: 600 34px "NotoSansKR";
-				text-align: center;
-				color: #000;
-			}
-			p{
-				padding: 20px 0 50px;
-				font: 400 16px "NotoSansKR";
+				margin-top: 120px;
+				font: 600 34px/38px "NotoSansKR";
 				text-align: center;
 			}
-			.ytb_items{
+			>p{
+				padding: 20px 0 35px;
+				font: 500 22px "NotoSansKR";
+				text-align: center;
+			}
+			.slider_nav_ytb {
+				width: 670px;
+				margin: 36px auto 20px;
+				>*{
+					display: inline-block;
+				}
+				.nav_name{
+					margin: 0 58px;
+					ul{
+						overflow: hidden;
+						position: relative;
+						width: 480px;
+						height: 130px;
+						li{
+							position: absolute;
+							img {
+								display: block;
+
+								opacity: 0;
+								transform: translateY(30px);
+								filter: blur(10px);
+								transition: 0.6s;
+							}
+							&.on {
+								img {
+									opacity: 1;
+									transform: translateY(0);
+									filter: blur(0);
+								}
+							}
+						}
+					}
+				}
+			}
+			.slider_ytb_sub{
+				position: absolute;
+				width: 100%;
+				ul{
+					position: relative;
+					width: 670px;
+					height: 430px;
+					top: 0;
+					left: 50%;
+					margin-left: -335px;
+					// background: rgba(0, 0, 0, 0.4);
+					li{
+						position: absolute;
+						width: 670px;
+						height: 430px;
+						top: 0;
+						left: 0;
+						opacity: 0;
+						.prds {
+							position: absolute;
+							top: 65px;
+							z-index: 3;
+
+							opacity: 0;
+							transition: 1s;
+							&.prd_1 {left: -430px;}
+							&.prd_2 {right: -430px;}
+						}
+						
+						&.on{
+							opacity: 1;
+							.prds{
+								opacity: 1;
+								&.prd_1 {left: -480px;}
+								&.prd_2 {right: -480px;}
+							}
+						}
+					}
+				}
+			}
+			#slider_ytb {
 				margin: 0 auto;
-				width: 1200px;
+				width: 670px; // h430
 				.item {
 					position: relative;
-					width: 300px;
-					display: inline-block;
+					>video{
+						display: block;
+						width: 100%;
+					}
 					>img {
 						display: block;
 						width: 100%;
@@ -105,25 +185,70 @@
 						transform: translate(-50%, -50%);
 						z-index: 3;
 					}
-
-					.item_prds_wrap{
-						display: none;
-						top: -100px;
-						left: 150%;
-						position: absolute;
-						z-index: 5;
-						// &::before{
-						// 	display: inline-block;
-						// 	content: '';
-						// 	top: 0;
-						// 	left: 0;
-						// 	right: 0;
-						// 	bottom: 0;
-						// 	width: 100vw;
-						// 	height: 100vh;
-						// 	background: rgba(0, 0, 0, 0.6);
-						// 	z-index: 2;
-						// }
+				}
+				.slick-dots{
+					overflow: hidden;
+					width: 1050px;
+					margin: 20px 0 35px -190px;
+					li{
+						float: left;
+						width: 225px;
+						margin-right: 50px;
+						
+						// outline: 1px solid #fff;
+						&:last-child{
+							margin-right: 0;
+						}
+						&.slick-active{
+							.dot_inner_ytb {
+								.dot-img{
+									border:5px solid #fff;
+									img{
+										filter: grayscale(0);
+										-ms-filter: grayscale(0);
+									}
+								}
+							}
+						}
+						&:hover{
+							.dot_inner_ytb {
+								.dot-img {
+									border: 5px solid #fff;
+								}
+							}
+						}
+						.dot_inner_ytb{
+							color: #fff;
+							text-align: center;
+							span{
+								display: inline-block;
+								padding: 0 0 10px;
+								font: 500 20px/20px 'adihausDIN-Cond-bold';
+							}
+							.dot-img{
+								width: 225px;
+								height: 135px;
+								background: #000;
+								box-sizing: border-box;
+								-ms-box-sizing: border-box;
+								-webkit-box-sizing: border-box;
+								-moz-box-sizing: border-box;
+								border-width: 0;
+								transition: 0.2s;
+								img{
+									display: block;
+									width: 100%;
+									height: 100%;
+									filter: grayscale(100%);
+									-ms-filter: grayscale(100%);
+								}
+							}
+							p{
+								padding: 10px 0 0;
+								font: 500 20px/20px 'NotoSansKR';
+								text-align: center;
+							}
+						}
 					}
 				}
 			}
@@ -137,14 +262,16 @@
 				text-align: center;
 			}
 			h3{
-				font: 600 34px "NotoSansKR";
+				font: 600 34px/40px "NotoSansKR";
 			}
 			p{
 				padding: 30px 0;
 				font: 22px "NotoSansKR";
 			}
 			strong{
-				font: 500 22px "NotoSansKR";
+				display: inline-block;
+				padding-top: 20px;
+				font: 500 22px/28px "NotoSansKR";
 			}
 		}
 
