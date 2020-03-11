@@ -1,0 +1,576 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+html,body{
+	height:100%;
+}
+#footer{
+    z-index: 19;
+}
+#fasterthan {
+	.rel{
+		position: relative;
+		height:800px;
+	}
+	.ct{
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+	}
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			div{
+				.bg{
+					box-shadow: inset 0 0 0 1px #000;
+    				-webkit-box-shadow: inset 0 0 0 1px #000;
+					@include css3(transition, all 0.5s);
+				}
+				a{
+					color: #767677;
+				    background: #000;
+					span{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		a{
+			letter-spacing: 1px;
+			padding:0 20px;
+		}
+	}
+	// modal pop 화사 엘리스
+    .modal-popup-wrapper{
+        .overlay{
+            background: rgba(0, 0, 0, 0.99)!important;
+		}
+		.popup{
+			background:none;
+			.button_area_v2{
+				position: relative;
+				bottom: -145px;
+			}
+			.popup-contents{
+				padding: 0;
+				background:none;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				.close{
+					display: inline-block;
+					// position: absolute;
+					top: -120px;
+					right: -60px;
+					width: 60px;
+					height: 60px;
+					padding: 0 10px;
+					box-sizing: border-box;
+					img{
+						width: 40px;
+						height: 40px;
+					}
+				}
+				.slider{
+					position: relative;
+					width: 100%;
+					height: 100%;                
+					ul{
+						position: relative;
+						width: 100%;
+						height: 100%;
+						&:after{
+							content: '';
+							display: block;
+							clear: both;
+						}
+						li{
+							position: absolute;
+							display: none;
+							&.on{
+								display: block;
+							}
+							top:50%;
+							left:50%;
+							transform: translate(-50%,-50%);
+							&:nth-child(5),
+							&:nth-child(11),
+							&:nth-child(12),
+							&:nth-child(18){
+								// top:50%;
+								// left:50%;
+								// transform: translate(-50%,-50%);
+
+								// margin-top:-260px;
+								// margin-left:-390px;
+							}
+						}
+					}
+				}
+				>a{
+					display: inline-block;
+					position: absolute;
+					top: 250px;
+					display: inline-block;
+					width: 75px;
+					height: 38px;
+					// text-indent: -3000px;
+					&.prev{
+						left: -170px;
+						background: url('/images/adidas/2020/event/fasterthan/0311/prev.png') 0 0 no-repeat;
+					}
+					&.next{
+						right: -175px;
+						background: url('/images/adidas/2020/event/fasterthan/0311/next.png') 0 0 no-repeat;
+					}
+				}
+				.dot{
+					position: absolute;
+					bottom:-145px;
+					left:50%;
+					transform: translateX(-50%);
+					text-align:center;
+					span{
+						display:inline-block;
+						transition: all .5s ease-out;
+						font: 20px/20px 'adihaus-bold';
+						color:#fff;	
+					}
+				}
+			}
+		}
+		&:nth-child(5),
+		&:nth-child(11),
+		&:nth-child(12),
+		&:nth-child(18){
+			.popup{
+				.popup-contents{
+					.dot{
+						bottom:-35px;
+					}
+				}
+			}
+		}
+	}
+	// modal pop.cards
+    .cards{
+		overflow: unset;
+        .overlay{
+            background: rgba(0, 0, 0, 0.99)!important;
+		}
+		&.pop-ul,&.pop-sl{
+			.popup{
+				margin: -320px 0px 0px -400px !important;
+			}
+		}
+		.popup{
+			background:none;
+			.popup-contents{
+				padding: 0;
+				background:none;
+				width: 100%;
+				height: 100%;
+				.close{
+					display: inline-block;
+					position: absolute;
+					top: 0;
+					right: -66px;
+					width: 60px;
+					height: 60px;
+					padding: 0 10px;
+					box-sizing: border-box;
+					img{
+						width: 40px;
+						height: 40px;
+					}
+				}
+				.content__wrapper{
+					// height: 600px;
+					// overflow: auto;
+					a{
+						top:0;
+						img{
+							// width:100%;
+						}
+					}
+				}
+				// >a{
+				// 	display: inline-block;
+				// 	position: absolute;
+				// 	top: 250px;
+				// 	display: inline-block;
+				// 	width: 60px;
+				// 	height: 60px;
+				// 	// text-indent: -3000px;
+				// 	&.prev{
+				// 		left: -85px;
+				// 		background: url('/images/adidas/2020/event/fasterthan/0306/ub20_prev_DT.png') 0 0 no-repeat;
+				// 	}
+				// 	&.next{
+				// 		right: -105px;
+				// 		background: url('/images/adidas/2020/event/fasterthan/0306/ub20_next_DT.png') 0 0 no-repeat;
+				// 	}
+				// }
+
+			}
+		}
+
+	}
+
+	.main__wrapper{
+		.main__wrapper__inner{
+			position: relative;
+			padding-bottom: 41.6%;
+			img{
+				position: absolute;
+				top:0;
+				left:50%;
+				transform: translateX(-50%);
+				width:100%;
+				height:auto;
+				opacity: 0;
+				transition: all 2s;
+				&.on{
+					opacity: 1;
+				}
+			}
+		}
+	}
+	.text__wrapper{
+		width: 835px;
+		margin: 0 auto;
+		padding: 56px 0;
+		.inner{
+			width:843px;
+			margin:0 auto;
+			.text__wrapper__txt{
+				position: relative;
+    			left: -45px;
+				&::after{
+					display:block;
+					clear:both;
+					content:'';
+				}
+				img{
+					float: left;
+					margin-right:60px;
+				}
+			}
+			.button_area_v2{
+				float: left;
+				position: relative;
+				top: 22px;
+			}
+		}
+	}
+	.popup_slide_wrapper{
+		background:url('/images/adidas/2020/event/fasterthan/0311/bg.jpg') no-repeat;
+		background-position: top;
+		background-size:100% 100%;
+		padding: 80px 0;
+		&.bg02{
+			background:url('/images/adidas/2020/event/fasterthan/0311/bg02.jpg') no-repeat;
+			background-position: top;
+			background-size:100% 100%;
+			padding: 80px 0;
+		}
+		.popup_slide_wrapper_inner{
+			position: relative;
+			margin-bottom: 2%;
+			&:last-child{
+				margin-bottom:0;
+			}
+			.popup_slider{
+				.slick-list{
+					width:90%;
+					margin:0 auto;
+					// overflow:hidden;
+					.slick-track{
+						.item{
+							&::after{
+								display:block;
+								clear:both;
+								content:'';
+							}
+							div{
+								float:left;
+								width:33.3%;
+								overflow:hidden;
+								img{
+									width:99%;
+									margin: 0 auto;
+								}
+								&.head{
+									width:66.6%;
+								}
+							}
+						}
+					}
+				}
+			}
+			.popup_slider_nav{
+				.prev-button{
+					position: absolute;
+					top:50%;
+					left:1.5%;
+					transform: translateY(-50%);
+				}
+				.next-button{
+					position: absolute;
+					top:50%;
+					right:1%;
+					transform: translateY(-50%);
+				}
+			}
+		}
+
+	}
+	.video__wrapper{
+		position: relative;
+		video{
+			width:100%;
+		}
+		a{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+		}
+
+	}
+	.state__wrapper{
+		padding: 90px 0;
+		h1{
+			font: 700 34px/40px 'NotoSansKR';
+			color:#f0350e;
+			text-align: center;
+		}
+		p{
+			font: 400 22px/29px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+			margin:40px 0;
+		}
+		span{
+			font: 700 22px/28px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+			display: block;
+		}
+	}
+
+	.grid__wrapper{
+		background:url('/images/adidas/2020/event/fasterthan/2002_a_fasterthan_bg.jpg') no-repeat;
+		background-size: 100% 100%;
+		background-position: top;
+		padding: 105px 0 130px;
+		.grid__wrapper__txt{
+			text-align: center;
+			padding:0 0 50px;
+			img{
+
+			}
+		}
+		.grid__wrapper__inner{
+			width:1190px;
+			min-width:1190px;
+			margin:0 auto;
+			padding: 0 0 65px 0;
+			// &:nth-child(3){
+			// 	width:790px;
+			// 	min-width:790px;
+			// }
+			&:last-child{
+				padding:0;
+			}
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			.grid__wrapper__item{
+				float: left;
+				padding:8px;
+				background:#fff;
+				margin-right:8px;
+				height:390px;
+				max-height:390px;
+				&:last-child{
+					margin-right:0;
+				}
+				>img{
+					width: 100%;
+				}
+				.txt{
+					padding: 30px 0;
+					h1{
+						font: 700 30px/30px 'NotoSansKR';
+						color:#000;
+						text-align: center;
+					}
+					p{
+						font: 400 22px/30px 'NotoSansKR';
+						color:#000;
+						text-align: center;
+						strong{
+							color:#f0350e;
+						}
+						>img{
+							vertical-align: middle;
+    						width: 25%;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.aside__wrapper{
+		padding: 105px 0;
+		text-align: center;
+		h1{
+			font: 700 34px/40px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+		}
+		p{
+			font: 400 22px/30px 'NotoSansKR';
+			color:#000;
+			text-align: center;
+			margin: 45px 0 60px;
+		}
+		.button_area_v2{
+		}
+	}
+
+	.clock__wrapper{
+		background:url('/images/adidas/2020/event/fasterthan/ddayBg.jpg') no-repeat;
+		background-position: top;
+		background-size:auto;
+		padding: 70px 0;
+		text-align: center;
+		>span{
+			font: 700 34px/34px 'NotoSansKR';
+			color:#fff;
+		}
+		.clock__wrapper__timer{
+			padding-bottom:190px;
+			position: relative;
+			margin:35px 0;
+			.inner{
+				position: absolute;
+				top:0;
+				left:50%;
+				transform: translateX(-50%);
+				>div{
+					background:url('/images/adidas/2020/event/fasterthan/clockBg_single.png') no-repeat;
+					background-position: top;
+					display: inline-block;
+					background-size:100% auto;
+					min-width: 112px;
+    				min-height: 190px;
+					.clockBg{
+						font: 170px/180px 'adihausDIN-Cond-bold';
+						color: #fff;
+						// position: absolute;
+						// top: 57%;
+						// left: 50%;
+						// transform: translate(-50%,-50%);
+						text-align: center;
+						padding-top: 18px;
+					}
+					#first{
+		
+					}
+					#second{
+		
+					}
+				}
+			}
+		}
+		.clock__wrapper__txt{
+			text-align: center;
+			h1{
+				font: 700 34px/40px 'NotoSansKR';
+				color:#fff;
+				text-align: center;
+			}
+			p{
+				font: 400 22px/30px 'NotoSansKR';
+				color:#fff;
+				text-align: center;
+				margin: 50px 0;
+			}
+			.button_area_v2{
+			}
+		}
+
+
+
+	}
+
+	.prod__wrapper{
+		&::after{
+			display: block;
+			clear:both;
+			content: '';
+		}
+		min-width: 1250px;
+		.prod__wrapper__item{
+			float: left;
+			&:first-child,&:last-child{
+				width:26.302083333333332%;
+				.txt{
+					text-align: center;
+					position: relative;
+					padding-bottom: 80%;
+					.wrap{
+						position: absolute;
+						top:50%;
+						left:50%;
+						transform: translate(-50%,-50%);
+						text-align: center;
+						white-space: nowrap;
+						h1{
+							font: 700 1.5rem 'NotoSansKR';
+							line-height: 1.7rem;
+							// font: 700 1.5rem/1.7rem 'NotoSansKR';
+							color:#000;
+							text-align: center;
+							em{
+								color:#f0350e;
+								font: 700 1.5rem 'NotoSansKR';
+							}
+						}
+						p{
+							font: 700 1.2rem/1.5rem 'NotoSansKR';
+							color:#000;
+							text-align: center;
+							margin:5px 0 20px;
+						}
+						>div{
+							text-align: center;
+							margin:0 0 15px 0;
+						}
+					}
+
+				}
+			}
+			&:nth-child(2){
+				width:47.39583333333333%;
+
+			}
+			img{
+				width:100%;
+			}
+		}
+	}
+}
