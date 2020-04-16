@@ -1,0 +1,304 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2 {
+	>div {
+		position: relative;
+		display: inline-block;
+		&:hover{
+			a{
+				color: #767677;
+				background: #000;
+				span{
+					&.arrow{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		.bg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+		}
+		a {
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			padding:0 20px;
+			span {
+				&.arrow {
+					position: relative;
+					top: -1px;
+					display: inline-block;
+					margin-left: 20px;
+					width: 25px;
+					height: 2px;
+					background: #fff;
+					vertical-align: middle;
+					em {
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top {
+							top: -3px;
+						}
+						&.bottom {
+							bottom: -3px;
+							transform: rotate(-45deg);
+							-webkit-transform: rotate(-45deg);
+						}
+					}
+				}
+			}
+		}
+		&.white {
+			&:hover{
+				a{
+					color: #767677;
+					background: #fff;
+					span {
+						&.arrow {
+							background: #767677;
+							em {
+								background: #767677;
+							}
+						}
+					}
+				}
+			}
+			.bg {
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a {
+				color: #000;
+				background: #fff;
+				span {
+					&.arrow {
+						background: #000;
+						em {
+							background: #000;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+.btn{
+	display: inline-block;
+	>div{
+		position: relative;
+		&::before{
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            bottom: -4px;
+            height: 3px;
+            left: 2px;
+            width: calc(100% + 1px);
+            content: "";
+            display: block;
+            position: absolute;
+		}
+		&::after{
+            border-right: 1px solid #000;
+            border-top: 1px solid #000;
+            height: calc(100% + 1px);
+            right: -4px;
+            top: 2px;
+            width: 3px;
+            content: "";
+            display: block;
+            position: absolute;
+        }
+		a{
+			padding: 0 25px;
+			width: auto;
+			font: 700 14px/46px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 48px;
+			color: #fff;
+			background:#000;
+			z-index: 2;
+			border: 1px solid #000;
+			.arrow{
+				margin-left: 17px;
+				vertical-align: middle;
+			}
+		}
+	}
+	&.white{
+		>div{
+			&::before{
+				border-bottom: 1px solid #fff;
+				border-left: 1px solid #fff;
+			}
+			&::after{
+				border-right: 1px solid #fff;
+				border-top: 1px solid #fff;
+			}
+			a{
+				color: #000;
+				background:#fff;
+				border: 1px solid #fff;
+				.arrow{
+				}
+			}
+		}
+	}
+}
+@mixin centerImg{
+	position: relative;
+	.ct{
+		position: absolute;
+		top:0;
+		left:50%;
+		transform: translateX(-50%);
+	}
+}
+@mixin centerWhite{
+	text-align: center;
+	color:#fff;
+}
+
+.doublepoint {
+	.main__wrapper{
+		@include centerImg();
+		height:540px;
+		.main__wrapper__txt{
+			position: absolute;
+			bottom:40px;
+			left:50%;
+			transform: translateX(-50%);
+			h1{
+				font: 900 67px/67px 'NotoSansKR';
+				@include centerWhite();
+				letter-spacing: 3px;
+				span{
+					display: block;
+					@include centerWhite();
+					letter-spacing: 4px;
+					strong{
+						font: 900 80px/80px 'neueplak-ext';
+						@include centerWhite();
+					}
+					em{
+						font: 900 55px/55px 'neueplak-ext';
+						@include centerWhite();
+					}
+					span{
+						display: inline-block;
+						font: 700 50px/50px 'NotoSansKR';
+						letter-spacing: 1px;
+						@include centerWhite();
+					}
+				}
+			}
+			>span{
+				display: block;
+				font: 700 23px/35px 'NotoSansKR';
+				@include centerWhite();
+				span{
+					display: block;
+					font: 400 22px/50px 'neueplak';
+					@include centerWhite();
+				}
+			}
+			.button_area_v2{
+				margin:100px 0 0 0;
+				text-align: center;
+			}
+		}
+	}
+	.aside__wrapper{
+		@include centerImg();
+		height:449px;
+	}
+	.section__wrapper{
+		max-width: 1920px;
+		margin:0 auto;
+		.section__wrapper__inner{
+			&::after{
+				display: block;
+				content:'';
+				clear:both;
+			}
+			>div{
+				float:left;
+				position: relative;
+				width:50%;
+				>img{
+					width:100%;
+				}
+				.section__wrapper__txt{
+					position: absolute;
+					top:50%;
+					right:5%;
+					transform: translateY(-50%);
+					text-align: right;
+					>div{
+						width: 241px;
+						h1{
+							text-align: center;
+							font: 800 50px/50px 'neueplak';
+							color:#000;
+						}
+						.button_area_v2{
+							margin:40px 0 0 0;
+							text-align: center;
+						}
+					}
+				}
+				&:nth-child(2){
+					.section__wrapper__txt{
+						left:5%;
+						text-align: left;
+						>div{
+						}
+					}
+				}
+			}
+		}
+	}
+	.bottom__wrapper{
+		@include centerImg();
+		height:333px;
+		.bottom__wrapper__img{
+			padding:40px 0;
+		}
+	}
+}
