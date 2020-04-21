@@ -13,16 +13,13 @@
 <link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
-<!-- <script type="text/javascript" src="/js/jquery/jquery-1.4.2.js"></script> -->
-<script type="text/javascript" src="/js/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="/js/modalPopup.js"></script>
-<script type="text/javascript" src="/js/customForm.js"></script>
-<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
-<script type="text/javascript" src="/js/comCode.js"></script>
-<script type="text/javascript" src="/js/validatorUtil.js"></script>
-<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+
+<script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script>
+<script src="/designjs/common/modalPopup.min.js"></script>
+<script src="/designjs/common/customForm.js"></script>
+<script src="/designjs/adidas/adidas.js"></script>
 
 
 </head>
@@ -30,13 +27,6 @@
 
 
 	<div id="wrap">
-
-		<script type="text/javascript" src="/js/adidas/navigation.js"></script>
-		<script type="text/javascript" src="/js/topSearchR.js"></script>
-		<script type="text/javascript" src="/js/validatorUtil.js"></script>
-		<script type="text/javascript" src="/js/search/dqAutoCompleteCommonTop.js"></script>
-		<script type="text/javascript" src="/js/adidas/select_layer.js"></script>
-
 
 		<div id="container_r" style="background: #fff;">
 			<!-- 170613 -->
@@ -744,7 +734,7 @@
 		</div>
 		<!-- 170616 반품신청 팝업 end -->
 
-		<!-- 170619 교환신청 팝업-->
+		<!-- 200421 교환신청 팝업-->
 		<div class="modal-popup-wrapper mypage-wrapper"
 			 data-modalpop=""
 			 data-modalpop-name="exchange_request_popup"
@@ -794,6 +784,17 @@
 											<th>주문상태</th>
 											<th>교환</th>
 										</tr>
+
+										<!-- item 1 -->
+										<!-- 20200421 교환매장 상단으로 이동 : 추가 동위클래스 top -->
+										<tr class="return_store top">
+											<td colspan="5">
+												<p class="title"><span class="sptbg store"></span>교환매장</p>
+												<p>[이태원] (140864) 서울 용산구 이태원1동 169-9번지, Tel:02-798-9977</p>
+											</td>
+										</tr>
+										<!-- 20200421 교환매장 상단으로 이동 END -->
+
 										<tr>
 											<td>
 												<div class="order_list">
@@ -814,29 +815,84 @@
 												</div>
 											</td>
 											<td><p class="adihaus">250</p></td>
-											<!-- 170622 input tag로 변경 -->
 											<td class="amount">
 												<input type="text" name="" value="" placeholder="1" />
 											</td>
-											<!-- 170622 input tag로 변경 end -->
 											<td><p>배송완료</p></td>
 											<td>
-												<div class="input-ctm input-radio-ctm small">
-												    <input type="radio" id="radio3" name="radio_group" value="OPS3" checked="">
-												    <label for="radio3">
-														<span class="ctm-box spt_bg">
-															<span class="spt_bg"></span>
-														</span>
+												<!-- 20200421 radio 버튼 checkbox로 변경 -->
+												<div class="input-ctm input-check-ctm small blue">
+													<input type="checkbox" id="check1" name="checkbox_group">
+													<label for="check1">
+														<a class="ctm-box spt_bg" href="javascript:void(0)">
+															<span class=" spt_bg"></span>
+														</a>
 													</label>
+												</div>
+												<!-- 20200421 radio 버튼 checkbox로 변경 END -->
+											</td>
+										</tr>
+
+										<!-- 20200421 각 상품에 교환사유 추가 : tr 추가된 클래스 return_reason -->
+										<tr class="return_reason">
+											<td colspan="5" style="padding: 10px 0;">
+												<div class="table-wrapper type2">
+													<table>
+														<colgroup>
+															<col width="114">
+															<col width="*">
+														</colgroup>
+														<tr>
+															<th>교환 사유</th>
+															<td class="no_line">
+																<div class="inner_td clfix">
+																	<div class="selectbox-ctm blue">
+																		<a href="javascript:void(0)" class="">교환사유 선택</a>
+																		<div class="arrow spt_bg"></div>
+																		<div class="select-contents option-list">
+																			<ul>
+																				<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
+																				<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
+																				<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
+																				<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																	<div class="plus_selectbox">
+																		<span>교환 사이즈</span>
+																		<div class="selectbox-ctm blue">
+																			<a href="javascript:void(0)">사이즈</a>
+																			<div class="arrow spt_bg"></div>
+																			<div class="select-contents option-list">
+																				<ul>
+																					<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
+																					<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
+																					<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
+																					<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</table>
 												</div>
 											</td>
 										</tr>
-										<tr class="return_store">
+										<!-- 20200421 각 상품에 교환사유 추가 END -->
+										<!-- item 1 -->
+
+										<!-- item 2 -->
+										<!-- 20200421 교환매장 상단으로 이동 : 추가 동위클래스 top -->
+										<tr class="return_store top">
 											<td colspan="5">
 												<p class="title"><span class="sptbg store"></span>교환매장</p>
 												<p>[이태원] (140864) 서울 용산구 이태원1동 169-9번지, Tel:02-798-9977</p>
 											</td>
 										</tr>
+										<!-- 20200421 교환매장 상단으로 이동 END -->
+
 										<tr>
 											<td>
 												<div class="order_list">
@@ -857,34 +913,220 @@
 												</div>
 											</td>
 											<td><p class="adihaus">250</p></td>
-											<!-- 170622 input tag로 변경 -->
+											
 											<td class="amount">
 												<input type="text" name="" value="" placeholder="1" />
 											</td>
-											<!-- 170622 input tag로 변경 end -->
+											
 											<td><p>배송완료</p></td>
 											<td>
-												<div class="input-ctm input-radio-ctm small">
-												    <input type="radio" id="radio3" name="radio_group" value="OPS3" checked="">
-												    <label for="radio3">
-														<span class="ctm-box spt_bg">
-															<span class="spt_bg"></span>
-														</span>
+												<!-- 20200421 radio 버튼 checkbox로 변경 -->
+												<div class="input-ctm input-check-ctm small blue">
+													<input type="checkbox" id="check2" name="checkbox_group">
+													<label for="check2">
+														<a class="ctm-box spt_bg" href="javascript:void(0)">
+															<span class=" spt_bg"></span>
+														</a>
 													</label>
+												</div>
+												<!-- 20200421 radio 버튼 checkbox로 변경 END -->
+											</td>
+										</tr>
+
+										<!-- 20200421 각 상품에 교환사유 추가 : tr 추가된 클래스 return_reason -->
+										<tr class="return_reason">
+											<td colspan="5" style="padding: 10px 0;">
+												<div class="table-wrapper type2">
+													<table>
+														<colgroup>
+															<col width="114">
+															<col width="*">
+														</colgroup>
+														<tr>
+															<th>교환 사유</th>
+															<td class="no_line">
+																<div class="inner_td clfix">
+																	<div class="selectbox-ctm blue">
+																		<a href="javascript:void(0)" class="">교환사유 선택</a>
+																		<div class="arrow spt_bg"></div>
+																		<div class="select-contents option-list">
+																			<ul>
+																				<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a>
+																				</li>
+																				<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a>
+																				</li>
+																				<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
+																				<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																	<div class="plus_selectbox">
+																		<span>교환 사이즈</span>
+																		<div class="selectbox-ctm blue">
+																			<a href="javascript:void(0)">사이즈</a>
+																			<div class="arrow spt_bg"></div>
+																			<div class="select-contents option-list">
+																				<ul>
+																					<li data-option-value="value1"><a
+																							href="javascript:void(0)">옵션1</a></li>
+																					<li data-option-value="value2"><a
+																							href="javascript:void(0)">옵션2</a></li>
+																					<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a>
+																					</li>
+																					<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</table>
 												</div>
 											</td>
 										</tr>
-										<tr class="return_store">
+										<!-- 20200421 각 상품에 교환사유 추가 END -->
+										<!-- item 2 -->
+
+										<!-- item 3 -->
+										<!-- 20200421 교환매장 상단으로 이동 : 추가 동위클래스 top -->
+										<tr class="return_store top">
 											<td colspan="5">
 												<p class="title"><span class="sptbg store"></span>교환매장</p>
 												<p>[이태원] (140864) 서울 용산구 이태원1동 169-9번지, Tel:02-798-9977</p>
 											</td>
 										</tr>
+										<!-- 20200421 교환매장 상단으로 이동 END -->
+
+										<tr>
+											<td>
+												<div class="order_list">
+													<div class="box list_name">
+														<ul>
+															<li>
+																<div class="img"><a href="#" class=""><img
+																			src="http://image.adidas.co.kr/upload/prod/basic/120/CF0796-1_120X120.jpg"
+																			width="60" height="60" alt=""></a></div>
+																<div class="info">
+																	<p>Men's Originals</p>
+																	<p class="ellipsis">[모델착장] 튜블라 쉐도우</p>
+																	<div class="price-container">
+																		<span class="prc">83,000<span class="won">원</span></span>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td>
+												<p class="adihaus">250</p>
+											</td>
+
+											<td class="amount">
+												<input type="text" name="" value="" placeholder="1" />
+											</td>
+
+											<td>
+												<p>배송완료</p>
+											</td>
+											<td>
+												<!-- 20200421 radio 버튼 checkbox로 변경 -->
+												<div class="input-ctm input-check-ctm small blue">
+													<input type="checkbox" id="check3" name="checkbox_group">
+													<label for="check3">
+														<a class="ctm-box spt_bg" href="javascript:void(0)">
+															<span class=" spt_bg"></span>
+														</a>
+													</label>
+												</div>
+												<!-- 20200421 radio 버튼 checkbox로 변경 END -->
+											</td>
+										</tr>
+
+										<!-- 20200421 각 상품에 교환사유 추가 : tr 추가된 클래스 return_reason -->
+										<tr class="return_reason">
+											<td colspan="5" style="padding: 10px 0;">
+												<div class="table-wrapper type2">
+													<table>
+														<colgroup>
+															<col width="114">
+															<col width="*">
+														</colgroup>
+														<tr>
+															<th>교환 사유</th>
+															<td class="no_line">
+																<div class="inner_td clfix">
+																	<div class="selectbox-ctm blue">
+																		<a href="javascript:void(0)" class="">교환사유 선택</a>
+																		<div class="arrow spt_bg"></div>
+																		<div class="select-contents option-list">
+																			<ul>
+																				<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a>
+																				</li>
+																				<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a>
+																				</li>
+																				<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
+																				<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																	<div class="plus_selectbox">
+																		<span>교환 사이즈</span>
+																		<div class="selectbox-ctm blue">
+																			<a href="javascript:void(0)">사이즈</a>
+																			<div class="arrow spt_bg"></div>
+																			<div class="select-contents option-list">
+																				<ul>
+																					<li data-option-value="value1"><a
+																							href="javascript:void(0)">옵션1</a></li>
+																					<li data-option-value="value2"><a
+																							href="javascript:void(0)">옵션2</a></li>
+																					<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a>
+																					</li>
+																					<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<!-- 20200421 각 상품에 교환사유 추가 END -->
+										<!-- item 3 -->
 									</tbody>
 								</table>
 
 							</div>
 						</div>
+
+						<!-- 20200421 상담신청내용 여기로 위치이동 -->
+						<div class="box">
+							<div class="table-wrapper type2">
+								<table>
+									<colgroup>
+										<col width="114">
+										<col width="*">
+									</colgroup>
+									<tr>
+										<th class="va_top">상담신청내용</th>
+										<td class="no_line">
+											<div class="inner_td">
+												<textarea name="name" rows="8" cols="80"></textarea>
+											</div>
+
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!-- 20200421 상담신청내용 여기로 위치이동 END -->
 
 						<div class="box">
 							<h3>수거지 정보</h3>
@@ -908,14 +1150,15 @@
 									<tr><td class="no_line"><div class="input-box"><input type="text" name="" value="(죽전동, 현인마을 이편한세상) 1302동 902호 "></div></td></tr>
 									<tr class="last">
 										<th>수거지 연락처</th>
-										<td><div class="input-box "><input type="text" name="" value="(죽전동, 현인마을 이편한세상) 1302동 902호 "></div></td>
+										<td class="no_line"><div class="input-box "><input type="text" name="" value="" style="width:206px;"></div></td>
 									</tr>
 								</table>
 							</div>
 						</div>
 
 						<div class="box">
-							<h3>교환신청정보</h3>
+							<!-- 20200421 타이틀 수정 : 교환신청정보 -> 배송지정보 -->
+							<h3>배송지정보</h3>
 							<div class="side-select">
 								<div class="input-ctm input-radio-ctm small">
 								    <input type="radio" id="radio3" name="radio_group" value="OPS3" checked="">
@@ -932,7 +1175,8 @@
 										<col width="114">
 										<col width="*">
 									</colgroup>
-									<tr class="first">
+									<!-- 20200421 기존위치의 교환상품명 / 교환사유 / 상담신청내용 제거 -->
+									<!-- <tr class="first">
 										<th>교환 상품명</th>
 										<td class="no_line">
 											<div class="inner_td">
@@ -950,8 +1194,10 @@
 													<div class="arrow spt_bg"></div>
 													<div class="select-contents option-list">
 														<ul>
-															<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
-															<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
+															<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a>
+															</li>
+															<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a>
+															</li>
 															<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
 															<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
 														</ul>
@@ -966,8 +1212,10 @@
 															<ul>
 																<li data-option-value="value1"><a href="javascript:void(0)">옵션1</a></li>
 																<li data-option-value="value2"><a href="javascript:void(0)">옵션2</a></li>
-																<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a></li>
-																<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a></li>
+																<li data-option-value="값3"><a href="javascript:void(0)">옵션3</a>
+																</li>
+																<li data-option-value="값4"><a href="javascript:void(0)">옵션4</a>
+																</li>
 															</ul>
 														</div>
 													</div>
@@ -977,15 +1225,17 @@
 									</tr>
 									<tr>
 										<th class="va_top">상담신청내용</th>
-										<!-- 170808 no_line 클래스 추가 -->
 										<td class="no_line">
 											<div class="inner_td">
 												<textarea name="name" rows="8" cols="80"></textarea>
 											</div>
 
 										</td>
-									</tr>
-									<tr>
+									</tr> -->
+									<!-- 20200421 기존위치의 교환상품명 / 교환사유 / 상담신청내용 제거 END -->
+
+									<!-- 20200421 위내용 삭제로 인해 배송지주소 tr 에 클래스 first 추가 -->
+									<tr class="first">
 										<th class="va_top" rowspan="4">배송지 주소</th>
 										<td class="no_line">
 											<div class="inner_td">
@@ -1030,7 +1280,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 170619 교환신청 팝업 end -->
+		<!-- 200421 교환신청 팝업 end -->
 
 
 	</div>
