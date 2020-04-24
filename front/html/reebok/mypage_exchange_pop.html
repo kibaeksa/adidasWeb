@@ -1,81 +1,1308 @@
-﻿
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>리복 공식 온라인 스토어 반품 절차</title>
-<link rel="shortcut icon" href="/images/reebok/favicon.ico"/>
-<link rel="apple-touch-icon-precomposed" href="/images/reebok/icon_114.png" />
-<link rel="stylesheet" type="text/css" href="/css/reebok/reebok.css" />
-</head>
-<body>
-	<script src="/js/jquery/jquery-1.4.2.js" type="text/javascript"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>리복 공식 온라인 스토어 교환신청 팝업</title>
+	<meta name="robots" content="noindex" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<!-- Google Tag Manager dataLayer for global header -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		window.dataLayer.push({
+			'UID': "00208694010", // 고객 키 값
+			'CD1': "00208694010", // 고객 키 값
+			'CD2': "1", // 회원의 성별 정보
+			'CD3': "0A33P", // 회원의 연령 정보
+			'CD4': 'PC_Web', // 접속한 디바이스 정보
+			'CD5': '', // 내부 고객 등급
+			'CD7': 'Y', // 로그인 여부
+			'CD8': "", // 현재 페이지 카테고리 Depth1
+			'CD9': "", // 현재 페이지 카테고리 Depth2
+			'CD10': "", // 현재 페이지 카테고리 Depth3
+			'CD11': "" // 현재 페이지 카테고리 Depth4
+		});
+	</script>
+	<!-- End Google Tag Manager Data Layer -->
+	<!-- Google Tag Manager -->
+	<script>
+		(function (w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(),
+				event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s),
+				dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src =
+				'//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-TFTJTR');
+	</script>
+	<!-- End Google Tag Manager -->
+
+	<link rel="shortcut icon" href="//qac.reebok.co.kr/images/reebok/favicon.ico" />
+	<link rel="apple-touch-icon-precomposed" href="//qac.reebok.co.kr/images/reebok/icon_114.png" />
+	<link rel="stylesheet" type="text/css" href="//qac.reebok.co.kr/css/reebok/reebok.css" /><!--  -->
+
+	<script type="text/javascript" src="//service.maxymiser.net/api/us/reebok.co.kr/3a9227/mmapi.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="//qac.reebok.co.kr/css/reebok/fonts.css" /><!--  -->
+	<link rel="stylesheet" href="//qac.reebok.co.kr/css/reebok/efu2018/common.css" /><!--  -->
+	<link rel="stylesheet" href="//qac.reebok.co.kr/css/reebok/efu2018/content.css" /><!--  -->
+	<link rel="stylesheet" href="//qac.reebok.co.kr/css/reebok/efu2018/reebok.css" /><!--  -->
+
+	<!--[if IE 9]>
+<link rel="stylesheet" href="//qac.reebok.co.kr/css/reebok/efu2018/ie9.css"/>
+<![endif]-->
+
+	<script type="text/javascript" src="//qac.reebok.co.kr/js/plugin/jquery/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/designjs/reebok/efu2018/ui.js"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/designjs/reebok/efu2018/header.js"></script>
+	<script type="text/javascript" src="//image.reebok.co.kr/js/plugin/common/common.js?ver=20160727"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/js/comCode.js"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/js/plugin/common/common.js"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/js/plugin/common/validatorUtil.js"></script>
+	<script type="text/javascript" src="//qac.reebok.co.kr/js/plugin/jquery/jquery-ui.min.js"></script>
 	<script type="text/javascript">
-		function fn_bank_layer(num){
-			jQuery('#bank_layer'+num).show();
+		jQuery(document).ready(function () {
+
+			var PROGRS_CLAIM_COUNT = "0";
+			var partCanclAvblYn = "Y";
+			var exchgIngYn = "N";
+			fn_chgAddrCss();
+			if ((partCanclAvblYn != 'Y' || exchgIngYn == 'Y') && !cfn_isEmpty(PROGRS_CLAIM_COUNT) &&
+				PROGRS_CLAIM_COUNT != '0') {
+				alert("진행중인 취소/반품/교환 건이 존재합니다.");
+				fn_close();
+			}
+
+			jQuery("#CLAIM_TYPE option[value=98]").remove();
+
+			jQuery("input[name='CLAIM_CANCL_QTY']").blur(function () {
+				checkClaimCanclQty(this);
+			});
+		});
+
+		function checkClaimCanclQty(claimCanclQtyInputObj) {
+			var abvlClaimCanclQty = jQuery(claimCanclQtyInputObj).parent().find("input[name='ABVL_CLAIM_CANCL_QTY']").val();
+			var claimCanclQty = jQuery(claimCanclQtyInputObj).val();
+			var selectedInputId = jQuery(claimCanclQtyInputObj).attr("id");
+
+			var val = new Validator("frmOrdReSize");
+			val.addItem(selectedInputId, "Y:Figure:Y::수량은 숫자만 입력 가능합니다.");
+
+			if (!val.validateForm("frmOrdReSize")) {
+				$(selectedInputId).val("1");
+				return false;
+			}
+
+			abvlClaimCanclQty = cfn_isNumberString(abvlClaimCanclQty) ? parseInt(abvlClaimCanclQty) : 0;
+			claimCanclQty = cfn_isNumberString(claimCanclQty) ? parseInt(claimCanclQty) : 0;
+
+			if (claimCanclQty <= 0) {
+				jQuery(claimCanclQtyInputObj).val(1);
+			}
+
+			if (claimCanclQty > abvlClaimCanclQty) {
+				jQuery(claimCanclQtyInputObj).val(abvlClaimCanclQty);
+			}
+
+			calculateReSizeAmt();
+
+			return true;
 		}
-		function fn_bank_layer_hide(num){
-			jQuery('#bank_layer'+num).hide();
+
+		function fn_chgAddrCss() {
+			// 수거지 지번주소의 유무로 구UI와 신UI의 노출 여부를 결정한다.
+			var addr_ji = jQuery("#RETURN_ADDR_JI").val();
+			if (addr_ji != "") {
+				jQuery("#RETURN_ADDR_JI").removeClass("blind");
+			} else {
+				if (!jQuery("#RETURN_ADDR_JI").hasClass("blind")) {
+					jQuery("#RETURN_ADDR_JI").addClass("blind");
+				}
+			}
+
+			// 배송지 지번주소의 유무로 구UI와 신UI의 노출여부를 결정한다.
+			var addr_ji = jQuery("#EXCHG_ADDR_JI").val();
+			if (addr_ji != "") {
+				jQuery("#EXCHG_ADDR_JI").removeClass("blind");
+			} else {
+				if (!jQuery("#EXCHG_ADDR_JI").hasClass("blind")) {
+					jQuery("#EXCHG_ADDR_JI").addClass("blind");
+				}
+			}
+
+
+		}
+
+
+
+		function fn_aply_return() {
+
+			var claimUnableYn = false;
+			jQuery("#frmOrdReSize .list tbody tr").each(function () {
+				if (jQuery(this).find(":radio").attr("checked") == true) {
+					if (jQuery(this).find("[name='CLAIM_UNABLE_YN']").val() == 'Y') {
+						claimUnableYn = true;
+						return;
+					}
+				}
+			});
+			if (claimUnableYn == true) {
+				alert("온라인으로 교환/반품 접수가 불가능한 상품입니다. 접수가 필요한 경우 고객센터(1588-7324)로 연락 주시기 바랍니다.");
+				return;
+			}
+
+			changeClaimType('2'); //교환신청시 반품-출고 배송비 계산
+
+
+			if ($("#EXCHG_OPTION_NO").val() == "0") {
+				alert("선택한 사이즈의 재고가 부족합니다.");
+				$("#EXCHG_OPTION_NO").focus();
+				return;
+			}
+
+			if ($("#CLAIM_TYPE").val() == "") {
+				alert("교환 사유를 선택해주세요.");
+				$("#CLAIM_TYPE").focus();
+				return;
+			}
+
+			if ($("#CLAIM_CONTENT").val() == "" || $("#CLAIM_CONTENT").val() == "상세사유 입력") {
+				alert("교환사유 내용을 입력해주세요.");
+				$("#CLAIM_CONTENT").focus();
+				return;
+			}
+
+			if (($("#RETURN_ADDR").val()).trim() == "") {
+				alert("수거지 주소를 입력해주세요.");
+				$("#RETURN_ADDR").focus();
+				return;
+			}
+
+			if (($("#RETURN_DTL_ADDR").val()).trim() == "") {
+				alert("수거지 주소를 입력해주세요.");
+				$("#RETURN_DTL_ADDR").focus();
+				return;
+			}
+
+			if (($("#FIRST_MOBL_NO").val()).trim() == "" || ($("#MIDDLE_MOBL_NO").val()).trim() == "" || ($("#LAST_MOBL_NO")
+					.val()).trim() == "") {
+				alert("수거지휴대전화번호를 입력해주세요.");
+				$("#FIRST_MOBL_NO").focus();
+				return;
+			}
+
+			if (($("#EXCHG_ADDR").val()).trim() == "") {
+				alert("배송지 주소를 입력해주세요.");
+				$("#EXCHG_ADDR").focus();
+				return;
+			}
+
+			if (($("#EXCHG_DTL_ADDR").val()).trim() == "") {
+				alert("배송지 주소를 입력해주세요.");
+				$("#EXCHG_DTL_ADDR").focus();
+				return;
+			}
+
+			if (($("#EXCHG_FIRST_MOBL_NO").val()).trim() == "" || ($("#EXCHG_MIDDLE_MOBL_NO").val()).trim() == "" || ($(
+					"#EXCHG_LAST_MOBL_NO").val()).trim() == "") {
+				alert("배송지휴대전화번호를 입력해주세요.");
+				$("#EXCHG_FIRST_MOBL_NO").focus();
+				return;
+			}
+
+			jQuery("#EXCHG_TEL_NO").val(($("#EXCHG_FIRST_TEL_NO").val()).trim() + ($("#EXCHG_MIDDLE_TEL_NO").val()).trim() + (
+				$("#EXCHG_LAST_TEL_NO").val()).trim());
+			jQuery("#EXCHG_MOBL").val(($("#EXCHG_FIRST_MOBL_NO").val()).trim() + ($("#EXCHG_MIDDLE_MOBL_NO").val()).trim() + (
+				$("#EXCHG_LAST_MOBL_NO").val()).trim());
+
+			jQuery("#RETURN_TEL_NO").val(($("#FIRST_TEL_NO").val()).trim() + ($("#MIDDLE_TEL_NO").val()).trim() + ($(
+				"#LAST_TEL_NO").val()).trim());
+			jQuery("#RETURN_MOBL").val(($("#FIRST_MOBL_NO").val()).trim() + ($("#MIDDLE_MOBL_NO").val()).trim() + ($(
+				"#LAST_MOBL_NO").val()).trim());
+
+			if (jQuery("#frmOrdReSize .list tbody tr :radio:checked").length == 0) {
+				alert("처리할 상품을 선택해주세요.");
+				$("#chkCancel_0").focus();
+				return;
+			}
+
+			var checkResult = false;
+			jQuery("input[name='CLAIM_CANCL_QTY']").each(function () {
+				checkResult = checkClaimCanclQty(this);
+				return checkResult;
+			});
+
+			if (!checkResult) {
+				return;
+			}
+
+			var confirmMsg = "";
+			jQuery("#confirmMsgArea p").each(function () {
+				confirmMsg += jQuery(this).text();
+				if (jQuery("#confirmMsgArea p").index(this) + 1 != jQuery("#confirmMsgArea p").length) {
+					confirmMsg += "\n";
+				}
+
+				if (jQuery(this).attr("class") == "br") {
+					confirmMsg += "\n";
+				}
+			});
+
+			if (!confirm(confirmMsg)) {
+				return;
+			}
+
+
+
+			var v_MemCharg = jQuery("#MEM_CHARG").val();
+			var v_ExchgCanclFee = $("#EXCHG_CANCL_DLIVY_FEE").val();
+			var v_ExchgRelesFee = $("#EXCHG_RELES_DLIVY_FEE").val();
+
+			if (parseInt(v_MemCharg) != (parseInt(v_ExchgCanclFee) + parseInt(v_ExchgRelesFee))) {
+				alert("교환신청 중 데이터 이상이 발생하였습니다. \n다시 신청해 주시기 바랍니다.");
+				return;
+			}
+
+			// 체크박스 안된 데이터들 제외 20190416 SKS 수정
+			jQuery("#frmOrdReSize .list tbody tr").each(function (i) {
+				//if(jQuery(this).find(":radio").attr("checked") == false) {
+				if (jQuery(this).find('input:radio[name=chkCancel]').is(':checked') == false) {
+					//jQuery(this).find(":radio").parent('tr').find("input:not(:radio)").each(function(i){
+					jQuery(this).find("input:radio[name=chkCancel]").parent().remove();
+					//});
+				}
+			});
+
+			jQuery("#TOTAL").attr("disabled", true);
+
+			var param = $("#frmOrdReSize").serialize(true);
+			var url = "/RPF0601022.action";
+
+			var onSuccess = function (req) {
+				var json = req.responseJSON;
+				JsonUtil.alert(json);
+
+				jQuery("#TOTAL").attr("disabled", false);
+
+				if (JsonUtil.isError(json)) {
+					try {
+						opener.fn_search();
+					} catch (e) {}
+				} else {
+
+				}
+				self.close();
+			};
+
+			var onFailure = function () {
+				jQuery("#TOTAL").attr("disabled", false);
+				alert('등록 중 에러가 발생했습니다.');
+				self.close();
+			};
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+		}
+
+
+		function changeClaimType(gubun) {
+
+			var claimType = jQuery("#CLAIM_TYPE option:selected").val();
+			var memChgmindYn = "N";
+
+			if (claimType == "01" || claimType == "03" || claimType == "04" || claimType == "06" || claimType == "99") {
+				memChgmindYn = "Y";
+			}
+
+			$("#MEM_CHGMIND_YN").val(memChgmindYn);
+			calculateReSizeAmt(gubun);
+		}
+
+
+		function calculateReSizeAmt(gubun) {
+			// 교환할 상품이 존재하는 경우만 계산
+			if (gubun != '1') {
+				calculateReSizeOpt(gubun);
+			}
+
+			if (jQuery("#frmOrdReSize .list tbody tr :radio:checked").length > 0 && jQuery("#CLAIM_TYPE option:selected")
+				.val() != '') {
+				var memChgmindYn = jQuery("input[name='MEM_CHGMIND_YN']").val();
+
+				if (memChgmindYn == "Y") {
+					var orderDtlNoArray = [];
+					var orderDtlQtyArray = [];
+					var returnPostNo = jQuery("#RETURN_POST_NO").val();
+					var exchgPostNo = jQuery("#EXCHG_POST_NO").val();
+					var dlivyAmtType;
+					if (gubun == '1') {
+						dlivyAmtType = '03';
+					} else {
+						dlivyAmtType = '02';
+					}
+
+					jQuery("#frmOrdReSize .list tbody tr :radio:checked").each(function (i) {
+						orderDtlNoArray.push(jQuery(this).parent().find("input[name='ORDER_DTL_NO']").val());
+						orderDtlQtyArray.push(jQuery(this).parent().parent().find("td input[name='CLAIM_CANCL_QTY']")
+							.val());
+					});
+
+					var info = {
+						DLIVY_AMT_TYPE: dlivyAmtType,
+						ORDER_NO: "202004233525729",
+						ORDER_DTL_NO_ARRAY: orderDtlNoArray,
+						ORDER_DTL_QTY_ARRAY: orderDtlQtyArray,
+						CANCL_POST_NO: returnPostNo,
+						EXCHG_POST_NO: exchgPostNo
+					};
+
+					changeDlvAmount(info, setCanclInfo);
+				} else {
+
+					var info = {
+						DLIVY_AMT_TYPE: "03",
+						ORDER_NO: "",
+						ORDER_DTL_NO_ARRAY: "",
+						ORDER_DTL_QTY_ARRAY: "",
+						CANCL_POST_NO: "",
+						EXCHG_POST_NO: ""
+					};
+
+					var result = {
+						FST_DLIVY_FEE: 0,
+						TOT_MEM_CHARG: 0
+					};
+					setCanclInfo(result, info);
+				}
+			}
+		}
+
+
+		function changeDlvAmount(info, callbackFunc) {
+			var dlivyAmtType = info.DLIVY_AMT_TYPE || '';
+			var orderNo = info.ORDER_NO || '';
+			var orderDtlNoArray = info.ORDER_DTL_NO_ARRAY || '';
+			var orderDtlQtyArray = info.ORDER_DTL_QTY_ARRAY || '';
+			var canclPostNo = info.CANCL_POST_NO || '';
+			var exchgPostNo = info.EXCHG_POST_NO || '';
+
+			var url = "/RPF0601021.action";
+			var param = "command=CLAIM_DLIVY_FEE";
+			param += "&DLIVY_AMT_TYPE=" + dlivyAmtType;
+			param += "&ORDER_NO=" + orderNo;
+			param += "&ORDER_DTL_NO_ARRAY=" + orderDtlNoArray.join(",");
+			param += "&ORDER_DTL_QTY_ARRAY=" + orderDtlQtyArray.join(",");
+			param += "&CANCL_POST_NO=" + canclPostNo;
+			param += "&EXCHG_POST_NO=" + exchgPostNo;
+
+			var onSuccess = function (req) {
+				var json = req.responseJSON;
+				if (JsonUtil.isError(json)) { // 정상 처리 라면
+					var fstDlivyFee = json.FST_DLIVY_FEE;
+					var totMemCharg = json.TOT_MEM_CHARG;
+
+					var result = {
+						FST_DLIVY_FEE: fstDlivyFee,
+						TOT_MEM_CHARG: totMemCharg
+					};
+					callbackFunc(result, info);
+				}
+			};
+
+			var onFailure = function () {
+				var result = {
+					FST_DLIVY: 0,
+					TOT_MEM_CHARG: 0
+				};
+				callbackFunc(result, info);
+			};
+
+			cfn_ajaxRequestAsync(url, param, onSuccess, onFailure);
+		}
+
+
+		function setCanclInfo(result, info) {
+
+			var orderProdAmtSum = cfn_isNumberString(jQuery("input[name='ORDER_PROD_PRICE_SUM']").val()) ? parseInt(jQuery(
+				"input[name='ORDER_PROD_PRICE_SUM']").val()) : 0;
+			var preDlivyFee = cfn_isNumberString(jQuery("input[name='PRE_DLIVY_FEE']").val()) ? parseInt(jQuery(
+				"input[name='PRE_DLIVY_FEE']").val()) : 0;
+			var totDlivyFee = "0";
+			totDlivyFee = parseInt(totDlivyFee);
+
+			var fstDlivyFee = result.FST_DLIVY_FEE || 0;
+			var totMemCharg = result.TOT_MEM_CHARG || 0;
+
+
+			var canclProdAmtSum = 0;
+			jQuery("#frmOrdReSize .list tbody tr :radio:checked").each(function () {
+				var salesPrice = cfn_isNumberString(jQuery(this).parent().find("input[name='SALES_PRICE']").val()) ?
+					parseInt(jQuery(this).parent().find("input[name='SALES_PRICE']").val()) : 0;
+				var claimCanclQty = cfn_isNumberString(jQuery(this).parent().parent().find(
+					"input[name='CLAIM_CANCL_QTY']").val()) ? parseInt(jQuery(this).parent().parent().find(
+					"input[name='CLAIM_CANCL_QTY']").val()) : 0;
+				canclProdAmtSum += (-1) * claimCanclQty * salesPrice;
+			});
+
+			var addDlivyFee = parseInt(totMemCharg);
+			var lastPaymtAmt = orderProdAmtSum + totDlivyFee + canclProdAmtSum + addDlivyFee;
+
+			if (info.DLIVY_AMT_TYPE == '02') {
+				var exchgFee = jQuery(".canclDlivyFeeInfo").text().replaceAll(',', '');
+				var canclDlyFee = totMemCharg - fstDlivyFee;
+				var relesDlyFee = exchgFee - (totMemCharg - fstDlivyFee);
+
+				jQuery("#EXCHG_CANCL_DLIVY_FEE").val(canclDlyFee);
+				jQuery("#EXCHG_RELES_DLIVY_FEE").val(relesDlyFee);
+				jQuery("#MEM_CHARG").val(exchgFee);
+				jQuery("#PG_REFUND_AMT").val(exchgFee);
+
+			} else {
+				jQuery(".canclDlivyFeeInfo").text(toCurrency(addDlivyFee));
+
+				jQuery("#EXCHG_CANCL_DLIVY_FEE").val("0");
+				jQuery("#EXCHG_RELES_DLIVY_FEE").val("0");
+				jQuery("#MEM_CHARG").val(addDlivyFee);
+				jQuery("#PG_REFUND_AMT").val(addDlivyFee);
+			}
+
+			jQuery(".orderProdExchgFee").text(jQuery("#MEM_CHARG").val());
+		}
+
+
+
+
+		function fn_searchZipcode_pop(funcNm) {
+			//     var url = "/RPF0601006.action?func=fn_callback_searchZipcode";
+			//     var width = "480";
+			//     var height = "550";
+
+			//     var asppop = cfn_openPop2(url, "post", width, height);
+			//     asppop.focus();
+
+			window.open("/reebokZipSearch.action?funcNm=" + funcNm, "zipSearshPop",
+				+"toolbar=no,status=no,menubar=no,location=no,directories=no," +
+				"scrollbars=no,resizable=no,width=650,height=300,top=100,left=100");
+		}
+
+		//우편번호 셋팅한다. (우편번호 팝업창에서 함수호출 및 정보를 넘겨준다.)
+		fn_zipSearchSetting = function (zipNo, roadAddrPart1, jibunAddr, si, gun, dong, num_bldg, nm_doro, delvya, dtl_addr) {
+			jQuery("#RETURN_POST_NO").val(zipNo);
+			jQuery("#RETURN_ADDR").val(roadAddrPart1);
+			jQuery("#RETURN_ADDR_JI").val(jibunAddr);
+			jQuery("#RETURN_DTL_ADDR").val(dtl_addr);
+			jQuery("#RETURN_SIDO").val(si);
+			jQuery("#RETURN_GUN").val(gun);
+			jQuery("#RETURN_DONG").val(dong);
+			jQuery("#DELVYA").val(delvya);
+			jQuery("#RETURN_NM_DORO").val(nm_doro);
+			jQuery("#RETURN_NUM_BLDG").val(num_bldg);
+			jQuery("#RETURN_DTL_ADDR").select();
+
+			changeClaimType('1');
+			fn_chgAddrCss();
+		};
+
+		//주소 찾기 - 우편번호
+		function dlivyInfo() {
+			var dlivy_post_no = $("#RETURN_POST_NO").val();
+			var command = "LIST_4";
+			var param = "command=" + command + "&POST_NO=" + dlivy_post_no;
+			var url = "/PF0601006.action?";
+
+			var onSuccess = function (req) {
+				var json = req.responseJSON;
+
+				JsonUtil.alert(json);
+
+				fn_dlivySearch(json);
+			};
+			var onFailure = function () {};
+
+			cfn_ajaxRequest(url, param, onSuccess, onFailure);
+		}
+
+		//주소 찾기 - 우편번호 찾기
+		function fn_dlivySearch(obj) {
+
+			var dlivyString = '';
+
+			for (var i = 0; i < obj.length; i++) {
+				dlivyString = obj[i].DLIVY_CD;
+			}
+
+			if (dlivyString == '5') {
+				alert('사서함으로는 주문이 불가능 합니다.');
+			}
+
+			$("#DELVYA").val(dlivyString);
+
+		}
+
+		//우편번호 셋팅한다. (우편번호 팝업창에서 함수호출 및 정보를 넘겨준다.)
+		fn_exchgZipSearchSetting = function (zipNo, roadAddrPart1, jibunAddr, si, gun, dong, num_bldg, nm_doro, delvya,
+			dtl_addr) {
+			jQuery("#EXCHG_POST_NO").val(zipNo);
+			jQuery("#EXCHG_ADDR").val(roadAddrPart1);
+			jQuery("#EXCHG_ADDR_JI").val(jibunAddr);
+			jQuery("#EXCHG_DTL_ADDR").val(dtl_addr);
+			jQuery("#EXCHG_SIDO").val(si);
+			jQuery("#EXCHG_GUN").val(gun);
+			jQuery("#EXCHG_DONG").val(dong);
+			jQuery("#EXCHG_NM_DORO").val(nm_doro);
+			jQuery("#EXCHG_NUM_BLDG").val(num_bldg);
+			jQuery("#EXCHG_DTL_ADDR").select();
+			exchgDlivyInfo();
+
+			changeClaimType('1');
+			fn_chgAddrCss();
+
+		};
+
+
+		// function fn_callback_searchZipcode(firstpost, lastpost, addr, sido, gun, dong, delvya, basic_addr, dtl_addr, num_bldg, nm_doro) {
+		//     if (delvya == '5'){
+		//         alert('사서함으로는 주문이 불가능 합니다.');
+		//         return;
+		//     }
+
+		//     jQuery("#FIRST_POST_NO").val(firstpost);
+		//     jQuery("#LAST_POST_NO").val(lastpost);
+		//     jQuery("#RETURN_POST_NO").val(firstpost + lastpost);
+		//     jQuery("#RETURN_ADDR").val(basic_addr);
+		//     jQuery("#RETURN_DTL_ADDR").val(dtl_addr);
+		//     jQuery("#RETURN_SIDO").val(sido);
+		//     jQuery("#RETURN_GUN").val(gun);
+		//     jQuery("#RETURN_DONG").val(dong);
+		//     jQuery("#DELVYA").val(delvya);
+		//     jQuery("#RETURN_NM_DORO").val(nm_doro);
+		//     jQuery("#RETURN_NUM_BLDG").val(num_bldg);
+		//     jQuery("#RETURN_DTL_ADDR").select();
+
+		//     changeClaimType('1');
+		// }
+
+
+		// function fn_searchExgZipcode_pop(){
+		//     var url = "/RPF0601006.action?func=fn_callback_searchExgZipcode";
+		//     var width = "480";
+		//     var height = "550";
+
+		//     var asppop = cfn_openPop2(url, "post", width, height);
+		//     asppop.focus();
+		// }
+
+
+		// function fn_callback_searchExgZipcode(firstpost, lastpost, addr, sido, gun, dong, delvya, basic_addr, dtl_addr, num_bldg, nm_doro) {
+		//     if (delvya == '5'){
+		//         alert('사서함으로는 주문이 불가능 합니다.');
+		//         return;
+		//     }
+
+		//     jQuery("#EXCHG_FIRST_POST_NO").val(firstpost);
+		//     jQuery("#EXCHG_LAST_POST_NO").val(lastpost);
+		//     jQuery("#EXCHG_POST_NO").val(firstpost + lastpost);
+		//     jQuery("#EXCHG_ADDR").val(basic_addr);
+		//     jQuery("#EXCHG_DTL_ADDR").val(dtl_addr);
+		//     jQuery("#EXCHG_SIDO").val(sido);
+		//     jQuery("#EXCHG_GUN").val(gun);
+		//     jQuery("#EXCHG_DONG").val(dong);
+		//     jQuery("#EXCHG_DELVYA").val(delvya);
+		//     jQuery("#EXCHG_NM_DORO").val(nm_doro);
+		//     jQuery("#EXCHG_NUM_BLDG").val(num_bldg);
+		//     jQuery("#EXCHG_DTL_ADDR").select();
+
+		//     changeClaimType('1');
+		// }
+
+
+
+		function fn_nextFocus(sNow, sNext) {
+			var oNow = jQuery("#" + sNow);
+
+			if (typeof oNow == 'object') {
+				if (oNow.val().length == oNow.attr("maxLength")) {
+					var oNext = jQuery("#" + sNext);
+
+					if ((typeof oNext) == 'object') {
+						oNext.focus();
+					}
+				}
+			}
+		}
+
+
+		function numbersonly(e, decimal) {
+			var key;
+			var keychar;
+
+			if (window.event) {
+				// IE에서 이벤트를 확인하기 위한 설정
+				key = window.event.keyCode;
+			} else if (e) {
+				// FireFox에서 이벤트를 확인하기 위한 설정
+				key = e.which;
+			} else {
+				return true;
+			}
+
+			keychar = String.fromCharCode(key);
+			if ((key == null) || (key == 0) || (key == 8) || (key == 9) || (key == 13) || (key == 27)) {
+				return true;
+			} else if ((("0123456789").indexOf(keychar) > -1)) {
+				return true;
+			} else if (decimal && (keychar == ".")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function fn_close() {
+			close();
+		}
+
+
+		function calculateReSizeOpt(gubun) {
+
+			var claimUnableYn = false; // 반품교환불가여부
+			var orderDtlNo;
+			var orderProdCd;
+			var orderProdNm;
+			var orderOption;
+
+			jQuery("#frmOrdReSize .list tbody tr :radio:checked").each(function (i) {
+				if (jQuery(this).parent().find("[name='CLAIM_UNABLE_YN']").val() == 'Y' &&
+					gubun == '1') {
+					jQuery(this).attr("checked", false);
+					alert("온라인으로 교환/반품 접수가 불가능한 상품입니다. 접수가 필요한 경우 고객센터(1588-7324)로 연락 주시기 바랍니다.");
+					claimUnableYn = true;
+					return;
+				}
+				orderDtlNo = jQuery(this).parent().find("input[name='ORDER_DTL_NO']").val();
+				orderProdCd = jQuery(this).parent().parent().find("td input[name='PROD_CD']").val();
+				orderProdQty = jQuery(this).parent().parent().find("td input[name='CLAIM_CANCL_QTY']").val();
+				orderProdNm = jQuery(this).parent().parent().find("td input[name='PROD_NM_KOR']").val();
+				orderOption = jQuery(this).parent().parent().find("td input[name='OPTION_NM']").val();
+			});
+			if (claimUnableYn == true) {
+				return;
+			}
+
+			//신청 시 얼럿창 내용
+
+			jQuery("#EXCHG_ORDER_DTL_NO").val(orderDtlNo);
+			jQuery("#EXCHG_PROD_CD").val(orderProdCd);
+			jQuery("#EXCHG_QTY").val(orderProdQty);
+			jQuery("#EXCHG_OPTION_NM").val(jQuery("#EXCHG_OPTION_NO option:selected").text());
+			jQuery("#ORG_OPTION_NM").val(orderOption);
+
+			jQuery(".reSizeProdNm").text(orderProdNm);
+			jQuery(".orderProdSize").text(orderOption);
+			//     jQuery(".orderProdExchgSize").text(jQuery("#EXCHG_OPTION_NO").val());
+			jQuery(".orderProdExchgSize").text(jQuery("#EXCHG_OPTION_NO option:selected").text());
+			jQuery(".orderExchgType").text(jQuery("#CLAIM_TYPE option:selected").text());
+
+			if (gubun == '1') {
+				fn_listOption(orderProdCd, orderOption);
+			}
+		}
+
+		//옵션 리스트
+		function fn_listOption(orderProdCd, orderOption) {
+
+			var newopt = '<option value="">선택</option>';
+			var htmlNewString = newopt;
+			jQuery('#EXCHG_OPTION_NO').html(htmlNewString);
+
+			var site_cd = "1";
+			var command = "LIST_6";
+
+			var url = "/RPF020401.action?command=" + command + "&SITE_CD=" + site_cd + "&PROD_CD=" + orderProdCd;
+
+			var onSuccess = function (req) {
+				var json = req.responseJSON;
+				JsonUtil.alert(json);
+
+				arr_option = json.list.list;
+
+				var oneopt = '<option value="">선택</option>';
+				var htmlString = oneopt;
+
+				var totcnt = 0;
+				for (var i = 0; i < arr_option.length; i++) {
+					var cnt = parseInt(arr_option[i].REAL_INVNTRY_QTY);
+					var qtyMsg = "";
+
+					var exchQty = parseInt("");
+					if (cnt == 0) {
+						if (orderOption == arr_option[i].OPTION_NM) {
+							htmlString = htmlString + '<option value=0 selected>' + arr_option[i].OPTION_NM +
+								' 재고없음</option>';
+						} else {
+							htmlString = htmlString + '<option value=0>' + arr_option[i].OPTION_NM + ' 재고없음</option>';
+						}
+					} else if (cnt < exchQty) {
+						if (orderOption == arr_option[i].OPTION_NM) {
+							totcnt += cnt;
+							htmlString = htmlString + '<option value=' + arr_option[i].OPTION_NO + ' selected>' +
+								arr_option[i].OPTION_NM + '</option>';
+						} else {
+							htmlString = htmlString + '<option value=0>' + arr_option[i].OPTION_NM + ' 재고없음</option>';
+						}
+					} else {
+						totcnt += cnt;
+						if (orderOption == arr_option[i].OPTION_NM) {
+							htmlString = htmlString + '<option value=' + arr_option[i].OPTION_NO + ' selected>' +
+								arr_option[i].OPTION_NM + '</option>';
+						} else {
+							htmlString = htmlString + '<option value=' + arr_option[i].OPTION_NO + '>' + arr_option[i]
+								.OPTION_NM + '</option>';
+						}
+					}
+				}
+
+				if (totcnt == 0) {
+					alert("주문 가능한 재고가 없습니다.");
+					history.back(-1);
+				}
+
+				jQuery('#EXCHG_OPTION_NO').html(htmlString);
+				$("#EXCHG_OPTION_NO").focus();
+
+			};
+
+			var onFailure = function () {
+				alert("error");
+			};
+
+			cfn_ajaxRequest(url, null, onSuccess, onFailure);
+		}
+
+
+		function fn_guide() {
+			opener.location = "/RPF080301.action?FAQ_DIVI=04";
+			self.close();
 		}
 	</script>
+</head>
+
+<body>
 	<div id="pop">
 		<div id="popupHeader">
-			<h1>교환 절차</h1>
-			<a href="javascript:self.close();"><img src="/images/reebok/popup/btn_popup_close.gif" alt="close" /></a>
+			<h1>교환신청</h1>
+			<a href="javascript:self.close();"><img src="//image.reebok.co.kr/images/reebok/popup/btn_popup_close.gif"
+					alt="close" /></a>
 		</div>
-		<div id="popupContents" style="position:relative;">
-			<img src="/images/adidas/popup/bg_step_exchange.jpg" alt="교환신청절차"/>
-			<div class="refund_step" style="overflow:hidden;border:0px solid #b6b6b6;margin-top:40px;padding-top:0;margin-top:15px;">
-				<div style="background:#fff;">
 
-					<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-						<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">1단계 : 교환신청</p>
-						<ul>
-							<li style="color:#828282;font-size:11px;">교환은 <strong style="color:#595959;">[마이페이지 > 나의쇼핑내역 > 주문/배송조회]</strong> 에서 주문상태가 배송완료가 된 후, 교환신청을 통해 가능 합니다.</li>
-							<li style="color:#828282;font-size:11px;">교환은 동일한 제품의 사이즈 변경만 가능하며, 다른 제품으로 교환하실 경우 반품 후 재주문 해주셔야 합니다.</li>
-							<li style="color:#828282;font-size:11px;">교환은 상품의 택을 제거하였거나 신발 박스가 훼손 되었을 경우 교환이 불가능합니다.</li>
-						</ul>
-					</div>
+		<form id="frmOrdReSize" name="frmOrdReSize">
+			<input type="hidden" id="S_COMMAND" name="command" value="CLAIM_RETURN_PRODUCT_UPDATE" />
+			<input type="hidden" id="ORDER_NO" name="ORDER_NO" value="202004233525729" />
+			<input type="hidden" id="CLAIM_CD" name="CLAIM_CD" value="10" />
+			<input type="hidden" id="RCPT_TYPE" name="RCPT_TYPE" value="04" /> <input type="hidden" id="RCPT_PATH"
+				name="RCPT_PATH" value="01" /> <input type="hidden" id="RCPT_ST" name="RCPT_ST" value="02" /> <input
+				type="hidden" id="DLIVY_AMT_TYPE" name="DLIVY_AMT_TYPE" value="03" /> <input type="hidden"
+				id="CNSLR_MEMO" name="CNSLR_MEMO" value="" />
+			<input type="hidden" id="MEM_CHARG" name="MEM_CHARG" value="0" />
+			<input type="hidden" id="REAL_RELES_YN" name="REAL_RELES_YN" value="Y" />
+			<input type="hidden" id="MEM_CHGMIND_YN" name="MEM_CHGMIND_YN" value="N" />
+			<input type="hidden" id="DLVRSVC_CD" name="DLVRSVC_CD" value="" />
+			<input type="hidden" name="BASIC_DLIVY_FEE" value="2500" />
+			<input type="hidden" name="JEJUDO_DLIVY_FEE" value="3000" />
+			<input type="hidden" name="ISLNDSUPCNTRY_DLIVY_FEE" value="4500" />
+			<input type="hidden" name="FREE_DLIVY_FEE_COND" value="50000" />
+			<input type="hidden" name="FREE_MEM_LEVEL_YN" value="N" />
+			<input type="hidden" name="PRE_DLIVY_FEE" value="0" />
+			<input type="hidden" name="RETURN_QTY" value="0" />
+			<input type="hidden" name="REMAIN_QTY" value="3" />
+			<input type="hidden" name="ORDER_PROD_PRICE_SUM" value="105400" />
+			<!-- 위치변경 20190416 SKS (교환정보) -->
+			<input type="hidden" id="EXCHG_ORDER_DTL_NO" name="EXCHG_ORDER_DTL_NO" value="" />
+			<input type="hidden" id="EXCHG_QTY" name="EXCHG_QTY" value="" />
+			<input type="hidden" id="ORG_OPTION_NM" name="ORG_OPTION_NM" value="" />
+			<input type="hidden" id="EXCHG_PROD_CD" name="EXCHG_PROD_CD" value="" />
+			<input type="hidden" id="EXCHG_OPTION_NM" name="EXCHG_OPTION_NM" value="" />
+			<input type="hidden" id="EXCHG_CANCL_DLIVY_FEE" name="EXCHG_CANCL_DLIVY_FEE" value="0" />
+			<input type="hidden" id="EXCHG_RELES_DLIVY_FEE" name="EXCHG_RELES_DLIVY_FEE" value="0" />
+			<input type="hidden" id="PG_REFUND_AMT" name="PG_REFUND_AMT" value="0" />
 
-					<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-						<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">2단계 : 교환배송</p>
-						<ul>
-							<li style="color:#828282;font-size:11px;">교환신청 후 3~5일 내에 입력한 주소로 택배 기사가 방문하여 상품을 회수 합니다.</li>
-							<li style="color:#828282;font-size:11px;">배송 위탁 계약사인 한진택배 외 다른 택배회사를 이용하여 교환하는 경우 교환이 지연될 수 있으며, 분실 시 보상이 불가능합니다.</li>
-							<li style="color:#828282;font-size:11px;">부득이 하게 다른 택배 회사를 이용하였을 경우 반드시 고객센터로 연락을 주셔야 원활한 교환이 진행됩니다. </li>
-						</ul>
-					</div>
+			<div id="popupContents">
+				<ul class="guide mg10">
+					<li>주문상품이 2개 이상인 경우, 배송지가 다를 수 있으며 주문상태에 따라 취소/교환 신청으로 진행됩니다.</li>
+				</ul>
+				<table class="view mg20" summary="주문정보">
+					<caption>주문정보</caption>
+					<colgroup>
+						<col width="145px" />
+						<col width="415px" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">주문일</th>
+							<td class="last">2020-04-23</td>
+						</tr>
+						<tr>
+							<th scope="row">주문번호</th>
+							<td class="last"><strong>202004233525729</strong></td>
+						</tr>
+						<tr>
+							<th scope="row">쿠폰할인</th>
+							<td class="last">
+								<strong id="cpon_sale_amt">0</strong>원 (배송비 : <strong>0</strong>원)
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="list mg20" summary="구매상품">
+					<caption>구매상품</caption>
+					<colgroup>
+						<col width="65" />
+						<col />
+						<col width="100" />
+						<col width="60" />
+						<col width="40" />
+						<col width="80" />
+						<col width="70" />
+					</colgroup>
+					<thead>
+						<tr style='background-position:right 15px;'>
+							<th scope="col" colspan="2">상품명</th>
+							<th scope="col">판매금액</th>
+							<th scope="col">사이즈</th>
+							<th scope="col">수량</th>
+							<th scope="col">주문상태</th>
+							<th scope="col" class="last">교환</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 -->
+						<tr id="addr_0">
+							<td colspan="7" class="sub">[문정B리복] (058-32) 서울특별시 송파구 가락동 108-2 (가락동), Tel:02-404-2257</td>
+						</tr>
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 END -->
+						<tr>
+							<td>
+								<div>
+									<img src="//image.reebok.co.kr/upload/prod/basic/60/CN5498-1_60X60.jpg" height="60"
+										width="60" alt="[Reebok Classic/Unisex][워너원 착장]리복 로얄 샌달" />
+								</div>
+							</td>
+							<td class="sub">[Reebok Classic/Unisex][워너원 착장]리복 로얄 샌달</td>
+							<td class="price" style="padding-right:0;text-align:center;">
+								<strong><span>59,000</span></strong></td>
+							<td class="size">250</td>
+							<td class="size">1</td>
+							<td>배송완료</td>
+							<td class="form" id="data_0">
+								<label for="chkCancel_0" class="blind"> 선택</label>
+								<input type="checkbox" id="chkCancel_0" name="chkCancel"
+									onclick="calculateReSizeOpt('1');" />
+								<input type="hidden" name="CHK_C_VALUE" value="N" />
+								<input type="hidden" name="PROD_NM_KOR"
+									value="[Reebok Classic/Unisex][워너원 착장]리복 로얄 샌달" />
+								<input type="hidden" name="PROD_CD" value="CN5498" />
+								<input type="hidden" name="OPTION_NM" value="250" />
+								<input type="hidden" name="CLAIM_CANCL_QTY" id="CLAIM_CANCL_QTY0" value="1" />
+								<input type="hidden" name="ABVL_CLAIM_CANCL_QTY" value="1" />
+								<input type="hidden" name="CLAIM_UNABLE_YN" value="N" />
+								<input type="hidden" name="ORDER_DTL_NO" value="202004233525731" />
+								<input type="hidden" name="STORE_ID" value="00325504" />
+								<input type="hidden" name="ORDER_PRICE" value="59000" />
+								<input type="hidden" name="SALES_PRICE" value="59000" />
+							</td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 단위 추가 -->
+						<tr class="divide_line">
+							<td><label for="CLAIM_TYPE">교환 사유</label></td>
+							<td>
+								<select id='CLAIM_TYPE' name='CLAIM_TYPE' size='' onchange='changeClaimType(1);' style='width:110px;'>
+									<option value=''>교환사유 선택</option>
+									<option value='03'>품질불만</option>
+									<option value='04'>사이즈변경</option>
+									<option value='07'>오배송</option>
+									<option value='99'>기타</option>
+								</select>
+							</td>
+							<td><label for="RE_SIZE">교환사이즈</label></td>
+							<td>
+								<select name="EXCHG_OPTION_NO" id="EXCHG_OPTION_NO">
+									<option>선택</option>
+								</select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 추가 END -->
+						
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 -->
+						<tr id="addr_1">
+							<td colspan="7" class="sub">[포도몰리복] (151-930) 서울 관악구 서원동 1641-2번지 신림동 포도몰 5층,
+								Tel:02-881-8096</td>
+						</tr>
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 END -->
+						<tr>
+							<td>
+								<div>
+									<img src="//image.reebok.co.kr/upload/prod/basic/60/CN0213-1_60X60.jpg" height="60"
+										width="60" alt="[Reebok Classic/Unisex] 리복 클래식 슬라이드" />
+								</div>
+							</td>
+							<td class="sub">[Reebok Classic/Unisex] 리복 클래식 슬라이드</td>
+							<td class="price" style="padding-right:0;text-align:center;">
+								<strong><span>23,200</span></strong></td>
+							<td class="size">250</td>
+							<td class="size">1</td>
+							<td>배송완료</td>
+							<td class="form" id="data_1">
+								<label for="chkCancel_1" class="blind"> 선택</label>
+								<input type="checkbox" id="chkCancel_1" name="chkCancel"
+									onclick="calculateReSizeOpt('1');" />
+								<input type="hidden" name="CHK_C_VALUE" value="N" />
+								<input type="hidden" name="PROD_NM_KOR" value="[Reebok Classic/Unisex] 리복 클래식 슬라이드" />
+								<input type="hidden" name="PROD_CD" value="CN0213" />
+								<input type="hidden" name="OPTION_NM" value="250" />
+								<input type="hidden" name="CLAIM_CANCL_QTY" id="CLAIM_CANCL_QTY1" value="1" />
+								<input type="hidden" name="ABVL_CLAIM_CANCL_QTY" value="1" />
+								<input type="hidden" name="CLAIM_UNABLE_YN" value="N" />
+								<input type="hidden" name="ORDER_DTL_NO" value="202004233525732" />
+								<input type="hidden" name="STORE_ID" value="00085701" />
+								<input type="hidden" name="ORDER_PRICE" value="23200" />
+								<input type="hidden" name="SALES_PRICE" value="23200" />
+							</td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 단위 추가 -->
+						<tr class="divide_line">
+							<td><label for="CLAIM_TYPE">교환 사유</label></td>
+							<td>
+								<select id='CLAIM_TYPE' name='CLAIM_TYPE' size='' onchange='changeClaimType(1);' style='width:110px;'>
+									<option value=''>교환사유 선택</option>
+									<option value='03'>품질불만</option>
+									<option value='04'>사이즈변경</option>
+									<option value='07'>오배송</option>
+									<option value='99'>기타</option>
+								</select>
+							</td>
+							<td><label for="RE_SIZE">교환사이즈</label></td>
+							<td>
+								<select name="EXCHG_OPTION_NO" id="EXCHG_OPTION_NO">
+									<option>선택</option>
+								</select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 추가 END -->
 
-					<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-						<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">3단계 : 상품 상태 확인</p>
-						<ul>
-							<li style="color:#828282;font-size:11px;">회수되어 매장에 도착한 상품은 상태 확인 후 이상이 없을 시 상품상태 확인이 완료되며, 교환 배송비 결제 안내 SMS가 발송 됩니다.</li>
-							<li style="color:#828282;font-size:11px;">상품 훼손이나 교환 시 선택한 사유와 상이하여 이상이 있을 경우 콜센터에서 연락을 드리며, 교환이 지연되거나 불가능할 수 있습니다.</li>
-						</ul>
-					</div>
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 -->
+						<tr id="addr_2">
+							<td colspan="7" class="sub">[테크노마트] (143-721) 서울 광진구 구의3동 546-4번지 엔터식스, Tel:02-3424-1303
+							</td>
+						</tr>
+						<!-- 20200427 교환매장 주소 위치 상단으로 이동 END -->
+						<tr>
+							<td>
+								<div>
+									<img src="//image.reebok.co.kr/upload/prod/basic/60/CN0211-1_60X60.jpg" height="60"
+										width="60" alt="[Reebok Classic/Unisex] 리복 클래식 슬라이드" />
+								</div>
+							</td>
+							<td class="sub">[Reebok Classic/Unisex] 리복 클래식 슬라이드</td>
+							<td class="price" style="padding-right:0;text-align:center;">
+								<strong><span>23,200</span></strong></td>
+							<td class="size">250</td>
+							<td class="size">1</td>
+							<td>배송완료</td>
+							<td class="form" id="data_2">
+								<label for="chkCancel_2" class="blind"> 선택</label>
+								<input type="checkbox" id="chkCancel_2" name="chkCancel"
+									onclick="calculateReSizeOpt('1');" />
+								<input type="hidden" name="CHK_C_VALUE" value="N" />
+								<input type="hidden" name="PROD_NM_KOR" value="[Reebok Classic/Unisex] 리복 클래식 슬라이드" />
+								<input type="hidden" name="PROD_CD" value="CN0211" />
+								<input type="hidden" name="OPTION_NM" value="250" />
+								<input type="hidden" name="CLAIM_CANCL_QTY" id="CLAIM_CANCL_QTY2" value="1" />
+								<input type="hidden" name="ABVL_CLAIM_CANCL_QTY" value="1" />
+								<input type="hidden" name="CLAIM_UNABLE_YN" value="N" />
+								<input type="hidden" name="ORDER_DTL_NO" value="202004233525733" />
+								<input type="hidden" name="STORE_ID" value="00109700" />
+								<input type="hidden" name="ORDER_PRICE" value="23200" />
+								<input type="hidden" name="SALES_PRICE" value="23200" />
+							</td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 단위 추가 -->
+						<tr class="divide_line">
+							<td><label for="CLAIM_TYPE">교환 사유</label></td>
+							<td>
+								<select id='CLAIM_TYPE' name='CLAIM_TYPE' size='' onchange='changeClaimType(1);' style='width:110px;'>
+									<option value=''>교환사유 선택</option>
+									<option value='03'>품질불만</option>
+									<option value='04'>사이즈변경</option>
+									<option value='07'>오배송</option>
+									<option value='99'>기타</option>
+								</select>
+							</td>
+							<td><label for="RE_SIZE">교환사이즈</label></td>
+							<td>
+								<select name="EXCHG_OPTION_NO" id="EXCHG_OPTION_NO">
+									<option>선택</option>
+								</select>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						<!-- 20200427 각 제품에 교환사유 / 변경사이즈 tr 추가 END -->
+					</tbody>
+				</table>
 
-					<div style="padding:22px 0;border-bottom:1px dashed #d4d4d4;">
-						<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">4단계 : 교환 배송비 결제</p>
-						<ul>
-							<li style="color:#828282;font-size:11px;">교환 배송비는 로그인 시에 생성되는 페이지 혹은 [마이페이지 > 나의쇼핑내역 > 교환결제대기] 에서 결제가 가능합니다.</li>
-							<li style="color:#828282;font-size:11px;">배송비는 교환 사유에 따라 책정되며, 제주도 및 도서산간 지역은 배송비가 추가될 수 있습니다.</li>
-						</ul>
-					</div>
-					
-					<div style="padding:22px 0;">
-						<p style="margin-bottom:10px;font-weight:bold;color:#242424;letter-spacing:-1px;">5단계 : 교환 상품 발송</p>
-						<ul>
-							<li style="color:#828282;font-size:11px;">교환 배송비 결제가 완료되면 교환 요청한 상품이 발송 되며, 발송 전 1~2일 정도의 기간이 소요될 수 있습니다.</li>
-							<li style="color:#828282;font-size:11px;">매장 재고 상황에 따라 최초 배송 매장이 아닌 타매장에서 발송 될 수도 있습니다.</li>
-						</ul>
-					</div>
-					
+				<!-- 20200427 상담신청내용 이동 -->
+				<table class="write mg20" summary="상담신청내용">
+					<caption>상담신청내용</caption>
+					<colgroup>
+						<col width="145px" />
+						<col width="415px" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row"><label for="CLAIM_CONTENT">상담신청내용</label></th>
+							<td class="last"><textarea name="CLAIM_CONTENT" id="CLAIM_CONTENT" style="width:393px;height:80px;"></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 20200427 상담신청내용 이동 END -->
+
+				<table class="write mg20" summary="주문정보">
+					<caption>주문정보</caption>
+					<colgroup>
+						<col width="145px" />
+						<col width="415px" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row"><label for="">수거지주소</label></th>
+							<td class="last">
+								<label for="RETURN_POST_NO" class="blind">우편번호1</label>
+								<!--                             <label for="LAST_POST_NO" class="blind">우편번호2</label>   -->
+								<input type="text" name="RETURN_POST_NO" id="RETURN_POST_NO" value="06620"
+									style="width:78px;" readonly="readonly" />
+								<a href="javascript:fn_searchZipcode_pop('fn_zipSearchSetting');" title="새창"><img
+										src="//image.reebok.co.kr/images/reebok/order/btn_zipcode.gif"
+										alt="우편번호 찾기" /></a><br />
+
+								<label for="RETURN_ADDR" class="blind">기본주소</label>
+								<input type="text" name="RETURN_ADDR" id="RETURN_ADDR" value="서울특별시 서초구 서초대로74길 4"
+									class="addr" style="width:285px;" readonly="readonly" /><br />
+								<input type="text" name="RETURN_ADDR_JI" id="RETURN_ADDR_JI"
+									value="서울특별시 서초구 서초동 1321-15 삼성생명서초타워" class="addr" style="width:285px;"
+									readonly="readonly" />
+								<input type="text" name="RETURN_DTL_ADDR" id="RETURN_DTL_ADDR" value="(서초동) 1층에서만나요"
+									class="addr" style="width:285px;" maxlength="50" readonly="readonly" />
+								<input type="hidden" name="DELVYA" id="DELVYA" value="0" />
+								<input type="hidden" name="ORDER_DELVYA" id="ORDER_DELVYA" value="0" />
+								<input type="hidden" name="RETURN_NM_DORO" id="RETURN_NM_DORO" value="서초대로74길" />
+								<input type="hidden" name="RETURN_NUM_BLDG" id="RETURN_NUM_BLDG" value="" />
+								<input type="hidden" name="RETURN_SIDO" id="RETURN_SIDO" value="서울" />
+								<input type="hidden" name="RETURN_GUN" id="RETURN_GUN" value="서초구" />
+								<input type="hidden" name="RETURN_DONG" id="RETURN_DONG" value="서초2동" />
+								<input type="hidden" name="RETURN_TEL_NO" id="RETURN_TEL_NO" value="" />
+								<input type="hidden" name="RETURN_MOBL" id="RETURN_MOBL" value="01095567901" />
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="FIRST_TEL_NO">수거지전화번호</label></th>
+							<td class="last">
+								<input type="text" id="FIRST_TEL_NO" name="FIRST_TEL_NO" value="" style="width:88px;"
+									maxlength="4" onkeypress="return numbersonly(event, false);"
+									onkeyup="fn_nextFocus('FIRST_TEL_NO', 'MIDDLE_TEL_NO')" />
+								-
+								<label for="MIDDLE_TEL_NO" class="blind">전화번호2</label>
+								<input type="text" name="MIDDLE_TEL_NO" id="MIDDLE_TEL_NO" value="" style="width:78px;"
+									maxlength="4" onkeypress="return numbersonly(event, false);"
+									onkeyup="fn_nextFocus('MIDDLE_TEL_NO', 'LAST_TEL_NO')" />
+								-
+								<label for="LAST_TEL_NO" class="blind">전화번호3</label>
+								<input type="text" name="LAST_TEL_NO" id="LAST_TEL_NO" value="" style="width:78px;"
+									maxlength="4" onkeypress="return numbersonly(event, false);" />
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="FIRST_MOBL_NO">수거지휴대전화번호</label></th>
+							<td class="last">
+								<select name="FIRST_MOBL_NO" id="FIRST_MOBL_NO" style="width:89px;">
+									<option value="">선택</option>
+									<option value="010" selected="selected">010</option>
+									<option value="011">011</option>
+									<option value="016">016</option>
+									<option value="017">017</option>
+									<option value="018">018</option>
+									<option value="019">019</option>
+								</select> -
+								<label for="MIDDLE_MOBL_NO" class="blind">휴대폰번호2</label>
+								<input type="text" name="MIDDLE_MOBL_NO" id="MIDDLE_MOBL_NO" value="9556"
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false)"
+									onkeyup="nextFocus('MIDDLE_MOBL_NO', 'LAST_MOBL_NO')" /> -
+								<label for="LAST_MOBL_NO" class="blind">휴대폰번호3</label>
+								<input type="text" name="LAST_MOBL_NO" id="LAST_MOBL_NO" value="7901"
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false)" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="">배송지주소</label></th>
+							<td class="last">
+								<!--                             <label for="FIRST_POST_NO" class="blind">우편번호1</label>   -->
+								<!--                             <label for="LAST_POST_NO" class="blind">우편번호2</label>   -->
+								<label for="EXCHG_POST_NO" class="blind">우편번호</label>
+								<input type="text" name="EXCHG_POST_NO" id="EXCHG_POST_NO" value="06620"
+									style="width:78px;" readonly="readonly" />
+								<a href="javascript:fn_searchZipcode_pop('fn_exchgZipSearchSetting');" title="새창"><img
+										src="//image.reebok.co.kr/images/reebok/order/btn_zipcode.gif"
+										alt="우편번호 찾기" /></a><br />
+
+								<label for="RETURN_ADDR" class="blind">기본주소</label>
+								<input type="text" name="EXCHG_ADDR" id="EXCHG_ADDR" value="서울특별시 서초구 서초대로74길 4"
+									class="addr" style="width:285px;" readonly="readonly" /><br />
+								<input type="text" name="EXCHG_ADDR_JI" id="EXCHG_ADDR_JI"
+									value="서울특별시 서초구 서초동 1321-15 삼성생명서초타워" class="addr" style="width:285px;"
+									readonly="readonly" />
+								<input type="text" name="EXCHG_DTL_ADDR" id="EXCHG_DTL_ADDR" value="(서초동) 1층에서만나요"
+									class="addr" style="width:285px;" maxlength="50" readonly="readonly" />
+								<input type="hidden" name="EXCHG_DELVYA" id="EXCHG_DELVYA" value="0" />
+								<input type="hidden" name="EXCHG_NM_DORO" id="EXCHG_NM_DORO" value="서초대로74길" />
+								<input type="hidden" name="EXCHG_NUM_BLDG" id="EXCHG_NUM_BLDG"
+									value="1165010800113210015000001" />
+								<input type="hidden" name="EXCHG_SIDO" id="EXCHG_SIDO" value="서울" />
+								<input type="hidden" name="EXCHG_GUN" id="EXCHG_GUN" value="서초구" />
+								<input type="hidden" name="EXCHG_DONG" id="EXCHG_DONG" value="서초2동" />
+								<input type="hidden" name="EXCHG_TEL_NO" id="EXCHG_TEL_NO" value="" />
+								<input type="hidden" name="EXCHG_MOBL" id="EXCHG_MOBL" value="01095567901" />
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="FIRST_TEL_NO">배송지전화번호</label></th>
+							<td class="last">
+								<input type="text" id="EXCHG_FIRST_TEL_NO" name="EXCHG_FIRST_TEL_NO" value=""
+									style="width:88px;" maxlength="4" onkeypress="return numbersonly(event, false);"
+									onkeyup="fn_nextFocus('EXCHG_FIRST_TEL_NO', 'EXCHG_MIDDLE_TEL_NO')" />
+								-
+								<label for="MIDDLE_TEL_NO" class="blind">전화번호2</label>
+								<input type="text" name="EXCHG_MIDDLE_TEL_NO" id="EXCHG_MIDDLE_TEL_NO" value=""
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false);"
+									onkeyup="fn_nextFocus('EXCHG_MIDDLE_TEL_NO', 'EXCHG_LAST_TEL_NO')" />
+								-
+								<label for="LAST_TEL_NO" class="blind">전화번호3</label>
+								<input type="text" name="EXCHG_LAST_TEL_NO" id="EXCHG_LAST_TEL_NO" value=""
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false);" />
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="FIRST_MOBL_NO">배송지휴대전화번호</label></th>
+							<td class="last">
+								<select name="EXCHG_FIRST_MOBL_NO" id="EXCHG_FIRST_MOBL_NO" style="width:89px;">
+									<option value="">선택</option>
+									<option value="010" selected="selected">010</option>
+									<option value="011">011</option>
+									<option value="016">016</option>
+									<option value="017">017</option>
+									<option value="018">018</option>
+									<option value="019">019</option>
+								</select> -
+								<label for="MIDDLE_MOBL_NO" class="blind">휴대폰번호2</label>
+								<input type="text" name="EXCHG_MIDDLE_MOBL_NO" id="EXCHG_MIDDLE_MOBL_NO" value="9556"
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false)"
+									onkeyup="nextFocus('EXCHG_MIDDLE_MOBL_NO', 'EXCHG_LAST_MOBL_NO')" /> -
+								<label for="LAST_MOBL_NO" class="blind">휴대폰번호3</label>
+								<input type="text" name="EXCHG_LAST_MOBL_NO" id="EXCHG_LAST_MOBL_NO" value="7901"
+									style="width:78px;" maxlength="4" onkeypress="return numbersonly(event, false)" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<tr>
+							<td colspan=2></td>
+						</tr>
+						<!-- 20200427 기존 위치의 교환사유 / 상품명 / 변경사이즈 / 상담신청내용 삭제  -->
+						<!-- <tr>
+							<th scope="row"><label for="CLAIM_TYPE">교환 사유</label></th>
+							<td class="last">
+								<select id='CLAIM_TYPE' name='CLAIM_TYPE' size='' onchange='changeClaimType(1);'
+									style='width:110px;'>
+									<option value=''>교환사유 선택</option>
+									<option value='03'>품질불만</option>
+									<option value='04'>사이즈변경</option>
+									<option value='07'>오배송</option>
+									<option value='99'>기타</option>
+								</select></td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="PRODNM">상품명</label></th>
+							<td class="last reSizeInfo reSizeProdNm"></td>
+						</tr> 
+						<tr>
+							<th scope="row"><label for="RE_SIZE">변경사이즈</label></th>
+							<td class="last"><select name="EXCHG_OPTION_NO" id="EXCHG_OPTION_NO">
+									<option>선택</option>
+								</select></td>
+						</tr> 
+						<tr>
+							<th scope="row"><label for="CLAIM_CONTENT">상담신청내용</label></th>
+							<td class="last"><textarea name="CLAIM_CONTENT" id="CLAIM_CONTENT"
+									style="width:393px;height:27px;"></textarea></td>
+						</tr> -->
+						<!-- 20200427 기존 위치의 교환사유 / 상품명 / 변경사이즈 삭제 END -->
+						<tr>
+							<th scope="row">교환배송비</th>
+							<td class="last canclAmtInfo canclDlivyFeeInfo">0</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<ul class="advice">
+					<li class="btn">교환 가이드를 확인하세요. <a href="#"><img
+								src="//image.reebok.co.kr/images/reebok/popup/btn_guide.gif" alt="교환 가이드"
+								onclick="fn_guide()" /></a></li>
+					<li>단순변심이나 사이즈 변경으로 인한 교환 시 배송비는 회원님께서 부담하셔야 합니다.</li>
+					<li style="color:red;">교환 불가능한 경우가 있으니 꼭 확인해 주시기 바랍니다.</li>
+					<li>무통장입금의 환불은 주말, 공휴일을 제외한 영업일기준, 익일 16시에 처리됩니다.<br />(배송시작전 : 주문취소 후 익일 16시, 배송시작후 : 교환절차 완료 후 익일
+						16시)</li>
+					<li>고객 단순변심일 경우 교환 시 왕복배송비를 부담하셔야 합니다.<br />(수거지/배송지에 따라 배송비는 상이합니다.)</li>
+					<li>교환 수거지 변경은 교환신청 완료 후 변경이 불가하므로 주의하여 신청해주시기 바랍니다.</li>
+					<li style="color:red;">주문 제품이 출고된 매장이 아닌 리복 본사로 교환/반품 택배 발송 시에는 <br />다시 출고된 매장으로 반송처리 되어지므로, 교환/반품
+						처리 기간이 지연됩니다.</li>
+				</ul>
+				<div class="button">
+					<a href="javascript:fn_aply_return();"><img
+							src="//image.reebok.co.kr/images/reebok/popup/btn_order.gif" id="TOTAL" alt="신청" /></a>
+					<a href="javascript:fn_close();"><img src="//image.reebok.co.kr/images/reebok/popup/btn_cancel.gif"
+							alt="취소" /></a>
 				</div>
 			</div>
-			<!-- //refund_step 140804 -->
-	  </div>
+		</form>
 	</div>
-
+	<div id="confirmMsgArea" style="display:none;">
+		<p class="br">[상품 변경 확인 ]</p>
+		<p class="br">교환사유에 <span class="orderExchgType"></span>을 선택 하셨습니다.</p>
+		<p>기존 사이즈: <span class="orderProdSize">0</span></p>
+		<p>변경 사이즈: <span class="orderProdExchgSize">0</span></p>
+		<p>교환배송비: <span class="orderProdExchgFee">0</span>원</p>
+		<p>위와 같이 상품교환을 진행합니다.</p>
+		<p>진행하시겠습니까?</p>
+	</div>
 </body>
+
 </html>
