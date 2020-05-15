@@ -10,7 +10,7 @@
       <script type="text/javascript" src="/designjs/reebok/main.js"></script>
 	  <script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
 
-      <script type="text/javascript">
+	  <script type="text/javascript">
 		// 180413 스크립트 일부수정 및 추가 start
 		function fn_ChangePayMethod(sel) {
 			if ( sel == "credit" ) {
@@ -1971,7 +1971,7 @@
 									<!-- 161219 -->
 									<div style="padding-left: 142px;padding-bottom: 10px;">
 										<div style="margin-bottom:3px;position:relative;">
-											<input type="checkbox" id="pay_agree_yn" >
+											<input type="checkbox" id="pay_agree_yn" onclick="fnAllTermsAgree();">
 											<label for="pay_agree_yn" style="font-weight:bold;color:#797b80;">전체 동의하기</label>
 										</div>
 										<!-- 161219 추가 sub_agreements  -->
@@ -2133,7 +2133,73 @@
             <!-- //160705 -->
 
          </div>
-      </div>
+	  </div>
+	  
+	  <script>
+			// 161219 전체동의 클릭 시
+			$('#pay_agree_yn').bind('click',function(){
+				$('.sub_agreements').fadeIn();
+			});
+
+			function fnTermsResult(result){
+				console.log(result);
+				if(result == 'Y'){
+					$('input:checkbox[id=pay_agree_yn]').attr("checked", true);
+					$('#pay_agree_yn').parent().addClass("checked");
+				}else{
+					$('input:checkbox[id=pay_agree_yn]').attr("checked", false);
+					$('#pay_agree_yn').parent().removeClass("checked");
+				}
+			}
+
+			//전체동의
+			function fnAllTermsAgree(){
+				var flag = $('#pay_agree_yn').is(":checked");
+				if(flag){
+					$('input:checkbox[id="term1"]').attr("checked", true);
+					$('input:checkbox[id="term2"]').attr("checked", true);
+					$('input:checkbox[id="term3"]').attr("checked", true);
+					$('input:checkbox[id="term4"]').attr("checked", true);
+				}else{
+					$('input:checkbox[id="term1"]').attr("checked", false);
+					$('input:checkbox[id="term2"]').attr("checked", false);
+					$('input:checkbox[id="term3"]').attr("checked", false);
+					$('input:checkbox[id="term4"]').attr("checked", false);
+				}
+			}
+
+			function fnCheck(){
+				
+				var result = "Y";
+				var t1 = $('#term1').is(":checked");
+				var t2 = $('#term2').is(":checked");
+				var t3 = $('#term3').is(":checked");
+				var t4 = $('#term4').is(":checked");
+
+				console.log(t1);
+				console.log(t2);
+				console.log(t3);
+				console.log(t4);
+
+				if(!t1){
+					result = "N";
+				}
+
+				if(!t2){
+					result = "N";
+				}
+
+				if(!t3){
+					result = "N";
+				}
+
+				if(!t4){
+					result = "N";
+				}
+
+				fnTermsResult(result);
+			}
+	  </script>
 
    </body>
 </html>
