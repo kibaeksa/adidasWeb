@@ -1,0 +1,228 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap {
+	min-width: 1190px;
+	overflow: hidden;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.btn {
+	display: inline-block;
+
+	>div {
+		position: relative;
+
+		&::before {
+			border-bottom: 1px solid #000;
+			border-left: 1px solid #000;
+			bottom: -4px;
+			height: 3px;
+			left: 3px;
+			width: calc(100%);
+			content: "";
+			display: block;
+			position: absolute;
+		}
+
+		&::after {
+			border-right: 1px solid #000;
+			border-top: 1px solid #000;
+			height: calc(100%);
+			right: -4px;
+			top: 3px;
+			width: 3px;
+			content: "";
+			display: block;
+			position: absolute;
+		}
+
+		a {
+			width: auto;
+			font: 500 14px/48px 'NotoSansKR';
+			letter-spacing: 0;
+			position: relative;
+			display: block;
+			padding: 0 20px;
+			text-align: center;
+			height: 50px;
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			border: 1px solid #000;
+			letter-spacing: 0.7px;
+			transition: 0.4s;
+
+			.arrow {
+				display: inline-block;
+				width: 24px;
+				height: 11px;
+				margin-left: 25px;
+				background: url(/images/reebok/2019/event/interval_og/arrow_w.png) no-repeat;
+			}
+		}
+	}
+}
+
+/* event_form */
+#event_form{
+	.event_box{
+		position: relative;
+		display: block;
+		&:nth-child(1){
+			height: 612px;
+			.event_box_info {
+				width: 500px;
+				height: 250px;
+				transform: translate(-100%, -69%);
+			}
+		}
+		&:nth-child(2){
+			height: 588px;
+			.event_box_info {
+				transform: translate(37%, -66%);
+			}
+		}
+		&:nth-child(3){
+			height: 535px;
+			.event_box_info {
+				transform: translate(-131%, -52%);
+			}
+		}
+		&:nth-child(4){
+			height: 590px;
+			.event_box_info {
+				transform: translate(39%, -52%);
+			}
+		}
+		&.on{
+			.event_box_info {
+				h3 {
+					.tit_sdw {
+						top: 3px;
+						left: 5px;
+					}
+				}
+				.twrap {
+					h4 {
+						transform: translateY(0);
+					}
+					>span {
+						transform: translateY(0);
+					}
+				}
+
+				p {
+					opacity: 1;
+				}
+
+				.btn {
+					opacity: 1;
+				}
+			}
+		}
+		>img{
+			display: block;
+			width: 100%;
+
+			/* center mode */
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1;
+		}
+		.event_box_info{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			color: #000;
+			z-index: 3;
+			h3 {
+				position: relative;
+				font: 800 59px/59px 'neueplak-ext';
+
+				.tit_sdw {
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					color: #df7eff;
+					z-index: -1;
+
+					transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s;
+				}
+			}
+			.twrap{
+				overflow: hidden;
+				position: relative;
+				display: block;
+				>*{
+					transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s;
+				}
+				
+
+				h4 {
+					padding-bottom: 1px;
+					display: block;
+					font: 800 46px/46px 'neueplak-ext';
+					text-transform: uppercase;
+					
+					transform: translateY(40px);
+				}
+
+				>span {
+					display: block;
+					font: 700 26px/26px 'neueplak';
+					text-transform: uppercase;
+					letter-spacing: 1px;
+
+					transform: translateY(30px);
+					transition-delay: 0.3s;
+				}
+			}	
+			p{
+				padding: 15px 0 35px;
+				font: 400 20px 'NotoSansKR';
+				text-transform: uppercase;
+				transition: 0.8s;
+				transition-delay: 0.6s;
+				opacity: 0;
+				&.fmin{
+					font-size: 18px;
+				}
+			}
+			.btn{
+				transition: 0.8s;
+				transition-delay: 0.9s;
+				opacity: 0;
+			}
+		}
+		.event_box_deco{
+			display: inline-block;
+			position: absolute;
+			top: 9%;
+			left: 39%;
+			z-index: 4;
+			img{
+				display: block;
+				animation: roteimg 1s infinite alternate;
+				transform: scale(1);
+			}
+		}
+	}
+}
+
+@keyframes roteimg {
+	0% {
+		transform: scale(1);
+	}
+	100%{
+		transform: scale(0.9);
+	}
+}
