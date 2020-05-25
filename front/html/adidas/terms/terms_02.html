@@ -66,10 +66,10 @@
 		}
 		#contents_r #wrap{
 			display: block;
-			width:90%;
+			width:95%;
 			margin:0 auto;
 			border:0;
-			padding: 25px 0;
+			padding: 25px 15px;
 		}
 		#wrap h3{
 			margin-bottom: 10px;
@@ -87,6 +87,9 @@
 			}
 		}
 		@media all and (min-device-width:320px) and (max-device-width:480px){
+			body #contents_r #wrap{
+				width:90%; 
+			}
 			body #container{
 				width: initial;
 			}
@@ -864,37 +867,67 @@
 			<select name="selDyList" id="selDyList">
 				<option value="" selected="">선택하세요.</option>
 				<option value="20200116">2020.01.16</option>
-				<option value=" 20191112"> 2019.11.12</option>
-				<option value=" 20191008"> 2019.10.08</option>
-				<option value=" 20190909"> 2019.09.09</option>
-				<option value=" 20190826"> 2019.08.26</option>
-				<option value=" 20190325"> 2019.03.25</option>
-				<option value=" 20190319"> 2019.03.19</option>
-				<option value=" 20190128"> 2019.01.28</option>
+				<option value="20191112"> 2019.11.12</option>
+				<option value="20191008"> 2019.10.08</option>
+				<option value="20190909"> 2019.09.09</option>
+				<option value="20190826"> 2019.08.26</option>
+				<option value="20190325"> 2019.03.25</option>
+				<option value="20190319"> 2019.03.19</option>
+				<option value="20190128"> 2019.01.28</option>
 				<option value="20190110">2019.01.10</option>
-				<option value=" 20181207"> 2018.12.07</option>
-				<option value=" 20180918"> 2018.09.18</option>
-				<option value=" 20180702"> 2018.07.02</option>
-				<option value=" 20180427"> 2018.04.27</option>
-				<option value=" 20180406"> 2018.04.06</option>
-				<option value=" 20180331"> 2018.03.31</option>
-				<option value=" 20180308"> 2018.03.08</option>
-				<option value=" 20180219"> 2018.02.19</option>
-				<option value=" 20171013"> 2017.10.13</option>
+				<option value="20181207"> 2018.12.07</option>
+				<option value="20180918"> 2018.09.18</option>
+				<option value="20180702"> 2018.07.02</option>
+				<option value="20180427"> 2018.04.27</option>
+				<option value="20180406"> 2018.04.06</option>
+				<option value="20180331"> 2018.03.31</option>
+				<option value="20180308"> 2018.03.08</option>
+				<option value="20180219"> 2018.02.19</option>
+				<option value="20171013"> 2017.10.13</option>
 				<option value="20170928">2017.09.28</option>
-				<option value=" 20170915"> 2017.09.15</option>
-				<option value=" 20170803"> 2017.08.03</option>
-				<option value=" 20170131"> 2017.01.31</option>
-				<option value=" 20161007"> 2016.10.07</option>
-				<option value=" 20160128"> 2016.01.28</option>
-				<option value=" 20150824"> 2015.08.24</option>
-				<option value=" 20130215"> 2013.02.15</option>
-				<option value=" 20110930"> 2011.09.30</option>
-				<option value=" 20110207"> 2011.02.07</option>
+				<option value="20170915"> 2017.09.15</option>
+				<option value="20170803"> 2017.08.03</option>
+				<option value="20170131"> 2017.01.31</option>
+				<option value="20161007"> 2016.10.07</option>
+				<option value="20160128"> 2016.01.28</option>
+				<option value="20150824"> 2015.08.24</option>
+				<option value="20130215"> 2013.02.15</option>
+				<option value="20110930"> 2011.09.30</option>
+				<option value="20110207"> 2011.02.07</option>
 				</select>
 		</div>
 		<!-- 200519 개인정보 처리방침 -->
+		<script type="text/javascript">
+			jQuery(document).ready(function () {
+				jQuery("#selDyList").change(function () {
+					var dy = jQuery(this).val();
+					if (dy == '') {
+						return false;
+					}
+					if(navigator.platform){
 
+					var filter = "win16|win32|win64|mac";
+
+					if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+
+						location.href ='https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy
+
+					}else{
+
+						var popup = window.open('https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy, 'popup',
+							'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
+							);
+						popup.focus();
+					}
+
+					}
+
+
+
+
+				});
+			});
+		</script>
 	</div>
 </body>
 </html>
