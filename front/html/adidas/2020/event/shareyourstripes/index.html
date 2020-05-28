@@ -1009,19 +1009,11 @@
 			<div id="shareyourstripes">
 				<section class="main scroll" role="main">
 					<div class="main__figure">
-						<img src="/images/adidas/2020/event/shareyourstripes/2005_a_stripes_main_DT.jpg" alt="">
-					</div>
-					<div class="main__text">
-						<p>
-							SHARE YOUR LOVE
-						</p>
-						<p>
-							SHARE YOUR CARE
-						</p>
-						<p>
-							SHARE YOUR STRIPES
-						</p>
-						<span>2개 이상 구매 시<br> 최대 40%할인</span>
+						<div>
+							<img src="/images/adidas/2020/event/shareyourstripes/2005_a_stripes_main01_DT.jpg" alt="">
+						</div>
+						<img src="/images/adidas/2020/event/shareyourstripes/2005_a_stripes_main01_DT.jpg" alt="" class="active">
+						<img src="/images/adidas/2020/event/shareyourstripes/2005_a_stripes_main02_DT.jpg" alt="">
 					</div>
 				</section>
 				<section class="state scroll">
@@ -1253,6 +1245,23 @@
 				<!-- //shareyourstripes -->
 
 				<script type="text/javascript">
+					// 최상단 페이드인 효과
+					var index = 1;
+                   function auto(){
+                        if(index==0){
+                            index=1;
+                            $('.main .main__figure img').removeClass('active').eq(index).addClass('active');
+                            console.log(index);
+                        }else{
+                            index++;
+                            $('.main .main__figure img').removeClass('active').eq(index).addClass('active');
+                            index=0;
+                            console.log(index);
+
+                        }
+                   };
+                   var auto = setInterval(auto, 3500);
+
 					setTimeout(function(){
 						$('#shareyourstripes .main').addClass('on');
 					},250)

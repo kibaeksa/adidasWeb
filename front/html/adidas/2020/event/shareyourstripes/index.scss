@@ -58,7 +58,6 @@ html,body{
 
 	.main{
 		position: relative;
-		height:962px;
 		&.on{
 			.main__text{
 				p{
@@ -80,7 +79,26 @@ html,body{
 			}
 		}
 		.main__figure{
-			@include center();
+			position: relative;
+			img{
+				width:100%;
+			}
+			>div{
+				img{
+					z-index:-1;
+				}
+			}
+			>img{
+				position: absolute;
+				top:0;
+				left:0;
+				width:100%;
+				opacity: 0;
+				transition:all 1s;
+				&.active{
+					opacity: 1;
+				}
+			}
 		}
 		.main__text{
 			position: absolute;
