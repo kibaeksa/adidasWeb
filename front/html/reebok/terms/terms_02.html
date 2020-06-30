@@ -933,16 +933,30 @@
 
 			jQuery("#selDyList").change(function () {
 				var dy = jQuery(this).val();
+				var dyRecentYear = dy.substring(0, 4);
+				var RecentUrl = 'https://shop.adidas.co.kr/upload/design_temp/terms/r/old/' + dy + '_terms_02.html';
+				var pastUrl = 'https://shop.reebok.co.kr/RPF010107_SUB.action?chgDy=' + dy;
+
+				// console.log(dyRecentYear);
 
 				if (dy == '') {
 					return false;
 				}
+				
 				if(navigator.platform){
+					if(dyRecentYear >= 2020){
+						ifFilter(RecentUrl);					
+					}else{
+						ifFilter(pastUrl);
+					}
+				}
+
+				function ifFilter (url){
 					var filter = "win16|win32|win64|mac";
 					if(0 > filter.indexOf(navigator.platform.toLowerCase())){
-						location.href ='https://shop.reebok.co.kr/RPF010107_SUB.action?chgDy=' + dy
+						location.href = url;
 					}else{
-						var popup = window.open('https://shop.reebok.co.kr/RPF010107_SUB.action?chgDy=' + dy, 'popup',
+						var popup = window.open(url, 'popup',
 							'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
 							);
 						popup.focus();
