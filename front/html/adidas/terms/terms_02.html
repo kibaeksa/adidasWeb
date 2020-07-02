@@ -973,33 +973,109 @@
 		<!-- 200519 개인정보 처리방침 -->
 		<script type="text/javascript">
 			jQuery(document).ready(function () {
+
+
 				jQuery("#selDyList").change(function () {
 					var dy = jQuery(this).val();
+					// var dyRecentYear = dy.substring(0, 4);
+					var dyRecentYear = dy.substring(0, 6);
+					var RecentUrl = 'https://shop.adidas.co.kr/upload/design_temp/terms/a/old/' + dy + '_terms_02.html';
+					var pastUrl = 'https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy
+					// console.log(dyRecentYear);
 					if (dy == '') {
-						return false;
+					return false;
 					}
-					if (navigator.platform) {
+					
+					if(navigator.platform){
+						if(dyRecentYear >= 202005){
+							ifFilter(RecentUrl);               
+						}
+						// if(dyRecentYear >= 2020){
+						// 	ifFilter(RecentUrl);               
+						// }
+						else{
+							ifFilter(pastUrl);
+						}
+					}
 
+					function ifFilter (url){
 						var filter = "win16|win32|win64|mac";
-
-						if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
-
-							location.href = 'https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy
-
-						} else {
-
-							var popup = window.open('https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy, 'popup',
+						if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+							location.href = url;
+						}else{
+							var popup = window.open(url, 'popup',
 								'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
-							);
+								);
 							popup.focus();
 						}
-
 					}
-
-
-
-
 				});
+
+
+
+				// jQuery("#selDyList").change(function () {
+				// 	var dy = jQuery(this).val();
+				// 	var dyRecentYear = dy.substring(0, 4);
+
+				// 	console.log(dyRecentYear);
+
+				// 	if (dy == '') {
+				// 	return false;
+				// 	}
+					
+				// 	if(navigator.platform){
+				// 		if(dyRecentYear >= 2020){
+				// 			// alert('2020 년도보다큼');
+				// 			var filter = "win16|win32|win64|mac";
+				// 			if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+				// 				location.href ='https://shop.adidas.co.kr/upload/design_temp/terms/a/old/' + dy + '_terms_02.html'
+				// 			}else{
+				// 				var popup = window.open('https://shop.adidas.co.kr/upload/design_temp/terms/a/old/' + dy + '_terms_02.html', 'popup',
+				// 					'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
+				// 					);
+				// 				popup.focus();
+				// 			}
+				// 		}else{
+				// 			// alert('2020 년도보다 작음');
+				// 			var filter = "win16|win32|win64|mac";
+				// 			if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+				// 				location.href = 'https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy
+				// 			}else{
+				// 				var popup = window.open('https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy, 'popup',
+				// 					'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
+				// 				);
+				// 				popup.focus();
+				// 			}
+				// 		}
+				// 	}
+				// });
+				// jQuery("#selDyList").change(function () {
+				// 	var dy = jQuery(this).val();
+				// 	if (dy == '') {
+				// 		return false;
+				// 	}
+				// 	if (navigator.platform) {
+
+				// 		var filter = "win16|win32|win64|mac";
+
+				// 		if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
+
+				// 			location.href = 'https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy
+
+				// 		} else {
+
+				// 			var popup = window.open('https://shop.adidas.co.kr/PF010107_SUB.action?chgDy=' + dy, 'popup',
+				// 				'width=970,height=700,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,left=10,top=10'
+				// 			);
+				// 			popup.focus();
+				// 		}
+
+				// 	}
+
+
+
+
+				// });
 			});
 		</script>
 	</div>
