@@ -1,0 +1,327 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2{
+	display: inline-block;
+	&:hover{
+		>div{
+			// .bg{
+			// 	box-shadow: inset 0 0 0 1px #fff!important;
+			// 	-webkit-box-shadow: inset 0 0 0 1px #fff!important;
+			// 	// @include css3(transition, all 0.5s);
+			// }
+			a{
+				color: #767677!important;
+				background: #000!important;
+				span{
+					background: #767677!important;
+					em{
+						background: #767677!important;
+					}
+				}
+			}
+			&.white{
+				a{
+					background: #fff!important;
+				}
+			}
+		}
+	}
+	div{
+		position: relative;
+		&.white{
+			.bg{
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a{
+				color: #000;background: #fff;
+				.arrow{
+					background: #000;
+					em{
+						background: #000;
+					}
+				}
+			}
+		}
+		.bg{
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			z-index:1;
+		}
+		a{
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			letter-spacing: 1px;
+			padding:0 20px;
+			.arrow{
+				position: relative;
+				top:-1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+					em{
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top{
+							top:-3px;
+						}
+						&.bottom{
+							bottom: -3px;transform: rotate(-45deg);-webkit-transform: rotate(-45deg);
+						}
+					}
+
+			}
+		}
+	
+	}
+}
+
+.clubc_og{
+	a:focus,button:focus, img:focus {
+		outline: none;
+	}
+	@mixin ct {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+	@mixin clearFix {
+		&::after{
+			display:block;
+			clear:both;
+			content:'';
+		}
+	}
+	h1,p,span{
+		text-transform: uppercase;
+	}
+	main{
+		.visuals{
+			position: relative;
+			.visuals__figure{
+				img{
+					width:100%;
+				}
+			}
+			.visuals__body{
+				@include ct();
+				text-align: center;
+				white-space: nowrap;
+				h1{
+					font:700 86px/86px 'neueplak-wide';
+					color:#fff;
+					letter-spacing: 0px;
+					text-align: center;
+					margin:10px 0 0 0;
+				}
+				p{
+					font:700 32px/32px 'NotoSansKR';
+					color:#fff;
+					letter-spacing: 0px;
+					text-align: center;
+					margin: 25px 0;
+				}
+				.button_area_v2{
+					margin: 30px 0 0 0;
+				}
+			}
+		}
+		.content{
+			&.content__actived{
+				>div{
+					>div{
+						opacity: 1;
+						left: 38%;
+					}
+				}
+			}
+			>div{
+				position: relative;
+				>img{
+					width: 100%;
+				}
+				>div{
+					position: absolute;
+					top: 74%;
+					left: 36.5%;
+					transform: translate(-50%, -50%);
+					width: 24%;
+					opacity: 0.3;
+					transition: all 0.5s ease-in;
+					transition-delay: 0.8s;
+					img{
+						width:100%;
+					}
+				}
+			}
+			&:nth-child(3){
+				&.content__actived{
+					>div{
+						>div{
+							opacity: 1;
+							right: 21%;
+							left: initial;
+						}
+					}
+				}
+				>div{
+					>div{
+						top: 47%;
+						right: 19.5%;
+						transition-delay: unset;
+					}
+				}
+			}
+		}
+		.aside__wrapper{
+			padding:60px 0;
+			height:830px;
+		}
+		.bottoms{
+			background: url('/images/reebok/2020/event/clubc/0701/2007_r_clubC_bottomBg_DT.jpg') no-repeat;
+			background-position: top;
+			background-size: auto 100%;
+			position: relative;
+			height: 453px;
+			.bottoms__text{
+				@include ct;
+				text-align: center;
+				>span,p{
+					color: #fff;
+					display: block;
+					text-align: center;
+				}
+				span{
+					font: 700 32px/32px 'NotoSansKR';
+				}
+				p{
+					font: 700 55px/55px 'neueplak-wide';
+					margin: 10px 0 60px;
+				}
+			}
+		}
+		// .carousel{
+		// 	background: url('/images/reebok/2020/event/clubc/0701/2007_r_clubC_bg_DT.jpg') no-repeat;
+		// 	background-position: top;
+		// 	background-size: auto 104%;
+		// 	text-align: center;
+		// 	@include clearFix();
+		// 	.carousel__head{
+		// 		float: left;
+		// 		position: relative;
+		// 		margin: 16% 0 0 0;
+		// 		left: 13%;
+		// 		p{
+		// 			font:700 2rem/2.7rem 'NotoSansKR';
+		// 			color:#fff;
+		// 			letter-spacing: 1px;
+		// 		}
+		// 		>h1{
+		// 			font:700 3.4rem/3.4rem 'neueplak-wide';
+		// 			color:#fff;
+		// 			letter-spacing: 0px;
+		// 			margin: 5px 0 35px 0;
+		// 		}
+		// 		.button_area_v2{
+		// 		}
+		// 	}
+		// 	.inn{
+		// 		margin: 0 auto;
+		// 		padding: 60px 0;
+		// 		position: relative;
+		// 		width: 50%;
+		// 		float: left;
+		// 		left: 18%;
+		// 		#clubc_og.carousel__body{
+		// 			width: 100%;
+		// 			display: inline-block;
+		// 			position: relative;
+		// 			.slick-list{
+		// 				margin:0 auto;
+		// 				.slick-track{
+		// 					.item{
+		// 						img{
+		// 							width:100%;
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 			.slick-dots{
+		// 				text-align: center;
+		// 				margin:20px 0 0 0;
+		// 				position: absolute;
+		// 				left: 50%;
+		// 				transform: translateX(-50%);
+		// 				li{
+		// 					&.slick-active{
+		// 						background:#fff;
+		// 					}
+		// 					width:11px;
+		// 					height:11px;
+		// 					border:2.2px solid #fff;
+		// 					display: inline-block;
+		// 					margin-right:9px;
+		// 					border-radius: 50%;
+		// 					&:last-child{
+		// 						margin:0;
+		// 					}
+		// 					button{
+		// 						border:0;
+		// 						background:none;
+		// 						text-indent: -9999px;
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 		.arrows{
+		// 			position: absolute;
+		// 			top:50%;
+		// 			left: -6%;
+		// 			transform: translate(-50%,-50%);
+		// 			&.prev-button{
+		// 			}
+		// 			&.next-button{
+		// 				left: 106%;
+		// 				img{
+		// 					transform: rotate(180deg);
+		// 				}
+		// 			}
+		// 		}
+		// 	}			
+		// }
+	}
+}
+
+
