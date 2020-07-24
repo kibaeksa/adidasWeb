@@ -1,0 +1,401 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<script type="text/javascript" src="/data/eventRouter.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<meta property="og:title" content="아디다스 공식 온라인 스토어" />
+<meta property="og:image" content="http://shop.adidas.co.kr/upload/snsimg/adidas/main/main.jpg" />
+<meta property="og:url" content="http://shop.adidas.co.kr"/>
+<title>아디다스 공식 온라인 스토어 메인페이지</title>
+
+<link rel="shortcut icon" href="/images/adidas/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
+<link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+<script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script>
+<script src="/designjs/common/modalPopup.min.js"></script>
+<script src="/designjs/common/customForm.js"></script>
+<script src="/designjs/adidas/adidas.js"></script>
+
+</head>
+<body>
+
+	<div id="wrap">
+		<header include-html="/html/adidas/inc/header.html" ></header>
+		
+		<div id="container_r" class="campaign-content">
+			<link rel="stylesheet" type="text/css" href="/css/slick.css" />
+
+			<div class="overlay_mask"></div>
+			
+			<div id="adipost" class="adipost">
+
+				<div class="adipost_head">
+					<div class="adipost_head_le">
+						<img src="/images/adidas/2020/event/adipost/logo.png" alt="adidas" />
+					</div>
+					<div class="adipost_head_ra">
+						<h1>ADIPOST</h1>
+						<p>아디다스 최신 소식을 가장 빠르게 확인 하세요!</p>
+						<div class="button_area_v2" style="">
+							<div class="">
+								<div class="bg"></div>								
+								<a href="https://shop.adidas.co.kr/PF0601001.action" campaign-label="가입하기" class="">
+									가입하기
+									<span class="arrow">
+										<em class="top"></em>
+										<em class="bottom"></em>
+									</span>
+								</a>
+							</div>								
+						</div>
+					</div>
+				</div><!--adipost_join-->
+				
+
+				<div class="adipost_body">
+					<ul id="adipost_list" class="post_list cf">
+						<!-- apGridTemp : 그리드 아이템 템플릿 -->
+						<!-- <li class="adipost_btn" data-itemidx="4">
+							<a href="javascript:void(0)" class="">
+								<div class="image"><img src="/images/adidas/2020/event/adipost/adipost_img3.jpg" alt=""/></div>								
+							</a>
+						</li> -->
+						<!-- // apGridTemp : 그리드 아이템 템플릿 -->
+					</ul>
+				</div><!--adipost_inner-->
+			
+
+				<div class="slider_popup_wrap">
+					<div class="slider_popup" id="slider">
+						<a href="#; false;" class="control_next">&gt;</a>
+  						<a href="#; false;" class="control_prev">&lt;</a>
+						<ul>
+							<li class="dummy">SLIDE 1</li>
+							<li class="dummy" style="background: #aaa;">SLIDE 2</li>
+						</ul>
+						<!-- <div class="item">
+							<img src="/images/adidas/2020/event/adipost/popupImg/001/01.jpg" alt=""/>
+						</div> -->
+					</div>
+					<div class="slider_txt">
+						<!-- <div class="inner">
+							<p>
+								"무엇보다도 가장 큰 선물은<span></span>
+								사람들에게 즐거움을 줄 수 <span></span>
+								있다는 거예요“<span></span>
+								메시의 역사적인 700호 골을 <span></span>
+								기념하며,​ 새로운 네메시스19를 <span></span>
+								만나보세요.​
+							</p>
+							<strong>#MESSI #NEMEZIZ #ReadyForSport</strong>
+							<div class="button_area_v2" style="">
+								<div class="">
+									<div class="bg"></div>
+									<a href="https://shop.adidas.co.kr/PF020620.action?pn=READYFORSPORT" campaign-label="자세히 보기" class="">
+										자세히 보기
+										<span class="arrow">
+											<em class="top"></em>
+											<em class="bottom"></em>
+										</span>
+									</a>
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+				
+			</div><!--adipost-->	
+			<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
+
+			<script>
+				
+				$(function(){
+
+					// slider
+					var sld = function(){
+						var slideDom = $('#slider');
+						var slideCount = $('#slider ul li').length;
+						var slideWidth = $('#slider ul li').width();
+						var slideHeight = $('#slider ul li').height();
+						var sliderUlWidth = slideCount * slideWidth;
+						
+						$('#slider').css({ width: slideWidth, height: slideHeight });
+						$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+						
+						$('#slider ul li:last-child').prependTo('#slider ul');
+
+						function moveLeft() {
+							$('#slider ul').animate({
+								left: + slideWidth
+							}, 200, function () {
+								$('#slider ul li:last-child').prependTo('#slider ul');
+								$('#slider ul').css('left', '');
+							});
+						};
+
+						function moveRight() {
+							$('#slider ul').animate({
+								left: - slideWidth
+							}, 200, function () {
+								$('#slider ul li:first-child').appendTo('#slider ul');
+								$('#slider ul').css('left', '');
+							});
+						};
+
+						$('a.control_prev').click(function () {
+							moveLeft();
+						});
+
+						$('a.control_next').click(function () {
+							moveRight();
+						});
+					}
+					
+					
+	
+					// adipost Grid Template
+					var adipostUl = $('#adipost_list');
+					var adipostLi = $('#adipost_list li');
+					var adipostLiLen = adipostLi.length;
+					
+					var apGridImgArr = [
+						'/images/adidas/2020/event/adipost/adipost_img1.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img2.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img3.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img4.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img5.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img6.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img7.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img8.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img1.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img1.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img1.jpg',
+						'/images/adidas/2020/event/adipost/adipost_img1.jpg',
+					];
+	
+					// grid temp
+					function apGridTempFn (idx){
+						var apGridTemp = '<li class="adipost_btn" data-itemidx="'+ (idx + 1) +'">';
+						apGridTemp += '<a href="javascript:void(0)" class="">';
+						apGridTemp += '<div class="image"><img src="' + apGridImgArr[idx] + '" alt=""/></div>';
+						apGridTemp += '</a></li>';
+	
+						return adipostUl.prepend(apGridTemp);
+					}
+
+					for (var i = 0; i < apGridImgArr.length; i++) {
+						var idx = i;							
+						// console.log(idx);
+	
+						// apGridImgArr.reverse();
+						apGridTempFn(idx);
+					}
+
+					// 팝업 슬라이드 처리 스크립트
+					var aidpostPopDom = $('.slider_popup_wrap');
+					var aidpostPopSldDom = aidpostPopDom.find('.slider_popup ul');
+					var aidpostPopTxtDom = aidpostPopDom.find('.slider_txt');
+					var CLOSE_POP_BTN = aidpostPopDom.find('.close');
+					var POPUP_BTN = $('#adipost .adipost_btn');
+					
+					var apPopObj = [
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+							],
+							popTxt : "무엇보다도 가장 큰 선물은<br>사람들에게 즐거움을 줄 수 <br>있다는 거예요“<br>메시의 역사적인 700호 골을 <br>기념하며,​ 새로운 네메시스19를 <br>만나보세요.​",
+							popTag : "#MESSI #NEMEZIZ #ReadyForSport",
+							popLink : "https://shop.adidas.co.kr/PF020620.action?pn=READYFORSPORT",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/002/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/02.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/03.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/04.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/004/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/004/02.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/004/03.jpg',
+							],
+							popTxt : "무엇보다도 가장 큰 선물은<br>사람들에게 즐거움을 줄 수 <br>있다는 거예요“<br>메시의 역사적인 700호 골을 <br>기념하며,​ 새로운 네메시스19를 <br>만나보세요.​",
+							popTag : "#MESSI #NEMEZIZ #ReadyForSport",
+							popLink : "https://shop.adidas.co.kr/PF020620.action?pn=READYFORSPORT",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/005/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/005/02.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/005/03.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/005/04.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/005/05.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+							],
+							popTxt : "무엇보다도 가장 큰 선물은<br>사람들에게 즐거움을 줄 수 <br>있다는 거예요“<br>메시의 역사적인 700호 골을 <br>기념하며,​ 새로운 네메시스19를 <br>만나보세요.​",
+							popTag : "#MESSI #NEMEZIZ #ReadyForSport",
+							popLink : "https://shop.adidas.co.kr/PF020620.action?pn=READYFORSPORT",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/002/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/001/01.jpg',
+							],
+							popTxt : "무엇보다도 가장 큰 선물은<br>사람들에게 즐거움을 줄 수 <br>있다는 거예요“<br>메시의 역사적인 700호 골을 <br>기념하며,​ 새로운 네메시스19를 <br>만나보세요.​",
+							popTag : "#MESSI #NEMEZIZ #ReadyForSport",
+							popLink : "https://shop.adidas.co.kr/PF020620.action?pn=READYFORSPORT",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/002/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+						{
+							popImg : [
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+								'/images/adidas/2020/event/adipost/popupImg/003/01.jpg',
+							],
+							popTxt : "360도 통풍과 메쉬 갑피로 <br>발이 숨쉬듯 더 시원하고<br>쾌적하게.​<br>클라이마쿨과 함께 여름을<br>즐겨 보세요.",
+							popTag : "#CLIMACOOL",
+							popLink : "https://shop.adidas.co.kr/PF070801.action?pageNo=1238&NFN_ST=Y",
+						},
+					];
+					
+					// popup temp
+					function apPopSldTempFn (idx){
+						console.log("팝업객체 이미지 총개수 : "+apPopObj[idx].popImg.length);
+						for (let j = 0; j < apPopObj[idx].popImg.length; j++) {
+							(function(){
+								var apPopSldTemp = '<li class="item"><img src="' + apPopObj[idx].popImg[j] + '" alt="" /></li>';
+								setTimeout(function(){
+									return aidpostPopSldDom.append(apPopSldTemp);
+								}, 0);
+							})(j);
+						}
+					}
+
+					function apPopTxtTempFn (idx){
+						var apPopTxtTemp = '<div class="inner">';
+							apPopTxtTemp += '<p>' + apPopObj[idx].popTxt + '</p>';
+							apPopTxtTemp += '<strong>' + apPopObj[idx].popTag + '</strong>';
+							apPopTxtTemp += '<div class="button_area_v2" style=""><div class=""><div class="bg"></div>';
+							apPopTxtTemp += '<a href="' + apPopObj[idx].popLink + '" campaign-label="자세히 보기" class=""> 자세히 보기';
+							apPopTxtTemp += '<span class="arrow"><em class="top"></em><em class="bottom"></em></span></a></div></div></div>';
+	
+						return aidpostPopTxtDom.append(apPopTxtTemp);
+					}
+
+					// Grid Item Click 
+					POPUP_BTN.on('click', function(){
+						var index = $(this).attr("data-itemidx") - 1;
+						console.log("그리드 아이템 index : " + index);
+
+						aidpostPopSldDom.children().remove();
+
+						// 팝업오픈
+						$('.overlay_mask').css('display', 'block');
+						$('.slider_popup_wrap').fadeIn();
+	
+						// slider 템플릿 주입
+						// slideNaviVisible(index);
+
+						setTimeout(function() {
+							sld();
+						}, 100);
+						
+						apPopSldTempFn(index);
+						apPopTxtTempFn(index);
+
+						// apPopObj[index].popImg.length < 2 ? slideDom.find('a').hide() : slideDom.find('a').show();
+					});
+					
+					$('.overlay_mask').on('click', function(){
+						$('.slider_popup_wrap').fadeOut();
+						$(this).fadeOut();
+				
+						aidpostPopSldDom.css({'margin-left':'0'});
+						
+						aidpostPopSldDom.children().remove();
+						aidpostPopTxtDom.children().remove();
+					});
+					
+				});
+			</script>
+		</div>
+
+
+		<script src="/designjs/adidas/includeHTML.js"></script>
+
+		<footer include-html="/html/adidas/inc/footer.html"></footer>
+		<!-- footer end -->
+	</div>
+
+
+</body>
+</html>

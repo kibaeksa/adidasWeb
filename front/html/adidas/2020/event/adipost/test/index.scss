@@ -48,6 +48,69 @@ button{
 	}
 }
 
+#slider {
+	position: relative;
+	overflow: hidden;
+
+	ul {
+		position: relative;
+		margin: 0;
+		padding: 0;
+		height: 540px;
+		list-style: none;
+
+		li,
+		.item {
+			position: relative;
+			display: block;
+			float: left;
+			margin: 0;
+			padding: 0;
+			width: 540px;
+			height: 540px;
+			background: #ccc;
+			text-align: center;
+			line-height: 300px;
+		}
+	}
+}
+
+a {
+
+	&.control_prev,
+	&.control_next {
+		position: absolute;
+		top: 40%;
+		z-index: 999;
+		display: block;
+		padding: 4% 3%;
+		width: auto;
+		height: auto;
+		background: #2a2a2a;
+		color: #fff;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 18px;
+		opacity: 0.8;
+		cursor: pointer;
+	}
+
+	&.control_prev:hover,
+	&.control_next:hover {
+		opacity: 1;
+		-webkit-transition: all 0.2s ease;
+	}
+
+	&.control_prev {
+		border-radius: 0 2px 2px 0;
+	}
+
+	&.control_next {
+		right: 0;
+		border-radius: 2px 0 0 2px;
+	}
+}
+
 .cf{
 	clear:both;
 	content:'';
@@ -201,9 +264,9 @@ button{
 			height: 100%;
 			.inner{	
 				position:absolute;
-				left:35px;
+				left:30px;
 				top:50%;
-				width:350px;
+				width:300px;
 				transform: translateY(-50%);
 				p {
 					font: 300 18px/30px 'NotoSansKR';

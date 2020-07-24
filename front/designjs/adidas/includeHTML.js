@@ -20,8 +20,8 @@
             if (this.status == 200) {
               elmnt.innerHTML = this.responseText;
               var scripts = elmnt.getElementsByTagName('script');
-              console.log(elmnt)
-              console.log(scripts)
+              // console.log(elmnt)
+              // console.log(scripts)
               for (var i = 0; i < scripts.length; i++) {
                 eval(scripts[i].text); 
               }
@@ -38,7 +38,7 @@
        return;
       }
     }
-    setTimeout(function() {
-      callback();
-    }, 0)
+    // setTimeout(function() {
+    //   callback();
+    // }, 0)
   })();
