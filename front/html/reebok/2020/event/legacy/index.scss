@@ -1,0 +1,287 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2{
+	display: inline-block;
+	&:hover{
+		>div{
+			a{
+				color: #767677!important;
+				// background: #000!important;
+				span{
+					background: #767677!important;
+					em{
+						background: #767677!important;
+					}
+				}
+			}
+			&.white{
+				a{
+					background: #fff!important;
+				}
+			}
+		}
+	}
+	div{
+		position: relative;
+		&.white{
+			.bg{
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a{
+				color: #000;background: #fff;
+				.arrow{
+					background: #000;
+					em{
+						background: #000;
+					}
+				}
+			}
+		}
+		.bg{
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			z-index:1;
+		}
+		a{
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			letter-spacing: 1px;
+			padding:0 20px;
+			.arrow{
+				position: relative;
+				top:-1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+					em{
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top{
+							top:-3px;
+						}
+						&.bottom{
+							bottom: -3px;transform: rotate(-45deg);-webkit-transform: rotate(-45deg);
+						}
+					}
+
+			}
+		}
+	
+	}
+}
+
+.legacy{
+	a:focus,button:focus {
+		outline: 0;
+	}
+	div{
+		outline: 0;
+	}
+	h1,p,span{
+		text-transform: uppercase;
+	}
+	$ct: translateX(-50%);
+	.visuals{
+		position: relative;
+		&.on{
+			.visuals__text{
+				.text{
+					>h3, >span{
+						opacity: 1;
+						left: 0;
+					}
+				}
+			}
+		}
+		.visuals__figure{
+			img{
+				width:100%;
+			}
+		}
+		.visuals__text{
+			position: absolute;
+			top: 37%;
+			left: 18%;
+			white-space: nowrap;
+			.text{
+				position: relative;
+				z-index:2;
+				>h3, >span {
+					opacity: 0.1;
+					transition: all 1s;
+					left: -30px;
+				}
+				h3{
+					em{
+						font: 400 85px/50px 'neueplak-nrrw';
+					}
+					font: 300 90px/60px 'neueplak-wide';
+					color: #fff;
+					z-index: 1;
+					position: relative;
+					span{
+						display:block;
+						font: 900 90px/90px 'neueplak-wide';
+						color: #fff;
+					}
+				}
+				>span{
+					position: relative;
+					font: 400 22px/22px 'NotoSansKR';
+					color: #fff;
+					display: block;
+					margin: 28px 0 45px;
+					transition-delay: 0.3s;
+				}
+				.button_area_v2{
+					position: relative;
+				}
+			}
+		}
+	}
+	.article{
+		background: url('/images/reebok/2020/event/legacy/2007_r_legacy_bg01.jpg') no-repeat;
+		background-position: top;
+		background-size: 100% 100%;
+		padding: 100px 0;
+		&.on{
+			.article__body{
+				>p, >span{
+					opacity: 1;
+				}
+			}
+		}
+		.article__body{
+			text-align: center;
+			>p, >span {
+				opacity: 0.1;
+				transition: all 1s;
+			}
+			p{
+				font: 700 24px/36px 'NotoSansKR';
+				color: #fff;
+				text-align: center;
+			}
+			>span{
+				font: 400 36px/36px 'neueplak-ext';
+				color: #fff;
+				display: inline-block;
+				margin: 18px 0 0 0;
+				transition-delay: 0.3s;
+				em{
+					font: 700 36px/36px 'neueplak-ext';
+					color: #fff;
+					text-align: center;
+				}
+			}
+		}
+	}
+	.contents{
+		background: url('/images/reebok/2020/event/legacy/2007_r_legacy_bg02.jpg') no-repeat;
+		background-position: top;
+		background-size: 100% 100%;
+		padding: 95px 0;
+		.contents__head{
+			p{
+				font: 700 20px/30px 'NotoSansKR';
+				color: #000;
+				text-align: center;
+				&:nth-of-type(2) {
+					text-transform: lowercase;
+				}
+			}
+			h4{
+				font: 900 36px/36px 'neueplak-ext';
+				color: #000;
+				margin: 17px 0 35px 0;
+				text-align: center;
+			}
+		}
+		.contents__body{
+			width: 75%;
+			margin: 0 auto;
+			position: relative;
+			left: 1.5%;
+			&::after{
+				display: block;
+				clear: both;
+				content: '';
+			}
+			.item{
+				float: left;
+				width: 44%;
+				margin: 25px;
+				img{
+					width: 100%;
+				}
+				&:nth-of-type(3) {
+					clear: both;
+				}
+			}
+		}
+	}
+	.bottoms{
+		background: url('/images/reebok/2020/event/legacy/2007_r_legacy_bg03.jpg') no-repeat;
+		background-position: top;
+		background-size: 100% 100%;
+		padding: 80px 0;
+		.bottoms__body{
+				text-align: center;
+			h5{
+				em{
+					font: 400 56px/56px 'neueplak-nrrw';
+					color: #fff;
+				}
+				font: 300 56px/56px 'neueplak-wide';
+				color: #fff;
+				text-align: center;
+				span{
+					font: 900 56px/56px 'neueplak-wide';
+					color: #fff;
+				}
+			}
+			p{
+				font: 400 20px/20px 'NotoSansKR';
+				color: #fff;
+				text-align: center;
+				margin: 15px 0 25px 0;
+			}
+			.button_area_v2{
+			}
+		}
+	}
+}
+
+
