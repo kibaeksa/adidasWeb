@@ -1,0 +1,399 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+a{
+	outline:none;
+}
+button{
+	outline:none;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2{
+	display: inline-block;
+	&:hover{
+		>div{
+			a{
+				color: #767677!important;
+				// background: #000!important;
+				span{
+					background: #767677!important;
+					em{
+						background: #767677!important;
+					}
+				}
+			}
+			&.white{
+				a{
+					background: #fff!important;
+				}
+			}
+		}
+	}
+	div{
+		position: relative;
+		&.white{
+			.bg{
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a{
+				color: #000;background: #fff;
+				.arrow{
+					background: #000;
+					em{
+						background: #000;
+					}
+				}
+			}
+		}
+		.bg{
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			z-index:1;
+		}
+		a{
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			letter-spacing: 1px;
+			padding:0 20px;
+			.arrow{
+				position: relative;
+				top:-1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+					em{
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top{
+							top:-3px;
+						}
+						&.bottom{
+							bottom: -3px;transform: rotate(-45deg);-webkit-transform: rotate(-45deg);
+						}
+					}
+
+			}
+		}
+	
+	}
+}
+
+#ellestage{
+	.main__visual{
+		position:relative;
+		.main__box{
+			position:relative;
+			>img{
+				display:block;
+				margin:0 auto;
+			}
+			.main_txt{
+				position:absolute;left:50%;top:0;
+				transform:translateX(-50%);
+				padding:130px 0 100px 0;
+				width:100%;
+				h1{
+					img{
+						widows:100%;
+						display:block;
+						margin:0 auto;
+					}
+				}
+				p{
+					color:#fff;
+					font:400 21px/34px 'NotoSansKR';
+					padding-top:45px;
+					text-align:center;
+					letter-spacing:normal;
+					span{
+						display:block;
+					}
+					strong{
+						font:700 22px/ 34px 'neueplak';
+						text-transform:uppercase;
+						letter-spacing:1px;
+						display:inline-block;
+					}
+				}
+			}
+			.slider{
+				position:absolute;left:50%;top:50%;
+				transform:translate(-50%, -4%);
+				margin:0 auto;
+				widtH:990px;
+				height:650px;
+				// // overflow:hidden;
+				// background:url('/images/reebok/2020/event/ellestage/slider_box.jpg')center center no-repeat;
+				.video__list{
+					position:relative;
+					overflow: hidden;
+					video{
+						width:100%;
+						position:relative;
+						height:650px;
+					}			
+					.txt{
+						position:absolute;left:50%;top:50%;
+						transform:translate(-50%, -50%);
+						z-index:5;
+							a{
+								display:block;
+							}
+					}								
+				}
+
+				.slick-dots{
+					text-align:center; 
+					z-index: 5;
+					position: absolute;
+					left: 50%;
+					bottom: -35px;
+					transform: translateX(-50%);					
+				}
+				.slick-dots li{
+					display:inline-block;
+					vertical-align:top;
+					margin-right:5px;
+				}
+				
+				.slick-dots li button{
+					width: 13px;
+					height: 13px;
+					border-radius: 50%;
+					background:none;
+					border:0;
+					padding: 0;
+					text-indent: -9999px;
+					background:#d8d8d8;
+				}
+				
+				.slick-dots li.slick-active button {
+					background: #111;
+				}				
+				.slick-active {
+					img {
+						position: relative;
+					}
+
+					&::after {
+						opacity: 1;
+					}
+
+					&.comming{
+						&::after{
+							opacity:0;
+						}
+					}				
+				}
+
+				.slick-arrow{
+					display:inline-block;
+					position:absolute; top:45%;
+					border:0;
+					background:none;
+					text-decoration:none;
+					// &:nth-child(1){
+					// 	right:-4%;
+					// }		
+				}
+			
+				.slick-next{
+					width:30px;
+					height:50px;			
+					background:url('/images/reebok/2020/event/ellestage/video_right.png') no-repeat;
+					background-size:auto auto;
+					background-position: top;
+					border:0;
+					font-size:0;
+					cursor: pointer;
+					right:-4%;
+				}
+
+				.slick-prev{
+					width:30px;
+					height:50px;			
+					background:url('/images/reebok/2020/event/ellestage/video_left.png') no-repeat;
+					background-size:auto auto;
+					background-position: top;
+					border:0;
+					font-size:0;
+					cursor: pointer;
+					left:-4%;					
+				}		
+
+			}
+		}
+	}
+	.slider__tab{
+		.tab__box{
+			// background:url('/images/reebok/2020/event/ellestage/tab_bg.jpg') no-repeat;
+			// background-size:cover;
+			// overfloW:hidden;
+			position:relative;
+			.artist_list{
+				position:absolute;left:50%;top:-50px;
+				transform:translateX(-50%);
+				ul{
+					text-align:center;
+					margin:0 auto;
+					width:1200px;
+					li{
+						color:#fff;
+						float:left;
+						text-align:center;
+						vertical-align:top;
+						width:31.66666666667%;
+						margin-right:2.5%;
+						background:#b2261e;
+						box-sizing:border-box;					
+						padding:5px;
+						height:695px;
+
+						&:nth-child(3){
+							margin-right:0;
+						}
+						h2{
+							font:900 20px/32px 'NotoSansKR';
+							letter-spacing:normal;
+							text-align:center;
+							padding:28px 0 18px 0;
+							>span{
+								font:900 26px/32px 'NotoSansKR';
+							}
+						}
+						p{
+							font:400 16px/24px 'NotoSansKR';
+							text-align:center;
+							letter-spacing:normal;
+							padding-bottom:35px;
+							>span{
+								display:block;
+							}
+						}
+						.move{
+							padding-bottom:10px;
+						}						
+						strong{
+							display:block;
+							font:700 16px/26px 'NotoSansKR';
+							letter-spacing:normal;
+						}
+						em{
+							font:300 16px/ 26px 'neueplak-nrrw';							
+							letter-spacing:1px;
+							display:block;
+							text-align:center;
+							padding-bottom:25px;
+						}
+					}
+				}
+			}
+
+		}
+	}
+	.cont__2{
+		padding:200px 0 100px 0;
+		.cont__2__txt{
+			text-align:center;
+			margin:0 auto;
+			h2{
+				color:#111;
+				font:900 40px/ 34px 'neueplak-ext';
+				text-transform:uppercase;
+				letter-spacing:normal;
+				display:inline-block;
+			}
+			p{
+				text-align:center;
+				color:#111;
+				font:700 22px/32px 'NotoSansKR';
+				padding:26px 0 5px 0;
+				letter-spacing:0;
+				strong{
+					font:700 22px/ 32px 'neueplak';
+					text-transform:uppercase;
+					letter-spacing:1px;
+					display:inline-block;					
+				}
+				.space{
+					display:block;
+				}
+				.rer{
+					font:400 22px/ 32px 'neueplak';					
+				}
+			}
+			em{
+				text-align:center;
+				color:#111;
+				font:400 16px/34px 'NotoSansKR';
+				letter-spacing:0;				
+			}
+		}
+	}
+	.artist_pick{
+		position:relative;
+		background:url('/images/reebok/2020/event/ellestage/product_bg.jpg')no-repeat;
+		background-size:cover;
+		text-align:center;
+		h3{
+			font:900 40px/ 34px 'neueplak-ext';					
+			text-align:center;
+			color:#111;
+			letter-spacing:0;
+			text-transform:uppercase;
+			padding:115px 0 30px 0;
+		}
+		.pick_list{
+			overflow:hidden;
+			ul{
+				text-align:center;
+				margin:0 auto;
+				width:1200px;
+				li{
+					color:#fff;
+					float:left;
+					text-align:center;
+					vertical-align:top;
+					width:31.66666666667%;
+					margin-right:2.5%;
+					&:nth-child(3){
+						margin-right:0;
+					}
+				}
+			}
+		}
+		.pick_btn{
+			padding:40px 0 60px 0;
+		}
+	}
+}//ellestage
