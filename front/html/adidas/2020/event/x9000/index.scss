@@ -1,0 +1,375 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+html,body{
+	height:100%;
+}
+#footer{
+    z-index: 19;
+}
+#container_r{
+	background: #000;
+}
+#x9000 {
+	margin: 0 auto;
+	min-width: 1280px;
+	max-width: 1920px;
+	.rel{
+		position: relative;
+		height:800px;
+	}
+	.ct{
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+	}
+	.button_area_v2{
+		display: inline-block;
+		a{
+			letter-spacing: 1px;
+			padding:0 20px;
+			transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+		}
+		>div.gray{
+			.bg{
+				-webkit-box-shadow: inset 0 0 0 1px #1b1b1e;
+				box-shadow: inset 0 0 0 1px #1b1b1e;
+			}
+			a{
+				background: #1b1b1e;
+				color: #fff;
+				
+			}
+		}
+		// &:hover {
+		// 	div{
+		// 		a {
+		// 			color: #ddd;
+		// 		}
+		// 	}
+		// }
+	}
+
+	.pop-slider-zoom{
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 100;
+		background: rgba(0, 0, 0, 0.7);
+		.pop-contents{
+			position: relative;
+			width: 100%;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: 101;
+			text-align: center;
+			img{
+				display: inline-block;
+			}
+		}
+	}
+	
+	.main__wrapper{
+		position: relative;
+		height: 750px;
+		.main__bgbox {
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			z-index: 2;
+			img{
+				display: block;
+				width: 100%;
+			}
+		}
+		.main__prdbox{
+			position: absolute;
+			width: 1200px;
+			height: 750px;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 3;
+			>img{
+				display: inline-block;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				transition: 1s cubic-bezier(0.77, 0, 0.175, 1);
+
+				opacity: 0;
+				&:nth-child(1) {
+					transition-delay: 0.2s;
+				}
+
+				&:nth-child(2) {
+					bottom: 140px;
+					height: 200px;
+					transition-delay: 0.8s;
+				}
+
+				&:nth-child(3) {
+					bottom: 46px;
+					transition-delay: 0.8s;
+					filter: blur(20px);
+				}
+			}
+			
+			&.active{
+				img{
+					opacity: 1;
+					&:nth-child(1) {
+						animation: portal 2s;
+					}
+
+					&:nth-child(2) {
+						bottom: 140px;
+						height: 505px;
+					}
+
+					&:nth-child(3) {
+						bottom: 86px;
+						filter: blur(0);
+						// animation: updown 3s infinite;
+					}
+				}
+			}
+		}
+		.main__textbox{
+			width: 1200px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+			h3{
+				img{
+					display: block;
+				}
+			}
+			.button_area_v2 {
+				margin-top: 30px;
+			}
+		}
+	}
+	.productInfo__wrapper{
+		position: relative;
+
+		.productInfo__bgbox {
+			img {
+				display: block;
+				width: 100%;
+			}
+		}
+
+		.productInfo__textbox {
+			width: 1200px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+			h4 {
+				img {
+					display: block;
+				}
+			}
+			p{
+				margin-top: 45px;
+				font: 300 18px/34px 'NotoSansKR';
+				color: #fff;
+				strong{
+					font-weight: 600;
+				} 
+			}
+		}
+	}
+	.slider__wrapper{
+		background:url('/images/adidas/2020/event/x9000/slider_01_bg.jpg') no-repeat;
+		background-position: top;
+		background-size:cover;
+		padding: 70px 0;
+		text-align: center;
+		&.bg02{
+			background:url('/images/adidas/2020/event/x9000/slider_02_bg.jpg') no-repeat;
+			background-position: top;
+			background-size:cover;
+		}
+		&.bg03{
+			background:url('/images/adidas/2020/event/x9000/slider_03_bg.jpg') no-repeat;
+			background-position: top;
+			background-size:cover;
+		}
+		.slider__wrapper__inner{
+			position: relative;
+			margin-bottom: 2%;
+			&:last-child{
+				margin-bottom:0;
+			}
+			.slider__common{
+				.slick-list{
+					width:86%;
+					margin:0 auto;
+					.slick-slide {
+						padding: 5px;
+						outline: 0 none;
+						cursor: pointer;
+						&::after{
+							display:block;
+							clear:both;
+							content:'';
+						}
+						img{
+							width:100%;
+						}
+					}
+				}
+			}
+			.slider_nav{
+				.prev-button{
+					position: absolute;
+					top:50%;
+					left:2.5%;
+					transform: translateY(-50%);
+				}
+				.next-button{
+					position: absolute;
+					top:50%;
+					right:2.5%;
+					transform: translateY(-50%);
+				}
+			}
+		}
+		.button_area_v2{
+
+		}
+	}
+	.feature__wrapper{
+		position: relative;
+		height: 1680px;
+		.feature__wrapper__inner{
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			z-index: 2;
+			img{
+				display: block;
+			}
+		}
+	}
+	.video__wrapper {
+		position: relative;
+		overflow: hidden;
+		.video__box{
+			position: relative;
+			float: left;
+			width: 50%;
+			>img {
+				display: block;
+				width: 100%;
+			}
+
+			video {
+				display: block;
+				width: 100%;
+			}
+
+			a {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+	}
+	.end__wrapper {
+		position: relative;
+		height: 450px;
+		.end__bgbox {
+			width: 1920px;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			z-index: 2;
+
+			img {
+				display: block;
+			}
+		}
+		.end__textbox{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+			text-align: center;
+			h3 {
+				text-align: center;
+				img{
+					display: inline-block;
+				}
+			}
+
+			.button_area_v2 {
+				margin-top: 40px;
+			}
+		}
+	}
+}
+
+@keyframes portal{
+	0% {
+		opacity: 0;
+	}
+	10%{
+		opacity: 0.8;
+	}
+	15%{
+		opacity: 0.2;
+	}
+	20%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0;
+	}
+	60%{
+		opacity: 1;
+	}
+	65%{
+		opacity: 0.5;
+	}
+	70%{
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes updown{
+	0% {
+		bottom: 86px;
+	}
+	33%{
+		bottom: 80px;
+	}
+	66%{
+		bottom: 92px;
+	}
+	100% {
+		bottom: 86px;
+	}
+}
