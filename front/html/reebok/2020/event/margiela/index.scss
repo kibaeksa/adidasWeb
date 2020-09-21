@@ -1,0 +1,340 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2 {
+	display: inline-block;
+
+	&:hover {
+		>div {
+
+			// .bg{
+			// 	box-shadow: inset 0 0 0 1px #fff!important;
+			// 	-webkit-box-shadow: inset 0 0 0 1px #fff!important;
+			// 	// @include css3(transition, all 0.5s);
+			// }
+			a {
+				color: #767677 !important;
+				background: #000 !important;
+
+				span {
+					background: #767677 !important;
+
+					em {
+						background: #767677 !important;
+					}
+				}
+			}
+
+			&.white {
+				a {
+					background: #fff !important;
+				}
+			}
+		}
+	}
+
+	div {
+		position: relative;
+
+		&.white {
+			.bg {
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+
+			a {
+				color: #000;
+				background: #fff;
+
+				.arrow {
+					background: #000;
+
+					em {
+						background: #000;
+					}
+				}
+			}
+		}
+
+		.bg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px, 3px);
+			-webkit-transform: translate(3px, 3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			z-index: 1;
+		}
+
+		a {
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			letter-spacing: 1px;
+			padding: 0 20px;
+
+			.arrow {
+				position: relative;
+				top: -1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+
+				em {
+					position: absolute;
+					right: 0;
+					width: 8px;
+					height: 3px;
+					background: #fff;
+					transform: rotate(45deg);
+					-webkit-transform: rotate(45deg);
+
+					&.top {
+						top: -3px;
+					}
+
+					&.bottom {
+						bottom: -3px;
+						transform: rotate(-45deg);
+						-webkit-transform: rotate(-45deg);
+					}
+				}
+
+			}
+		}
+
+	}
+}
+
+.margiela {
+
+	.main{
+		position: relative;
+		video{
+			display: block;
+			width: 100%;
+		}
+		.btn-play{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+		}
+	}
+
+	.section{
+		position: relative;
+		&.sect_main{
+			video{
+				display: block;
+				width: 100%;
+			}
+			.btn-play{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 5;
+			}
+		}
+
+		&.sect_look {
+			text-align: center;
+			.cont_slide {
+				position: relative;
+				// width: 1920px;
+				// left: 50%;
+				// margin-left: -960px;
+				text-align: center;
+				.slide_lsit{
+					min-width: 1280px;
+					width: 100%;
+				}
+				.slick-slide {
+					overflow: hidden;
+					outline: none;
+					text-align: right;
+					// opacity: 0.4;
+					// transition: 1s;
+					// transition-delay: 0.4s;
+					&.slick-current {
+						opacity: 1;
+					}
+					img{
+						display: block;
+						width: 100%;
+						margin-left: -10px;
+					}
+					video{
+						display: inline-block;
+						width: calc(100% - 1px);
+						object-fit: cover;
+					}
+				}
+
+				.slick-arrow {
+					position: absolute;
+					top: 46%;
+					width: 40px;
+					height: 40px;
+					margin-top: -20px;
+					text-indent: -9999px;
+					border: 0 none;
+					outline: none;
+					cursor: pointer;
+					z-index: 10;
+
+					transition: 1s cubic-bezier(0.215, 0.610, 0.355, 1);
+					&.slick-prev {
+						left: 15%;
+						background: url('/images/reebok/2020/event/margiela/prev.png') 0 0 no-repeat;
+					}
+
+					&.slick-next {
+						right: 15%;
+						background: url('/images/reebok/2020/event/margiela/next.png') 0 0 no-repeat;
+					}
+					&:hover{
+						&.slick-prev {
+							left: 14.5%;
+							background: url('/images/reebok/2020/event/margiela/prev_on.png') 0 0 no-repeat;
+						}
+
+						&.slick-next {
+							right: 14.5%;
+							background: url('/images/reebok/2020/event/margiela/next_on.png') 0 0 no-repeat;
+						}
+					}
+				}
+
+				.slick-dots {
+					display: inline-block;
+					margin: 30px 0;
+					li {
+						display: inline-block;
+						margin: 0 3px;
+						width: 20px;
+						height: 1px;
+						background: #000;
+						text-indent: -9999px;
+						cursor: pointer;
+						vertical-align: bottom;
+						&.slick-active {
+							height: 5px;
+							background: #000;
+						}
+					}
+				}
+			}
+		}
+
+		&.sect_state{
+			padding: 80px 0;
+			color: #000;
+			text-align: center;
+			>*{
+				text-align: center;
+			}
+			img{
+				display: block;
+				width: 100%;
+			}
+			h3{
+				font: 600 34px 'NotoSansKR';
+			}
+			p{
+				padding-top: 20px;
+				font: 400 21px/36px 'NotoSansKR';
+				&.opday_tit{
+					padding-top: 70px;
+					font: 400 26px 'NotoSansKR';
+					color: #000;
+					text-align: center;
+					letter-spacing: -1px;
+				}
+			}
+			.button_area_v2{
+				margin-top: 40px;
+			}
+			.opday_noti{
+				padding-top: 20px;
+				display: block;
+				font: 300 16px 'NotoSansKR';
+			}
+		}
+
+		&.sect_prds {
+			padding-bottom: 120px;
+			color: #000;
+			h4{
+				margin-bottom: 50px;
+				font: 700 40px 'neueplak-ext';
+				text-align: center;
+			}
+			.prds_box{
+				margin: 0 auto;
+				position: relative;
+				max-width: 1410px;
+				min-width: 1280px;
+				width: 100%;
+				>img{
+					display: block;
+					width: 100%;
+				}
+				.box_text {
+					position: absolute;
+					top: 50%;
+					left: 10px;
+					transform: translateY(-50%);
+					z-index: 2;
+					h5 {
+						font: 400 40px 'neueplak-ext';
+						letter-spacing: 1px;
+					}
+
+					p {
+						padding-top: 20px;
+						font: 400 18px 'NotoSansKR';
+					}
+					&.rt{
+						left: auto;
+						right: 20px;
+					}
+				}
+			}
+		}
+
+		&.sect_prdsCut {
+			ul{
+				li{
+					display: block;
+					img{
+						display: block;
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
