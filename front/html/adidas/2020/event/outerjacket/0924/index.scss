@@ -1,0 +1,292 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#outerjacket {
+	position: relative;
+
+	div, img, a {
+		outline: none;
+	}
+	// 변수
+	$ctct: translate(-50%,-50%); 
+	$ctX: translateX(-50%);
+	$ctY: translateY(-50%);
+	$adinBlk: 'adinenuPro-black';
+	$adinBld: 'adinenuPro-bold';
+	$noto: 'NotoSansKR';
+	
+	// 앱솔루트 - 재사용.
+	@mixin center ( $top, $bottom, $left, $transform ) {
+		position: absolute;
+		top: $top;
+		bottom: $bottom;
+		left: $left;
+		transform: $transform;
+	}
+
+	// $val의 값이 auto면 퍼센티지,
+	// $val에 높이값이 있으면 가운데 정렬 - 재사용. 
+	@mixin auto($val) {
+		height: $val;
+		@if ( $val == auto ) {
+			.figure{
+				img, video{
+					width: 100%;
+				}
+			}
+		} @else {
+			.figure{
+				@include center(0, auto, 50%, $ctX);
+			}
+		}
+	}
+
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			a{
+				-webkit-transform: translate(3px,3px);
+				transform: translate(3px,3px);
+				-webkit-transition: all .5s;
+				transition: all .5s;
+				opacity: .9;
+			}
+			.bg{
+				&::after{
+					-webkit-transform: translate(0px,0px);
+					transform: translate(0px,0px);
+				}
+			}
+		}
+		a{
+			width:148px;
+			font: 700 14px/48px $noto;
+			letter-spacing: 0;
+		}
+	}
+	main{
+		section{
+			position: relative;
+		}
+		>img{
+			width: 100%;
+		}
+		.visuals{
+			img{
+				width: 100%;
+			}
+		}
+		.articles{
+			text-align: center;
+			padding: 70px 0;
+			.title{
+				font: 400 48px/65px $noto;
+				color: #000;
+				text-align: center;
+				em{
+					font: 700 48px/48px $noto;
+				}
+			}
+			.articles__body{
+				margin: 35px 0;
+				text-align: center;
+				p{
+					font: 300 19px/29px $noto;
+					color: #000;
+					text-align: center;
+				}
+				span{
+					font: 700 24px/24px $noto;
+					color: #000;
+					margin: 25px 0 0 0;
+					display: inline-block;
+				}
+			}
+		}
+		.main-head{
+			text-align: center;
+			margin: 0 0 130px 0;
+			&.men-head {
+				.video{
+					&:nth-of-type(3) {
+						margin: 50px 0 0 0;
+					}
+				}
+			}
+			>img{
+					width: 100%;
+			}
+			.txt{
+				position: relative;
+				height: 180px;
+				img{
+					@include center( 50%, auto, 50%, $ctct );
+				}
+			}
+			.video{
+				position: relative;
+				text-align: center;
+				>img{
+						width: 70%;
+				}
+				>a{
+					@include center( 50%, auto, 50%, $ctct );
+				}
+			}
+		}
+		.main-text{
+			margin: 65px 0;
+			text-align: center;
+			p{
+				font: 40px/40px 'adinenuPro-black';
+				color: #000;
+				text-align: center;
+			}
+			>span{
+				font: 19px/19px $noto;
+				color: #000;
+				text-align: center;
+				display: block;
+				margin: 15px 0 30px 0;
+			}
+			
+		}
+		.model-carousel__container{
+			background: url('/images/adidas/2020/event/outerjacket/0924/woman_slide_bg.jpg') no-repeat;
+			background-position: top;
+			background-size: 100% 100%;
+			padding: 75px 0 100px 0;
+			text-align: center;
+			&.men-slide01 {
+				background: url('/images/adidas/2020/event/outerjacket/0924/man_slide_bg.jpg') no-repeat;
+				background-position: top;
+				background-size: 100% 100%;
+			}
+			>img{
+				margin: 0 0 60px 0;
+			}
+			.slider{
+				width: 70%;
+				margin: 0 auto;
+				.item{
+					img{
+						width: 99%;
+						margin: 0 auto;
+					}
+				}
+			}
+			.prev-button, .next-button{
+				@include center(54%, auto, auto, $ctY);
+				img{
+					width: 35px;
+				}
+			}
+			.prev-button{
+				left: 11.5%;
+			}
+			.next-button{
+				left: 87%;
+				transform: rotate(180deg);
+			}
+		}
+		.carousel__container{
+			background: url('/images/adidas/2020/event/outerjacket/0907/woman_bg.jpg') no-repeat;
+			background-position: top;
+			background-size: 100% 100%;
+			&.men-slide02 {
+				background: url('/images/adidas/2020/event/outerjacket/0907/man_bg.jpg') no-repeat;
+				background-position: top;
+				background-size: 100% 100%;
+				.carousel__wrapper{
+					.carousel{
+						span.number{
+							color: #8d96af;
+						}
+					}
+				}
+			}
+			.carousel__wrapper{
+			// width: 1190px;
+				width: 70%;
+				margin: 0 auto;
+				padding: 65px 0 50px 0;
+				&::after{
+					display: block;
+					clear: both;
+					content:'';
+				}
+				.carousel{
+					float: left;
+					width: 22%;
+					margin: 0 auto;
+					position: relative;
+					text-align: center;
+					>p{
+						font: 32px/32px 'adinenuPro-black';
+						color: #000;
+						text-align: center;
+					}
+					span.number{
+						font:25px 'adihausDIN-Cond-bold';
+						color: #c5a1a1;
+						background: #fff;
+						padding: 3px 14px 0px 14px;
+						display: inline-block;
+					}
+					.slider{
+						.item{
+							img{
+								width: 100%;
+								margin: 0 auto;
+							}
+						}
+					}
+					.prev-button, .next-button{
+						@include center( 50%, auto, 50%, $ctY );
+					}
+					.prev-button{
+						left: -20%;
+					}
+					.next-button{
+						left: 110%;
+						transform: translateY(-50%) rotate(180deg);
+					}
+					&.down{
+						margin: 5rem 0 0 0;
+					}
+					&:nth-of-type(2){
+						left: 17%;
+					}
+					&:nth-of-type(3){
+						float: right;
+					}
+				}
+			}
+		}
+		.bottom-articles{
+			text-align: center;
+			padding: 60px 0 65px 0;
+			p{
+				font: 300 20px/27px $noto;
+				color: #000;
+				text-align: center;
+			}
+			>span{
+				font: 700 24px/24px $noto;
+				color: #000;
+				text-align: center;
+				display: block;
+				margin: 25px 0 30px 0;
+			}
+		}
+		.bottoms{
+			img{
+				width: 100%;
+			}
+		}
+	}
+
+}
