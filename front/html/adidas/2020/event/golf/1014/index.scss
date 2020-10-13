@@ -67,18 +67,18 @@ html,body{
 	// 	transform: $transform;
 	// }
 
-	// // $val의 값이 auto면 퍼센티지,
-	// // $val에 높이값이 있으면 가운데 정렬 - 재사용. 
+	// $val의 값이 auto면 퍼센티지,
+	// $val에 높이값이 있으면 가운데 정렬 - 재사용. 
 	// @mixin auto($val) {
 	// 	height: $val;
 	// 	@if ( $val == auto ) {
-	// 		.figure{
+	// 		div[class~="figure"]{
 	// 			img, video{
 	// 				width: 100%;
 	// 			}
 	// 		}
 	// 	} @else {
-	// 		.figure{
+	// 		div[class~="figure"]{
 	// 			@include center(0, auto, 50%, $ctX);
 	// 		}
 	// 	}
@@ -101,7 +101,14 @@ html,body{
 		.visuals{
 			// $val: auto; // height: 600px;
 			// @include auto($val);
-			.figure{
+			&.on{
+				.visuals__text{
+					opacity: 1;
+					-webkit-opacity: 1;
+					left: 16.8%;
+				}
+			}
+			.visuals__figure{
 				position: relative;
 				padding-top: 45.59%;
 				img{
@@ -118,15 +125,19 @@ html,body{
 				}
 			}
 			.visuals__text{
-				@include center( auto, 18%, 16.8%, none );
+				@include center( auto, 18%, 15%, none );
 				width: 22.2%;
+				opacity: 0;
+				-webkit-opacity: 0;
+				transition: all 1s ease-in-out;
+				-webkit-transition: all 1s ease-in-out;
 				img{
 					width: 100%;
 				}
 			}
 		}
 		.attachment{
-			.figure{
+			.attachment__figure{
 				background: url('/images/adidas/2020/event/golf/1014/bg.jpg') no-repeat;
 				background-position: top;
 				background-size: 100% auto;
@@ -164,6 +175,12 @@ html,body{
 		.sub-visual{
 			padding-top: 8%;
 			&.on{
+				.sub-visual__main{
+					img{
+						opacity: 1;
+						-webkit-opacity: 1;
+					}
+				}
 				.sub-visual__text{
 					opacity: 1;
 					-webkit-opacity: 1;
@@ -173,6 +190,10 @@ html,body{
 				position: relative;
 				img{
 					width: 100%;
+					opacity: 0;
+					-webkit-opacity: 0;
+					-webkit-opacity: 0;
+					transition: all 1s ease-in-out;
 				}		
 			}
 			.sub-visual__text{
@@ -181,9 +202,16 @@ html,body{
 				opacity: 0;
 				-webkit-opacity: 0;
 				transition: all 1s ease-in-out;
+				transition-delay: 0.7s;
 			}
 			&.women__section{
 				padding-top: 14%;
+				&.on{
+					.sub-visual__figure{
+						opacity: 1;
+						-webkit-opacity: 1;
+					}
+				}
 				.sub-visual__text{
 					@include center( auto, -31.7%, auto, none );
 					right: 7.6%;
@@ -192,6 +220,10 @@ html,body{
 				.sub-visual__figure{
 					position: relative;
 					padding-top: 47%;
+					opacity: 0;
+					-webkit-opacity: 0;
+					transition: all 1s ease-in-out;
+					transition-delay: 1.3s;
 					img{
 						@include center( 55%, auto, 26%, $ctct);
 						width: 27%;

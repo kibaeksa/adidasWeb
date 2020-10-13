@@ -72,17 +72,18 @@
 		transform: $transform;
 	}
 	// $val의 값이 auto면 퍼센티지,
-	// $val에 높이값이 있으면 가운데 정렬. 
+	// $val에 높이값이 있으면 가운데 정렬.
+	// 클래스명 figure 포함 엘리먼트 적용.
 	@mixin auto($val) {
 		height: $val;
 		@if ( $val == auto ) {
-			.figure{
+			div[class~="figure"]{
 				img, video{
 					width: 100%;
 				}
 			}
 		} @else {
-			.figure{
+			div[class~="figure"]{
 				@include center(0, auto, 50%, $ctX);
 			}
 		}
