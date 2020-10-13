@@ -56,3 +56,41 @@
         @content;
     }
 }
+	// 변수
+	$ctct: translate(-50%,-50%); 
+	$ctX: translateX(-50%);
+	$ctY: translateY(-50%);
+	$adinBlk: 'adinenuPro-black';
+	$adinBld: 'adinenuPro-bold';
+	$noto: 'NotoSansKR';
+	// 앱솔루트 포지셔닝.
+	@mixin center ( $top, $bottom, $left, $transform ) {
+		position: absolute;
+		top: $top;
+		bottom: $bottom;
+		left: $left;
+		transform: $transform;
+	}
+	// $val의 값이 auto면 퍼센티지,
+	// $val에 높이값이 있으면 가운데 정렬. 
+	@mixin auto($val) {
+		height: $val;
+		@if ( $val == auto ) {
+			.figure{
+				img, video{
+					width: 100%;
+				}
+			}
+		} @else {
+			.figure{
+				@include center(0, auto, 50%, $ctX);
+			}
+		}
+	}
+	@mixin after() {
+		&::after{
+			display: block;
+			content: '';
+			clear: both;
+		}
+	}

@@ -1,0 +1,269 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+html,body{
+	height:100%;
+}
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#golf{
+	position: relative;
+	overflow: hidden;
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			div{
+				a{
+					color: #767677;
+					span{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		div{
+			&.white{
+				.bg{
+					box-shadow: inset 0 0 0 1px #fff;
+					-webkit-box-shadow: inset 0 0 0 1px #fff;
+					@include css3(transition, all 0.5s);
+				}
+				a{
+					background: #fff;
+				}
+			}
+			.bg{
+				box-shadow: inset 0 0 0 1px #000;
+				-webkit-box-shadow: inset 0 0 0 1px #000;
+				@include css3(transition, all 0.5s);
+			}
+			a{
+				letter-spacing: 1px;
+				padding:0 20px;
+				background: #000;
+			}
+		}
+	}
+
+	// // 변수
+	// $ctct: translate(-50%,-50%); 
+	// $ctX: translateX(-50%);
+	// $ctY: translateY(-50%);
+	// $adinBlk: 'adinenuPro-black';
+	// $adinBld: 'adinenuPro-bold';
+	// $noto: 'NotoSansKR';
+	
+	// // 앱솔루트 - 재사용.
+	// @mixin center ( $top, $bottom, $left, $transform ) {
+	// 	position: absolute;
+	// 	top: $top;
+	// 	bottom: $bottom;
+	// 	left: $left;
+	// 	transform: $transform;
+	// }
+
+	// // $val의 값이 auto면 퍼센티지,
+	// // $val에 높이값이 있으면 가운데 정렬 - 재사용. 
+	// @mixin auto($val) {
+	// 	height: $val;
+	// 	@if ( $val == auto ) {
+	// 		.figure{
+	// 			img, video{
+	// 				width: 100%;
+	// 			}
+	// 		}
+	// 	} @else {
+	// 		.figure{
+	// 			@include center(0, auto, 50%, $ctX);
+	// 		}
+	// 	}
+	// }
+	// @mixin after() {
+	// 	&::after{
+	// 		display: block;
+	// 		content: '';
+	// 		clear: both;
+	// 	}
+	// }
+	div,a {
+		outline: none;
+	}
+
+	main{
+		section{
+			position: relative;
+		}
+		.visuals{
+			// $val: auto; // height: 600px;
+			// @include auto($val);
+			.figure{
+				position: relative;
+				padding-top: 45.59%;
+				img{
+					opacity: 0;
+					-webkit-opacity: 0;
+					transition: all 1s ease-in-out;
+					-webkit-transition: all 1s ease-in-out;
+					@include center( 0, auto, 0, none);
+					width: 100%;
+					&.on{
+						opacity: 1;
+						-webkit-opacity: 1;
+					}
+				}
+			}
+			.visuals__text{
+				@include center( auto, 18%, 16.8%, none );
+				width: 22.2%;
+				img{
+					width: 100%;
+				}
+			}
+		}
+		.attachment{
+			.figure{
+				background: url('/images/adidas/2020/event/golf/1014/bg.jpg') no-repeat;
+				background-position: top;
+				background-size: 100% auto;
+				background-attachment:fixed;
+				padding-top: 21.7%;
+			}
+		}
+		.title{
+			text-align: center;
+			img{
+				padding: 6% 0;
+				width: 40.6%;
+			}
+		}
+		.grid__container{
+			@include after();
+			padding: 0 0.5%;
+			>div{
+				float: left;
+				width: 34.09%;
+				text-align: center;
+				&.center{
+					width: 31.818181818181817%;
+				}
+				img{
+					width: 96%;
+					padding-bottom: 4%;
+				}
+				video.last{
+					padding-bottom: 0;
+					width: 96%;
+				}
+			}
+		}
+		.sub-visual{
+			padding-top: 8%;
+			&.on{
+				.sub-visual__text{
+					opacity: 1;
+					-webkit-opacity: 1;
+				}
+			}
+			.sub-visual__main{
+				position: relative;
+				img{
+					width: 100%;
+				}		
+			}
+			.sub-visual__text{
+				@include center( auto, -19%, 7.2%, none );
+				width: 21.2%;
+				opacity: 0;
+				-webkit-opacity: 0;
+				transition: all 1s ease-in-out;
+			}
+			&.women__section{
+				padding-top: 14%;
+				.sub-visual__text{
+					@include center( auto, -31.7%, auto, none );
+					right: 7.6%;
+					width: 21.2%;
+				}
+				.sub-visual__figure{
+					position: relative;
+					padding-top: 47%;
+					img{
+						@include center( 55%, auto, 26%, $ctct);
+						width: 27%;
+					}
+					.last{
+						@include center( 55%, auto, 74%, $ctct);
+						width: 34%;
+					}
+				}
+			}
+		}
+		.banners{
+			padding: 4% 0 9% 0;
+			>div{
+				width: 55%;
+				margin: 0 auto;
+				position: relative;
+				left: 2%;
+				@include after();
+				>div{
+					float: left;
+					text-align: center;
+					margin-right: 11%;
+					width: 44.5%;
+					&:last-of-type {
+						margin: 0;
+					}
+					img{
+						display: block;
+						width: 100%;
+					}
+					.button_area_v2{
+						padding-top: 40px;
+					}
+				}
+			}
+		}
+		.asides{
+			img{
+				width: 100%
+			}
+		}
+		.bottoms{
+			text-align: center;
+			padding: 60px 0 140px 0;
+			p{
+				font: 900 30px/30px $noto;
+				margin: 28px 0 40px 0;
+				text-align: center;
+				color: #000;
+			}
+		}
+	}
+}
+
+
+// @media screen and (min-width: 1100px) and (max-width: 1400px){ 
+// 	body { 
+// 		#shareyourstripes{
+// 			.main{
+// 				.main__text{
+// 					top: 127px;
+// 					p{
+// 						font: 75px/90px 'adihausDIN-Cond-bold';
+// 					}
+// 					span{
+// 						font: 700 60px/75px 'NotoSansKR';
+// 						margin: 290px 0 0 0;
+// 					}
+// 				}
+// 			}
+// 		}
+// 	} 
+// }
+
