@@ -162,7 +162,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			<h1>쿠폰 발급 안내</h1>
 			<a href="#" onclick="closeMyCpnLayer();" class="close"><img src="https://image.reebok.co.kr/images/reebok/common/btn_cpn_close_layer.gif" alt="팝업 닫기"/></a>
 			<div class="body">
-				<p class="info"><strong>김기백</strong> 님 쿠폰이 <strong>2매</strong> 있습니다.</p>
+				<p class="info"><strong>서영규</strong> 님 쿠폰이 <strong>2매</strong> 있습니다.</p>
 				<ul class="cpn">
 					<li>
 						<p class="label"></p>
@@ -284,9 +284,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 					<div class="border1"><div class="border2">
 
 
-						<p class="name"><strong>김기백</strong>
+						<p class="name"><strong>서영규</strong>
 
-					(kkbdream)
+					(seoyeo)
 
 					<a href="https://shop.reebok.co.kr:444/RPF060401.action">
 						<img src="//image.reebok.co.kr/images/reebok/mypage/btn_membership_modify.gif" alt="회원정보 수정" />
@@ -323,10 +323,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 					<h3><img src="http://image.reebok.co.kr/images/reebok/mypage/tit_coupon.gif" alt="쿠폰 현황" /></h3>
 
+					<!-- 20201016 탭 변경
+						- 전체 -> 최근 쿠폰 
+						- default 사용 가능한 쿠폰 으로 변경 -->
 					<ul class="page_tab">
-						<li><a href="#" onclick="fn_changTab(1);return false"><img id="tabImg1" src="http://image.reebok.co.kr/images/reebok/mypage/tab_coupon01_on.gif" alt="전체"></a></li>
-						<li><a href="#" onclick="fn_changTab(2);return false"><img id="tabImg2" src="http://image.reebok.co.kr/images/reebok/mypage/tab_coupon02_off.gif" alt="사용 가능한 쿠폰"></a></li>
-						<li><a href="#" onclick="fn_changTab(3);return false"><img id="tabImg3" src="http://image.reebok.co.kr/images/reebok/mypage/tab_coupon03_off.gif" alt="쿠폰일련번호 등록"></a></li>
+						<li><a href="#" onclick="fn_changTab(1);return false"><img id="tabImg1" src="/images/reebok/mypage/tab_coupon01_off.gif" alt="최근 쿠폰"></a></li>
+						<li><a href="#" onclick="fn_changTab(2);return false"><img id="tabImg2" src="/images/reebok/mypage/tab_coupon02_on.gif" alt="사용 가능한 쿠폰"></a></li>
+						<li><a href="#" onclick="fn_changTab(3);return false"><img id="tabImg3" src="/images/reebok/mypage/tab_coupon03_off.gif" alt="쿠폰일련번호 등록"></a></li>
 					</ul>
 					<div id="div_cpon_info">
 						<ul class="advice">
@@ -338,7 +341,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 							<li>보다 상세한 유효기간 경과 시 보상 기준 및 잔액환급조건 등의 이용조건 은 이용구매약관 제14조 참조 바랍니다 </li>
 						</ul>
 					</div>
-					<div id="tab1" style="display: block;">
+
+					<div id="tab1" style="display: none;">
 						<form id="frmSrch" name="frmSrch" action="">
 						<input type="hidden" id="S_COMMAND" name="command" value="LIST">
 						<input type="hidden" id="S_PAGE" name="PAGE_CUR" value="1">
@@ -511,6 +515,72 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 						</form>
 					</div>
+
+					<div id="tab2" style="display: block;">
+						<form id="frmDetail" name="frmDetail" action="">
+							<input type="hidden" id="D_COMMAND" name="command" value="LIST_1">
+							<input type="hidden" id="D_PAGE" name="PAGE_CUR" value="1">
+							<input type="hidden" id="D_CPON_ID" name="CPON_ID" value="">
+
+							<div id="makeListUsable">
+								<div class="my_list">
+									<table id="tab_con_2" summary="쿠폰 현황">
+										<caption>쿠폰 현황</caption>
+										<colgroup>
+											<col width="120px">
+											<col width="120px">
+											<col>
+											<col width="90px">
+											<col width="100px">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">사용처</th>
+												<th scope="col">적용대상 및 제한</th>
+												<th scope="col">쿠폰명</th>
+												<th scope="col">쿠폰금액</th>
+												<th scope="col" class="last">유효기간</th>
+											</tr>
+										</thead>
+										<tbody> </tbody>
+										<tfoot>
+											<tr>
+												<td colspan="5"> 발행된 쿠폰이 없습니다. </td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+
+							<!-- paging -->
+							<div id="makePagingUsable"></div>
+							<!-- //paging -->
+
+						</form>
+					</div>
+
+					<div id="tab3" style="display:none;">
+						<!--쿠폰일련번호 Start -->
+						<ul class="advice">
+							<li>리복매장에서 발급받은 쿠폰의 일련번호를 아래에 입력하십시요.</li>
+							<li>발급받으신 쿠폰 일련번호는 <strong class="coupon">등록기간내에 등록하셔야 사용가능</strong>합니다.</li>
+							<li>입력완료된 쿠폰은 <strong class="coupon">쿠폰현황에서 확인</strong>하실 수 있습니다.</li>
+							<li>쿠폰 일련번호에 하이픈(-)이 있는 경우, 제외하고 숫자만 입력하십시요.</li>
+						</ul>
+						<div class="couponInput">
+							<form id="frmPaperCpn" name="frmPaperCpn" action="">
+								<input type="hidden" id="T_COMMAND" name="command" value="" />
+								<fieldset>
+									<legend>쿠폰 일련번호 입력</legend>
+									<label for="CRT_NO">쿠폰 일련번호 입력</label>
+									<input type="text" name="CRT_NO" id="CRT_NO" value="" size="20" maxlength="14" />
+									<a href="javascript:fn_paperCpnAuth();"><img
+											src="//image.reebok.co.kr/images/adidas/popup/btn_submit.gif" alt="쿠폰번호 입력" /></a>
+								</fieldset>
+							</form>
+						</div>
+						<!--쿠폰일련번호 End -->
+					</div>
 				</div>
 
 					</div>
@@ -524,32 +594,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 		<form id="SendPayForm_id" name="" method="post" >
-				<input type="hidden" id="version" 			name="version" 			value="" />
-				<input type="hidden" id="mid" 					name="mid" 					value="" //>
-				<input type="hidden" id="goodname" 			name="goodname" 			value="" />
-				<input type="hidden" id="oid" 					name="oid" 					value="" />
-				<input type="hidden" id="price" 				name="price" 				value="" />
-				<input type="hidden" id="currency" 			name="currency" 			value="" />
-				<input type="hidden" id="buyername" 		name="buyername" 		value="" />
-				<input type="hidden" id="buyertel" 			name="buyertel" 			value="" />
-				<input type="hidden" id="buyeremail" 		name="buyeremail" 		value="" />
-				<input type="hidden" id="timestamp" 		name="timestamp" 		value="" />
-				<input type="hidden" id="signature" 		name="signature" 		value="" />
-				<input type="hidden" id="returnUrl" 		name="returnUrl" 		value="" />
-				<input type="hidden" id="mKey" 					name="mKey" 					value="" />
-				<input type="hidden" id="gopaymethod" 	name="gopaymethod" 	value="" />
-				<input type="hidden" id="offerPeriod" 	name="offerPeriod" 	value="" />
-				<input type="hidden" id="acceptmethod"	name="acceptmethod"	value="" />
-				<input type="hidden" id="languageView"	name="languageView"	value="" />
-				<input type="hidden" id="charset" 			name="charset" 			value="" />
-				<input type="hidden" id="payViewType"		name="payViewType"		value="" />
-				<input type="hidden" id="closeUrl"			name="closeUrl"			value="" />
-				<input type="hidden" id="popupUrl"			name="popupUrl"			value="" />
-				<input type="hidden" id="quotabase"			name="quotabase"			value="" />
-				<input type="hidden" id="ini_cardcode"	name="ini_cardcode"	value="" />
-				<input type="hidden" id="ansim_quota"		name="ansim_quota"		value="" />
-				<input type="hidden" id="vbankRegNo"		name="vbankRegNo"		value="" />
-				<input type="hidden" id="merchantData"	name="merchantData"	value="" />
+			<input type="hidden" id="version" 			name="version" 			value="" />
+			<input type="hidden" id="mid" 					name="mid" 					value="" />
+			<input type="hidden" id="goodname" 			name="goodname" 			value="" />
+			<input type="hidden" id="oid" 					name="oid" 					value="" />
+			<input type="hidden" id="price" 				name="price" 				value="" />
+			<input type="hidden" id="currency" 			name="currency" 			value="" />
+			<input type="hidden" id="buyername" 		name="buyername" 		value="" />
+			<input type="hidden" id="buyertel" 			name="buyertel" 			value="" />
+			<input type="hidden" id="buyeremail" 		name="buyeremail" 		value="" />
+			<input type="hidden" id="timestamp" 		name="timestamp" 		value="" />
+			<input type="hidden" id="signature" 		name="signature" 		value="" />
+			<input type="hidden" id="returnUrl" 		name="returnUrl" 		value="" />
+			<input type="hidden" id="mKey" 					name="mKey" 					value="" />
+			<input type="hidden" id="gopaymethod" 	name="gopaymethod" 	value="" />
+			<input type="hidden" id="offerPeriod" 	name="offerPeriod" 	value="" />
+			<input type="hidden" id="acceptmethod"	name="acceptmethod"	value="" />
+			<input type="hidden" id="languageView"	name="languageView"	value="" />
+			<input type="hidden" id="charset" 			name="charset" 			value="" />
+			<input type="hidden" id="payViewType"		name="payViewType"		value="" />
+			<input type="hidden" id="closeUrl"			name="closeUrl"			value="" />
+			<input type="hidden" id="popupUrl"			name="popupUrl"			value="" />
+			<input type="hidden" id="quotabase"			name="quotabase"			value="" />
+			<input type="hidden" id="ini_cardcode"	name="ini_cardcode"	value="" />
+			<input type="hidden" id="ansim_quota"		name="ansim_quota"		value="" />
+			<input type="hidden" id="vbankRegNo"		name="vbankRegNo"		value="" />
+			<input type="hidden" id="merchantData"	name="merchantData"	value="" />
 		</form>
 
 
@@ -870,16 +940,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			</div>
 		</div>
         <script>
-            (function($){
-                ModalPopup.bind('store-popup',{
-                    onopen : function(obj){
-                        $('body,html').css('overflow-y','hidden');
-                    },
-                    onclose : function(obj){
-                        $('body,html').css('overflow-y','auto');
-                    },
-                })
-            })(jQuery)
+            
+			ModalPopup.bind('store-popup',{
+				onopen : function(obj){
+					$('body,html').css('overflow-y','hidden');
+				},
+				onclose : function(obj){
+					$('body,html').css('overflow-y','auto');
+				},
+			})
+
+			// tab change
+			function fn_changTab(val){
+				if(val == 2) {
+					document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_coupon01_off.gif';
+					document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_coupon02_on.gif';
+					document.getElementById('tabImg3').src = '/images/reebok/mypage/tab_coupon03_off.gif';
+					document.getElementById('tab1').style.display='none';
+					document.getElementById('tab2').style.display='block';
+					document.getElementById('tab3').style.display='none';
+					document.getElementById('div_cpon_info').style.display='block';
+
+					var sCponId = $("#S_CPON_ID").val();
+
+				} else if(val == 3) {
+					document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_coupon01_off.gif';
+					document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_coupon02_off.gif';
+					document.getElementById('tabImg3').src = '/images/reebok/mypage/tab_coupon03_on.gif';
+					document.getElementById('tab1').style.display='none';
+					document.getElementById('tab2').style.display='none';
+					document.getElementById('tab3').style.display='block';
+					document.getElementById('div_cpon_info').style.display='none';
+
+					var sCponId = $("#S_CPON_ID").val();
+				} else /* if(val == 1) */{
+					document.getElementById('tabImg1').src = '/images/reebok/mypage/tab_coupon01_on.gif';
+					document.getElementById('tabImg2').src = '/images/reebok/mypage/tab_coupon02_off.gif';
+					document.getElementById('tabImg3').src = '/images/reebok/mypage/tab_coupon03_off.gif';
+					document.getElementById('tab1').style.display='block';
+					document.getElementById('tab2').style.display='none';
+					document.getElementById('tab3').style.display='none';
+					document.getElementById('div_cpon_info').style.display='block';
+
+					var dCponId = $("#D_CPON_ID").val();
+					if(dCponId != null && dCponId != '') {
+						$("#STORE_LAYER2_"+dCponId).style.display = "none";
+					}
+				}
+			}
+
+            
         </script>
 		<!-- 171206 쿠폰 사용가능 매장 end -->
 
