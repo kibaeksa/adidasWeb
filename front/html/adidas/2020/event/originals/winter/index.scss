@@ -50,46 +50,6 @@ html,body{
 		}
 	}
 
-	// // 변수
-	// $ctct: translate(-50%,-50%); 
-	// $ctX: translateX(-50%);
-	// $ctY: translateY(-50%);
-	// $adinBlk: 'adinenuPro-black';
-	// $adinBld: 'adinenuPro-bold';
-	// $noto: 'NotoSansKR';
-	
-	// // 앱솔루트 - 재사용.
-	// @mixin center ( $top, $bottom, $left, $transform ) {
-	// 	position: absolute;
-	// 	top: $top;
-	// 	bottom: $bottom;
-	// 	left: $left;
-	// 	transform: $transform;
-	// }
-
-	// $val의 값이 auto면 퍼센티지,
-	// $val에 높이값이 있으면 가운데 정렬 - 재사용. 
-	// @mixin auto($val) {
-	// 	height: $val;
-	// 	@if ( $val == auto ) {
-	// 		div[class~="figure"]{
-	// 			img, video{
-	// 				width: 100%;
-	// 			}
-	// 		}
-	// 	} @else {
-	// 		div[class~="figure"]{
-	// 			@include center(0, auto, 50%, $ctX);
-	// 		}
-	// 	}
-	// }
-	// @mixin after() {
-	// 	&::after{
-	// 		display: block;
-	// 		content: '';
-	// 		clear: both;
-	// 	}
-	// }
 	div,a {
 		outline: none;
 	}
@@ -102,7 +62,6 @@ html,body{
 			// $val: auto; // height: 600px;
 			// @include auto($val);
 			.visuals__figure{
-				// @include center( 0, auto, 0, none);
 				video{
 					width: 100%;
 				}
@@ -174,12 +133,6 @@ html,body{
 		.carousel__container{
 			>div{
 				position: relative;
-				&:nth-of-type(3) {
-					.carousel{
-						top: 36%;
-						left: 52%;
-					}
-				}
 				>img{
 					@include center(0,auto,50%,$ctX);
 					z-index: -1;
@@ -234,7 +187,33 @@ html,body{
 						}
 					}
 				}
-			}	
+				&:nth-of-type(2) {
+					.carousel{
+						.slick-dots{
+							top: 114px;
+						}
+					}
+				}
+				&:nth-of-type(3) {
+					.carousel{
+						top: 36%;
+						left: 52%;
+						.slick-dots{
+							top: 104px;
+						}
+					}
+				}
+			}
+			// 두번째 캐러셀 컨테이너
+			&:nth-of-type(5) {
+				&:nth-of-type(6) {
+					.carousel{
+						.slick-dots{
+							top: 100px;
+						}
+					}
+				}
+			}
 		}
 		.bottoms{
 			background: url('/images/adidas/2020/event/originals/winter/bg03.jpg') no-repeat;
@@ -256,24 +235,3 @@ html,body{
 		}
 	}
 }
-
-
-// @media screen and (min-width: 1100px) and (max-width: 1400px){ 
-// 	body { 
-// 		#shareyourstripes{
-// 			.main{
-// 				.main__text{
-// 					top: 127px;
-// 					p{
-// 						font: 75px/90px 'adihausDIN-Cond-bold';
-// 					}
-// 					span{
-// 						font: 700 60px/75px 'NotoSansKR';
-// 						margin: 290px 0 0 0;
-// 					}
-// 				}
-// 			}
-// 		}
-// 	} 
-// }
-
