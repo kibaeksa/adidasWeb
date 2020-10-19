@@ -1,0 +1,241 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+html,body{
+	height:100%;
+}
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#winter{
+	position: relative;
+	overflow: hidden;
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			div{
+				a{
+					color: #767677;
+					span{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		div{
+			&.white{
+				.bg{
+					box-shadow: inset 0 0 0 1px #fff;
+					-webkit-box-shadow: inset 0 0 0 1px #fff;
+					@include css3(transition, all 0.5s);
+				}
+				a{
+					background: #fff;
+				}
+			}
+			.bg{
+				box-shadow: inset 0 0 0 1px #000;
+				-webkit-box-shadow: inset 0 0 0 1px #000;
+				@include css3(transition, all 0.5s);
+			}
+			a{
+				letter-spacing: 1px;
+				padding:0 20px;
+				background: #000;
+			}
+		}
+	}
+	div,a {
+		outline: none;
+	}
+			
+		// ########## 믹스인 확인 ##########
+		// './mobile/css/adidas/scss/common/mixin.scss'
+
+	main{
+		section{
+			position: relative;
+		}
+		.visuals{
+			// $val: auto; // height: 600px;
+			// @include auto($val);
+			.visuals__figure{
+				video, img{
+					width: 100%;
+				}
+			}
+			.visuals__text{
+				@include center( 50%, auto, 11%, $ctY );
+				h3{
+					font: 56px/56px $adinBld;
+					color: #fff;
+					margin: 30px 0 0 0;
+				}
+				p{
+					font: 500 22px/31px $noto;
+					color:#fff;
+					margin: 10px 0 25px 0;
+				}
+				@media screen and (min-width: 1500px) and (max-width: 1800px){ 
+					h3{
+						font: 50px/50px $adinBld;
+						color: #fff;
+						margin: 30px 0 0 0;
+					}
+					p{
+						font: 500 17px/28px $noto;
+						color:#fff;
+					}
+				}
+				@media screen and (min-width: 1100px) and (max-width: 1500px){ 
+					h3{
+						font: 42px/42px $adinBld;
+						color: #fff;
+						margin: 30px 0 0 0;
+					}
+					p{
+						font: 500 17px/28px $noto;
+						color:#fff;
+					}
+				}
+				@media screen and (max-width: 1100px) { 
+					h3{
+						font: 41px/41px $adinBld;
+						color: #fff;
+						margin: 30px 0 0 0;
+					}
+					p{
+						font: 500 15px/26px $noto;
+						color:#fff;
+					}
+				}
+			}
+		}
+		.asides{
+				background: url('/images/adidas/2020/event/originals/winter/bg01.jpg') no-repeat;
+				background-position: top;
+				background-size: auto 100%;
+				padding: 90px 0;
+				&.bg02{
+					background: url('/images/adidas/2020/event/originals/winter/bg02.jpg') no-repeat;
+					background-position: top;
+					background-size: auto 100%;
+				}
+				p{
+					font: 700 28px/45px $noto;
+					color:#fff;
+					text-align: center;
+					letter-spacing: 9px;
+				}
+		}
+		.carousel__container{
+			>div{
+				position: relative;
+				>img{
+					@include center( 0, auto, 50%, $ctX );
+					z-index: -1;
+				}
+				.carousel{
+					@include center( 41%, auto, 52%, $ctY );
+					text-align: center;
+					.slider{
+						width: 400px;
+						margin: 0 auto;
+						.item{
+							img{
+								margin: 0 auto;
+							}
+						}
+					}
+					.slick-dots{
+						text-align: center;
+						position: relative;
+						top: 110px;
+						li{
+							width: 15px;
+							height: 15px;
+							background:#555759;
+							border-radius: 50%;
+							display: inline-block;
+							margin-right: 9px;
+							&:last-child{
+								margin: 0;
+							}
+							button{
+								border: 0;
+								background: none;
+								text-indent: -9999px;
+								outline: none;
+							}
+							&.slick-active{
+								background: #fff;
+							}
+						}
+					}
+					.button_area_v2{
+						position: relative;
+    					top: 164px;
+					}
+					&.reverse{
+						@include center( 42%, auto, auto, $ctY );
+						right: 52%;
+						.slider{
+						}
+						.button_area_v2{
+						}
+					}
+				}
+				&:nth-of-type(2) {
+					.carousel{
+						.slick-dots{
+							top: 114px;
+						}
+					}
+				}
+				&:nth-of-type(3) {
+					.carousel{
+						top: 36%;
+						left: 52%;
+						.slick-dots{
+							top: 104px;
+						}
+					}
+				}
+			}
+
+			// 두번째 캐러셀 컨테이너
+			&:nth-of-type(5) {
+				&:nth-of-type(6) {
+					.carousel{
+						.slick-dots{
+							top: 100px;
+						}
+					}
+				}
+			}
+		}
+		.bottoms{
+			background: url('/images/adidas/2020/event/originals/winter/bg03.jpg') no-repeat;
+			background-position: top;
+			background-size: 100% 100%;
+			text-align: center;
+			padding: 70px 0;
+			h4{
+				font: 72px/72px $adinBlk;
+				color: #fff;
+				text-align: center;
+				letter-spacing: 4px;
+			}
+			p{
+				font: 23px/33px $noto;
+				color: #fff;
+				text-align: center;
+				margin: 0 0 40px 0;
+			}
+		}
+	}
+}
