@@ -1510,19 +1510,32 @@
 											<tr class="noline" id="payMethodTr">
 												<th scope="row">결제수단 선택</th>
 												<td>
-													<input type="radio" name="payMethod" id="creditcard" onclick="fn_ChangePayMethod('credit');" value="03" checked><label for="creditcard">카드결제</label>
-													<input type="radio" name="payMethod" id="pay_naver" onclick="fn_ChangePayMethod('naver');" value="05"><label for="pay_naver">네이버페이</label>
-													<!-- 180413 간편결제 수단추가 start -->
+													<input type="radio" name="payMethod" id="pay_naver" onclick="fn_ChangePayMethod('naver');" value="03"><label for="pay_naver">네이버페이</label>
+													<input type="radio" name="payMethod" id="pay_spay" onclick="fn_ChangePayMethod('spay');" value="03"><label for="pay_spay">SPAY</label>
+													<input type="radio" name="payMethod" id="pay_kakao" onclick="fn_ChangePayMethod('kakao');" value="03"><label for="pay_kakao">카카오페이</label>
+													<input type="radio" name="payMethod" id="pay_lpay" onclick="fn_ChangePayMethod('lpay');" value="03"><label for="pay_lpay">LPAY</label>
+													<input type="radio" name="payMethod" id="pay_payco" onclick="fn_ChangePayMethod('payco');" value="03"><label for="pay_payco">PAYCO</label>
+													<input type="radio" name="payMethod" id="kpay" onclick="fn_ChangePayMethod('kpay');" value="03"><label for="kpay">KPAY</label>
+													<div class="void_line"></div>
+													<input type="radio" name="payMethod" id="credit" onclick="fn_ChangePayMethod('credit');" value="03" checked><label for="credit">카드결제</label>
+													<input type="radio" name="payMethod" id="vbank" onclick="fn_ChangePayMethod('vbank');" value="05"><label for="vbank">무통장입금</label>
+													<input type="radio" name="payMethod" id="mobile" onclick="fn_ChangePayMethod('mobile');" value="07"><label for="mobile">휴대폰결제</label>
+													<input type="radio" name="payMethod" id="account" onclick="fn_ChangePayMethod('account');" value="04"><label for="account">실시간이체</label>
+												</td>												
+												<!-- <td>
+													<input type="radio" name="payMethod" id="pay_naver" onclick="fn_ChangePayMethod('naver');" value="05" checked><label for="pay_naver">네이버페이</label>
+													<input type="radio" name="payMethod" id="creditcard" onclick="fn_ChangePayMethod('credit');" value="03"><label for="creditcard">카드결제</label>
+													
                                                     <input type="radio" name="payMethod" id="pay_kakao" onclick="fn_ChangePayMethod('kakao');" value="05"><label for="pay_kakao">카카오페이</label>
                                                     <input type="radio" name="payMethod" id="pay_lpay" onclick="fn_ChangePayMethod('lpay');" value="05"><label for="pay_lpay">LPAY</label>
                                                     <input type="radio" name="payMethod" id="pay_payco" onclick="fn_ChangePayMethod('payco');" value="05"><label for="pay_payco">PAYCO</label>
 													<input type="radio" name="payMethod" id="kpay" onclick="fn_ChangePayMethod('kpay');" value="03"><label for="kpay">KPAY</label>
 													<div class="void_line"></div>
-													<!-- 180413 간편결제 수단추가 end -->
+													
 													<input type="radio" name="payMethod" id="vbank" onclick="fn_ChangePayMethod('vbank');" value="05"><label for="vbank">무통장입금</label>
 													<input type="radio" name="payMethod" id="mobile" onclick="fn_ChangePayMethod('mobile');" value="07"><label for="mobile">휴대폰결제</label>
 													<input type="radio" name="payMethod" id="account" onclick="fn_ChangePayMethod('account');" value="04"><label for="account">실시간이체</label>
-												</td>
+												</td> -->
 											</tr>
 
 				                            <tr class="noline" id="noInt" style="display: none;">
@@ -1942,7 +1955,7 @@
 											</tbody>
 										</table>
 									</div>
-
+									<!--2010220 채무지급보증안내-->		
 									<div id="escrw_reward_apply" class="pay_method" style="display: none;">
 										<table summary="한국스탠다드차타드은행 채무지급보증안내">
 											<caption>한국스탠다드차타드은행 채무지급보증안내</caption>
@@ -1955,17 +1968,18 @@
 													<td class="noline"></td>
 													<th scope="col" class="noline" colspan="2">
 														한국스탠다드차타드은행 채무지급보증안내
-														<a href="javascript:fn_certifiedInfoPopRbk();" style="margin-left:10px;" title="새창 서비스 가입사실 확인"><img src="" alt="서비스 가입사실 확인" style="vertical-align:middle;"></a>
+														<a href="javascript:void(0);"onclick="window.open('/html/reebok/popup_debt-guarantee.html','','scrollbars=yes,width=680,height=500');return false; "onmousedown="javascript:fn_trkClickTrace('^풋터^ 채무지급보증안내');" style="margin-left:10px;" title="새창 서비스 가입사실 확인"><img src="/images/reebok/order/btn_security_check.jpg" alt="" style="vertical-align:middle;" campaign-label="채무지급보증안내"></a>
 													</th>
 												</tr>
 												<tr>
 													<td scope="col" class="noline"></td>
 													<!-- 161209  padding:1px 0 10px 7px; CSS 추가-->
-													<td class="noline" colspan="2" style="padding:1px 0 10px 7px;">당사는 고객님이 현금으로 결제한 금액에 대해 한국스탠다드차타드은행과 채무 지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</td>
+													<td class="noline" colspan="2" style="padding:1px 0 10px 7px;">당사는 고객님이 현금으로 결제한 금액에 대한 한국스탠다드차타드은행과 채무 지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
+									<!--2010220 채무지급보증안내 end-->													
 									<!-- 180413 간편결제 수단추가 + pay_method 라는 클래스 추가 end -->
 
 									<!-- 161219 -->
