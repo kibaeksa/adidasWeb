@@ -32,6 +32,7 @@
 
 		<!-- 권장 코드작성 위치 START -->
 		<div id="container_r">
+			<link rel="stylesheet" type="text/css" href="/css/slick.css" />
 
 			<div id="adiclubweek">
 				<div class="contain-visual">
@@ -50,17 +51,27 @@
 						<dt>MEMBER EXCLUSIVE LAUNCH</dt>
 						<dd>멤버 한정 스페셜 런칭 컬렉션을 소개합니다.</dd>
 					</dl>
-					<div class="swiper-container">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide"><a href="#;false;" onClick="alert('Coming Soon!')"><img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_1.jpg" alt="" ></a></div>
-							<div class="swiper-slide"><a href="#;false;" onClick="alert('Coming Soon!')"><img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_2.jpg" alt="" ></a></div>
-							<div class="swiper-slide"><a href="#;false;" onClick="alert('Coming Soon!')"><img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_3.jpg" alt="" ></a></div>
+
+					<div class="memeberslider_inner">
+						<div class="slider__wrapper__inner">
+							<ul id="sale_slider" class="slider__common">
+								<li><a href="#;false;" onClick="alert('Coming Soon!')">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_1.jpg" alt="">									
+								</a></li>
+								<li><a href="#;false;" onClick="alert('Coming Soon!')">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_2.jpg" alt="">									
+								</a></li>
+								<li><a href="#;false;" onClick="alert('Coming Soon!')">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/img_acw201015_cont2_3.jpg" alt="">									
+								</a></li>
+							</ul>
+							<!-- <div class="slider_nav sliderMember_nav">
+								<a href="javascript:void(0)" class="prev-button prev-button03" style="left:0"></a>
+								<a href="javascript:void(0)" class="next-button next-button03" style="right:0"></a>
+							</div> -->
 						</div>
 					</div>
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-pagination"></div>
-					<p class="text1">이미지를 클릭하시면 제품 페이지로 이동됩니다.</p>
+					<p class="text1" style="padding-top: 20px;">이미지를 클릭하시면 제품 페이지로 이동됩니다.</p>
 				</div>
 				<div class="contain-section3">
 					<div class="contain-inner">
@@ -108,23 +119,20 @@
 
 			</div>
 			<!-- //azx -->
-
-			<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-			<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+			
+			<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
 			<script type="text/javascript">
-				var mySwiper = new Swiper('.contain-section2 .swiper-container', {
-					slidesPerView: 3,
-					spaceBetween: 20,
-					pagination: {
-						el: '.contain-section2 .swiper-pagination',
-						clickable: true,
-					},
-					loop: true,
-					navigation: {
-						nextEl: '.contain-section2 .swiper-button-next',
-						prevEl: '.contain-section2 .swiper-button-prev',
-					},
-				})
+				$('#sale_slider').slick({
+					slidesToShow: 3,
+					slidesToScroll: 1,
+					draggable: true,
+					autoplaySpeed: 2000,
+					dots: false,
+					infinite: true,
+					cssEase: 'linear',
+					prevArrow: $('.sliderMember_nav .prev-button03'),
+					nextArrow: $('.sliderMember_nav .next-button03'),
+				});
 			</script>
 		</div>
 		<!-- 권장 코드작성 위치 END -->
