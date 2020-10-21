@@ -12,17 +12,15 @@
 <link rel="shortcut icon" href="/images/adidas/favicon.ico" />
 <link rel="apple-touch-icon-precomposed" href="/images/adidas/icon_114.png" />
 <link rel="stylesheet" type="text/css" href="/css/adidas/adidas_r.css" />
-<link rel="stylesheet" type="text/css" href="/css/adidas/runbase_seoul.css" /><!-- 20170524 추가 -->
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"/>
+
 <script type="text/javascript" src="/designjs/common/jquery-1.12.4.min.js"></script>
-<script src="/js/modalPopup.js"></script>
-<script type="text/javascript" src="/js/customForm.js"></script>
-<script type="text/javascript" src="/js/prototype-1.6.1.js"></script>
-<script type="text/javascript" src="/js/comCode.js"></script>
-<script type="text/javascript" src="/js/validatorUtil.js"></script>
-<script type="text/javascript" src="/js/jquery/ui/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="/js/jquery/easing/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="/js/adidas/adidas.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="/designjs/common/jquery-1.7.2.custom.js"></script>
+<script src="/designjs/common/modalPopup.min.js"></script>
+<script src="/designjs/common/customForm.js"></script>
+<script src="/designjs/adidas/adidas.js"></script>
+
 </head>
 
  <body>
@@ -113,7 +111,7 @@
 			</map>
 		</div>
 
-		<header include-html="/html/adidas/inc/header.html" ></header>
+		<header include-html="/html/adidas/inc/header.html"></header>
 
         <!-- 170530 start -->
 		<div id="container_r" class="adiclub_renewal adiclub_main">
@@ -172,7 +170,9 @@
 	                        <img src="/images/adidas/club/adiclub_renewal_170518/adiclub_sport_culture_info.jpg" alt="아디클럽 멤버십 스포츠 컬쳐 서비스 안내" usemap="#adiclub_benefit2">
 	                        <map name="adiclub_benefit2" id="adiclub_benefit2">
 								<!-- 181227 변경 및 삭제 -->
-								<area shape="rext" coords="230,657,888,726" href="#" alt="아디클럽 스포츠 신청하기">							
+								<!-- 20201021 아디클럽 팝업 -->
+								<area shape="rext" coords="230,657,888,726" href="javascript:void(0);" class="btn-ctm arrow modal-popup-click" data-modalpop-click="corona-popup" alt="아디클럽 스포츠 신청하기" style="display:none;">
+								<!-- 20201021 아디클럽 팝업 end-->
 								<!-- <area shape="rext" coords="565,740,890,810" href="#" alt="아디클럽 컬쳐 신청하기"> -->
 								<area shape="rext" coords="0,298,173,323" href="javascript:void(0)" class="ready_alert" alt="아디클럽 스포츠 상세혜택">						
 								<!-- <area shape="rext" coords="0,323,173,355" href="javascript:void(0)" class="ready_alert" alt="아디클럽 컬쳐 상세혜택"> -->
@@ -315,7 +315,7 @@
 					</div>
 					<!-- //divView3 -->
 
-
+	
                 </div>
 
 				<script type="text/javascript">
@@ -340,6 +340,28 @@
 
 		<footer include-html="/html/adidas/inc/footer.html"></footer>
 		<!-- footer end -->
+
+		<!-- 20201021 아디클럽 팝업 -->
+		<div class="modal-popup-wrapper corona-popup"
+			data-modalpop=""
+			data-modalpop-name="corona-popup"
+			data-modalpop-width="600"
+			data-modalpop-height="401"
+		>
+			<div class="overlay"></div>
+			<div class="popup" style="background:none;">
+				<div class="popup-header" style="background:none;border-bottom:0;">
+					<a href="javascript:void(0)" class="close" style="width:30px;height:30px;right:0;"><span
+							class="spt_bg"
+							style="background:url('http://image.adidas.co.kr/images/adidas/club/ar_pop_btn_cancel_201709.png'); width:30px;height:30px;margin:0;"></span></a>
+				</div>
+				<div class="popup-contents" style="padding:0;position:relative;">
+					<img src="http://image.adidas.co.kr/upload/design_temp/etc/2020/2010_a_AR_DT.jpg" width="100%"
+						alt="">
+				</div>
+			</div>
+		</div>
+		<!-- 20201021 아디클럽 팝업 end -->			
 	</div>
 	<!-- //wrap -->
 	<script src="/designjs/adidas/includeHTML.js"></script>
