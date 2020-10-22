@@ -85,17 +85,24 @@
 								</a>
 							</div>
 						</div>
-						<ul>
-							<li><a href="" campaign-label="Y-3">
-								<img src="/images/adidas/2020/event/adiclub/benefit_01.jpg" alt="">
-							</a></li>
-							<li><a href="" campaign-label="JAMES BOND">
-								<img src="/images/adidas/2020/event/adiclub/benefit_02.jpg" alt="">
-							</a></li>
-							<li><a href="" campaign-label="YEEZY">
-								<img src="/images/adidas/2020/event/adiclub/benefit_03.jpg" alt="">
-							</a></li>
-						</ul>
+						<div class="slider__wrapper__inner">
+							<ul id="member_slider" class="slider__common">
+								<!-- <li><a href="#;false;" onClick="alert('Coming Soon!')"> -->
+								<li><a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1471">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/benefit_04.jpg" alt="">									
+								</a></li>
+								<li><a href="https://shop.adidas.co.kr/PF070801.action?pageNo=1471">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/benefit_03.jpg" alt="">									
+								</a></li>
+								<li><a href="https://shop.adidas.co.kr/PF020620.action?pn=YEEZY_INFORMATION">
+									<img src="/images/adidas/2020/event/adiclub/sub_benefit/benefit_05.jpg" alt="">									
+								</a></li>
+							</ul>
+							<!-- <div class="slider_nav sliderMember_nav">
+								<a href="javascript:void(0)" class="prev-button prev-button00" style="left:1%"></a>
+								<a href="javascript:void(0)" class="next-button next-button00" style="right:1%"></a>
+							</div> -->
+						</div>
 					</div>
 				</div>
 
@@ -335,19 +342,18 @@
 				<script type="text/javascript">
 					
 					$(document).ready(function(){
-					// (function($){
 
-						// $(window).load(function(){
-						// 	var notizoneTop = $('#notizone').offset().top;
-						// 	// console.log(notizoneTop);
-
-						// 	setTimeout(function() {
-						// 	// $('.btn-notizone').trigger('click');
-						// 	$('html, body').animate({'scrollTop':notizoneTop-199}, 40);
-						// 	}, 10);
-						// });
-
-						
+						$('#member_slider').slick({
+							slidesToShow: 3,
+							slidesToScroll: 1,
+							draggable: true,
+							autoplaySpeed: 2000,
+							dots: true,
+							infinite: true,
+							cssEase: 'linear',
+							prevArrow: $('.sliderMember_nav .prev-button00'),
+							nextArrow: $('.sliderMember_nav .next-button00'),
+						});
 
 						$('#slider01').slick({
 							slidesToShow: 4,
@@ -364,21 +370,23 @@
 							nextArrow: $('.slider01_nav .next-button01'),
 						});
 
-						$('.slider_nav .prev-button').hide();
+						setTimeout(function(){
+							$('.slider01_nav .prev-button01').hide();
+						}, 400);
 
 						$('#slider01').on('afterChange', function (event, slick, direction) {
-							var crtIdx = $('.slick-current').attr("data-slick-index");
+							var crtIdx = $('#slider01').find('.slick-current').attr("data-slick-index");
 							var slideMbLen = $('#slider01').find('.slick-slide').length - 4; // - slidesToShow
-							// console.log(crtIdx);
-							// console.log(slideMbLen);
+							console.log("crtIdx : " + crtIdx);
+							console.log("slideMbLen : " + slideMbLen);
 							
 							if(slideMbLen == crtIdx){
-								$('.slider01_nav .next-button').hide();
+								$('.slider01_nav .next-button01').hide();
 							}else if(0 < crtIdx){
-								$('.slider01_nav .prev-button').show();
-								$('.slider01_nav .next-button').show();
+								$('.slider01_nav .prev-button01').show();
+								$('.slider01_nav .next-button01').show();
 							}else{
-								$('.slider01_nav .prev-button').hide();
+								$('.slider01_nav .prev-button01').hide();
 							}
 							
 							// $('.slider_nav_ytb .nav_name').find('img').attr('src', ytbNavName[crtIdx]);
@@ -396,7 +404,6 @@
 							prevArrow: $('.slider02_nav .prev-button02'),
 							nextArrow: $('.slider02_nav .next-button02'),
 						});
-
 
 						$(window).on('load', function(){
 
