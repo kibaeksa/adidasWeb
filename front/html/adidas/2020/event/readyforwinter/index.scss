@@ -1,0 +1,267 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+html,body{
+	height:100%;
+}
+#wrap{
+	min-width: 1190px;
+	overflow: hidden;
+}
+#winter{
+	position: relative;
+	overflow: hidden;
+	.button_area_v2{
+		display: inline-block;
+		&:hover{
+			div{
+				a{
+					color: #767677;
+					span{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		div{
+			&.white{
+				.bg{
+					box-shadow: inset 0 0 0 1px #fff;
+					-webkit-box-shadow: inset 0 0 0 1px #fff;
+					@include css3(transition, all 0.5s);
+				}
+				a{
+					background: #fff;
+				}
+			}
+			.bg{
+				box-shadow: inset 0 0 0 1px #000;
+				-webkit-box-shadow: inset 0 0 0 1px #000;
+				@include css3(transition, all 0.5s);
+			}
+			a{
+				letter-spacing: 1px;
+				padding:0 20px;
+				background: #000;
+			}
+		}
+	}
+	div,a {
+		outline: none;
+	}
+			
+		// ########## 믹스인 확인 ##########
+		// './mobile/css/adidas/scss/common/mixin.scss'
+
+	main{
+		@mixin btns() {
+			.button_area_v2{
+				a{
+					background: transparent;
+					border: 1.5px solid #fff;
+					color: #fff;
+					.arrow{
+						background: #fff;
+						em{
+							background: #fff;
+						}
+					}
+				}
+			}
+		}
+		section{
+			position: relative;
+		}
+		.visuals{
+			// $val: auto or 600px;
+			// @include auto($val);
+			$val: 850px;
+			@include auto($val);
+		}
+		@for $i from 1 through 6 {
+			.bg0#{$i} {
+				background: url('/images/adidas/2020/event/readyforwinter/bg0#{$i}.jpg') no-repeat;
+				background-position: top;
+				background-size: 100% 100%;
+			}
+		}
+		.asides{
+			padding: 60px 0;
+			text-align: center;
+			h3{
+				font: 700 24px/24px $noto;
+				color: #fff;
+				text-align: center;
+			}
+			P{
+				font: 400 18px/26px $noto;
+				color: #fff;
+				text-align: center;
+				margin: 15px 0 25px 0;
+			}
+			&.bg03{
+				background-size: auto 100%;
+				padding: 120px 0;
+			}
+		}
+		.videos{
+			padding: 65px 0;
+			>div{
+				width: 1190px;
+				margin: 0 auto;
+			}
+			.videos__item{
+				position: relative;
+				display: inline-block;
+				margin-right: 36px;
+				>a{
+					@include center(50%,auto,50%,$ctct);
+				}
+				&:last-child{
+					margin: 0;
+				}
+			}
+		}
+		.carousel__container{
+			padding: 65px 0;
+			>p{
+				font: 400 28px/36px $noto;
+				color: #fff;
+				margin: 0 0 40px 0;
+				text-align: center;
+				em{
+					font: inherit;
+					font-weight: 900;
+				}
+			}
+			.carousel{
+				text-align: center;
+				.slider{
+					width: 1065px;
+					margin: 0 auto;
+					.item{
+						img{
+							margin: 0 auto;
+						}
+					}
+				}
+				.slider_nav{
+					@include center(50%, auto, 50%, $ctct);
+					.prev-button, .next-button{position: relative;}
+					.prev-button{
+						left: -560px;
+					}
+					.next-button{
+						left: 560px;
+						img{
+							transform: rotate(-180deg);
+						}
+					}
+				}
+				.slick-dots{
+					text-align: center;
+					position: relative;
+					margin: 30px 0 35px 0;
+					li{
+						width: 13px;
+						height: 13px;
+						border:2px solid #fff;
+						border-radius: 50%;
+						display: inline-block;
+						margin-right: 8px;
+						&:last-child{
+							margin: 0;
+						}
+						button{
+							border: 0;
+							background: none;
+							text-indent: -9999px;
+							outline: none;
+						}
+						&.slick-active{
+							background: #fff;
+						}
+					}
+				}
+			}
+		}
+		.descs{
+			>div{
+				position:relative;
+				width: 1190px;
+				margin: 0 auto;
+				$val: 640px;
+				@include auto($val);
+				@include btns();
+				.button_area_v2{
+					@include center(auto, 110px, auto, none);
+					left: 0;
+					&:last-child{
+						left: auto;
+						right: 0;
+					}
+				}
+			}
+			&.last{
+				.button_area_v2{
+					bottom: 63px;
+				}
+			}
+		}
+		.bottoms{
+			padding: 35px 0;
+			>div{
+				@include w1190();
+				@include after();
+				>img{
+					float: left;
+					position: relative;
+					left: 100px;
+				}
+				.txt{
+					float: right;
+					position: relative;
+					top: 105px;
+					right: 90px;
+					p{
+						font: 700 24px/36px $noto;
+						color: #fff;
+						margin: 0 0 35px 0;
+					}
+					.button_area_v2{
+						
+					}
+				}
+			}
+		}
+		.banners{
+			$val: auto;
+			@include auto($val);
+			.txt{
+				@include center(50%, auto, 23%, $ctY);
+				p{
+					font: 700 22px/22px $noto;
+					color: #fff;
+					margin: 10px 0 30px 0;
+				}
+				@include btns();
+				.button_area_v2{
+					a{
+						line-height: 38px;
+						height: 38px;
+					}
+				}
+			}
+			&:last-child{
+				.txt{
+					p{
+						line-height: 31px;
+					}
+				}
+			}
+		}
+	}
+}

@@ -70,3 +70,45 @@ $break-large: 1400px;
         @content;
     }
 }
+
+// 변수
+$ctct: translate(-50%,-50%); 
+$ctX: translateX(-50%);
+$ctY: translateY(-50%);
+$noto: 'NotoSansKR';
+// 앱솔루트 포지셔닝.
+@mixin center ( $top, $bottom, $left, $transform ) {
+	position: absolute;
+	top: $top;
+	bottom: $bottom;
+	left: $left;
+	transform: $transform;
+}
+// $val의 값이 auto면 퍼센티지,
+// $val에 높이값이 있으면 가운데 정렬.
+// 클래스명 figure 포함 엘리먼트 적용.
+@mixin auto($val) {
+	height: $val;
+	@if ( $val == auto ) {
+		div[class*=figure]{
+			img, video{
+				width: 100%;
+			}
+		}
+	} @else {
+		div[class*=figure]{
+			@include center(0, auto, 50%, $ctX);
+		}
+	}
+}
+@mixin after() {
+	&::after{
+		display: block;
+		content: '';
+		clear: both;
+	}
+}
+@mixin w1190() {
+	width: 1190px;
+	margin: 0 auto;
+}
