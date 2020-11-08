@@ -34,10 +34,10 @@
 					<div class="tabs">
 						<ul>
 							<li class="tab01">
-								<img src="/images/adidas/2020/event/golf/1103/tab_text01.png" alt="">
+								<img src="/images/adidas/2020/event/golf/1103/tab01.png" alt="">
 							</li>
 							<li class="tab02 tab-active">
-								<img src="/images/adidas/2020/event/golf/1103/tab_text02.png" alt="">
+								<img src="/images/adidas/2020/event/golf/1103/tab02.png" alt="">
 							</li>
 						</ul>
 					</div>
@@ -259,7 +259,19 @@
 							});
 						});
 					} )();
-
+					var scrollEvent02 = ( function(){
+						$('#golf .tab__contents02 .attachment').addClass('fixed');
+						$(this).scroll( function() {
+							var thisScroll = $(this).scrollTop();
+							var section = $('#golf .fixed');
+							$.each( section, function( index, elem ){
+								var $target = section.eq( index );
+								var targetTop = $target.offset().top;
+								targetTop <= thisScroll && $('#golf .tabs').eq( index ).addClass('fixed-active');
+								targetTop > thisScroll && $('#golf .tabs').eq( index ).removeClass('fixed-active');
+							});
+						});
+					} )();
 					function Comp01( elem ){
 						var index = 0;
 						setInterval( function() {
@@ -302,19 +314,26 @@
 					//탭 변경
 					$('#golf .tabs li').bind('click',function(){
 
-						var index = $(this).index();
+					var index = $(this).index();
+					// $('#golf .content-active .attachment').removeClass('.fixed').eq(index).addClass('fixed');
+					if( index == 0 ) {
+						$('#golf .tab__contents .attachment').removeClass('fixed')
+						$('#golf .tab__contents01 .attachment').addClass('fixed');
+					} else {
+						$('#golf .tab__contents .attachment').removeClass('fixed')
+						$('#golf .tab__contents02 .attachment').addClass('fixed');
+					}
+					$('#golf .tabs li').removeClass('tab-active').eq(index).addClass('tab-active');
+					$('#golf .tab__contents').removeClass('content-active').eq(index).addClass('content-active');
 
-						$('#golf .tabs li').removeClass('tab-active').eq(index).addClass('tab-active');
-						$('#golf .tab__contents').removeClass('content-active').eq(index).addClass('content-active');
+					$('#golf .tabs li').removeClass('blue');
+					$('#golf .tabs li').removeClass('black');
 
-						$('#golf .tabs li').removeClass('blue');
-						$('#golf .tabs li').removeClass('black');
-
-						if( $(this).hasClass('tab-active') && index == 0 ) {
-							$(this).addClass('blue');
-						} else if ($(this).hasClass('tab-active') && index == 1) {
-							$(this).addClass('black');
-						}
+					if( $(this).hasClass('tab-active') && index == 0 ) {
+						$(this).addClass('blue');
+					} else if ($(this).hasClass('tab-active') && index == 1) {
+						$(this).addClass('black');
+					}
 
 					})
 					// javascript scroll event
