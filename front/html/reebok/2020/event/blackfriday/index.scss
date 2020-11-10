@@ -1,0 +1,798 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+.inner{
+	max-width:1200px;
+	margin:0 auto;
+	position: relative;
+	box-sizing: border-box;		
+}
+.inner2{
+	max-width:1685px;
+	margin:0 auto;
+	position: relative;
+	box-sizing: border-box;		
+}
+a{
+	outline:none;
+}
+button{
+	outline:none;
+}
+map{
+	outline:none;
+	border:0;
+}
+.clearfix{
+	clear: both;
+	display:block;
+	content:'';
+}
+
+#contents_wrap{padding: 0;}
+.button_area_v2 {
+	>div {
+		position: relative;
+		display: inline-block;
+		&:hover{
+			a{
+				color: #767677;
+				background: #000;
+				span{
+					&.arrow{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		.bg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+		}
+		a {
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			padding:0 20px;
+			span {
+				&.arrow {
+					position: relative;
+					top: -1px;
+					display: inline-block;
+					margin-left: 20px;
+					width: 25px;
+					height: 2px;
+					background: #fff;
+					vertical-align: middle;
+					em {
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top {
+							top: -3px;
+						}
+						&.bottom {
+							bottom: -3px;
+							transform: rotate(-45deg);
+							-webkit-transform: rotate(-45deg);
+						}
+					}
+				}
+			}
+		}
+		&.white {
+			&:hover{
+				a{
+					color: #767677;
+					background: #fff;
+					span {
+						&.arrow {
+							background: #767677;
+							em {
+								background: #767677;
+							}
+						}
+					}
+				}
+			}
+			.bg {
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a {
+				color: #000;
+				background: #fff;
+				span {
+					&.arrow {
+						background: #000;
+						em {
+							background: #000;
+							
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+#blackfriday {
+	position: relative;
+	.main{
+		position: relative;
+		// background:url('/images/reebok/2020/event/blackfriday/main_vs.jpg')no-repeat;
+		// background-size:100% 100%;
+		.bg_wrap{
+			position: relative;
+			img{
+				display:block;
+				width:100%;
+			}
+		}
+
+	}
+
+	.navi_wrap{
+		position: relative;
+		height:80px;
+		margin:0 auto;
+		display: block;
+		max-width: 1920px;
+		background:#f2e8c2;
+		.navi{
+			position:absolute;
+			overflow: hidden;
+			width:100%;
+			background:#f2e8c2;			
+			&.fixed{
+				background:#f2e8c2;
+				position:fixed;
+				top:0;
+				left:0;
+				width:100%;
+				max-width:1920px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 10;				
+			}
+			.navi_inner{
+				margin: 0 auto;
+				width: 1200px;				
+			}
+			.inn_box{
+				float:left;
+				width:25%;
+				box-sizing:border-box;	
+				cursor: pointer;				
+				transition: all 0.4s;
+				.btn{
+					box-sizing: border-box;
+					margin: 0 auto;
+					text-align: center;
+					width: 300px;
+					height: 80px;
+					background:#f2e8c2;
+					font: 500 22px/80px 'NotoSansKR';
+					color: #111;
+					opacity: 1;
+					transition: all 0.2s;
+				}
+				&.on{
+					position:relative;
+					.btn{
+						position:relative;
+						&::before{
+							position:absolute;left:50%;bottom:0;
+							margin-left:-30%;
+							width:60%;
+							height:3px;
+							content:'';
+							display:block;
+							background:#111;
+						}						
+					}
+				}
+			}
+		}
+	}	
+	.contents{
+		position:relative;
+		.tab_btn{
+			position:absolute;
+			right:0;
+			top:0;
+			z-index:2;
+			width: 9.375%;
+			>ul{
+				// max-width:250px;
+				// margin:0 auto;
+				text-align:center;
+				>li{
+					display:block;
+					vertical-align:top;
+					margin-left:0;
+					a{
+						display:block;
+						>img{
+							width:100%;
+							display:block;
+						}
+						p{
+							color:#111;
+							&.on{
+								text-decoration:underline;
+							}
+						}
+					}
+					&:hover{
+						position: relative;
+						margin-left: -22%;
+						width: 100%;
+						&::before{
+							content:'';
+							display:block;
+							position:absolute;
+							right:-22%;
+							top:0;
+							background:url('/images/reebok/2020/event/blackfriday/tab_1_right.jpg')no-repeat;
+							background-size:cover;
+							width:22%;
+							height:100%;
+						}						
+					}
+					&.current{
+						position: relative;
+						margin-left: -22%;
+						width: 100%;
+						&::before{
+							content:'';
+							display:block;
+							position:absolute;
+							right:-22%;
+							top:0;
+							background:url('/images/reebok/2020/event/blackfriday/tab_1_right.jpg')no-repeat;
+							background-size:cover;
+							width:22%;
+							height:100%;
+						}
+						a{
+							img{
+								content: url('/images/reebok/2020/event/blackfriday/tab_1_on.jpg');
+							}
+							.t_02{
+								content: url('/images/reebok/2020/event/blackfriday/tab_2_on.jpg');
+							}
+							.t_03{
+								content: url('/images/reebok/2020/event/blackfriday/tab_3_on.jpg');
+							}
+							.t_04{
+								content: url('/images/reebok/2020/event/blackfriday/tab_4_on.jpg');
+							}
+							.t_05{
+								content: url('/images/reebok/2020/event/blackfriday/tab_5_on.jpg');
+							}
+							.t_06{
+								content: url('/images/reebok/2020/event/blackfriday/tab_6_on.jpg');
+							}
+							.t_07{
+								content: url('/images/reebok/2020/event/blackfriday/tab_7_on.jpg');
+							}																																			
+						}
+					}
+					.over{
+						display:none;
+						background:rgba(0,0,0,0.6);
+						position:absolute;
+						left:0;
+						top:0;
+						width:100%;
+						height:100%;
+						p{
+							text-align:center;
+							color:#fff;
+							font: 300 40px/40px 'NotoSansKR';
+							opacity:0.7;
+							padding-top:40%;
+						}
+					}
+					@media screen and (max-width: 1680px) {
+						.over{
+							p{
+								font: 300 35px/35px 'NotoSansKR';
+								padding-top:43%;
+							}
+						}
+					}			
+					@media screen and (max-width: 1500px) {
+						.over{
+							p{
+								font: 300 30px/30px 'NotoSansKR';
+								padding-top:45%;
+							}
+						}
+					}			
+					@media screen and (max-width: 1400px) {
+						.over{
+							p{
+								font: 300 28px/28px 'NotoSansKR';
+								padding-top:45%;
+							}
+						}
+					}											
+				}
+				
+
+
+				.tab-link2{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_2_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_2_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}				
+				.tab-link3{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_3_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_3_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}	
+				.tab-link4{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_4_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_4_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}	
+				.tab-link5{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_5_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_5_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}	
+				.tab-link6{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_6_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_6_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}	
+				.tab-link7{
+					&:hover{
+						&::before{						
+							background:url('/images/reebok/2020/event/blackfriday/tab_7_right.jpg')no-repeat;
+							background-size:cover;
+						}
+					}					
+					&.current{
+						&::before{
+							background:url('/images/reebok/2020/event/blackfriday/tab_7_right.jpg')no-repeat;
+							background-size:cover;
+						}							
+					}
+				}																								
+			}
+		}		
+		.tab_con{
+			position:relative;
+			// height:1400px;
+			padding-bottom: 75%;
+			.tab__content{
+				opacity:0;
+				padding-top:0;
+				position:absolute;
+				// left:50%;
+				top:0;
+				width:100%;
+				// transform:translateX(-50%);
+				// position: relative;
+				z-index:0;		
+					
+				&.current{
+					opacity:1;
+					transition:all 2s;
+					z-index:1;
+				}					
+				>img{
+					display:block;
+					width:100%;
+				}
+			}
+			.all_deal{
+				.txt{
+					position:absolute;
+					left:23%;
+					top:50%;
+					transform:translate(-50%,-50%);
+					color:#fff;
+					text-align:center;
+					h3{
+						font: 900 50px/50px 'NotoSansKR';
+						letter-spacing:0;
+						text-align:center;
+					}
+					strong{
+						display:block;
+						font: 900 100px/100px 'NotoSansKR';
+						padding:20px 0 15px 0;
+						letter-spacing:-6px;						
+						text-align:center;
+					}
+					>img{
+						display:block;
+						width:100%;
+						padding:15px 0 15px 0;
+						margin:0 auto;
+					}
+					p{
+						font: 300 30px/30px 'NotoSansKR';
+						letter-spacing:0;
+						text-align:center;
+						span{
+							font: 300 28px/28px 'NotoSansKR';
+						}
+					}
+					.button_area_v2{
+						text-align:center;
+					}			
+					@media screen and (max-width: 1680px) {
+						h3{
+							font: 900 46px/46px 'NotoSansKR';
+						}				
+						strong{
+							font: 900 90px/90px 'NotoSansKR';
+						}	
+						p{
+							font: 400 28px/28px 'NotoSansKR';
+						}													
+						>img{
+							width:85%;
+						}
+					}			
+					@media screen and (max-width: 1500px) {
+						h3{
+							font: 900 43px/43px 'NotoSansKR';
+						}				
+						strong{
+							font: 900 85px/85px 'NotoSansKR';
+						}	
+						p{
+							font: 400 26px/26px 'NotoSansKR';
+						}													
+						>img{
+							width:75%;
+						}
+					}				
+					@media screen and (max-width: 1400px) {
+						h3{
+							font: 900 40px/40px 'NotoSansKR';
+						}				
+						strong{
+							font: 900 80px/80px 'NotoSansKR';
+						}	
+						p{
+							font: 400 24px/24px 'NotoSansKR';
+						}													
+						>img{
+							width:65%;
+						}
+					}												
+				}
+			}
+			.deal_02{
+				.txt{
+					color:#111;
+					>img{
+						padding:15px 0 15px 0;
+					}
+					.button_area_v2{
+						color:#fff;
+					}						
+				}
+			}
+			.deal_05{
+				.txt{
+					color:#111;
+					.button_area_v2{
+						color:#fff;
+					}						
+				}
+			}			
+			.deal_06{
+				.txt{
+					top:46%;
+				}
+			}	
+			.deal_07{
+				.txt{
+					color:#111;
+					.button_area_v2{
+						color:#fff;
+					}						
+				}
+			}										
+		}
+	}
+	.coupon{
+		padding:68px 0 0 0;
+		.txt{
+			color:#111;
+			text-align:center;
+			h3{
+				font: 900 70px/70px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+			}
+			p{
+				font: 600 38px/45px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+				padding:25px 0 40px 0;
+				span{
+					display:block;
+				}
+			}
+			>a{
+				display:inline-block;
+				cursor: pointer;
+				img{
+					display:inline-block;
+					margin:0 auto;
+				}
+			}
+
+			>em{
+				display:block;
+				font: 500 19px/19px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;				
+				padding:19px 0 45px 0;
+			}
+			.button_area_v2{
+				text-align:center;
+			}								
+		}
+	}
+	.special{
+		margin-top:70px;
+		background:#f2e8c2;
+		padding:70px 0 60px 0;
+		.special_list{
+			overflow: hidden;
+			color:#111;
+			h3{
+				font: 900 70px/70px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;			
+				padding-bottom:60px;
+			}
+			ul{
+				li{
+					float:left;
+					width:33.3%;
+					vertical-align:top;
+					text-align:center;
+					padding-bottom:10px;
+					h4{
+						font:900 33px/33px 'neueplak-ext';
+						letter-spacing:0;
+						text-align:center;
+					}
+					.button_area_v2{
+						margin:20px 0 0 0;
+						text-align:center;
+						>div{
+							.bg{
+								box-shadow: inset 0 0 0 1px #fff;
+								-webkit-box-shadow: inset 0 0 0 1px #fff;
+							}	
+							a{
+								background:none;
+								color:#978e6d;
+								border-bottom:1px solid #fff;
+								border-right:1px solid #fff;
+							}
+						}
+					}						
+				}
+			}
+		}
+	}
+
+	.bonus{
+		padding:70px 0 90px 0;
+		.bonus_1{
+			color:#111;
+			h3{
+				font: 900 70px/70px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;			
+			}
+			p{
+				padding:25px 0 55px 0;
+				font: 600 38px/45px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+				span{
+					display:block;
+				}				
+			}
+		}
+		.bonus_2{
+			h4{
+				font: 900 36px/50px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+				color:#111;
+			}
+			span{
+				font: 500 18px/18px 'NotoSansKR';
+				display:block;
+				letter-spacing:0;
+				text-align:center;
+				color:#828282;		
+				padding:5px 0 30px 0;		
+			}
+			.bauns_list{
+				overflow: hidden;
+				padding-bottom:70px;
+				ul{
+					text-align:center;
+					li{
+						float:left;
+						width:25%;
+						vertical-align:top;
+						text-align:center;
+						h5{
+							font: 600 20px/18px 'NotoSansKR';
+							padding-top:15px;
+							letter-spacing:0;							
+							color:#242424;
+							text-align:center;
+						}
+					}
+				}
+			}
+		}
+		.bonus_3{
+			h3{
+				font: 900 36px/50px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+				color:#111;
+			}
+			p{
+				font: 600 28px/50px 'NotoSansKR';
+				letter-spacing:0;
+				text-align:center;
+				color:#111;
+			}
+			span{
+				font: 500 18px/20px 'NotoSansKR';
+				display:block;
+				letter-spacing:0;
+				text-align:center;
+				color:#828282;		
+			}
+			.gift_list{
+				overflow: hidden;
+				padding-top:35px;
+				ul{
+					text-align:center;
+					li{
+						float:left;
+						width:33.3%;
+						vertical-align:top;
+						text-align:center;
+						padding-bottom:40px;						
+						h5{
+							font: 600 20px/20px 'NotoSansKR';
+							padding-top:15px;
+							letter-spacing:0;							
+							color:#242424;
+							text-align:center;							
+						}
+					}
+				}
+			}
+		}
+	}
+	.new_hot_item{
+		padding:0 0 90px 0;
+		.hot_item{
+			overflow: hidden;
+			h4{
+				font: 500 24px/24px 'NotoSansKR';
+				letter-spacing:0;							
+				color:#111;
+				text-align:center;						
+				padding-bottom:30px;
+			}
+			ul{
+				margin:0 172px;
+				width:100%;
+				li{
+					float:left;
+					vertical-align:top;
+					text-align:center;
+					margin-right:40px;
+				}
+			}
+		}
+	}
+	.black_notice{
+		height:791px;
+		position:relative;
+		img{
+			position:absolute;
+			left:50%;
+			top:0;
+			margin-left: -960px;			
+		}
+	}
+}
