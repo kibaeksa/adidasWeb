@@ -53,16 +53,46 @@ html,body{
 	div,a,button {
 		outline: none;
 	}
-	main{
-		section{position: relative;}
-		.visuals{
-			$val: 3940px;
-			@include auto($val);
-			.button_area_v2{
-				display: none;
-				// @include center(auto, 130px, 76%, $ctX);
-			}
+	
+	.visuals__figure {
+		position: relative;
+		&.vf_main{
+			height: 1311px;
+		}
+		&.vf_cont{
+			height: 1752px;
+		}
+		>img{
+			display: block;
+			position: absolute;
+			width: 1920px;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+		.button_area_v2{
+			display: none;
+			// @include center(auto, 130px, 76%, $ctX);
+		}
+	}
+	.sect_video {
+		position: relative;
+
+		>video {
+			display: block;
+			width: 100%;
+		}
+		>img{
+			display: block;
+			width: 100%;
 		}
 
+		.btn-play {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 3;
+		}
 	}
 }
