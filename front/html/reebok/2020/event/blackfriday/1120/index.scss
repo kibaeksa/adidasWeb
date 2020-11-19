@@ -1,0 +1,361 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+
+a{
+	outline:none;
+}
+button{
+	outline:none;
+}
+map{
+	outline:none;
+	border:0;
+}
+.clearfix{
+	clear: both;
+	display:block;
+	content:'';
+}
+
+#contents_wrap{padding: 0;}
+.button_area_v2 {
+	>div {
+		position: relative;
+		display: inline-block;
+		&:hover{
+			a{
+				color: #767677;
+				background: #000;
+				span{
+					&.arrow{
+						background: #767677;
+						em{
+							background: #767677;
+						}
+					}
+
+				}
+			}
+		}
+		.bg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px,3px);
+			-webkit-transform: translate(3px,3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+		}
+		a {
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			padding:0 20px;
+			span {
+				&.arrow {
+					position: relative;
+					top: -1px;
+					display: inline-block;
+					margin-left: 20px;
+					width: 25px;
+					height: 2px;
+					background: #fff;
+					vertical-align: middle;
+					em {
+						position: absolute;
+						right: 0;
+						width: 8px;
+						height: 3px;
+						background: #fff;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						&.top {
+							top: -3px;
+						}
+						&.bottom {
+							bottom: -3px;
+							transform: rotate(-45deg);
+							-webkit-transform: rotate(-45deg);
+						}
+					}
+				}
+			}
+		}
+		&.white {
+			&:hover{
+				a{
+					color: #767677;
+					background: #fff;
+					span {
+						&.arrow {
+							background: #767677;
+							em {
+								background: #767677;
+							}
+						}
+					}
+				}
+			}
+			.bg {
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+			a {
+				color: #000;
+				background: #fff;
+				span {
+					&.arrow {
+						background: #000;
+						em {
+							background: #000;
+							
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+#blackfriday{
+	position: relative;
+	.main{
+		position: relative;
+		.bg_wrap{
+			position: relative;
+			>img{
+				display:block;
+				width:100%;
+			}
+			.bt_wrap{
+				position:absolute;
+				left:50%;
+				top:75%;
+				transform:translate(-50%,-50%);
+				width: calc(83% - 43px);
+			}
+
+					
+		}
+	}
+
+	.dill{
+		position:relative;
+		.dill_bg{
+			background:#f2e8c2;
+			text-align:center;
+			padding:75px 0 55px 0;
+			.dill_tit{
+				text-align:center;
+				color:#111;
+				h1{
+					font:900 73px/95px 'NotoSansKR';
+					text-align:center;
+					letter-spacing:0;
+				}
+				p{
+					font:400 25px/36px 'NotoSansKR';
+					text-align:center;
+					letter-spacing:0;
+				}
+			}
+			.dill_slider_list{
+				position:relative;
+				text-align:center;
+				box-sizing:border-box;
+				.slider_01{
+					margin: 0 auto;
+					overflow: visible !important;
+					.item{
+						outline:none;
+						.item_wrap{
+							overflow: hidden;
+							// max-width:1920px;
+							// margin:0 auto;							
+							padding:2.5rem 3.7rem 0 3.7rem;
+						}
+					}
+					.slick-slide{
+						img{
+							width:100%;
+							margin:0 auto;
+						}
+					}
+				}
+				.slider_nav{
+					@include center(50%,auto,50%,$ctY);
+					width: 100%;
+					a{
+						position: absolute;
+						left: -21%;						
+					}
+					.prev-button{
+						position: absolute;
+						left: -21%;
+					}					
+					.next-button{
+						position: absolute;
+						left: 19%;
+					}					
+				}
+
+				}
+				.slick-dots{
+					text-align:center; 
+					z-index: 5;
+					position: absolute;
+					left: 50%;
+					bottom: -35px;
+					transform: translateX(-50%);					
+					li{
+						display:inline-block;
+						vertical-align:top;
+						margin-right:5px;
+						button{
+							width: 13px;
+							height: 13px;
+							border-radius: 50%;
+							background:none;
+							border:0;
+							padding: 0;
+							text-indent: -9999px;
+							background:#c2ba9b;
+						}
+						&.slick-active{
+							button{
+								background: #111;
+							}
+						}
+					}
+				}
+
+				.slick-active {
+					img {
+						position: relative;
+					}
+				
+					&::after {
+						opacity: 1;
+					}
+				
+					&.comming{
+						&::after{
+							opacity:0;
+						}
+					}				
+				}
+				
+				// .slick-arrow{
+				// 	display:inline-block;
+				// 	position:absolute; top:45%;
+				// 	border:0;
+				// 	background:none;
+				// 	text-decoration:none;
+				// 	// &:nth-child(1){
+				// 	// 	right:-4%;
+				// 	// }		
+				// }
+				
+				// .slick-next{
+				// 	width:33px;
+				// 	height:47px;			
+				// 	background:url('/images/reebok/2020/event/blackfriday/1120/sl_right.png') no-repeat;
+				// 	background-size:auto auto;
+				// 	background-position: top;
+				// 	border:0;
+				// 	font-size:0;
+				// 	cursor: pointer;
+				// 	right:22%;
+				// 	z-index:1;
+				// }
+				
+				// .slick-prev{
+				// 	width:33px;
+				// 	height:47px;			
+				// 	background:url('/images/reebok/2020/event/blackfriday/1120/sl_left.png') no-repeat;
+				// 	background-size:auto auto;
+				// 	background-position: top;
+				// 	border:0;
+				// 	font-size:0;
+				// 	cursor: pointer;
+				// 	left:22%;
+				// 	z-index:1;
+				// }	
+
+				// @media screen and(max-width:1800px) {
+				// 	.slick-next{
+				// 		right:23.5%;
+				// 	}		
+				// 	.slick-prev{
+				// 		left:23.5%;
+				// 	}			
+				// }				
+
+				// @media screen and(max-width:1700px) {
+				// 	.slick-next{
+				// 		right:25%;
+				// 	}		
+				// 	.slick-prev{
+				// 		left:25%;
+				// 	}			
+				// }							
+			}			
+			.dill_btn{
+				text-align:center;
+				padding-top:5rem;
+				.button_area_v2{
+					text-align:center;
+				}
+				p{
+					font:400 16px/26px 'NotoSansKR';
+					text-align:center;	
+					color:#111;
+					padding:2.5rem 0 0 0;
+				}
+			}
+	}
+	
+	.view{
+		position:relative;
+		.view_bg{
+			position:relative;
+			>img{
+				width:100%;
+				display:block;
+			}
+		}
+		.view_txt{
+			position:absolute;
+			left:110%;
+			top:50%;
+			transform:translate(-50%,-50%);
+			width:100%;
+			h1{
+				color:#111;
+				font:900 45px/55px 'NotoSansKR';
+				letter-spacing:0;
+				padding-bottom:40px;
+				span{
+					font:900 48px/55px 'NotoSansKR';					
+				}
+			}
+		}
+	}
+}
