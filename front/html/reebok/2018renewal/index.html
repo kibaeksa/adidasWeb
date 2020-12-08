@@ -89,58 +89,58 @@ var jquery_1_11 = $.noConflict(true);
 		.bind("mouseleave focusout" , function(){
 			jQuery(this).find(".detailBox").fadeOut();
 		});
-		 //TREND MAGAZINE
+		// TREND MAGAZINE
 		var boxSlideState = true;
 		jQuery('.trendListWrap li:eq(0)').addClass("on");
 		
-		   var  trendListSlide = jquery_1_11('.trendListWrap').bxSlider({
-				 mode: 'vertical',// 세로 방향 수평 슬라이드
-				 speed: 500,        // 이동 속도를 설정
-				 pause: 2000,
-				 pager: true,      // 현재 위치 페이징 표시 여부 설정
-				 moveSlides: 1,     // 슬라이드 이동시 개수
-				 minSlides: 3,      // 최소 노출 개수
-				 maxSlides: 3,      // 최대 노출 개수
-				 controls: true,    // 이전 다음 버튼 노출 여부
-				 onSlideBefore : function(idx){
-				   boxSlideState = false;
-				   var idx = idx.index();
-				   //20170327 수정
-				   var $slideOn = jquery_1_11('.trendListWrap li:eq('+ idx +')');
-				   jquery_1_11('.trendListWrap li.on').removeClass("on");
-				   $slideOn.addClass("on");
-				   
-			   
-				   if($slideOn.attr("id") == "vm1") {
-					   jQuery("#trendMagazineArea").addClass("vm1Bg");
-					   jQuery("#trendMagazineArea").removeClass("vm2Bg");
-				   } else if($slideOn.attr("id") == "vm2") {
-					   jQuery("#trendMagazineArea").addClass("vm2Bg");
-					   jQuery("#trendMagazineArea").removeClass("vm1Bg");
-				   } else {
-					   jQuery("#trendMagazineArea").removeClass("vm1Bg").removeClass("vm2Bg");
-				   }
-				 },
-				onSlideAfter: function() {
-					boxSlideState = true;
-				}	
+		var trendListSlide = jquery_1_11('.trendListWrap').bxSlider({
+				mode: 'vertical',// 세로 방향 수평 슬라이드
+				speed: 500,        // 이동 속도를 설정
+				pause: 2000,
+				pager: true,      // 현재 위치 페이징 표시 여부 설정
+				moveSlides: 1,     // 슬라이드 이동시 개수
+				minSlides: 3,      // 최소 노출 개수
+				maxSlides: 3,      // 최대 노출 개수
+				controls: true,    // 이전 다음 버튼 노출 여부
+				onSlideBefore : function(idx){
+				boxSlideState = false;
+				var idx = idx.index();
+				//20170327 수정
+				var $slideOn = jquery_1_11('.trendListWrap li:eq('+ idx +')');
+				jquery_1_11('.trendListWrap li.on').removeClass("on");
+				$slideOn.addClass("on");
 				
-		   });
+			
+				if($slideOn.attr("id") == "vm1") {
+					jQuery("#trendMagazineArea").addClass("vm1Bg");
+					jQuery("#trendMagazineArea").removeClass("vm2Bg");
+				} else if($slideOn.attr("id") == "vm2") {
+					jQuery("#trendMagazineArea").addClass("vm2Bg");
+					jQuery("#trendMagazineArea").removeClass("vm1Bg");
+				} else {
+					jQuery("#trendMagazineArea").removeClass("vm1Bg").removeClass("vm2Bg");
+				}
+				},
+			onSlideAfter: function() {
+				boxSlideState = true;
+			}	
+			
+		});
 	   
 		jQuery("#visualArea").scrollEvent({
 			id : "trendList",
 			func : moveAction 
 		});
 		function moveAction(txt){
-			   if(boxSlideState){
-				   boxSlideState = false;
-					if(txt == "down"){
-						trendListSlide.goToNextSlide();
-					} else {
-						trendListSlide.goToPrevSlide(); 
-					}
-			   }
-			}  
+			if(boxSlideState){
+				boxSlideState = false;
+				if(txt == "down"){
+					trendListSlide.goToNextSlide();
+				} else {
+					trendListSlide.goToPrevSlide(); 
+				}
+			}
+		}  
 	
 		//매거진 20170327추가
 		
@@ -241,8 +241,8 @@ var jquery_1_11 = $.noConflict(true);
 		<div id="visualArea" class="mainVisual">
 			<!-- 동영상 있을 시 -->
 			<div id="section16" class="section">
-				<canvas id="visualCanvas16" width="2000" height="1000" data="/images/reebok/efu2018/main/visual16.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual16.jpg" muted="muted"> 
+				<canvas id="visualCanvas16" width="2000" height="1000" data="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg" muted="muted"> 
 					<source src="/images/reebok/efu2018/main/visual16.mp4" type='video/mp4' />
 				</video>
 				<!-- 190801 버튼 스타일 변경 -->
@@ -305,8 +305,8 @@ var jquery_1_11 = $.noConflict(true);
 			<!-- //동영상 있을 시 -->
 			<!-- 동영상 있을 시 -->
 			<div id="section17" class="section">
-				<canvas id="visualCanvas17" width="2000" height="1000" data="/images/reebok/efu2018/main/visual17.jpg"></canvas>
-				<video class="afterShow" width="100%" height="100%" poster="/images/reebok/efu2018/main/visual17.jpg" muted="muted"> 
+				<canvas id="visualCanvas17" width="2000" height="1000" data="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg"></canvas>
+				<video class="afterShow" width="100%" height="100%" poster="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg" muted="muted"> 
 					<source src="/images/reebok/efu2018/main/visual17.mp4" type='video/mp4' />
 				</video>
 				<div class="btnCont">
@@ -769,8 +769,8 @@ var jquery_1_11 = $.noConflict(true);
 			<!-- //동영상 있을 시 -->
 			
 			<ul id="visualPaging">
-				<li><a href="#" data="16"><img src="/images/reebok/efu2018/main/visual16.jpg" alt=""></a></li>  
-				<li><a href="#" data="17"><img src="/images/reebok/efu2018/main/visual17.jpg" alt=""></a></li>  
+				<li><a href="#" data="16"><img src="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg" alt=""></a></li>  
+				<li><a href="#" data="17"><img src="https://image.reebok.co.kr/upload/banner/48709d9b3e1645f9ae9c7e3b91ebc0c5_1120110332.jpg" alt=""></a></li>  
 				<li><a href="#" data="18"><img src="/images/reebok/efu2018/main/visual18.jpg" alt=""></a></li>  
 				<li><a href="#" data="19"><img src="/images/reebok/efu2018/main/visual19.jpg" alt=""></a></li>  
 				<li><a href="#" data="20"><img src="/images/reebok/efu2018/main/visual20.jpg" alt=""></a></li>  
