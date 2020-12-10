@@ -1,0 +1,389 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+//common
+.button_area_v2{
+	display: inline-block;
+	&:hover{
+		div{
+			a{
+				color: #767677;
+				span{
+					background: #767677;
+					em{
+						background: #767677;
+					}
+				}
+
+			}
+		}
+	}
+	div{
+		&.white{
+			.bg{
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+				@include css3(transition, all 0.5s);
+			}
+			a{
+				background: #fff;
+			}
+		}
+		.bg{
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			@include css3(transition, all 0.5s);
+		}
+		a{
+			letter-spacing: 1px;
+			padding:0 20px;
+			background: #000;
+		}
+	}
+}
+div, img, button {
+	outline: none;
+}
+span, p{
+	white-space: nowrap;
+}
+#yearendsale{
+	section{position: relative;margin: 0 auto; min-width: 1190px;}
+
+	@for $i from 1 through 6 {
+		.bg0#{$i} {
+			background: url('/images/adidas/2020/event/yearendsale/bg0#{$i}.jpg') no-repeat;
+			background-position: top;
+			background-size: auto 100%;
+			&.bg01, &.bg02{
+				background-size: auto auto;
+			}
+			&.bg03 {
+				background-size: auto 100%;
+			}
+		}
+	}
+	
+	.visuals{
+		// $val: 825px;
+		$val: auto;
+		@include auto($val);
+		video{
+			display: block;
+		}
+		.visuals__text{
+			@include center(56%, auto, 18%, $ctY);
+			// h3{
+			// 	font: 130px/110px $adinBlk;
+			// 	color: #2d3d7b;
+			// 	letter-spacing: 5px;
+			// }
+			// p{
+			// 	font: 22px/22px $noto;
+			// 	color: #fff;
+			// 	margin: 5px 0 40px;
+			// }
+			@media screen and (max-width: 1300px) { 
+				h3{
+					font: 90px/80px $adinBlk;
+					color: #2d3d7b;
+					letter-spacing: 4px;
+				}
+				p{
+					font: 17px/17px $noto;
+					color: #fff;
+					margin: 5px 0 40px;
+				}
+			}
+
+		}
+	}
+	.event__description{
+		$val: 520px;
+		@include auto($val);
+	}
+	.slide__container{
+		@include after();
+		.slider{
+			.slick-list{
+				.slick-track{
+					.item{
+						img{
+							margin: 0 auto;
+						}
+					}
+				}
+			}
+			.slick-dots{
+				text-align: center;
+				margin:60px 0 0;
+				left: 0;
+				position: relative;
+				li{
+					display: inline-block;
+					text-align: center;
+					background: #a5a5a7;
+					width: 15px;
+					height: 15px;
+					margin-right: 9px;
+					border-radius: 50%;
+					button{
+						border: 0;
+						background: none;
+						text-indent: -9999px;
+					}
+					&.slick-active{
+						background: #b7131a;
+					}
+					&:last-of-type{
+						margin: 0;
+					}
+				}
+			}
+		}
+		.slider__nav{
+			@include center(35%, auto, auto, $ctY);
+			width: 100%;
+			.prev-button{
+				@include center(50%, auto, 0, $ctY);
+			}
+			.next-button{
+				@include center(50%, auto, auto, $ctY);
+				right: 0;
+				img{
+					transform: rotate(-180deg);
+				}
+			}
+		}
+		&.slide__container01{
+			text-align: center;
+			padding: 45px 0;
+			.slider{
+				.slick-list{
+					// padding: 0 1.25%;
+					max-width: 1850px;
+					overflow: hidden;
+					margin: 0 auto;
+					.slick-track{
+						.item{
+							img{
+								width: 95.5%;
+							}
+						}
+					}
+				}
+			}
+			.button_area_v2{
+				padding: 45px 0 80px;
+			}
+		}
+		&.slide__container02{
+			padding-top: 295px;
+			width: auto;
+			min-width: unset;
+			text-align: center;
+			.slider{
+				.slick-list{
+					width: 530px;
+					margin: 0 auto;
+					.item{
+						>div{
+							position: relative;
+							top: 24px;
+							vertical-align: bottom;
+							text-align: center;
+							p, span{
+								text-align: center;
+							}
+						}
+						&.slick-current{
+							>div{
+								top:0;
+								p, span{
+									font: 700 25px/25px $noto;
+									color: #000;
+								}
+							}
+						}
+					}
+				}
+				.slick-dots{
+					margin: 80px 0 0;
+					left: 0;
+					position: relative;
+					li{
+						background: #a5a5a7;
+						&.slick-active{
+							background: #b7131a;
+						}
+					}
+				}
+			}
+			.slider__nav{
+				width: 100%;
+				top: 54%;
+				.prev-button{
+					left: 0;
+				}
+				.next-button{
+					right: 0;
+					img{
+						transform: rotate(-180deg);
+					}
+				}
+			}
+			.button_area_v2{
+				padding: 25px 0 50px;
+			}
+		}
+		&.slide__container03{
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			.txt{
+				height: 120px;
+				.figure{
+					@include center(0, auto, 50%, $ctX);
+				}
+			}
+			.slider{
+				.slick-list{
+					width: 80%;
+					margin: 0 auto;
+					.item{
+						margin: 10px;
+						img{
+							width: 100%;
+						}
+					}
+				}
+				.slick-dots{
+					margin: 20px 0 15px;
+				}
+			}
+			.slider__nav{
+				width: 100%;
+				top: 54%;
+				.prev-button{
+					left: 20px;
+				}
+				.next-button{
+					right: 20px;
+					img{
+						transform: rotate(-180deg);
+					}
+				}
+			}
+		}
+	}
+	.hashText{
+		text-align: center;
+		padding: 90px 0 40px 0;
+		p{
+			text-align: center;
+			font: 500 18px/26px $noto;
+			color: #000;
+			margin-top: 25px;
+		}
+	}
+	.informations{
+		// .informations__figure{
+		// 	@include center(0, auto, 50%, $ctX);
+		// }
+		padding-top: 896px;
+		.txt{
+			@include center(55%, auto, auto, $ctY);
+			right: 50%;
+			margin-right: 77px;
+			@mixin text01(){
+				font: 500 15px/24px $noto;
+				color: #000;
+			}
+			p{
+				@include text01();
+				em{
+					font: 900 15px/24px $noto;
+					color: #ba1521;
+					&.last{
+						color: #000;
+					}
+				}
+				span{
+					font: 500 14px/23px $noto;
+					color: #ba1521;
+					display: block;
+					margin: 10px 0;
+				}
+				.cont{
+					line-height: 20px;
+					@include text01();
+					color: #000;
+				}
+				.italics1{
+					@include text01();
+				}
+				.italics1,.italics2{
+					font-style: italic;
+				}
+			}
+		}
+	}
+	.slider__wrapper{
+		.txt{
+			text-align: center;
+			padding: 85px 0;
+		}
+		.coupons{
+			@include center(327px, auto, 50%, $ctX);
+			z-index: 2;
+		}
+	}
+	.lookGift{
+		text-align: center;
+		padding: 90px 0 80px;
+		.txt{
+			text-align: center;
+			padding-bottom: 50px;
+			>img{
+				display: block;
+				margin: 0 auto;
+			}
+			.button_area_v2{
+				display: inline-block;
+				margin-top: 25px;
+				.bg{
+					box-shadow: inset 0 0 0 1px #ba1621;
+    			-webkit-box-shadow: inset 0 0 0 1px #ba1621;
+				}
+				a{
+					background: #ba1621;
+				}
+			}
+		}
+		.item{
+			width: 1270px;
+			margin: 0 auto;
+		}
+	}
+	.eventInfo{
+		height: 1204px;
+		.eventInfo__visual{
+			@include center(0, auto, 50%, $ctX);
+		}	
+		.button_area_v2{
+			@include center(auto, 376px, auto, $ctX);
+			right: 50%;
+			margin-right: -201px;
+			&:last-child{
+				bottom: 237px;
+				margin-right: -192px;
+			}
+		};
+	}
+	.bottoms{
+		height: 665px;
+		.bottoms__figure{
+			@include center(0, auto, 50%, $ctX);
+		}
+	}
+}
