@@ -28,7 +28,7 @@
 								<img src="/images/adidas/2020/event/yearendsale/description.jpg" alt="yearendsale 문구">
 							</div>
 						</section>
-						<section class="slide__container slide__container01 bg01 day01">
+						<section class="slide__container slide__container01 bg01">
 							<div id="slider01" class="slider">
 								<div class="item">
 									<img src="/images/adidas/2020/event/yearendsale/slide01_01.png" alt="상품이미지01">
@@ -54,7 +54,7 @@
 							<img src="/images/adidas/2020/event/yearendsale/text01.png" alt="땡큐챌린지">
 							<p>
 								고마운 마음이 이어질 수 있도록 챌린지에 동참해 주세요<br>
-								#lll🙏🎁 #아디다스고마워챌린지
+								#III🙏🎁 #아디다스고마워챌린지
 							</p>
 						</section>
 						<section class="informations bg02">
@@ -86,14 +86,13 @@
 										3. 필수 해시태그를 포함해서 본인의 SNS 계정에 게시<br>
 									</span>
 									<span class="italics2">
-										#lll🙏🎁 #아디다스고마워챌린지<br>
+										#III🙏🎁 #아디다스고마워챌린지<br>
 										#GIFTSFOR  #아디다스  #ADIDAS<br>
 									</span>
 									<em>*TIP!<em class="last">위 내용 그대로 복사하고 붙여넣기!</em></em> 
 								</p>
 							</div>
 						</section>
-						<!-- day0+n 날짜별 클래스 수동 삽입 start -->
 						<section class="slider__wrapper">
 							<div class="txt">
 								<img src="/images/adidas/2020/event/yearendsale/text02.jpg" alt="기프트포나우">
@@ -116,23 +115,27 @@
 										onfocus="blur()" target="_blank" />
 								</map>
 							</div>
-						<!-- 쿠폰 end -->
-							<section class="slide__container slide__container02 bg03">
+							<!-- 쿠폰 end -->
+							<!-- day0+n 날짜별 클래스 수동 삽입 start -->
+							<section class="slide__container slide__container02 bg03 day02">
 								<div id="slider02" class="slider sub-slide01">
 									<div class="item">
-										<img src="/images/adidas/2020/event/yearendsale/day01/slide02_01.png" alt="상품이미지01">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_01.png" alt="상품이미지01">
 									</div>
 									<div class="item">
-										<img src="/images/adidas/2020/event/yearendsale/day01/slide02_02.png" alt="상품이미지02">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_02.png" alt="상품이미지02">
 									</div>
 									<div class="item">
-										<img src="/images/adidas/2020/event/yearendsale/day01/slide02_03.png" alt="상품이미지03">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_03.png" alt="상품이미지03">
 									</div>
 									<div class="item">
-										<img src="/images/adidas/2020/event/yearendsale/day01/slide02_04.png" alt="상품이미지04">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_04.png" alt="상품이미지04">
 									</div>
 									<div class="item">
-										<img src="/images/adidas/2020/event/yearendsale/day01/slide02_05.png" alt="상품이미지05">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_05.png" alt="상품이미지05">
+									</div>
+									<div class="item">
+										<img src="/images/adidas/2020/event/yearendsale/day02/slide02_06.png" alt="상품이미지06">
 									</div>
 								</div>
 								<div class="slider__nav slider__nav02">
@@ -156,6 +159,7 @@
 									</div>
 								</div>
 							</section>
+							<!-- day0+n 날짜별 클래스 수동 삽입 end -->
 						</section>
 						<section class="lookGift">
 							<div class="txt">
@@ -303,6 +307,7 @@
 								</div>
 							</div>
 						</section>
+						<!-- 날짜별 콜라보캘린더 오픈 end -->
 						<section class="bottoms">
 							<div class="bottoms__figure">
 								<img src="/images/adidas/2020/event/yearendsale/bottom.jpg" alt="">
@@ -318,18 +323,12 @@
 	
 	
 						// ### 1. day0n 클래스 수동 삽입 ###
-						// ### 2. 날짜별 2, 3번 슬라이드 초기화 ###
-	
-						// preventDefault
-						$('#winter .videos').click(function(e){
-							$(this).attr("href") === "#" && e.preventDefault();
-						})
+						// ### 2. 날짜별 3번 슬라이드 초기화 ###
 	
 						// carousels
 						function Comp( elem, prev, next ) {
-							// 모듈
-							this.mod = function( 
-								slidesToShow, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade
+							this.mod = function( // 모듈
+									slidesToShow, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade
 								) {
 								elem.slick({
 									cssEase: 'linear',
@@ -349,16 +348,13 @@
 									fade: fade,
 								});
 							}
-							// 서브슬라이드 분기
-							if ( elem.hasClass('sub-slide01') ) {
-								// number, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade,
+							// number, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade,
+							if ( elem.hasClass('sub-slide01') ) { // 두번째 슬라이드
 								this.mod( 1, true, false, false, true, '', false, true, false );
-	
-							} else if ( elem.hasClass('sub-slide02') ) {
+							} else if ( elem.hasClass('sub-slide02') ) { // 세번째 슬라이드
 								this.mod( 3, false, false, false, true, '', false, false, false );
-	
 							} else { // default slide
-								this.mod( 3, true, false, false, false, '', false, true, false );
+								this.mod( 3, false, false, false, true, '', false, true, false );
 							}
 						}
 	
@@ -372,18 +368,6 @@
 							);
 						}
 	
-						// 3번 슬라이드 클릭 이동 싱크
-						$('#slider03 .item').click( function(){
-							var this__index = $(this).attr("data-slick-index");
-							var slider02__length = $('#slider02 .item').length;
-							if( this__index  < slider02__length ){
-								$('#slider02').slick('setPosition');
-								$('#slider02').slick('slickGoTo', this__index );
-							} else {
-								return false;
-							}
-						} )
-	
 						// 2, 3번 슬라이드 초기화
 						// $('#slider02').slick('setPosition');
 						// $('#slider02').slick('slickGoTo', 10 );
@@ -392,10 +376,8 @@
 	
 						// 1번 슬라이드 텍스트 삽입
 						function insertDayText (){
-							var result = $('.slide__container01').attr('class').split('day0', 2)[1]-1;
-							// var head = [ 'FLEECE', 'READY FOR NATURE', 'WINTER JACKET', 'TRIPLE BLACK', 'CLASSIC ICONS', 'INNOVATION','FOR GEN-Z','FAMILY COLLECTION','LAST CHANCE DEAL' ];
-							// var body = [ '플리스 컬렉션', '마이쉘터 & 테렉스', '원터자켓', '트리플 블랙', '아디다스의 클래식 아이콘', '혁신적인 테크놀로지와 디자인','GEN-Z 컬렉션','패밀리 & 키즈 컬렉션','마지막 특가 컬렉션' ];
-							// var foot = [ '11.19 ~ 11.20', '11.21 ~ 11.22', '11.23 ~ 11.24', '11.25 ~ 11.26', '11.27 ~ 11.28', '11.29 ~ 11.30','12.1 ~ 12.2','12.3 ~ 12.4','12.5 ~ 12.6' ];
+							var result = $('.slide__container02').attr('class').split('day0', 2)[1]-1;
+							// console.log(result);
 							var href = [ 
 								'https://shop.adidas.co.kr/PF070801.action?pageNo=1518',
 								'https://shop.adidas.co.kr/PF070801.action?pageNo=1519',
@@ -404,15 +386,29 @@
 								'https://shop.adidas.co.kr/PF070801.action?pageNo=1519',
 								'https://shop.adidas.co.kr/PF070801.action?pageNo=1522',
 							]
-							// $('.slide__container02 .txt p').text( head[result] );
-							// $('.slide__container02 .txt em').text( body[result] );
-							// $('.slide__container02 .txt span').text( foot[result] );
 							$('.slide__container02 .button_area_v2 a').attr( 'href',href[result] );
 						};
 						insertDayText();
-						$('#slider01').on('afterChange', function(event, slick, currentSlide, nextSlide){
+						$('#slider02').on('afterChange', function(event, slick, currentSlide, nextSlide){
 							insertDayText();
 						});
+	
+						// preventDefault
+						$('#winter .videos').click(function(e){
+							$(this).attr("href") === "#" && e.preventDefault();
+						})
+	
+						// // 3번 슬라이드 클릭 이동 싱크
+						// $('#slider03 .item').click( function(){
+						// 	var this__index = $(this).attr("data-slick-index");
+						// 	var slider02__length = $('#slider02 .item').length;
+						// 	if( this__index  < slider02__length ){
+						// 		$('#slider02').slick('setPosition');
+						// 		$('#slider02').slick('slickGoTo', this__index );
+						// 	} else {
+						// 		return false;
+						// 	}
+						// } )
 	
 					});
 				</script>			
