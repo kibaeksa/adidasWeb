@@ -167,106 +167,60 @@
 				
 				<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
 				<script type="text/javascript">
-						//Movement Animation to happen
-						// const container = document.querySelector(".videos__clicker .container");
-						// const item = document.querySelector(".videos__clicker .item .inner");
-						// const inner = document.querySelector(".videos__clicker .item .inner");
-						// //Items
-						// const figure = document.querySelector(".videos__clicker .item .inner img");
+				
+								function jsEffect(elem) {
+									//Moving Animation Event
+									elem.mousemove(function(e){
+										if( elem.hasClass("active") ) {
+												var xAxis = (230 / 2 - e.offsetX) / 15;
+												var yAxis = (424 / 2 - e.offsetY) / 10;
+												elem.find(".inner").css('transform',"rotateY("+xAxis+"deg) rotateX("+yAxis+"deg)");
+										}
+									});
 
-						// //Moving Animation Event
-						// item.addEventListener("mousemove", (e) => {
-						// 	let xAxis = (window.innerWidth / 4.2 - e.pageX) / 25;
-						// 	let yAxis = ( 937 / 2 - e.pageY) / 25;
-						// 	console.log(window.innerHeight,'window.innerHeight');
-						// 	// console.log(e.pageX,'e.pageX');
-						// 	inner.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-						// });
+									//Animate In
+									elem.mousemove(function(){
+										if( elem.hasClass("active") ) {
+												elem.find(".inner").css("transition", "none");
+												//Popout
+												elem.find("img").css("transform","translateZ(80px)");
+										}
+									});
 
-						
-						// //Animate In
-						// item.addEventListener("mouseenter", (e) => {
-						// 	inner.style.transition = "none";
-						// 	//Popout
-						// 	figure.style.transform = "translateZ(100px)";
-						// });
-
-						// //Animate Out
-						// item.addEventListener("mouseleave", (e) => {
-						// 	inner.style.transition = "all 0.5s ease";
-						// 	inner.style.transform = `rotateY(0deg) rotateX(0deg)`;
-						// 	//Popback
-						// 	figure.style.transform = "translateZ(0px)";
-						// });
-
-					$(document).ready(function(){
-						// ### 1. day0n 클래스 수동 삽입 ###
-						// ### 2. 날짜별 3번 슬라이드 초기화 ###
-						// carousels
-						function Comp( elem, prev, next ) {
-							this.mod = function( // 모듈
-									slidesToShow, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade
-								) {
-								elem.slick({
-									cssEase: 'linear',
-									slidesToScroll: 1,
-									autoplaySpeed: 2800,
-									arrows: true,
-									prevArrow: prev,
-									nextArrow: next, 
-									slidesToShow: slidesToShow, // 커스텀 시작
-									infinite: infinite,
-									autoplay: auto,
-									centerMode: centerMode,
-									dots: dots,
-									focusOnSelect: focusOnSelect,
-									asNavFor: asNavFor,
-									swipe: swipe,
-									fade: fade,
-								});
+									//Animate Out
+									elem.mouseleave(function(){
+										if( elem.hasClass("active") ) {
+												elem.find(".inner").css("transition","all 0.2s ease-out");
+												elem.find(".inner").css("transform","rotateY(0deg) rotateX(0deg)");
+												//Popback
+												elem.find("img").css("transform","translateZ(0px) rotateZ(0deg)");
+										}
+									});
 							}
-							// number, infinite, auto, centerMode, dots, focusOnSelect, asNavFor, swipe, fade,
-							if ( elem.hasClass('sub-slide01') ) { // 두번째 슬라이드
-								this.mod( 1, true, false, false, true, '', false, true, false );
-							} else if ( elem.hasClass('sub-slide02') ) { // 세번째 슬라이드
-								this.mod( 3, false, false, false, true, '', false, false, false );
-							} else { // default slide
-								this.mod( 3, false, false, false, true, '', false, true, false );
+							
+							function checkIE (elem) {
+									navigator.userAgent.indexOf('MSIE') > 0 || navigator.userAgent.indexOf('Trident') > 0
+									? 
+									'' : jsEffect(elem);
 							}
-						}
-	
-						// 인스턴스
-						var slideCount = $('#yearendsale .slider').length;
-						for( var i=0; i<slideCount; i++ ) {
-							new Comp( 
-								$('#slider0'+(i+1)),
-								$('.slider__nav0'+(i+1)+' .prev-button'), 
-								$('.slider__nav0'+(i+1)+' .next-button')
-							);
-						}
-	
-						// 3번 슬라이드 초기화
-						$('#slider03').slick('setPosition');
-						$('#slider03').slick('slickGoTo', 10 );
-	
+							checkIE($(".videos__clicker .item:first"));
 
-						$('#slider02').on('afterChange', function(event, slick, currentSlide, nextSlide){
-						});
-	
-						// preventDefault
-						$('#winter .videos').click(function(e){
-							$(this).attr("href") === "#" && e.preventDefault();
-						})
-	
-						// // 3번 슬라이드 클릭 이동 싱크
+
+
+
+						// 토글
 						$('.videos__clicker .item').click( function(){
 							var this__index = $(this).index();
 							$('.videos__clicker .item').removeClass('active').eq(this__index).addClass('active');
 							$('.videos__figure .item').removeClass('active').eq(this__index).addClass('active');
+							checkIE($(this));
 						} )
 
 
-
+								// preventDefault
+						$('#winter .videos').click(function(e){
+							$(this).attr("href") === "#" && e.preventDefault();
+						})
 
 						// video
 						$('.btn-play').bind('click', function () {
@@ -299,7 +253,7 @@
 						}			
 
 
-					});
+					// });
 				</script>	
 
 				<div class="top_down">
