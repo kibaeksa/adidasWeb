@@ -388,10 +388,7 @@
 			},function(){
 				$(this).siblings('div').hide();
 			});
-
-
-
-
+			
 
 			jQuery('.card_wrap').hover(function(){
 				jQuery('.card_wrap>a.card').addClass('on');
@@ -1532,18 +1529,25 @@
 	</div>
 	<!-- 사이즈차트 신발 End -->
 
-	<!-- 190802 사이즈차트 임시 -->
-	<div class="modal-popup-wrapper size_chart_temp" data-modalpop="" data-modalpop-width="927" data-modalpop-height="600"
-		data-modalpop-name="size_chart_temp" data-modalpop-fade="">
+	<!-- 210121 사이즈차트 -->
+	<div class="modal-popup-wrapper size_chart_popup" 
+		data-modalpop="" 
+		data-modalpop-width="950" 
+		data-modalpop-height="420"
+		data-modalpop-name="size_chart_popup" 
+		data-modalpop-fade="">
 		<div class="overlay"></div>
 		<div class="popup">
 			<div class="popup-contents">
 				<a href="javascript:void(0)" class="close"></a>
-				<img src="/images/reebok/new_size/1907_r_sizechart_kids_clothing_set_DT.jpg" width="100%"
-					alt="임시 이미지">
+				<!-- 아래 이미지가 상품에따라 분기 -->
+				<!-- <img src="https://image.reebok.co.kr/upload/design_temp/frt/r/size/r_sizechart_men.jpg" width="100%" alt="남자 사이즈"> -->
+				<!-- <img src="https://image.reebok.co.kr/upload/design_temp/frt/r/size/r_sizechart_women.jpg" width="100%" alt="여자 사이즈"> -->
+				<img src="https://image.reebok.co.kr/upload/design_temp/frt/r/size/r_sizechart_shoes.jpg" width="100%" alt="신발 사이즈">
 			</div>
 		</div>
 	</div>
+	<!-- // 210121 사이즈차트 -->
 	
 	<script>
 		$(document).ready(function () {
@@ -1553,7 +1557,6 @@
 					$('body').css({
 						'overflow': 'hidden'
 					})
-					console.log('a')
 				} else {
 					$('body').css({
 						'overflow': 'auto'
@@ -1570,6 +1573,13 @@
 					})
 				});
 
+			});
+
+			// 210121 사이즈차트
+			ModalPopup.bind('size_chart_popup',{
+				onopen : function(obj){
+					$('.size_chart_popup .popup').css('margin-top', '-350px');
+				}
 			});
 		});
 	</script>
@@ -2945,9 +2955,9 @@
 									<!-- 사이즈차트 임시버튼 END -->
     								
     								<p class="clfix">
-										<!-- 190802 -->
-										<a href="javascript:void(0)" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_temp"><span class="spt_bg ico right_arrow red"></span>사이즈 차트 보기</a>
-										<!-- // 190802 -->
+										<!-- 210121 -->
+										<a href="javascript:void(0)" class="view_sizechart modal-popup-click" data-modalpop-click="size_chart_popup"><span class="spt_bg ico right_arrow red"></span>사이즈 차트 보기</a>
+										<!-- // 210121 -->
     									<!-- <a href="javascript:void(0)" class="view_stock_alarm">입고알림 신청하기</a> -->
     								</p>
     								<div class="select_box clfix">
