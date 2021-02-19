@@ -59,7 +59,7 @@
 				<div id="nanox">
 					<div class="main">
 						<img src="/images/reebok/2021/event/nanox/main_vs.png" alt=""/>
-						<div class="txt">
+						<div class="main_txt">
 							<div class="button_area_v2">
 								<div class="white">
 									<div class="bg"></div>
@@ -75,11 +75,13 @@
 						</div>
 						<div class="video_wrap">
 							<div class="video_box">
-								<div class="video">
-									<a href="" id="ready_v" class="btn-play" data-video-id="bMwO-LxBAYs">
-										<img src="/images/reebok/2021/event/nanox/video01.jpg" alt="">
-									</a>
-								</div>
+								<video id="video" poster="/images/reebok/2021/event/nanox/video01.jpg" loop muted playsinline>
+									<source src="" type="video/mp4">
+								</video>	
+								<div class="txt">
+									<a href="javascript:void(0)" id="ready_v" class="play-video" data-video-id="bMwO-LxBAYs" campaign-label="영상보기">
+										<img src="/images/reebok/2021/event/nanox/play_btn.png" alt=""></a>
+								</div>																			
 							</div>
 						</div>						
 					</div>
@@ -96,150 +98,113 @@
 						<div class="con4_box">
 							<img src="/images/reebok/2021/event/nanox/cont4_bg.png" alt=""/>
 							<div class="cont4_video_wrap">
-								<img src="/images/reebok/2021/event/nanox/video02.jpg" alt=""/>
-								<div class="video">
-									<a href="" id="ready_v" class="btn-play" data-video-id="bMwO-LxBAYs">
-										<img src="/images/reebok/2021/event/nanox/video03.jpg" alt="">
-									</a>
+								<div class="cont4_bg_item">
+									<img src="/images/reebok/2021/event/nanox/cont4_bg2.png" alt=""/>
+								</div>
+								<div class="video_list">
+									<img src="/images/reebok/2021/event/nanox/video02.jpg" alt="" usemap="#Map"/>
+									<div class="video_sub">
+										<video id="video" poster="/images/reebok/2021/event/nanox/video03.jpg" loop muted playsinline>
+											<source src="" type="video/mp4">
+										</video>	
+										<div class="txt">
+											<a href="javascript:void(0)" id="ready_v" class="play-video" data-video-id="WaWFIhtPI6I" campaign-label="영상보기">
+												<img src="/images/reebok/2021/event/nanox/play_btn2.png" alt=""></a>
+										</div>	
+									</div>
+								</div>
+								<div class="cont4_video_txt">
+									<img src="/images/reebok/2021/event/nanox/cont4_video_txt.png" alt=""/>
+									<div class="button_area_v2">
+										<div class="">
+											<div class="bg"></div>
+											<a href="https://shop.reebok.co.kr/RPF070801.action?pageNo=1578" campaign-label="구매하기" >
+													구매하기
+												<span class="arrow">
+													<em class="top"></em>
+													<em class="bottom"></em>
+												</span>
+											</a>
+										</div>
+									</div>									
 								</div>
 							</div>							
 						</div>
 
 					</div>
 				</div>
-				<!--nanox end--
-				
-				<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
-				<script type="text/javascript">
-				
-							// 	function jsEffect(elem) {
-							// 		//Moving Animation Event
-							// 		elem.mousemove(function(e){
-							// 			if( elem.hasClass("active") ) {
-							// 					var xAxis = (230 / 2 - e.offsetX) / 15;
-							// 					var yAxis = (424 / 2 - e.offsetY) / 10;
-							// 					elem.find(".inner").css('transform',"rotateY("+xAxis+"deg) rotateX("+yAxis+"deg)");
-							// 			}
-							// 		});
+				<!--nanox end-->
 
-							// 		//Animate In
-							// 		elem.mousemove(function(){
-							// 			if( elem.hasClass("active") ) {
-							// 					elem.find(".inner").css("transition", "none");
-							// 					//Popout
-							// 					elem.find("img").css("transform","translateZ(80px)");
-							// 			}
-							// 		});
-
-							// 		//Animate Out
-							// 		elem.mouseleave(function(){
-							// 			if( elem.hasClass("active") ) {
-							// 					elem.find(".inner").css("transition","all 0.2s ease-out");
-							// 					elem.find(".inner").css("transform","rotateY(0deg) rotateX(0deg)");
-							// 					//Popback
-							// 					elem.find("img").css("transform","translateZ(0px) rotateZ(0deg)");
-							// 			}
-							// 		});
-							// }
-							
-							// function checkIE (elem) {
-							// 		navigator.userAgent.indexOf('MSIE') > 0 || navigator.userAgent.indexOf('Trident') > 0
-							// 		? 
-							// 		'' : jsEffect(elem);
-							// }
-							// checkIE($(".videos__clicker .item:first"));
-
-
-
-
-						// 토글
-						$('.videos__clicker .item').click( function(){
-							var this__index = $(this).index();
-							$('.videos__clicker .item').removeClass('active').eq(this__index).addClass('active');
-							$('.videos__figure .item').removeClass('active').eq(this__index).addClass('active');
-							// checkIE($(this));
-						} )
-
-
-								// preventDefault
-						$('#winter .videos').click(function(e){
-							$(this).attr("href") === "#" && e.preventDefault();
-						})
-
-						// video
-						$('.btn-play').bind('click', function () {
-							var videoId = $(this).attr('data-video-id');
-							viewVideo(videoId);
-							return false;
-						});
-
-						function viewVideo(videoId) {
-							var $this = $(this);
-							var videoLayerElem = $(
-								'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
-							);
-							$('html').addClass('no_scroll');
-							$('body').append(videoLayerElem);
-							setTimeout(function () {
-								$('.video_layer').addClass('loaded');
-								setTimeout(function () {
-									$('.video_layer').find('.video').append(
-										'<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + videoId +
-										'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-								}, 20);
-							}, 300);
-
-							$('.video_layer .close').bind('click', function () {
-								$('html').removeClass('no_scroll');
-								$('.video_layer').remove();
-							});
-							return false;
-						}			
-
-
-					// });
-				</script>	
-
-				<div class="top_down">
-					<a href="#" class="top" onclick="jQuery('html, body').animate({scrollTop:0},1000,'easeOutCubic');return false;">top</a>
-					<a href="#" class="down" onclick="jQuery('html, body').animate({scrollTop:jQuery(document).height()},1000,'easeOutCubic');return false;">down</a>
-				</div>
-			</div>
-			<!-- contents_wrap end-->
 
 			<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
 			<script type="text/javascript">
 
 
-					// video
-					$('.btn-play').bind('click', function () {
-						var videoId = $(this).attr('data-video-id');
-						viewVideo(videoId);
-						return false;
-					});
-
-					function viewVideo(videoId) {
-						var $this = $(this);
-						var videoLayerElem = $(
-							'<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>'
-						);
-						$('html').addClass('no_scroll');
-						$('body').append(videoLayerElem);
-						setTimeout(function () {
-							$('.video_layer').addClass('loaded');
-							setTimeout(function () {
-								$('.video_layer').find('.video').append(
-									'<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + videoId +
-									'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen wmode="transparent"> </iframe>');
-							}, 20);
-						}, 300);
-
-						$('.video_layer .close').bind('click', function () {
-							$('html').removeClass('no_scroll');
-							$('.video_layer').remove();
+				// javascript code
+				$('.play-video').bind('click',function(){
+							var videoId = $(this).attr('data-video-id');
+								viewVideo(videoId);
+								return false;
 						});
-						return false;
-					}			
+						
+						function viewVideo(videoId){
+							var $this = $(this);
+							var videoLayerElem = $('<div class="video_layer"><a class="sptbg close" href="javascript:void(0)"></a><div class="video"></div><div class="bg"></div></div>');
+							$('html').addClass('no_scroll');
+							$('body').append(videoLayerElem);
+							setTimeout(function(){
+								$('.video_layer').addClass('loaded');
+								setTimeout(function(){
+									$('.video_layer').find('.video').append('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&wmode=transparent" frameborder="0" allowfullscreen="" wmode="transparent"> </iframe>');
+								},20);
+							},300);
+						
+							$('.video_layer .close').bind('click',function(){
+								$('html').removeClass('no_scroll');
+								$('.video_layer').remove();
+							});
+							return false;
+						}
+						
+						function initVideo(targetId , videoSrc){
+						if($('html').hasClass('ie9') || $('html').hasClass('ie_old')){
+							$('.visual_video .video_bg').hide();
+							$('.visual_video .bg').animate({
+								opacity : 1
+							});
+							$('.visual_video .masthead').animate({
+								opacity:1
+							});
+						}
+						
+						var elemVideo = document.createElement('video');
+						var elemSource = document.createElement('source');
+						var targetElem = document.getElementById(targetId);
+						
+						elemVideo.autoplay = true;
+						elemVideo.loop = true;
+						elemVideo.muted = true;
+						
+						elemSource.src = videoSrc;
+						elemSource.type = 'video/mp4';
+						elemVideo.appendChild(elemSource);
+						
+						elemVideo.onloadstart = function(){
+							targetElem.appendChild(elemVideo);
+							setTimeout(function(){
+								elemVideo.setAttribute('class','loaded');
+								setTimeout(function(){
+									elemVideo.play();
+									$('.visual_video .masthead').addClass('active');
+								},100)
+							},500);
+						
+						}
+						
+						elemVideo.onended = function(){
+							this.parentNode.parentNode.removeChild(this.parentNode);
+							}
+						}
 
 
 				// });
