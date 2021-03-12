@@ -1,0 +1,224 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+//common
+
+#outerjacket{
+	section{position: relative;margin: 0 auto; min-width: 1190px;};
+	em{
+		font-weight: 700;
+		font-style: normal;
+	}
+	.btn_default{
+		margin-top: 0;
+	}
+	@for $i from 1 through 2 {
+		.bg0#{$i} {
+			background: url('/images/adidas/2021/event/outerjacket/bg01.jpg') no-repeat;
+			// background: url('/images/adidas/2021/event/outerjacket/bg0#{$i}.jpg') no-repeat;
+			background-position: top;
+			background-size: 100% auto;
+		}
+	}
+	.tabs{
+		border-top: 1.8px solid #f2bcbd;
+		border-bottom: 1.8px solid #f9e667;
+		position: relative;
+		background: #ffffff;
+		&.fixed{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 2;
+		}
+		ul{
+			width: 735px;
+			margin: 0 auto;
+			li{
+				position: relative;
+				width: 32.97%;
+				font: 22px/47px $adinBlk;
+				color: #000;
+				display: inline-block;
+				text-align: center;
+				&.active{
+					&::after{
+						display: block;
+						content: '';
+						clear: both;
+						position: absolute;
+						bottom: -4px;
+						left: 0;
+						right: 0;
+						width: 100%;
+						height: 5px;
+						background: url('/images/adidas/2021/event/outerjacket/tab.jpg') no-repeat;
+					}
+				}
+			}
+		}
+	}
+	.visuals{
+		$val: auto;
+		@include auto($val);
+		.visuals__figure{
+			margin-bottom: 30rem;
+		}
+		.visuals__text{
+			@include center(97.5%, auto, 50%, $ctX);
+			white-space: nowrap;
+			text-align: center;
+			h3,p{text-align: center;}
+			h3{
+				font: 76px/76px $adinBlk;
+				color: #000;
+			}
+			>p{
+				font: 400 21px/35px $noto;
+				color: #000;
+				margin-top: 20px;
+				em{
+					width: 63%;
+					font-weight: 700;
+					display: inline-block;
+    				margin-top: 10px;
+				}
+			}
+			.btn_default{
+				margin-top: 55px;
+			}
+		}
+	}
+	.tab__container{
+
+		.section{
+
+			display: none;
+			@keyframes fade-in {
+				from {
+					@include opacity(0);
+				}
+				to {
+					@include opacity(1);
+				}
+			}
+			&.active{
+				display: block;
+				animation: fade-in 1s;
+				animation-fill-mode: forwards;
+				@include css3(transition, 0.5s);
+			}
+			&.section02{
+				.head__text{
+					padding: 5.5rem 0 3em 0;
+				}
+			}
+			.head__text{
+				padding: 5.5rem 0 5em 0;
+				text-align: center;
+				span{
+					font: 400 21px/21px $noto;
+					color: #000;
+				}
+				p{
+					text-align: center;
+					font: 900 40px/65px $noto;
+					color: #000;
+				}
+				.btn_default{
+					margin-top: 30px;
+				}
+			}
+			.content{
+				position: relative;
+				img{
+					width: 100%;
+	
+				}
+				.txt{
+					@include center(50%, auto, 61%, $ctY);
+					h3{
+						font: 40px/42px $adinBlk;
+						color: #000;
+					}
+					p{
+						font: 400 18px/26.5px $noto;
+						color: #000;
+						margin: 20px 0 30px 0;
+					}
+					@media screen and (max-width: 1500px) { 
+						p{
+							font-size: 15.5px;
+						}
+					}
+					@media screen and (max-width: 1300px) { 
+						p{
+							font-size: 14.5px;
+						}
+					}
+					.btn_default{
+					}
+				}
+				&.extra{
+					margin: 0.5rem 0;
+					.txt{
+					@include center(50%, auto, auto, $ctY);
+					right: 55%;
+					text-align: right;
+					h3, p{
+						text-align: right;
+					}
+					}
+				}
+				.video{
+					@include center(26.3%, auto, 50%, $ctct);
+					width: 42%;
+					video{
+						width: 100%;
+					}
+				}
+			}
+			.desc{
+				padding: 60px 0 40px 0;
+				white-space: nowrap;
+				&.desc2{
+					width: 447px;
+					margin: 0 auto;
+					padding: 60px 0 65px 0;
+					p{
+						line-height: 35.5px;
+						em{
+							margin-top: 10px;
+						}
+					}
+				}
+				p{
+					font: 400 21px/38px "NotoSansKR";
+					color: #000;
+					text-align: center;
+					em{
+						width: 100%;
+						display: inline-block;
+					}
+				}
+			}
+		}
+	}
+	.bottoms{
+		$val: auto;
+		@include auto($val);
+		padding-bottom: 100px;
+		.txt{
+			text-align: center;
+			@include center(50%, auto, 50%, $ctct);
+			p{
+				font: 500 21px/34px $noto;
+				color: #000;
+				text-align: center;
+			}
+			.btn_default{
+				margin-top: 35px;
+			}
+		}
+	}
+}
