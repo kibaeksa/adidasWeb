@@ -1,0 +1,426 @@
+@import "./front/css/reebok/scss/about.scss";
+
+/* common */
+#wrap{
+    overflow: hidden;
+    min-width: 1160px;
+}
+html,body{
+	height:100%;
+}
+#contents_wrap{padding: 0;}
+.button_area_v2 {
+	display: inline-block;
+
+	&:hover {
+		>div {
+
+			// .bg{
+			// 	box-shadow: inset 0 0 0 1px #fff!important;
+			// 	-webkit-box-shadow: inset 0 0 0 1px #fff!important;
+			// 	// @include css3(transition, all 0.5s);
+			// }
+			a {
+				color: #767677 !important;
+				background: #000 !important;
+
+				span {
+					background: #767677 !important;
+
+					em {
+						background: #767677 !important;
+					}
+				}
+			}
+
+			&.white {
+				a {
+					background: #fff !important;
+				}
+			}
+		}
+	}
+
+	div {
+		position: relative;
+
+		&.white {
+			.bg {
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+			}
+
+			a {
+				color: #000;
+				background: #fff;
+
+				.arrow {
+					background: #000;
+
+					em {
+						background: #000;
+					}
+				}
+			}
+		}
+
+		.bg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: translate(3px, 3px);
+			-webkit-transform: translate(3px, 3px);
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			z-index: 1;
+		}
+
+		a {
+			position: relative;
+			display: block;
+			text-align: center;
+			height: 50px;
+			font: 500 15px/49px 'NotoSansKR';
+			color: #fff;
+			background: #000;
+			z-index: 2;
+			letter-spacing: 1px;
+			padding: 0 20px;
+
+			.arrow {
+				position: relative;
+				top: -1px;
+				display: inline-block;
+				margin-left: 20px;
+				width: 25px;
+				height: 2px;
+				background: #fff;
+				vertical-align: middle;
+
+				em {
+					position: absolute;
+					right: 0;
+					width: 8px;
+					height: 3px;
+					background: #fff;
+					transform: rotate(45deg);
+					-webkit-transform: rotate(45deg);
+
+					&.top {
+						top: -3px;
+					}
+
+					&.bottom {
+						bottom: -3px;
+						transform: rotate(-45deg);
+						-webkit-transform: rotate(-45deg);
+					}
+				}
+
+			}
+		}
+
+	}
+}
+
+#fitness {
+	div[class$='_area']{
+		width: 1200px;
+		margin: 0 auto;
+	}
+	.section{
+		position: relative;
+		.sect_bg {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+			z-index: 1;
+		}
+
+		.head_area{
+			padding: 0 0 70px;
+			width: 1200px;
+			margin: 0 auto;
+			text-align: center;
+			&.wt{
+				h4{color: #fff;}
+				p{color: #fff;}
+			}
+			h4{
+				font: 800 60px/60px "NotoSansKR";
+				text-align: center;
+				color: #000;
+				letter-spacing: 6px;
+				span{
+					color: #fed514;
+				}
+				&.small{
+					font-size: 50px;
+					line-height: 50px;
+				}
+			}
+			h5{
+				text-align: center;
+				img{
+					display: inline-block;
+				}
+			}
+			p{
+				padding-top: 30px;
+				font: 500 30px "NotoSansKR";
+				color: #000;
+				text-align: center;
+				&.by{
+					font: 700 22px "neueplak-ext";
+					letter-spacing: 2px;
+				}
+				span{
+					font: 700 30px "neueplak-ext";
+					letter-spacing: 2px;
+					text-transform: uppercase;
+				}
+			}
+			.button_area_v2{
+				margin-top: 40px;
+			}
+		}
+
+		&.sect_visual {
+			>img{
+				display: block;
+				width: 100%;
+			}
+			.visual_text{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 2;
+				&.on{
+					h3{
+						-webkit-filter: blur(0);
+						filter: blur(0);
+						transform: translateY(0);
+						opacity: 1;
+					}
+				}
+				h3{
+					font: 800 116px/116px "NotoSansKR";
+					letter-spacing: 10px;
+					text-align: center;
+
+					-webkit-filter: blur(30px);
+					filter: blur(30px);
+					transform: translateY(30px);
+					transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+					opacity: 0;
+					
+					&.t_top{
+						color: #fff;
+					}
+					&.t_bot{
+						margin-top: -20px;
+						margin-bottom: 20px;
+						color: #fed514;
+					}
+					&:nth-child(1){transition-delay: 0;}
+					&:nth-child(2){transition-delay: 0.6s;}
+					&:nth-child(3){transition-delay: 1.2s;}
+					&:nth-child(4){transition-delay: 1.8s;}
+				}
+			}
+		}
+
+		&.sect_recommend{
+			padding: 100px 0 140px;
+			background: #fff4cf;
+			
+			.body_area{
+				width: 1200px;
+				margin: 0 auto;
+				ul{
+					overflow: hidden;
+					li{
+						float: left;
+						&:first-child{
+							margin-right: 20px;
+						}
+						a{
+							display: block;
+							img{
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&.sect_video {
+			padding: 85px 0;
+			color: #fff;
+			text-align: center;
+			&#prd_a{
+				background: url('/images/reebok/2021/event/fitness/prd_a_videobg.jpg') 0 0 no-repeat;
+				background-size: cover;
+			}
+			&#prd_b{
+				background: url('/images/reebok/2021/event/fitness/prd_b_videobg.jpg') 0 0 no-repeat;
+				background-size: cover;
+			}
+			.body_area{
+				position: relative;
+				>img{
+					display: block;
+				}
+				>a.play-video{
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 2;
+				}
+			}
+			.button_area_v2{
+				margin-top: 60px;
+				display: inline-block;
+			}
+		}
+
+		&.sect_look {
+			padding: 110px 0;
+			
+			background-size: cover;
+			text-align: center;
+			&#prd_a2{background: #1c1717;}
+			&#prd_b2{
+				background: #fff4cf;
+				.slick-arrow {
+					&.slick-prev {
+						background: url('/images/reebok/2021/event/fitness/prev_bl.png') 0 0 no-repeat;
+					}
+
+					&.slick-next {
+						background: url('/images/reebok/2021/event/fitness/next_bl.png') 0 0 no-repeat;
+					}
+				}
+				.slick-dots{
+					li{
+						border: 2px solid #000;
+						&.slick-active {
+							background: #000;
+						}
+					}
+				}
+			}
+			.cont_slide {
+				position: relative;
+				width: 1920px;
+				left: 50%;
+				margin-left: -960px;
+				text-align: center;
+				.slick-slide {
+					outline: none;
+					padding: 0 50px;
+					opacity: 0.4;
+					transition: 1s;
+					transition-delay: 0.4s;
+					&.slick-current {
+						opacity: 1;
+					}
+					img{
+						display: block;
+						width: 100%;
+					}
+				}
+
+				.slick-arrow {
+					position: absolute;
+					top: 46%;
+					width: 33px;
+					height: 60px;
+					margin-top: -30px;
+					text-indent: -9999px;
+					border: 0 none;
+					outline: none;
+					cursor: pointer;
+					z-index: 10;
+
+					&.slick-prev {
+						left: 50%;
+						margin-left: -529px;
+						background: url('/images/reebok/2021/event/fitness/prev_wt.png') 0 0 no-repeat;
+					}
+
+					&.slick-next {
+						right: 50%;
+						margin-right: -529px;
+						background: url('/images/reebok/2021/event/fitness/next_wt.png') 0 0 no-repeat;
+					}
+				}
+
+				.slick-dots {
+					display: inline-block;
+					margin: 30px 0 0;
+					li {
+						display: inline-block;
+						margin: 0 5px;
+						width: 12px;
+						height: 12px;
+						border: 2px solid #fff;
+						border-radius: 50%;
+						text-indent: -9999px;
+						cursor: pointer;
+
+						&.slick-active {
+							background: #fff;
+						}
+					}
+				}
+			}
+
+			h3 {
+				margin-bottom: 30px;
+				font: 900 50px/50px 'neueplak-ext';
+				color: #dd9c00;
+				text-shadow: -1px -1px 0 #000,
+				1px -1px 0 #000,
+				-1px 1px 0 #000,
+				1px 1px 0 #000;
+				text-transform: uppercase;
+				text-align: center;
+				letter-spacing: 2px;
+			}
+
+			.button_area_v2 {
+				
+			}
+		}
+
+		&.sect_papul{
+			padding: 70px 0;
+			.head_area{
+				h4{
+					font-size: 35px;
+					line-height: 35px;
+				}
+			}
+			.body_area{
+				ul{
+					overflow: hidden;
+					li{
+						float: left;
+						margin-right: 10px;
+						img{
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+}
