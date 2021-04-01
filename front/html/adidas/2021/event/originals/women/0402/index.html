@@ -72,6 +72,7 @@
 							<img src="/images/adidas/2021/event/originals/women/0402/video01.jpg" alt="">
 						</a>
 					</section>
+					<div style="padding: 50px 0;"></div>
 					<div class="tabs">
 						<ul>
 							<li class="on">
@@ -457,10 +458,10 @@
 			<script type="text/javascript" src="/designjs/common/slick/slick.min.js"></script>
 			<script type="text/javascript">
 				// 탭 섹션 이동
-				function moveTo(sec) {
+				function moveTo(sec, tabsHeight) {
 					var offset = $(".section0" + sec).offset();
 					console.log(sec);
-					$('html, body').animate({ scrollTop: offset.top }, 400);
+					$('html, body').animate({ scrollTop: offset.top - tabsHeight }, 400);
 				}
 				$(document).ready(function () {
 
@@ -483,7 +484,9 @@
 						}
 						$('.tabs ul li').removeClass('on').eq(index).addClass('on');
 						$('.content__container').removeClass('on').eq(index).addClass('on');
-						moveTo(index + 1);
+						const tabsHeight = $('.tabs').height();
+						console.log(tabsHeight);
+						moveTo(index + 1, tabsHeight);
 					});
 
 					// rolling
@@ -504,7 +507,7 @@
 						$.each(section, function (index, elem) {
 							if ($('#formotion .content__container').eq(index).hasClass('on')) {
 								var $target = section.eq(index);
-								var targetTop = $target.offset().top - 350;
+								var targetTop = $target.offset().top;
 								targetTop <= thisScroll && $('#formotion .tabs').addClass('fixed');
 								targetTop >= thisScroll && $('#formotion .tabs').removeClass('fixed');
 							}
