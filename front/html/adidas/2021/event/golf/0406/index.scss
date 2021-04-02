@@ -1,0 +1,448 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+//common
+.button_area_v2{
+	display: inline-block;
+	&:hover{
+		div{
+			a{
+				color: #767677;
+				span{
+					background: #767677;
+					em{
+						background: #767677;
+					}
+				}
+
+			}
+		}
+	}
+	div{
+		&.white{
+			.bg{
+				box-shadow: inset 0 0 0 1px #fff;
+				-webkit-box-shadow: inset 0 0 0 1px #fff;
+				@include css3(transition, all 0.5s);
+			}
+			a{
+				background: #fff;
+			}
+		}
+		.bg{
+			box-shadow: inset 0 0 0 1px #000;
+			-webkit-box-shadow: inset 0 0 0 1px #000;
+			@include css3(transition, all 0.5s);
+		}
+		a{
+			letter-spacing: 1px;
+			padding:0 20px;
+			background: #000;
+		}
+	}
+}
+
+.inner{
+	max-width: 1821px;
+	margin: 0 auto;
+	position: relative;
+	box-sizing: border-box;	
+}
+
+.tab_inner{
+	max-width: 1400px;
+	margin: 0 auto;
+	position: relative;
+    text-align: center;
+}
+
+.clearfix{
+	clear:both;
+	content:'';
+	display:block;
+}
+
+.all_cont{
+	max-width: 1189px;
+	margin: 0 auto;
+	position: relative;
+	box-sizing: border-box;	
+	>img{
+		width:100%;
+	}
+}
+
+#golf{
+	min-width:1240px;
+	.main{
+		position:relative;
+		.main_wrap{
+			position:relative;
+			>img{
+				width:100%;
+			}
+			.main_txt{
+				position:absolute;
+				left:22%;
+				top:49%;
+				transform:translate(-50%,-50%);
+				h1{
+					margin-bottom:50px;
+					opacity:0;
+					transition:all 0.6s;
+					&.on{
+						opacity:1;
+					}						
+				}
+				p{
+					opacity:0;
+					transition:all 0.7s;	
+					position: absolute;
+					z-index: 1;									
+					&.on{
+						position:relative;
+						opacity:1;
+					}											
+				}
+				span{
+					position:relative;
+					position: absolute;
+					width: 377px;
+					height: 125px;
+					overflow: hidden;
+					display: block;
+					top: 335px;
+					z-index: 2;
+					&.on{
+
+					}
+				}
+			}
+		}
+	}
+	.cont1_summary{
+		padding:60px 0;
+		scroll-behavior: smooth; 
+		.summary_list{
+			overflow:hidden;
+			ul{
+				li{
+					float:left;
+					width:22.954420648%;
+					margin-right:2.69082921472%;
+					&:last-child{
+						margin-right:0;
+					}				
+					a{
+						
+						display:block;
+						>img{
+							width:100%;
+						}
+						.txt_box{
+							color:#fff;
+							background:#231f20;
+							padding:40px 0;
+							&.txt_box2{
+								background:#f49dbe;
+							}
+							&.txt_box3{
+								background:#a2c4a5;
+							}
+							&.txt_box4{
+								background:#30517b;
+							}														
+							h2{
+								text-align:center;
+							}
+							p{
+								text-align:center;
+								font: 300 18px/25px 'NotoSansKR' ;
+								letter-spacing:1px;
+								padding:8px 0 0 0;
+								position:relative;
+								&::before{
+									content:'';
+									display:block;
+									position:absolute;
+									left:50%;
+									bottom:-22px;
+									width:27px;
+									height:10px;
+									background:url('/images/adidas/2021/event/golf/0406/sum_arr.png')no-repeat;	
+								}
+							}
+						}
+					}	
+				}
+
+			}
+		}
+	}
+	.tab_btn{
+		&.fixed{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 10;
+			ul{
+				background:#fff;
+			}
+		}
+		ul{
+			border-top:2px solid #d7e7a7;
+			border-bottom:2px solid #d7e7a7;
+			text-align:center;
+			li{
+				display:inline-block;
+				margin-left:0;
+				vertical-align:top;
+				text-align:center;
+				width:300px;
+				position:relative;
+				&:first-child{
+					margin-left:0;
+				}
+			
+				a{
+					display:block;
+					p{
+						font:900 24px/26px ' ';
+						color:#86a45b;
+						height:66px;
+						line-height:66px;		
+						text-align:center;
+						text-transform:uppercase;
+						letter-spacing:2px;
+						opacity:0.6;
+
+						&.on{
+							text-decoration: underline;
+						}
+					}
+					&:hover{
+						p{
+							color: #8dc938;
+							opacity:1;
+						}
+					}
+				}
+			}
+		}
+	}
+	@keyframes fade-in {
+		from {
+			@include opacity(0);
+		}
+		to {
+			@include opacity(1);
+		}
+	}
+	.tab_con{
+		position:relative;
+		padding:120px 0 0 0;
+		.tab__content{
+			padding-top:0;
+			width:100%;
+			z-index:0;
+			display:none;
+			&.current{
+				display: block;
+				animation: fade-in 1s;
+				animation-fill-mode: forwards;
+				@include css3(transition, 0.5s);
+			}
+			.scroll{
+				&.on{
+					opacity:1;
+					// .tab_main{
+					// 	opacity:1;
+					// }	
+					// .tab_slider{
+					// 	opacity:1;
+					// }	
+				}	
+			}
+			.tab_title{
+				
+				h3{
+					text-align:center;
+				}
+				p{
+					text-align:center;
+					font: 600 24px/30px 'NotoSansKR' ;
+					letter-spacing:1px;						
+					color:#111;
+					padding:20px 0 50px 0;
+				}
+			}
+			.tab_main{
+				opacity:0;
+				transition:all 0.9s;	
+				padding:0 0 70px 0;				
+			}
+			.tab_slider{
+				opacity:0;
+				transition:all 0.9s;	
+			}
+			.tab1_bar{
+				padding:65px 0 30px 0;
+				>img{
+					width:100%;
+				}
+			}
+		}
+
+		.tab_slider{
+			background:url('/images/adidas/2021/event/golf/0406/tab1_slider01_bg.jpg')no-repeat;	
+			background-size:100% auto;
+			padding:80px 0 200px 0;
+			text-align:center;
+			position:relative;
+
+			.tab_buy{
+				position:absolute;
+				left:50%;
+				bottom:-22%;
+				transform:translate(-50%,-50%);
+			}
+
+			.slick-slide {
+				position:relative;
+				&.slick-active {
+				  > img {
+					transform: translateY(0) !important;
+					opacity: 1;
+				  }
+				}
+				img {
+				  float: left;
+				  display: inline-block;
+				  width: 100%;
+				  transition: 0.2s cubic-bezier(0.22, 0.301, 0.265, 1);
+				  opacity: 0;
+				  &:first-child {
+					transform: translateY(2px);
+				  }
+				  &:last-child {
+					transform: translateY(-2px);
+					transition-delay: 0.4s;
+				  }
+				}
+			}
+
+			.custom_paging {
+				position:absolute;
+				left:50%;
+				bottom:-7%;
+				text-align: center;
+				width:100%;
+				display:block;
+				margin-left:-50%;
+				li{
+					display:inline-block;
+					font:500 20px/26px 'adihaus-bold';
+					margin-right:15px;
+					color:#b8b8b8;
+					&.slick-active{
+						color:#111;
+					}
+				}
+			}			
+
+			.slick-arrow{
+				font-size:0;
+				border:0;
+			}
+			  .slick-prev{
+				position:absolute;
+				left: 40%;
+				bottom: -7%;
+				background: url('/images/adidas/2021/event/golf/0406/prev.png')no-repeat 50%;
+				background-size:auto;
+				width: 11px;
+				height: 20px;
+				z-index:1;
+				outline:none;
+			}					
+			  .slick-next{
+				position:absolute;
+				right: 41%;
+				bottom: -7%;
+				background: url('/images/adidas/2021/event/golf/0406/next.png')no-repeat 50%;
+				background-size:auto;
+				width: 11px;
+				height: 20px;
+				z-index:1;
+				outline:none;
+			}				
+			.tab_slider_btn{
+				position:absolute;
+				right:0;
+				bottom:0;
+
+				.btn_box{
+					a{
+						position:relative;
+						display:block;
+						background:#111;
+						width:50px;
+						height:50px;
+						&::before{
+							content:'';
+							display:block;
+							position:absolute;
+							left:50%;
+							top:22px;
+							background:#fff;
+							width:20px;
+							height:2px;
+							margin-left:-10px;
+						}
+						&::after{
+							content:'';
+							display:block;
+							position:absolute;
+							left:50%;
+							top:14px;
+							background:#fff;
+							width:2px;
+							height:20px;
+							margin-left:-1px;
+						}		
+
+						&.act{
+							&::before{
+								transform: rotate(180deg) translate(0, 0);	
+								transition-duration: 2s;
+							}
+							&::after{
+								transform: rotate(-90deg) translate(0, 0);	
+								transition-duration: 2s;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.tab_slider2{
+			background:url('/images/adidas/2021/event/golf/0406/tab1_2_slider01_bg.jpg')no-repeat;	
+			background-size:100% auto;
+			opacity:0;
+			padding:70px 0 270px 0;
+			.tab_buy2{
+				bottom:-36%;
+				.btn_default{
+					margin:20px 0 0 0;
+				}
+			}
+		}		
+
+	}
+
+
+
+}
