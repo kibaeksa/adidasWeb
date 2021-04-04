@@ -83,11 +83,13 @@
 			}
 			.main_txt{
 				position:absolute;
-				left:22%;
-				top:49%;
-				transform:translate(-50%,-50%);
+				left:11%;
+				top:25%;
+				// left:22%;
+				// top:49%;
+				// transform:translate(-50%,-50%);
 				h1{
-					margin-bottom:50px;
+					// margin-bottom:50px;
 					opacity:0;
 					transition:all 0.6s;
 					&.on{
@@ -98,6 +100,8 @@
 					opacity:0;
 					transition:all 0.7s;	
 					position: absolute;
+					top:50px;
+					left:0;
 					z-index: 1;									
 					&.on{
 						position:relative;
@@ -107,14 +111,17 @@
 				span{
 					position:relative;
 					position: absolute;
-					width: 377px;
+					width: 0.01px;
 					height: 125px;
 					overflow: hidden;
 					display: block;
 					top: 335px;
 					z-index: 2;
+					transition-duration: 1.5s;
+					transition-delay:0.7s;
 					&.on{
-
+						max-width:377px;
+						// width:0;
 					}
 				}
 			}
@@ -179,6 +186,9 @@
 			}
 		}
 	}
+	.cont2_tab{
+		height:70px;
+	}
 	.tab_btn{
 		&.fixed{
 			position: fixed;
@@ -242,7 +252,7 @@
 	}
 	.tab_con{
 		position:relative;
-		padding:120px 0 0 0;
+		padding:120px 0 120px 0;
 		.tab__content{
 			padding-top:0;
 			width:100%;
@@ -257,12 +267,12 @@
 			.scroll{
 				&.on{
 					opacity:1;
-					// .tab_main{
-					// 	opacity:1;
-					// }	
-					// .tab_slider{
-					// 	opacity:1;
-					// }	
+					.tab2_slider{
+						opacity:1;
+					}				
+					.tab3_slider{
+						opacity:1;
+					}										
 				}	
 			}
 			.tab_title{
@@ -287,6 +297,18 @@
 				opacity:0;
 				transition:all 0.9s;	
 			}
+			.tab2_slider{
+				opacity:0;
+				transition:all 0.9s;
+				transition-delay: 0.6s;
+				transition-duration: 0.5s;
+			}
+			.tab3_slider{
+				opacity:0;
+				transition:all 0.9s;
+				transition-delay: 0.6s;
+				transition-duration: 0.5s;
+			}			
 			.tab1_bar{
 				padding:65px 0 30px 0;
 				>img{
@@ -318,7 +340,7 @@
 				  }
 				}
 				img {
-				  float: left;
+				  float:left;
 				  display: inline-block;
 				  width: 100%;
 				  transition: 0.2s cubic-bezier(0.22, 0.301, 0.265, 1);
@@ -433,6 +455,7 @@
 			background-size:100% auto;
 			opacity:0;
 			padding:70px 0 270px 0;
+			transition-duration: 1s;
 			.tab_buy2{
 				bottom:-36%;
 				.btn_default{
@@ -441,6 +464,60 @@
 			}
 		}		
 
+		.tab_slider3{
+			background:url('/images/adidas/2021/event/golf/0406/tab2_slider01_bg.jpg')no-repeat;	
+			background-size:100% auto;
+			opacity:0;
+			padding:70px 0 326px 0;
+			position:relative;
+			.tab_buy3{
+				text-align:center;
+				bottom:-50%;
+				.btn_default{
+					margin:20px 0 0 0;
+				}
+			}
+
+			&::before{
+				content:'';
+				display:block;
+				position:absolute;
+				left:60px;
+				top:-110px;
+				width:372px;
+				height:372px;
+				background:url('/images/adidas/2021/event/golf/0406/tab3_round.png')no-repeat;	
+				animation: rotate_image 10s linear infinite;
+				transform-origin: 50% 50%;
+			}
+			@keyframes rotate_image{
+				100% {
+					transform: rotate(360deg);
+				}
+			}			
+		}
+
+		.tab_zig{
+			>img{
+				width:100%;
+			}
+		}
+		.tab_bottom{
+			padding:55px 0 80px 0;
+			color:#111;
+			text-align: center;
+			h5{
+				font: 900 40px/50px 'NotoSansKR' ;
+				letter-spacing:0px;		
+				text-align:center;
+			}
+			p{
+				font: 500 24px/40px 'NotoSansKR' ;
+				letter-spacing:0px;		
+				text-align:center;
+				padding:10px 0 0 0;
+			}
+		}
 	}
 
 

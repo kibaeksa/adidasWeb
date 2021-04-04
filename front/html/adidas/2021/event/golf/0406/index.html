@@ -39,7 +39,7 @@
 						<div class="main_txt">
 							<h1><img src="/images/adidas/2021/event/golf/0406/main_txt1.png" alt="" /></h1>
 							<p><img src="/images/adidas/2021/event/golf/0406/main_txt2.png" alt="" /></p>
-							<!-- <span><img src="/images/adidas/2021/event/golf/0406/main_txt2_full.png" alt="" /></span> -->
+							<span per="100"><img src="/images/adidas/2021/event/golf/0406/main_txt2_full.png" alt="" /></span>
 						</div>
 					</div>
 				</div>		
@@ -101,7 +101,7 @@
 				</div>
 
 				<div class="tab_con">
-					<div id="tab-1" class="tab__content current">
+					<div id="tab-1" class="tab__content ">
 						<div class="tab_title">
 							<h3><img src="/images/adidas/2021/event/golf/0406/tab1_title.png" alt="" /></h3>
 							<p>강력한 퍼포먼스의 기능성 골프웨어</p>
@@ -164,15 +164,70 @@
 							</div>
 						</div>							
 					</div>
-					<div id="tab-2" class="tab__content">
-						2
+					<div id="tab-2" class="tab__content current">
+						<div class="tab_title">
+							<h3><img src="/images/adidas/2021/event/golf/0406/tab2_title.png" alt="" /></h3>
+							<p>여성 골퍼를 위한 아디다스만의 THREE STRIPE 스타일 </p>
+						</div>
+						<div class="tab_main scroll">
+							<img src="/images/adidas/2021/event/golf/0406/tab2_main_vs.jpg" alt="" />
+						</div>
+						<div class="tab_slider tab_slider3 scroll">
+							<div class="tab_inner">
+								<div class="tab3_slider">
+									<div class="item"><img src="/images/adidas/2021/event/golf/0406/tab1_2_slider01.png" alt="" /></div>
+									<div class="item"><img src="/images/adidas/2021/event/golf/0406/tab1_2_slider02.png" alt="" /></div>
+									<div class="item"><img src="/images/adidas/2021/event/golf/0406/tab1_2_slider03.png" alt="" /></div>										
+									<div class="item"><img src="/images/adidas/2021/event/golf/0406/tab1_2_slider04.png" alt="" /></div>										
+									<div class="item"><img src="/images/adidas/2021/event/golf/0406/tab1_2_slider05.png" alt="" /></div>										
+								</div>
+								<div class="tab_slider_btn">
+									<div class="btn_box">
+										<a href="javascript:void(0)"></a>
+									</div>
+								</div>	
+								<div class="tab_buy tab_buy3">
+									<div class="btn_default">
+										<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=" campaign-label="구매하기">
+											구매하기
+										</a>
+									</div>		
+									<br />									
+									<div class="btn_default">
+										<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=" campaign-label="남성의류 구매하기">
+											남성의류 구매하기
+										</a>
+									</div>
+									<br />
+									<div class="btn_default">
+										<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=" campaign-label="여성의류 구매하기">
+											여성의류 구매하기
+										</a>
+									</div>				
+								</div>																		
+							</div>
+						</div>														
 					</div>					
 					<div id="tab-3" class="tab__content">
 						3
 					</div>		
 					<div id="tab-4" class="tab__content">
 						4
-					</div>												
+					</div>			
+					<div class="tab_zig">
+						<img src="/images/adidas/2021/event/golf/0406/tab_zig21.jpg" alt="" />
+					</div>
+					<div class="tab_bottom">
+						<h5>필드위, 무중력 상태를 경험하라!</h5>
+						<p>
+							혁신적인 가벼움과 강력한 퍼포먼스의 완벽한 조화
+						</p>
+						<div class="btn_default">
+							<a href="https://shop.adidas.co.kr/PF070801.action?pageNo=" campaign-label="구매하기">
+								구매하기
+							</a>
+						</div>				
+					</div>														
 				</div>
 
 
@@ -190,17 +245,35 @@
 					},300)					
 					setTimeout(function(){
 						$('.main_txt p').addClass('on');
-					},500)
+					},600)
 					setTimeout(function(){
 						$('.main_txt span').addClass('on');
-					},900)
+					},1000)
+
+
+					$('.main_txt span').each(function(){
+						var $this = $(this);
+						var per = $this.attr('per');
+						$this.animate({
+							width:per + "%"
+						});
+					});
+
+					// var id = setInterval(frame,10);
+					// if(width>100){
+					// 	clearInterval(id);
+					// }else{
+					// 	width++;
+					// 	elem.style.width=width+'%';
+					// }
+
 					//이거안됨ㅠㅠ//
 					$(".summary_list ul li a").on("click",function(event){
 						var offset = $(".tab_btn").offset();
 						$("html body").animate({scrollTop:offset.top},2000);
 					});
 
-					$('ul.tabs li').click(function(){
+					$('ul.tabs li').click(function(e){
 						var tab_id = $(this).attr('data-tab');
 						var tapIdx = tab_id.split('-',2);
 						var index = $(this).index();
@@ -208,24 +281,54 @@
 						$('.tab__content').removeClass('current').eq(index).addClass('current');
 						$('.tab_tit li').removeClass('on').eq(index).addClass('on');
 						$('.tab_btn li a p').removeClass('on').eq(index).addClass('on');
-						
+						tab_move();
+						setTimeout(function () {
+							$('.tab1_slider').slick('setPosition');
+						}, 0)
+						setTimeout(function () {
+							$('.tab2_slider').slick('setPosition');
+						}, 0)
+						setTimeout(function () {
+							$('.tab3_slider').slick('setPosition');
+						}, 0)													
 					});	
 
 
-					$(window).on('load', function(){
 
+					function tab_move() {
+						$( 'html, body' ).animate( { scrollTop : $('.tab_con').offset().top -70}, 600 );
+					}
+						
+					$(window).on('load', function(){
+						var naviTop = $('.cont2_tab').offset().top;
 						var navipos = $('.tab_btn').offset().top;
 
-						$(window).scroll(function() {
-								var thispos = $(this).scrollTop();
-								if(thispos>navipos){
-									$('.tab_btn').addClass('fixed');
-								}else{
-									$('.tab_btn').removeClass('fixed');
+						$(window).scroll(function() { //메뉴의 위치를 파악
+							var heightpos = $(this).scrollTop();
+							if(heightpos>navipos){
+								$('.tab_btn').addClass('fixed');
+							}else{
+								$('.tab_btn').removeClass('fixed');
+							}
+						});					
 
-								}
-						});
 					});
+
+
+					// $(window).on('load', function(){
+
+					// 	var navipos = $('.tab_btn').offset().top;
+
+					// 	$(window).scroll(function() {
+					// 		var thispos = $(this).scrollTop();
+					// 		if(thispos>navipos){
+					// 			$('.tab_btn').addClass('fixed');
+					// 		}else{
+					// 			$('.tab_btn').removeClass('fixed');
+
+					// 		}
+					// 	});
+					// });
 
 					// scroll event
 					// $('#golf').addClass('scroll');
@@ -234,8 +337,9 @@
 						var section = $('#golf .scroll');
 						$.each(section, function (index, elem) {
 							var $target = section.eq(index);
-							var targetTop = $target.offset().top - 200;
+							var targetTop = $target.offset().top - 600;
 							targetTop <= thisScroll &&  $('#golf .scroll').eq(index).addClass('on');
+							targetTop >= thisScroll &&  $('#golf .scroll').eq(index).removeClass('on');
 							// targetTop <= thisScroll && $('#golf .tab_con').eq(index).addClass('on');
 							// targetTop >= thisScroll && $('#golf .tab_con').eq(index).removeClass('on');
 							// targetTop <= thisScroll && $('#golf .tab_slider2').eq(index).addClass('on');
@@ -260,7 +364,7 @@
 							}else{
 								return (i + 0);
 							}	
-						}						
+						}		
 					});
 
 					$('.tab2_slider').slick({
@@ -282,6 +386,26 @@
 							}	
 						}						
 					});
+
+					$('.tab3_slider').slick({
+						autoplay:false,
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						autoplaySpeed: 2000,
+						infinite: true,
+						fade:true,
+						arrows:true,
+						dots:true,
+						dotsClass: 'custom_paging',
+						customPaging: function (slider, i) {
+							console.log(slider);
+							if(i <= 8){
+								return '0'+(i + 1);
+							}else{
+								return (i + 0);
+							}	
+						}						
+					});					
 
 					$(".tab_slider_btn a").click(function(){
 						$(this).toggleClass("act");
