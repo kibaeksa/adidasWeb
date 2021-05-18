@@ -1,0 +1,192 @@
+@import './front/css/adidas/scss/common/mixin.scss';
+@import './front/css/adidas/scss/common/common.scss';
+
+// @include opacity(0);
+// @include css3(transition, all 0.5s ease-in);
+// @include opacity(1);
+// @keyframes fade-in {
+// 	from {
+// 	  opacity: 0;
+// 	}
+// 	to {
+// 	  opacity: 1;
+// 	}
+//   }
+#stylecuration{
+	section{position: relative;margin: 0 auto; min-width: 1190px;};
+	div, img, button {
+		outline: none;
+	}
+	.btn_default{
+		margin-top: 0;
+	}
+	@for $i from 1 through 3 {
+		.bg0#{$i} {
+			background: url('/images/adidas/2021/event/stylecuration/bg0#{$i}.jpg') no-repeat;
+			background-position: top;
+			background-size: 100% 100%;
+		}
+	}
+	.visual__container{
+		padding: 110px 0 55px 0;
+		&.on{
+			.visual__figure{
+				@include css3(opacity,1);
+				top: 0;
+				@for $i from 2 through 7 {
+					&:nth-child(#{$i}){
+						@include css3(transition-delay,#{$i*0.15+s});
+					}
+				}
+			}
+		}
+		.visual__figure{
+			// @include center(5.5%, auto, 50%, $ctX);
+			width: 93%;
+			margin: 0 auto;
+			img{
+				width: 100%;
+			}
+		}
+		.txt{
+			// @include center(auto, auto, 50%, $ctX);
+			// bottom: 5%;
+			width: 70%;
+			margin: 0 auto;
+			white-space: nowrap;
+			>img{
+				display: inline-block;
+				margin-top: 90px;
+				width: 100%;
+			}
+			text-align: center;
+			p{
+				font: 500 51.79px/70px $noto;
+				color: #000000;
+				text-align: center;
+				margin: 100px 0 45px 0;
+			}
+
+		}
+	}
+	.desc__container{
+		background-color: #ffffff;
+		white-space: nowrap;
+		div{
+			width: 65%;
+			margin: 0 auto;
+			padding: 80px 0;
+			text-align: center;
+			>img{
+				vertical-align: middle;
+			}
+			p{
+				display: inline-block;
+				font: 500 27px/45px $noto;
+				color: #000000;
+				vertical-align: middle;
+				margin-left: 125px;
+				text-transform: uppercase;
+				@media screen and (max-width: 1550px) {
+					font: 500 23px/37px $noto;
+					margin-left: 100px;
+				}
+				@media screen and (max-width: 1350px) {
+					font: 500 20px/35px $noto;
+					margin-left: 80px;
+				}
+			}
+		}
+	}
+	.slide__container{
+		padding: 150px 0 85px 0;
+		text-align: center;
+		&.sub{
+			padding: 65px 0 90px 0;
+
+			.slide__wrapper{
+				position: relative;
+				.slick-list{
+					width: 40%;
+					margin: 0 auto;
+					overflow: visible;
+				}
+				.prev-button {
+					left: 32%;
+				}
+				.next-button {
+					right: 32%;
+				}
+			}
+
+		}
+		.slick-list{
+			width: 75%;
+			margin: 0 auto;
+			.slick-track{
+				.item{
+					img{
+						width: 99.5%;
+						margin: 0 auto;
+					}
+				}
+			}
+		}
+		.slick-dots{
+			text-align: center;
+			margin: 25px 0;
+			li{
+				display: inline-block;
+				width: 20px;
+				height: 2px;
+				margin: 0 3px;
+				background-color: #ffffff;
+				text-indent: -9999px;
+				vertical-align: bottom;
+				&.slick-active{
+					height: 5px;
+					background-color: #000000;
+				}
+				button{
+					border: 0;
+					background: none;
+				}
+			}
+		}
+		.prev-button,
+		.next-button {
+		  @include center(50%, auto, auto, $ctY);
+		  z-index: 2;
+		  img {
+			// width: 50%;
+		  }
+		}
+		.prev-button {
+		  left: 8%;
+		  transform: translateY(-50%) rotate(180deg);
+		}
+		.next-button {
+		  right: 8%;
+		}
+	}
+	.video__container{
+		text-align: center;
+		>a{
+			display: block;
+			width: 90%;
+			margin: 0 auto;
+			img{
+				width: 100%;
+			}
+		}
+		.btn_default{
+			margin-top: 40px;
+		}
+	}
+
+	.bottom__container{
+		img{
+			width: 100%;
+		}
+	}
+}
