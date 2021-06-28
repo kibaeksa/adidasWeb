@@ -106,10 +106,11 @@ button {
   }
 
   .tab_btn {
+    overflow: hidden;
     &.fixed {
       position: fixed;
       top: 0;
-      width: 100%;
+      // width: 100%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -117,14 +118,27 @@ button {
     }
     ul {
       text-align: center;
+      background:#fff;
       li {
-        display: inline-block;
+        // display: inline-block;
+        float:left;
         margin-left: 0;
         vertical-align: top;
         text-align: center;
-        width: 397px;
+        width: 400px;
         position: relative;
         background:#fff;
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          right:-1px;
+          top: 11%;
+          height: 79%;
+          width: 2px;
+          background:#aaacad;
+          // z-index:1;
+        }       
         a {
           display: block;
           p {
@@ -132,7 +146,7 @@ button {
             font: 900 40px/40px "adinenuPro-bold";
             color:#aaacad;
             height: 85px;
-            line-height: 85px;
+            line-height: 90px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing:0;
@@ -149,7 +163,7 @@ button {
               margin-left: -48%;
               border: 3px solid #fff;
               display:none;
-            }            
+            }         
             &.on {
               opacity: 1;
               background:#1f252b;
@@ -166,6 +180,11 @@ button {
           }
         }
       }
+      :nth-child(3){
+        &:before{
+          display:none;
+        }
+      }      
     }
   }
 
